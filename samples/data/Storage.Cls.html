@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Block.JS Javascript Database Storage</title>
+    <script src="../../src/iBlock.js" data-use-debugmode></script>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <table>
+        <tbody id="table-body">
+
+        </tbody>
+    </table>
+    <script>
+        block(['$_/data/Storage.Cls'], function(_, global, undefined) {
+            var db = new _.data.Storage('mydatabase');
+            if (db.length == 0) {
+                db.set('blockjs', {
+                        name: 'blockjs',
+                        type: 'Javascripts Framework',
+                        keywords: ['block', 'blockjs', 'Javascripts Framework', 'nidn']
+                    })
+                    .set('YangRAM', {
+                        name: 'YangRAM',
+                        type: 'I4s',
+                        keywords: ['YangRAM', 'TNI Framework', 'PHP Framework', 'nidn']
+                    });
+                console.log('Added');
+            }
+            // db.clear();
+            //console.log(db.get('blockjs'), db.get('YangRAM'));
+
+            console.log(_.data.Storage('mydatabase'), new _.data.Storage('mydatabase'));
+        }, true);
+    </script>
+</body>
+
+</html>

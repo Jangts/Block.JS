@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Block.JS TIME</title>
+    <script src="../../src/iBlock.js" data-use-debugmode></script>
+</head>
+
+<body>
+    <script>
+        block(['$_/Time/'], function(_, global, undefined) {
+            var document = global.document;
+
+            var div = document.createElement('div');
+            div.style.margin = "0 auto";
+            div.style.textAlign = "center";
+            div.style.fontSize = "14px";
+            div.style.lineHeight = "20px";
+            div.innerHTML = '';
+
+            document.body.appendChild(div);
+
+            div.innerHTML += 'input (Empty) :<br />';
+            div.innerHTML += new _.Time().date();
+
+            div.innerHTML += '<br /><br />input "January 12,2006 22:19:35" :<br />';
+            div.innerHTML += new _.Time("January 12,2006 22:19:35").date();
+
+            div.innerHTML += '<br /><br />input "January 12,2006" :<br />';
+            div.innerHTML += new _.Time("January 12,2006").date();
+
+            div.innerHTML += '<br /><br />input "1/12/2006 22:19:35" :<br />';
+            div.innerHTML += new _.Time("1/12/2006 22:19:35").date();
+
+            div.innerHTML += '<br /><br />input "1-12-2006" :<br />';
+            div.innerHTML += new _.Time("1-12-2006").date();
+
+            div.innerHTML += '<br /><br />input "2006/1/12 22:19:35" :<br />';
+            div.innerHTML += new _.Time("2006/1/12 22:19:35").date();
+
+            div.innerHTML += '<br /><br />input "yesterday" :<br />';
+            div.innerHTML += new _.Time("yesterday").date();
+
+            div.innerHTML += '<br /><br />input 2006,1,12,22,19,35 :<br />';
+            div.innerHTML += new _.Time(2006, 1, 12, 22, 19, 35).date();
+
+            div.innerHTML += '<br /><br />input 2006,1,12 :<br />';
+            div.innerHTML += new _.Time(2006, 1, 12).date();
+
+            div.innerHTML += '<br /><br />input 1468323729000 :<br />';
+            div.innerHTML += new _.Time(1468323729000).date();
+
+            div.innerHTML += '<br /><br />input [2006,1,12,22] :<br />';
+            div.innerHTML += new _.Time([2006, 1, 12, 22]).date();
+
+            div.innerHTML += '<br /><br />input {Y : \'1991\', m : \'1\', d : \'4\'} :<br />';
+            div.innerHTML += new _.Time({
+                Y: '1991',
+                m: '1',
+                d: '19'
+            }).date();
+        }, true);
+    </script>
+</body>
+
+</html>

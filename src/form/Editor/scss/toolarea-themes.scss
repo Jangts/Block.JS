@@ -1,0 +1,77 @@
+/*********************************************************************************
+/*** EDITOR TOOLBAR ***/
+
+.ic.editor-toolarea.editor-default {
+    width: 100%;
+    background-color: #FDFDFE;
+    border-bottom: 1px solid #DDD;
+    overflow: visible;
+    z-index: 1024;
+}
+
+.ic.editor-toolarea.editor-default .ic.editor-tool {
+    float: left;
+    width: auto;
+    min-width: 30px;
+    height: 30px;
+    line-height: 30px;
+    color: #444;
+    font-size: 14px;
+    text-align: center;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.ic.editor-toolarea.editor-default .ic.editor-clear {
+    clear: both
+}
+
+.ic.editor-toolarea.editor-default .ic.editor-tool:hover {
+    background-color: #09C;
+    color: #FFF;
+}
+
+.ic.editor-toolarea.editor-default .ic.editor-tool.active {
+    background-color: #09C;
+    color: #FFF;
+}
+
+.ic.editor-toolarea.editor-default .ic.editor-tool.invalid {
+    background-color: transparent;
+    color: #AAA;
+    cursor: default;
+}
+
+.ic.editor-toolarea.editor-default .ic.editor-tool.invalid:hover {
+    background-color: transparent;
+    color: #AAA;
+}
+
+
+/*** EDITOR TOOLBAR CHARACTER ***********************/
+
+.ic.editor-toolarea.editor-default .ic.editor-tool.separator {
+    min-width: 10px;
+    color: #E6E6E6;
+    cursor: default;
+}
+
+.ic.editor-toolarea.editor-default .ic.editor-tool.separator:before {
+    content: '|';
+}
+
+.ic.editor-toolarea.editor-default .ic.editor-tool.separator:hover {
+    background-color: transparent;
+    color: #E6E6E6;
+}
+
+.ic.editor-toolarea.editor-default .ic.editor-tool.linebreak {
+    width: 100%;
+    height: 1px;
+    background-color: #E6E6E6;
+    margin: 0px;
+}
+
+.ic.editor-toolarea.editor-default .ic.editor-tool.linebreak:hover {
+    background-color: #E6E6E6;
+}

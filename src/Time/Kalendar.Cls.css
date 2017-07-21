@@ -1,0 +1,160 @@
+@charset "utf-8";
+
+/*** .ic.kalendar ***/
+
+.ic.kalendar {
+    display: block;
+    width: 380px;
+    height: 450px;
+    background: rgba(0, 0, 0, 1);
+    overflow: hidden;
+}
+
+.ic.kalendar .months {
+    display: block;
+    width: 360px;
+    height: 80px;
+    margin: 10px 10px 0;
+}
+
+.ic.kalendar .months .month {
+    display: block;
+    height: 80px;
+    text-align: center;
+    font-size: 24px;
+    line-height: 80px;
+    cursor: pointer;
+    transition: all ease .4s;
+}
+
+.ic.kalendar .months .prev-month {
+    width: 55px;
+    float: left;
+    font-family: Consola;
+    font-size: 32px;
+}
+
+.ic.kalendar .months .curr-month {
+    width: 250px;
+    float: left;
+}
+
+.ic.kalendar .months .next-month {
+    width: 55px;
+    float: right;
+    font-family: Consola;
+    font-size: 32px;
+}
+
+.ic.kalendar .week {
+    display: block;
+    width: 350px;
+    height: 28px;
+    margin: 1px 10px;
+    padding: 5px;
+}
+
+.ic.kalendar .week .day-of-week {
+    display: block;
+    width: 46px;
+    height: 24px;
+    margin: 2px;
+    font-size: 15px;
+    line-height: 24px;
+    text-align: center;
+    float: left;
+    cursor: pointer;
+    border-radius: 2px;
+}
+
+.ic.kalendar .days {
+    display: block;
+    width: 350px;
+    height: 300px;
+    margin: 0 10px;
+    padding: 5px;
+}
+
+.ic.kalendar .days .day {
+    display: block;
+    width: 48px;
+    height: 48px;
+    margin: 1px;
+    font-size: 15px;
+    line-height: 48px;
+    text-align: center;
+    float: left;
+    cursor: pointer;
+}
+
+.ic.kalendar .days .day.actived {
+    margin: 0;
+}
+
+.ic.kalendar .days .day.actived {
+    margin: 0;
+}
+
+.ic.kalendar .days .day:hover {
+    margin: 0;
+}
+
+.ic.kalendar .months {
+    width: 360px;
+    background: #222;
+}
+
+.ic.kalendar .months .month {
+    color: #999;
+}
+
+.ic.kalendar .months .month:hover {
+    background: #181818;
+}
+
+.ic.kalendar .week {
+    background: #222;
+}
+
+.ic.kalendar .week .day-of-week {
+    color: #999;
+}
+
+.ic.kalendar .week .day-of-week:hover {
+    background: #191919;
+}
+
+.ic.kalendar .week .day-of-week.today {
+    background: #191919;
+}
+
+.ic.kalendar .days {
+    background: #222;
+}
+
+.ic.kalendar .days .day {
+    color: #999;
+    background: #181818;
+}
+
+.ic.kalendar .days .day.events {
+    background: #522;
+}
+
+.ic.kalendar .days .day.today {
+    background: #663300;
+}
+
+.ic.kalendar .days .day.actived,
+.ic.kalendar .days .day:hover {
+    border: #ab3f45 1px solid;
+}
+
+.ic.kalendar .days .day.disabled {
+    color: #666;
+    background: #282828;
+}
+
+.ic.kalendar .days .day.disabled:hover {
+    border: #282828 1px solid;
+}

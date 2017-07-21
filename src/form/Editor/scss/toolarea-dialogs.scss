@@ -1,0 +1,358 @@
+/*** EDITOR TOOLBAR DIALOGS ***************************/
+
+.ic.editor-toolarea .ic.editor-tool .ic.editor-dialog {
+    display: none;
+    position: absolute;
+    width: auto;
+    min-width: 340px;
+    height: auto;
+    top: 30px;
+    left: 0px;
+    margin-left: -165px;
+    padding: 10px;
+    background-color: #FDFDFE;
+    border: 1px solid #DDD;
+    color: #555;
+    overflow: hidden;
+    text-align: left;
+}
+
+
+/* ------------------------- */
+
+.ic.editor-toolarea .ic.editor-tool[data-ib-dialog].active {
+    overflow: visible;
+    z-index: 100;
+}
+
+.ic.editor-toolarea .ic.editor-tool.active .ic.editor-dialog {
+    display: block;
+}
+
+
+/* ------------------------- */
+
+.ic.editor-toolarea .ic.editor-dialog span.ic.editor-title {
+    font-family: Arial, Helvetica, sans-serif;
+    display: block;
+    height: 20px;
+    text-align: left;
+    line-height: 20px;
+    border-left: #444 3px solid;
+    margin-bottom: 10px;
+    padding-left: 3px;
+    font-size: 14px;
+    color: #444;
+    font-weight: bold;
+}
+
+.ic.editor-toolarea .ic.editor-dialog button {
+    height: 30px;
+    text-align: center;
+    background-color: #09C;
+    color: #FFF;
+    transition: background-color 1s ease;
+    -webkit-transition: background-color 1s ease;
+    -o-transition: background-color 1s ease;
+    -ms-transition: background-color 1s ease;
+    -moz-transition: background-color 1s ease;
+    cursor: pointer;
+}
+
+.ic.editor-toolarea .ic.editor-dialog button:hover {
+    background-color: #036;
+}
+
+
+/* --------------- */
+
+.ic.editor-toolarea .ic.editor-dialog .ic.editor-anchor {
+    width: 340px;
+    height: 30px;
+}
+
+.ic.editor-toolarea .ic.editor-dialog .ic.editor-anchor input {
+    float: left;
+    width: 295px;
+    height: 28px;
+    padding: 0px 5px;
+    border: #EEE 1px solid;
+    line-height: 28px;
+}
+
+.ic.editor-toolarea .ic.editor-dialog .ic.editor-anchor button {
+    float: right;
+    width: 30px;
+}
+
+
+/* --------------- */
+
+.ic.editor-toolarea .ic.editor-dialog .ic.editor-aaa,
+.ic.editor-toolarea .ic.editor-dialog .ic.editor-url {
+    width: 340px;
+    height: 30px;
+    margin-bottom: 10px;
+}
+
+.ic.editor-toolarea .ic.editor-dialog .ic.editor-aaa label,
+.ic.editor-toolarea .ic.editor-dialog .ic.editor-url label {
+    float: left;
+    width: 78px;
+    height: 30px;
+    line-height: 30px;
+    background-color: #EEE;
+    text-align: center;
+    font-size: 13px;
+    color: #444;
+}
+
+.ic.editor-toolarea .ic.editor-dialog .ic.editor-aaa input,
+.ic.editor-toolarea .ic.editor-dialog .ic.editor-url input {
+    float: right;
+    width: 250px;
+    height: 28px;
+    padding: 0px 5px;
+    font-size: 12px;
+    border: #EEE 1px solid;
+    line-height: 28px;
+}
+
+
+/* --------------- */
+
+.ic.editor-toolarea .ic.editor-dialog .ic.editor-check {
+    width: 340px;
+    height: 20px;
+    margin-bottom: 10px;
+}
+
+.ic.editor-toolarea .ic.editor-dialog .ic.editor-check label {
+    float: left;
+    width: auto;
+    height: 20px;
+    line-height: 20px;
+    font-size: 12px;
+    color: #999;
+}
+
+.ic.editor-toolarea .ic.editor-dialog .ic.editor-check .ic.editor-checkbox {
+    float: left;
+    width: 14px;
+    height: 14px;
+    margin: 3px;
+    top: 0px;
+}
+
+
+/* --------------- */
+
+.ic.editor-toolarea .ic.editor-dialog .ic.editor-attr {
+    width: 340px;
+    height: 24px;
+    font-size: 12px;
+    margin-bottom: 10px;
+}
+
+.ic.editor-toolarea .ic.editor-dialog .ic.editor-attr-left {
+    float: left;
+}
+
+.ic.editor-toolarea .ic.editor-dialog .ic.editor-attr-right {
+    float: right;
+}
+
+.ic.editor-toolarea .ic.editor-dialog .ic.editor-attr label {
+    float: left;
+    width: auto;
+    height: 24px;
+    line-height: 24px;
+    padding: 0px 5px;
+    background-color: #EEE;
+    text-align: center;
+    color: #444;
+}
+
+.ic.editor-toolarea .ic.editor-dialog .ic.editor-attr span {
+    float: left;
+    width: 24px;
+    height: 24px;
+    font-size: 14px;
+    line-height: 24px;
+    background-color: #EEE;
+    text-align: center;
+    color: #444;
+}
+
+.ic .ic.editor-dialog .ic.editor-table-rows,
+.ic .ic.editor-dialog .ic.editor-table-columns,
+.ic .ic.editor-dialog .ic.editor-table-width,
+.ic .ic.editor-dialog .ic.editor-vidoe-width,
+.ic .ic.editor-dialog .ic.editor-vidoe-height {
+    float: left;
+    width: 43px;
+    height: 22px;
+    padding: 0px 5px;
+    border: #EEE 1px solid;
+    line-height: 22px;
+}
+
+.ic.editor-toolarea .ic.editor-dialog .ic.editor-attr .ic.editor-table-unit {
+    float: left;
+    width: 53px;
+    height: 24px;
+    padding: 0px 5px;
+    font-size: 12px;
+    border: #EEE 1px solid;
+    line-height: 24px;
+}
+
+.ic.editor-toolarea .ic.editor-dialog .ic.editor-attr .ic.editor-vidoe-type {
+    float: left;
+    width: 83px;
+    height: 24px;
+    padding: 0px 5px;
+    font-size: 12px;
+    border: #EEE 1px solid;
+    line-height: 24px;
+}
+
+
+/* --------------- */
+
+.ic.editor-toolarea .ic.editor-dialog .ic.editor-btns {
+    width: 340px;
+    height: 30px;
+}
+
+.ic.editor-toolarea .ic.editor-dialog .ic.editor-btns button {
+    width: 340px;
+}
+
+.ic.editor-toolarea .ic.editor-dialog .ic.editor-btns input {
+    float: left;
+    width: 165px;
+    height: 30px;
+    text-align: center;
+    background-color: #09C;
+    color: #FFF;
+    transition: background-color 1s ease;
+    -webkit-transition: background-color 1s ease;
+    -o-transition: background-color 1s ease;
+    -ms-transition: background-color 1s ease;
+    -moz-transition: background-color 1s ease;
+    cursor: pointer;
+}
+
+.ic.editor-toolarea .ic.editor-dialog .ic.editor-btns input:hover {
+    background-color: #036;
+}
+
+.ic.editor-toolarea .ic.editor-dialog .ic.editor-btns input:first-child {
+    margin-right: 10px;
+}
+
+
+/* --------------- */
+
+.ic.editor-toolarea .ic.editor-dialog .ic.editor-show {
+    width: 330px;
+    height: 72px;
+    padding: 3px 4px;
+    border: #EEE 1px solid;
+    margin-bottom: 10px;
+}
+
+.ic.editor-toolarea .ic.editor-dialog .ic.editor-show span {
+    display: block;
+    width: 330px;
+    height: 72px;
+    text-align: center;
+    line-height: 72px;
+    color: #999;
+}
+
+.ic.editor-toolarea .ic.editor-dialog .ic.editor-show ul {
+    display: block;
+    width: 330px;
+    height: 72px;
+}
+
+.ic.editor-toolarea .ic.editor-dialog .ic.editor-show ul li {
+    float: left;
+    border: #EEE 1px solid;
+    padding: 1px;
+}
+
+.ic.editor-toolarea .ic.editor-dialog .ic.editor-show ul li img {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+}
+
+.ic.editor-toolarea .ic.editor-dialog .ic.editor-show ul.ic.editor-list-56 li {
+    width: 56px;
+    height: 56px;
+    margin: 6px 3px;
+}
+
+.ic.editor-toolarea .ic.editor-dialog .ic.editor-show ul.ic.editor-list-56 li img {
+    max-width: 56px;
+    max-height: 56px;
+}
+
+.ic.editor-toolarea .ic.editor-dialog .ic.editor-show ul.ic.editor-list-28 li {
+    width: 28px;
+    height: 28px;
+    margin: 2px;
+}
+
+.ic.editor-toolarea .ic.editor-dialog .ic.editor-show ul.ic.editor-list-28 li img {
+    max-width: 28px;
+    max-height: 28px;
+}
+
+
+/* --------------- */
+
+.ic.editor-toolarea .ic.editor-dialog textarea.ic.editor-code {
+    width: 330px;
+    height: 40px;
+    padding: 4px;
+    line-height: 20px;
+    font-size: 12px;
+    border: #EEE 1px solid;
+    resize: none;
+    overflow: auto;
+}
+
+
+/* --------------- */
+
+.ic.editor-toolarea .ic.editor-dialog ul.ic.editor-emoticons {
+    width: 340px;
+    height: auto;
+    border-top: #CCC 1px solid;
+    border-left: #CCC 1px solid;
+}
+
+.ic.editor-toolarea .ic.editor-dialog ul.ic.editor-emoticons-default li {
+    float: left;
+    display: table-cell;
+    width: 33px;
+    height: 33px;
+    border-right: #CCC 1px solid;
+    border-bottom: #CCC 1px solid;
+}
+
+.ic.editor-toolarea .ic.editor-dialog ul.ic.editor-emoticons-default li img {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    margin: auto;
+}

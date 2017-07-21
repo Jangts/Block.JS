@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Block.JS Javascript Database Table</title>
+    <script src="../../src/iBlock.js" data-use-debugmode></script>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div id="test"></div>
+    <script>
+        block(['$_/dom/Elements/', '$_/data/Table.Cls'], function(_, global, undefined) {
+            var $ = _.dom.select,
+                db = new _.data.Table('mytable');
+            // db.drop();
+            // db = new _.data.Table('mytable');
+
+            // db.add('city', '', {})
+            //     .add('code', '', {
+            //         type: 'string',
+            //         pattern: '\\w+'
+            //     })
+            //     //     //     .drop('price')
+            //     .add('price', 10, {
+            //         type: 'number'
+            //     });
+
+            // db.add('_code', '', {
+            //         type: 'string',
+            //         pattern: '\\w+'
+            //     })
+            //     .drop('code')
+            //     .alter('_code', 'code');
+
+            // db.insert({
+            //     city: 'New York',
+            //     code: 'ny'
+            // });
+
+            // db.update(4, {
+            //     city: 'New York'
+            // }).update(8, {
+            //     code: 'ny'
+            // });
+            // console.log(db.delete(1, 3, 5, 7, 9), db.select(), db.select(2, 4, 7, 8, 23));
+            // 
+
+            // console.log(db.insert({
+            //     city: 'New York',
+            //     code: 'ny'
+            // }));
+
+
+            // _.data.Table.exec("select * from mytable order by palce desc");
+            // _.data.Table.exec("select id, price,city from mytable where (code == '') order by id desc limit 1,9");
+            // _.data.Table.exec("delete from mytable where (code == ''||id<=100)");
+            // _.data.Table.exec("update mytable set {city:'BeiJing'} where (id < 30)");
+            // _.data.Table.exec("insert into mytable values {city:'BeiJing', code:'bj'},{city:'London',code: 'ld'} , {city:'London',code: 'ld'}");
+
+            $('#test').html(db.createtable(400, 1));
+        }, true);
+    </script>
+</body>
+
+</html>

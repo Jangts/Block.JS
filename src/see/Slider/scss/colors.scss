@@ -1,0 +1,412 @@
+/*
+ * Anchor Colors
+ * 锚点颜色
+ */
+
+
+/**** TYPES ****/
+
+
+/* Without Border **/
+
+.ic.slider .panel.bars .slider-anchor,
+.ic.slider .panel.bars-rd .slider-anchor,
+.ic.slider .panel.rectangles .slider-anchor,
+.ic.slider .panel.squares .slider-anchor,
+.ic.slider .panel.squares-rd .slider-anchor,
+.ic.slider .panel.points .slider-anchor,
+.ic.slider .panel.lines .slider-anchor {
+    background-color: #DDD;
+}
+
+
+/* Circles */
+
+.ic.slider .panel.circles .slider-anchor {
+    background-color: #DDD;
+    border-color: #DDD;
+}
+
+
+/* With Border */
+
+.ic.slider .panel.lines-wb .slider-anchor,
+.ic.slider .panel.rings .slider-anchor,
+.ic.slider .panel.rings-sm .slider-anchor {
+    background-color: transparent;
+    border-color: #888;
+}
+
+
+/**** COLOURS ****/
+
+
+/* default:gray */
+
+.ic.slider .panel.squares .slider-anchor.active,
+.ic.slider .panel.squares-rd .slider-anchor.active,
+.ic.slider .panel.rectangles .slider-anchor.active,
+.ic.slider .panel.bars .slider-anchor.active,
+.ic.slider .panel.bars-rd .slider-anchor.active,
+.ic.slider .panel.points .slider-anchor.active,
+.ic.slider .panel.lines .slider-anchor.active,
+.ic.slider .panel.rings .slider-anchor:hover,
+.ic.slider .panel.rings-sm .slider-anchor:hover {
+    background-color: #888;
+}
+
+.ic.slider .panel.circles .slider-anchor.active,
+.ic.slider .panel.lines-wb .slider-anchor.active,
+.ic.slider .panel.rings .slider-anchor.active,
+.ic.slider .panel.rings-sm .slider-anchor.active {
+    background-color: #888;
+    border-color: #888;
+}
+
+
+/* red */
+
+.ic.slider .panel.red.squares .slider-anchor.active,
+.ic.slider .panel.red.squares-rd .slider-anchor.active,
+.ic.slider .panel.red.rectangles .slider-anchor.active,
+.ic.slider .panel.red.bars .slider-anchor.active,
+.ic.slider .panel.red.bars-rd .slider-anchor.active,
+.ic.slider .panel.red.points .slider-anchor.active,
+.ic.slider .panel.red.lines .slider-anchor.active,
+.ic.slider .panel.red.rings .slider-anchor:hover,
+.ic.slider .panel.red.rings-sm .slider-anchor:hover {
+    background-color: #F03;
+}
+
+.ic.slider .panel.red.circles .slider-anchor.active,
+.ic.slider .panel.red.lines-wb .slider-anchor.active,
+.ic.slider .panel.red.rings .slider-anchor.active,
+.ic.slider .panel.red.rings-sm .slider-anchor.active {
+    background-color: #FCC;
+    border-color: #F03;
+}
+
+
+/* orange */
+
+.ic.slider .panel.orange.squares .slider-anchor.active,
+.ic.slider .panel.orange.squares-rd .slider-anchor.active,
+.ic.slider .panel.orange.rectangles .slider-anchor.active,
+.ic.slider .panel.orange.bars .slider-anchor.active,
+.ic.slider .panel.orange.bars-rd .slider-anchor.active,
+.ic.slider .panel.orange.points .slider-anchor.active,
+.ic.slider .panel.orange.lines .slider-anchor.active,
+.ic.slider .panel.orange.rings .slider-anchor:hover,
+.ic.slider .panel.orange.rings-sm .slider-anchor:hover {
+    background-color: #F60;
+}
+
+.ic.slider .panel.orange.circles .slider-anchor.active,
+.ic.slider .panel.orange.lines-wb .slider-anchor.active,
+.ic.slider .panel.orange.rings .slider-anchor.active,
+.ic.slider .panel.orange.rings-sm .slider-anchor.active {
+    background-color: #FC9;
+    border-color: #F60;
+}
+
+
+/* brown */
+
+.ic.slider .panel.brown.squares .slider-anchor.active,
+.ic.slider .panel.brown.squares-rd .slider-anchor.active,
+.ic.slider .panel.brown.rectangles .slider-anchor.active,
+.ic.slider .panel.brown.bars .slider-anchor.active,
+.ic.slider .panel.brown.bars-rd .slider-anchor.active,
+.ic.slider .panel.brown.points .slider-anchor.active,
+.ic.slider .panel.brown.lines .slider-anchor.active,
+.ic.slider .panel.brown.rings .slider-anchor:hover,
+.ic.slider .panel.brown.rings-sm .slider-anchor:hover {
+    background-color: #C93;
+}
+
+.ic.slider .panel.brown.circles .slider-anchor.active,
+.ic.slider .panel.brown.lines-wb .slider-anchor.active,
+.ic.slider .panel.brown.rings .slider-anchor.active,
+.ic.slider .panel.brown.rings-sm .slider-anchor.active {
+    background-color: #FC9;
+    border-color: #C93;
+}
+
+
+/* yellow */
+
+.ic.slider .panel.yellow.squares .slider-anchor.active,
+.ic.slider .panel.yellow.squares-rd .slider-anchor.active,
+.ic.slider .panel.yellow.rectangles .slider-anchor.active,
+.ic.slider .panel.yellow.bars .slider-anchor.active,
+.ic.slider .panel.yellow.bars-rd .slider-anchor.active,
+.ic.slider .panel.yellow.points .slider-anchor.active,
+.ic.slider .panel.yellow.lines .slider-anchor.active,
+.ic.slider .panel.yellow.rings .slider-anchor:hover,
+.ic.slider .panel.yellow.rings-sm .slider-anchor:hover {
+    background-color: #CC0;
+}
+
+.ic.slider .panel.yellow.circles .slider-anchor.active,
+.ic.slider .panel.yellow.lines-wb .slider-anchor.active,
+.ic.slider .panel.yellow.rings .slider-anchor.active,
+.ic.slider .panel.yellow.rings-sm .slider-anchor.active {
+    background-color: #FFC;
+    border-color: #CC0;
+}
+
+
+/* green */
+
+.ic.slider .panel.green.squares .slider-anchor.active,
+.ic.slider .panel.green.squares-rd .slider-anchor.active,
+.ic.slider .panel.green.rectangles .slider-anchor.active,
+.ic.slider .panel.green.bars .slider-anchor.active,
+.ic.slider .panel.green.bars-rd .slider-anchor.active,
+.ic.slider .panel.green.points .slider-anchor.active,
+.ic.slider .panel.green.lines .slider-anchor.active,
+.ic.slider .panel.green.rings .slider-anchor:hover,
+.ic.slider .panel.green.rings-sm .slider-anchor:hover {
+    background-color: #6C6;
+}
+
+.ic.slider .panel.green.circles .slider-anchor.active,
+.ic.slider .panel.green.lines-wb .slider-anchor.active,
+.ic.slider .panel.green.rings .slider-anchor.active,
+.ic.slider .panel.green.rings-sm .slider-anchor.active {
+    background-color: #CFC;
+    border-color: #6C6;
+}
+
+
+/* darkgreen */
+
+.ic.slider .panel.darkgreen.squares .slider-anchor.active,
+.ic.slider .panel.darkgreen.squares-rd .slider-anchor.active,
+.ic.slider .panel.darkgreen.rectangles .slider-anchor.active,
+.ic.slider .panel.darkgreen.bars .slider-anchor.active,
+.ic.slider .panel.darkgreen.bars-rd .slider-anchor.active,
+.ic.slider .panel.darkdarkgreen.points .slider-anchor.active,
+.ic.slider .panel.darkgreen.lines .slider-anchor.active,
+.ic.slider .panel.darkgreen.rings .slider-anchor:hover,
+.ic.slider .panel.darkgreen.rings-sm .slider-anchor:hover {
+    background-color: #090;
+}
+
+.ic.slider .panel.darkgreen.circles .slider-anchor.active,
+.ic.slider .panel.darkgreen.lines-wb .slider-anchor.active,
+.ic.slider .panel.darkgreen.rings .slider-anchor.active,
+.ic.slider .panel.darkgreen.rings-sm .slider-anchor.active {
+    background-color: #CFC;
+    border-color: #090;
+}
+
+
+/* cyan */
+
+.ic.slider .panel.cyan.squares .slider-anchor.active,
+.ic.slider .panel.cyan.squares-rd .slider-anchor.active,
+.ic.slider .panel.cyan.rectangles .slider-anchor.active,
+.ic.slider .panel.cyan.bars .slider-anchor.active,
+.ic.slider .panel.cyan.bars-rd .slider-anchor.active,
+.ic.slider .panel.cyan.points .slider-anchor.active,
+.ic.slider .panel.cyan.lines .slider-anchor.active,
+.ic.slider .panel.cyan.rings .slider-anchor:hover,
+.ic.slider .panel.cyan.rings-sm .slider-anchor:hover {
+    background-color: #6CF;
+}
+
+.ic.slider .panel.cyan.circles .slider-anchor.active,
+.ic.slider .panel.cyan.lines-wb .slider-anchor.active,
+.ic.slider .panel.cyan.rings .slider-anchor.active,
+.ic.slider .panel.cyan.rings-sm .slider-anchor.active {
+    background-color: #CFF;
+    border-color: #6CF;
+}
+
+
+/* blue */
+
+.ic.slider .panel.blue.squares .slider-anchor.active,
+.ic.slider .panel.blue.squares-rd .slider-anchor.active,
+.ic.slider .panel.blue.rectangles .slider-anchor.active,
+.ic.slider .panel.blue.bars .slider-anchor.active,
+.ic.slider .panel.blue.bars-rd .slider-anchor.active,
+.ic.slider .panel.blue.points .slider-anchor.active,
+.ic.slider .panel.blue.lines .slider-anchor.active,
+.ic.slider .panel.blue.rings .slider-anchor:hover,
+.ic.slider .panel.blue.rings-sm .slider-anchor:hover {
+    background-color: #08F;
+}
+
+.ic.slider .panel.blue.circles .slider-anchor.active,
+.ic.slider .panel.blue.lines-wb .slider-anchor.active,
+.ic.slider .panel.blue.rings .slider-anchor.active,
+.ic.slider .panel.blue.rings-sm .slider-anchor.active {
+    background-color: #6FF;
+    border-color: #08F;
+}
+
+
+/* darkblue */
+
+.ic.slider .panel.darkblue.squares .slider-anchor.active,
+.ic.slider .panel.darkblue.squares-rd .slider-anchor.active,
+.ic.slider .panel.darkblue.rectangles .slider-anchor.active,
+.ic.slider .panel.darkblue.bars .slider-anchor.active,
+.ic.slider .panel.darkblue.bars-rd .slider-anchor.active,
+.ic.slider .panel.darkblue.points .slider-anchor.active,
+.ic.slider .panel.darkblue.lines .slider-anchor.active,
+.ic.slider .panel.darkblue.rings .slider-anchor:hover,
+.ic.slider .panel.darkblue.rings-sm .slider-anchor:hover {
+    background-color: #038;
+}
+
+.ic.slider .panel.darkblue.circles .slider-anchor.active,
+.ic.slider .panel.darkblue.lines-wb .slider-anchor.active,
+.ic.slider .panel.darkblue.rings .slider-anchor.active,
+.ic.slider .panel.darkblue.rings-sm .slider-anchor.active {
+    background-color: #6CF;
+    border-color: #038;
+}
+
+
+/* purple */
+
+.ic.slider .panel.purple.squares .slider-anchor.active,
+.ic.slider .panel.purple.squares-rd .slider-anchor.active,
+.ic.slider .panel.purple.rectangles .slider-anchor.active,
+.ic.slider .panel.purple.bars .slider-anchor.active,
+.ic.slider .panel.purple.bars-rd .slider-anchor.active,
+.ic.slider .panel.purple.points .slider-anchor.active,
+.ic.slider .panel.purple.lines .slider-anchor.active,
+.ic.slider .panel.purple.rings .slider-anchor:hover,
+.ic.slider .panel.purple.rings-sm .slider-anchor:hover {
+    background-color: #D0C;
+}
+
+.ic.slider .panel.purple.circles .slider-anchor.active,
+.ic.slider .panel.purple.lines-wb .slider-anchor.active,
+.ic.slider .panel.purple.rings .slider-anchor.active,
+.ic.slider .panel.purple.rings-sm .slider-anchor.active {
+    background-color: #FCE;
+    border-color: #D0C;
+}
+
+
+/* magenta */
+
+.ic.slider .panel.magenta.squares .slider-anchor.active,
+.ic.slider .panel.magenta.squares-rd .slider-anchor.active,
+.ic.slider .panel.magenta.rectangles .slider-anchor.active,
+.ic.slider .panel.magenta.bars .slider-anchor.active,
+.ic.slider .panel.magenta.bars-rd .slider-anchor.active,
+.ic.slider .panel.magenta.points .slider-anchor.active,
+.ic.slider .panel.magenta.lines .slider-anchor.active,
+.ic.slider .panel.magenta.rings .slider-anchor:hover,
+.ic.slider .panel.magenta.rings-sm .slider-anchor:hover {
+    background-color: #F07;
+}
+
+.ic.slider .panel.magenta.circles .slider-anchor.active,
+.ic.slider .panel.magenta.lines-wb .slider-anchor.active,
+.ic.slider .panel.magenta.rings .slider-anchor.active,
+.ic.slider .panel.magenta.rings-sm .slider-anchor.active {
+    background-color: #F9C;
+    border-color: #F07;
+}
+
+
+/* pink */
+
+.ic.slider .panel.pink.squares .slider-anchor.active,
+.ic.slider .panel.pink.squares-rd .slider-anchor.active,
+.ic.slider .panel.pink.rectangles .slider-anchor.active,
+.ic.slider .panel.pink.bars .slider-anchor.active,
+.ic.slider .panel.pink.bars-rd .slider-anchor.active,
+.ic.slider .panel.pink.points .slider-anchor.active,
+.ic.slider .panel.pink.lines .slider-anchor.active,
+.ic.slider .panel.pink.rings .slider-anchor:hover,
+.ic.slider .panel.pink.rings-sm .slider-anchor:hover {
+    background-color: #F69;
+}
+
+.ic.slider .panel.pink.circles .slider-anchor.active,
+.ic.slider .panel.pink.lines-wb .slider-anchor.active,
+.ic.slider .panel.pink.rings .slider-anchor.active,
+.ic.slider .panel.pink.rings-sm .slider-anchor.active {
+    background-color: #F9F;
+    border-color: #F69;
+}
+
+
+/* white */
+
+.ic.slider .panel.white.squares .slider-anchor.active,
+.ic.slider .panel.white.squares-rd .slider-anchor.active,
+.ic.slider .panel.white.rectangles .slider-anchor.active,
+.ic.slider .panel.white.bars .slider-anchor.active,
+.ic.slider .panel.white.bars-rd .slider-anchor.active,
+.ic.slider .panel.white.points .slider-anchor.active,
+.ic.slider .panel.white.lines .slider-anchor.active,
+.ic.slider .panel.white.rings .slider-anchor:hover,
+.ic.slider .panel.white.rings-sm .slider-anchor:hover {
+    background-color: #FFF;
+}
+
+.ic.slider .panel.white.circles .slider-anchor.active,
+.ic.slider .panel.white.lines-wb .slider-anchor.active,
+.ic.slider .panel.white.rings .slider-anchor.active,
+.ic.slider .panel.white.rings-sm .slider-anchor.active {
+    background-color: #DDD;
+    border-color: #FFF;
+}
+
+
+/* dark */
+
+.ic.slider .panel.dark.squares .slider-anchor.active,
+.ic.slider .panel.dark.squares-rd .slider-anchor.active,
+.ic.slider .panel.dark.rectangles .slider-anchor.active,
+.ic.slider .panel.dark.bars .slider-anchor.active,
+.ic.slider .panel.dark.bars-rd .slider-anchor.active,
+.ic.slider .panel.dark.points .slider-anchor.active,
+.ic.slider .panel.dark.lines .slider-anchor.active,
+.ic.slider .panel.dark.rings .slider-anchor:hover,
+.ic.slider .panel.dark.rings-sm .slider-anchor:hover {
+    background-color: #333;
+}
+
+.ic.slider .panel.dark.circles .slider-anchor.active,
+.ic.slider .panel.dark.lines-wb .slider-anchor.active,
+.ic.slider .panel.dark.rings .slider-anchor.active,
+.ic.slider .panel.dark.rings-sm .slider-anchor.active {
+    background-color: #666;
+    border-color: #333;
+}
+
+
+/* black */
+
+.ic.slider .panel.black.squares .slider-anchor.active,
+.ic.slider .panel.black.squares-rd .slider-anchor.active,
+.ic.slider .panel.black.rectangles .slider-anchor.active,
+.ic.slider .panel.black.bars .slider-anchor.active,
+.ic.slider .panel.black.bars-rd .slider-anchor.active,
+.ic.slider .panel.black.points .slider-anchor.active,
+.ic.slider .panel.black.lines .slider-anchor.active,
+.ic.slider .panel.black.rings .slider-anchor:hover,
+.ic.slider .panel.black.rings-sm .slider-anchor:hover {
+    background-color: #000;
+}
+
+.ic.slider .panel.black.circles .slider-anchor.active,
+.ic.slider .panel.black.lines-wb .slider-anchor.active,
+.ic.slider .panel.black.rings .slider-anchor.active,
+.ic.slider .panel.black.rings-sm .slider-anchor.active {
+    background-color: #666;
+    border-color: #000;
+}
+
+
+/**** Only Border ****/

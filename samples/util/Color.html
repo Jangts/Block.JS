@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Block.JS COLOR</title>
+    <script src="../../src/iBlock.js" data-use-debugmode></script>
+</head>
+
+<body>
+    <script>
+        block(['$_/util/Color.Cls'], function(_, global, undefined) {
+            var list = ['BurlyWood', '#C03', '#00ddcc', '#789abcde', 'rgb(123, 254, 179)', 'rgb(123, 179, 254, 1.0)', 'gainsboro', 'my color', '', 'G', {}];
+            _.util.Color.regColor('my color', '#009900');
+            _.each(list, function(i, color) {
+                _.render({
+                    float: "left",
+                    width: "90px",
+                    height: "90px",
+                    margin: "5px",
+                    color: "#666",
+                    backgroundColor: new _.util.Color(color).rgb()
+                }, color);
+            });
+        }, true);
+    </script>
+</body>
+
+</html>

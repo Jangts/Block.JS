@@ -1,0 +1,183 @@
+.ic.timepicker .displayer {
+    display: block;
+    position: absolute;
+    width: 656px;
+    height: 130px;
+    top: 20px;
+    left: 20px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 10px 10px 10px 10px;
+}
+
+.ic.timepicker .displayer .display-item {
+    display: none;
+}
+
+.ic.timepicker .displayer .display-item.actived {
+    display: block;
+}
+
+.ic.timepicker .displayer .display-item .display-char {
+    float: left;
+    cursor: pointer;
+}
+
+
+/**********************************************/
+
+.ic.timepicker .displayer .display-item {
+    height: 50px;
+    margin: 40px auto;
+}
+
+.ic.timepicker .displayer .display-item[data-type=datetime] {
+    width: 620px;
+}
+
+.ic.timepicker .displayer .display-item[data-type=fulldate] {
+    width: 330px;
+}
+
+.ic.timepicker .displayer .display-item[data-type=dayofyear] {
+    width: 400px;
+}
+
+.ic.timepicker .displayer .display-item[data-type=timeofday] {
+    width: 290px;
+}
+
+.ic.timepicker .displayer .display-item[data-type=hourminute] {
+    width: 220px;
+}
+
+.ic.timepicker .displayer .display-item[data-type=fulldate],
+.ic.timepicker .displayer .display-item[data-type=dayofyear],
+.ic.timepicker .displayer .display-item[data-type=timeofday],
+.ic.timepicker .displayer .display-item[data-type=hourminute] {
+    transform: scale(2, 2);
+}
+
+.ic.timepicker .displayer .display-item[data-type=dayofweek] {
+    width: 656px;
+    height: 130px;
+    margin: 0;
+}
+
+.ic.timepicker .displayer .display-item[data-type=dayofweek]::after {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    top: 64px;
+    left: 0;
+    background-color: rgba(201, 201, 201, .5);
+    content: "";
+    z-index: -99;
+}
+
+
+/**********************************************/
+
+.ic.timepicker .displayer .display-item .display-char {
+    display: block;
+    position: relative;
+    font-style: normal;
+}
+
+.ic.timepicker .displayer .display-item .display-char[data-char-type=year],
+.ic.timepicker .displayer .display-item .display-char[data-char-type=month],
+.ic.timepicker .displayer .display-item .display-char[data-char-type=mon],
+.ic.timepicker .displayer .display-item .display-char[data-char-type=date] {
+    height: 50px;
+    margin-right: 10px;
+    text-align: center;
+    line-height: 50px;
+    font-size: 36px;
+    background-color: rgba(102, 153, 255, .8);
+    color: #fff;
+}
+
+.ic.timepicker .displayer .display-item .display-char[data-char-type=year] {
+    width: 110px;
+    margin-left: 50px;
+}
+
+.ic.timepicker .displayer .display-item .display-char[data-char-type=month] {
+    width: 240px;
+    margin-left: 50px;
+}
+
+.ic.timepicker .displayer .display-item .display-char[data-char-type=mon],
+.ic.timepicker .displayer .display-item .display-char[data-char-type=date] {
+    width: 50px;
+}
+
+.ic.timepicker .displayer .display-item .display-char[data-char-type=date] {
+    margin-right: 50px;
+}
+
+.ic.timepicker .displayer .display-item .display-char[data-char-type=year]::after,
+.ic.timepicker .displayer .display-item .display-char[data-char-type=mon]::after,
+.ic.timepicker .displayer .display-item .display-char[data-char-type=month]::after,
+.ic.timepicker .displayer .display-item .display-char[data-char-type=date]::after,
+.ic.timepicker .displayer .display-item .display-char[data-char-type=hour]::after,
+.ic.timepicker .displayer .display-item .display-char[data-char-type=minute]::after,
+.ic.timepicker .displayer .display-item .display-char[data-char-type=first]::after,
+.ic.timepicker .displayer .display-item .display-char[data-char-type=second]::after {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    top: 24px;
+    left: 0;
+    background-color: rgba(255, 255, 255, .8);
+    content: "";
+}
+
+.ic.timepicker .displayer .display-item .display-char[data-char-type=hour],
+.ic.timepicker .displayer .display-item .display-char[data-char-type=minute],
+.ic.timepicker .displayer .display-item .display-char[data-char-type=first],
+.ic.timepicker .displayer .display-item .display-char[data-char-type=second] {
+    width: 50px;
+    height: 50px;
+    margin-right: 20px;
+    text-align: center;
+    line-height: 47px;
+    font-size: 36px;
+    background-color: rgba(102, 153, 255, .8);
+    color: #fff;
+    overflow: visible;
+}
+
+.ic.timepicker .displayer .display-item .display-char[data-char-type=hour] {
+    margin-left: 50px;
+}
+
+.ic.timepicker .displayer .display-item .display-char[data-char-type=minute],
+.ic.timepicker .displayer .display-item .display-char[data-char-type=second] {
+    margin-right: 50px;
+}
+
+.ic.timepicker .displayer .display-item .display-char[data-char-type=hour]::before,
+.ic.timepicker .displayer .display-item .display-char[data-char-type=first]::before {
+    display: block;
+    position: absolute;
+    width: 20px;
+    height: 50px;
+    top: 0;
+    left: 50px;
+    line-height: 40px;
+    content: ":";
+    z-index: -99;
+}
+
+.ic.timepicker .displayer .display-item .display-char[data-char-type=day] {
+    width: 600px;
+    height: 80px;
+    margin: 25px 28px;
+    text-align: center;
+    line-height: 71px;
+    font-size: 72px;
+    color: #181818;
+    transform: scale(1.4, 1.4);
+}

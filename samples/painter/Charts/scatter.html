@@ -1,0 +1,286 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>IBK SCATTER CHART</title>
+    <script src="../../../src/iBlock.js" data-use-debugmode></script>
+    <style>
+        div {
+            float: left;
+            width: 520px;
+            max-width: 100%;
+            height: 360px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="canvas1"> </div>
+    <div id="canvas2"> </div>
+    <div id="canvas3"> </div>
+    <div id="canvas4"> </div>
+    <script>
+        block([
+            '$_/painter/Charts/animation.clsx',
+            '$_/painter/Charts/tooltip.clsx',
+            '$_/painter/Charts/type/Scatter.Cls'
+        ], function(_, global, undefined) {
+            var document = global.document;
+            var randomScalingFactor = function() {
+                return Math.round(Math.random() * 1000 + 500)
+            };
+            var option1 = {
+                tooltip: {
+                    //type : 'axis',
+                },
+                xAxis: {
+                    data: ["January", "February", "March", "April", "May", "June", "July"]
+                },
+                yAxis: {
+                    data: ["1-10", "11-20", "21-last day"]
+                },
+                animationDuration: 1000,
+                series: [{
+                    type: 'scatter',
+                    name: "My First dataset",
+                    symbolSize: function(val) {
+                        return val[2] / 50;
+                    },
+                    data: [
+                        [0, 0, randomScalingFactor()],
+                        [2, 0, randomScalingFactor()],
+                        [3, 0.3, randomScalingFactor()],
+                        [3, 0.9, randomScalingFactor()],
+                        [3, 1.5, randomScalingFactor()],
+                        [3, 2.1, randomScalingFactor()],
+                        [5, 0, randomScalingFactor()],
+                        [0, 1, randomScalingFactor()],
+                        [2, 1, randomScalingFactor()],
+                        [4, 1, randomScalingFactor()],
+                        [6, 1, randomScalingFactor()],
+                        [0.5, 2, randomScalingFactor()],
+                        [1.5, 2, randomScalingFactor()],
+                        [2.5, 2, randomScalingFactor()],
+                        [3.5, 2, randomScalingFactor()],
+                        [4.5, 2, randomScalingFactor()],
+                        [5.5, 2, randomScalingFactor()],
+                    ]
+                }, {
+                    type: 'scatter',
+                    name: "My Second dataset",
+                    symbolSize: function(val) {
+                        return val[2] / 50;
+                    },
+                    data: [
+                        [1, 0, randomScalingFactor()],
+                        [3, 0, randomScalingFactor()],
+                        [3, 0.6, randomScalingFactor()],
+                        [3, 1.2, randomScalingFactor()],
+                        [3, 1.8, randomScalingFactor()],
+                        [4, 0, randomScalingFactor()],
+                        [6, 0, randomScalingFactor()],
+                        [1, 1, randomScalingFactor()],
+                        [3, 1, randomScalingFactor()],
+                        [5, 1, randomScalingFactor()],
+                        [0, 2, randomScalingFactor()],
+                        [1, 2, randomScalingFactor()],
+                        [2, 2, randomScalingFactor()],
+                        [3, 2, randomScalingFactor()],
+                        [4, 2, randomScalingFactor()],
+                        [5, 2, randomScalingFactor()],
+                        [6, 2, randomScalingFactor()]
+                    ]
+                }]
+            };
+
+            var chart1 = new _.painter.Charts(document.getElementById("canvas1"));
+            chart1.setOption(option1);
+            var option2 = {
+                tooltip: {
+                    //type : 'axis',
+                },
+                xAxis: {
+                    data: ["January", "February", "March", "April", "May", "June", "July"]
+                },
+                animationDuration: 1000,
+                series: [{
+                    type: 'scatter',
+                    name: "My First dataset",
+                    symbolSize: function(val) {
+                        return val[2] / 50;
+                    },
+                    data: [
+                        [0, 0, randomScalingFactor()],
+                        [1, 0, randomScalingFactor()],
+                        [2, 0, randomScalingFactor()],
+                        [3, 0, randomScalingFactor()],
+                        [3, 0.3, randomScalingFactor()],
+                        [3, 0.6, randomScalingFactor()],
+                        [3, 0.9, randomScalingFactor()],
+                        [3, 1.2, randomScalingFactor()],
+                        [3, 1.5, randomScalingFactor()],
+                        [3, 1.8, randomScalingFactor()],
+                        [3, 2.1, randomScalingFactor()],
+                        [3, 2.4, randomScalingFactor()],
+                        [3, 2.7, randomScalingFactor()],
+                        [3, 3, randomScalingFactor()],
+                        [4, 0, randomScalingFactor()],
+                        [5, 0, randomScalingFactor()],
+                        [6, 0, randomScalingFactor()],
+                        [0, 1, randomScalingFactor()],
+                        [1, 1, randomScalingFactor()],
+                        [2, 1, randomScalingFactor()],
+                        [3, 1, randomScalingFactor()],
+                        [4, 1, randomScalingFactor()],
+                        [5, 1, randomScalingFactor()],
+                        [6, 1, randomScalingFactor()],
+                        [0, 2, randomScalingFactor()],
+                        [0.5, 2, randomScalingFactor()],
+                        [1, 2, randomScalingFactor()],
+                        [1.5, 2, randomScalingFactor()],
+                        [2, 2, randomScalingFactor()],
+                        [2.5, 2, randomScalingFactor()],
+                        [3, 2, randomScalingFactor()],
+                        [3.5, 2, randomScalingFactor()],
+                        [4, 2, randomScalingFactor()],
+                        [4.5, 2, randomScalingFactor()],
+                        [5, 2, randomScalingFactor()],
+                        [5.5, 2, randomScalingFactor()],
+                        [6, 2, randomScalingFactor()]
+                    ]
+                }]
+            }
+            var chart2 = new _.painter.Charts(document.getElementById("canvas2"));
+            chart2.setOption(option2);
+            var option3 = {
+                tooltip: {
+                    //type : 'axis',
+                },
+                yAxis: {
+                    data: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+                },
+                animationDuration: 1000,
+                series: [{
+                    type: 'scatter',
+                    name: "My First dataset",
+                    symbolSize: function(val) {
+                        return val[2] / 60;
+                    },
+                    data: [
+                        [0, 0, randomScalingFactor()],
+                        [0, 1, randomScalingFactor()],
+                        [0, 2, randomScalingFactor()],
+                        [0, 3, randomScalingFactor()],
+                        [0.4, 3, randomScalingFactor()],
+                        [0.8, 3, randomScalingFactor()],
+                        [1.2, 3, randomScalingFactor()],
+                        [1.6, 3, randomScalingFactor()],
+                        [2, 3, randomScalingFactor()],
+                        [0, 4, randomScalingFactor()],
+                        [0, 5, randomScalingFactor()],
+                        [0, 6, randomScalingFactor()],
+                        [1, 0, randomScalingFactor()],
+                        [1, 1, randomScalingFactor()],
+                        [1, 2, randomScalingFactor()],
+                        [1, 3, randomScalingFactor()],
+                        [1, 4, randomScalingFactor()],
+                        [1, 5, randomScalingFactor()],
+                        [1, 6, randomScalingFactor()],
+                        [2, 0, randomScalingFactor()],
+                        [2, 0.5, randomScalingFactor()],
+                        [2, 1, randomScalingFactor()],
+                        [2, 1.5, randomScalingFactor()],
+                        [2, 2, randomScalingFactor()],
+                        [2, 2.5, randomScalingFactor()],
+                        [2, 3, randomScalingFactor()],
+                        [2, 3.5, randomScalingFactor()],
+                        [2, 4, randomScalingFactor()],
+                        [2, 4.5, randomScalingFactor()],
+                        [2, 5, randomScalingFactor()],
+                        [2, 5.5, randomScalingFactor()],
+                        [2, 6, randomScalingFactor()]
+                    ]
+                }]
+            }
+            var chart3 = new _.painter.Charts(document.getElementById("canvas3"));
+            chart3.setOption(option3);
+            var option4 = {
+                tooltip: {
+                    //type : 'axis',
+                },
+                animationDuration: 1000,
+                series: [{
+                    type: 'scatter',
+                    name: "My First dataset",
+                    symbolSize: function(val) {
+                        return val[2] / 50;
+                    },
+                    data: [
+                        [0, 0, randomScalingFactor()],
+                        [0, 10, randomScalingFactor()],
+                        [0, 20, randomScalingFactor()],
+                        [0, 30, randomScalingFactor()],
+                        [0.4, 30, randomScalingFactor()],
+                        [0.8, 30, randomScalingFactor()],
+                        [1.2,
+                            30, randomScalingFactor()
+                        ],
+                        [1.6, 30, randomScalingFactor()],
+                        [2, 30, randomScalingFactor()],
+                        [0, 40, randomScalingFactor()],
+                        [0, 50, randomScalingFactor()],
+                        [0, 60, randomScalingFactor()],
+                        [1, 00, randomScalingFactor()],
+                        [1, 10, randomScalingFactor()],
+                        [1, 20, randomScalingFactor()],
+                        [1, 30, randomScalingFactor()],
+                        [1, 40, randomScalingFactor()],
+                        [1, 50, randomScalingFactor()],
+                        [1, 60, randomScalingFactor()],
+                        [2, 0, randomScalingFactor()],
+                        [2, 5, randomScalingFactor()],
+                        [2, 1, randomScalingFactor()],
+                        [2, 15, randomScalingFactor()],
+                        [2, 2, randomScalingFactor()],
+                        [2, 25, randomScalingFactor()],
+                        [2, 3, randomScalingFactor()],
+                        [2, 35, randomScalingFactor()],
+                        [2, 4, randomScalingFactor()],
+                        [2, 45, randomScalingFactor()],
+                        [2, 5, randomScalingFactor()],
+                        [2, 55, randomScalingFactor()],
+                        [2, 6, randomScalingFactor()],
+                        [2.5, 6, randomScalingFactor()],
+                        [3.3, 16, randomScalingFactor()],
+                        [2.1, 53, randomScalingFactor()],
+                        [3.6, 48, randomScalingFactor()],
+                        [2.8, 28, randomScalingFactor()],
+                        [3.2, 16, randomScalingFactor()],
+                        [3.9, 36, randomScalingFactor()],
+                        [2.7, 9, randomScalingFactor()],
+                        [3.0, 34, randomScalingFactor()],
+                        [2.2, 11, randomScalingFactor()],
+                        [3.6, 57, randomScalingFactor()],
+                        [2.9, 34, randomScalingFactor()],
+                        [3.1, 45, randomScalingFactor()],
+                        [3.9,
+                            22, randomScalingFactor()
+                        ],
+                        [4, 00, randomScalingFactor()],
+                        [4, 10, randomScalingFactor()],
+                        [4, 20, randomScalingFactor()],
+                        [4, 30, randomScalingFactor()],
+                        [4, 40, randomScalingFactor()],
+                        [4, 50, randomScalingFactor()],
+                        [4, 60, randomScalingFactor()]
+                    ]
+                }]
+            }
+            var chart4 = new _.painter.Charts(document.getElementById("canvas4"));
+            chart4.setOption(option4);
+        }, true);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,125 @@
+/* http://prismjs.com/download.html?themes=prism-okaidia&languages=markup+css+clike+javascript */
+
+
+/**
+ * okaidia theme for JavaScript, CSS and HTML
+ * Loosely based on Monokai textmate theme by http://www.monokai.nl/
+ * @author ocodia
+ */
+
+code[data-language],
+pre[data-language] {
+    color: #f8f8f2;
+    background: none;
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5em;
+    font-size: 0.92857em;
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+}
+
+
+/* Code blocks */
+
+pre[data-language] {
+    padding: 1em;
+    margin: 0 0 0.5em;
+    overflow: auto;
+}
+
+:not(pre)>code[data-language],
+pre[data-language] {
+    background: #272822;
+}
+
+
+/* Inline code */
+
+:not(pre)>code[data-language] {
+    padding: .1em;
+    white-space: normal;
+}
+
+.ib-hl.comment,
+.ib-hl.prolog,
+.ib-hl.doctype,
+.ib-hl.cdata {
+    color: slategray;
+}
+
+.ib-hl.punctuation {
+    color: #f8f8f2;
+}
+
+.namespace {
+    opacity: .7;
+}
+
+.ib-hl.property,
+.ib-hl.tag,
+.ib-hl.constant,
+.ib-hl.symbol,
+.ib-hl.deleted {
+    color: #f92672;
+}
+
+.ib-hl.boolean,
+.ib-hl.number {
+    color: #ae81ff;
+}
+
+.ib-hl.selector,
+.ib-hl.attr-name,
+.ib-hl.string,
+.ib-hl.char,
+.ib-hl.builtin,
+.ib-hl.inserted {
+    color: #a6e22e;
+}
+
+.ib-hl.operator,
+.ib-hl.entity,
+.ib-hl.url,
+.language-css .ib-hl.string,
+.style .ib-hl.string,
+.ib-hl.variable {
+    color: #f8f8f2;
+}
+
+.ib-hl.atrule,
+.ib-hl.attr-value,
+.ib-hl.function {
+    color: #e6db74;
+}
+
+.ib-hl.keyword {
+    color: #66d9ef;
+}
+
+.ib-hl.regex,
+.ib-hl.important {
+    color: #fd971f;
+}
+
+.ib-hl.important,
+.ib-hl.bold {
+    font-weight: bold;
+}
+
+.ib-hl.italic {
+    font-style: italic;
+}
+
+.ib-hl.entity {
+    cursor: help;
+}

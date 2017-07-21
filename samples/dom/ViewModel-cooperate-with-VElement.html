@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Block.JS VIEWMODEL | Cooperate With VElement</title>
+    <script src="../../src/iBlock.js" data-use-debugmode></script>
+</head>
+
+<body>
+    <script>
+        block([
+            '$_/dom/VElement/',
+            '$_/dom/ViewModel.Cls'
+        ], function(pandora, global, undefined) {
+            var _ = pandora,
+                document = global.document,
+                console = global.console;
+
+            var el = _.dom.VElement.create,
+                ViewModel = _.dom.ViewModel;
+
+            var demo2 = new ViewModel({
+                data: {
+                    text: "before",
+                    input: "test",
+                },
+                render: function() {
+                    return el('div', {
+                        'id': 'demo2'
+                    }, [
+                        el('span', {}, [this.text]),
+                        el('input', {
+                            value: this.input
+                        }, []),
+                        el('input', {
+                            value: this.input
+                        }, [])
+                    ])
+                }
+            }, true);
+
+            setTimeout(function() {
+                demo2.text = 'after';
+            }, 3000);
+        }, true);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,131 @@
+/* http://prismjs.com/download.html?themes=prism-dark&languages=markup+css+clike+javascript */
+
+
+/**
+ * prism.js Dark theme for JavaScript, CSS and HTML
+ * Based on the slides of the talk “/Reg(exp){2}lained/”
+ * @author Lea Verou
+ */
+
+code[data-language],
+pre[data-language] {
+    color: white;
+    background: none;
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5em;
+    font-size: 0.92857em;
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+}
+
+@media print {
+    code[data-language],
+    pre[data-language] {
+        text-shadow: none;
+    }
+}
+
+pre[data-language],
+:not(pre)>code[data-language] {
+    background: hsl(30, 20%, 25%);
+}
+
+
+/* Code blocks */
+
+pre[data-language] {
+    padding: 1em;
+    margin: 0 0 0.5em;
+    overflow: auto;
+}
+
+
+/* Inline code */
+
+:not(pre)>code[data-language] {
+    padding: .15em .2em .05em;
+    border-radius: .3em;
+    border: .13em solid hsl(30, 20%, 40%);
+    box-shadow: 1px 1px .3em -.1em black inset;
+    white-space: normal;
+}
+
+.ib-hl.comment,
+.ib-hl.prolog,
+.ib-hl.doctype,
+.ib-hl.cdata {
+    color: hsl(30, 20%, 50%);
+}
+
+.ib-hl.punctuation {
+    opacity: .7;
+}
+
+.namespace {
+    opacity: .7;
+}
+
+.ib-hl.property,
+.ib-hl.tag,
+.ib-hl.boolean,
+.ib-hl.number,
+.ib-hl.constant,
+.ib-hl.symbol {
+    color: hsl(350, 40%, 70%);
+}
+
+.ib-hl.selector,
+.ib-hl.attr-name,
+.ib-hl.string,
+.ib-hl.char,
+.ib-hl.builtin,
+.ib-hl.inserted {
+    color: hsl(75, 70%, 60%);
+}
+
+.ib-hl.operator,
+.ib-hl.entity,
+.ib-hl.url,
+.language-css .ib-hl.string,
+.style .ib-hl.string,
+.ib-hl.variable {
+    color: hsl(40, 90%, 60%);
+}
+
+.ib-hl.atrule,
+.ib-hl.attr-value,
+.ib-hl.keyword {
+    color: hsl(350, 40%, 70%);
+}
+
+.ib-hl.regex,
+.ib-hl.important {
+    color: #e90;
+}
+
+.ib-hl.important,
+.ib-hl.bold {
+    font-weight: bold;
+}
+
+.ib-hl.italic {
+    font-style: italic;
+}
+
+.ib-hl.entity {
+    cursor: help;
+}
+
+.ib-hl.deleted {
+    color: red;
+}

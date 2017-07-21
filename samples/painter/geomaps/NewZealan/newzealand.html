@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Block.JS GEO | Paint New Zealand Map</title>
+    <script src="../../../../src/iBlock.js"></script>
+</head>
+
+<body>
+    <script>
+        var includes = [
+            '$_/data/',
+            '$_/dom/Elements/',
+            '$_/painter/SVG.Cls'
+        ];
+        block(includes, function(_, global, undefined) {
+            var document = global.document;
+            var location = global.location;
+            var $ = _.dom.select;
+
+            var width = 900,
+                height = 600;
+            var range = {
+                lt: [166, -34],
+                rb: [178, -47]
+            };
+
+            var url = _.core.dir() + '../data/geomaps/NewZealan/newzealand.json';
+
+            _.data.json(url, function(data) {
+                var map = _.painter.geo(document.body, width, height, data["features"], range, function(index, path, type, properties) {
+                    path.attr('fill', 'rgba(128,124,139,0.61)')
+                        .attr('stroke', 'rgba(255,255,255,1)')
+                        .attr('stroke-width', 1)
+                        .css('cursor', 'pointer')
+                        .hover(function() {
+                            path.attr('fill', 'rgba(2,2,139,0.61)');
+                        }, function() {
+                            path.attr('fill', 'rgba(128,124,139,0.61)');
+                        })
+                        .bind('click', function() {
+                            alert(properties["name"]);
+                        });
+                });
+            }, function() {
+
+            });
+        }, true);
+    </script>
+</body>
+
+</html>

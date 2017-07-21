@@ -1,0 +1,48 @@
+/** Normal Screen **/
+
+ul.ic.v-top,
+ol.ic.v-top {
+    >li {
+        display: block;
+    }
+}
+
+ul.ic.h-left,
+ol.ic.h-left {
+    >li {
+        float: left;
+    }
+}
+
+ul.ic.h-right,
+ol.ic.h-right {
+    >li {
+        float: right;
+    }
+}
+
+ul.ic.al-left,
+ul.ic.al-right,
+ul.ic.al-center,
+ul.ic.al-just,
+ol.ic.al-left,
+ol.ic.al-right,
+ol.ic.al-center,
+ol.ic.al-just {
+    >li {
+        display: inline;
+    }
+}
+
+ul.ic.al-left.blocks,
+ul.ic.al-right.blocks,
+ul.ic.al-center.blocks,
+ul.ic.al-just.blocks,
+ol.ic.al-left.blocks,
+ol.ic.al-right.blocks,
+ol.ic.al-center.blocks,
+ol.ic.al-just.blocks {
+    >li {
+        display: inline-block;
+    }
+}

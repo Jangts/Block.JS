@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Multiple Columns Text List</title>
+    <script type="text/javascript" src="http://blockjs.nidn.yangram.ni/src/block.js"></script>
+    <link type="text/css" rel="stylesheet" href="http://blockjs.nidn.yangram.ni/src/see/see.css">
+    <link type="text/css" rel="stylesheet" href="http://blockjs.nidn.yangram.ni/src/see/ListView/style.css">
+    <style>
+        body {
+            background-color: #eeeeee;
+        }
+        
+        body>section>ul {
+            width: 100%;
+            max-width: 1200px;
+            margin: 20px auto;
+        }
+        
+        body>section>ul.ascard {
+            background-color: #ffffff;
+            box-shadow: 0 0 3px #cccccc;
+        }
+        
+        .sample-title {
+            text-align: center;
+            font-size: 24px;
+            line-height: 30px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <section>
+        <p class="sample-title">分页列表 1</p>
+        <ul class="ic listview page-list">
+            <li class="list-item">First</li>
+            <li class="list-item">Previous</li>
+            <li class="list-item">1</li>
+            <li class="list-item">2</li>
+            <li class="list-item">3</li>
+            <li class="list-item actived">4</li>
+            <li class="list-item">5</li>
+            <li class="list-item">6</li>
+            <li class="list-item">7</li>
+            <li class="list-item">8</li>
+            <li class="list-item">Next</li>
+            <li class="list-item">Last</li>
+        </ul>
+    </section>
+
+    <section>
+        <p class="sample-title">分页列表 2</p>
+        <ul class="ic listview page-list blocks al-right">
+            <li class="list-item">First</li>
+            <li class="list-item">Previous</li>
+            <li class="list-item">1</li>
+            <li class="list-item">2</li>
+            <li class="list-item">3</li>
+            <li class="list-item actived">4</li>
+            <li class="list-item">5</li>
+            <li class="list-item">6</li>
+            <li class="list-item">7</li>
+            <li class="list-item">8</li>
+            <li class="list-item">Next</li>
+            <li class="list-item">Last</li>
+        </ul>
+    </section>
+
+    <section>
+        <p class="sample-title">分页列表 3</p>
+        <ul class="ic listview page-list blocks rounded green">
+            <li class="list-item">First</li>
+            <li class="list-item">Previous</li>
+            <li class="list-item">1</li>
+            <li class="list-item">2</li>
+            <li class="list-item">3</li>
+            <li class="list-item actived">4</li>
+            <li class="list-item">5</li>
+            <li class="list-item">6</li>
+            <li class="list-item">7</li>
+            <li class="list-item">8</li>
+            <li class="list-item">Next</li>
+            <li class="list-item">Last</li>
+        </ul>
+    </section>
+
+    <section>
+        <p class="sample-title">分页列表 4</p>
+        <ul class="ic listview page-list pills al-left">
+            <li class="list-item">First</li>
+            <li class="list-item">Previous</li>
+            <li class="list-item">1</li>
+            <li class="list-item">2</li>
+            <li class="list-item">3</li>
+            <li class="list-item actived">4</li>
+            <li class="list-item">5</li>
+            <li class="list-item">6</li>
+            <li class="list-item">7</li>
+            <li class="list-item">8</li>
+            <li class="list-item">Next</li>
+            <li class="list-item">Last</li>
+        </ul>
+    </section>
+
+    <section>
+        <p class="sample-title">分页列表 5</p>
+        <ul class="ic listview page-list spills purple">
+            <li class="list-item">First</li>
+            <li class="list-item">Previous</li>
+            <li class="list-item">1</li>
+            <li class="list-item">2</li>
+            <li class="list-item">3</li>
+            <li class="list-item actived">4</li>
+            <li class="list-item">5</li>
+            <li class="list-item">6</li>
+            <li class="list-item">7</li>
+            <li class="list-item">8</li>
+            <li class="list-item">Next</li>
+            <li class="list-item">Last</li>
+        </ul>
+    </section>
+
+    <section>
+        <p class="sample-title">分页列表 6</p>
+        <ul class="ic listview page-list train blue">
+            <li class="list-item">First</li>
+            <li class="list-item">Previous</li>
+            <li class="list-item">1</li>
+            <li class="list-item">2</li>
+            <li class="list-item">3</li>
+            <li class="list-item actived">4</li>
+            <li class="list-item">5</li>
+            <li class="list-item">6</li>
+            <li class="list-item">7</li>
+            <li class="list-item">8</li>
+            <li class="list-item">Next</li>
+            <li class="list-item">Last</li>
+        </ul>
+    </section>
+
+    <script type="text/javascript">
+        block('$_/dom/Elements/', function(_, global, undefined) {
+            var $ = _.dom.select;
+            $('.list-item').click(function() {
+                if (parseInt($(this).html())) {
+                    $('.list-item', this.parentNode).removeClass('actived');
+                    $(this).addClass('actived');
+                }
+            });
+        }, true);
+    </script>
+</body>
+
+</html>

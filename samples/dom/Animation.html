@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Block.JS ANIMATION</title>
+    <script src="../../src/iBlock.js" data-use-debugmode></script>
+</head>
+
+<body>
+    <script>
+        block([
+            '$_/dom/Animation.Cls',
+            '$_/math/easing.xtd'
+        ], function(pandora, global, undefined) {
+            var _ = pandora,
+                document = global.document;
+            var div = document.createElement('div');
+            div.style.position = "absolute";
+            div.style.textAlign = "center";
+            div.style.fontSize = "60px";
+            div.innerHTML = 'Aa';
+            _.dom.setStyle(div, {
+                width: '100px',
+                height: '100px',
+                lineHeight: '100px',
+                top: '0px',
+                left: '0px',
+                backgroundColor: '#F00',
+                color: '#FFF'
+            });
+            document.body.appendChild(div);
+            var animate = new _.dom.Animation(div, {
+                to: {
+                    width: '300px',
+                    height: '60px',
+                    lineHeight: '60px',
+                    top: '20px',
+                    left: '600px',
+                    backgroundColor: '#00F',
+                    color: '#FF0'
+                },
+                duration: 2000,
+                tween: _.math.easing.Bounce.easeOut,
+                callback: function() {
+                    setTimeout(function() {
+                        div.innerHTML = 'Complete';
+                        div.style.fontSize = "48px";
+                    }, 400);
+                }
+            });
+            animate.play();
+        }, true);
+    </script>
+</body>
+
+</html>

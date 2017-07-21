@@ -1,0 +1,2992 @@
+/*********************************************
+ ********** iBlock See UI Framework **********
+ **********  class  _.see.ListView  **********
+ *********************************************/
+/****************
+/*	Columns
+/************************************************/
+.ic.listview .list-item {
+  color: #181818; }
+  .ic.listview .list-item .list-title {
+    height: 30px;
+    width: 98%;
+    padding: 0 1%;
+    line-height: 30px;
+    font-size: 15px;
+    color: inherit; }
+  .ic.listview .list-item .list-abstract {
+    width: 98%;
+    padding: 0 1%;
+    line-height: 21px;
+    font-size: 12px;
+    color: #808080;
+    text-align: justify; }
+  .ic.listview .list-item .list-abstract[data-row="1"] {
+    height: 21px; }
+  .ic.listview .list-item .list-abstract[data-row="2"] {
+    height: 42px; }
+  .ic.listview .list-item .list-abstract[data-row="3"] {
+    height: 63px; }
+  .ic.listview .list-item .list-abstract[data-row="4"] {
+    height: 84px; }
+  .ic.listview .list-item .list-meta {
+    width: 98%;
+    padding: 0 1%;
+    line-height: 24px;
+    font-size: 13px;
+    color: #515151; }
+    .ic.listview .list-item .list-meta > span,
+    .ic.listview .list-item .list-meta .list-meta-item {
+      display: inline; }
+    .ic.listview .list-item .list-meta > span.block,
+    .ic.listview .list-item .list-meta .list-meta-item.block {
+      display: inline-block; }
+    .ic.listview .list-item .list-meta > span.space,
+    .ic.listview .list-item .list-meta .list-meta-item.space {
+      margin: 0 10px; }
+    .ic.listview .list-item .list-meta > span.lspace,
+    .ic.listview .list-item .list-meta .list-meta-item.lspace {
+      margin-left: 10px; }
+    .ic.listview .list-item .list-meta > span.rspace,
+    .ic.listview .list-item .list-meta .list-meta-item.rspace {
+      margin-right: 10px; }
+  .ic.listview .list-item .list-meta.bottom {
+    margin-top: 12px; }
+  .ic.listview .list-item > span,
+  .ic.listview .list-item .list-title > span,
+  .ic.listview .list-item .list-text {
+    width: 98%;
+    padding: 0 1%;
+    line-height: 30px;
+    font-size: 13px;
+    color: #c0c0c0;
+    width: auto;
+    padding: 0; }
+  .ic.listview .list-item > i,
+  .ic.listview .list-item .list-title > i,
+  .ic.listview .list-item .list-icon {
+    margin: 6px 1px;
+    padding: 0 6px;
+    border-radius: 9px;
+    background-color: #999;
+    line-height: 18px;
+    font-size: 12px;
+    color: #fff; }
+  .ic.listview .list-item > i.hollow,
+  .ic.listview .list-item .list-title > i.hollow,
+  .ic.listview .list-item .list-icon.hollow {
+    padding: 0 6px;
+    background-color: transparent;
+    border: 1px solid #999;
+    line-height: 16px;
+    color: #999; }
+  .ic.listview .list-item > i.red,
+  .ic.listview .list-item .list-title > i.red,
+  .ic.listview .list-item .list-icon.red {
+    background-color: #d23; }
+  .ic.listview .list-item > i.hollow.red,
+  .ic.listview .list-item .list-title > i.hollow.red,
+  .ic.listview .list-item .list-icon.hollow.red {
+    background-color: transparent;
+    border: 1px solid #d23;
+    color: #d23; }
+  .ic.listview .list-item > i.darkred,
+  .ic.listview .list-item .list-title > i.darkred,
+  .ic.listview .list-item .list-icon.darkred {
+    background-color: #600; }
+  .ic.listview .list-item > i.hollow.darkred,
+  .ic.listview .list-item .list-title > i.hollow.darkred,
+  .ic.listview .list-item .list-icon.hollow.darkred {
+    background-color: transparent;
+    border: 1px solid #600;
+    color: #600; }
+  .ic.listview .list-item > i.orange,
+  .ic.listview .list-item .list-title > i.orange,
+  .ic.listview .list-item .list-icon.orange {
+    background-color: #f52; }
+  .ic.listview .list-item > i.hollow.orange,
+  .ic.listview .list-item .list-title > i.hollow.orange,
+  .ic.listview .list-item .list-icon.hollow.orange {
+    background-color: transparent;
+    border: 1px solid #f52;
+    color: #f52; }
+  .ic.listview .list-item > i.yellow,
+  .ic.listview .list-item .list-title > i.yellow,
+  .ic.listview .list-item .list-icon.yellow {
+    background-color: #ed2; }
+  .ic.listview .list-item > i.hollow.yellow,
+  .ic.listview .list-item .list-title > i.hollow.yellow,
+  .ic.listview .list-item .list-icon.hollow.yellow {
+    background-color: transparent;
+    border: 1px solid #ed2;
+    color: #ed2; }
+  .ic.listview .list-item > i.green,
+  .ic.listview .list-item .list-title > i.green,
+  .ic.listview .list-item .list-icon.green {
+    background-color: #2c4; }
+  .ic.listview .list-item > i.hollow.green,
+  .ic.listview .list-item .list-title > i.hollow.green,
+  .ic.listview .list-item .list-icon.hollow.green {
+    background-color: transparent;
+    border: 1px solid #2c4;
+    color: #2c4; }
+  .ic.listview .list-item > i.darkgreen,
+  .ic.listview .list-item .list-title > i.darkgreen,
+  .ic.listview .list-item .list-icon.darkgreen {
+    background-color: #363; }
+  .ic.listview .list-item > i.hollow.darkgreen,
+  .ic.listview .list-item .list-title > i.hollow.darkgreen,
+  .ic.listview .list-item .list-icon.hollow.darkgreen {
+    background-color: transparent;
+    border: 1px solid #363;
+    color: #363; }
+  .ic.listview .list-item > i.cyan,
+  .ic.listview .list-item .list-title > i.cyan,
+  .ic.listview .list-item .list-icon.cyan {
+    background-color: #09b; }
+  .ic.listview .list-item > i.hollow.cyan,
+  .ic.listview .list-item .list-title > i.hollow.cyan,
+  .ic.listview .list-item .list-icon.hollow.cyan {
+    background-color: transparent;
+    border: 1px solid #09b;
+    color: #09b; }
+  .ic.listview .list-item > i.blue,
+  .ic.listview .list-item .list-title > i.blue,
+  .ic.listview .list-item .list-icon.blue {
+    background-color: #09f; }
+  .ic.listview .list-item > i.hollow.blue,
+  .ic.listview .list-item .list-title > i.hollow.blue,
+  .ic.listview .list-item .list-icon.hollow.blue {
+    background-color: transparent;
+    border: 1px solid #09f;
+    color: #09f; }
+  .ic.listview .list-item > i.darkblue,
+  .ic.listview .list-item .list-title > i.darkblue,
+  .ic.listview .list-item .list-icon.darkblue {
+    background-color: #036; }
+  .ic.listview .list-item > i.hollow.darkblue,
+  .ic.listview .list-item .list-title > i.hollow.darkblue,
+  .ic.listview .list-item .list-icon.hollow.darkblue {
+    background-color: transparent;
+    border: 1px solid #036;
+    color: #036; }
+  .ic.listview .list-item > i.purple,
+  .ic.listview .list-item .list-title > i.purple,
+  .ic.listview .list-item .list-icon.purple {
+    background-color: #c2a; }
+  .ic.listview .list-item > i.hollow.purple,
+  .ic.listview .list-item .list-title > i.hollow.purple,
+  .ic.listview .list-item .list-icon.hollow.purple {
+    background-color: transparent;
+    border: 1px solid #c2a;
+    color: #c2a; }
+  .ic.listview .list-item > i.black,
+  .ic.listview .list-item .list-title > i.black,
+  .ic.listview .list-item .list-icon.black {
+    background-color: #000; }
+  .ic.listview .list-item > i.hollow.black,
+  .ic.listview .list-item .list-title > i.hollow.black,
+  .ic.listview .list-item .list-icon.hollow.black {
+    background-color: transparent;
+    border: 1px solid #000;
+    color: #000; }
+  .ic.listview .list-item > i.lightgray,
+  .ic.listview .list-item .list-title > i.lightgray,
+  .ic.listview .list-item .list-icon.lightgray {
+    background-color: #ddd; }
+  .ic.listview .list-item > i.hollow.lightgray,
+  .ic.listview .list-item .list-title > i.hollow.lightgray,
+  .ic.listview .list-item .list-icon.hollow.lightgray {
+    background-color: transparent;
+    border: 1px solid #ddd;
+    color: #ddd; }
+  .ic.listview .list-item > i.gray,
+  .ic.listview .list-item .list-title > i.gray,
+  .ic.listview .list-item .list-icon.gray {
+    background-color: #999; }
+  .ic.listview .list-item > i.hollow.gray,
+  .ic.listview .list-item .list-title > i.hollow.gray,
+  .ic.listview .list-item .list-icon.hollow.gray {
+    background-color: transparent;
+    border: 1px solid #999;
+    color: #999; }
+  .ic.listview .list-item > i.dark-gray,
+  .ic.listview .list-item .list-title > i.dark-gray,
+  .ic.listview .list-item .list-icon.dark-gray {
+    background-color: #666; }
+  .ic.listview .list-item > i.hollow.dark-gray,
+  .ic.listview .list-item .list-title > i.hollow.dark-gray,
+  .ic.listview .list-item .list-icon.hollow.dark-gray {
+    background-color: transparent;
+    border: 1px solid #666;
+    color: #666; }
+  .ic.listview .list-item > i.white,
+  .ic.listview .list-item .list-title > i.white,
+  .ic.listview .list-item .list-icon.white {
+    background-color: #fff; }
+  .ic.listview .list-item > i.hollow.white,
+  .ic.listview .list-item .list-title > i.hollow.white,
+  .ic.listview .list-item .list-icon.hollow.white {
+    background-color: transparent;
+    border: 1px solid #fff;
+    color: #fff; }
+  .ic.listview .list-item > span.pl-left,
+  .ic.listview .list-item .list-title > span.pl-left,
+  .ic.listview .list-item .list-text.pl-left,
+  .ic.listview .list-item > i.pl-left,
+  .ic.listview .list-item .list-title > i.pl-left,
+  .ic.listview .list-item .list-icon.pl-left,
+  .ic.listview .list-item .list-meta.pl-left {
+    float: left; }
+  .ic.listview .list-item .list-meta.pl-left {
+    text-align: left; }
+  .ic.listview .list-item > span.pl-right,
+  .ic.listview .list-item .list-title > span.pl-right,
+  .ic.listview .list-item .list-text.pl-right,
+  .ic.listview .list-item > i.pl-right,
+  .ic.listview .list-item .list-title > i.pl-right,
+  .ic.listview .list-item .list-icon.pl-right,
+  .ic.listview .list-item .list-meta.pl-right {
+    float: right; }
+  .ic.listview .list-item .list-meta.pl-right {
+    text-align: right; }
+  .ic.listview .list-item .list-meta.though {
+    display: block;
+    text-align: center; }
+  .ic.listview .list-item .list-meta.though.al-left {
+    text-align: left; }
+  .ic.listview .list-item .list-meta.though.al-right {
+    text-align: right; }
+  .ic.listview .list-item .list-meta.though.al-just {
+    text-align: justify; }
+  .ic.listview .list-item > i.pl-left,
+  .ic.listview .list-item .list-title > i.pl-left,
+  .ic.listview .list-item .list-icon.pl-left {
+    margin: 6px 2px 6px 0; }
+  .ic.listview .list-item > i.pl-right,
+  .ic.listview .list-item .list-title > i.pl-right,
+  .ic.listview .list-item .list-icon.pl-right {
+    margin: 6px 0 6px 2px; }
+.ic.listview .list-item.pane.rounded,
+.ic.listview .list-item.card.rounded {
+  border-radius: 5px; }
+
+.ic.listview .list-item.cover .list-meta,
+.ic.listview .list-item.cover .list-title,
+.ic.listview .list-item.cover .list-abstract {
+  width: 100%;
+  padding: 0; }
+
+/****************
+/*	Text List
+/************************************************/
+.ic.listview.text-list .list-item {
+  width: 98%;
+  height: 30px;
+  padding: 5px 1%;
+  font-size: 14px;
+  line-height: 30px; }
+.ic.listview.text-list .list-item.topline {
+  height: 29px;
+  border-top: 1px solid #cccccc;
+  line-height: 29px; }
+.ic.listview.text-list .list-item.underline {
+  height: 29px;
+  border-bottom: 1px solid #cccccc;
+  line-height: 29px; }
+.ic.listview.text-list .list-item.topline.underline {
+  height: 28px;
+  border-top: 1px solid #cccccc;
+  border-bottom: 1px solid #cccccc;
+  line-height: 28px; }
+.ic.listview.text-list .list-item.stripe:nth-child(odd) {
+  background-color: #eeeeee; }
+.ic.listview.text-list .list-item.stripe:nth-child(even) {
+  background-color: #f8f8f8; }
+.ic.listview.text-list .list-item.card {
+  background-color: #ffffff;
+  margin: 10px 0; }
+.ic.listview.text-list .list-item.pane {
+  width: 100%;
+  height: 40px;
+  box-sizing: border-box;
+  border: 1px solid #cccccc;
+  margin: 10px 0; }
+.ic.listview.text-list .list-item.content {
+  padding: 5px 0;
+  margin: 0 1%; }
+.ic.listview.text-list .list-item.content.card {
+  width: 96%; }
+.ic.listview.text-list .list-item.content.pane {
+  width: 98%; }
+.ic.listview.text-list .list-item.content.card,
+.ic.listview.text-list .list-item.content.pane {
+  padding: 5px 1%;
+  margin: 10px 1%; }
+.ic.listview.text-list .list-item.cover,
+.ic.listview.text-list .list-item.content.cover {
+  padding: 0; }
+.ic.listview.text-list .list-item.pane.cover {
+  height: 30px; }
+.ic.listview.text-list .list-item.content.card.cover,
+.ic.listview.text-list .list-item.pane.cover {
+  padding: 0 1%; }
+.ic.listview.text-list .list-item.pane.trueround,
+.ic.listview.text-list .list-item.card.trueround {
+  border-radius: 20px; }
+.ic.listview.text-list .list-item.pane.cover.trueround {
+  border-radius: 15px; }
+
+/****************
+/*	Columns
+/************************************************/
+.ic.listview,
+.ic.listview[data-list-cols="1"] {
+  font-size: 0;
+  -webkit-text-size-adjust: none; }
+  .ic.listview .list-item,
+  .ic.listview[data-list-cols="1"] .list-item {
+    width: 100%; }
+  .ic.listview .list-item.content,
+  .ic.listview[data-list-cols="1"] .list-item.content {
+    width: 98%; }
+
+.ic.listview[data-list-cols="2"] .list-item,
+.ic.listview[data-list-cols="2"] .list-item.card,
+.ic.listview[data-list-cols="2"] .list-item.pane,
+.ic.listview.mtext-list[data-list-cols="2"] .list-item,
+.ic.listview.mtext-list[data-list-cols="2"] .list-item.card,
+.ic.listview.mtext-list[data-list-cols="2"] .list-item.pane,
+.ic.listview.media-list[data-list-cols="2"] .list-item,
+.ic.listview.media-list[data-list-cols="2"] .list-item.card,
+.ic.listview.media-list[data-list-cols="2"] .list-item.pane {
+  display: inline-block;
+  width: 50%; }
+.ic.listview[data-list-cols="2"] .list-item.content,
+.ic.listview.mtext-list[data-list-cols="2"] .list-item.content,
+.ic.listview.media-list[data-list-cols="2"] .list-item.content {
+  width: 48%; }
+
+.ic.listview.media-list[data-list-cols="2"] .list-item.card.cover,
+.ic.listview.media-list[data-list-cols="2"] .list-item.pane.cover {
+  width: 46%; }
+
+.ic.listview.text-list[data-list-cols="2"] .list-item.pane {
+  margin: 10px 1%; }
+.ic.listview.text-list[data-list-cols="2"] .list-item,
+.ic.listview.text-list[data-list-cols="2"] .list-item.content,
+.ic.listview.text-list[data-list-cols="2"] .list-item.pane.content {
+  width: 48%; }
+.ic.listview.text-list[data-list-cols="2"] .list-item.card.content {
+  width: 46%; }
+.ic.listview.text-list[data-list-cols="2"] .list-item.cover {
+  width: 50%; }
+.ic.listview.text-list[data-list-cols="2"] .list-item.pane.cover,
+.ic.listview.text-list[data-list-cols="2"] .list-item.content.cover,
+.ic.listview.text-list[data-list-cols="2"] .list-item.card.content.cover {
+  width: 48%; }
+
+.ic.listview[data-list-cols="3"] .list-item,
+.ic.listview[data-list-cols="3"] .list-item.card,
+.ic.listview[data-list-cols="3"] .list-item.pane,
+.ic.listview.mtext-list[data-list-cols="3"] .list-item,
+.ic.listview.mtext-list[data-list-cols="3"] .list-item.card,
+.ic.listview.mtext-list[data-list-cols="3"] .list-item.pane,
+.ic.listview.media-list[data-list-cols="3"] .list-item,
+.ic.listview.media-list[data-list-cols="3"] .list-item.card,
+.ic.listview.media-list[data-list-cols="3"] .list-item.pane {
+  display: inline-block;
+  width: 33.33333%; }
+.ic.listview[data-list-cols="3"] .list-item.content,
+.ic.listview.mtext-list[data-list-cols="3"] .list-item.content,
+.ic.listview.media-list[data-list-cols="3"] .list-item.content {
+  width: 31.33333%; }
+
+.ic.listview.media-list[data-list-cols="3"] .list-item.card.cover,
+.ic.listview.media-list[data-list-cols="3"] .list-item.pane.cover {
+  width: 29.33333%; }
+
+.ic.listview.text-list[data-list-cols="3"] .list-item.pane {
+  margin: 10px 1%; }
+.ic.listview.text-list[data-list-cols="3"] .list-item,
+.ic.listview.text-list[data-list-cols="3"] .list-item.content,
+.ic.listview.text-list[data-list-cols="3"] .list-item.pane.content {
+  width: 31.33333%; }
+.ic.listview.text-list[data-list-cols="3"] .list-item.card.content {
+  width: 29.33333%; }
+.ic.listview.text-list[data-list-cols="3"] .list-item.cover {
+  width: 33.33333%; }
+.ic.listview.text-list[data-list-cols="3"] .list-item.pane.cover,
+.ic.listview.text-list[data-list-cols="3"] .list-item.content.cover,
+.ic.listview.text-list[data-list-cols="3"] .list-item.card.content.cover {
+  width: 31.33333%; }
+
+.ic.listview[data-list-cols="4"] .list-item,
+.ic.listview[data-list-cols="4"] .list-item.card,
+.ic.listview[data-list-cols="4"] .list-item.pane,
+.ic.listview.mtext-list[data-list-cols="4"] .list-item,
+.ic.listview.mtext-list[data-list-cols="4"] .list-item.card,
+.ic.listview.mtext-list[data-list-cols="4"] .list-item.pane,
+.ic.listview.media-list[data-list-cols="4"] .list-item,
+.ic.listview.media-list[data-list-cols="4"] .list-item.card,
+.ic.listview.media-list[data-list-cols="4"] .list-item.pane {
+  display: inline-block;
+  width: 25%; }
+.ic.listview[data-list-cols="4"] .list-item.content,
+.ic.listview.mtext-list[data-list-cols="4"] .list-item.content,
+.ic.listview.media-list[data-list-cols="4"] .list-item.content {
+  width: 23%; }
+
+.ic.listview.media-list[data-list-cols="4"] .list-item.card.cover,
+.ic.listview.media-list[data-list-cols="4"] .list-item.pane.cover {
+  width: 21%; }
+
+.ic.listview.text-list[data-list-cols="4"] .list-item.pane {
+  margin: 10px 1%; }
+.ic.listview.text-list[data-list-cols="4"] .list-item,
+.ic.listview.text-list[data-list-cols="4"] .list-item.content,
+.ic.listview.text-list[data-list-cols="4"] .list-item.pane.content {
+  width: 23%; }
+.ic.listview.text-list[data-list-cols="4"] .list-item.card.content {
+  width: 21%; }
+.ic.listview.text-list[data-list-cols="4"] .list-item.cover {
+  width: 25%; }
+.ic.listview.text-list[data-list-cols="4"] .list-item.pane.cover,
+.ic.listview.text-list[data-list-cols="4"] .list-item.content.cover,
+.ic.listview.text-list[data-list-cols="4"] .list-item.card.content.cover {
+  width: 23%; }
+
+.ic.listview[data-list-cols="5"] .list-item,
+.ic.listview[data-list-cols="5"] .list-item.card,
+.ic.listview[data-list-cols="5"] .list-item.pane,
+.ic.listview.mtext-list[data-list-cols="5"] .list-item,
+.ic.listview.mtext-list[data-list-cols="5"] .list-item.card,
+.ic.listview.mtext-list[data-list-cols="5"] .list-item.pane,
+.ic.listview.media-list[data-list-cols="5"] .list-item,
+.ic.listview.media-list[data-list-cols="5"] .list-item.card,
+.ic.listview.media-list[data-list-cols="5"] .list-item.pane {
+  display: inline-block;
+  width: 20%; }
+.ic.listview[data-list-cols="5"] .list-item.content,
+.ic.listview.mtext-list[data-list-cols="5"] .list-item.content,
+.ic.listview.media-list[data-list-cols="5"] .list-item.content {
+  width: 18%; }
+
+.ic.listview.media-list[data-list-cols="5"] .list-item.card.cover,
+.ic.listview.media-list[data-list-cols="5"] .list-item.pane.cover {
+  width: 16%; }
+
+.ic.listview.text-list[data-list-cols="5"] .list-item.pane {
+  margin: 10px 1%; }
+.ic.listview.text-list[data-list-cols="5"] .list-item,
+.ic.listview.text-list[data-list-cols="5"] .list-item.content,
+.ic.listview.text-list[data-list-cols="5"] .list-item.pane.content {
+  width: 18%; }
+.ic.listview.text-list[data-list-cols="5"] .list-item.card.content {
+  width: 16%; }
+.ic.listview.text-list[data-list-cols="5"] .list-item.cover {
+  width: 20%; }
+.ic.listview.text-list[data-list-cols="5"] .list-item.pane.cover,
+.ic.listview.text-list[data-list-cols="5"] .list-item.content.cover,
+.ic.listview.text-list[data-list-cols="5"] .list-item.card.content.cover {
+  width: 18%; }
+
+/****************
+/*	Multiple Rows Text List
+/************************************************/
+.ic.listview.mtext-list .list-item,
+.ic.listview.media-list .list-item {
+  width: 100%;
+  padding: 5px 0; }
+.ic.listview.mtext-list .list-item.cover,
+.ic.listview.media-list .list-item.cover {
+  padding: 0; }
+.ic.listview.mtext-list .list-item.topline,
+.ic.listview.media-list .list-item.topline {
+  border-top: 1px solid #cccccc; }
+.ic.listview.mtext-list .list-item.underline,
+.ic.listview.media-list .list-item.underline {
+  border-bottom: 1px solid #cccccc; }
+.ic.listview.mtext-list .list-item.topline.underline,
+.ic.listview.media-list .list-item.topline.underline {
+  border-top: 1px solid #cccccc;
+  border-bottom: 1px solid #cccccc; }
+.ic.listview.mtext-list .list-item.stripe:nth-child(odd),
+.ic.listview.media-list .list-item.stripe:nth-child(odd) {
+  background-color: #eeeeee; }
+.ic.listview.mtext-list .list-item.stripe:nth-child(even),
+.ic.listview.media-list .list-item.stripe:nth-child(even) {
+  background-color: #f8f8f8; }
+.ic.listview.mtext-list .list-item.card,
+.ic.listview.media-list .list-item.card {
+  background-color: #ffffff;
+  margin: 10px 0; }
+.ic.listview.mtext-list .list-item.pane,
+.ic.listview.media-list .list-item.pane {
+  box-sizing: border-box;
+  border: 1px solid #cccccc;
+  margin: 10px 0; }
+.ic.listview.mtext-list .list-item.content,
+.ic.listview.media-list .list-item.content {
+  width: 98%;
+  margin: 10px 1%; }
+.ic.listview.mtext-list .list-item.content.card,
+.ic.listview.mtext-list .list-item.content.pane,
+.ic.listview.media-list .list-item.content.card,
+.ic.listview.media-list .list-item.content.pane {
+  margin: 10px 1%; }
+.ic.listview.mtext-list .list-item.cover.card .list-title,
+.ic.listview.mtext-list .list-item.cover.card .list-abstract,
+.ic.listview.mtext-list .list-item.cover.card .list-meta,
+.ic.listview.mtext-list .list-item.cover.pane .list-title,
+.ic.listview.mtext-list .list-item.cover.pane .list-abstract,
+.ic.listview.mtext-list .list-item.cover.pane .list-meta,
+.ic.listview.media-list .list-item.cover.card .list-title,
+.ic.listview.media-list .list-item.cover.card .list-abstract,
+.ic.listview.media-list .list-item.cover.card .list-meta,
+.ic.listview.media-list .list-item.cover.pane .list-title,
+.ic.listview.media-list .list-item.cover.pane .list-abstract,
+.ic.listview.media-list .list-item.cover.pane .list-meta {
+  width: 98%;
+  padding: 0 1%; }
+
+/****************
+/*	Media List
+/************************************************/
+.ic.listview.media-list .list-item {
+  padding: 0; }
+  .ic.listview.media-list .list-item > * {
+    display: none; }
+  .ic.listview.media-list .list-item > img,
+  .ic.listview.media-list .list-item > .list-figure,
+  .ic.listview.media-list .list-item > .list-image {
+    display: block; }
+  .ic.listview.media-list .list-item > img,
+  .ic.listview.media-list .list-item > .list-figure,
+  .ic.listview.media-list .list-item > .list-image {
+    float: left;
+    margin: 10px 0 10px 10px; }
+  .ic.listview.media-list .list-item > .list-body:first-child,
+  .ic.listview.media-list .list-item > .list-body:last-child {
+    display: inline-block; }
+  .ic.listview.media-list .list-item > .list-body:first-child,
+  .ic.listview.media-list .list-item > .list-body:last-child {
+    display: inline-block; }
+  .ic.listview.media-list .list-item > img.h51,
+  .ic.listview.media-list .list-item > .list-figure.h51 img,
+  .ic.listview.media-list .list-item > .list-image.h51,
+  .ic.listview.media-list .list-item > .list-image.h51 img {
+    width: 51px;
+    height: 51px; }
+  .ic.listview.media-list .list-item > .list-figure.h51 {
+    width: 51px;
+    height: 51px;
+    padding: 5px;
+    border: 1px solid #ccc; }
+  .ic.listview.media-list .list-item > img.h54,
+  .ic.listview.media-list .list-item > .list-figure.h54 img,
+  .ic.listview.media-list .list-item > .list-image.h54,
+  .ic.listview.media-list .list-item > .list-image.h54 img {
+    width: 51px;
+    height: 51px; }
+  .ic.listview.media-list .list-item > .list-figure.h54 {
+    width: 51px;
+    height: 51px;
+    padding: 5px;
+    border: 1px solid #ccc; }
+  .ic.listview.media-list .list-item > img.h75,
+  .ic.listview.media-list .list-item > .list-figure.h75 img,
+  .ic.listview.media-list .list-item > .list-image.h75,
+  .ic.listview.media-list .list-item > .list-image.h75 img {
+    width: 100px;
+    height: 75px; }
+  .ic.listview.media-list .list-item > .list-figure.h75 {
+    width: 100px;
+    height: 75px;
+    padding: 5px;
+    border: 1px solid #ccc; }
+  .ic.listview.media-list .list-item > img.h96,
+  .ic.listview.media-list .list-item > .list-figure.h96 img,
+  .ic.listview.media-list .list-item > .list-image.h96,
+  .ic.listview.media-list .list-item > .list-image.h96 img {
+    width: 128px;
+    height: 96px; }
+  .ic.listview.media-list .list-item > .list-figure.h96 {
+    width: 128px;
+    height: 96px;
+    padding: 5px;
+    border: 1px solid #ccc; }
+  .ic.listview.media-list .list-item > img.h117,
+  .ic.listview.media-list .list-item > .list-figure.h117 img,
+  .ic.listview.media-list .list-item > .list-image.h117,
+  .ic.listview.media-list .list-item > .list-image.h117 img {
+    width: 156px;
+    height: 117px; }
+  .ic.listview.media-list .list-item > .list-figure.h117 {
+    width: 156px;
+    height: 117px;
+    padding: 5px;
+    border: 1px solid #ccc; }
+  .ic.listview.media-list .list-item > img.h138,
+  .ic.listview.media-list .list-item > .list-figure.h138 img,
+  .ic.listview.media-list .list-item > .list-image.h138,
+  .ic.listview.media-list .list-item > .list-image.h138 img {
+    width: 184px;
+    height: 138px; }
+  .ic.listview.media-list .list-item > .list-figure.h138 {
+    width: 184px;
+    height: 138px;
+    padding: 5px;
+    border: 1px solid #ccc; }
+.ic.listview.media-list .list-item.content > img,
+.ic.listview.media-list .list-item.content > .list-figure,
+.ic.listview.media-list .list-item.content > .list-image {
+  margin: 15px 0; }
+.ic.listview.media-list .list-item.content > .list-body {
+  margin: 15px 0; }
+  .ic.listview.media-list .list-item.content > .list-body .list-title,
+  .ic.listview.media-list .list-item.content > .list-body .list-abstract,
+  .ic.listview.media-list .list-item.content > .list-body .list-meta {
+    width: 99%;
+    padding: 0 0 0 1%; }
+.ic.listview.media-list .list-item.cover,
+.ic.listview.media-list .list-item.content.cover {
+  padding: 0; }
+  .ic.listview.media-list .list-item.cover > img,
+  .ic.listview.media-list .list-item.cover > .list-figure,
+  .ic.listview.media-list .list-item.cover > .list-image,
+  .ic.listview.media-list .list-item.content.cover > img,
+  .ic.listview.media-list .list-item.content.cover > .list-figure,
+  .ic.listview.media-list .list-item.content.cover > .list-image {
+    margin: 10px 10px 10px 0; }
+  .ic.listview.media-list .list-item.cover > .list-body,
+  .ic.listview.media-list .list-item.content.cover > .list-body {
+    margin: 10px 0; }
+    .ic.listview.media-list .list-item.cover > .list-body .list-title,
+    .ic.listview.media-list .list-item.cover > .list-body .list-abstract,
+    .ic.listview.media-list .list-item.cover > .list-body .list-meta,
+    .ic.listview.media-list .list-item.content.cover > .list-body .list-title,
+    .ic.listview.media-list .list-item.content.cover > .list-body .list-abstract,
+    .ic.listview.media-list .list-item.content.cover > .list-body .list-meta {
+      width: 100%;
+      padding: 0; }
+.ic.listview.media-list .list-item.card.cover,
+.ic.listview.media-list .list-item.card.content.cover {
+  padding: 0; }
+  .ic.listview.media-list .list-item.card.cover > img,
+  .ic.listview.media-list .list-item.card.cover > .list-figure,
+  .ic.listview.media-list .list-item.card.cover > .list-image,
+  .ic.listview.media-list .list-item.card.content.cover > img,
+  .ic.listview.media-list .list-item.card.content.cover > .list-figure,
+  .ic.listview.media-list .list-item.card.content.cover > .list-image {
+    margin: 0 10px 0 0; }
+  .ic.listview.media-list .list-item.card.cover > .list-body,
+  .ic.listview.media-list .list-item.card.content.cover > .list-body {
+    margin: 0; }
+    .ic.listview.media-list .list-item.card.cover > .list-body .list-title,
+    .ic.listview.media-list .list-item.card.cover > .list-body .list-abstract,
+    .ic.listview.media-list .list-item.card.cover > .list-body .list-meta,
+    .ic.listview.media-list .list-item.card.content.cover > .list-body .list-title,
+    .ic.listview.media-list .list-item.card.content.cover > .list-body .list-abstract,
+    .ic.listview.media-list .list-item.card.content.cover > .list-body .list-meta {
+      width: 99%;
+      padding: 0 1% 0 0; }
+.ic.listview.media-list .list-item.pane.cover > img,
+.ic.listview.media-list .list-item.pane.cover > .list-figure,
+.ic.listview.media-list .list-item.pane.cover > .list-image,
+.ic.listview.media-list .list-item.pane.content.cover > img,
+.ic.listview.media-list .list-item.pane.content.cover > .list-figure,
+.ic.listview.media-list .list-item.pane.content.cover > .list-image {
+  margin: 10px; }
+.ic.listview.media-list .list-item.pane.cover > .list-body,
+.ic.listview.media-list .list-item.pane.content.cover > .list-body {
+  margin: 10px 0; }
+  .ic.listview.media-list .list-item.pane.cover > .list-body .list-title,
+  .ic.listview.media-list .list-item.pane.cover > .list-body .list-abstract,
+  .ic.listview.media-list .list-item.pane.cover > .list-body .list-meta,
+  .ic.listview.media-list .list-item.pane.content.cover > .list-body .list-title,
+  .ic.listview.media-list .list-item.pane.content.cover > .list-body .list-abstract,
+  .ic.listview.media-list .list-item.pane.content.cover > .list-body .list-meta {
+    width: 99%;
+    padding: 0 1% 0 0; }
+
+.ic.listview.media-list[data-list-cols] .list-item.card.cover,
+.ic.listview.media-list[data-list-cols] .list-item.pane.cover {
+  margin: 10px 2%; }
+
+.ic.listview.media-list[data-list-cols="1"] .list-item.card.cover,
+.ic.listview.media-list[data-list-cols="1"] .list-item.pane.cover {
+  margin: 10px auto; }
+
+.ic.listview.media-list .list-item.right-left > img,
+.ic.listview.media-list .list-item.right-left > .list-figure,
+.ic.listview.media-list .list-item.right-left > .list-image {
+  float: right;
+  margin-right: 10px 10px 10px 0; }
+.ic.listview.media-list .list-item.content.right-left > .list-body {
+  margin: 15px 0; }
+  .ic.listview.media-list .list-item.content.right-left > .list-body .list-title,
+  .ic.listview.media-list .list-item.content.right-left > .list-body .list-abstract,
+  .ic.listview.media-list .list-item.content.right-left > .list-body .list-meta {
+    width: 99%;
+    padding: 0 1% 0 0; }
+.ic.listview.media-list .list-item.card.right-left > img,
+.ic.listview.media-list .list-item.card.right-left > .list-figure,
+.ic.listview.media-list .list-item.card.right-left > .list-image {
+  margin: 0 0 0 10px; }
+.ic.listview.media-list .list-item.cover.right-left > .list-body,
+.ic.listview.media-list .list-item.content.cover.right-left > .list-body {
+  margin: 10px 0; }
+.ic.listview.media-list .list-item.card.cover.right-left > img,
+.ic.listview.media-list .list-item.card.cover.right-left > .list-figure,
+.ic.listview.media-list .list-item.card.cover.right-left > .list-image,
+.ic.listview.media-list .list-item.card.content.cover.right-left > img,
+.ic.listview.media-list .list-item.card.content.cover.right-left > .list-figure,
+.ic.listview.media-list .list-item.card.content.cover.right-left > .list-image {
+  margin: 0 0 0 10px; }
+.ic.listview.media-list .list-item.card.cover.right-left > .list-body,
+.ic.listview.media-list .list-item.card.content.cover.right-left > .list-body {
+  margin: 0; }
+  .ic.listview.media-list .list-item.card.cover.right-left > .list-body .list-title,
+  .ic.listview.media-list .list-item.card.cover.right-left > .list-body .list-abstract,
+  .ic.listview.media-list .list-item.card.cover.right-left > .list-body .list-meta,
+  .ic.listview.media-list .list-item.card.content.cover.right-left > .list-body .list-title,
+  .ic.listview.media-list .list-item.card.content.cover.right-left > .list-body .list-abstract,
+  .ic.listview.media-list .list-item.card.content.cover.right-left > .list-body .list-meta {
+    width: 99%;
+    padding: 0 0 0 1%; }
+
+.ic.listview.media-list .list-item.top-bottom > img,
+.ic.listview.media-list .list-item.top-bottom > .list-figure,
+.ic.listview.media-list .list-item.top-bottom > .list-image {
+  float: none;
+  width: 96%;
+  margin: 20px 2%; }
+.ic.listview.media-list .list-item.top-bottom > .list-body.pl-bottom .list-title,
+.ic.listview.media-list .list-item.top-bottom > .list-body.pl-bottom .list-abstract,
+.ic.listview.media-list .list-item.top-bottom > .list-body.pl-bottom .list-meta {
+  width: 100%;
+  padding: 0 0 0 0; }
+.ic.listview.media-list .list-item.content.top-bottom > img,
+.ic.listview.media-list .list-item.content.top-bottom > .list-figure,
+.ic.listview.media-list .list-item.content.top-bottom > .list-image {
+  width: 96%;
+  margin: 5px 2% 0; }
+.ic.listview.media-list .list-item.content.top-bottom > .list-body {
+  margin: 0 2% 5px; }
+  .ic.listview.media-list .list-item.content.top-bottom > .list-body .list-title,
+  .ic.listview.media-list .list-item.content.top-bottom > .list-body .list-abstract,
+  .ic.listview.media-list .list-item.content.top-bottom > .list-body .list-meta {
+    width: 100%;
+    padding: 0 0 0 0; }
+.ic.listview.media-list .list-item.cover.top-bottom > img,
+.ic.listview.media-list .list-item.cover.top-bottom > .list-figure,
+.ic.listview.media-list .list-item.cover.top-bottom > .list-image,
+.ic.listview.media-list .list-item.content.cover.top-bottom > img,
+.ic.listview.media-list .list-item.content.cover.top-bottom > .list-figure,
+.ic.listview.media-list .list-item.content.cover.top-bottom > .list-image {
+  width: 100%; }
+.ic.listview.media-list .list-item.card.cover.top-bottom > .list-body {
+  width: 96%;
+  padding: 0 2%; }
+
+.ic.listview.media-list[data-list-cols] .list-item.card.cover.top-bottom,
+.ic.listview.media-list[data-list-cols] .list-item.pane.cover.top-bottom {
+  margin: 20px 2%; }
+
+.ic.listview.media-list[data-list-cols="1"] .list-item.card.cover.top-bottom,
+.ic.listview.media-list[data-list-cols="1"] .list-item.pane.cover.top-bottom {
+  margin: 20px auto; }
+
+/****************
+/*	Text List
+/************************************************/
+.ic.listview.page-list {
+  margin: 10px auto;
+  font-size: 0;
+  text-align: center;
+  white-space: nowrap; }
+  .ic.listview.page-list .list-item {
+    display: inline-table;
+    width: 20px;
+    height: 20px;
+    margin: 4px;
+    font-size: 13px;
+    cursor: pointer;
+    color: #333; }
+  .ic.listview.page-list .list-item.actived {
+    color: #0cf; }
+
+.ic.listview.page-list.al-left {
+  text-align: left; }
+
+.ic.listview.page-list.al-right {
+  text-align: right; }
+
+.ic.listview.page-list.blocks .list-item,
+.ic.listview.page-list.pills .list-item,
+.ic.listview.page-list.spills .list-item {
+  border: 1px solid #999;
+  line-height: 20px;
+  padding: 5px;
+  text-align: center;
+  color: #333; }
+.ic.listview.page-list.blocks .list-item.actived,
+.ic.listview.page-list.pills .list-item.actived,
+.ic.listview.page-list.spills .list-item.actived {
+  background-color: #999;
+  color: #fff; }
+.ic.listview.page-list.blocks .list-item.red,
+.ic.listview.page-list.pills .list-item.red,
+.ic.listview.page-list.spills .list-item.red {
+  border: 1px solid #d23;
+  color: #d23; }
+.ic.listview.page-list.blocks .list-item.red.actived,
+.ic.listview.page-list.pills .list-item.red.actived,
+.ic.listview.page-list.spills .list-item.red.actived {
+  background-color: #d23;
+  color: #fff; }
+.ic.listview.page-list.blocks .list-item.darkred,
+.ic.listview.page-list.pills .list-item.darkred,
+.ic.listview.page-list.spills .list-item.darkred {
+  border: 1px solid #600;
+  color: #600; }
+.ic.listview.page-list.blocks .list-item.darkred.actived,
+.ic.listview.page-list.pills .list-item.darkred.actived,
+.ic.listview.page-list.spills .list-item.darkred.actived {
+  background-color: #600;
+  color: #fff; }
+.ic.listview.page-list.blocks .list-item.orange,
+.ic.listview.page-list.pills .list-item.orange,
+.ic.listview.page-list.spills .list-item.orange {
+  border: 1px solid #f52;
+  color: #f52; }
+.ic.listview.page-list.blocks .list-item.orange.actived,
+.ic.listview.page-list.pills .list-item.orange.actived,
+.ic.listview.page-list.spills .list-item.orange.actived {
+  background-color: #f52;
+  color: #fff; }
+.ic.listview.page-list.blocks .list-item.yellow,
+.ic.listview.page-list.pills .list-item.yellow,
+.ic.listview.page-list.spills .list-item.yellow {
+  border: 1px solid #ed2;
+  color: #ed2; }
+.ic.listview.page-list.blocks .list-item.yellow.actived,
+.ic.listview.page-list.pills .list-item.yellow.actived,
+.ic.listview.page-list.spills .list-item.yellow.actived {
+  background-color: #ed2;
+  color: #fff; }
+.ic.listview.page-list.blocks .list-item.green,
+.ic.listview.page-list.pills .list-item.green,
+.ic.listview.page-list.spills .list-item.green {
+  border: 1px solid #2c4;
+  color: #2c4; }
+.ic.listview.page-list.blocks .list-item.green.actived,
+.ic.listview.page-list.pills .list-item.green.actived,
+.ic.listview.page-list.spills .list-item.green.actived {
+  background-color: #2c4;
+  color: #fff; }
+.ic.listview.page-list.blocks .list-item.darkgreen,
+.ic.listview.page-list.pills .list-item.darkgreen,
+.ic.listview.page-list.spills .list-item.darkgreen {
+  border: 1px solid #363;
+  color: #363; }
+.ic.listview.page-list.blocks .list-item.darkgreen.actived,
+.ic.listview.page-list.pills .list-item.darkgreen.actived,
+.ic.listview.page-list.spills .list-item.darkgreen.actived {
+  background-color: #363;
+  color: #fff; }
+.ic.listview.page-list.blocks .list-item.cyan,
+.ic.listview.page-list.pills .list-item.cyan,
+.ic.listview.page-list.spills .list-item.cyan {
+  border: 1px solid #09b;
+  color: #09b; }
+.ic.listview.page-list.blocks .list-item.cyan.actived,
+.ic.listview.page-list.pills .list-item.cyan.actived,
+.ic.listview.page-list.spills .list-item.cyan.actived {
+  background-color: #09b;
+  color: #fff; }
+.ic.listview.page-list.blocks .list-item.blue,
+.ic.listview.page-list.pills .list-item.blue,
+.ic.listview.page-list.spills .list-item.blue {
+  border: 1px solid #09f;
+  color: #09f; }
+.ic.listview.page-list.blocks .list-item.blue.actived,
+.ic.listview.page-list.pills .list-item.blue.actived,
+.ic.listview.page-list.spills .list-item.blue.actived {
+  background-color: #09f;
+  color: #fff; }
+.ic.listview.page-list.blocks .list-item.darkblue,
+.ic.listview.page-list.pills .list-item.darkblue,
+.ic.listview.page-list.spills .list-item.darkblue {
+  border: 1px solid #036;
+  color: #036; }
+.ic.listview.page-list.blocks .list-item.darkblue.actived,
+.ic.listview.page-list.pills .list-item.darkblue.actived,
+.ic.listview.page-list.spills .list-item.darkblue.actived {
+  background-color: #036;
+  color: #fff; }
+.ic.listview.page-list.blocks .list-item.purple,
+.ic.listview.page-list.pills .list-item.purple,
+.ic.listview.page-list.spills .list-item.purple {
+  border: 1px solid #c2a;
+  color: #c2a; }
+.ic.listview.page-list.blocks .list-item.purple.actived,
+.ic.listview.page-list.pills .list-item.purple.actived,
+.ic.listview.page-list.spills .list-item.purple.actived {
+  background-color: #c2a;
+  color: #fff; }
+.ic.listview.page-list.blocks .list-item.black,
+.ic.listview.page-list.pills .list-item.black,
+.ic.listview.page-list.spills .list-item.black {
+  border: 1px solid #000;
+  color: #000; }
+.ic.listview.page-list.blocks .list-item.black.actived,
+.ic.listview.page-list.pills .list-item.black.actived,
+.ic.listview.page-list.spills .list-item.black.actived {
+  background-color: #000;
+  color: #fff; }
+.ic.listview.page-list.blocks .list-item.lightgray,
+.ic.listview.page-list.pills .list-item.lightgray,
+.ic.listview.page-list.spills .list-item.lightgray {
+  border: 1px solid #ddd;
+  color: #ddd; }
+.ic.listview.page-list.blocks .list-item.lightgray.actived,
+.ic.listview.page-list.pills .list-item.lightgray.actived,
+.ic.listview.page-list.spills .list-item.lightgray.actived {
+  background-color: #ddd;
+  color: #fff; }
+.ic.listview.page-list.blocks .list-item.gray,
+.ic.listview.page-list.pills .list-item.gray,
+.ic.listview.page-list.spills .list-item.gray {
+  border: 1px solid #999;
+  color: #999; }
+.ic.listview.page-list.blocks .list-item.gray.actived,
+.ic.listview.page-list.pills .list-item.gray.actived,
+.ic.listview.page-list.spills .list-item.gray.actived {
+  background-color: #999;
+  color: #fff; }
+.ic.listview.page-list.blocks .list-item.dark-gray,
+.ic.listview.page-list.pills .list-item.dark-gray,
+.ic.listview.page-list.spills .list-item.dark-gray {
+  border: 1px solid #666;
+  color: #666; }
+.ic.listview.page-list.blocks .list-item.dark-gray.actived,
+.ic.listview.page-list.pills .list-item.dark-gray.actived,
+.ic.listview.page-list.spills .list-item.dark-gray.actived {
+  background-color: #666;
+  color: #fff; }
+.ic.listview.page-list.blocks .list-item.white,
+.ic.listview.page-list.pills .list-item.white,
+.ic.listview.page-list.spills .list-item.white {
+  border: 1px solid #fff;
+  color: #fff; }
+.ic.listview.page-list.blocks .list-item.white.actived,
+.ic.listview.page-list.pills .list-item.white.actived,
+.ic.listview.page-list.spills .list-item.white.actived {
+  background-color: #fff;
+  color: #fff; }
+
+.ic.listview.page-list.blocks.rounded .list-item {
+  border-radius: 3px; }
+
+.ic.listview.page-list.pills .list-item {
+  border-radius: 15px; }
+
+.ic.listview.page-list.spills .list-item {
+  margin: 4px 0;
+  padding: 0 6px;
+  border-radius: 10px; }
+
+.ic.listview.page-list.train .list-item {
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  border-top: 1px solid #999;
+  border-right: 1px solid #999;
+  border-bottom: 1px solid #999;
+  line-height: 20px;
+  padding: 5px 6px;
+  text-align: center;
+  color: #333; }
+.ic.listview.page-list.train .list-item:first-child {
+  border-left: 1px solid #999;
+  border-radius: 15px 0 0 15px;
+  padding: 5px 10px; }
+.ic.listview.page-list.train .list-item:last-child {
+  border-radius: 0 15px 15px 0;
+  padding: 5px 10px; }
+.ic.listview.page-list.train .list-item.actived {
+  background-color: #999;
+  color: #fff; }
+.ic.listview.page-list.train .list-item.red {
+  border-top: 1px solid #d23;
+  border-right: 1px solid #d23;
+  border-bottom: 1px solid #d23;
+  color: #d23; }
+.ic.listview.page-list.train .list-item.red:first-child {
+  border-left: 1px solid #d23; }
+.ic.listview.page-list.train .list-item.red.actived {
+  background-color: #d23;
+  color: #fff; }
+.ic.listview.page-list.train .list-item.darkred {
+  border-top: 1px solid #600;
+  border-right: 1px solid #600;
+  border-bottom: 1px solid #600;
+  color: #600; }
+.ic.listview.page-list.train .list-item.darkred:first-child {
+  border-left: 1px solid #600; }
+.ic.listview.page-list.train .list-item.darkred.actived {
+  background-color: #600;
+  color: #fff; }
+.ic.listview.page-list.train .list-item.orange {
+  border-top: 1px solid #f52;
+  border-right: 1px solid #f52;
+  border-bottom: 1px solid #f52;
+  color: #f52; }
+.ic.listview.page-list.train .list-item.orange:first-child {
+  border-left: 1px solid #f52; }
+.ic.listview.page-list.train .list-item.orange.actived {
+  background-color: #f52;
+  color: #fff; }
+.ic.listview.page-list.train .list-item.yellow {
+  border-top: 1px solid #ed2;
+  border-right: 1px solid #ed2;
+  border-bottom: 1px solid #ed2;
+  color: #ed2; }
+.ic.listview.page-list.train .list-item.yellow:first-child {
+  border-left: 1px solid #ed2; }
+.ic.listview.page-list.train .list-item.yellow.actived {
+  background-color: #ed2;
+  color: #fff; }
+.ic.listview.page-list.train .list-item.green {
+  border-top: 1px solid #2c4;
+  border-right: 1px solid #2c4;
+  border-bottom: 1px solid #2c4;
+  color: #2c4; }
+.ic.listview.page-list.train .list-item.green:first-child {
+  border-left: 1px solid #2c4; }
+.ic.listview.page-list.train .list-item.green.actived {
+  background-color: #2c4;
+  color: #fff; }
+.ic.listview.page-list.train .list-item.darkgreen {
+  border-top: 1px solid #363;
+  border-right: 1px solid #363;
+  border-bottom: 1px solid #363;
+  color: #363; }
+.ic.listview.page-list.train .list-item.darkgreen:first-child {
+  border-left: 1px solid #363; }
+.ic.listview.page-list.train .list-item.darkgreen.actived {
+  background-color: #363;
+  color: #fff; }
+.ic.listview.page-list.train .list-item.cyan {
+  border-top: 1px solid #09b;
+  border-right: 1px solid #09b;
+  border-bottom: 1px solid #09b;
+  color: #09b; }
+.ic.listview.page-list.train .list-item.cyan:first-child {
+  border-left: 1px solid #09b; }
+.ic.listview.page-list.train .list-item.cyan.actived {
+  background-color: #09b;
+  color: #fff; }
+.ic.listview.page-list.train .list-item.blue {
+  border-top: 1px solid #09f;
+  border-right: 1px solid #09f;
+  border-bottom: 1px solid #09f;
+  color: #09f; }
+.ic.listview.page-list.train .list-item.blue:first-child {
+  border-left: 1px solid #09f; }
+.ic.listview.page-list.train .list-item.blue.actived {
+  background-color: #09f;
+  color: #fff; }
+.ic.listview.page-list.train .list-item.darkblue {
+  border-top: 1px solid #036;
+  border-right: 1px solid #036;
+  border-bottom: 1px solid #036;
+  color: #036; }
+.ic.listview.page-list.train .list-item.darkblue:first-child {
+  border-left: 1px solid #036; }
+.ic.listview.page-list.train .list-item.darkblue.actived {
+  background-color: #036;
+  color: #fff; }
+.ic.listview.page-list.train .list-item.purple {
+  border-top: 1px solid #c2a;
+  border-right: 1px solid #c2a;
+  border-bottom: 1px solid #c2a;
+  color: #c2a; }
+.ic.listview.page-list.train .list-item.purple:first-child {
+  border-left: 1px solid #c2a; }
+.ic.listview.page-list.train .list-item.purple.actived {
+  background-color: #c2a;
+  color: #fff; }
+.ic.listview.page-list.train .list-item.black {
+  border-top: 1px solid #000;
+  border-right: 1px solid #000;
+  border-bottom: 1px solid #000;
+  color: #000; }
+.ic.listview.page-list.train .list-item.black:first-child {
+  border-left: 1px solid #000; }
+.ic.listview.page-list.train .list-item.black.actived {
+  background-color: #000;
+  color: #fff; }
+.ic.listview.page-list.train .list-item.lightgray {
+  border-top: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  color: #ddd; }
+.ic.listview.page-list.train .list-item.lightgray:first-child {
+  border-left: 1px solid #ddd; }
+.ic.listview.page-list.train .list-item.lightgray.actived {
+  background-color: #ddd;
+  color: #fff; }
+.ic.listview.page-list.train .list-item.gray {
+  border-top: 1px solid #999;
+  border-right: 1px solid #999;
+  border-bottom: 1px solid #999;
+  color: #999; }
+.ic.listview.page-list.train .list-item.gray:first-child {
+  border-left: 1px solid #999; }
+.ic.listview.page-list.train .list-item.gray.actived {
+  background-color: #999;
+  color: #fff; }
+.ic.listview.page-list.train .list-item.dark-gray {
+  border-top: 1px solid #666;
+  border-right: 1px solid #666;
+  border-bottom: 1px solid #666;
+  color: #666; }
+.ic.listview.page-list.train .list-item.dark-gray:first-child {
+  border-left: 1px solid #666; }
+.ic.listview.page-list.train .list-item.dark-gray.actived {
+  background-color: #666;
+  color: #fff; }
+.ic.listview.page-list.train .list-item.white {
+  border-top: 1px solid #fff;
+  border-right: 1px solid #fff;
+  border-bottom: 1px solid #fff;
+  color: #fff; }
+.ic.listview.page-list.train .list-item.white:first-child {
+  border-left: 1px solid #fff; }
+.ic.listview.page-list.train .list-item.white.actived {
+  background-color: #fff;
+  color: #fff; }
+
+.ic.listview.page-list.blocks.red .list-item,
+.ic.listview.page-list.pills.red .list-item,
+.ic.listview.page-list.spills.red .list-item {
+  border: 1px solid #d23;
+  color: #d23; }
+.ic.listview.page-list.blocks.red .list-item.actived,
+.ic.listview.page-list.pills.red .list-item.actived,
+.ic.listview.page-list.spills.red .list-item.actived {
+  background-color: #d23;
+  color: #fff; }
+
+.ic.listview.page-list.train.red .list-item {
+  border-top: 1px solid #d23;
+  border-right: 1px solid #d23;
+  border-bottom: 1px solid #d23;
+  color: #d23; }
+.ic.listview.page-list.train.red .list-item:first-child {
+  border-left: 1px solid #d23; }
+.ic.listview.page-list.train.red .list-item.actived {
+  background-color: #d23;
+  color: #fff; }
+
+.ic.listview.page-list.blocks.darkred .list-item,
+.ic.listview.page-list.pills.darkred .list-item,
+.ic.listview.page-list.spills.darkred .list-item {
+  border: 1px solid #600;
+  color: #600; }
+.ic.listview.page-list.blocks.darkred .list-item.actived,
+.ic.listview.page-list.pills.darkred .list-item.actived,
+.ic.listview.page-list.spills.darkred .list-item.actived {
+  background-color: #600;
+  color: #fff; }
+
+.ic.listview.page-list.train.darkred .list-item {
+  border-top: 1px solid #600;
+  border-right: 1px solid #600;
+  border-bottom: 1px solid #600;
+  color: #600; }
+.ic.listview.page-list.train.darkred .list-item:first-child {
+  border-left: 1px solid #600; }
+.ic.listview.page-list.train.darkred .list-item.actived {
+  background-color: #600;
+  color: #fff; }
+
+.ic.listview.page-list.blocks.orange .list-item,
+.ic.listview.page-list.pills.orange .list-item,
+.ic.listview.page-list.spills.orange .list-item {
+  border: 1px solid #f52;
+  color: #f52; }
+.ic.listview.page-list.blocks.orange .list-item.actived,
+.ic.listview.page-list.pills.orange .list-item.actived,
+.ic.listview.page-list.spills.orange .list-item.actived {
+  background-color: #f52;
+  color: #fff; }
+
+.ic.listview.page-list.train.orange .list-item {
+  border-top: 1px solid #f52;
+  border-right: 1px solid #f52;
+  border-bottom: 1px solid #f52;
+  color: #f52; }
+.ic.listview.page-list.train.orange .list-item:first-child {
+  border-left: 1px solid #f52; }
+.ic.listview.page-list.train.orange .list-item.actived {
+  background-color: #f52;
+  color: #fff; }
+
+.ic.listview.page-list.blocks.yellow .list-item,
+.ic.listview.page-list.pills.yellow .list-item,
+.ic.listview.page-list.spills.yellow .list-item {
+  border: 1px solid #ed2;
+  color: #ed2; }
+.ic.listview.page-list.blocks.yellow .list-item.actived,
+.ic.listview.page-list.pills.yellow .list-item.actived,
+.ic.listview.page-list.spills.yellow .list-item.actived {
+  background-color: #ed2;
+  color: #fff; }
+
+.ic.listview.page-list.train.yellow .list-item {
+  border-top: 1px solid #ed2;
+  border-right: 1px solid #ed2;
+  border-bottom: 1px solid #ed2;
+  color: #ed2; }
+.ic.listview.page-list.train.yellow .list-item:first-child {
+  border-left: 1px solid #ed2; }
+.ic.listview.page-list.train.yellow .list-item.actived {
+  background-color: #ed2;
+  color: #fff; }
+
+.ic.listview.page-list.blocks.green .list-item,
+.ic.listview.page-list.pills.green .list-item,
+.ic.listview.page-list.spills.green .list-item {
+  border: 1px solid #2c4;
+  color: #2c4; }
+.ic.listview.page-list.blocks.green .list-item.actived,
+.ic.listview.page-list.pills.green .list-item.actived,
+.ic.listview.page-list.spills.green .list-item.actived {
+  background-color: #2c4;
+  color: #fff; }
+
+.ic.listview.page-list.train.green .list-item {
+  border-top: 1px solid #2c4;
+  border-right: 1px solid #2c4;
+  border-bottom: 1px solid #2c4;
+  color: #2c4; }
+.ic.listview.page-list.train.green .list-item:first-child {
+  border-left: 1px solid #2c4; }
+.ic.listview.page-list.train.green .list-item.actived {
+  background-color: #2c4;
+  color: #fff; }
+
+.ic.listview.page-list.blocks.darkgreen .list-item,
+.ic.listview.page-list.pills.darkgreen .list-item,
+.ic.listview.page-list.spills.darkgreen .list-item {
+  border: 1px solid #363;
+  color: #363; }
+.ic.listview.page-list.blocks.darkgreen .list-item.actived,
+.ic.listview.page-list.pills.darkgreen .list-item.actived,
+.ic.listview.page-list.spills.darkgreen .list-item.actived {
+  background-color: #363;
+  color: #fff; }
+
+.ic.listview.page-list.train.darkgreen .list-item {
+  border-top: 1px solid #363;
+  border-right: 1px solid #363;
+  border-bottom: 1px solid #363;
+  color: #363; }
+.ic.listview.page-list.train.darkgreen .list-item:first-child {
+  border-left: 1px solid #363; }
+.ic.listview.page-list.train.darkgreen .list-item.actived {
+  background-color: #363;
+  color: #fff; }
+
+.ic.listview.page-list.blocks.cyan .list-item,
+.ic.listview.page-list.pills.cyan .list-item,
+.ic.listview.page-list.spills.cyan .list-item {
+  border: 1px solid #09b;
+  color: #09b; }
+.ic.listview.page-list.blocks.cyan .list-item.actived,
+.ic.listview.page-list.pills.cyan .list-item.actived,
+.ic.listview.page-list.spills.cyan .list-item.actived {
+  background-color: #09b;
+  color: #fff; }
+
+.ic.listview.page-list.train.cyan .list-item {
+  border-top: 1px solid #09b;
+  border-right: 1px solid #09b;
+  border-bottom: 1px solid #09b;
+  color: #09b; }
+.ic.listview.page-list.train.cyan .list-item:first-child {
+  border-left: 1px solid #09b; }
+.ic.listview.page-list.train.cyan .list-item.actived {
+  background-color: #09b;
+  color: #fff; }
+
+.ic.listview.page-list.blocks.blue .list-item,
+.ic.listview.page-list.pills.blue .list-item,
+.ic.listview.page-list.spills.blue .list-item {
+  border: 1px solid #09f;
+  color: #09f; }
+.ic.listview.page-list.blocks.blue .list-item.actived,
+.ic.listview.page-list.pills.blue .list-item.actived,
+.ic.listview.page-list.spills.blue .list-item.actived {
+  background-color: #09f;
+  color: #fff; }
+
+.ic.listview.page-list.train.blue .list-item {
+  border-top: 1px solid #09f;
+  border-right: 1px solid #09f;
+  border-bottom: 1px solid #09f;
+  color: #09f; }
+.ic.listview.page-list.train.blue .list-item:first-child {
+  border-left: 1px solid #09f; }
+.ic.listview.page-list.train.blue .list-item.actived {
+  background-color: #09f;
+  color: #fff; }
+
+.ic.listview.page-list.blocks.darkblue .list-item,
+.ic.listview.page-list.pills.darkblue .list-item,
+.ic.listview.page-list.spills.darkblue .list-item {
+  border: 1px solid #036;
+  color: #036; }
+.ic.listview.page-list.blocks.darkblue .list-item.actived,
+.ic.listview.page-list.pills.darkblue .list-item.actived,
+.ic.listview.page-list.spills.darkblue .list-item.actived {
+  background-color: #036;
+  color: #fff; }
+
+.ic.listview.page-list.train.darkblue .list-item {
+  border-top: 1px solid #036;
+  border-right: 1px solid #036;
+  border-bottom: 1px solid #036;
+  color: #036; }
+.ic.listview.page-list.train.darkblue .list-item:first-child {
+  border-left: 1px solid #036; }
+.ic.listview.page-list.train.darkblue .list-item.actived {
+  background-color: #036;
+  color: #fff; }
+
+.ic.listview.page-list.blocks.purple .list-item,
+.ic.listview.page-list.pills.purple .list-item,
+.ic.listview.page-list.spills.purple .list-item {
+  border: 1px solid #c2a;
+  color: #c2a; }
+.ic.listview.page-list.blocks.purple .list-item.actived,
+.ic.listview.page-list.pills.purple .list-item.actived,
+.ic.listview.page-list.spills.purple .list-item.actived {
+  background-color: #c2a;
+  color: #fff; }
+
+.ic.listview.page-list.train.purple .list-item {
+  border-top: 1px solid #c2a;
+  border-right: 1px solid #c2a;
+  border-bottom: 1px solid #c2a;
+  color: #c2a; }
+.ic.listview.page-list.train.purple .list-item:first-child {
+  border-left: 1px solid #c2a; }
+.ic.listview.page-list.train.purple .list-item.actived {
+  background-color: #c2a;
+  color: #fff; }
+
+.ic.listview.page-list.blocks.black .list-item,
+.ic.listview.page-list.pills.black .list-item,
+.ic.listview.page-list.spills.black .list-item {
+  border: 1px solid #000;
+  color: #000; }
+.ic.listview.page-list.blocks.black .list-item.actived,
+.ic.listview.page-list.pills.black .list-item.actived,
+.ic.listview.page-list.spills.black .list-item.actived {
+  background-color: #000;
+  color: #fff; }
+
+.ic.listview.page-list.train.black .list-item {
+  border-top: 1px solid #000;
+  border-right: 1px solid #000;
+  border-bottom: 1px solid #000;
+  color: #000; }
+.ic.listview.page-list.train.black .list-item:first-child {
+  border-left: 1px solid #000; }
+.ic.listview.page-list.train.black .list-item.actived {
+  background-color: #000;
+  color: #fff; }
+
+.ic.listview.page-list.blocks.lightgray .list-item,
+.ic.listview.page-list.pills.lightgray .list-item,
+.ic.listview.page-list.spills.lightgray .list-item {
+  border: 1px solid #ddd;
+  color: #ddd; }
+.ic.listview.page-list.blocks.lightgray .list-item.actived,
+.ic.listview.page-list.pills.lightgray .list-item.actived,
+.ic.listview.page-list.spills.lightgray .list-item.actived {
+  background-color: #ddd;
+  color: #fff; }
+
+.ic.listview.page-list.train.lightgray .list-item {
+  border-top: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  color: #ddd; }
+.ic.listview.page-list.train.lightgray .list-item:first-child {
+  border-left: 1px solid #ddd; }
+.ic.listview.page-list.train.lightgray .list-item.actived {
+  background-color: #ddd;
+  color: #fff; }
+
+.ic.listview.page-list.blocks.gray .list-item,
+.ic.listview.page-list.pills.gray .list-item,
+.ic.listview.page-list.spills.gray .list-item {
+  border: 1px solid #999;
+  color: #999; }
+.ic.listview.page-list.blocks.gray .list-item.actived,
+.ic.listview.page-list.pills.gray .list-item.actived,
+.ic.listview.page-list.spills.gray .list-item.actived {
+  background-color: #999;
+  color: #fff; }
+
+.ic.listview.page-list.train.gray .list-item {
+  border-top: 1px solid #999;
+  border-right: 1px solid #999;
+  border-bottom: 1px solid #999;
+  color: #999; }
+.ic.listview.page-list.train.gray .list-item:first-child {
+  border-left: 1px solid #999; }
+.ic.listview.page-list.train.gray .list-item.actived {
+  background-color: #999;
+  color: #fff; }
+
+.ic.listview.page-list.blocks.dark-gray .list-item,
+.ic.listview.page-list.pills.dark-gray .list-item,
+.ic.listview.page-list.spills.dark-gray .list-item {
+  border: 1px solid #666;
+  color: #666; }
+.ic.listview.page-list.blocks.dark-gray .list-item.actived,
+.ic.listview.page-list.pills.dark-gray .list-item.actived,
+.ic.listview.page-list.spills.dark-gray .list-item.actived {
+  background-color: #666;
+  color: #fff; }
+
+.ic.listview.page-list.train.dark-gray .list-item {
+  border-top: 1px solid #666;
+  border-right: 1px solid #666;
+  border-bottom: 1px solid #666;
+  color: #666; }
+.ic.listview.page-list.train.dark-gray .list-item:first-child {
+  border-left: 1px solid #666; }
+.ic.listview.page-list.train.dark-gray .list-item.actived {
+  background-color: #666;
+  color: #fff; }
+
+.ic.listview.page-list.blocks.white .list-item,
+.ic.listview.page-list.pills.white .list-item,
+.ic.listview.page-list.spills.white .list-item {
+  border: 1px solid #fff;
+  color: #fff; }
+.ic.listview.page-list.blocks.white .list-item.actived,
+.ic.listview.page-list.pills.white .list-item.actived,
+.ic.listview.page-list.spills.white .list-item.actived {
+  background-color: #fff;
+  color: #fff; }
+
+.ic.listview.page-list.train.white .list-item {
+  border-top: 1px solid #fff;
+  border-right: 1px solid #fff;
+  border-bottom: 1px solid #fff;
+  color: #fff; }
+.ic.listview.page-list.train.white .list-item:first-child {
+  border-left: 1px solid #fff; }
+.ic.listview.page-list.train.white .list-item.actived {
+  background-color: #fff;
+  color: #fff; }
+
+/****************
+/*	Tags List
+/************************************************/
+.ic.listview.tags-list {
+  margin: 10px auto;
+  font-size: 0;
+  text-align: left; }
+  .ic.listview.tags-list .list-item {
+    display: inline-table;
+    width: 20px;
+    height: 20px;
+    margin: 5px;
+    font-size: 13px;
+    cursor: pointer;
+    color: #333; }
+    .ic.listview.tags-list .list-item > i,
+    .ic.listview.tags-list .list-item > i.list-tips {
+      margin-left: 3px;
+      padding: 0 6px;
+      border-radius: 9px;
+      background-color: #999;
+      line-height: 18px;
+      font-size: 12px;
+      color: #fff; }
+  .ic.listview.tags-list .list-item.selected {
+    color: #0cf; }
+    .ic.listview.tags-list .list-item.selected > i,
+    .ic.listview.tags-list .list-item.selected > i.list-tips {
+      background-color: #0cf; }
+
+.ic.listview.tags-list.al-center {
+  text-align: center; }
+
+.ic.listview.tags-list.al-right {
+  text-align: right; }
+
+.ic.listview.tags-list.blocks .list-item,
+.ic.listview.tags-list.pills .list-item {
+  border: 1px solid #999;
+  line-height: 20px;
+  padding: 3px 10px;
+  text-align: center;
+  color: #333; }
+.ic.listview.tags-list.blocks .list-item.selected,
+.ic.listview.tags-list.pills .list-item.selected {
+  background-color: #999;
+  color: #fff; }
+  .ic.listview.tags-list.blocks .list-item.selected > i,
+  .ic.listview.tags-list.blocks .list-item.selected > i.list-tips,
+  .ic.listview.tags-list.pills .list-item.selected > i,
+  .ic.listview.tags-list.pills .list-item.selected > i.list-tips {
+    background-color: #fff;
+    color: #999; }
+.ic.listview.tags-list.blocks .list-item.red,
+.ic.listview.tags-list.pills .list-item.red {
+  border: 1px solid #d23;
+  color: #d23; }
+  .ic.listview.tags-list.blocks .list-item.red > i,
+  .ic.listview.tags-list.blocks .list-item.red > i.list-tips,
+  .ic.listview.tags-list.pills .list-item.red > i,
+  .ic.listview.tags-list.pills .list-item.red > i.list-tips {
+    background-color: #d23;
+    color: #fff; }
+.ic.listview.tags-list.blocks .list-item.red.selected,
+.ic.listview.tags-list.pills .list-item.red.selected {
+  background-color: #d23;
+  color: #fff; }
+  .ic.listview.tags-list.blocks .list-item.red.selected > i,
+  .ic.listview.tags-list.blocks .list-item.red.selected > i.list-tips,
+  .ic.listview.tags-list.pills .list-item.red.selected > i,
+  .ic.listview.tags-list.pills .list-item.red.selected > i.list-tips {
+    background-color: #fff;
+    color: #0cf; }
+.ic.listview.tags-list.blocks .list-item.darkred,
+.ic.listview.tags-list.pills .list-item.darkred {
+  border: 1px solid #600;
+  color: #600; }
+  .ic.listview.tags-list.blocks .list-item.darkred > i,
+  .ic.listview.tags-list.blocks .list-item.darkred > i.list-tips,
+  .ic.listview.tags-list.pills .list-item.darkred > i,
+  .ic.listview.tags-list.pills .list-item.darkred > i.list-tips {
+    background-color: #600;
+    color: #fff; }
+.ic.listview.tags-list.blocks .list-item.darkred.selected,
+.ic.listview.tags-list.pills .list-item.darkred.selected {
+  background-color: #600;
+  color: #fff; }
+  .ic.listview.tags-list.blocks .list-item.darkred.selected > i,
+  .ic.listview.tags-list.blocks .list-item.darkred.selected > i.list-tips,
+  .ic.listview.tags-list.pills .list-item.darkred.selected > i,
+  .ic.listview.tags-list.pills .list-item.darkred.selected > i.list-tips {
+    background-color: #fff;
+    color: #0cf; }
+.ic.listview.tags-list.blocks .list-item.orange,
+.ic.listview.tags-list.pills .list-item.orange {
+  border: 1px solid #f52;
+  color: #f52; }
+  .ic.listview.tags-list.blocks .list-item.orange > i,
+  .ic.listview.tags-list.blocks .list-item.orange > i.list-tips,
+  .ic.listview.tags-list.pills .list-item.orange > i,
+  .ic.listview.tags-list.pills .list-item.orange > i.list-tips {
+    background-color: #f52;
+    color: #fff; }
+.ic.listview.tags-list.blocks .list-item.orange.selected,
+.ic.listview.tags-list.pills .list-item.orange.selected {
+  background-color: #f52;
+  color: #fff; }
+  .ic.listview.tags-list.blocks .list-item.orange.selected > i,
+  .ic.listview.tags-list.blocks .list-item.orange.selected > i.list-tips,
+  .ic.listview.tags-list.pills .list-item.orange.selected > i,
+  .ic.listview.tags-list.pills .list-item.orange.selected > i.list-tips {
+    background-color: #fff;
+    color: #0cf; }
+.ic.listview.tags-list.blocks .list-item.yellow,
+.ic.listview.tags-list.pills .list-item.yellow {
+  border: 1px solid #ed2;
+  color: #ed2; }
+  .ic.listview.tags-list.blocks .list-item.yellow > i,
+  .ic.listview.tags-list.blocks .list-item.yellow > i.list-tips,
+  .ic.listview.tags-list.pills .list-item.yellow > i,
+  .ic.listview.tags-list.pills .list-item.yellow > i.list-tips {
+    background-color: #ed2;
+    color: #fff; }
+.ic.listview.tags-list.blocks .list-item.yellow.selected,
+.ic.listview.tags-list.pills .list-item.yellow.selected {
+  background-color: #ed2;
+  color: #fff; }
+  .ic.listview.tags-list.blocks .list-item.yellow.selected > i,
+  .ic.listview.tags-list.blocks .list-item.yellow.selected > i.list-tips,
+  .ic.listview.tags-list.pills .list-item.yellow.selected > i,
+  .ic.listview.tags-list.pills .list-item.yellow.selected > i.list-tips {
+    background-color: #fff;
+    color: #0cf; }
+.ic.listview.tags-list.blocks .list-item.green,
+.ic.listview.tags-list.pills .list-item.green {
+  border: 1px solid #2c4;
+  color: #2c4; }
+  .ic.listview.tags-list.blocks .list-item.green > i,
+  .ic.listview.tags-list.blocks .list-item.green > i.list-tips,
+  .ic.listview.tags-list.pills .list-item.green > i,
+  .ic.listview.tags-list.pills .list-item.green > i.list-tips {
+    background-color: #2c4;
+    color: #fff; }
+.ic.listview.tags-list.blocks .list-item.green.selected,
+.ic.listview.tags-list.pills .list-item.green.selected {
+  background-color: #2c4;
+  color: #fff; }
+  .ic.listview.tags-list.blocks .list-item.green.selected > i,
+  .ic.listview.tags-list.blocks .list-item.green.selected > i.list-tips,
+  .ic.listview.tags-list.pills .list-item.green.selected > i,
+  .ic.listview.tags-list.pills .list-item.green.selected > i.list-tips {
+    background-color: #fff;
+    color: #0cf; }
+.ic.listview.tags-list.blocks .list-item.darkgreen,
+.ic.listview.tags-list.pills .list-item.darkgreen {
+  border: 1px solid #363;
+  color: #363; }
+  .ic.listview.tags-list.blocks .list-item.darkgreen > i,
+  .ic.listview.tags-list.blocks .list-item.darkgreen > i.list-tips,
+  .ic.listview.tags-list.pills .list-item.darkgreen > i,
+  .ic.listview.tags-list.pills .list-item.darkgreen > i.list-tips {
+    background-color: #363;
+    color: #fff; }
+.ic.listview.tags-list.blocks .list-item.darkgreen.selected,
+.ic.listview.tags-list.pills .list-item.darkgreen.selected {
+  background-color: #363;
+  color: #fff; }
+  .ic.listview.tags-list.blocks .list-item.darkgreen.selected > i,
+  .ic.listview.tags-list.blocks .list-item.darkgreen.selected > i.list-tips,
+  .ic.listview.tags-list.pills .list-item.darkgreen.selected > i,
+  .ic.listview.tags-list.pills .list-item.darkgreen.selected > i.list-tips {
+    background-color: #fff;
+    color: #0cf; }
+.ic.listview.tags-list.blocks .list-item.cyan,
+.ic.listview.tags-list.pills .list-item.cyan {
+  border: 1px solid #09b;
+  color: #09b; }
+  .ic.listview.tags-list.blocks .list-item.cyan > i,
+  .ic.listview.tags-list.blocks .list-item.cyan > i.list-tips,
+  .ic.listview.tags-list.pills .list-item.cyan > i,
+  .ic.listview.tags-list.pills .list-item.cyan > i.list-tips {
+    background-color: #09b;
+    color: #fff; }
+.ic.listview.tags-list.blocks .list-item.cyan.selected,
+.ic.listview.tags-list.pills .list-item.cyan.selected {
+  background-color: #09b;
+  color: #fff; }
+  .ic.listview.tags-list.blocks .list-item.cyan.selected > i,
+  .ic.listview.tags-list.blocks .list-item.cyan.selected > i.list-tips,
+  .ic.listview.tags-list.pills .list-item.cyan.selected > i,
+  .ic.listview.tags-list.pills .list-item.cyan.selected > i.list-tips {
+    background-color: #fff;
+    color: #0cf; }
+.ic.listview.tags-list.blocks .list-item.blue,
+.ic.listview.tags-list.pills .list-item.blue {
+  border: 1px solid #09f;
+  color: #09f; }
+  .ic.listview.tags-list.blocks .list-item.blue > i,
+  .ic.listview.tags-list.blocks .list-item.blue > i.list-tips,
+  .ic.listview.tags-list.pills .list-item.blue > i,
+  .ic.listview.tags-list.pills .list-item.blue > i.list-tips {
+    background-color: #09f;
+    color: #fff; }
+.ic.listview.tags-list.blocks .list-item.blue.selected,
+.ic.listview.tags-list.pills .list-item.blue.selected {
+  background-color: #09f;
+  color: #fff; }
+  .ic.listview.tags-list.blocks .list-item.blue.selected > i,
+  .ic.listview.tags-list.blocks .list-item.blue.selected > i.list-tips,
+  .ic.listview.tags-list.pills .list-item.blue.selected > i,
+  .ic.listview.tags-list.pills .list-item.blue.selected > i.list-tips {
+    background-color: #fff;
+    color: #0cf; }
+.ic.listview.tags-list.blocks .list-item.darkblue,
+.ic.listview.tags-list.pills .list-item.darkblue {
+  border: 1px solid #036;
+  color: #036; }
+  .ic.listview.tags-list.blocks .list-item.darkblue > i,
+  .ic.listview.tags-list.blocks .list-item.darkblue > i.list-tips,
+  .ic.listview.tags-list.pills .list-item.darkblue > i,
+  .ic.listview.tags-list.pills .list-item.darkblue > i.list-tips {
+    background-color: #036;
+    color: #fff; }
+.ic.listview.tags-list.blocks .list-item.darkblue.selected,
+.ic.listview.tags-list.pills .list-item.darkblue.selected {
+  background-color: #036;
+  color: #fff; }
+  .ic.listview.tags-list.blocks .list-item.darkblue.selected > i,
+  .ic.listview.tags-list.blocks .list-item.darkblue.selected > i.list-tips,
+  .ic.listview.tags-list.pills .list-item.darkblue.selected > i,
+  .ic.listview.tags-list.pills .list-item.darkblue.selected > i.list-tips {
+    background-color: #fff;
+    color: #0cf; }
+.ic.listview.tags-list.blocks .list-item.purple,
+.ic.listview.tags-list.pills .list-item.purple {
+  border: 1px solid #c2a;
+  color: #c2a; }
+  .ic.listview.tags-list.blocks .list-item.purple > i,
+  .ic.listview.tags-list.blocks .list-item.purple > i.list-tips,
+  .ic.listview.tags-list.pills .list-item.purple > i,
+  .ic.listview.tags-list.pills .list-item.purple > i.list-tips {
+    background-color: #c2a;
+    color: #fff; }
+.ic.listview.tags-list.blocks .list-item.purple.selected,
+.ic.listview.tags-list.pills .list-item.purple.selected {
+  background-color: #c2a;
+  color: #fff; }
+  .ic.listview.tags-list.blocks .list-item.purple.selected > i,
+  .ic.listview.tags-list.blocks .list-item.purple.selected > i.list-tips,
+  .ic.listview.tags-list.pills .list-item.purple.selected > i,
+  .ic.listview.tags-list.pills .list-item.purple.selected > i.list-tips {
+    background-color: #fff;
+    color: #0cf; }
+.ic.listview.tags-list.blocks .list-item.black,
+.ic.listview.tags-list.pills .list-item.black {
+  border: 1px solid #000;
+  color: #000; }
+  .ic.listview.tags-list.blocks .list-item.black > i,
+  .ic.listview.tags-list.blocks .list-item.black > i.list-tips,
+  .ic.listview.tags-list.pills .list-item.black > i,
+  .ic.listview.tags-list.pills .list-item.black > i.list-tips {
+    background-color: #000;
+    color: #fff; }
+.ic.listview.tags-list.blocks .list-item.black.selected,
+.ic.listview.tags-list.pills .list-item.black.selected {
+  background-color: #000;
+  color: #fff; }
+  .ic.listview.tags-list.blocks .list-item.black.selected > i,
+  .ic.listview.tags-list.blocks .list-item.black.selected > i.list-tips,
+  .ic.listview.tags-list.pills .list-item.black.selected > i,
+  .ic.listview.tags-list.pills .list-item.black.selected > i.list-tips {
+    background-color: #fff;
+    color: #0cf; }
+.ic.listview.tags-list.blocks .list-item.lightgray,
+.ic.listview.tags-list.pills .list-item.lightgray {
+  border: 1px solid #ddd;
+  color: #ddd; }
+  .ic.listview.tags-list.blocks .list-item.lightgray > i,
+  .ic.listview.tags-list.blocks .list-item.lightgray > i.list-tips,
+  .ic.listview.tags-list.pills .list-item.lightgray > i,
+  .ic.listview.tags-list.pills .list-item.lightgray > i.list-tips {
+    background-color: #ddd;
+    color: #fff; }
+.ic.listview.tags-list.blocks .list-item.lightgray.selected,
+.ic.listview.tags-list.pills .list-item.lightgray.selected {
+  background-color: #ddd;
+  color: #fff; }
+  .ic.listview.tags-list.blocks .list-item.lightgray.selected > i,
+  .ic.listview.tags-list.blocks .list-item.lightgray.selected > i.list-tips,
+  .ic.listview.tags-list.pills .list-item.lightgray.selected > i,
+  .ic.listview.tags-list.pills .list-item.lightgray.selected > i.list-tips {
+    background-color: #fff;
+    color: #0cf; }
+.ic.listview.tags-list.blocks .list-item.gray,
+.ic.listview.tags-list.pills .list-item.gray {
+  border: 1px solid #999;
+  color: #999; }
+  .ic.listview.tags-list.blocks .list-item.gray > i,
+  .ic.listview.tags-list.blocks .list-item.gray > i.list-tips,
+  .ic.listview.tags-list.pills .list-item.gray > i,
+  .ic.listview.tags-list.pills .list-item.gray > i.list-tips {
+    background-color: #999;
+    color: #fff; }
+.ic.listview.tags-list.blocks .list-item.gray.selected,
+.ic.listview.tags-list.pills .list-item.gray.selected {
+  background-color: #999;
+  color: #fff; }
+  .ic.listview.tags-list.blocks .list-item.gray.selected > i,
+  .ic.listview.tags-list.blocks .list-item.gray.selected > i.list-tips,
+  .ic.listview.tags-list.pills .list-item.gray.selected > i,
+  .ic.listview.tags-list.pills .list-item.gray.selected > i.list-tips {
+    background-color: #fff;
+    color: #0cf; }
+.ic.listview.tags-list.blocks .list-item.dark-gray,
+.ic.listview.tags-list.pills .list-item.dark-gray {
+  border: 1px solid #666;
+  color: #666; }
+  .ic.listview.tags-list.blocks .list-item.dark-gray > i,
+  .ic.listview.tags-list.blocks .list-item.dark-gray > i.list-tips,
+  .ic.listview.tags-list.pills .list-item.dark-gray > i,
+  .ic.listview.tags-list.pills .list-item.dark-gray > i.list-tips {
+    background-color: #666;
+    color: #fff; }
+.ic.listview.tags-list.blocks .list-item.dark-gray.selected,
+.ic.listview.tags-list.pills .list-item.dark-gray.selected {
+  background-color: #666;
+  color: #fff; }
+  .ic.listview.tags-list.blocks .list-item.dark-gray.selected > i,
+  .ic.listview.tags-list.blocks .list-item.dark-gray.selected > i.list-tips,
+  .ic.listview.tags-list.pills .list-item.dark-gray.selected > i,
+  .ic.listview.tags-list.pills .list-item.dark-gray.selected > i.list-tips {
+    background-color: #fff;
+    color: #0cf; }
+.ic.listview.tags-list.blocks .list-item.white,
+.ic.listview.tags-list.pills .list-item.white {
+  border: 1px solid #fff;
+  color: #fff; }
+  .ic.listview.tags-list.blocks .list-item.white > i,
+  .ic.listview.tags-list.blocks .list-item.white > i.list-tips,
+  .ic.listview.tags-list.pills .list-item.white > i,
+  .ic.listview.tags-list.pills .list-item.white > i.list-tips {
+    background-color: #fff;
+    color: #fff; }
+.ic.listview.tags-list.blocks .list-item.white.selected,
+.ic.listview.tags-list.pills .list-item.white.selected {
+  background-color: #fff;
+  color: #fff; }
+  .ic.listview.tags-list.blocks .list-item.white.selected > i,
+  .ic.listview.tags-list.blocks .list-item.white.selected > i.list-tips,
+  .ic.listview.tags-list.pills .list-item.white.selected > i,
+  .ic.listview.tags-list.pills .list-item.white.selected > i.list-tips {
+    background-color: #fff;
+    color: #0cf; }
+
+.ic.listview.tags-list.blocks.rounded .list-item {
+  border-radius: 3px; }
+
+.ic.listview.tags-list.pills .list-item {
+  border-radius: 13px; }
+
+.ic.listview.tags-list.blocks.red .list-item,
+.ic.listview.tags-list.pills.red .list-item {
+  border: 1px solid #d23;
+  color: #d23; }
+  .ic.listview.tags-list.blocks.red .list-item > i,
+  .ic.listview.tags-list.blocks.red .list-item > i.list-tips,
+  .ic.listview.tags-list.pills.red .list-item > i,
+  .ic.listview.tags-list.pills.red .list-item > i.list-tips {
+    background-color: #d23;
+    color: #fff; }
+.ic.listview.tags-list.blocks.red .list-item.selected,
+.ic.listview.tags-list.pills.red .list-item.selected {
+  background-color: #d23;
+  color: #fff; }
+  .ic.listview.tags-list.blocks.red .list-item.selected > i,
+  .ic.listview.tags-list.blocks.red .list-item.selected > i.list-tips,
+  .ic.listview.tags-list.pills.red .list-item.selected > i,
+  .ic.listview.tags-list.pills.red .list-item.selected > i.list-tips {
+    background-color: #fff;
+    color: #0cf; }
+
+.ic.listview.tags-list.blocks.darkred .list-item,
+.ic.listview.tags-list.pills.darkred .list-item {
+  border: 1px solid #600;
+  color: #600; }
+  .ic.listview.tags-list.blocks.darkred .list-item > i,
+  .ic.listview.tags-list.blocks.darkred .list-item > i.list-tips,
+  .ic.listview.tags-list.pills.darkred .list-item > i,
+  .ic.listview.tags-list.pills.darkred .list-item > i.list-tips {
+    background-color: #600;
+    color: #fff; }
+.ic.listview.tags-list.blocks.darkred .list-item.selected,
+.ic.listview.tags-list.pills.darkred .list-item.selected {
+  background-color: #600;
+  color: #fff; }
+  .ic.listview.tags-list.blocks.darkred .list-item.selected > i,
+  .ic.listview.tags-list.blocks.darkred .list-item.selected > i.list-tips,
+  .ic.listview.tags-list.pills.darkred .list-item.selected > i,
+  .ic.listview.tags-list.pills.darkred .list-item.selected > i.list-tips {
+    background-color: #fff;
+    color: #0cf; }
+
+.ic.listview.tags-list.blocks.orange .list-item,
+.ic.listview.tags-list.pills.orange .list-item {
+  border: 1px solid #f52;
+  color: #f52; }
+  .ic.listview.tags-list.blocks.orange .list-item > i,
+  .ic.listview.tags-list.blocks.orange .list-item > i.list-tips,
+  .ic.listview.tags-list.pills.orange .list-item > i,
+  .ic.listview.tags-list.pills.orange .list-item > i.list-tips {
+    background-color: #f52;
+    color: #fff; }
+.ic.listview.tags-list.blocks.orange .list-item.selected,
+.ic.listview.tags-list.pills.orange .list-item.selected {
+  background-color: #f52;
+  color: #fff; }
+  .ic.listview.tags-list.blocks.orange .list-item.selected > i,
+  .ic.listview.tags-list.blocks.orange .list-item.selected > i.list-tips,
+  .ic.listview.tags-list.pills.orange .list-item.selected > i,
+  .ic.listview.tags-list.pills.orange .list-item.selected > i.list-tips {
+    background-color: #fff;
+    color: #0cf; }
+
+.ic.listview.tags-list.blocks.yellow .list-item,
+.ic.listview.tags-list.pills.yellow .list-item {
+  border: 1px solid #ed2;
+  color: #ed2; }
+  .ic.listview.tags-list.blocks.yellow .list-item > i,
+  .ic.listview.tags-list.blocks.yellow .list-item > i.list-tips,
+  .ic.listview.tags-list.pills.yellow .list-item > i,
+  .ic.listview.tags-list.pills.yellow .list-item > i.list-tips {
+    background-color: #ed2;
+    color: #fff; }
+.ic.listview.tags-list.blocks.yellow .list-item.selected,
+.ic.listview.tags-list.pills.yellow .list-item.selected {
+  background-color: #ed2;
+  color: #fff; }
+  .ic.listview.tags-list.blocks.yellow .list-item.selected > i,
+  .ic.listview.tags-list.blocks.yellow .list-item.selected > i.list-tips,
+  .ic.listview.tags-list.pills.yellow .list-item.selected > i,
+  .ic.listview.tags-list.pills.yellow .list-item.selected > i.list-tips {
+    background-color: #fff;
+    color: #0cf; }
+
+.ic.listview.tags-list.blocks.green .list-item,
+.ic.listview.tags-list.pills.green .list-item {
+  border: 1px solid #2c4;
+  color: #2c4; }
+  .ic.listview.tags-list.blocks.green .list-item > i,
+  .ic.listview.tags-list.blocks.green .list-item > i.list-tips,
+  .ic.listview.tags-list.pills.green .list-item > i,
+  .ic.listview.tags-list.pills.green .list-item > i.list-tips {
+    background-color: #2c4;
+    color: #fff; }
+.ic.listview.tags-list.blocks.green .list-item.selected,
+.ic.listview.tags-list.pills.green .list-item.selected {
+  background-color: #2c4;
+  color: #fff; }
+  .ic.listview.tags-list.blocks.green .list-item.selected > i,
+  .ic.listview.tags-list.blocks.green .list-item.selected > i.list-tips,
+  .ic.listview.tags-list.pills.green .list-item.selected > i,
+  .ic.listview.tags-list.pills.green .list-item.selected > i.list-tips {
+    background-color: #fff;
+    color: #0cf; }
+
+.ic.listview.tags-list.blocks.darkgreen .list-item,
+.ic.listview.tags-list.pills.darkgreen .list-item {
+  border: 1px solid #363;
+  color: #363; }
+  .ic.listview.tags-list.blocks.darkgreen .list-item > i,
+  .ic.listview.tags-list.blocks.darkgreen .list-item > i.list-tips,
+  .ic.listview.tags-list.pills.darkgreen .list-item > i,
+  .ic.listview.tags-list.pills.darkgreen .list-item > i.list-tips {
+    background-color: #363;
+    color: #fff; }
+.ic.listview.tags-list.blocks.darkgreen .list-item.selected,
+.ic.listview.tags-list.pills.darkgreen .list-item.selected {
+  background-color: #363;
+  color: #fff; }
+  .ic.listview.tags-list.blocks.darkgreen .list-item.selected > i,
+  .ic.listview.tags-list.blocks.darkgreen .list-item.selected > i.list-tips,
+  .ic.listview.tags-list.pills.darkgreen .list-item.selected > i,
+  .ic.listview.tags-list.pills.darkgreen .list-item.selected > i.list-tips {
+    background-color: #fff;
+    color: #0cf; }
+
+.ic.listview.tags-list.blocks.cyan .list-item,
+.ic.listview.tags-list.pills.cyan .list-item {
+  border: 1px solid #09b;
+  color: #09b; }
+  .ic.listview.tags-list.blocks.cyan .list-item > i,
+  .ic.listview.tags-list.blocks.cyan .list-item > i.list-tips,
+  .ic.listview.tags-list.pills.cyan .list-item > i,
+  .ic.listview.tags-list.pills.cyan .list-item > i.list-tips {
+    background-color: #09b;
+    color: #fff; }
+.ic.listview.tags-list.blocks.cyan .list-item.selected,
+.ic.listview.tags-list.pills.cyan .list-item.selected {
+  background-color: #09b;
+  color: #fff; }
+  .ic.listview.tags-list.blocks.cyan .list-item.selected > i,
+  .ic.listview.tags-list.blocks.cyan .list-item.selected > i.list-tips,
+  .ic.listview.tags-list.pills.cyan .list-item.selected > i,
+  .ic.listview.tags-list.pills.cyan .list-item.selected > i.list-tips {
+    background-color: #fff;
+    color: #0cf; }
+
+.ic.listview.tags-list.blocks.blue .list-item,
+.ic.listview.tags-list.pills.blue .list-item {
+  border: 1px solid #09f;
+  color: #09f; }
+  .ic.listview.tags-list.blocks.blue .list-item > i,
+  .ic.listview.tags-list.blocks.blue .list-item > i.list-tips,
+  .ic.listview.tags-list.pills.blue .list-item > i,
+  .ic.listview.tags-list.pills.blue .list-item > i.list-tips {
+    background-color: #09f;
+    color: #fff; }
+.ic.listview.tags-list.blocks.blue .list-item.selected,
+.ic.listview.tags-list.pills.blue .list-item.selected {
+  background-color: #09f;
+  color: #fff; }
+  .ic.listview.tags-list.blocks.blue .list-item.selected > i,
+  .ic.listview.tags-list.blocks.blue .list-item.selected > i.list-tips,
+  .ic.listview.tags-list.pills.blue .list-item.selected > i,
+  .ic.listview.tags-list.pills.blue .list-item.selected > i.list-tips {
+    background-color: #fff;
+    color: #0cf; }
+
+.ic.listview.tags-list.blocks.darkblue .list-item,
+.ic.listview.tags-list.pills.darkblue .list-item {
+  border: 1px solid #036;
+  color: #036; }
+  .ic.listview.tags-list.blocks.darkblue .list-item > i,
+  .ic.listview.tags-list.blocks.darkblue .list-item > i.list-tips,
+  .ic.listview.tags-list.pills.darkblue .list-item > i,
+  .ic.listview.tags-list.pills.darkblue .list-item > i.list-tips {
+    background-color: #036;
+    color: #fff; }
+.ic.listview.tags-list.blocks.darkblue .list-item.selected,
+.ic.listview.tags-list.pills.darkblue .list-item.selected {
+  background-color: #036;
+  color: #fff; }
+  .ic.listview.tags-list.blocks.darkblue .list-item.selected > i,
+  .ic.listview.tags-list.blocks.darkblue .list-item.selected > i.list-tips,
+  .ic.listview.tags-list.pills.darkblue .list-item.selected > i,
+  .ic.listview.tags-list.pills.darkblue .list-item.selected > i.list-tips {
+    background-color: #fff;
+    color: #0cf; }
+
+.ic.listview.tags-list.blocks.purple .list-item,
+.ic.listview.tags-list.pills.purple .list-item {
+  border: 1px solid #c2a;
+  color: #c2a; }
+  .ic.listview.tags-list.blocks.purple .list-item > i,
+  .ic.listview.tags-list.blocks.purple .list-item > i.list-tips,
+  .ic.listview.tags-list.pills.purple .list-item > i,
+  .ic.listview.tags-list.pills.purple .list-item > i.list-tips {
+    background-color: #c2a;
+    color: #fff; }
+.ic.listview.tags-list.blocks.purple .list-item.selected,
+.ic.listview.tags-list.pills.purple .list-item.selected {
+  background-color: #c2a;
+  color: #fff; }
+  .ic.listview.tags-list.blocks.purple .list-item.selected > i,
+  .ic.listview.tags-list.blocks.purple .list-item.selected > i.list-tips,
+  .ic.listview.tags-list.pills.purple .list-item.selected > i,
+  .ic.listview.tags-list.pills.purple .list-item.selected > i.list-tips {
+    background-color: #fff;
+    color: #0cf; }
+
+.ic.listview.tags-list.blocks.black .list-item,
+.ic.listview.tags-list.pills.black .list-item {
+  border: 1px solid #000;
+  color: #000; }
+  .ic.listview.tags-list.blocks.black .list-item > i,
+  .ic.listview.tags-list.blocks.black .list-item > i.list-tips,
+  .ic.listview.tags-list.pills.black .list-item > i,
+  .ic.listview.tags-list.pills.black .list-item > i.list-tips {
+    background-color: #000;
+    color: #fff; }
+.ic.listview.tags-list.blocks.black .list-item.selected,
+.ic.listview.tags-list.pills.black .list-item.selected {
+  background-color: #000;
+  color: #fff; }
+  .ic.listview.tags-list.blocks.black .list-item.selected > i,
+  .ic.listview.tags-list.blocks.black .list-item.selected > i.list-tips,
+  .ic.listview.tags-list.pills.black .list-item.selected > i,
+  .ic.listview.tags-list.pills.black .list-item.selected > i.list-tips {
+    background-color: #fff;
+    color: #0cf; }
+
+.ic.listview.tags-list.blocks.lightgray .list-item,
+.ic.listview.tags-list.pills.lightgray .list-item {
+  border: 1px solid #ddd;
+  color: #ddd; }
+  .ic.listview.tags-list.blocks.lightgray .list-item > i,
+  .ic.listview.tags-list.blocks.lightgray .list-item > i.list-tips,
+  .ic.listview.tags-list.pills.lightgray .list-item > i,
+  .ic.listview.tags-list.pills.lightgray .list-item > i.list-tips {
+    background-color: #ddd;
+    color: #fff; }
+.ic.listview.tags-list.blocks.lightgray .list-item.selected,
+.ic.listview.tags-list.pills.lightgray .list-item.selected {
+  background-color: #ddd;
+  color: #fff; }
+  .ic.listview.tags-list.blocks.lightgray .list-item.selected > i,
+  .ic.listview.tags-list.blocks.lightgray .list-item.selected > i.list-tips,
+  .ic.listview.tags-list.pills.lightgray .list-item.selected > i,
+  .ic.listview.tags-list.pills.lightgray .list-item.selected > i.list-tips {
+    background-color: #fff;
+    color: #0cf; }
+
+.ic.listview.tags-list.blocks.gray .list-item,
+.ic.listview.tags-list.pills.gray .list-item {
+  border: 1px solid #999;
+  color: #999; }
+  .ic.listview.tags-list.blocks.gray .list-item > i,
+  .ic.listview.tags-list.blocks.gray .list-item > i.list-tips,
+  .ic.listview.tags-list.pills.gray .list-item > i,
+  .ic.listview.tags-list.pills.gray .list-item > i.list-tips {
+    background-color: #999;
+    color: #fff; }
+.ic.listview.tags-list.blocks.gray .list-item.selected,
+.ic.listview.tags-list.pills.gray .list-item.selected {
+  background-color: #999;
+  color: #fff; }
+  .ic.listview.tags-list.blocks.gray .list-item.selected > i,
+  .ic.listview.tags-list.blocks.gray .list-item.selected > i.list-tips,
+  .ic.listview.tags-list.pills.gray .list-item.selected > i,
+  .ic.listview.tags-list.pills.gray .list-item.selected > i.list-tips {
+    background-color: #fff;
+    color: #0cf; }
+
+.ic.listview.tags-list.blocks.dark-gray .list-item,
+.ic.listview.tags-list.pills.dark-gray .list-item {
+  border: 1px solid #666;
+  color: #666; }
+  .ic.listview.tags-list.blocks.dark-gray .list-item > i,
+  .ic.listview.tags-list.blocks.dark-gray .list-item > i.list-tips,
+  .ic.listview.tags-list.pills.dark-gray .list-item > i,
+  .ic.listview.tags-list.pills.dark-gray .list-item > i.list-tips {
+    background-color: #666;
+    color: #fff; }
+.ic.listview.tags-list.blocks.dark-gray .list-item.selected,
+.ic.listview.tags-list.pills.dark-gray .list-item.selected {
+  background-color: #666;
+  color: #fff; }
+  .ic.listview.tags-list.blocks.dark-gray .list-item.selected > i,
+  .ic.listview.tags-list.blocks.dark-gray .list-item.selected > i.list-tips,
+  .ic.listview.tags-list.pills.dark-gray .list-item.selected > i,
+  .ic.listview.tags-list.pills.dark-gray .list-item.selected > i.list-tips {
+    background-color: #fff;
+    color: #0cf; }
+
+.ic.listview.tags-list.blocks.white .list-item,
+.ic.listview.tags-list.pills.white .list-item {
+  border: 1px solid #fff;
+  color: #fff; }
+  .ic.listview.tags-list.blocks.white .list-item > i,
+  .ic.listview.tags-list.blocks.white .list-item > i.list-tips,
+  .ic.listview.tags-list.pills.white .list-item > i,
+  .ic.listview.tags-list.pills.white .list-item > i.list-tips {
+    background-color: #fff;
+    color: #fff; }
+.ic.listview.tags-list.blocks.white .list-item.selected,
+.ic.listview.tags-list.pills.white .list-item.selected {
+  background-color: #fff;
+  color: #fff; }
+  .ic.listview.tags-list.blocks.white .list-item.selected > i,
+  .ic.listview.tags-list.blocks.white .list-item.selected > i.list-tips,
+  .ic.listview.tags-list.pills.white .list-item.selected > i,
+  .ic.listview.tags-list.pills.white .list-item.selected > i.list-tips {
+    background-color: #fff;
+    color: #0cf; }
+
+/****************
+/*	Colors
+/************************************************/
+.ic.listview.text-list .list-item.topline.red,
+.ic.listview.mtext-list .list-item.topline.red,
+.ic.listview.media-list .list-item.topline.red {
+  border-top: 1px solid #d23; }
+.ic.listview.text-list .list-item.underline.red,
+.ic.listview.mtext-list .list-item.underline.red,
+.ic.listview.media-list .list-item.underline.red {
+  border-bottom: 1px solid #d23; }
+.ic.listview.text-list .list-item.topline.underline.red,
+.ic.listview.mtext-list .list-item.topline.underline.red,
+.ic.listview.media-list .list-item.topline.underline.red {
+  border-top: 1px solid #d23;
+  border-bottom: 1px solid #d23; }
+.ic.listview.text-list .list-item.stripe.red:nth-child(odd),
+.ic.listview.mtext-list .list-item.stripe.red:nth-child(odd),
+.ic.listview.media-list .list-item.stripe.red:nth-child(odd) {
+  background-color: #d23;
+  color: #ffffff; }
+.ic.listview.text-list .list-item.stripe.red:nth-child(even),
+.ic.listview.mtext-list .list-item.stripe.red:nth-child(even),
+.ic.listview.media-list .list-item.stripe.red:nth-child(even) {
+  background-color: #e44e5c;
+  color: #ffffff; }
+.ic.listview.text-list .list-item.card.red,
+.ic.listview.mtext-list .list-item.card.red,
+.ic.listview.media-list .list-item.card.red {
+  background-color: #d23;
+  color: #ffffff; }
+.ic.listview.text-list .list-item.pane.red,
+.ic.listview.mtext-list .list-item.pane.red,
+.ic.listview.media-list .list-item.pane.red {
+  border: 1px solid #d23; }
+.ic.listview.text-list > i.red,
+.ic.listview.text-list .list-title > i.red,
+.ic.listview.text-list .list-icon.red,
+.ic.listview.mtext-list > i.red,
+.ic.listview.mtext-list .list-title > i.red,
+.ic.listview.mtext-list .list-icon.red,
+.ic.listview.media-list > i.red,
+.ic.listview.media-list .list-title > i.red,
+.ic.listview.media-list .list-icon.red {
+  background-color: #d23; }
+.ic.listview.text-list > i.hollow.red,
+.ic.listview.text-list .list-title > i.hollow.red,
+.ic.listview.text-list .list-icon.hollow.red,
+.ic.listview.mtext-list > i.hollow.red,
+.ic.listview.mtext-list .list-title > i.hollow.red,
+.ic.listview.mtext-list .list-icon.hollow.red,
+.ic.listview.media-list > i.hollow.red,
+.ic.listview.media-list .list-title > i.hollow.red,
+.ic.listview.media-list .list-icon.hollow.red {
+  background-color: transparent;
+  border: 1px solid #d23;
+  color: #d23; }
+.ic.listview.text-list .list-item.topline.darkred,
+.ic.listview.mtext-list .list-item.topline.darkred,
+.ic.listview.media-list .list-item.topline.darkred {
+  border-top: 1px solid #600; }
+.ic.listview.text-list .list-item.underline.darkred,
+.ic.listview.mtext-list .list-item.underline.darkred,
+.ic.listview.media-list .list-item.underline.darkred {
+  border-bottom: 1px solid #600; }
+.ic.listview.text-list .list-item.topline.underline.darkred,
+.ic.listview.mtext-list .list-item.topline.underline.darkred,
+.ic.listview.media-list .list-item.topline.underline.darkred {
+  border-top: 1px solid #600;
+  border-bottom: 1px solid #600; }
+.ic.listview.text-list .list-item.stripe.darkred:nth-child(odd),
+.ic.listview.mtext-list .list-item.stripe.darkred:nth-child(odd),
+.ic.listview.media-list .list-item.stripe.darkred:nth-child(odd) {
+  background-color: #600;
+  color: #ffffff; }
+.ic.listview.text-list .list-item.stripe.darkred:nth-child(even),
+.ic.listview.mtext-list .list-item.stripe.darkred:nth-child(even),
+.ic.listview.media-list .list-item.stripe.darkred:nth-child(even) {
+  background-color: #990000;
+  color: #ffffff; }
+.ic.listview.text-list .list-item.card.darkred,
+.ic.listview.mtext-list .list-item.card.darkred,
+.ic.listview.media-list .list-item.card.darkred {
+  background-color: #600;
+  color: #ffffff; }
+.ic.listview.text-list .list-item.pane.darkred,
+.ic.listview.mtext-list .list-item.pane.darkred,
+.ic.listview.media-list .list-item.pane.darkred {
+  border: 1px solid #600; }
+.ic.listview.text-list > i.darkred,
+.ic.listview.text-list .list-title > i.darkred,
+.ic.listview.text-list .list-icon.darkred,
+.ic.listview.mtext-list > i.darkred,
+.ic.listview.mtext-list .list-title > i.darkred,
+.ic.listview.mtext-list .list-icon.darkred,
+.ic.listview.media-list > i.darkred,
+.ic.listview.media-list .list-title > i.darkred,
+.ic.listview.media-list .list-icon.darkred {
+  background-color: #600; }
+.ic.listview.text-list > i.hollow.darkred,
+.ic.listview.text-list .list-title > i.hollow.darkred,
+.ic.listview.text-list .list-icon.hollow.darkred,
+.ic.listview.mtext-list > i.hollow.darkred,
+.ic.listview.mtext-list .list-title > i.hollow.darkred,
+.ic.listview.mtext-list .list-icon.hollow.darkred,
+.ic.listview.media-list > i.hollow.darkred,
+.ic.listview.media-list .list-title > i.hollow.darkred,
+.ic.listview.media-list .list-icon.hollow.darkred {
+  background-color: transparent;
+  border: 1px solid #600;
+  color: #600; }
+.ic.listview.text-list .list-item.topline.orange,
+.ic.listview.mtext-list .list-item.topline.orange,
+.ic.listview.media-list .list-item.topline.orange {
+  border-top: 1px solid #f52; }
+.ic.listview.text-list .list-item.underline.orange,
+.ic.listview.mtext-list .list-item.underline.orange,
+.ic.listview.media-list .list-item.underline.orange {
+  border-bottom: 1px solid #f52; }
+.ic.listview.text-list .list-item.topline.underline.orange,
+.ic.listview.mtext-list .list-item.topline.underline.orange,
+.ic.listview.media-list .list-item.topline.underline.orange {
+  border-top: 1px solid #f52;
+  border-bottom: 1px solid #f52; }
+.ic.listview.text-list .list-item.stripe.orange:nth-child(odd),
+.ic.listview.mtext-list .list-item.stripe.orange:nth-child(odd),
+.ic.listview.media-list .list-item.stripe.orange:nth-child(odd) {
+  background-color: #f52;
+  color: #ffffff; }
+.ic.listview.text-list .list-item.stripe.orange:nth-child(even),
+.ic.listview.mtext-list .list-item.stripe.orange:nth-child(even),
+.ic.listview.media-list .list-item.stripe.orange:nth-child(even) {
+  background-color: #ff7c55;
+  color: #ffffff; }
+.ic.listview.text-list .list-item.card.orange,
+.ic.listview.mtext-list .list-item.card.orange,
+.ic.listview.media-list .list-item.card.orange {
+  background-color: #f52;
+  color: #ffffff; }
+.ic.listview.text-list .list-item.pane.orange,
+.ic.listview.mtext-list .list-item.pane.orange,
+.ic.listview.media-list .list-item.pane.orange {
+  border: 1px solid #f52; }
+.ic.listview.text-list > i.orange,
+.ic.listview.text-list .list-title > i.orange,
+.ic.listview.text-list .list-icon.orange,
+.ic.listview.mtext-list > i.orange,
+.ic.listview.mtext-list .list-title > i.orange,
+.ic.listview.mtext-list .list-icon.orange,
+.ic.listview.media-list > i.orange,
+.ic.listview.media-list .list-title > i.orange,
+.ic.listview.media-list .list-icon.orange {
+  background-color: #f52; }
+.ic.listview.text-list > i.hollow.orange,
+.ic.listview.text-list .list-title > i.hollow.orange,
+.ic.listview.text-list .list-icon.hollow.orange,
+.ic.listview.mtext-list > i.hollow.orange,
+.ic.listview.mtext-list .list-title > i.hollow.orange,
+.ic.listview.mtext-list .list-icon.hollow.orange,
+.ic.listview.media-list > i.hollow.orange,
+.ic.listview.media-list .list-title > i.hollow.orange,
+.ic.listview.media-list .list-icon.hollow.orange {
+  background-color: transparent;
+  border: 1px solid #f52;
+  color: #f52; }
+.ic.listview.text-list .list-item.topline.yellow,
+.ic.listview.mtext-list .list-item.topline.yellow,
+.ic.listview.media-list .list-item.topline.yellow {
+  border-top: 1px solid #ed2; }
+.ic.listview.text-list .list-item.underline.yellow,
+.ic.listview.mtext-list .list-item.underline.yellow,
+.ic.listview.media-list .list-item.underline.yellow {
+  border-bottom: 1px solid #ed2; }
+.ic.listview.text-list .list-item.topline.underline.yellow,
+.ic.listview.mtext-list .list-item.topline.underline.yellow,
+.ic.listview.media-list .list-item.topline.underline.yellow {
+  border-top: 1px solid #ed2;
+  border-bottom: 1px solid #ed2; }
+.ic.listview.text-list .list-item.stripe.yellow:nth-child(odd),
+.ic.listview.mtext-list .list-item.stripe.yellow:nth-child(odd),
+.ic.listview.media-list .list-item.stripe.yellow:nth-child(odd) {
+  background-color: #ed2;
+  color: #ffffff; }
+.ic.listview.text-list .list-item.stripe.yellow:nth-child(even),
+.ic.listview.mtext-list .list-item.stripe.yellow:nth-child(even),
+.ic.listview.media-list .list-item.stripe.yellow:nth-child(even) {
+  background-color: #f2e451;
+  color: #ffffff; }
+.ic.listview.text-list .list-item.card.yellow,
+.ic.listview.mtext-list .list-item.card.yellow,
+.ic.listview.media-list .list-item.card.yellow {
+  background-color: #ed2;
+  color: #ffffff; }
+.ic.listview.text-list .list-item.pane.yellow,
+.ic.listview.mtext-list .list-item.pane.yellow,
+.ic.listview.media-list .list-item.pane.yellow {
+  border: 1px solid #ed2; }
+.ic.listview.text-list > i.yellow,
+.ic.listview.text-list .list-title > i.yellow,
+.ic.listview.text-list .list-icon.yellow,
+.ic.listview.mtext-list > i.yellow,
+.ic.listview.mtext-list .list-title > i.yellow,
+.ic.listview.mtext-list .list-icon.yellow,
+.ic.listview.media-list > i.yellow,
+.ic.listview.media-list .list-title > i.yellow,
+.ic.listview.media-list .list-icon.yellow {
+  background-color: #ed2; }
+.ic.listview.text-list > i.hollow.yellow,
+.ic.listview.text-list .list-title > i.hollow.yellow,
+.ic.listview.text-list .list-icon.hollow.yellow,
+.ic.listview.mtext-list > i.hollow.yellow,
+.ic.listview.mtext-list .list-title > i.hollow.yellow,
+.ic.listview.mtext-list .list-icon.hollow.yellow,
+.ic.listview.media-list > i.hollow.yellow,
+.ic.listview.media-list .list-title > i.hollow.yellow,
+.ic.listview.media-list .list-icon.hollow.yellow {
+  background-color: transparent;
+  border: 1px solid #ed2;
+  color: #ed2; }
+.ic.listview.text-list .list-item.topline.green,
+.ic.listview.mtext-list .list-item.topline.green,
+.ic.listview.media-list .list-item.topline.green {
+  border-top: 1px solid #2c4; }
+.ic.listview.text-list .list-item.underline.green,
+.ic.listview.mtext-list .list-item.underline.green,
+.ic.listview.media-list .list-item.underline.green {
+  border-bottom: 1px solid #2c4; }
+.ic.listview.text-list .list-item.topline.underline.green,
+.ic.listview.mtext-list .list-item.topline.underline.green,
+.ic.listview.media-list .list-item.topline.underline.green {
+  border-top: 1px solid #2c4;
+  border-bottom: 1px solid #2c4; }
+.ic.listview.text-list .list-item.stripe.green:nth-child(odd),
+.ic.listview.mtext-list .list-item.stripe.green:nth-child(odd),
+.ic.listview.media-list .list-item.stripe.green:nth-child(odd) {
+  background-color: #2c4;
+  color: #ffffff; }
+.ic.listview.text-list .list-item.stripe.green:nth-child(even),
+.ic.listview.mtext-list .list-item.stripe.green:nth-child(even),
+.ic.listview.media-list .list-item.stripe.green:nth-child(even) {
+  background-color: #42df61;
+  color: #ffffff; }
+.ic.listview.text-list .list-item.card.green,
+.ic.listview.mtext-list .list-item.card.green,
+.ic.listview.media-list .list-item.card.green {
+  background-color: #2c4;
+  color: #ffffff; }
+.ic.listview.text-list .list-item.pane.green,
+.ic.listview.mtext-list .list-item.pane.green,
+.ic.listview.media-list .list-item.pane.green {
+  border: 1px solid #2c4; }
+.ic.listview.text-list > i.green,
+.ic.listview.text-list .list-title > i.green,
+.ic.listview.text-list .list-icon.green,
+.ic.listview.mtext-list > i.green,
+.ic.listview.mtext-list .list-title > i.green,
+.ic.listview.mtext-list .list-icon.green,
+.ic.listview.media-list > i.green,
+.ic.listview.media-list .list-title > i.green,
+.ic.listview.media-list .list-icon.green {
+  background-color: #2c4; }
+.ic.listview.text-list > i.hollow.green,
+.ic.listview.text-list .list-title > i.hollow.green,
+.ic.listview.text-list .list-icon.hollow.green,
+.ic.listview.mtext-list > i.hollow.green,
+.ic.listview.mtext-list .list-title > i.hollow.green,
+.ic.listview.mtext-list .list-icon.hollow.green,
+.ic.listview.media-list > i.hollow.green,
+.ic.listview.media-list .list-title > i.hollow.green,
+.ic.listview.media-list .list-icon.hollow.green {
+  background-color: transparent;
+  border: 1px solid #2c4;
+  color: #2c4; }
+.ic.listview.text-list .list-item.topline.darkgreen,
+.ic.listview.mtext-list .list-item.topline.darkgreen,
+.ic.listview.media-list .list-item.topline.darkgreen {
+  border-top: 1px solid #363; }
+.ic.listview.text-list .list-item.underline.darkgreen,
+.ic.listview.mtext-list .list-item.underline.darkgreen,
+.ic.listview.media-list .list-item.underline.darkgreen {
+  border-bottom: 1px solid #363; }
+.ic.listview.text-list .list-item.topline.underline.darkgreen,
+.ic.listview.mtext-list .list-item.topline.underline.darkgreen,
+.ic.listview.media-list .list-item.topline.underline.darkgreen {
+  border-top: 1px solid #363;
+  border-bottom: 1px solid #363; }
+.ic.listview.text-list .list-item.stripe.darkgreen:nth-child(odd),
+.ic.listview.mtext-list .list-item.stripe.darkgreen:nth-child(odd),
+.ic.listview.media-list .list-item.stripe.darkgreen:nth-child(odd) {
+  background-color: #363;
+  color: #ffffff; }
+.ic.listview.text-list .list-item.stripe.darkgreen:nth-child(even),
+.ic.listview.mtext-list .list-item.stripe.darkgreen:nth-child(even),
+.ic.listview.media-list .list-item.stripe.darkgreen:nth-child(even) {
+  background-color: #448844;
+  color: #ffffff; }
+.ic.listview.text-list .list-item.card.darkgreen,
+.ic.listview.mtext-list .list-item.card.darkgreen,
+.ic.listview.media-list .list-item.card.darkgreen {
+  background-color: #363;
+  color: #ffffff; }
+.ic.listview.text-list .list-item.pane.darkgreen,
+.ic.listview.mtext-list .list-item.pane.darkgreen,
+.ic.listview.media-list .list-item.pane.darkgreen {
+  border: 1px solid #363; }
+.ic.listview.text-list > i.darkgreen,
+.ic.listview.text-list .list-title > i.darkgreen,
+.ic.listview.text-list .list-icon.darkgreen,
+.ic.listview.mtext-list > i.darkgreen,
+.ic.listview.mtext-list .list-title > i.darkgreen,
+.ic.listview.mtext-list .list-icon.darkgreen,
+.ic.listview.media-list > i.darkgreen,
+.ic.listview.media-list .list-title > i.darkgreen,
+.ic.listview.media-list .list-icon.darkgreen {
+  background-color: #363; }
+.ic.listview.text-list > i.hollow.darkgreen,
+.ic.listview.text-list .list-title > i.hollow.darkgreen,
+.ic.listview.text-list .list-icon.hollow.darkgreen,
+.ic.listview.mtext-list > i.hollow.darkgreen,
+.ic.listview.mtext-list .list-title > i.hollow.darkgreen,
+.ic.listview.mtext-list .list-icon.hollow.darkgreen,
+.ic.listview.media-list > i.hollow.darkgreen,
+.ic.listview.media-list .list-title > i.hollow.darkgreen,
+.ic.listview.media-list .list-icon.hollow.darkgreen {
+  background-color: transparent;
+  border: 1px solid #363;
+  color: #363; }
+.ic.listview.text-list .list-item.topline.cyan,
+.ic.listview.mtext-list .list-item.topline.cyan,
+.ic.listview.media-list .list-item.topline.cyan {
+  border-top: 1px solid #09b; }
+.ic.listview.text-list .list-item.underline.cyan,
+.ic.listview.mtext-list .list-item.underline.cyan,
+.ic.listview.media-list .list-item.underline.cyan {
+  border-bottom: 1px solid #09b; }
+.ic.listview.text-list .list-item.topline.underline.cyan,
+.ic.listview.mtext-list .list-item.topline.underline.cyan,
+.ic.listview.media-list .list-item.topline.underline.cyan {
+  border-top: 1px solid #09b;
+  border-bottom: 1px solid #09b; }
+.ic.listview.text-list .list-item.stripe.cyan:nth-child(odd),
+.ic.listview.mtext-list .list-item.stripe.cyan:nth-child(odd),
+.ic.listview.media-list .list-item.stripe.cyan:nth-child(odd) {
+  background-color: #09b;
+  color: #ffffff; }
+.ic.listview.text-list .list-item.stripe.cyan:nth-child(even),
+.ic.listview.mtext-list .list-item.stripe.cyan:nth-child(even),
+.ic.listview.media-list .list-item.stripe.cyan:nth-child(even) {
+  background-color: #00c3ee;
+  color: #ffffff; }
+.ic.listview.text-list .list-item.card.cyan,
+.ic.listview.mtext-list .list-item.card.cyan,
+.ic.listview.media-list .list-item.card.cyan {
+  background-color: #09b;
+  color: #ffffff; }
+.ic.listview.text-list .list-item.pane.cyan,
+.ic.listview.mtext-list .list-item.pane.cyan,
+.ic.listview.media-list .list-item.pane.cyan {
+  border: 1px solid #09b; }
+.ic.listview.text-list > i.cyan,
+.ic.listview.text-list .list-title > i.cyan,
+.ic.listview.text-list .list-icon.cyan,
+.ic.listview.mtext-list > i.cyan,
+.ic.listview.mtext-list .list-title > i.cyan,
+.ic.listview.mtext-list .list-icon.cyan,
+.ic.listview.media-list > i.cyan,
+.ic.listview.media-list .list-title > i.cyan,
+.ic.listview.media-list .list-icon.cyan {
+  background-color: #09b; }
+.ic.listview.text-list > i.hollow.cyan,
+.ic.listview.text-list .list-title > i.hollow.cyan,
+.ic.listview.text-list .list-icon.hollow.cyan,
+.ic.listview.mtext-list > i.hollow.cyan,
+.ic.listview.mtext-list .list-title > i.hollow.cyan,
+.ic.listview.mtext-list .list-icon.hollow.cyan,
+.ic.listview.media-list > i.hollow.cyan,
+.ic.listview.media-list .list-title > i.hollow.cyan,
+.ic.listview.media-list .list-icon.hollow.cyan {
+  background-color: transparent;
+  border: 1px solid #09b;
+  color: #09b; }
+.ic.listview.text-list .list-item.topline.blue,
+.ic.listview.mtext-list .list-item.topline.blue,
+.ic.listview.media-list .list-item.topline.blue {
+  border-top: 1px solid #09f; }
+.ic.listview.text-list .list-item.underline.blue,
+.ic.listview.mtext-list .list-item.underline.blue,
+.ic.listview.media-list .list-item.underline.blue {
+  border-bottom: 1px solid #09f; }
+.ic.listview.text-list .list-item.topline.underline.blue,
+.ic.listview.mtext-list .list-item.topline.underline.blue,
+.ic.listview.media-list .list-item.topline.underline.blue {
+  border-top: 1px solid #09f;
+  border-bottom: 1px solid #09f; }
+.ic.listview.text-list .list-item.stripe.blue:nth-child(odd),
+.ic.listview.mtext-list .list-item.stripe.blue:nth-child(odd),
+.ic.listview.media-list .list-item.stripe.blue:nth-child(odd) {
+  background-color: #09f;
+  color: #ffffff; }
+.ic.listview.text-list .list-item.stripe.blue:nth-child(even),
+.ic.listview.mtext-list .list-item.stripe.blue:nth-child(even),
+.ic.listview.media-list .list-item.stripe.blue:nth-child(even) {
+  background-color: #33adff;
+  color: #ffffff; }
+.ic.listview.text-list .list-item.card.blue,
+.ic.listview.mtext-list .list-item.card.blue,
+.ic.listview.media-list .list-item.card.blue {
+  background-color: #09f;
+  color: #ffffff; }
+.ic.listview.text-list .list-item.pane.blue,
+.ic.listview.mtext-list .list-item.pane.blue,
+.ic.listview.media-list .list-item.pane.blue {
+  border: 1px solid #09f; }
+.ic.listview.text-list > i.blue,
+.ic.listview.text-list .list-title > i.blue,
+.ic.listview.text-list .list-icon.blue,
+.ic.listview.mtext-list > i.blue,
+.ic.listview.mtext-list .list-title > i.blue,
+.ic.listview.mtext-list .list-icon.blue,
+.ic.listview.media-list > i.blue,
+.ic.listview.media-list .list-title > i.blue,
+.ic.listview.media-list .list-icon.blue {
+  background-color: #09f; }
+.ic.listview.text-list > i.hollow.blue,
+.ic.listview.text-list .list-title > i.hollow.blue,
+.ic.listview.text-list .list-icon.hollow.blue,
+.ic.listview.mtext-list > i.hollow.blue,
+.ic.listview.mtext-list .list-title > i.hollow.blue,
+.ic.listview.mtext-list .list-icon.hollow.blue,
+.ic.listview.media-list > i.hollow.blue,
+.ic.listview.media-list .list-title > i.hollow.blue,
+.ic.listview.media-list .list-icon.hollow.blue {
+  background-color: transparent;
+  border: 1px solid #09f;
+  color: #09f; }
+.ic.listview.text-list .list-item.topline.darkblue,
+.ic.listview.mtext-list .list-item.topline.darkblue,
+.ic.listview.media-list .list-item.topline.darkblue {
+  border-top: 1px solid #036; }
+.ic.listview.text-list .list-item.underline.darkblue,
+.ic.listview.mtext-list .list-item.underline.darkblue,
+.ic.listview.media-list .list-item.underline.darkblue {
+  border-bottom: 1px solid #036; }
+.ic.listview.text-list .list-item.topline.underline.darkblue,
+.ic.listview.mtext-list .list-item.topline.underline.darkblue,
+.ic.listview.media-list .list-item.topline.underline.darkblue {
+  border-top: 1px solid #036;
+  border-bottom: 1px solid #036; }
+.ic.listview.text-list .list-item.stripe.darkblue:nth-child(odd),
+.ic.listview.mtext-list .list-item.stripe.darkblue:nth-child(odd),
+.ic.listview.media-list .list-item.stripe.darkblue:nth-child(odd) {
+  background-color: #036;
+  color: #ffffff; }
+.ic.listview.text-list .list-item.stripe.darkblue:nth-child(even),
+.ic.listview.mtext-list .list-item.stripe.darkblue:nth-child(even),
+.ic.listview.media-list .list-item.stripe.darkblue:nth-child(even) {
+  background-color: #004d99;
+  color: #ffffff; }
+.ic.listview.text-list .list-item.card.darkblue,
+.ic.listview.mtext-list .list-item.card.darkblue,
+.ic.listview.media-list .list-item.card.darkblue {
+  background-color: #036;
+  color: #ffffff; }
+.ic.listview.text-list .list-item.pane.darkblue,
+.ic.listview.mtext-list .list-item.pane.darkblue,
+.ic.listview.media-list .list-item.pane.darkblue {
+  border: 1px solid #036; }
+.ic.listview.text-list > i.darkblue,
+.ic.listview.text-list .list-title > i.darkblue,
+.ic.listview.text-list .list-icon.darkblue,
+.ic.listview.mtext-list > i.darkblue,
+.ic.listview.mtext-list .list-title > i.darkblue,
+.ic.listview.mtext-list .list-icon.darkblue,
+.ic.listview.media-list > i.darkblue,
+.ic.listview.media-list .list-title > i.darkblue,
+.ic.listview.media-list .list-icon.darkblue {
+  background-color: #036; }
+.ic.listview.text-list > i.hollow.darkblue,
+.ic.listview.text-list .list-title > i.hollow.darkblue,
+.ic.listview.text-list .list-icon.hollow.darkblue,
+.ic.listview.mtext-list > i.hollow.darkblue,
+.ic.listview.mtext-list .list-title > i.hollow.darkblue,
+.ic.listview.mtext-list .list-icon.hollow.darkblue,
+.ic.listview.media-list > i.hollow.darkblue,
+.ic.listview.media-list .list-title > i.hollow.darkblue,
+.ic.listview.media-list .list-icon.hollow.darkblue {
+  background-color: transparent;
+  border: 1px solid #036;
+  color: #036; }
+.ic.listview.text-list .list-item.topline.purple,
+.ic.listview.mtext-list .list-item.topline.purple,
+.ic.listview.media-list .list-item.topline.purple {
+  border-top: 1px solid #c2a; }
+.ic.listview.text-list .list-item.underline.purple,
+.ic.listview.mtext-list .list-item.underline.purple,
+.ic.listview.media-list .list-item.underline.purple {
+  border-bottom: 1px solid #c2a; }
+.ic.listview.text-list .list-item.topline.underline.purple,
+.ic.listview.mtext-list .list-item.topline.underline.purple,
+.ic.listview.media-list .list-item.topline.underline.purple {
+  border-top: 1px solid #c2a;
+  border-bottom: 1px solid #c2a; }
+.ic.listview.text-list .list-item.stripe.purple:nth-child(odd),
+.ic.listview.mtext-list .list-item.stripe.purple:nth-child(odd),
+.ic.listview.media-list .list-item.stripe.purple:nth-child(odd) {
+  background-color: #c2a;
+  color: #ffffff; }
+.ic.listview.text-list .list-item.stripe.purple:nth-child(even),
+.ic.listview.mtext-list .list-item.stripe.purple:nth-child(even),
+.ic.listview.media-list .list-item.stripe.purple:nth-child(even) {
+  background-color: #df42c0;
+  color: #ffffff; }
+.ic.listview.text-list .list-item.card.purple,
+.ic.listview.mtext-list .list-item.card.purple,
+.ic.listview.media-list .list-item.card.purple {
+  background-color: #c2a;
+  color: #ffffff; }
+.ic.listview.text-list .list-item.pane.purple,
+.ic.listview.mtext-list .list-item.pane.purple,
+.ic.listview.media-list .list-item.pane.purple {
+  border: 1px solid #c2a; }
+.ic.listview.text-list > i.purple,
+.ic.listview.text-list .list-title > i.purple,
+.ic.listview.text-list .list-icon.purple,
+.ic.listview.mtext-list > i.purple,
+.ic.listview.mtext-list .list-title > i.purple,
+.ic.listview.mtext-list .list-icon.purple,
+.ic.listview.media-list > i.purple,
+.ic.listview.media-list .list-title > i.purple,
+.ic.listview.media-list .list-icon.purple {
+  background-color: #c2a; }
+.ic.listview.text-list > i.hollow.purple,
+.ic.listview.text-list .list-title > i.hollow.purple,
+.ic.listview.text-list .list-icon.hollow.purple,
+.ic.listview.mtext-list > i.hollow.purple,
+.ic.listview.mtext-list .list-title > i.hollow.purple,
+.ic.listview.mtext-list .list-icon.hollow.purple,
+.ic.listview.media-list > i.hollow.purple,
+.ic.listview.media-list .list-title > i.hollow.purple,
+.ic.listview.media-list .list-icon.hollow.purple {
+  background-color: transparent;
+  border: 1px solid #c2a;
+  color: #c2a; }
+.ic.listview.text-list .list-item.topline.black,
+.ic.listview.mtext-list .list-item.topline.black,
+.ic.listview.media-list .list-item.topline.black {
+  border-top: 1px solid #000; }
+.ic.listview.text-list .list-item.underline.black,
+.ic.listview.mtext-list .list-item.underline.black,
+.ic.listview.media-list .list-item.underline.black {
+  border-bottom: 1px solid #000; }
+.ic.listview.text-list .list-item.topline.underline.black,
+.ic.listview.mtext-list .list-item.topline.underline.black,
+.ic.listview.media-list .list-item.topline.underline.black {
+  border-top: 1px solid #000;
+  border-bottom: 1px solid #000; }
+.ic.listview.text-list .list-item.stripe.black:nth-child(odd),
+.ic.listview.mtext-list .list-item.stripe.black:nth-child(odd),
+.ic.listview.media-list .list-item.stripe.black:nth-child(odd) {
+  background-color: #000;
+  color: #ffffff; }
+.ic.listview.text-list .list-item.stripe.black:nth-child(even),
+.ic.listview.mtext-list .list-item.stripe.black:nth-child(even),
+.ic.listview.media-list .list-item.stripe.black:nth-child(even) {
+  background-color: #1a1a1a;
+  color: #ffffff; }
+.ic.listview.text-list .list-item.card.black,
+.ic.listview.mtext-list .list-item.card.black,
+.ic.listview.media-list .list-item.card.black {
+  background-color: #000;
+  color: #ffffff; }
+.ic.listview.text-list .list-item.pane.black,
+.ic.listview.mtext-list .list-item.pane.black,
+.ic.listview.media-list .list-item.pane.black {
+  border: 1px solid #000; }
+.ic.listview.text-list > i.black,
+.ic.listview.text-list .list-title > i.black,
+.ic.listview.text-list .list-icon.black,
+.ic.listview.mtext-list > i.black,
+.ic.listview.mtext-list .list-title > i.black,
+.ic.listview.mtext-list .list-icon.black,
+.ic.listview.media-list > i.black,
+.ic.listview.media-list .list-title > i.black,
+.ic.listview.media-list .list-icon.black {
+  background-color: #000; }
+.ic.listview.text-list > i.hollow.black,
+.ic.listview.text-list .list-title > i.hollow.black,
+.ic.listview.text-list .list-icon.hollow.black,
+.ic.listview.mtext-list > i.hollow.black,
+.ic.listview.mtext-list .list-title > i.hollow.black,
+.ic.listview.mtext-list .list-icon.hollow.black,
+.ic.listview.media-list > i.hollow.black,
+.ic.listview.media-list .list-title > i.hollow.black,
+.ic.listview.media-list .list-icon.hollow.black {
+  background-color: transparent;
+  border: 1px solid #000;
+  color: #000; }
+.ic.listview.text-list .list-item.topline.lightgray,
+.ic.listview.mtext-list .list-item.topline.lightgray,
+.ic.listview.media-list .list-item.topline.lightgray {
+  border-top: 1px solid #ddd; }
+.ic.listview.text-list .list-item.underline.lightgray,
+.ic.listview.mtext-list .list-item.underline.lightgray,
+.ic.listview.media-list .list-item.underline.lightgray {
+  border-bottom: 1px solid #ddd; }
+.ic.listview.text-list .list-item.topline.underline.lightgray,
+.ic.listview.mtext-list .list-item.topline.underline.lightgray,
+.ic.listview.media-list .list-item.topline.underline.lightgray {
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd; }
+.ic.listview.text-list .list-item.stripe.lightgray:nth-child(odd),
+.ic.listview.mtext-list .list-item.stripe.lightgray:nth-child(odd),
+.ic.listview.media-list .list-item.stripe.lightgray:nth-child(odd) {
+  background-color: #ddd;
+  color: #ffffff; }
+.ic.listview.text-list .list-item.stripe.lightgray:nth-child(even),
+.ic.listview.mtext-list .list-item.stripe.lightgray:nth-child(even),
+.ic.listview.media-list .list-item.stripe.lightgray:nth-child(even) {
+  background-color: #f7f7f7;
+  color: #ffffff; }
+.ic.listview.text-list .list-item.card.lightgray,
+.ic.listview.mtext-list .list-item.card.lightgray,
+.ic.listview.media-list .list-item.card.lightgray {
+  background-color: #ddd;
+  color: #ffffff; }
+.ic.listview.text-list .list-item.pane.lightgray,
+.ic.listview.mtext-list .list-item.pane.lightgray,
+.ic.listview.media-list .list-item.pane.lightgray {
+  border: 1px solid #ddd; }
+.ic.listview.text-list > i.lightgray,
+.ic.listview.text-list .list-title > i.lightgray,
+.ic.listview.text-list .list-icon.lightgray,
+.ic.listview.mtext-list > i.lightgray,
+.ic.listview.mtext-list .list-title > i.lightgray,
+.ic.listview.mtext-list .list-icon.lightgray,
+.ic.listview.media-list > i.lightgray,
+.ic.listview.media-list .list-title > i.lightgray,
+.ic.listview.media-list .list-icon.lightgray {
+  background-color: #ddd; }
+.ic.listview.text-list > i.hollow.lightgray,
+.ic.listview.text-list .list-title > i.hollow.lightgray,
+.ic.listview.text-list .list-icon.hollow.lightgray,
+.ic.listview.mtext-list > i.hollow.lightgray,
+.ic.listview.mtext-list .list-title > i.hollow.lightgray,
+.ic.listview.mtext-list .list-icon.hollow.lightgray,
+.ic.listview.media-list > i.hollow.lightgray,
+.ic.listview.media-list .list-title > i.hollow.lightgray,
+.ic.listview.media-list .list-icon.hollow.lightgray {
+  background-color: transparent;
+  border: 1px solid #ddd;
+  color: #ddd; }
+.ic.listview.text-list .list-item.topline.gray,
+.ic.listview.mtext-list .list-item.topline.gray,
+.ic.listview.media-list .list-item.topline.gray {
+  border-top: 1px solid #999; }
+.ic.listview.text-list .list-item.underline.gray,
+.ic.listview.mtext-list .list-item.underline.gray,
+.ic.listview.media-list .list-item.underline.gray {
+  border-bottom: 1px solid #999; }
+.ic.listview.text-list .list-item.topline.underline.gray,
+.ic.listview.mtext-list .list-item.topline.underline.gray,
+.ic.listview.media-list .list-item.topline.underline.gray {
+  border-top: 1px solid #999;
+  border-bottom: 1px solid #999; }
+.ic.listview.text-list .list-item.stripe.gray:nth-child(odd),
+.ic.listview.mtext-list .list-item.stripe.gray:nth-child(odd),
+.ic.listview.media-list .list-item.stripe.gray:nth-child(odd) {
+  background-color: #999;
+  color: #ffffff; }
+.ic.listview.text-list .list-item.stripe.gray:nth-child(even),
+.ic.listview.mtext-list .list-item.stripe.gray:nth-child(even),
+.ic.listview.media-list .list-item.stripe.gray:nth-child(even) {
+  background-color: #b3b3b3;
+  color: #ffffff; }
+.ic.listview.text-list .list-item.card.gray,
+.ic.listview.mtext-list .list-item.card.gray,
+.ic.listview.media-list .list-item.card.gray {
+  background-color: #999;
+  color: #ffffff; }
+.ic.listview.text-list .list-item.pane.gray,
+.ic.listview.mtext-list .list-item.pane.gray,
+.ic.listview.media-list .list-item.pane.gray {
+  border: 1px solid #999; }
+.ic.listview.text-list > i.gray,
+.ic.listview.text-list .list-title > i.gray,
+.ic.listview.text-list .list-icon.gray,
+.ic.listview.mtext-list > i.gray,
+.ic.listview.mtext-list .list-title > i.gray,
+.ic.listview.mtext-list .list-icon.gray,
+.ic.listview.media-list > i.gray,
+.ic.listview.media-list .list-title > i.gray,
+.ic.listview.media-list .list-icon.gray {
+  background-color: #999; }
+.ic.listview.text-list > i.hollow.gray,
+.ic.listview.text-list .list-title > i.hollow.gray,
+.ic.listview.text-list .list-icon.hollow.gray,
+.ic.listview.mtext-list > i.hollow.gray,
+.ic.listview.mtext-list .list-title > i.hollow.gray,
+.ic.listview.mtext-list .list-icon.hollow.gray,
+.ic.listview.media-list > i.hollow.gray,
+.ic.listview.media-list .list-title > i.hollow.gray,
+.ic.listview.media-list .list-icon.hollow.gray {
+  background-color: transparent;
+  border: 1px solid #999;
+  color: #999; }
+.ic.listview.text-list .list-item.topline.dark-gray,
+.ic.listview.mtext-list .list-item.topline.dark-gray,
+.ic.listview.media-list .list-item.topline.dark-gray {
+  border-top: 1px solid #666; }
+.ic.listview.text-list .list-item.underline.dark-gray,
+.ic.listview.mtext-list .list-item.underline.dark-gray,
+.ic.listview.media-list .list-item.underline.dark-gray {
+  border-bottom: 1px solid #666; }
+.ic.listview.text-list .list-item.topline.underline.dark-gray,
+.ic.listview.mtext-list .list-item.topline.underline.dark-gray,
+.ic.listview.media-list .list-item.topline.underline.dark-gray {
+  border-top: 1px solid #666;
+  border-bottom: 1px solid #666; }
+.ic.listview.text-list .list-item.stripe.dark-gray:nth-child(odd),
+.ic.listview.mtext-list .list-item.stripe.dark-gray:nth-child(odd),
+.ic.listview.media-list .list-item.stripe.dark-gray:nth-child(odd) {
+  background-color: #666;
+  color: #ffffff; }
+.ic.listview.text-list .list-item.stripe.dark-gray:nth-child(even),
+.ic.listview.mtext-list .list-item.stripe.dark-gray:nth-child(even),
+.ic.listview.media-list .list-item.stripe.dark-gray:nth-child(even) {
+  background-color: gray;
+  color: #ffffff; }
+.ic.listview.text-list .list-item.card.dark-gray,
+.ic.listview.mtext-list .list-item.card.dark-gray,
+.ic.listview.media-list .list-item.card.dark-gray {
+  background-color: #666;
+  color: #ffffff; }
+.ic.listview.text-list .list-item.pane.dark-gray,
+.ic.listview.mtext-list .list-item.pane.dark-gray,
+.ic.listview.media-list .list-item.pane.dark-gray {
+  border: 1px solid #666; }
+.ic.listview.text-list > i.dark-gray,
+.ic.listview.text-list .list-title > i.dark-gray,
+.ic.listview.text-list .list-icon.dark-gray,
+.ic.listview.mtext-list > i.dark-gray,
+.ic.listview.mtext-list .list-title > i.dark-gray,
+.ic.listview.mtext-list .list-icon.dark-gray,
+.ic.listview.media-list > i.dark-gray,
+.ic.listview.media-list .list-title > i.dark-gray,
+.ic.listview.media-list .list-icon.dark-gray {
+  background-color: #666; }
+.ic.listview.text-list > i.hollow.dark-gray,
+.ic.listview.text-list .list-title > i.hollow.dark-gray,
+.ic.listview.text-list .list-icon.hollow.dark-gray,
+.ic.listview.mtext-list > i.hollow.dark-gray,
+.ic.listview.mtext-list .list-title > i.hollow.dark-gray,
+.ic.listview.mtext-list .list-icon.hollow.dark-gray,
+.ic.listview.media-list > i.hollow.dark-gray,
+.ic.listview.media-list .list-title > i.hollow.dark-gray,
+.ic.listview.media-list .list-icon.hollow.dark-gray {
+  background-color: transparent;
+  border: 1px solid #666;
+  color: #666; }
+.ic.listview.text-list .list-item.topline.white,
+.ic.listview.mtext-list .list-item.topline.white,
+.ic.listview.media-list .list-item.topline.white {
+  border-top: 1px solid #fff; }
+.ic.listview.text-list .list-item.underline.white,
+.ic.listview.mtext-list .list-item.underline.white,
+.ic.listview.media-list .list-item.underline.white {
+  border-bottom: 1px solid #fff; }
+.ic.listview.text-list .list-item.topline.underline.white,
+.ic.listview.mtext-list .list-item.topline.underline.white,
+.ic.listview.media-list .list-item.topline.underline.white {
+  border-top: 1px solid #fff;
+  border-bottom: 1px solid #fff; }
+.ic.listview.text-list .list-item.stripe.white:nth-child(odd),
+.ic.listview.mtext-list .list-item.stripe.white:nth-child(odd),
+.ic.listview.media-list .list-item.stripe.white:nth-child(odd) {
+  background-color: #fff;
+  color: #ffffff; }
+.ic.listview.text-list .list-item.stripe.white:nth-child(even),
+.ic.listview.mtext-list .list-item.stripe.white:nth-child(even),
+.ic.listview.media-list .list-item.stripe.white:nth-child(even) {
+  background-color: white;
+  color: #ffffff; }
+.ic.listview.text-list .list-item.card.white,
+.ic.listview.mtext-list .list-item.card.white,
+.ic.listview.media-list .list-item.card.white {
+  background-color: #fff;
+  color: #ffffff; }
+.ic.listview.text-list .list-item.pane.white,
+.ic.listview.mtext-list .list-item.pane.white,
+.ic.listview.media-list .list-item.pane.white {
+  border: 1px solid #fff; }
+.ic.listview.text-list > i.white,
+.ic.listview.text-list .list-title > i.white,
+.ic.listview.text-list .list-icon.white,
+.ic.listview.mtext-list > i.white,
+.ic.listview.mtext-list .list-title > i.white,
+.ic.listview.mtext-list .list-icon.white,
+.ic.listview.media-list > i.white,
+.ic.listview.media-list .list-title > i.white,
+.ic.listview.media-list .list-icon.white {
+  background-color: #fff; }
+.ic.listview.text-list > i.hollow.white,
+.ic.listview.text-list .list-title > i.hollow.white,
+.ic.listview.text-list .list-icon.hollow.white,
+.ic.listview.mtext-list > i.hollow.white,
+.ic.listview.mtext-list .list-title > i.hollow.white,
+.ic.listview.mtext-list .list-icon.hollow.white,
+.ic.listview.media-list > i.hollow.white,
+.ic.listview.media-list .list-title > i.hollow.white,
+.ic.listview.media-list .list-icon.hollow.white {
+  background-color: transparent;
+  border: 1px solid #fff;
+  color: #fff; }
+
+/*# sourceMappingURL=style.css.map */

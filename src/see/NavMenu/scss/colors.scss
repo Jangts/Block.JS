@@ -1,0 +1,17 @@
+@charset "utf-8";
+
+/*********************************************
+ ********** iBlock See UI Framework **********
+ **********   class _.see.NavMenu   **********
+ *********************************************/
+
+.ic.navmenu.gray,
+.ic.navmenu .gray {
+    >.menu-item {
+        background-color: #999;
+        color: #fff;
+    }
+    >.menu-item:hover {
+        background-color: #666;
+    }
+}

@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Block.JS IMPORTS FOR AMD</title>
+    <script src="./../../../src/iBlock.js" data-use-debugmode></script>
+</head>
+
+<body>
+    <div id="test"></div>
+    <script>
+        block(['$_/util/imports.xtd'], function(pandora, global, undefined) {
+            var document = global.document;
+            require('./testmodule', function(module) {
+
+                var div = document.createElement('div');
+                div.style.margin = "100px auto 0";
+                div.style.textAlign = "center";
+                div.style.fontSize = "72px";
+                div.innerHTML = module;
+                document.body.appendChild(div);
+            }, true);
+        }, true);
+    </script>
+</body>
+
+</html>

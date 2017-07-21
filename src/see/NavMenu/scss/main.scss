@@ -1,0 +1,16 @@
+@charset "utf-8";
+
+/*********************************************
+ ********** iBlock See UI Framework **********
+ **********   class _.see.NavMenu   **********
+ *********************************************/
+
+@import "postion";
+@import "align";
+@import "colors";
+body.__while-menu-item-get-size-step1 {
+    .ic.navmenu .menu-item.hasson>.submenu {
+        display: block !important;
+        opacity: 0 !important;
+    }
+}

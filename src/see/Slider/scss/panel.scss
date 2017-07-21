@@ -1,0 +1,402 @@
+@charset "utf-8";
+
+/*
+ * Panel Position
+ * 面板位置
+ */
+
+.ic.slider .panel {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    z-index: 999;
+    font-size: 0px;
+    box-sizing: border-box;
+}
+
+.ic.slider .panel.upon-remote {
+    top: 0px;
+    text-align: right;
+}
+
+.ic.slider .panel.top-remote {
+    top: 0px;
+    text-align: right;
+}
+
+.ic.slider .panel.middle-remote {
+    top: 50%;
+    margin-top: -50px;
+    text-align: right;
+}
+
+.ic.slider .panel.bottom-remote {
+    bottom: 0px;
+    text-align: right;
+}
+
+.ic.slider .panel.under-remote {
+    bottom: -30px;
+    text-align: center;
+}
+
+
+/*
+ * Buttons Position
+ * 按钮位置
+ */
+
+.ic.slider .panel.panel.al-left {
+    left: 0;
+    right: auto;
+    text-align: left;
+}
+
+.ic.slider .panel.panel.al-right {
+    left: auto;
+    right: 0;
+    text-align: right;
+}
+
+.ic.slider .panel.panel.al-center {
+    left: 0;
+    right: 0;
+    margin: auto;
+    text-align: center;
+}
+
+.ic.slider .panel.panel.al-just {
+    left: 0;
+    right: 0;
+    text-align: justify;
+}
+
+.ic.slider .panel.middle-remote.al-center,
+.ic.slider .panel.middle-remote.al-just {
+    display: none!important;
+}
+
+
+/*
+ * Buttons Style
+ * 按钮样式
+ */
+
+
+/*---| 圆/点/圈 |---*/
+
+
+/*- circles -*/
+
+.ic.slider .panel.circles {
+    height: 40px;
+}
+
+.ic.slider .panel.circles.al-left {
+    padding-left: 10px;
+}
+
+.ic.slider .panel.circles.al-right {
+    padding-right: 10px;
+}
+
+.ic.slider .panel.circles .slider-anchor {
+    display: inline-block;
+    box-sizing: border-box;
+    width: 20px;
+    height: 20px;
+    margin: 8px 10px;
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    opacity: .8;
+}
+
+
+/*- points -*/
+
+.ic.slider .panel.points {
+    height: 30px;
+}
+
+.ic.slider .panel.points.al-left {
+    padding-left: 10px;
+}
+
+.ic.slider .panel.points.al-right {
+    padding-right: 10px;
+}
+
+.ic.slider .panel.points .slider-anchor {
+    display: inline-block;
+    opacity: .8;
+    box-sizing: border-box;
+    width: 12px;
+    height: 12px;
+    margin: 9px 5px;
+    border-radius: 6px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+
+/*- rings -*/
+
+.ic.slider .panel.rings {
+    height: 40px;
+}
+
+.ic.slider .panel.rings.al-left,
+.ic.slider .panel.rings-sm.al-left {
+    padding-left: 10px;
+}
+
+.ic.slider .panel.rings.al-right,
+.ic.slider .panel.rings-sm.al-right {
+    padding-right: 10px;
+}
+
+.ic.slider .panel.rings .slider-anchor,
+.ic.slider .panel.rings-sm .slider-anchor {
+    display: inline-block;
+    box-sizing: border-box;
+    width: 16px;
+    height: 16px;
+    margin: 10px 5px;
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+
+/*- small rings -*/
+
+.ic.slider .panel.rings-sm {
+    height: 30px;
+}
+
+.ic.slider .panel.rings-sm .slider-anchor {
+    width: 10px;
+    height: 10px;
+    margin: 10px 5px;
+    border-width: 1px;
+    border-radius: 5px;
+}
+
+
+/*---| 方形 |---*/
+
+
+/*- square -*/
+
+.ic.slider .panel.squares {
+    height: 30px;
+}
+
+.ic.slider .panel.squares.al-left,
+.ic.slider .panel.squares-rd.al-left {
+    padding-left: 10px;
+}
+
+.ic.slider .panel.squares.al-right,
+.ic.slider .panel.squares-rd.al-right {
+    padding-right: 10px;
+}
+
+.ic.slider .panel.squares .slider-anchor,
+.ic.slider .panel.squares-rd .slider-anchor {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    margin: 10px 5px;
+}
+
+
+/*- rounded square -*/
+
+.ic.slider .panel.squares-rd {
+    height: 40px;
+}
+
+.ic.slider .panel.squares-rd .slider-anchor {
+    width: 16px;
+    height: 16px;
+    margin: 12px 6px;
+    border-radius: 3px;
+}
+
+
+/*- rectangles -*/
+
+.ic.slider .panel.rectangles {
+    height: 30px;
+}
+
+.ic.slider .panel.rectangles.al-left,
+.ic.slider .panel.rectangles-rd.al-left {
+    padding-left: 10px;
+}
+
+.ic.slider .panel.rectangles.al-right,
+.ic.slider .panel.rectangles-rd.al-right {
+    padding-right: 10px;
+}
+
+.ic.slider .panel.rectangles .slider-anchor,
+.ic.slider .panel.rectangles-rd .slider-anchor {
+    display: inline-block;
+    width: 16px;
+    height: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    margin: 10px 6px;
+}
+
+
+/*- round rectangles -*/
+
+.ic.slider .panel.rectangles-rd .slider-anchor {
+    border-radius: 3px;
+}
+
+
+/*---| 条状 |---*/
+
+
+/*- bars -*/
+
+.ic.slider .panel.bars,
+.ic.slider .panel.bars-rd {
+    height: 30px;
+}
+
+.ic.slider .panel.bars.al-left,
+.ic.slider .panel.bars-rd.al-left {
+    padding-left: 10px;
+}
+
+.ic.slider .panel.bars.al-right,
+.ic.slider .panel.bars-rd.al-right {
+    padding-right: 10px;
+}
+
+.ic.slider .panel.bars .slider-anchor,
+.ic.slider .panel.bars-rd .slider-anchor {
+    display: inline-block;
+    width: 24px;
+    height: 6px;
+    overflow: hidden;
+    cursor: pointer;
+    margin: 12px 3px;
+}
+
+
+/*- rounded bars -*/
+
+.ic.slider .panel.bars-rd .slider-anchor {
+    border-radius: 3px;
+}
+
+
+/*---| 线形 |---*/
+
+
+/*- lines -*/
+
+.ic.slider .panel.lines,
+.ic.slider .panel.lines-wb {
+    height: 30px;
+}
+
+.ic.slider .panel.lines.al-left,
+.ic.slider .panel.lines-wb.al-left {
+    padding-left: 10px;
+}
+
+.ic.slider .panel.lines.al-right,
+.ic.slider .panel.lines-wb.al-right {
+    padding-right: 10px;
+}
+
+.ic.slider .panel.lines .slider-anchor,
+.ic.slider .panel.lines-wb .slider-anchor {
+    display: inline-block;
+    width: 50px;
+    height: 1px;
+    overflow: hidden;
+    cursor: pointer;
+    margin: 12px 5px;
+}
+
+.ic.slider .panel.lines-wb .slider-anchor {
+    border-style: solid;
+    border-width: 1px;
+}
+
+
+/*- lines with border -*/
+
+.ic.slider .panel.lines-wb .slider-anchor.active {
+    width: 48px;
+    height: 1px;
+}
+
+
+/*---| 索引 |---*/
+
+
+/*- context -*/
+
+
+/*- thumbs -*/
+
+.ic.slider .panel.context,
+.ic.slider .panel.thumbs {
+    width: 100%;
+    height: 50px;
+}
+
+.ic.slider .panel.thumbs {
+    height: 80px;
+    font-size: 0;
+}
+
+.ic.slider .panel.context.middle-remote,
+.ic.slider .panel.thumbs.middle-remote {
+    width: 200px;
+    height: 100%;
+    top: 0;
+    margin-top: 0;
+    box-sizing: content-box;
+}
+
+.ic.slider .panel.thumbs.middle-remote {
+    width: 160px;
+}
+
+.ic.slider .panel.context .slider-anchor,
+.ic.slider .panel.thumbs .slider-anchor {
+    display: inline-block;
+    box-sizing: border-box;
+    height: 50px;
+    border-top: rgba(255, 255, 255, .5) solid 1px;
+    border-right: rgba(255, 255, 255, .5) solid 1px;
+    line-height: 50px;
+    font-size: 14px;
+    transition: background-color ease-in .3s;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.ic.slider .panel.context.middle-remote .slider-anchor,
+.ic.slider .panel.thumbs.middle-remote .slider-anchor {
+    width: 100%;
+    height: auto;
+    display: block;
+}

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<meta charset=utf-8>
+<title>Block.JS SYNTAX HIGHLIGHTING FOR html</title>
+<script src="../../../src/iBlock.js"></script>
+
+<body style="font-size:0.875em;">
+    <pre>
+<code data-language="html">&lt;!-- inline styles! --&gt;
+&lt;style type="text/css"&gt;
+    body span.blah {
+        background: #000;
+        color: #fff;
+    }
+&lt;/style&gt;
+
+&lt;body&gt;
+    &lt;span class="blah" width="200" height="200"&gt;test code goes here&lt;/span&gt;
+&lt;/body&gt;
+
+&lt;!-- inline php! --&gt;
+&lt;?php
+    $test = true;
+
+    /**
+     * test
+     */
+    function what($test) {
+        return $test;
+    }
+?&gt;
+
+&lt;!-- inline javascript! --&gt;
+&lt;script type="text/javascript"&gt;
+    function prettyCool() {
+        doSomeJQueryOrWhatever();
+    }
+&lt;/script&gt;
+
+&lt;article title="&lt;?= $user->name ?&gt;"&gt;test&lt;/article&gt;</code>
+</pre>
+    <script>
+        /* 本测试主要测试如下 */
+        /*
+         * 1. 从语句块的可用性；
+         * 2. 使用load加载twilight样式并调用see.highlight.rendertAll；
+         * 3. 使用see.highlight.renderAll渲染html代码；
+         */
+        block(['$_/see/highlight/languages/html.xtd'], function(_, global, undefined) {
+            _.load('../../../src/see/highlight/themes/twilight.css', _.see.highlight.renderAll, null, 'css');
+        }, true);
+    </script>
+</body>

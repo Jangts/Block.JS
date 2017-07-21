@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Block.JS RUNTIME</title>
+    <script src="../src/iBlock.js" data-use-debugmode></script>
+</head>
+
+<body>
+    <script>
+        block(function(pandora, global, undefined) {
+            var _ = pandora;
+
+            _('animals', [{
+                type: 'dog',
+                age: 3
+            }, {
+                type: 'cat',
+                age: 4
+            }, {
+                type: 'pig',
+                age: 5
+            }, {
+                type: 'fox',
+                age: 6
+            }, {
+                type: 'lion',
+                age: 5
+            }, {
+                type: 'tiger',
+                age: 4
+            }, {
+                type: 'monkey',
+                age: 3
+            }]);
+        }, '$_/animals.xtd');
+
+        block(function(pandora, global, undefined) {
+            var _ = pandora,
+                declare = pandora.declareClass;
+
+            declare('Animal', {
+                type: 'dog',
+                age: 5,
+                _init: function(opts) {
+                    _.extend(this, true, opts);
+                },
+                say: function() {
+                    return 'I\'m a ' + this.type + ', I\'m ' + this.age + ' years old.';
+                }
+            });
+
+        }, '$_/Animal.Cls');
+
+        block(['$_/animals.xtd', '$_/Animal.Cls'], function(_, global, undefined) {
+            var it;
+            _.each(_.animals, function(i, animal) {
+                it = _.Animal(this);
+                _.render({
+                    margin: "auto",
+                    fontSize: "18px"
+                }, it.say());
+            });
+        }, true);
+    </script>
+</body>
+
+</html>

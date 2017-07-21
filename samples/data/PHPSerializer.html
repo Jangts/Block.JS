@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Block.JS PHPSERIALIZER</title>
+    <script src="../../src/iBlock.js" data-use-debugmode></script>
+</head>
+
+<body>
+    <script>
+        /* 本测试主要测试如下 */
+        /*
+         * 1. 从语句块的可用性；
+         * 2. 使用data.PHPSerializer类对文本进行编码和解码；
+         */
+
+        block(['$_/data/PHPSerializer.Cls'], function(_, global, undefined) {
+
+            var se = new _.data.PHPSerializer(),
+                view = _.render({
+                    margin: "10px auto 0",
+                    textAlign: "left",
+                    fontSize: "18px"
+                }),
+                object = {
+                    undefined: undefined,
+                    boolean1: true,
+                    boolean2: false,
+                    string: 'Hello World',
+                    number: 1.256,
+                    object1: null,
+                    object2: {
+                        fn: function(a) {
+                            return a;
+                        }
+                    },
+                    array: [1, 2, 3, '4', {
+                        num: 5
+                    }]
+                };
+            view.innerHTML = se.serialize(object);
+            console.log(se.unserialize(view.innerHTML));
+        }, true);
+    </script>
+</body>
+
+</html>

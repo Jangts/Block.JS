@@ -1,0 +1,211 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Mix Chart</title>
+    <script src="../../../src/iBlock.js" data-use-debugmode></script>
+</head>
+
+<body>
+    <div id="canvas" style="width: 800px; max-width: 100%; height: 480px;">
+    </div>
+    <script>
+        block([
+            '$_/painter/Charts/animation.clsx',
+            '$_/painter/Charts/tooltip.clsx',
+            '$_/painter/Charts/type/Bar.Cls',
+            '$_/painter/Charts/type/Line.Cls',
+            '$_/painter/Charts/type/Pie.Cls'
+        ], function(_, global, undefined) {
+            var document = global.document;
+            var location = global.location;
+            var randomScalingFactor = function() {
+                return Math.round(Math.random() * 100 + 100)
+            };
+            var randomScalingFactorPie = function() {
+                return Math.round(Math.random() * 1000) + 200
+            };
+            var option = {
+                tooltip: {
+                    type: 'axis',
+                },
+                grid: {
+                    left: 50,
+                    right: 250,
+                },
+                xAxis: {
+                    data: ["January", "February", "March", "April", "May", "June", "July"]
+                },
+                yAxis: {
+                    axisLine: {
+                        onZero: true
+                    },
+                },
+                animationDuration: 2000,
+                series: [{
+                    type: "bar",
+                    name: "A",
+                    data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor()]
+                }, {
+                    type: "bar",
+                    name: "B",
+                    data: [randomScalingFactor() - 300, randomScalingFactor() - 300, randomScalingFactor() - 300, randomScalingFactor() - 300, randomScalingFactor() - 300, randomScalingFactor() - 300, randomScalingFactor() - 300]
+                }, {
+                    type: "bar",
+                    name: "C",
+                    data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor()]
+                }, {
+                    type: 'line',
+                    name: "My First dataset",
+                    showArea: true,
+                    smooth: true,
+                    data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor()]
+                }, {
+                    type: 'line',
+                    name: "My Fourth dataset",
+                    data: [randomScalingFactor() +
+                        100, randomScalingFactor() + 100, randomScalingFactor() + 100, randomScalingFactor() + 100, randomScalingFactor() + 100, randomScalingFactor() + 100, randomScalingFactor() + 100
+                    ]
+                }, {
+                    type: 'pie',
+                    name: "Pie One",
+                    radius: [60, 80],
+                    center: [680,
+                        120
+                    ],
+                    data: [{
+                        value: randomScalingFactorPie(),
+                        name: "Red"
+                    }, {
+                        value: randomScalingFactorPie(),
+                        name: "Green"
+                    }, {
+                        value: randomScalingFactorPie(),
+                        name: "Yellow"
+                    }, {
+                        value: randomScalingFactorPie(),
+                        name: "Grey"
+                    }, {
+                        value: randomScalingFactorPie(),
+                        name: "Dark Grey"
+                    }, {
+                        value: randomScalingFactorPie(),
+                        name: "d"
+                    }, {
+                        value: randomScalingFactorPie(),
+                        name: "e"
+                    }]
+                }]
+            }
+            var chart = new _.painter.Charts(document.getElementById("canvas"));
+            chart.setOption(option);
+            ///* 
+            setInterval(function() {
+                //setTimeout(function(){
+                var option = {
+                    series: [{
+                        type: "bar",
+                        name: "A",
+                        data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor()]
+                    }, {
+                        type: "bar",
+                        name: "B",
+                        data: [randomScalingFactor() - 300, randomScalingFactor() - 300, randomScalingFactor() - 300, randomScalingFactor() - 300, randomScalingFactor() - 300, randomScalingFactor() - 300, randomScalingFactor() - 300]
+                    }, {
+                        type: "bar",
+                        name: "C",
+                        data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor()]
+                    }, {
+                        type: "bar",
+                        name: "D",
+                        data: [randomScalingFactor() - 300, randomScalingFactor() -
+                            300, randomScalingFactor() - 300, randomScalingFactor() - 300, randomScalingFactor() - 300, randomScalingFactor() - 300, randomScalingFactor() - 300
+                        ]
+                    }, {
+                        type: 'line',
+                        name: "My First dataset",
+                        data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor()]
+                    }, {
+                        type: 'line',
+                        name: "My Second dataset",
+                        smooth: true,
+                        showPoint: false,
+                        data: [randomScalingFactor() - 200, randomScalingFactor() - 50, randomScalingFactor() - 200, randomScalingFactor() - 200, randomScalingFactor(), randomScalingFactor() - 200, randomScalingFactor() -
+                            200
+                        ]
+                    }, {
+                        type: 'line',
+                        name: "My Fourth dataset",
+                        data: [randomScalingFactor() + 100, randomScalingFactor() + 100, randomScalingFactor() + 100, randomScalingFactor() + 100, randomScalingFactor() + 100, randomScalingFactor() + 100, randomScalingFactor() +
+                            100
+                        ]
+                    }, {
+                        type: 'pie',
+                        name: "Pie One",
+                        data: [{
+                            value: randomScalingFactorPie(),
+                            name: "Red"
+                        }, {
+                            value: randomScalingFactorPie(),
+                            name: "Green"
+                        }, {
+                            value: randomScalingFactorPie(),
+                            name: "Yellow"
+                        }, {
+                            value: randomScalingFactorPie(),
+                            name: "Grey"
+                        }, {
+                            value: randomScalingFactorPie(),
+                            name: "Dark Grey"
+                        }, {
+                            value: randomScalingFactorPie(),
+                            name: "a"
+                        }, {
+                            value: randomScalingFactorPie(),
+                            name: "b"
+                        }, {
+                            value: randomScalingFactorPie(),
+                            name: "c"
+                        }, {
+                            value: randomScalingFactorPie(),
+                            name: "d"
+                        }, {
+                            value: randomScalingFactorPie(),
+                            name: "e"
+                        }]
+                    }, {
+                        type: 'pie',
+                        name: "Pie Two",
+                        animateScale: true,
+                        radius: [0, 55],
+                        center: [680, 120],
+                        data: [{
+                            value: randomScalingFactor(),
+                            name: "Red"
+                        }, {
+                            value: randomScalingFactor(),
+                            name: "Green"
+                        }, {
+                            value: randomScalingFactor(),
+                            name: "Yellow"
+                        }, {
+                            value: randomScalingFactor(),
+                            name: "Grey"
+                        }, {
+                            value: randomScalingFactor(),
+                            name: "Dark Grey"
+                        }, {
+                            value: randomScalingFactor(),
+                            name: "Red"
+                        }]
+                    }]
+                }
+                chart.setOption(option);
+            }, 6000);
+            console.log(chart);
+        }, true);
+    </script>
+</body>
+
+</html>

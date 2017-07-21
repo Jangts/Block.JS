@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Block.JS EDITOR</title>
+    <script src="../../../src/iBlock.js" data-use-debugmode></script>
+    <link href="../../../src/see/see.css" type="text/css" rel="stylesheet" />
+    <link href="../../../src/see/fa.css" type="text/css" rel="stylesheet" />
+    <style>
+        .myeditor {
+            width: 900px;
+            margin: 20px;
+        }
+        
+        .myeditor textarea {
+            width: 898px;
+            height: 298px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="myeditor"><textarea>Block.JS Editor 1</textarea></div>
+    <div class="myeditor"><textarea>Block.JS Editor 2</textarea></div>
+    <script>
+        block([
+            '$_/dom/Elements/',
+            '$_/form/Editor/toolbarTypes/complete.bar',
+            '$_/form/Editor/toolbarTypes/normal.bar',
+            '$_/form/Editor/toolbarTypes/simple.bar',
+            '$_/form/Editor/emoticons/default.emt',
+            '$_/form/Editor/'
+        ], function(pandora, global, undefined) {
+            var _ = pandora,
+                document = global.document,
+                console = global.console;
+
+            var editors = _.form.careatEditors('.myeditor textarea', {
+                themeType: 'default',
+                toolbarType: 'complete',
+                fragments: [{
+                    name: '分页符',
+                    code: '{{@page_break}}'
+                }, {
+                    name: '分页符2',
+                    code: '{{@page_break2}}'
+                }]
+            })[0];
+            //console.log(editors);
+        }, true);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Block.JS HASH</title>
+    <script src="../../src/iBlock.js" data-use-debugmode></script>
+    <style>
+        .form {
+            margin: 20px auto;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="form">
+        <input id="input" type="text" value="请输入要加密的文本">
+        <input id="md5" type="button" value="md5">
+        <input id="sha1" type="button" value="sha1">
+    </div>
+    <script>
+        /* 本测试主要测试如下 */
+        /*
+        1. 从语句块的可用性；
+        2. 使用data.hash加密包中的md5和sha1方面加密一段文本；
+        */
+
+        block(['$_/data/hash.xtd'], function(_, global, undefined) {
+            var document = global.document,
+                input = document.getElementById('input'),
+                md5 = document.getElementById('md5'),
+                sha1 = document.getElementById('sha1'),
+                view = _.render({
+                    margin: "10px auto 0",
+                    textAlign: "center",
+                    fontSize: "24px"
+                });
+
+            md5.onclick = function() {
+                var text = input.value;
+                view.innerHTML = _.data.hash.md5(text);
+            }
+
+            sha1.onclick = function() {
+                var text = input.value;
+                view.innerHTML = _.data.hash.sha1(text);
+            }
+        }, true);
+    </script>
+</body>
+
+</html>

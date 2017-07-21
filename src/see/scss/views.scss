@@ -1,0 +1,87 @@
+.ic.inline {
+    display: inline;
+}
+
+.ic.block {
+    display: block;
+}
+
+.ic.inline.block {
+    display: inline-block;
+}
+
+.ic.hidden {
+    display: none;
+}
+
+.ic.border-box {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    /* Firefox */
+    -webkit-box-sizing: border-box;
+    /* Safari */
+}
+
+.ic.pointer {
+    cursor: pointer;
+}
+
+.ic.cursor {
+    cursor: default;
+}
+
+.ic.op-00 {
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+
+@for $i from 1 through 10 {
+    .ic.op-#{$i*10} {
+        opacity: $i/10;
+        filter: alpha(opacity=#{$i*10});
+    }
+}
+
+.ic.ov-visi {
+    overflow: visible;
+}
+
+.ic.ov-hide {
+    overflow: hidden;
+}
+
+.ic.ov-scrl {
+    overflow: scroll;
+}
+
+.ic.ov-auto {
+    overflow: auto;
+}
+
+
+/*
+/** Border Radius **/
+
+.ic.fillet {
+    border-radius: 2%;
+}
+
+.ic.fillet10 {
+    border-radius: 10px;
+}
+
+.ic.circle {
+    border-radius: 50%;
+}
+
+$radiuses: 2,
+3,
+4,
+5,
+10,
+20;
+@each $radius in $radiuses {
+    .ic.radius-#{$radius} {
+        border-radius: #{$radius}px;
+    }
+}
