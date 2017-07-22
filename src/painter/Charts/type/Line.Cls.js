@@ -8,7 +8,7 @@
 ;
 block([
     '$_/painter/Charts/grid.clsx',
-    '$_/painter/Charts/type/PolarLine.Cls',
+    '$_/painter/Charts/type/PolarLine.cls',
 ], function(pandora, global, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,

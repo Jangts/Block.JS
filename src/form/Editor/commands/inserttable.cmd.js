@@ -41,18 +41,18 @@ block([
     });
 
     _.form.Editor.regCreater('inserttable', function() {
-        var html = '<dialog class="ic editor-dialog">';
-        html += '<span class="ic editor-title">Insert Table</span>';
-        html += '<div class="ic editor-attr"><div class="ic editor-attr-left">';
-        html += '<label>Size</label><input type="text" class="ic editor-table-rows" placeholder="1">';
-        html += '<span>×</span><input type="text" class="ic editor-table-columns" placeholder="1">';
-        html += '</div><div class="ic editor-attr-right">';
-        html += '<label>Width</label><input type="text" class="ic editor-table-width" placeholder="100">';
-        html += '<select class="ic editor-table-unit">';
+        var html = '<dialog class="bc editor-dialog">';
+        html += '<span class="bc editor-title">Insert Table</span>';
+        html += '<div class="bc editor-attr"><div class="bc editor-attr-left">';
+        html += '<label>Size</label><input type="text" class="bc editor-table-rows" placeholder="1">';
+        html += '<span>×</span><input type="text" class="bc editor-table-columns" placeholder="1">';
+        html += '</div><div class="bc editor-attr-right">';
+        html += '<label>Width</label><input type="text" class="bc editor-table-width" placeholder="100">';
+        html += '<select class="bc editor-table-unit">';
         html += '<option value="%" selected="selected">%</option>';
         html += '<option value="">px</option>';
         html += '</select></div></div>';
-        html += '<div class="ic editor-btns">';
+        html += '<div class="bc editor-btns">';
         html += '<button type="button" data-ib-cmd="inserttable">OK</button>';
         html += '</div>';
         html += '</dialog>';
@@ -61,10 +61,10 @@ block([
 
     _.form.Editor.regDialog('inserttable', function(btn) {
         var dialog = _.dom.closest(btn, 'dialog');
-        var rowsInput = _.query('.ic.editor-attr .ic.editor-table-rows', dialog)[0];
-        var columnsInput = _.query('.ic.editor-attr .ic.editor-table-columns', dialog)[0];
-        var widthInput = _.query('.ic.editor-attr .ic.editor-table-width', dialog)[0];
-        var unitInput = _.query('.ic.editor-attr .ic.editor-table-unit', dialog)[0];
+        var rowsInput = _.query('.bc.editor-attr .bc.editor-table-rows', dialog)[0];
+        var columnsInput = _.query('.bc.editor-attr .bc.editor-table-columns', dialog)[0];
+        var widthInput = _.query('.bc.editor-attr .bc.editor-table-width', dialog)[0];
+        var unitInput = _.query('.bc.editor-attr .bc.editor-table-unit', dialog)[0];
         if (rowsInput && columnsInput) {
             return {
                 rows: rowsInput.value == '' ? 1 : rowsInput.value,

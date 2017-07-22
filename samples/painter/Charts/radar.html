@@ -3,7 +3,7 @@
 
 <head>
     <title>IBK RADAR CHART</title>
-    <script src="../../../src/iBlock.js" data-use-debugmode></script>
+    <script src="../../../src/block.js" data-use-debugmode></script>
     <meta name="viewport" content="initial-scale = 1, user-scalable = no">
     <style>
         div {
@@ -22,7 +22,7 @@
         block([
             '$_/painter/Charts/animation.clsx',
             '$_/painter/Charts/tooltip.clsx',
-            '$_/painter/Charts/type/Radar.Cls'
+            '$_/painter/Charts/type/Radar.cls'
         ], function(_, global, undefined) {
             var document = global.document;
             var option1 = {

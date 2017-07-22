@@ -50,7 +50,7 @@ block([
 
     _.extend(_.see.NavMenu, {
         auto: function() {
-            $('.ic.navmenu[data-ic-auto]').each(function() {
+            $('.bc.navmenu[data-ic-auto]').each(function() {
                 if (($(this).data('icAuto') != 'false') && ($(this).data('icRendered') != 'navmenu')) {
                     $(this).data('icRendered', 'navmenu');
                     new _.see.NavMenu(this);

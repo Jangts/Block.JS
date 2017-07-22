@@ -42,9 +42,9 @@ block([
     });
 
     _.form.Editor.regCreater('header', function() {
-        var html = '<ul class="ic editor-pick">';
+        var html = '<ul class="bc editor-pick">';
         for (var i = 1; i < 7; i++) {
-            html += '<li class="ic editor-h' + i + '" data-ib-cmd="header" data-ib-val="h' + i + '"><h' + i + '>Header</h' + i + '></li>';
+            html += '<li class="bc editor-h' + i + '" data-ib-cmd="header" data-ib-val="h' + i + '"><h' + i + '>Header</h' + i + '></li>';
         }
         html += '</ul>';
         return html;

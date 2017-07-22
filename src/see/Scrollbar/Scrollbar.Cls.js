@@ -8,7 +8,7 @@
 
 block([
     '$_/util/bool.xtd',
-    '$_/see/BasicScrollBAR.Cls'
+    '$_/see/BasicScrollBAR.cls'
 ], function(pandora, global, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
@@ -32,7 +32,7 @@ block([
                 uesHorizontal: false
             });
             this.Element = _.util.bool.isStr(elem) ? _.dom.query.byId(elem) : elem;
-            _.dom.addClass(this.Element, 'ic')
+            _.dom.addClass(this.Element, 'bc')
                 .addClass(this.Element, 'scrollbar')
                 .addClass(this.Element, settings.theme || 'light');
             this.build(settings.uesVertical, settings.uesHorizontal);

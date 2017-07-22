@@ -13,7 +13,7 @@ block([
     '$_/math/math.xtd',
     '$_/math/easing.xtd',
     '$_/painter/canvas.xtd',
-    '$_/painter/Charts/Charts.Cls'
+    '$_/painter/Charts/Charts.cls'
 ], function(pandora, global, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,

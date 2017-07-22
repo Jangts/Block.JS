@@ -19,7 +19,7 @@ $colorpairs: (fff, #FFFFFF, #111111),
 @each $name,
 $bgcolor,
 $color in $colorpairs {
-    .ic.bg-#{$name} {
+    .bc.bg-#{$name} {
         background-color: $bgcolor;
         color: $color;
     }
@@ -31,7 +31,7 @@ $color in $colorpairs {
 $colors: (fff:#FFFFFF, e6:#E6E6E6, ccc:#CCCCCC, 888:#888888, 999:#999999, 666:#666666, 000:#000000, "red":#FF0000, "violet":#003AA6, "modena":#036);
 @each $name,
 $color in $colors {
-    .ic.ft-#{$name} {
+    .bc.ft-#{$name} {
         color: $color;
     }
 }
@@ -80,16 +80,16 @@ $sizes: 11,
 60,
 72;
 @each $size in $sizes {
-    .ic.f#{$size},
-    .ic.ft-#{$size} {
+    .bc.f#{$size},
+    .bc.ft-#{$size} {
         font-size: #{$size/20}rem;
     }
 }
 
-.ic.ft-lighter {
+.bc.ft-lighter {
     font-weight: lighter;
 }
 
-.ic.ft-blod {
+.bc.ft-blod {
     font-weight: bold;
 }

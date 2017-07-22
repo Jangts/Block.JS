@@ -7,9 +7,9 @@
  */
 ;
 block([
-    '$_/data/Component.Cls',
+    '$_/data/Component.cls',
     '$_/dom/Elements/',
-    '$_/Time/Month.Cls'
+    '$_/Time/Month.cls'
 ], function(pandora, global, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
@@ -29,7 +29,7 @@ block([
             elem = _.util.type.isElement(elem) ? elem : document.getElementById(elem);
             if (elem) {
                 this.Element = elem;
-                _.dom.addClass(elem, 'ic').addClass(elem, 'kalendar');
+                _.dom.addClass(elem, 'bc').addClass(elem, 'kalendar');
                 this.months = $('.months', elem)[0] || _.dom.create('ul', elem, { className: 'months' });
                 this.week = $('.week', elem)[0] || _.dom.create('ul', elem, { className: 'week' });
                 this.days = $('.days', elem)[0] || _.dom.create('ul', elem, { className: 'days' });

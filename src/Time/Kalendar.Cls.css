@@ -1,8 +1,8 @@
 @charset "utf-8";
 
-/*** .ic.kalendar ***/
+/*** .bc.kalendar ***/
 
-.ic.kalendar {
+.bc.kalendar {
     display: block;
     width: 380px;
     height: 450px;
@@ -10,14 +10,14 @@
     overflow: hidden;
 }
 
-.ic.kalendar .months {
+.bc.kalendar .months {
     display: block;
     width: 360px;
     height: 80px;
     margin: 10px 10px 0;
 }
 
-.ic.kalendar .months .month {
+.bc.kalendar .months .month {
     display: block;
     height: 80px;
     text-align: center;
@@ -27,26 +27,26 @@
     transition: all ease .4s;
 }
 
-.ic.kalendar .months .prev-month {
+.bc.kalendar .months .prev-month {
     width: 55px;
     float: left;
     font-family: Consola;
     font-size: 32px;
 }
 
-.ic.kalendar .months .curr-month {
+.bc.kalendar .months .curr-month {
     width: 250px;
     float: left;
 }
 
-.ic.kalendar .months .next-month {
+.bc.kalendar .months .next-month {
     width: 55px;
     float: right;
     font-family: Consola;
     font-size: 32px;
 }
 
-.ic.kalendar .week {
+.bc.kalendar .week {
     display: block;
     width: 350px;
     height: 28px;
@@ -54,7 +54,7 @@
     padding: 5px;
 }
 
-.ic.kalendar .week .day-of-week {
+.bc.kalendar .week .day-of-week {
     display: block;
     width: 46px;
     height: 24px;
@@ -67,7 +67,7 @@
     border-radius: 2px;
 }
 
-.ic.kalendar .days {
+.bc.kalendar .days {
     display: block;
     width: 350px;
     height: 300px;
@@ -75,7 +75,7 @@
     padding: 5px;
 }
 
-.ic.kalendar .days .day {
+.bc.kalendar .days .day {
     display: block;
     width: 48px;
     height: 48px;
@@ -87,74 +87,74 @@
     cursor: pointer;
 }
 
-.ic.kalendar .days .day.actived {
+.bc.kalendar .days .day.actived {
     margin: 0;
 }
 
-.ic.kalendar .days .day.actived {
+.bc.kalendar .days .day.actived {
     margin: 0;
 }
 
-.ic.kalendar .days .day:hover {
+.bc.kalendar .days .day:hover {
     margin: 0;
 }
 
-.ic.kalendar .months {
+.bc.kalendar .months {
     width: 360px;
     background: #222;
 }
 
-.ic.kalendar .months .month {
+.bc.kalendar .months .month {
     color: #999;
 }
 
-.ic.kalendar .months .month:hover {
+.bc.kalendar .months .month:hover {
     background: #181818;
 }
 
-.ic.kalendar .week {
+.bc.kalendar .week {
     background: #222;
 }
 
-.ic.kalendar .week .day-of-week {
+.bc.kalendar .week .day-of-week {
     color: #999;
 }
 
-.ic.kalendar .week .day-of-week:hover {
+.bc.kalendar .week .day-of-week:hover {
     background: #191919;
 }
 
-.ic.kalendar .week .day-of-week.today {
+.bc.kalendar .week .day-of-week.today {
     background: #191919;
 }
 
-.ic.kalendar .days {
+.bc.kalendar .days {
     background: #222;
 }
 
-.ic.kalendar .days .day {
+.bc.kalendar .days .day {
     color: #999;
     background: #181818;
 }
 
-.ic.kalendar .days .day.events {
+.bc.kalendar .days .day.events {
     background: #522;
 }
 
-.ic.kalendar .days .day.today {
+.bc.kalendar .days .day.today {
     background: #663300;
 }
 
-.ic.kalendar .days .day.actived,
-.ic.kalendar .days .day:hover {
+.bc.kalendar .days .day.actived,
+.bc.kalendar .days .day:hover {
     border: #ab3f45 1px solid;
 }
 
-.ic.kalendar .days .day.disabled {
+.bc.kalendar .days .day.disabled {
     color: #666;
     background: #282828;
 }
 
-.ic.kalendar .days .day.disabled:hover {
+.bc.kalendar .days .day.disabled:hover {
     border: #282828 1px solid;
 }

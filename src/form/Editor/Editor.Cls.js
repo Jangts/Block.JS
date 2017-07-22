@@ -9,10 +9,10 @@
 block([
     '$_/form/Editor/style.css',
     '$_/util/bool.xtd',
-    '$_/dom/HTMLClose.Cls',
-    '$_/dom/Events.Cls',
+    '$_/dom/HTMLClose.cls',
+    '$_/dom/Events.cls',
     '$_/data/',
-    '$_/form/Editor/Selection.Cls',
+    '$_/form/Editor/Selection.cls',
     '$_/form/Editor/parameters.tmp',
     '$_/form/Editor/builders.tmp',
     '$_/form/Editor/events.tmp',
@@ -109,7 +109,7 @@ block([
             return this.codearea.value;
         },
         hideExtTools: function() {
-            _.each(_.query('.ic.editor-tool[data-ib-dialog], .ic.editor-tool[data-ib-cmds]', this.toolarea), function(i, el) {
+            _.each(_.query('.bc.editor-tool[data-ib-dialog], .bc.editor-tool[data-ib-cmds]', this.toolarea), function(i, el) {
                 _.dom.toggleClass(this, 'active', false);
             });
             return this;
@@ -117,7 +117,7 @@ block([
         showDialog: function(dialog) {
             this.hideExtTools();
             if (dialog) {
-                var button = arguments[1] || _.query('.ic.editor-tool[data-ib-dialog=' + dialog + ']', this.toolarea)[0];
+                var button = arguments[1] || _.query('.bc.editor-tool[data-ib-dialog=' + dialog + ']', this.toolarea)[0];
                 _.dom.toggleClass(button, 'active');
             };
             return this;
@@ -126,9 +126,9 @@ block([
             this.hideExtTools();
             if (cmds) {
                 var height = this.isRich ? _.dom.getHeight(this.richarea, 'box') : _.dom.getHeight(this.codearea, 'box');
-                var button = arguments[1] || _.query('.ic.editor-tool[data-ib-cmds=' + cmds + ']', this.toolarea)[0];
+                var button = arguments[1] || _.query('.bc.editor-tool[data-ib-cmds=' + cmds + ']', this.toolarea)[0];
                 _.dom.toggleClass(button, 'active');
-                var list = _.query('.ic.editor-pick', button)[0];
+                var list = _.query('.bc.editor-pick', button)[0];
                 _.dom.setStyle(list, 'max-height', height - 15);
             };
             return this;

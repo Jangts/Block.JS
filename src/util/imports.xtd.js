@@ -367,7 +367,7 @@ block(function(pandora, global, undefined) {
         settings = settings || {};
 
         if (settings.mainUrl) {
-            global.iBlock.config({
+            global.block.config({
                 mainUrl: settings.mainUrl
             });
         }

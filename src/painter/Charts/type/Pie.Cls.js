@@ -7,8 +7,8 @@
  */
 ;
 block([
-    '$_/painter/Charts/type/Default.Cls',
-    '$_/painter/Charts/sharp/Arc.Cls'
+    '$_/painter/Charts/type/Default.cls',
+    '$_/painter/Charts/sharp/Arc.cls'
 ], function(pandora, global, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,

@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <title>Block.JS RUNTIME</title>
-    <script src="../src/iBlock.js" data-use-debugmode></script>
+    <script src="../src/block.js" data-use-debugmode></script>
 </head>
 
 <body>
@@ -51,9 +51,9 @@
                 }
             });
 
-        }, '$_/Animal.Cls');
+        }, '$_/Animal.cls');
 
-        block(['$_/animals.xtd', '$_/Animal.Cls'], function(_, global, undefined) {
+        block(['$_/animals.xtd', '$_/Animal.cls'], function(_, global, undefined) {
             var it;
             _.each(_.animals, function(i, animal) {
                 it = _.Animal(this);

@@ -6,7 +6,7 @@
  * Date 2017-04-06
  */
 ;
-block(['$_/util/bool.xtd', '$_/util/Color.Cls', '$_/dom/'], function(
+block(['$_/util/bool.xtd', '$_/util/Color.cls', '$_/dom/'], function(
     pandora, global, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,

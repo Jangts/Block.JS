@@ -8,7 +8,7 @@
 ;
 block([
     '$_/dom/',
-    '$_/form/Range.Cls',
+    '$_/form/Range.cls',
     '$_/form/Editor/'
 ], function(pandora, global, undefined) {
     var _ = pandora,

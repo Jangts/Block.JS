@@ -1,10 +1,10 @@
 /** Widths **/
 
-.ic.container {
+.bc.container {
     width: 100%;
 }
 
-.ic.wfull {
+.bc.wfull {
     width: 100%;
     max-width: 100%;
 }
@@ -42,12 +42,12 @@ $widths: 4096,
 210,
 160;
 @each $width in $widths {
-    .ic.w#{$width} {
+    .bc.w#{$width} {
         width: 100%;
         max-width: #{$width}px;
         margin: auto;
     }
-    .ic.wi#{$width} {
+    .bc.wi#{$width} {
         width: #{$width}px;
         max-width: #{$width}px !important;
         min-width: #{$width}px !important;
@@ -59,7 +59,7 @@ $widths: 4096,
 /** Absolute Center Widths **/
 
 @each $width in $widths {
-    .ic.c#{$width} {
+    .bc.c#{$width} {
         position: absolute;
         left: 50%;
         max-width: #{$width}px;
@@ -72,7 +72,7 @@ $widths: 4096,
 
 /** Heights **/
 
-.ic.hfull {
+.bc.hfull {
     height: 100%;
     max-height: 100%;
 }
@@ -116,11 +116,11 @@ $heights: 30,
 750,
 780;
 @each $height in $heights {
-    .ic.h#{$height} {
+    .bc.h#{$height} {
         height: #{$height}px;
         max-height: #{$height}px;
     }
-    .ic.hi#{$height} {
+    .bc.hi#{$height} {
         height: #{$height}px;
         max-height: #{$height}px !important;
         min-height: #{$height}px !important;
@@ -131,13 +131,13 @@ $heights: 30,
 /** MIN Widths **/
 
 @each $width in $widths {
-    .ic.mx-w#{$width} {
+    .bc.mx-w#{$width} {
         max-width: #{$width}px;
     }
 }
 
 @each $width in $widths {
-    .ic.mn-w#{$width} {
+    .bc.mn-w#{$width} {
         min-width: #{$width}px;
     }
 }
@@ -146,13 +146,13 @@ $heights: 30,
 /** MIN Heights **/
 
 @each $height in $heights {
-    .ic.mx-h#{$height} {
+    .bc.mx-h#{$height} {
         max-height: #{$height}px;
     }
 }
 
 @each $height in $heights {
-    .ic.mn-h#{$height} {
+    .bc.mn-h#{$height} {
         min-height: #{$height}px;
     }
 }

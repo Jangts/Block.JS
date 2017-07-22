@@ -106,7 +106,7 @@ block([
                     if (event.target.tagName == 'I') {
                         var editor = event.data,
                             dialog = _.dom.getAttr(this, 'data-ib-dialog');
-                        _.each(_.query('.ic.editor-tool[data-ib-dialog] input[type=text], .ic.editor-tool[data-ib-dialog] textarea, .ic.editor-tool[data-ib-dialog] input.ic.editor-files', editor.toolarea), function(i, el) {
+                        _.each(_.query('.bc.editor-tool[data-ib-dialog] input[type=text], .bc.editor-tool[data-ib-dialog] textarea, .bc.editor-tool[data-ib-dialog] input.bc.editor-files', editor.toolarea), function(i, el) {
                             if (_.dom.hasClass(this, 'createlink')) {
                                 var elem = editor.selection.getRange().commonElem;
                                 if (!elem.tagName === 'A') {
@@ -122,7 +122,7 @@ block([
                             }
                         });
 
-                        _.query('.ic.editor-tool[data-ib-dialog] .ic.editor-show', editor.toolarea)[0].innerHTML = '<span>click to upload</span>';
+                        _.query('.bc.editor-tool[data-ib-dialog] .bc.editor-show', editor.toolarea)[0].innerHTML = '<span>click to upload</span>';
                         editor.showDialog(dialog, this);
                         editor.selection.restoreSelection();
                     };
@@ -161,11 +161,11 @@ block([
                         editor.execCommand(cmd, val);
                     }
                 },
-                '.ic.editor-show span': function(event) {
+                '.bc.editor-show span': function(event) {
                     var editor = event.data;
                     var previewer = this.parentNode,
                         dialog = _.dom.closest(this, 'dialog'),
-                        input = _.query('.ic.editor-files', dialog)[0];
+                        input = _.query('.bc.editor-files', dialog)[0];
                     input.onchange = function() {
                         var doneCallback = function(files) {
                             if (files.length < 6) {
@@ -206,13 +206,13 @@ block([
         },
         'statebar': {
             'mouseup': {
-                '.ic.editor-imgfloat': function(e) {
+                '.bc.editor-imgfloat': function(e) {
                     var float = _.dom.getAttr(this, 'data-float') || 'none',
                         img = event.data.selectedImage;
                     img.style.float = float;
                     event.dataselection.saveRange();
                 },
-                '.ic.editor-table-addrow': function(e) {
+                '.bc.editor-table-addrow': function(e) {
                     var editor = e.data,
                         table = editor.selectedTable,
                         row = editor.selectedTableRow,
@@ -220,7 +220,7 @@ block([
                     _.dom.after(row, '<tr>' + _.util.str.repeat('<td>&nbsp;</td>', len) + '</tr>');
 
                 },
-                '.ic.editor-table-addcol': function(e) {
+                '.bc.editor-table-addcol': function(e) {
                     var editor = e.data,
                         table = editor.selectedTable,
                         row = editor.selectedTableRow,

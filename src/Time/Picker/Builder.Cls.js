@@ -7,7 +7,7 @@
  */
 ;
 block([
-    '$_/data/Component.Cls',
+    '$_/data/Component.cls',
     '$_/dom/Elements/',
     '$_/Time/locales/en'
 ], function(pandora, global, undefined) {

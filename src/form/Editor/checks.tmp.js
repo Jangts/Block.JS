@@ -8,7 +8,7 @@
 ;
 block([
     '$_/dom/',
-    '$_/util/Color.Cls'
+    '$_/util/Color.cls'
 ], function(pandora, global, undefined) {
     var _ = pandora,
         cache = pandora.locker,
@@ -36,13 +36,13 @@ block([
         checkFontFormat = function(style) {
             var range = this.selection.getRange();
             if (range && range.commonElem) {
-                _.each(_.query('.ic.editor-pick li', this.toolarea), function(i, el) {
+                _.each(_.query('.bc.editor-pick li', this.toolarea), function(i, el) {
                     _.dom.toggleClass(this, 'selected', false);
                 });
-                selector = ".fontname .ic.editor-font[data-ib-val=\"" + style.fontFamily + "\"]";
-                selector += ", .fontsize .ic.editor-font[data-ib-val=\"" + style.fontSize + "\"]";
-                selector += ", .forecolor .ic.editor-color[data-ib-val=\"" + rbgaToHexadecimal(style.color) + "\"]";
-                selector += ", .backcolor .ic.editor-color[data-ib-val=\"" + rbgaToHexadecimal(style.backgroundColor) + "\"]";
+                selector = ".fontname .bc.editor-font[data-ib-val=\"" + style.fontFamily + "\"]";
+                selector += ", .fontsize .bc.editor-font[data-ib-val=\"" + style.fontSize + "\"]";
+                selector += ", .forecolor .bc.editor-color[data-ib-val=\"" + rbgaToHexadecimal(style.color) + "\"]";
+                selector += ", .backcolor .bc.editor-color[data-ib-val=\"" + rbgaToHexadecimal(style.backgroundColor) + "\"]";
                 _.each(_.query(selector, this.toolarea), function(i, el) {
                     _.dom.toggleClass(this, 'selected', true);
                 });
@@ -110,10 +110,10 @@ block([
                     node = _.dom.closest(range.commonElem, 'table'),
                     row = _.dom.closest(range.commonElem, 'tr'),
                     cell = _.dom.closest(range.commonElem, 'td', true);
-                _.query('.ic.editor-fontstatus .ic.editor-fsize-input', this.statebar)[0].value = style.fontSize;
-                _.query('.ic.editor-fontstatus .ic.editor-color-input', this.statebar)[0].value = _.util.Color.rgbFormat(style.color, 'hex6');
+                _.query('.bc.editor-fontstatus .bc.editor-fsize-input', this.statebar)[0].value = style.fontSize;
+                _.query('.bc.editor-fontstatus .bc.editor-color-input', this.statebar)[0].value = _.util.Color.rgbFormat(style.color, 'hex6');
                 if (node && row) {
-                    _.query('.ic.editor-tablestatus', this.statebar)[0].style.display = 'block';
+                    _.query('.bc.editor-tablestatus', this.statebar)[0].style.display = 'block';
 
                     var rowslen = node.rows.length,
                         colslen = row.cells.length;
@@ -121,19 +121,19 @@ block([
                     this.selectedTableRow = row;
                     this.selectedTableCell = cell;
                     //console.log([node]);
-                    _.query('.ic.editor-tablestatus .ic.editor-tablewidth-input', this.statebar)[0].value = node.offsetWidth;
-                    _.query('.ic.editor-tablestatus .ic.editor-rowslen', this.statebar)[0].value = rowslen;
-                    _.query('.ic.editor-tablestatus .ic.editor-colslen', this.statebar)[0].value = colslen;
-                    _.query('.ic.editor-tablestatus .ic.editor-border-input', this.statebar)[0].value = node.border || 0;
+                    _.query('.bc.editor-tablestatus .bc.editor-tablewidth-input', this.statebar)[0].value = node.offsetWidth;
+                    _.query('.bc.editor-tablestatus .bc.editor-rowslen', this.statebar)[0].value = rowslen;
+                    _.query('.bc.editor-tablestatus .bc.editor-colslen', this.statebar)[0].value = colslen;
+                    _.query('.bc.editor-tablestatus .bc.editor-border-input', this.statebar)[0].value = node.border || 0;
                 } else {
-                    _.query('.ic.editor-tablestatus', this.statebar)[0].style.display = 'none';
+                    _.query('.bc.editor-tablestatus', this.statebar)[0].style.display = 'none';
                 }
                 if (this.selectedImage) {
-                    _.query('.ic.editor-imagestatus', this.statebar)[0].style.display = 'block';
-                    _.query('.ic.editor-imagestatus .ic.editor-imgwidth-input', this.statebar)[0].value = this.selectedImage.offsetWidth;
-                    _.query('.ic.editor-imagestatus .ic.editor-imgheight-input', this.statebar)[0].value = this.selectedImage.offsetHeight;
-                    _.query('.ic.editor-imagestatus .ic.editor-border-input', this.statebar)[0].value = this.selectedImage.border || 0;
-                    var nodes = _.query('.ic.editor-imagestatus .ic.editor-imgfloat', this.statebar),
+                    _.query('.bc.editor-imagestatus', this.statebar)[0].style.display = 'block';
+                    _.query('.bc.editor-imagestatus .bc.editor-imgwidth-input', this.statebar)[0].value = this.selectedImage.offsetWidth;
+                    _.query('.bc.editor-imagestatus .bc.editor-imgheight-input', this.statebar)[0].value = this.selectedImage.offsetHeight;
+                    _.query('.bc.editor-imagestatus .bc.editor-border-input', this.statebar)[0].value = this.selectedImage.border || 0;
+                    var nodes = _.query('.bc.editor-imagestatus .bc.editor-imgfloat', this.statebar),
                         select = this.selectedImage.style.float ? this.selectedImage.style.float : 'none';
                     _.each(nodes, function(i, node) {
                         _.dom.toggleClass(node, 'active', false);
@@ -142,12 +142,12 @@ block([
                     if (_.util.arr.has(['left', 'right', 'none'], select) === false) {
                         select = 'none';
                     }
-                    _.dom.toggleClass(_.query('.ic.editor-imagestatus .ic.editor-imgfloat[data-float=' + select + ']', this.statebar)[0], 'active', true);
+                    _.dom.toggleClass(_.query('.bc.editor-imagestatus .bc.editor-imgfloat[data-float=' + select + ']', this.statebar)[0], 'active', true);
                     if (!this.selectedImage.border) {
                         _.dom.setAttr(this.selectedImage, '_selected', '_selected');
                     }
                 } else {
-                    _.query('.ic.editor-imagestatus', this.statebar)[0].style.display = 'none';
+                    _.query('.bc.editor-imagestatus', this.statebar)[0].style.display = 'none';
                 }
             }
         };

@@ -9,9 +9,9 @@
 block([
     '$_/util/arr.xtd',
     '$_/util/obj.xtd',
-    '$_/painter/Charts/Charts.Cls',
+    '$_/painter/Charts/Charts.cls',
     '$_/painter/Charts/util/events.xtd',
-    '$_/painter/Charts/scale/Polar.Cls'
+    '$_/painter/Charts/scale/Polar.cls'
 ], function(pandora, global, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,

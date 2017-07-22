@@ -8,7 +8,7 @@
 
 block([
     '$_/util/bool.xtd',
-    '$_/painter/QRCode/SVGDrawing.Cls'
+    '$_/painter/QRCode/SVGDrawing.cls'
 ], function(pandora, global, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,

@@ -30,7 +30,7 @@ block([
         },
 
         // URL to movie
-        moviePath = _.core.dir() + 'data/ZClip.Cls.swf',
+        moviePath = _.core.dir() + 'data/ZClip.cls.swf',
 
         // ID of next movie
         nextId = 1,

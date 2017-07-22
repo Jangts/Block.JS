@@ -35,10 +35,10 @@ block([
 
         }
         this.isRich = Math.abs(this.isRich - 1);
-        _.each(_.query('.ic.editor-tool', this.toolarea), function(i, el) {
+        _.each(_.query('.bc.editor-tool', this.toolarea), function(i, el) {
             _.dom.toggleClass(this, 'invalid');
         });
-        var elem = _.query('.ic.editor-tool.source', this.toolarea)[0];
+        var elem = _.query('.bc.editor-tool.source', this.toolarea)[0];
         _.dom.toggleClass(elem, 'invalid');
         _.dom.toggleClass(elem, 'active');
         typeof this.options.onSwitch == 'function' && this.options.onSwitch();

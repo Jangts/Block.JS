@@ -1,7 +1,7 @@
 /*********************************************************************************
 /*** EDITOR TOOLBAR ***/
 
-.ic.editor-toolarea.editor-default {
+.bc.editor-toolarea.editor-default {
     width: 100%;
     background-color: #FDFDFE;
     border-bottom: 1px solid #DDD;
@@ -9,7 +9,7 @@
     z-index: 1024;
 }
 
-.ic.editor-toolarea.editor-default .ic.editor-tool {
+.bc.editor-toolarea.editor-default .bc.editor-tool {
     float: left;
     width: auto;
     min-width: 30px;
@@ -22,27 +22,27 @@
     overflow: hidden;
 }
 
-.ic.editor-toolarea.editor-default .ic.editor-clear {
+.bc.editor-toolarea.editor-default .bc.editor-clear {
     clear: both
 }
 
-.ic.editor-toolarea.editor-default .ic.editor-tool:hover {
+.bc.editor-toolarea.editor-default .bc.editor-tool:hover {
     background-color: #09C;
     color: #FFF;
 }
 
-.ic.editor-toolarea.editor-default .ic.editor-tool.active {
+.bc.editor-toolarea.editor-default .bc.editor-tool.active {
     background-color: #09C;
     color: #FFF;
 }
 
-.ic.editor-toolarea.editor-default .ic.editor-tool.invalid {
+.bc.editor-toolarea.editor-default .bc.editor-tool.invalid {
     background-color: transparent;
     color: #AAA;
     cursor: default;
 }
 
-.ic.editor-toolarea.editor-default .ic.editor-tool.invalid:hover {
+.bc.editor-toolarea.editor-default .bc.editor-tool.invalid:hover {
     background-color: transparent;
     color: #AAA;
 }
@@ -50,28 +50,28 @@
 
 /*** EDITOR TOOLBAR CHARACTER ***********************/
 
-.ic.editor-toolarea.editor-default .ic.editor-tool.separator {
+.bc.editor-toolarea.editor-default .bc.editor-tool.separator {
     min-width: 10px;
     color: #E6E6E6;
     cursor: default;
 }
 
-.ic.editor-toolarea.editor-default .ic.editor-tool.separator:before {
+.bc.editor-toolarea.editor-default .bc.editor-tool.separator:before {
     content: '|';
 }
 
-.ic.editor-toolarea.editor-default .ic.editor-tool.separator:hover {
+.bc.editor-toolarea.editor-default .bc.editor-tool.separator:hover {
     background-color: transparent;
     color: #E6E6E6;
 }
 
-.ic.editor-toolarea.editor-default .ic.editor-tool.linebreak {
+.bc.editor-toolarea.editor-default .bc.editor-tool.linebreak {
     width: 100%;
     height: 1px;
     background-color: #E6E6E6;
     margin: 0px;
 }
 
-.ic.editor-toolarea.editor-default .ic.editor-tool.linebreak:hover {
+.bc.editor-toolarea.editor-default .bc.editor-tool.linebreak:hover {
     background-color: #E6E6E6;
 }

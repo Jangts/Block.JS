@@ -7,10 +7,10 @@
  */
 
 block([
-    '$_/painter/QRCode/QR8bitByte.Cls',
+    '$_/painter/QRCode/QR8bitByte.cls',
     '$_/painter/QRCode/util.xtd',
-    '$_/painter/QRCode/QRBitBuffer.Cls',
-    '$_/painter/QRCode/QRPolynomial.Cls'
+    '$_/painter/QRCode/QRBitBuffer.cls',
+    '$_/painter/QRCode/QRPolynomial.cls'
 ], function(pandora, global, undefined) {
     var _ = pandora,
         declare = pandora.declareClass;

@@ -2,7 +2,7 @@
 /*	Text List
 /************************************************/
 
-.ic.listview.page-list {
+.bc.listview.page-list {
     margin: 10px auto;
     font-size: 0;
     text-align: center;
@@ -21,17 +21,17 @@
     }
 }
 
-.ic.listview.page-list.al-left {
+.bc.listview.page-list.al-left {
     text-align: left;
 }
 
-.ic.listview.page-list.al-right {
+.bc.listview.page-list.al-right {
     text-align: right;
 }
 
-.ic.listview.page-list.blocks,
-.ic.listview.page-list.pills,
-.ic.listview.page-list.spills {
+.bc.listview.page-list.blocks,
+.bc.listview.page-list.pills,
+.bc.listview.page-list.spills {
     .list-item {
         border: 1px solid #999;
         line-height: 20px;
@@ -56,19 +56,19 @@
     }
 }
 
-.ic.listview.page-list.blocks.rounded {
+.bc.listview.page-list.blocks.rounded {
     .list-item {
         border-radius: 3px;
     }
 }
 
-.ic.listview.page-list.pills {
+.bc.listview.page-list.pills {
     .list-item {
         border-radius: 15px;
     }
 }
 
-.ic.listview.page-list.spills {
+.bc.listview.page-list.spills {
     .list-item {
         margin: 4px 0;
         padding: 0 6px;
@@ -76,7 +76,7 @@
     }
 }
 
-.ic.listview.page-list.train {
+.bc.listview.page-list.train {
     .list-item {
         width: 20px;
         height: 20px;
@@ -122,9 +122,9 @@
 
 @each $name,
 $color in $colors {
-    .ic.listview.page-list.blocks.#{$name},
-    .ic.listview.page-list.pills.#{$name},
-    .ic.listview.page-list.spills.#{$name} {
+    .bc.listview.page-list.blocks.#{$name},
+    .bc.listview.page-list.pills.#{$name},
+    .bc.listview.page-list.spills.#{$name} {
         .list-item {
             border: 1px solid $color;
             color: $color;
@@ -134,7 +134,7 @@ $color in $colors {
             color: #fff;
         }
     }
-    .ic.listview.page-list.train.#{$name} {
+    .bc.listview.page-list.train.#{$name} {
         .list-item {
             border-top: 1px solid $color;
             border-right: 1px solid $color;

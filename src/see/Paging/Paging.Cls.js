@@ -38,7 +38,6 @@ block([
                             total = array.length;
                         } else {
                             total = 0;
-                            console.log('view/Paging/Cls : Data Error');
                         }
                     }
                     prePage = prePage || 7;

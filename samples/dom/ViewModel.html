@@ -4,15 +4,15 @@
 <head>
     <meta charset="utf-8">
     <title>Block.JS VIEWMODEL</title>
-    <script src="../../src/iBlock.js" data-use-debugmode></script>
+    <script src="../../src/block.js" data-use-debugmode></script>
 </head>
 
 <body>
     <div id="demo"></div>
     <script>
         block([
-            '$_/dom/ViewModel.Cls',
-            '$_/dom/Template.Cls'
+            '$_/dom/ViewModel.cls',
+            '$_/dom/Template.cls'
         ], function(pandora, global, undefined) {
             var _ = pandora,
                 document = global.document,

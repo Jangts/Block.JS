@@ -7,7 +7,7 @@
  */
 ;
 block('$_/see/highlight/highlight.xtd', function(_, global, undefined) {
-    _.see.highlight.languages.icon = {
+    _.see.highlight.languages.bcon = {
         'comment': /#.*/,
         'string': /(["'])(?:(?!\1)[^\\\r\n]|\\.|_(?:\r?\n|\r))*\1/,
         'number': /\b(?:\d+r[a-z\d]+|\d+(?:\.\d+)?(?:e[+-]?\d+)?)\b|\.\d+\b/i,

@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <title>Doughnut Chart</title>
-    <script src="../../../src/iBlock.js" data-use-debugmode></script>
+    <script src="../../../src/block.js" data-use-debugmode></script>
     <style>
         div {
             float: left;
@@ -18,10 +18,10 @@
 <body>
     <div id="canvas1"> </div>
     <script>
-        iBlock.main([
+        block.main([
             '$_/painter/Charts/animation.clsx',
             '$_/painter/Charts/tooltip.clsx',
-            '$_/painter/Charts/type/Pie.Cls'
+            '$_/painter/Charts/type/Pie.cls'
         ], function(_, global, undefined) {
             document = global.document;
             var location = global.location;

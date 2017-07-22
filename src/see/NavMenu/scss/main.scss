@@ -1,7 +1,7 @@
 @charset "utf-8";
 
 /*********************************************
- ********** iBlock See UI Framework **********
+ ********** Block.JS SEE UI Framework **********
  **********   class _.see.NavMenu   **********
  *********************************************/
 
@@ -9,7 +9,7 @@
 @import "align";
 @import "colors";
 body.__while-menu-item-get-size-step1 {
-    .ic.navmenu .menu-item.hasson>.submenu {
+    .bc.navmenu .menu-item.hasson>.submenu {
         display: block !important;
         opacity: 0 !important;
     }

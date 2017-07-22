@@ -17,7 +17,7 @@ $sizes:(h51, 51px, 51px),
 (h96, 128px, 96px),
 (h117, 156px, 117px),
 (h138, 184px, 138px);
-.ic.listview.media-list {
+.bc.listview.media-list {
     .list-item {
         padding: 0;
         >* {
@@ -116,14 +116,14 @@ $sizes:(h51, 51px, 51px),
     }
 }
 
-.ic.listview.media-list[data-list-cols] {
+.bc.listview.media-list[data-list-cols] {
     .list-item.card.cover,
     .list-item.pane.cover {
         margin: 10px 2%;
     }
 }
 
-.ic.listview.media-list[data-list-cols="1"] {
+.bc.listview.media-list[data-list-cols="1"] {
     .list-item.card.cover,
     .list-item.pane.cover {
         margin: 10px auto;

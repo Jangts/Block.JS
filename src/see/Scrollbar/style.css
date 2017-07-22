@@ -1,5 +1,5 @@
 /*********************************************
- ********** iBlock See UI Framework **********
+ ********** Block.JS SEE UI Framework **********
  **********  Class _.see.ScrollBar  **********
  *********************************************/
 
@@ -32,28 +32,28 @@
 
 
 /*********************************************
- ********** iBlock See UI Framework **********
+ ********** Block.JS SEE UI Framework **********
  **********  class _.see.ScrollBar  **********
  **********       theme   dark      **********
  *********************************************/
 
-.ic.scrollbar.default-dark .scroll-bar-vertical {
+.bc.scrollbar.default-dark .scroll-bar-vertical {
     width: 6px;
 }
 
-.ic.scrollbar.default-dark .scroll-bar-vertical .scroll-bar {
+.bc.scrollbar.default-dark .scroll-bar-vertical .scroll-bar {
     width: 6px;
     cursor: default;
 }
 
-.ic.scrollbar.default-dark .scroll-bar-vertical .scroll-bar .scroll-rail {
+.bc.scrollbar.default-dark .scroll-bar-vertical .scroll-bar .scroll-rail {
     width: 6px;
     margin: 0;
     background: #666;
     z-index: 100;
 }
 
-.ic.scrollbar.default-dark .scroll-bar-vertical .scroll-bar .scroll-dragger {
+.bc.scrollbar.default-dark .scroll-bar-vertical .scroll-bar .scroll-dragger {
     width: 6px;
     margin: 0;
     background: #484848;
@@ -62,35 +62,35 @@
     cursor: pointer;
 }
 
-.ic.scrollbar.default-dark .scroll-bar-vertical .scroll-bar .scroll-dragger:hover {
+.bc.scrollbar.default-dark .scroll-bar-vertical .scroll-bar .scroll-dragger:hover {
     background: #282828;
 }
 
-.ic.scrollbar.default-dark .scroll-bar-vertical .scroll-button-prev {
+.bc.scrollbar.default-dark .scroll-bar-vertical .scroll-button-prev {
     display: none;
     width: 0px;
     height: 0px;
 }
 
-.ic.scrollbar.default-dark .scroll-bar-vertical .scroll-button-next {
+.bc.scrollbar.default-dark .scroll-bar-vertical .scroll-button-next {
     display: none;
     width: 0px;
     height: 0px;
 }
 
-.ic.scrollbar.default-dark .scroll-bar-horizontal .scroll-bar {
+.bc.scrollbar.default-dark .scroll-bar-horizontal .scroll-bar {
     height: 6px;
     cursor: default;
 }
 
-.ic.scrollbar.default-dark .scroll-bar-horizontal .scroll-bar .scroll-rail {
+.bc.scrollbar.default-dark .scroll-bar-horizontal .scroll-bar .scroll-rail {
     height: 6px;
     margin: 0;
     background: #666;
     z-index: 100;
 }
 
-.ic.scrollbar.default-dark .scroll-bar-horizontal .scroll-bar .scroll-dragger {
+.bc.scrollbar.default-dark .scroll-bar-horizontal .scroll-bar .scroll-dragger {
     height: 6px;
     margin: 0;
     background: #484848;
@@ -99,17 +99,17 @@
     cursor: pointer;
 }
 
-.ic.scrollbar.default-dark .scroll-bar-horizontal .scroll-bar .scroll-dragger:hover {
+.bc.scrollbar.default-dark .scroll-bar-horizontal .scroll-bar .scroll-dragger:hover {
     background: #282828;
 }
 
-.ic.scrollbar.default-dark .scroll-bar-horizontal .scroll-button-prev {
+.bc.scrollbar.default-dark .scroll-bar-horizontal .scroll-button-prev {
     display: none;
     width: 0px;
     height: 0px;
 }
 
-.ic.scrollbar.default-dark .scroll-bar-horizontal .scroll-button-next {
+.bc.scrollbar.default-dark .scroll-bar-horizontal .scroll-button-next {
     display: none;
     width: 0px;
     height: 0px;
@@ -117,28 +117,28 @@
 
 
 /*********************************************
- ********** iBlock See UI Framework **********
+ ********** Block.JS SEE UI Framework **********
  **********  class _.see.ScrollBar  **********
  **********       theme   dark      **********
  *********************************************/
 
-.ic.scrollbar.default-light .scroll-bar-vertical {
+.bc.scrollbar.default-light .scroll-bar-vertical {
     width: 3px;
 }
 
-.ic.scrollbar.default-light .scroll-bar-vertical .scroll-bar {
+.bc.scrollbar.default-light .scroll-bar-vertical .scroll-bar {
     width: 3px;
     cursor: default;
 }
 
-.ic.scrollbar.default-light .scroll-bar-vertical .scroll-bar .scroll-rail {
+.bc.scrollbar.default-light .scroll-bar-vertical .scroll-bar .scroll-rail {
     width: 3px;
     margin: 0;
     background: #999;
     z-index: 100;
 }
 
-.ic.scrollbar.default-light .scroll-bar-vertical .scroll-bar .scroll-dragger {
+.bc.scrollbar.default-light .scroll-bar-vertical .scroll-bar .scroll-dragger {
     width: 3px;
     margin: 0;
     background: #ccc;
@@ -147,35 +147,35 @@
     cursor: pointer;
 }
 
-.ic.scrollbar.default-light .scroll-bar-vertical .scroll-bar .scroll-dragger:hover {
+.bc.scrollbar.default-light .scroll-bar-vertical .scroll-bar .scroll-dragger:hover {
     background: #fff;
 }
 
-.ic.scrollbar.default-light .scroll-bar-vertical .scroll-button-prev {
+.bc.scrollbar.default-light .scroll-bar-vertical .scroll-button-prev {
     display: none;
     width: 0px;
     height: 0px;
 }
 
-.ic.scrollbar.default-light .scroll-bar-vertical .scroll-button-next {
+.bc.scrollbar.default-light .scroll-bar-vertical .scroll-button-next {
     display: none;
     width: 0px;
     height: 0px;
 }
 
-.ic.scrollbar.default-light .scroll-bar-horizontal .scroll-bar {
+.bc.scrollbar.default-light .scroll-bar-horizontal .scroll-bar {
     height: 3px;
     cursor: default;
 }
 
-.ic.scrollbar.default-light .scroll-bar-horizontal .scroll-bar .scroll-rail {
+.bc.scrollbar.default-light .scroll-bar-horizontal .scroll-bar .scroll-rail {
     height: 3px;
     margin: 0;
     background: #999;
     z-index: 100;
 }
 
-.ic.scrollbar.default-light .scroll-bar-horizontal .scroll-bar .scroll-dragger {
+.bc.scrollbar.default-light .scroll-bar-horizontal .scroll-bar .scroll-dragger {
     height: 3px;
     margin: 0;
     background: #ccc;
@@ -184,17 +184,17 @@
     cursor: pointer;
 }
 
-.ic.scrollbar.default-light .scroll-bar-horizontal .scroll-bar .scroll-dragger:hover {
+.bc.scrollbar.default-light .scroll-bar-horizontal .scroll-bar .scroll-dragger:hover {
     background: #fff;
 }
 
-.ic.scrollbar.default-light .scroll-bar-horizontal .scroll-button-prev {
+.bc.scrollbar.default-light .scroll-bar-horizontal .scroll-button-prev {
     display: none;
     width: 0px;
     height: 0px;
 }
 
-.ic.scrollbar.default-light .scroll-bar-horizontal .scroll-button-next {
+.bc.scrollbar.default-light .scroll-bar-horizontal .scroll-button-next {
     display: none;
     width: 0px;
     height: 0px;
@@ -202,24 +202,24 @@
 
 
 /*********************************************
- ********** iBlock See UI Framework **********
+ ********** Block.JS SEE UI Framework **********
  **********  class _.see.ScrollBar  **********
  **********      theme  weiming     **********
  *********************************************/
 
-.ic.scrollbar.weiming .scroll-bar-vertical .scroll-bar {
+.bc.scrollbar.weiming .scroll-bar-vertical .scroll-bar {
     width: 16px;
     cursor: default;
 }
 
-.ic.scrollbar.weiming .scroll-bar-vertical .scroll-bar .scroll-rail {
+.bc.scrollbar.weiming .scroll-bar-vertical .scroll-bar .scroll-rail {
     width: 4px;
     margin: 0px 6px;
     background: #FFF;
     z-index: 100;
 }
 
-.ic.scrollbar.weiming .scroll-bar-vertical .scroll-bar .scroll-dragger {
+.bc.scrollbar.weiming .scroll-bar-vertical .scroll-bar .scroll-dragger {
     width: 6px;
     margin: 0px 5px;
     background: #DDD;
@@ -228,35 +228,35 @@
     cursor: pointer;
 }
 
-.ic.scrollbar.weiming .scroll-bar-vertical .scroll-bar .scroll-dragger:hover {
+.bc.scrollbar.weiming .scroll-bar-vertical .scroll-bar .scroll-dragger:hover {
     background: #CCC;
 }
 
-.ic.scrollbar.weiming .scroll-bar-vertical .scroll-button-prev {
+.bc.scrollbar.weiming .scroll-bar-vertical .scroll-button-prev {
     display: none;
     width: 0px;
     height: 0px;
 }
 
-.ic.scrollbar.weiming .scroll-bar-vertical .scroll-button-next {
+.bc.scrollbar.weiming .scroll-bar-vertical .scroll-button-next {
     display: none;
     width: 0px;
     height: 0px;
 }
 
-.ic.scrollbar.weiming .scroll-bar-horizontal .scroll-bar {
+.bc.scrollbar.weiming .scroll-bar-horizontal .scroll-bar {
     height: 16px;
     cursor: default;
 }
 
-.ic.scrollbar.weiming .scroll-bar-horizontal .scroll-bar .scroll-rail {
+.bc.scrollbar.weiming .scroll-bar-horizontal .scroll-bar .scroll-rail {
     height: 4px;
     margin: 6px 0px;
     background: #FFF;
     z-index: 100;
 }
 
-.ic.scrollbar.weiming .scroll-bar-horizontal .scroll-bar .scroll-dragger {
+.bc.scrollbar.weiming .scroll-bar-horizontal .scroll-bar .scroll-dragger {
     height: 6px;
     margin: 5px 0px;
     background: #DDD;
@@ -265,17 +265,17 @@
     cursor: pointer;
 }
 
-.ic.scrollbar.weiming .scroll-bar-horizontal .scroll-bar .scroll-dragger:hover {
+.bc.scrollbar.weiming .scroll-bar-horizontal .scroll-bar .scroll-dragger:hover {
     background: #CCC;
 }
 
-.ic.scrollbar.weiming .scroll-bar-horizontal .scroll-button-prev {
+.bc.scrollbar.weiming .scroll-bar-horizontal .scroll-button-prev {
     display: none;
     width: 0px;
     height: 0px;
 }
 
-.ic.scrollbar.weiming .scroll-bar-horizontal .scroll-button-next {
+.bc.scrollbar.weiming .scroll-bar-horizontal .scroll-button-next {
     display: none;
     width: 0px;
     height: 0px;
@@ -283,28 +283,28 @@
 
 
 /*********************************************
- ********** iBlock See UI Framework **********
+ ********** Block.JS SEE UI Framework **********
  **********  class _.see.ScrollBar  **********
  **********       theme   dark      **********
  *********************************************/
 
-.ic.scrollbar.dark .scroll-bar-vertical {
+.bc.scrollbar.dark .scroll-bar-vertical {
     width: 6px;
 }
 
-.ic.scrollbar.dark .scroll-bar-vertical .scroll-bar {
+.bc.scrollbar.dark .scroll-bar-vertical .scroll-bar {
     width: 6px;
     cursor: default;
 }
 
-.ic.scrollbar.dark .scroll-bar-vertical .scroll-bar .scroll-rail {
+.bc.scrollbar.dark .scroll-bar-vertical .scroll-bar .scroll-rail {
     width: 6px;
     margin: 0;
     background: #666;
     z-index: 100;
 }
 
-.ic.scrollbar.dark .scroll-bar-vertical .scroll-bar .scroll-dragger {
+.bc.scrollbar.dark .scroll-bar-vertical .scroll-bar .scroll-dragger {
     width: 6px;
     margin: 0;
     background: #484848;
@@ -313,35 +313,35 @@
     cursor: pointer;
 }
 
-.ic.scrollbar.dark .scroll-bar-vertical .scroll-bar .scroll-dragger:hover {
+.bc.scrollbar.dark .scroll-bar-vertical .scroll-bar .scroll-dragger:hover {
     background: #282828;
 }
 
-.ic.scrollbar.dark .scroll-bar-vertical .scroll-button-prev {
+.bc.scrollbar.dark .scroll-bar-vertical .scroll-button-prev {
     display: none;
     width: 0px;
     height: 0px;
 }
 
-.ic.scrollbar.dark .scroll-bar-vertical .scroll-button-next {
+.bc.scrollbar.dark .scroll-bar-vertical .scroll-button-next {
     display: none;
     width: 0px;
     height: 0px;
 }
 
-.ic.scrollbar.dark .scroll-bar-horizontal .scroll-bar {
+.bc.scrollbar.dark .scroll-bar-horizontal .scroll-bar {
     height: 6px;
     cursor: default;
 }
 
-.ic.scrollbar.dark .scroll-bar-horizontal .scroll-bar .scroll-rail {
+.bc.scrollbar.dark .scroll-bar-horizontal .scroll-bar .scroll-rail {
     height: 6px;
     margin: 0;
     background: #666;
     z-index: 100;
 }
 
-.ic.scrollbar.dark .scroll-bar-horizontal .scroll-bar .scroll-dragger {
+.bc.scrollbar.dark .scroll-bar-horizontal .scroll-bar .scroll-dragger {
     height: 6px;
     margin: 0;
     background: #484848;
@@ -350,17 +350,17 @@
     cursor: pointer;
 }
 
-.ic.scrollbar.dark .scroll-bar-horizontal .scroll-bar .scroll-dragger:hover {
+.bc.scrollbar.dark .scroll-bar-horizontal .scroll-bar .scroll-dragger:hover {
     background: #282828;
 }
 
-.ic.scrollbar.dark .scroll-bar-horizontal .scroll-button-prev {
+.bc.scrollbar.dark .scroll-bar-horizontal .scroll-button-prev {
     display: none;
     width: 0px;
     height: 0px;
 }
 
-.ic.scrollbar.dark .scroll-bar-horizontal .scroll-button-next {
+.bc.scrollbar.dark .scroll-bar-horizontal .scroll-button-next {
     display: none;
     width: 0px;
     height: 0px;

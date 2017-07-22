@@ -1,20 +1,20 @@
-.ic.inline {
+.bc.inline {
     display: inline;
 }
 
-.ic.block {
+.bc.block {
     display: block;
 }
 
-.ic.inline.block {
+.bc.inline.block {
     display: inline-block;
 }
 
-.ic.hidden {
+.bc.hidden {
     display: none;
 }
 
-.ic.border-box {
+.bc.border-box {
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     /* Firefox */
@@ -22,39 +22,39 @@
     /* Safari */
 }
 
-.ic.pointer {
+.bc.pointer {
     cursor: pointer;
 }
 
-.ic.cursor {
+.bc.cursor {
     cursor: default;
 }
 
-.ic.op-00 {
+.bc.op-00 {
     opacity: 0;
     filter: alpha(opacity=0);
 }
 
 @for $i from 1 through 10 {
-    .ic.op-#{$i*10} {
+    .bc.op-#{$i*10} {
         opacity: $i/10;
         filter: alpha(opacity=#{$i*10});
     }
 }
 
-.ic.ov-visi {
+.bc.ov-visi {
     overflow: visible;
 }
 
-.ic.ov-hide {
+.bc.ov-hide {
     overflow: hidden;
 }
 
-.ic.ov-scrl {
+.bc.ov-scrl {
     overflow: scroll;
 }
 
-.ic.ov-auto {
+.bc.ov-auto {
     overflow: auto;
 }
 
@@ -62,15 +62,15 @@
 /*
 /** Border Radius **/
 
-.ic.fillet {
+.bc.fillet {
     border-radius: 2%;
 }
 
-.ic.fillet10 {
+.bc.fillet10 {
     border-radius: 10px;
 }
 
-.ic.circle {
+.bc.circle {
     border-radius: 50%;
 }
 
@@ -81,7 +81,7 @@ $radiuses: 2,
 10,
 20;
 @each $radius in $radiuses {
-    .ic.radius-#{$radius} {
+    .bc.radius-#{$radius} {
         border-radius: #{$radius}px;
     }
 }

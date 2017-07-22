@@ -5,7 +5,7 @@
  * 面板位置
  */
 
-.ic.slider .panel {
+.bc.slider .panel {
     position: absolute;
     width: 100%;
     left: 0;
@@ -14,28 +14,28 @@
     box-sizing: border-box;
 }
 
-.ic.slider .panel.upon-remote {
+.bc.slider .panel.upon-remote {
     top: 0px;
     text-align: right;
 }
 
-.ic.slider .panel.top-remote {
+.bc.slider .panel.top-remote {
     top: 0px;
     text-align: right;
 }
 
-.ic.slider .panel.middle-remote {
+.bc.slider .panel.middle-remote {
     top: 50%;
     margin-top: -50px;
     text-align: right;
 }
 
-.ic.slider .panel.bottom-remote {
+.bc.slider .panel.bottom-remote {
     bottom: 0px;
     text-align: right;
 }
 
-.ic.slider .panel.under-remote {
+.bc.slider .panel.under-remote {
     bottom: -30px;
     text-align: center;
 }
@@ -46,33 +46,33 @@
  * 按钮位置
  */
 
-.ic.slider .panel.panel.al-left {
+.bc.slider .panel.panel.al-left {
     left: 0;
     right: auto;
     text-align: left;
 }
 
-.ic.slider .panel.panel.al-right {
+.bc.slider .panel.panel.al-right {
     left: auto;
     right: 0;
     text-align: right;
 }
 
-.ic.slider .panel.panel.al-center {
+.bc.slider .panel.panel.al-center {
     left: 0;
     right: 0;
     margin: auto;
     text-align: center;
 }
 
-.ic.slider .panel.panel.al-just {
+.bc.slider .panel.panel.al-just {
     left: 0;
     right: 0;
     text-align: justify;
 }
 
-.ic.slider .panel.middle-remote.al-center,
-.ic.slider .panel.middle-remote.al-just {
+.bc.slider .panel.middle-remote.al-center,
+.bc.slider .panel.middle-remote.al-just {
     display: none!important;
 }
 
@@ -88,19 +88,19 @@
 
 /*- circles -*/
 
-.ic.slider .panel.circles {
+.bc.slider .panel.circles {
     height: 40px;
 }
 
-.ic.slider .panel.circles.al-left {
+.bc.slider .panel.circles.al-left {
     padding-left: 10px;
 }
 
-.ic.slider .panel.circles.al-right {
+.bc.slider .panel.circles.al-right {
     padding-right: 10px;
 }
 
-.ic.slider .panel.circles .slider-anchor {
+.bc.slider .panel.circles .slider-anchor {
     display: inline-block;
     box-sizing: border-box;
     width: 20px;
@@ -117,19 +117,19 @@
 
 /*- points -*/
 
-.ic.slider .panel.points {
+.bc.slider .panel.points {
     height: 30px;
 }
 
-.ic.slider .panel.points.al-left {
+.bc.slider .panel.points.al-left {
     padding-left: 10px;
 }
 
-.ic.slider .panel.points.al-right {
+.bc.slider .panel.points.al-right {
     padding-right: 10px;
 }
 
-.ic.slider .panel.points .slider-anchor {
+.bc.slider .panel.points .slider-anchor {
     display: inline-block;
     opacity: .8;
     box-sizing: border-box;
@@ -144,22 +144,22 @@
 
 /*- rings -*/
 
-.ic.slider .panel.rings {
+.bc.slider .panel.rings {
     height: 40px;
 }
 
-.ic.slider .panel.rings.al-left,
-.ic.slider .panel.rings-sm.al-left {
+.bc.slider .panel.rings.al-left,
+.bc.slider .panel.rings-sm.al-left {
     padding-left: 10px;
 }
 
-.ic.slider .panel.rings.al-right,
-.ic.slider .panel.rings-sm.al-right {
+.bc.slider .panel.rings.al-right,
+.bc.slider .panel.rings-sm.al-right {
     padding-right: 10px;
 }
 
-.ic.slider .panel.rings .slider-anchor,
-.ic.slider .panel.rings-sm .slider-anchor {
+.bc.slider .panel.rings .slider-anchor,
+.bc.slider .panel.rings-sm .slider-anchor {
     display: inline-block;
     box-sizing: border-box;
     width: 16px;
@@ -175,11 +175,11 @@
 
 /*- small rings -*/
 
-.ic.slider .panel.rings-sm {
+.bc.slider .panel.rings-sm {
     height: 30px;
 }
 
-.ic.slider .panel.rings-sm .slider-anchor {
+.bc.slider .panel.rings-sm .slider-anchor {
     width: 10px;
     height: 10px;
     margin: 10px 5px;
@@ -193,22 +193,22 @@
 
 /*- square -*/
 
-.ic.slider .panel.squares {
+.bc.slider .panel.squares {
     height: 30px;
 }
 
-.ic.slider .panel.squares.al-left,
-.ic.slider .panel.squares-rd.al-left {
+.bc.slider .panel.squares.al-left,
+.bc.slider .panel.squares-rd.al-left {
     padding-left: 10px;
 }
 
-.ic.slider .panel.squares.al-right,
-.ic.slider .panel.squares-rd.al-right {
+.bc.slider .panel.squares.al-right,
+.bc.slider .panel.squares-rd.al-right {
     padding-right: 10px;
 }
 
-.ic.slider .panel.squares .slider-anchor,
-.ic.slider .panel.squares-rd .slider-anchor {
+.bc.slider .panel.squares .slider-anchor,
+.bc.slider .panel.squares-rd .slider-anchor {
     display: inline-block;
     width: 10px;
     height: 10px;
@@ -220,11 +220,11 @@
 
 /*- rounded square -*/
 
-.ic.slider .panel.squares-rd {
+.bc.slider .panel.squares-rd {
     height: 40px;
 }
 
-.ic.slider .panel.squares-rd .slider-anchor {
+.bc.slider .panel.squares-rd .slider-anchor {
     width: 16px;
     height: 16px;
     margin: 12px 6px;
@@ -234,22 +234,22 @@
 
 /*- rectangles -*/
 
-.ic.slider .panel.rectangles {
+.bc.slider .panel.rectangles {
     height: 30px;
 }
 
-.ic.slider .panel.rectangles.al-left,
-.ic.slider .panel.rectangles-rd.al-left {
+.bc.slider .panel.rectangles.al-left,
+.bc.slider .panel.rectangles-rd.al-left {
     padding-left: 10px;
 }
 
-.ic.slider .panel.rectangles.al-right,
-.ic.slider .panel.rectangles-rd.al-right {
+.bc.slider .panel.rectangles.al-right,
+.bc.slider .panel.rectangles-rd.al-right {
     padding-right: 10px;
 }
 
-.ic.slider .panel.rectangles .slider-anchor,
-.ic.slider .panel.rectangles-rd .slider-anchor {
+.bc.slider .panel.rectangles .slider-anchor,
+.bc.slider .panel.rectangles-rd .slider-anchor {
     display: inline-block;
     width: 16px;
     height: 10px;
@@ -261,7 +261,7 @@
 
 /*- round rectangles -*/
 
-.ic.slider .panel.rectangles-rd .slider-anchor {
+.bc.slider .panel.rectangles-rd .slider-anchor {
     border-radius: 3px;
 }
 
@@ -271,23 +271,23 @@
 
 /*- bars -*/
 
-.ic.slider .panel.bars,
-.ic.slider .panel.bars-rd {
+.bc.slider .panel.bars,
+.bc.slider .panel.bars-rd {
     height: 30px;
 }
 
-.ic.slider .panel.bars.al-left,
-.ic.slider .panel.bars-rd.al-left {
+.bc.slider .panel.bars.al-left,
+.bc.slider .panel.bars-rd.al-left {
     padding-left: 10px;
 }
 
-.ic.slider .panel.bars.al-right,
-.ic.slider .panel.bars-rd.al-right {
+.bc.slider .panel.bars.al-right,
+.bc.slider .panel.bars-rd.al-right {
     padding-right: 10px;
 }
 
-.ic.slider .panel.bars .slider-anchor,
-.ic.slider .panel.bars-rd .slider-anchor {
+.bc.slider .panel.bars .slider-anchor,
+.bc.slider .panel.bars-rd .slider-anchor {
     display: inline-block;
     width: 24px;
     height: 6px;
@@ -299,7 +299,7 @@
 
 /*- rounded bars -*/
 
-.ic.slider .panel.bars-rd .slider-anchor {
+.bc.slider .panel.bars-rd .slider-anchor {
     border-radius: 3px;
 }
 
@@ -309,23 +309,23 @@
 
 /*- lines -*/
 
-.ic.slider .panel.lines,
-.ic.slider .panel.lines-wb {
+.bc.slider .panel.lines,
+.bc.slider .panel.lines-wb {
     height: 30px;
 }
 
-.ic.slider .panel.lines.al-left,
-.ic.slider .panel.lines-wb.al-left {
+.bc.slider .panel.lines.al-left,
+.bc.slider .panel.lines-wb.al-left {
     padding-left: 10px;
 }
 
-.ic.slider .panel.lines.al-right,
-.ic.slider .panel.lines-wb.al-right {
+.bc.slider .panel.lines.al-right,
+.bc.slider .panel.lines-wb.al-right {
     padding-right: 10px;
 }
 
-.ic.slider .panel.lines .slider-anchor,
-.ic.slider .panel.lines-wb .slider-anchor {
+.bc.slider .panel.lines .slider-anchor,
+.bc.slider .panel.lines-wb .slider-anchor {
     display: inline-block;
     width: 50px;
     height: 1px;
@@ -334,7 +334,7 @@
     margin: 12px 5px;
 }
 
-.ic.slider .panel.lines-wb .slider-anchor {
+.bc.slider .panel.lines-wb .slider-anchor {
     border-style: solid;
     border-width: 1px;
 }
@@ -342,7 +342,7 @@
 
 /*- lines with border -*/
 
-.ic.slider .panel.lines-wb .slider-anchor.active {
+.bc.slider .panel.lines-wb .slider-anchor.active {
     width: 48px;
     height: 1px;
 }
@@ -356,19 +356,19 @@
 
 /*- thumbs -*/
 
-.ic.slider .panel.context,
-.ic.slider .panel.thumbs {
+.bc.slider .panel.context,
+.bc.slider .panel.thumbs {
     width: 100%;
     height: 50px;
 }
 
-.ic.slider .panel.thumbs {
+.bc.slider .panel.thumbs {
     height: 80px;
     font-size: 0;
 }
 
-.ic.slider .panel.context.middle-remote,
-.ic.slider .panel.thumbs.middle-remote {
+.bc.slider .panel.context.middle-remote,
+.bc.slider .panel.thumbs.middle-remote {
     width: 200px;
     height: 100%;
     top: 0;
@@ -376,12 +376,12 @@
     box-sizing: content-box;
 }
 
-.ic.slider .panel.thumbs.middle-remote {
+.bc.slider .panel.thumbs.middle-remote {
     width: 160px;
 }
 
-.ic.slider .panel.context .slider-anchor,
-.ic.slider .panel.thumbs .slider-anchor {
+.bc.slider .panel.context .slider-anchor,
+.bc.slider .panel.thumbs .slider-anchor {
     display: inline-block;
     box-sizing: border-box;
     height: 50px;
@@ -394,8 +394,8 @@
     cursor: pointer;
 }
 
-.ic.slider .panel.context.middle-remote .slider-anchor,
-.ic.slider .panel.thumbs.middle-remote .slider-anchor {
+.bc.slider .panel.context.middle-remote .slider-anchor,
+.bc.slider .panel.thumbs.middle-remote .slider-anchor {
     width: 100%;
     height: auto;
     display: block;

@@ -16,39 +16,39 @@ $heights: 15,
 120,
 156;
 @each $height in $heights {
-    .ic.lh-#{$height} {
+    .bc.lh-#{$height} {
         line-height: #{$height/20}rem;
     }
 }
 
-.ic.al-left {
+.bc.al-left {
     text-align: left;
 }
 
-.ic.al-right {
+.bc.al-right {
     text-align: right;
 }
 
-.ic.al-center {
+.bc.al-center {
     text-align: center;
 }
 
-.ic.al-just {
+.bc.al-just {
     text-align: justify;
 }
 
-.ic.indent-05 {
+.bc.indent-05 {
     text-indent: .5em;
 }
 
-.ic.indent-10 {
+.bc.indent-10 {
     text-indent: 1em;
 }
 
-.ic.indent-20 {
+.bc.indent-20 {
     text-indent: 2em;
 }
 
-.ic.indent-30 {
+.bc.indent-30 {
     text-indent: 3em;
 }

@@ -8,7 +8,7 @@
 ;
 block([
     '$_/util/bool.xtd',
-    '$_/dom/Query.Cls'
+    '$_/dom/Query.cls'
 ], function(pandora, global, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,

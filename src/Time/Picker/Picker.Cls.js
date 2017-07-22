@@ -7,11 +7,11 @@
  */
 ;
 block([
-    '$_/data/Component.Cls',
+    '$_/data/Component.cls',
     '$_/dom/Elements/',
     '$_/Time/Picker/events.tmp',
-    '$_/Time/Picker/Builder.Cls',
-    '$_/Time/Picker/Launcher.Cls',
+    '$_/Time/Picker/Builder.cls',
+    '$_/Time/Picker/Launcher.cls',
 ], function(pandora, global, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
@@ -32,7 +32,7 @@ block([
             elem = _.util.type.isElement(elem) ? elem : document.getElementById(elem);
             if (elem) {
                 elem.innerHTML = '';
-                _.dom.addClass(elem, 'ic').addClass(elem, 'timepicker');
+                _.dom.addClass(elem, 'bc').addClass(elem, 'timepicker');
                 this.Element = elem;
                 this.build();
                 this.builder = new _.Time.Picker.Builder(this);

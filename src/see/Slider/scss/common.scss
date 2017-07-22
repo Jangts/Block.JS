@@ -4,7 +4,7 @@
 /*	Common
 /************************************************/
 
-.ic.slider .stage {
+.bc.slider .stage {
     position: relative;
     width: 100%;
     height: 100%;
@@ -12,12 +12,12 @@
     display: block;
 }
 
-.ic.slider .stage>* {
+.bc.slider .stage>* {
     display: block;
     position: absolute;
 }
 
-.ic.slider .stage .troupe {
+.bc.slider .stage .troupe {
     width: 100%;
     height: 100%;
     top: 0px;
@@ -25,7 +25,7 @@
     z-index: 0;
 }
 
-.ic.slider .stage .troupe .actor {
+.bc.slider .stage .troupe .actor {
     float: left;
     position: relative;
     height: 100%;
@@ -33,7 +33,7 @@
     z-index: 100;
 }
 
-.ic.slider .stage .troupe .actor img {
+.bc.slider .stage .troupe .actor img {
     width: 100%;
     height: 100%;
     min-width: 100%;
@@ -44,7 +44,7 @@
 /*	UP-DOWN Turner
 /*----------------------------------------------*/
 
-.ic.slider .cutter.goto-prev,
+.bc.slider .cutter.goto-prev,
 .slide .cutter.goto-next {
     cursor: pointer;
     -webkit-transition: all .3s ease;
@@ -52,21 +52,21 @@
     transition: all .3s ease;
 }
 
-.ic.slider .cutter.auto-hide {
+.bc.slider .cutter.auto-hide {
     opacity: 0;
 }
 
-.ic.slider:hover .cutter.auto-hide {
+.bc.slider:hover .cutter.auto-hide {
     opacity: 1;
 }
 
 
 /*---| Three Columns |---*/
 
-.ic.slider .cutter.left-col,
-.ic.slider .cutter.right-col,
-.ic.slider .cutter.up-col,
-.ic.slider .cutter.down-col {
+.bc.slider .cutter.left-col,
+.bc.slider .cutter.right-col,
+.bc.slider .cutter.up-col,
+.bc.slider .cutter.down-col {
     width: 100%;
     height: 100%;
     background-color: #FFF;
@@ -75,22 +75,22 @@
     z-index: 100;
 }
 
-.ic.slider .cutter.left-col {
+.bc.slider .cutter.left-col {
     top: 0px;
     right: 100%;
 }
 
-.ic.slider .cutter.right-col {
+.bc.slider .cutter.right-col {
     top: 0px;
     left: 100%;
 }
 
-.ic.slider .cutter.up-col {
+.bc.slider .cutter.up-col {
     bottom: 100%;
     left: 0;
 }
 
-.ic.slider .cutter.down-col {
+.bc.slider .cutter.down-col {
     top: 100%;
     left: 0;
 }
@@ -98,21 +98,21 @@
 
 /*---| Previous And Next |---*/
 
-.ic.slider .cutter {
+.bc.slider .cutter {
     position: absolute;
     overflow: hidden;
     cursor: pointer;
     z-index: 999;
 }
 
-.ic.slider .cutter.left-circle,
-.ic.slider .cutter.right-circle,
-.ic.slider .cutter.lt-in-circle,
-.ic.slider .cutter.gt-in-circle,
-.ic.slider .cutter.ll-in-circle,
-.ic.slider .cutter.lg-in-circle,
-.ic.slider .cutter.bl-in-circle,
-.ic.slider .cutter.bg-in-circle {
+.bc.slider .cutter.left-circle,
+.bc.slider .cutter.right-circle,
+.bc.slider .cutter.lt-in-circle,
+.bc.slider .cutter.gt-in-circle,
+.bc.slider .cutter.ll-in-circle,
+.bc.slider .cutter.lg-in-circle,
+.bc.slider .cutter.bl-in-circle,
+.bc.slider .cutter.bg-in-circle {
     width: 40px;
     height: 40px;
     top: 50%;
@@ -121,14 +121,14 @@
     background: rgba(0, 0, 0, 0.6);
 }
 
-.ic.slider .cutter.left-bigcircle,
-.ic.slider .cutter.right-bigcircle,
-.ic.slider .cutter.lt-in-bigcircle,
-.ic.slider .cutter.gt-in-bigcircle,
-.ic.slider .cutter.ll-in-bigcircle,
-.ic.slider .cutter.lg-in-bigcircle,
-.ic.slider .cutter.bl-in-bigcircle,
-.ic.slider .cutter.bg-in-bigcircle {
+.bc.slider .cutter.left-bigcircle,
+.bc.slider .cutter.right-bigcircle,
+.bc.slider .cutter.lt-in-bigcircle,
+.bc.slider .cutter.gt-in-bigcircle,
+.bc.slider .cutter.ll-in-bigcircle,
+.bc.slider .cutter.lg-in-bigcircle,
+.bc.slider .cutter.bl-in-bigcircle,
+.bc.slider .cutter.bg-in-bigcircle {
     width: 80px;
     height: 80px;
     top: 50%;
@@ -137,18 +137,18 @@
     background: rgba(0, 0, 0, 0.6);
 }
 
-.ic.slider .cutter.lt-in-circle::before,
-.ic.slider .cutter.gt-in-circle::before,
-.ic.slider .cutter.ll-in-circle::before,
-.ic.slider .cutter.lg-in-circle::before,
-.ic.slider .cutter.bl-in-circle::before,
-.ic.slider .cutter.bg-in-circle::before,
-.ic.slider .cutter.lt-in-bigcircle::before,
-.ic.slider .cutter.gt-in-bigcircle::before,
-.ic.slider .cutter.ll-in-bigcircle::before,
-.ic.slider .cutter.lg-in-bigcircle::before,
-.ic.slider .cutter.bl-in-bigcircle::before,
-.ic.slider .cutter.bg-in-bigcircle::before {
+.bc.slider .cutter.lt-in-circle::before,
+.bc.slider .cutter.gt-in-circle::before,
+.bc.slider .cutter.ll-in-circle::before,
+.bc.slider .cutter.lg-in-circle::before,
+.bc.slider .cutter.bl-in-circle::before,
+.bc.slider .cutter.bg-in-circle::before,
+.bc.slider .cutter.lt-in-bigcircle::before,
+.bc.slider .cutter.gt-in-bigcircle::before,
+.bc.slider .cutter.ll-in-bigcircle::before,
+.bc.slider .cutter.lg-in-bigcircle::before,
+.bc.slider .cutter.bl-in-bigcircle::before,
+.bc.slider .cutter.bg-in-bigcircle::before {
     font-family: FontAwesome;
     display: block;
     width: 110%;
@@ -160,8 +160,8 @@
     color: #FFF;
 }
 
-.ic.slider .cutter.big-lt,
-.ic.slider .cutter.big-gt {
+.bc.slider .cutter.big-lt,
+.bc.slider .cutter.big-gt {
     width: 40px;
     height: 80px;
     top: 50%;
@@ -169,8 +169,8 @@
     background: transparent;
 }
 
-.ic.slider .cutter.big-lt::before,
-.ic.slider .cutter.big-gt::before {
+.bc.slider .cutter.big-lt::before,
+.bc.slider .cutter.big-gt::before {
     font-family: FontAwesome;
     line-height: 82px;
     font-size: 72px;
@@ -180,68 +180,68 @@
 
 /*---| Previous |---*/
 
-.ic.slider .cutter.left-circle,
-.ic.slider .cutter.left-bigcircle,
-.ic.slider .cutter.lt-in-circle,
-.ic.slider .cutter.lt-in-bigcircle,
-.ic.slider .cutter.ll-in-circle,
-.ic.slider .cutter.ll-in-bigcircle,
-.ic.slider .cutter.bl-in-circle,
-.ic.slider .cutter.bl-in-bigcircle {
+.bc.slider .cutter.left-circle,
+.bc.slider .cutter.left-bigcircle,
+.bc.slider .cutter.lt-in-circle,
+.bc.slider .cutter.lt-in-bigcircle,
+.bc.slider .cutter.ll-in-circle,
+.bc.slider .cutter.ll-in-bigcircle,
+.bc.slider .cutter.bl-in-circle,
+.bc.slider .cutter.bl-in-bigcircle {
     left: 10px;
 }
 
-.ic.slider .cutter.lt-in-circle::before,
-.ic.slider .cutter.lt-in-bigcircle::before,
-.ic.slider .cutter.ll-in-circle::before,
-.ic.slider .cutter.ll-in-bigcircle::before,
-.ic.slider .cutter.bl-in-circle::before,
-.ic.slider .cutter.bl-in-bigcircle::before {
+.bc.slider .cutter.lt-in-circle::before,
+.bc.slider .cutter.lt-in-bigcircle::before,
+.bc.slider .cutter.ll-in-circle::before,
+.bc.slider .cutter.ll-in-bigcircle::before,
+.bc.slider .cutter.bl-in-circle::before,
+.bc.slider .cutter.bl-in-bigcircle::before {
     margin-left: -10%;
 }
 
-.ic.slider .cutter.lt-in-circle::before {
+.bc.slider .cutter.lt-in-circle::before {
     font-size: 24px;
     content: "\f104";
 }
 
-.ic.slider .cutter.ll-in-circle::before {
+.bc.slider .cutter.ll-in-circle::before {
     font-size: 30px;
     content: "<";
 }
 
-.ic.slider .cutter.bl-in-circle::before {
+.bc.slider .cutter.bl-in-circle::before {
     font-size: 21px;
     content: "\f053";
 }
 
-.ic.slider .cutter.lt-in-bigcircle::before,
-.ic.slider .cutter.ll-in-bigcircle::before,
-.ic.slider .cutter.bl-in-bigcircle::before {
+.bc.slider .cutter.lt-in-bigcircle::before,
+.bc.slider .cutter.ll-in-bigcircle::before,
+.bc.slider .cutter.bl-in-bigcircle::before {
     line-height: 82px;
 }
 
-.ic.slider .cutter.lt-in-bigcircle::before {
+.bc.slider .cutter.lt-in-bigcircle::before {
     font-size: 48px;
     content: "\f104";
 }
 
-.ic.slider .cutter.ll-in-bigcircle::before {
+.bc.slider .cutter.ll-in-bigcircle::before {
     font-size: 60px;
     content: "<";
 }
 
-.ic.slider .cutter.bl-in-bigcircle::before {
+.bc.slider .cutter.bl-in-bigcircle::before {
     font-size: 36px;
     content: "\f053";
 }
 
-.ic.slider .cutter.big-lt {
+.bc.slider .cutter.big-lt {
     text-align: left;
     left: 10px;
 }
 
-.ic.slider .cutter.big-lt:before {
+.bc.slider .cutter.big-lt:before {
     text-align: left;
     content: "\f104";
 }
@@ -249,59 +249,59 @@
 
 /*---| Next |---*/
 
-.ic.slider .cutter.right-circle,
-.ic.slider .cutter.right-bigcircle,
-.ic.slider .cutter.gt-in-circle,
-.ic.slider .cutter.gt-in-bigcircle,
-.ic.slider .cutter.lg-in-circle,
-.ic.slider .cutter.lg-in-bigcircle,
-.ic.slider .cutter.bg-in-circle,
-.ic.slider .cutter.bg-in-bigcircle {
+.bc.slider .cutter.right-circle,
+.bc.slider .cutter.right-bigcircle,
+.bc.slider .cutter.gt-in-circle,
+.bc.slider .cutter.gt-in-bigcircle,
+.bc.slider .cutter.lg-in-circle,
+.bc.slider .cutter.lg-in-bigcircle,
+.bc.slider .cutter.bg-in-circle,
+.bc.slider .cutter.bg-in-bigcircle {
     right: 10px;
 }
 
-.ic.slider .cutter.gt-in-circle::before {
+.bc.slider .cutter.gt-in-circle::before {
     font-size: 24px;
     content: "\f105";
 }
 
-.ic.slider .cutter.lg-in-circle::before {
+.bc.slider .cutter.lg-in-circle::before {
     font-size: 30px;
     content: ">";
 }
 
-.ic.slider .cutter.bg-in-circle::before {
+.bc.slider .cutter.bg-in-circle::before {
     font-size: 21px;
     content: "\f054";
 }
 
-.ic.slider .cutter.gt-in-bigcircle::before,
-.ic.slider .cutter.lg-in-bigcircle::before,
-.ic.slider .cutter.bg-in-bigcircle::before {
+.bc.slider .cutter.gt-in-bigcircle::before,
+.bc.slider .cutter.lg-in-bigcircle::before,
+.bc.slider .cutter.bg-in-bigcircle::before {
     line-height: 82px;
 }
 
-.ic.slider .cutter.gt-in-bigcircle::before {
+.bc.slider .cutter.gt-in-bigcircle::before {
     font-size: 48px;
     content: "\f105";
 }
 
-.ic.slider .cutter.lg-in-bigcircle::before {
+.bc.slider .cutter.lg-in-bigcircle::before {
     font-size: 60px;
     content: ">";
 }
 
-.ic.slider .cutter.bg-in-bigcircle::before {
+.bc.slider .cutter.bg-in-bigcircle::before {
     font-size: 36px;
     content: "\f054";
 }
 
-.ic.slider .cutter.big-gt {
+.bc.slider .cutter.big-gt {
     text-align: right;
     right: 10px;
 }
 
-.ic.slider .cutter.big-gt:before {
+.bc.slider .cutter.big-gt:before {
     text-align: right;
     content: "\f105";
 }

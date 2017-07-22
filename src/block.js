@@ -117,7 +117,7 @@
         /* 计算核心运行文件的相关信息 */
         runtime = (function() {
             var scripts = document.getElementsByTagName('script'),
-                preg = /([\w\-\.\/:]+\/)iBlock[\w\-\.]*\.js/i,
+                preg = /([\w\-\.\/:]+\/)block[\w\-\.]*\.js/i,
                 i,
                 src,
                 matchs;
@@ -866,7 +866,7 @@
          */
 
         /* 祖先类 */
-        iBlockClass = {
+        blockClass = {
             _p: Storage.classesSharedSpace,
             _init: function() {},
             _x: Identifier.prototype._x,
@@ -938,26 +938,26 @@
                     } else {
                         classname = arguments[0];
                         if (typeof arguments[1] === 'function') {
-                            superclass = arguments[1].prototype || iBlockClass;
+                            superclass = arguments[1].prototype || blockClass;
                             members = prepareClassMembers(members, arguments, 2);
                         } else {
-                            superclass = iBlockClass;
+                            superclass = blockClass;
                             members = prepareClassMembers(members, arguments, 1);
                         }
                     }
                 } else {
                     classname = false;
                     if (typeof arguments[0] === 'function') {
-                        superclass = arguments[0].prototype || iBlockClass;
+                        superclass = arguments[0].prototype || blockClass;
                         members = prepareClassMembers(members, arguments, 1);
                     } else {
-                        superclass = iBlockClass;
+                        superclass = blockClass;
                         members = prepareClassMembers(members, arguments, 0);
                     }
                 }
             } else {
                 classname = false;
-                superclass = iBlockClass;
+                superclass = blockClass;
                 members = {};
             }
             return produceClass(classname, superclass, members);
@@ -975,7 +975,7 @@
      * 互联代码块
      */
 
-    var iBlock = function(includes, callback, blockname) {
+    var block = function(includes, callback, blockname) {
             return new Block(includes, callback, blockname).result;
         },
 
@@ -1063,7 +1063,7 @@
                 } else {
                     filetype = 'js';
                     url = this.requires[this.onload].replace(/^\$_\//, storage.core.Pathname).replace(/^\$\.\//, storage.mainUrl).replace(/^\$pkg\//, storage.packagesUrl) + '.js';
-                    url = url.replace(/([A-Z][\w\$]+)\/.js$/, '$1/$1.Cls.js').replace(/([a-z][\w\$]+)\/.js$/, '$1/$1.xtd.js');
+                    url = url.replace(/([A-Z][\w\$]+)\/.js$/, '$1/$1.cls.js').replace(/([a-z][\w\$]+)\/.js$/, '$1/$1.xtd.js');
                 }
 
                 if (this.requires[this.onload]) {
@@ -1120,12 +1120,12 @@
         });
 
     /********************
-     * Expand the iBlock interface and expose it to the global
-     * 拓展iBlock接口并暴露其到全局
+     * Expand the block interface and expose it to the global
+     * 拓展block接口并暴露其到全局
      */
 
     /* 扩展接口 */
-    extend(iBlock, {
+    extend(block, {
         /* 全局配置
          * object options {
          *      useDebugMode:是否开启调试模式
@@ -1178,7 +1178,7 @@
     });
 
     /* 接口开放到全局 */
-    global.iBlock = iBlock;
+    global.block = block;
 
     /**
      * ------------------------------------------------------------------
@@ -1196,8 +1196,8 @@
             var url = url + '.js';
             loadURL(url, '$Config');
         };
-        if (global.iBlockConfiguration) {
-            iBlock.config(global.iBlockConfiguration);
+        if (global.blockConfiguration) {
+            block.config(global.blockConfiguration);
         }
         if (mains) {
             var mArr = mains.split(/,\s*/);

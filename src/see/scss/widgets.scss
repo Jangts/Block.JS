@@ -1,16 +1,16 @@
 /** Line Tops **/
 
-.ic.line-top {
+.bc.line-top {
     height: 4px;
     border-top: 1px solid #EEE;
 }
 
-.ic.line-bottom {
+.bc.line-bottom {
     height: 4px;
     border-bottom: 1px solid #EEE;
 }
 
-.ic.line-double {
+.bc.line-double {
     height: 3px;
     border-top: 1px solid #EEE;
     border-bottom: 1px solid #EEE;
@@ -27,7 +27,7 @@ $heights: 10,
 80,
 100;
 @each $height in $heights {
-    .ic.blank-#{$height} {
+    .bc.blank-#{$height} {
         background-color: transparent;
         margin: #{$height/2}px auto;
     }
@@ -44,11 +44,11 @@ $titles: (20, 20, 0),
 @each $title,
 $height,
 $padding in $titles {
-    .ic.tit-#{$title} {
+    .bc.tit-#{$title} {
         line-height: #{$height}px;
         padding: #{$padding}px 0px;
     }
-    .ic.hasbg.tit-#{$title} {
+    .bc.hasbg.tit-#{$title} {
         line-height: #{$height}px;
         padding: #{$padding}px #{$padding+10}px;
     }
@@ -57,15 +57,15 @@ $padding in $titles {
 
 /** Context **/
 
-.ic.nav-item.nav-hasson:hover {
+.bc.nav-item.nav-hasson:hover {
     overflow: visible;
 }
 
-.ic.nav-item.nav-hasson .nav-ason {
+.bc.nav-item.nav-hasson .nav-ason {
     display: none;
     position: absolute;
 }
 
-.ic.nav-item.nav-hasson:hover .nav-ason {
+.bc.nav-item.nav-hasson:hover .nav-ason {
     display: block;
 }

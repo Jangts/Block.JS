@@ -1,6 +1,6 @@
 /*** EDITOR TOOLBAR PICKS ***************************/
 
-.ic.editor-toolarea .ic.editor-tool .ic.editor-pick {
+.bc.editor-toolarea .bc.editor-tool .bc.editor-pick {
     display: none;
     position: absolute;
     width: auto;
@@ -18,19 +18,19 @@
 
 /* ------------------------- */
 
-.ic.editor-toolarea .ic.editor-tool[data-ib-cmds].active {
+.bc.editor-toolarea .bc.editor-tool[data-ib-cmds].active {
     overflow: visible;
     z-index: 100;
 }
 
-.ic.editor-toolarea .ic.editor-tool.active .ic.editor-pick {
+.bc.editor-toolarea .bc.editor-tool.active .bc.editor-pick {
     display: block;
 }
 
 
 /* ------------------------- */
 
-.ic.editor-toolarea li.ic.editor-font {
+.bc.editor-toolarea li.bc.editor-font {
     width: auto;
     text-align: left;
     padding: 0px 5px;
@@ -38,22 +38,22 @@
     white-space: nowrap;
 }
 
-.ic.editor-toolarea .fontname li.ic.editor-font {
+.bc.editor-toolarea .fontname li.bc.editor-font {
     font-size: 12px;
     height: 20px;
     line-height: 20px;
 }
 
-.ic.editor-toolarea .fontsize li.ic.editor-font {
+.bc.editor-toolarea .fontsize li.bc.editor-font {
     height: auto;
 }
 
-.ic.editor-toolarea li.ic.editor-font:hover {
+.bc.editor-toolarea li.bc.editor-font:hover {
     background-color: #09C;
     color: #FFF;
 }
 
-.ic.editor-toolarea li.ic.editor-font.selected {
+.bc.editor-toolarea li.bc.editor-font.selected {
     background-color: #09C;
     color: #FFF;
 }
@@ -61,43 +61,43 @@
 
 /* ------------------------- */
 
-.ic.editor-toolarea ul.ic.editor-pick {
+.bc.editor-toolarea ul.bc.editor-pick {
     white-space: nowrap;
 }
 
-.ic.editor-toolarea .forecolor ul.ic.editor-pick {
+.bc.editor-toolarea .forecolor ul.bc.editor-pick {
     line-height: 0px;
 }
 
-.ic.editor-toolarea .backcolor ul.ic.editor-pick {
+.bc.editor-toolarea .backcolor ul.bc.editor-pick {
     line-height: 0px;
 }
 
-.ic.editor-toolarea li.ic.editor-color {
+.bc.editor-toolarea li.bc.editor-color {
     display: inline-block;
     width: 18px;
     height: 18px;
     margin: 1px;
 }
 
-.ic.editor-toolarea li.ic.editor-color i {
+.bc.editor-toolarea li.bc.editor-color i {
     display: block;
     width: 16px;
     height: 16px;
     margin: 1px;
 }
 
-.ic.editor-toolarea li.ic.editor-color:hover {
+.bc.editor-toolarea li.bc.editor-color:hover {
     margin: 0px;
     border: #09C 1px solid;
 }
 
-.ic.editor-toolarea li.ic.editor-color.selected {
+.bc.editor-toolarea li.bc.editor-color.selected {
     margin: 0px;
     border: #09C 1px solid;
 }
 
-.ic.editor-toolarea hr.ic.editor-break {
+.bc.editor-toolarea hr.bc.editor-break {
     clear: both;
     height: 0px;
     border: none;
@@ -105,7 +105,7 @@
     display: block;
 }
 
-.ic.editor-toolarea hr.ic.editor-break+hr.ic.editor-break {
+.bc.editor-toolarea hr.bc.editor-break+hr.bc.editor-break {
     clear: both;
     height: 8px;
     border: none;

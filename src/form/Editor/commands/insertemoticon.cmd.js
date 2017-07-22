@@ -28,7 +28,7 @@ block([
                     this.execCommand('insert', code);
                 } else {
                     var src = parameters.basePath + 'emoticons/' + val.pack + '/' + emoticons[val.pack][val.name];
-                    var html = '<img src="' + src + '" class="ic editor-emoticon" />';
+                    var html = '<img src="' + src + '" class="bc editor-emoticon" />';
                     this.execCommand('insert', html);
                 }
                 this.collapse();
@@ -41,9 +41,9 @@ block([
         var pack = this.options.emoticonsTable && emoticons[this.options.emoticonsTable] ? this.options.emoticonsTable : parameters.emoticonsTable;
         var emtb = emoticons[pack];
         var path = parameters.basePath + 'emoticons/' + pack + '/';
-        var html = '<dialog class="ic editor-dialog"><ul class="ic editor-emoticons ic editor-emoticons-' + pack + '">';
+        var html = '<dialog class="bc editor-dialog"><ul class="bc editor-emoticons bc editor-emoticons-' + pack + '">';
         for (var i in emtb) {
-            html += '<li class="ic editor-emoticon" data-ib-cmd="insertemoticon" data-ib-val="' + pack + ', ' + i + '" title="' + i + '"><img src="' + path + emtb[i] + '"></li>';
+            html += '<li class="bc editor-emoticon" data-ib-cmd="insertemoticon" data-ib-val="' + pack + ', ' + i + '" title="' + i + '"><img src="' + path + emtb[i] + '"></li>';
         }
         html += '</ul></dialog>';
         return html;

@@ -9,7 +9,7 @@
 block([
     '$_/util/arr.xtd',
     '$_/util/obj.xtd',
-    '$_/data/Storage.Cls',
+    '$_/data/Storage.cls',
     '$_/data/jsonsql.xtd'
 ], function(pandora, global, undefined) {
     var _ = pandora,

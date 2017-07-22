@@ -9,9 +9,9 @@
 block([
     '$_/util/bool.xtd',
     '$_/dom/',
-    '$_/dom/Events.Cls',
+    '$_/dom/Events.cls',
     '$_/data/',
-    '$_/data/Uploader.Cls'
+    '$_/data/Uploader.cls'
 ], function(pandora, global, undefined) {
     var _ = pandora,
         cache = pandora.locker;

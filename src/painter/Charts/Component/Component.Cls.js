@@ -7,7 +7,7 @@
  */
 ;
 block([
-    '$_/painter/Charts/Charts.Cls',
+    '$_/painter/Charts/Charts.cls',
     '$_/painter/Charts/util/helpers.xtd'
 ], function(pandora, global, undefined) {
     var _ = pandora,

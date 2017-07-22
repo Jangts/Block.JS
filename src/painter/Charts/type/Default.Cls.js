@@ -14,7 +14,7 @@
 ;
 block([
     '$_/util/obj.xtd',
-    '$_/painter/Charts/Charts.Cls',
+    '$_/painter/Charts/Charts.cls',
     '$_/painter/Charts/util/helpers.xtd',
     '$_/painter/Charts/util/events.xtd',
     '$_/painter/Charts/util/defaults.xtd'

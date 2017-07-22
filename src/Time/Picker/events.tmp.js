@@ -1,6 +1,6 @@
 block([
     '$_/dom/',
-    '$_/Time/Month.Cls'
+    '$_/Time/Month.cls'
 ], function(pandora, global, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,

@@ -7,7 +7,7 @@
  */
 ;
 block([
-    '$_/util/XHR.Cls',
+    '$_/util/XHR.cls',
     '$_/util/query.xtd',
     '$_/util/bool.xtd',
     '$_/dom/'

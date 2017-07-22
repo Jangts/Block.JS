@@ -12,7 +12,7 @@
  * Date: 2015-09-04
  */
 ;
-block(['$_/painter/Charts/Component/Component.Cls'], function(pandora, global, undefined) {
+block(['$_/painter/Charts/Component/Component.cls'], function(pandora, global, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
         cache = pandora.locker,

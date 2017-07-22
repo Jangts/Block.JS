@@ -16,9 +16,9 @@ block([
     '$_/util/arr.xtd',
     '$_/util/bool.xtd',
     '$_/util/obj.xtd',
-    '$_/painter/Charts/Charts.Cls',
+    '$_/painter/Charts/Charts.cls',
     '$_/painter/Charts/util/events.xtd',
-    '$_/painter/Charts/scale/Grid.Cls'
+    '$_/painter/Charts/scale/Grid.cls'
 ], function(pandora, global, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,

@@ -1,4 +1,4 @@
-.ic.clock .clock-dial {
+.bc.clock .clock-dial {
     position: relative;
     width: 100%;
     height: 100%;
@@ -6,14 +6,14 @@
     overflow: hidden;
 }
 
-.ic.clock .clock-dial .clock-fixer,
-.ic.clock .clock-dial .clock-hand {
+.bc.clock .clock-dial .clock-fixer,
+.bc.clock .clock-dial .clock-hand {
     position: absolute;
     top: 50%;
     left: 50%;
 }
 
-.ic.clock .clock-dial .clock-fixer {
+.bc.clock .clock-dial .clock-fixer {
     width: 10%;
     height: 10%;
     margin-top: -5%;
@@ -23,7 +23,7 @@
     z-index: 30;
 }
 
-.ic.clock .clock-dial .clock-fixer::before {
+.bc.clock .clock-dial .clock-fixer::before {
     display: block;
     position: absolute;
     width: 40%;
@@ -34,7 +34,7 @@
     content: '';
 }
 
-.ic.clock .clock-dial .clock-hand.hour {
+.bc.clock .clock-dial .clock-hand.hour {
     width: 6%;
     height: 60%;
     margin-top: -30%;
@@ -42,7 +42,7 @@
     z-index: 0;
 }
 
-.ic.clock .clock-dial .clock-hand.minute {
+.bc.clock .clock-dial .clock-hand.minute {
     width: 4%;
     height: 80%;
     margin-top: -40%;
@@ -50,7 +50,7 @@
     z-index: 10;
 }
 
-.ic.clock .clock-dial .clock-hand.second {
+.bc.clock .clock-dial .clock-hand.second {
     width: 2%;
     height: 90%;
     margin-top: -45%;
@@ -58,7 +58,7 @@
     z-index: 20;
 }
 
-.ic.clock .clock-dial .clock-hand::before {
+.bc.clock .clock-dial .clock-hand::before {
     display: block;
     position: absolute;
     width: 100%;
@@ -68,81 +68,81 @@
     content: '';
 }
 
-.ic.clock .clock-dial .clock-hand.hour::before {
+.bc.clock .clock-dial .clock-hand.hour::before {
     background-color: #000;
 }
 
-.ic.clock .clock-dial .clock-hand.minute::before {
+.bc.clock .clock-dial .clock-hand.minute::before {
     background-color: #C60;
 }
 
-.ic.clock .clock-dial .clock-fixer::before,
-.ic.clock .clock-dial .clock-hand.second::before {
+.bc.clock .clock-dial .clock-fixer::before,
+.bc.clock .clock-dial .clock-hand.second::before {
     background-color: #FC0;
 }
 
-.ic.clock.red .clock-dial .clock-hand.minute::before {
+.bc.clock.red .clock-dial .clock-hand.minute::before {
     background-color: #800;
 }
 
-.ic.clock.red .clock-dial .clock-fixer::before,
-.ic.clock.red .clock-dial .clock-hand.second::before {
+.bc.clock.red .clock-dial .clock-fixer::before,
+.bc.clock.red .clock-dial .clock-hand.second::before {
     background-color: #F35;
 }
 
-.ic.clock.orange .clock-dial .clock-hand.minute::before {
+.bc.clock.orange .clock-dial .clock-hand.minute::before {
     background-color: #930;
 }
 
-.ic.clock.orange .clock-dial .clock-fixer::before,
-.ic.clock.orange .clock-dial .clock-hand.second::before {
+.bc.clock.orange .clock-dial .clock-fixer::before,
+.bc.clock.orange .clock-dial .clock-hand.second::before {
     background-color: #F90;
 }
 
-.ic.clock.yellow .clock-dial .clock-hand.minute::before {
+.bc.clock.yellow .clock-dial .clock-hand.minute::before {
     background-color: #C60;
 }
 
-.ic.clock.yellow .clock-dial .clock-fixer::before,
-.ic.clock.yellow .clock-dial .clock-hand.second::before {
+.bc.clock.yellow .clock-dial .clock-fixer::before,
+.bc.clock.yellow .clock-dial .clock-hand.second::before {
     background-color: #FC0;
 }
 
-.ic.clock.green .clock-dial .clock-hand.minute::before {
+.bc.clock.green .clock-dial .clock-hand.minute::before {
     background-color: #060;
 }
 
-.ic.clock.green .clock-dial .clock-fixer::before,
-.ic.clock.green .clock-dial .clock-hand.second::before {
+.bc.clock.green .clock-dial .clock-fixer::before,
+.bc.clock.green .clock-dial .clock-hand.second::before {
     background-color: #0C0;
 }
 
-.ic.clock.cyan .clock-dial .clock-hand.minute::before {
+.bc.clock.cyan .clock-dial .clock-hand.minute::before {
     background-color: #066;
 }
 
-.ic.clock.cyan .clock-dial .clock-fixer::before,
-.ic.clock.cyan .clock-dial .clock-hand.second::before {
+.bc.clock.cyan .clock-dial .clock-fixer::before,
+.bc.clock.cyan .clock-dial .clock-hand.second::before {
     background-color: #0DF;
 }
 
-.ic.clock.blue .clock-dial .clock-hand.minute::before {
+.bc.clock.blue .clock-dial .clock-hand.minute::before {
     background-color: #039;
 }
 
-.ic.clock.blue .clock-dial .clock-fixer::before,
-.ic.clock.blue .clock-dial .clock-hand.second::before {
+.bc.clock.blue .clock-dial .clock-fixer::before,
+.bc.clock.blue .clock-dial .clock-hand.second::before {
     background-color: #09F;
 }
 
-.ic.clock.purple .clock-dial .clock-hand.minute::before {
+.bc.clock.purple .clock-dial .clock-hand.minute::before {
     background-color: #906;
 }
 
-.ic.clock.purple .clock-dial .clock-fixer::before,
-.ic.clock.purple .clock-dial .clock-hand.second::before {
+.bc.clock.purple .clock-dial .clock-fixer::before,
+.bc.clock.purple .clock-dial .clock-hand.second::before {
     background-color: #F0D;
 }
 
 
-/*# sourceMappingURL=Clock.Cls.css.map */
+/*# sourceMappingURL=Clock.cls.css.map */

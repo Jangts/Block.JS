@@ -9,7 +9,7 @@
 block([
     '$_/see/NavMenu/',
     '$_/see/Scrollbar/',
-    '$_/see/Tabs/SlideTabs.Cls',
+    '$_/see/Tabs/SlideTabs.cls',
     '$_/see/ListView/'
 ], function(pandora, global, undefined) {
     var _ = pandora,
@@ -21,7 +21,7 @@ block([
 
     _.extend(_.see.Scrollbar, {
         auto: function() {
-            $('.ic.scrollbar[data-ic-auto]').each(function() {
+            $('.bc.scrollbar[data-ic-auto]').each(function() {
                 if (($(this).data('icAuto') != 'false') && ($(this).data('icRendered') != 'scrollbar')) {
                     $(this).data('icRendered', 'scrollbar');
                     new _.see.Scrollbar(this, {

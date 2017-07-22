@@ -37,14 +37,14 @@ block([
     });
 
     _.form.Editor.regCreater('insertimage', function() {
-        var html = '<dialog class="ic editor-dialog">';
-        html += '<span class="ic editor-title">Insert Pictures</span>';
-        html += '<div class="ic editor-url">';
-        html += '<label>Enter URL</label><input type="text" class="ic editor-input" placeholder="Image URL" />';
+        var html = '<dialog class="bc editor-dialog">';
+        html += '<span class="bc editor-title">Insert Pictures</span>';
+        html += '<div class="bc editor-url">';
+        html += '<label>Enter URL</label><input type="text" class="bc editor-input" placeholder="Image URL" />';
         html += '</div>';
-        html += '<input type="file" class="ic editor-files" value="" hidden="" multiple />';
-        html += '<div class="ic editor-show"><span>click to upload</span></div>';
-        html += '<div class="ic editor-btns">';
+        html += '<input type="file" class="bc editor-files" value="" hidden="" multiple />';
+        html += '<div class="bc editor-show"><span>click to upload</span></div>';
+        html += '<div class="bc editor-btns">';
         html += '<input type="button" data-ib-cmd="insertimage" value="Insert Web Picture"/>';
         html += '<input type="button" data-ib-cmd="uploadimage" value="Upload And Insert"/>';
         html += '</div>';
@@ -54,7 +54,7 @@ block([
 
     _.form.Editor.regDialog('insertimage', function(btn) {
         var dialog = _.dom.closest(btn, 'dialog');
-        var input = _.query('.ic.editor-url .ic.editor-input', dialog)[0];
+        var input = _.query('.bc.editor-url .bc.editor-input', dialog)[0];
         if (input && input.value) {
             return [input.value];
         }
@@ -63,7 +63,7 @@ block([
 
     _.form.Editor.regDialog('uploadimage', function(btn) {
         var dialog = _.dom.closest(btn, 'dialog');
-        var images = _.query('.ic.editor-show', dialog)[0];
+        var images = _.query('.bc.editor-show', dialog)[0];
         var files = images.files;
         if (files && files.length > 0) {
             var that = this;

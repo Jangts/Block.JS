@@ -38,15 +38,15 @@ block([
     });
 
     _.form.Editor.regCreater('createlink', function() {
-        var html = '<dialog class="ic editor-dialog">';
-        html += '<span class="ic editor-title">Insert link</span>';
-        html += '<div class="ic editor-url">';
-        html += '<label>Enter URL</label><input type="text" class="ic editor-input createlink" placeholder="http://www.yangram.com/blockjs/" />';
+        var html = '<dialog class="bc editor-dialog">';
+        html += '<span class="bc editor-title">Insert link</span>';
+        html += '<div class="bc editor-url">';
+        html += '<label>Enter URL</label><input type="text" class="bc editor-input createlink" placeholder="http://www.yangram.com/blockjs/" />';
         html += '</div>';
-        html += '<div class="ic editor-check">';
-        html += '<input type="checkbox" class="ic editor-checkbox" checked="checked"> <label>Open in new tab</label>';
+        html += '<div class="bc editor-check">';
+        html += '<input type="checkbox" class="bc editor-checkbox" checked="checked"> <label>Open in new tab</label>';
         html += '</div>';
-        html += '<div class="ic editor-btns">';
+        html += '<div class="bc editor-btns">';
         html += '<button type="button" data-ib-cmd="createlink">OK</button>';
         html += '</div>';
         html += '</dialog>';
@@ -55,8 +55,8 @@ block([
 
     _.form.Editor.regDialog('createlink', function(btn) {
         var dialog = _.dom.closest(btn, 'dialog');
-        var input = _.query('.ic.editor-url .ic.editor-input', dialog)[0];
-        var checkbox = _.query('.ic.editor-check .ic.editor-checkbox', dialog)[0]
+        var input = _.query('.bc.editor-url .bc.editor-input', dialog)[0];
+        var checkbox = _.query('.bc.editor-check .bc.editor-checkbox', dialog)[0]
         if (input && input.value != '') {
             return {
                 url: input.value,

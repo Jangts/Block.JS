@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <title>Block.JS Javascript Database Storage</title>
-    <script src="../../src/iBlock.js" data-use-debugmode></script>
+    <script src="../../src/block.js" data-use-debugmode></script>
     <style>
 
     </style>
@@ -17,7 +17,7 @@
         </tbody>
     </table>
     <script>
-        block(['$_/data/Storage.Cls'], function(_, global, undefined) {
+        block(['$_/data/Storage.cls'], function(_, global, undefined) {
             var db = new _.data.Storage('mydatabase');
             if (db.length == 0) {
                 db.set('blockjs', {

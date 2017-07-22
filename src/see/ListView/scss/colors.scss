@@ -2,9 +2,9 @@
 /*	Colors
 /************************************************/
 
-.ic.listview.text-list,
-.ic.listview.mtext-list,
-.ic.listview.media-list {
+.bc.listview.text-list,
+.bc.listview.mtext-list,
+.bc.listview.media-list {
     @each $name,
     $color in $colors {
         .list-item.topline.#{$name} {

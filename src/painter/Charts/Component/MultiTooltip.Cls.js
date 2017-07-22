@@ -8,7 +8,7 @@
 ;
 block([
     '$_/painter/Charts/util/helpers.xtd',
-    '$_/painter/Charts/Component/Component.Cls'
+    '$_/painter/Charts/Component/Component.cls'
 ], function(pandora, global, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,

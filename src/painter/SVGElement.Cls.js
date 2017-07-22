@@ -9,7 +9,7 @@
 block([
     '$_/util/type.xtd',
     '$_/util/bool.xtd',
-    '$_/dom/Events.Cls'
+    '$_/dom/Events.cls'
 ], function(pandora, global, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,

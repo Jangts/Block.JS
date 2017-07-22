@@ -8,9 +8,9 @@
 ;
 block([
     '$_/painter/Charts/polar.clsx',
-    '$_/painter/Charts/type/Default.Cls',
-    '$_/painter/Charts/sharp/Line.Cls',
-    '$_/painter/Charts/sharp/Point.Cls'
+    '$_/painter/Charts/type/Default.cls',
+    '$_/painter/Charts/sharp/Line.cls',
+    '$_/painter/Charts/sharp/Point.cls'
 ], function(pandora, global, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,

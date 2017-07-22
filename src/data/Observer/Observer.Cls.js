@@ -7,8 +7,8 @@
  */
 ;
 block([
-    '$_/data/Observer/Subscriber.Cls',
-    '$_/data/Observer/Listener.Cls'
+    '$_/data/Observer/Subscriber.cls',
+    '$_/data/Observer/Listener.cls'
 ], function(pandora, global, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,

@@ -4,69 +4,69 @@
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Block.JS SLIDER P/N BUTTONS</title>
-    <script src="../../../src/iBlock.js"></script>
+    <script src="../../../src/block.js"></script>
     <link href="../../../src/see/see.css" type="text/css" rel="stylesheet">
     <link href="../../../src/see/fa.css" type="text/css" rel="stylesheet">
     <link href="../../../src/see/Slider/common.css" type="text/css" rel="stylesheet">
     <link href="../../../src/see/Slider/panel.css" type="text/css" rel="stylesheet">
     <style>
-        .ic h510 {
+        .bc h510 {
             width: 100%;
             height: 100%;
         }
         
-        .ic.slider .cutter.big-lt {
+        .bc.slider .cutter.big-lt {
             left: 420px;
         }
         
-        .ic.slider .cutter.big-gt {
+        .bc.slider .cutter.big-gt {
             right: 420px;
         }
         
-        .ic.slider .cutter.lt-in-circle,
-        .ic.slider .cutter.ll-in-circle,
-        .ic.slider .cutter.bl-in-circle {
+        .bc.slider .cutter.lt-in-circle,
+        .bc.slider .cutter.ll-in-circle,
+        .bc.slider .cutter.bl-in-circle {
             left: 100px;
         }
         
-        .ic.slider .cutter.gt-in-circle,
-        .ic.slider .cutter.lg-in-circle,
-        .ic.slider .cutter.bg-in-circle {
+        .bc.slider .cutter.gt-in-circle,
+        .bc.slider .cutter.lg-in-circle,
+        .bc.slider .cutter.bg-in-circle {
             right: 100px;
         }
         
-        .ic.slider .cutter.ll-in-circle {
+        .bc.slider .cutter.ll-in-circle {
             top: 30%;
         }
         
-        .ic.slider .cutter.lg-in-circle {
+        .bc.slider .cutter.lg-in-circle {
             top: 30%;
         }
         
-        .ic.slider .cutter.bl-in-circle {
+        .bc.slider .cutter.bl-in-circle {
             top: 70%;
         }
         
-        .ic.slider .cutter.bg-in-circle {
+        .bc.slider .cutter.bg-in-circle {
             top: 70%;
         }
         
-        .ic.slider .cutter.ll-in-bigcircle,
-        .ic.slider .cutter.lg-in-bigcircle {
+        .bc.slider .cutter.ll-in-bigcircle,
+        .bc.slider .cutter.lg-in-bigcircle {
             top: 30%;
         }
         
-        .ic.slider .cutter.bl-in-bigcircle,
-        .ic.slider .cutter.bg-in-bigcircle {
+        .bc.slider .cutter.bl-in-bigcircle,
+        .bc.slider .cutter.bg-in-bigcircle {
             top: 70%;
         }
     </style>
 </head>
 
 <body>
-    <section class="ic h480">
-        <div class="ic slider" data-use-slider-type="slide">
-            <div class="ic ov-hide stage width-full hfull">
+    <section class="bc h480">
+        <div class="bc slider" data-use-slider-type="slide">
+            <div class="bc ov-hide stage width-full hfull">
                 <div class="troupe">
                     <section class="actor">
                         <img src="images/slider-0.jpg">
@@ -101,7 +101,7 @@
     <script>
         block(['$_/dom/Elements/', '$_/see/Slider/slide.opts'], function(_, global, undefined) {
             var $ = _.dom.select;
-            $('.ic.slider[data-use-slider-type]').each(function() {
+            $('.bc.slider[data-use-slider-type]').each(function() {
                 var type = $(this).data('useSliderType');
                 new _.see.Slider(this, type, {
                     speed: 4000,

@@ -9,7 +9,7 @@
 block([
     '$_/util/arr.xtd',
     '$_/dom/',
-    '$_/painter/Charts/Charts.Cls'
+    '$_/painter/Charts/Charts.cls'
 ], function(pandora, global, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,

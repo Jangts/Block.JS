@@ -7,8 +7,8 @@
  */
 
 block([
-    '$_/painter/QRCode/Model.Cls',
-    '$_/painter/QRCode/Drawing.Cls'
+    '$_/painter/QRCode/Model.cls',
+    '$_/painter/QRCode/Drawing.cls'
 ], function(pandora, global, undefined) {
     var _ = pandora,
         declare = pandora.declareClass;

@@ -78,23 +78,23 @@ block([
     });
 
     _.form.Editor.regCreater('insertvideo', function() {
-        var html = '<dialog class="ic editor-dialog">';
-        html += '<span class="ic editor-title">Insert Video</span>';
-        html += '<textarea class="ic editor-code" placeholder="Embedded code"></textarea>';
-        html += '<div class="ic editor-url">';
-        html += '<label>Enter URL</label><input type="text" class="ic editor-input" placeholder="Video URL" />';
+        var html = '<dialog class="bc editor-dialog">';
+        html += '<span class="bc editor-title">Insert Video</span>';
+        html += '<textarea class="bc editor-code" placeholder="Embedded code"></textarea>';
+        html += '<div class="bc editor-url">';
+        html += '<label>Enter URL</label><input type="text" class="bc editor-input" placeholder="Video URL" />';
         html += '</div>';
-        html += '<div class="ic editor-attr"><div class="ic editor-attr-left">';
-        html += '<label>Size</label><input type="text" class="ic editor-vidoe-width" placeholder="640">';
-        html += '<span>×</span><input type="text" class="ic editor-vidoe-height" placeholder="480">';
-        html += '</div><div class="ic editor-attr-right">';
-        html += '<label>Type</label><select class="ic editor-vidoe-type">';
+        html += '<div class="bc editor-attr"><div class="bc editor-attr-left">';
+        html += '<label>Size</label><input type="text" class="bc editor-vidoe-width" placeholder="640">';
+        html += '<span>×</span><input type="text" class="bc editor-vidoe-height" placeholder="480">';
+        html += '</div><div class="bc editor-attr-right">';
+        html += '<label>Type</label><select class="bc editor-vidoe-type">';
         html += '<option value="swf" selected="selected">swf</option>';
         html += '<option value="webm">webm</option>';
         html += '<option value="mp4">mp4</option>';
         html += '<option value="ogg">ogg</option>';
         html += '</select></div></div>';
-        html += '<div class="ic editor-btns">';
+        html += '<div class="bc editor-btns">';
         html += '<button type="button" data-ib-cmd="insertvideo">OK</button>';
         html += '</div>';
         html += '</dialog>';
@@ -103,16 +103,16 @@ block([
 
     _.form.Editor.regDialog('insertvideo', function(btn) {
         var dialog = _.dom.closest(btn, 'dialog');
-        var textarea = _.query('.ic.editor-code', dialog)[0];
+        var textarea = _.query('.bc.editor-code', dialog)[0];
         if (textarea && textarea.value != '') {
             return {
                 code: textarea.value
             }
         }
-        var input = _.query('.ic.editor-url .ic.editor-input', dialog)[0];
-        var widthInput = _.query('.ic.editor-attr .ic.editor-vidoe-width', dialog)[0];
-        var heightInput = _.query('.ic.editor-attr .ic.editor-vidoe-height', dialog)[0];
-        var typeInput = _.query('.ic.editor-attr .ic.editor-vidoe-type', dialog)[0];
+        var input = _.query('.bc.editor-url .bc.editor-input', dialog)[0];
+        var widthInput = _.query('.bc.editor-attr .bc.editor-vidoe-width', dialog)[0];
+        var heightInput = _.query('.bc.editor-attr .bc.editor-vidoe-height', dialog)[0];
+        var typeInput = _.query('.bc.editor-attr .bc.editor-vidoe-type', dialog)[0];
         if (input && input.value != '') {
             return {
                 url: input.value,

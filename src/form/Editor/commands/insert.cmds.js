@@ -33,13 +33,13 @@ block([
             this.execCommand('insert', '<p></p>');
         },
         'pagebreak': function(val) {
-            this.execCommand('insert', '<hr style="page-break-after: always;" class="ic editor-pagebreak">');
+            this.execCommand('insert', '<hr style="page-break-after: always;" class="bc editor-pagebreak">');
         },
         'inserttime': function(val) {
-            this.execCommand('insert', '<hr style="page-break-after: always;" class="ic editor-pagebreak">');
+            this.execCommand('insert', '<hr style="page-break-after: always;" class="bc editor-pagebreak">');
         },
         'insertdate': function(val) {
-            this.execCommand('insert', '<hr style="page-break-after: always;" class="ic editor-pagebreak">');
+            this.execCommand('insert', '<hr style="page-break-after: always;" class="bc editor-pagebreak">');
         }
     };
 

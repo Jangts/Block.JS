@@ -6,7 +6,7 @@
  * Date 2017-04-06
  */
 ;
-block('$_/util/Promise.Cls', function(pandora, global, undefined) {
+block('$_/util/Promise.cls', function(pandora, global, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
         console = global.console;

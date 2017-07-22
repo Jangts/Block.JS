@@ -136,50 +136,50 @@ block([
 
         creators = {
             'fontname': function() {
-                var html = '<ul class="ic editor-pick">';
+                var html = '<ul class="bc editor-pick">';
                 var fontNameTable = this.options.fontNameTable || defaults.fontNameTable;
                 for (var i = 0; i < fontNameTable.length; i++) {
-                    html += '<li class="ic editor-font" data-ib-cmd="fontname" data-ib-val="' + fontNameTable[i] + '"><font style="font-family: ' + fontNameTable[i] + ';" title="' + fontNameTable[i] + '">' + fontNameTable[i].replace(/('|")/g, '') + '</font></li>';
+                    html += '<li class="bc editor-font" data-ib-cmd="fontname" data-ib-val="' + fontNameTable[i] + '"><font style="font-family: ' + fontNameTable[i] + ';" title="' + fontNameTable[i] + '">' + fontNameTable[i].replace(/('|")/g, '') + '</font></li>';
                 }
                 html += '</ul>';
                 return html;
             },
             'fontsize': function() {
-                var html = '<ul class="ic editor-pick">';
+                var html = '<ul class="bc editor-pick">';
                 var fontSizeTable = this.options.fontSizeTable || defaults.fontSizeTable;
                 for (var i = 0; i < fontSizeTable.length; i++) {
                     var height = parseInt(fontSizeTable[i]) + 15;
                     height = height > 24 ? height : 24;
-                    html += '<li class="ic editor-font" data-ib-cmd="fontsize" data-ib-val="' + fontSizeTable[i] + '" style="height: ' + height + 'px; line-height: ' + height + 'px;"><font style="font-size: ' + fontSizeTable[i] + ';" title="' + fontSizeTable[i] + '">' + fontSizeTable[i] + '</font></li>';
+                    html += '<li class="bc editor-font" data-ib-cmd="fontsize" data-ib-val="' + fontSizeTable[i] + '" style="height: ' + height + 'px; line-height: ' + height + 'px;"><font style="font-size: ' + fontSizeTable[i] + ';" title="' + fontSizeTable[i] + '">' + fontSizeTable[i] + '</font></li>';
                 }
                 html += '</ul>';
                 return html;
             },
             'forecolor': function() {
-                var html = '<ul class="ic editor-pick">';
+                var html = '<ul class="bc editor-pick">';
                 var colorTable = this.options.colorTable || defaults.colorTable;
                 for (var n = 0; n < colorTable.length; n++) {
                     var colorTableRow = colorTable[n];
                     if (n > 0) {
-                        html += '<hr class="ic editor-break">';
+                        html += '<hr class="bc editor-break">';
                     }
                     for (var i = 0; i < colorTableRow.length; i++) {
-                        html += '<li class="ic editor-color" data-ib-cmd="forecolor" data-ib-val="' + colorTableRow[i] + '"><i style="background-color: ' + colorTableRow[i] + ';" title="' + colorTableRow[i] + '"></i></li>';
+                        html += '<li class="bc editor-color" data-ib-cmd="forecolor" data-ib-val="' + colorTableRow[i] + '"><i style="background-color: ' + colorTableRow[i] + ';" title="' + colorTableRow[i] + '"></i></li>';
                     }
                 }
                 html += '</ul>';
                 return html;
             },
             'backcolor': function() {
-                var html = '<ul class="ic editor-pick">';
+                var html = '<ul class="bc editor-pick">';
                 var colorTable = this.options.colorTable || defaults.colorTable;
                 for (var n = 0; n < colorTable.length; n++) {
                     var colorTableRow = colorTable[n];
                     if (n > 0) {
-                        html += '<hr class="ic editor-break">';
+                        html += '<hr class="bc editor-break">';
                     }
                     for (var i = 0; i < colorTableRow.length; i++) {
-                        html += '<li class="ic editor-color" data-ib-cmd="backcolor" data-ib-val="' + colorTableRow[i] + '"><i style="background-color: ' + colorTableRow[i] + ';"></i></li>';
+                        html += '<li class="bc editor-color" data-ib-cmd="backcolor" data-ib-val="' + colorTableRow[i] + '"><i style="background-color: ' + colorTableRow[i] + ';"></i></li>';
                     }
                 }
                 html += '</ul>';

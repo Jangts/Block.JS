@@ -9,7 +9,7 @@
 block([
     '$_/util/bool.xtd',
     '$_/data/Observer/',
-    '$_/data/Observer/Listener.Cls'
+    '$_/data/Observer/Listener.cls'
 ], function(pandora, global, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,

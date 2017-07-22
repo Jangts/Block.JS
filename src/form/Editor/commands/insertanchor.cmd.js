@@ -24,11 +24,11 @@ block([
     });
 
     _.form.Editor.regCreater('insertanchor', function() {
-        var html = '<dialog class="ic editor-dialog">';
-        var html = '<dialog class="ic editor-dialog">';
-        html += '<span class="ic editor-title">Insert Anchor</span>';
-        html += '<div class="ic editor-anchor">';
-        html += '<input type="text" class="ic editor-input" placeholder="Anchor Name" />';
+        var html = '<dialog class="bc editor-dialog">';
+        var html = '<dialog class="bc editor-dialog">';
+        html += '<span class="bc editor-title">Insert Anchor</span>';
+        html += '<div class="bc editor-anchor">';
+        html += '<input type="text" class="bc editor-input" placeholder="Anchor Name" />';
         html += '<button type="button" data-ib-cmd="insertanchor">OK</button>';
         html += '</div>';
         html += '</dialog>';
@@ -38,7 +38,7 @@ block([
 
     _.form.Editor.regDialog('insertanchor', function(btn) {
         var dialog = _.dom.closest(btn, 'dialog');
-        var input = _.query('.ic.editor-anchor .ic.editor-input', dialog)[0];
+        var input = _.query('.bc.editor-anchor .bc.editor-input', dialog)[0];
         if (input && input.value) {
             return input.value;
         }

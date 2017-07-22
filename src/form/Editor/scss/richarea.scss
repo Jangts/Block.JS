@@ -1,6 +1,6 @@
 /*** EDITOR EDITAREA ***/
 
-.ic.editor .ic.editor-richarea {
+.bc.editor .bc.editor-richarea {
     background-color: #FFF;
     overflow: auto;
     resize: vertical;
@@ -8,61 +8,61 @@
     line-height: normal;
 }
 
-.ic.editor .ic.editor-richarea * {
+.bc.editor .bc.editor-richarea * {
     -webkit-box-sizing: content-box;
     -moz-box-sizing: content-box;
     box-sizing: content-box;
     overflow: auto;
 }
 
-.ic.editor .ic.editor-richarea i {
+.bc.editor .bc.editor-richarea i {
     font-style: italic;
 }
 
-.ic.editor .ic.editor-richarea strong,
-.ic.editor .ic.editor-richarea b {
+.bc.editor .bc.editor-richarea strong,
+.bc.editor .bc.editor-richarea b {
     font-weight: bold;
 }
 
-.ic.editor .ic.editor-richarea s,
-.ic.editor .ic.editor-richarea strike,
-.ic.editor .ic.editor-richarea dels {
+.bc.editor .bc.editor-richarea s,
+.bc.editor .bc.editor-richarea strike,
+.bc.editor .bc.editor-richarea dels {
     text-decoration: line-through;
 }
 
-.ic.editor .ic.editor-richarea u,
-.ic.editor .ic.editor-richarea ins {
+.bc.editor .bc.editor-richarea u,
+.bc.editor .bc.editor-richarea ins {
     text-decoration: underline;
 }
 
-.ic.editor .ic.editor-richarea div {
+.bc.editor .bc.editor-richarea div {
     word-break: break-all;
 }
 
-.ic.editor .ic.editor-richarea a {
+.bc.editor .bc.editor-richarea a {
     text-decoration: underline;
     cursor: pointer;
     color: #06F;
 }
 
-.ic.editor .ic.editor-richarea img {
+.bc.editor .bc.editor-richarea img {
     max-width: 100%;
 }
 
-.ic.editor .ic.editor-richarea img:hover {
+.bc.editor .bc.editor-richarea img:hover {
     box-sizing: border-box;
     border: dashed 1px #0CF;
     cursor: default;
 }
 
-.ic.editor .ic.editor-richarea img[_selected=_selected],
-.ic.editor .ic.editor-richarea img[_selected=_selected]:hover {
+.bc.editor .bc.editor-richarea img[_selected=_selected],
+.bc.editor .bc.editor-richarea img[_selected=_selected]:hover {
     box-sizing: border-box;
     border: dashed 1px #039;
     cursor: default;
 }
 
-.ic.editor .ic.editor-richarea blockquote {
+.bc.editor .bc.editor-richarea blockquote {
     color: #666666;
     font-size: 1em;
     padding-left: 1em;
@@ -70,7 +70,7 @@
     line-height: 1.5em;
 }
 
-.ic.editor .ic.editor-richarea h2 {
+.bc.editor .bc.editor-richarea h2 {
     font-size: 1.8em;
     border-left: 10px solid #7fc042;
     padding-left: 0.5em;
@@ -79,39 +79,39 @@
     color: black;
 }
 
-.ic.editor .ic.editor-richarea ul,
-.ic.editor .ic.editor-richarea ol {
+.bc.editor .bc.editor-richarea ul,
+.bc.editor .bc.editor-richarea ol {
     margin: auto;
     padding: 0px 0px 0px 40px;
     overflow: visible;
 }
 
-.ic.editor .ic.editor-richarea ul {
+.bc.editor .bc.editor-richarea ul {
     list-style: disc;
 }
 
-.ic.editor .ic.editor-richarea ol {
+.bc.editor .bc.editor-richarea ol {
     list-style-type: decimal;
 }
 
-.ic.editor .ic.editor-richarea li {
+.bc.editor .bc.editor-richarea li {
     margin: auto;
     padding: 0px;
     overflow: visible;
 }
 
-.ic.editor .ic.editor-richarea hr {
+.bc.editor .bc.editor-richarea hr {
     border-style: inset;
     border-width: 1px;
 }
 
-.ic.editor .ic.editor-richarea .ic.editor-pagebreak {
+.bc.editor .bc.editor-richarea .bc.editor-pagebreak {
     border: 1px dotted #AAA;
     font-size: 0;
     height: 2px;
 }
 
-.ic.editor .ic.editor-richarea table {
+.bc.editor .bc.editor-richarea table {
     border-collapse: collapse;
     empty-cells: show;
     margin-bottom: 10px;
@@ -121,12 +121,12 @@
     box-sizing: border-box;
 }
 
-.ic.editor .ic.editor-richarea td,
-.ic.editor .ic.editor-richarea th {
+.bc.editor .bc.editor-richarea td,
+.bc.editor .bc.editor-richarea th {
     border: solid 1px #ccc;
     padding: 5px;
 }
 
-.ic.editor .ic.editor-richarea .ic.editor-emoticon {
+.bc.editor .bc.editor-richarea .bc.editor-emoticon {
     margin: 0px 2px;
 }

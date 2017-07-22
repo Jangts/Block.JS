@@ -9,10 +9,10 @@
 block([
     '$_/util/bool.xtd',
     '$_/util/obj.xtd',
-    '$_/painter/Charts/Charts.Cls',
+    '$_/painter/Charts/Charts.cls',
     '$_/painter/Charts/util/helpers.xtd',
-    '$_/painter/Charts/Component/Tooltip.Cls',
-    '$_/painter/Charts/Component/MultiTooltip.Cls'
+    '$_/painter/Charts/Component/Tooltip.cls',
+    '$_/painter/Charts/Component/MultiTooltip.cls'
 ], function(pandora, global, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,

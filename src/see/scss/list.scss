@@ -1,47 +1,47 @@
 /** Normal Screen **/
 
-ul.ic.v-top,
-ol.ic.v-top {
+ul.bc.v-top,
+ol.bc.v-top {
     >li {
         display: block;
     }
 }
 
-ul.ic.h-left,
-ol.ic.h-left {
+ul.bc.h-left,
+ol.bc.h-left {
     >li {
         float: left;
     }
 }
 
-ul.ic.h-right,
-ol.ic.h-right {
+ul.bc.h-right,
+ol.bc.h-right {
     >li {
         float: right;
     }
 }
 
-ul.ic.al-left,
-ul.ic.al-right,
-ul.ic.al-center,
-ul.ic.al-just,
-ol.ic.al-left,
-ol.ic.al-right,
-ol.ic.al-center,
-ol.ic.al-just {
+ul.bc.al-left,
+ul.bc.al-right,
+ul.bc.al-center,
+ul.bc.al-just,
+ol.bc.al-left,
+ol.bc.al-right,
+ol.bc.al-center,
+ol.bc.al-just {
     >li {
         display: inline;
     }
 }
 
-ul.ic.al-left.blocks,
-ul.ic.al-right.blocks,
-ul.ic.al-center.blocks,
-ul.ic.al-just.blocks,
-ol.ic.al-left.blocks,
-ol.ic.al-right.blocks,
-ol.ic.al-center.blocks,
-ol.ic.al-just.blocks {
+ul.bc.al-left.blocks,
+ul.bc.al-right.blocks,
+ul.bc.al-center.blocks,
+ul.bc.al-just.blocks,
+ol.bc.al-left.blocks,
+ol.bc.al-right.blocks,
+ol.bc.al-center.blocks,
+ol.bc.al-just.blocks {
     >li {
         display: inline-block;
     }

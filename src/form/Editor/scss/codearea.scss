@@ -1,6 +1,6 @@
 /*** EDITOR CODEAREA ***/
 
-.ic.editor .ic.editor-codearea {
+.bc.editor .bc.editor-codearea {
     resize: vertical;
     z-index: 0;
     font-family: Consolas, "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", Monaco, "Courier New", monospace;
@@ -11,17 +11,17 @@
     overflow-y: auto;
 }
 
-.ic.editor .ic.editor-codearea::selection {
+.bc.editor .bc.editor-codearea::selection {
     background-color: #FEDBA9;
     color: #000;
 }
 
-.ic.editor .ic.editor-codearea::-webkit-selection {
+.bc.editor .bc.editor-codearea::-webkit-selection {
     background-color: #FEDBA9;
     color: #000;
 }
 
-.ic.editor .ic.editor-codearea::-moz-selection {
+.bc.editor .bc.editor-codearea::-moz-selection {
     background-color: #FEDBA9;
     color: #000;
 }

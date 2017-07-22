@@ -28,10 +28,10 @@ block([
     _.form.Editor.regCreater('insertfragments', function() {
         var fragments = this.options.fragments || [];
         if (fragments.length) {
-            var html = '<ul class="ic editor-pick">';
+            var html = '<ul class="bc editor-pick">';
             _.each(fragments, function(i, fragment) {
                 codesFragments.push(fragment.code);
-                html += '<li class="ic editor-font" data-ib-cmd="insertfragments" data-ib-val="' + i + '">' + fragment.name + '</li>';
+                html += '<li class="bc editor-font" data-ib-cmd="insertfragments" data-ib-val="' + i + '">' + fragment.name + '</li>';
             });
             html += '</ul>';
             return html;

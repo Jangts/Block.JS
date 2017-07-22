@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <title>Mix Chart</title>
-    <script src="../../../src/iBlock.js" data-use-debugmode></script>
+    <script src="../../../src/block.js" data-use-debugmode></script>
 </head>
 
 <body>
@@ -14,9 +14,9 @@
         block([
             '$_/painter/Charts/animation.clsx',
             '$_/painter/Charts/tooltip.clsx',
-            '$_/painter/Charts/type/Bar.Cls',
-            '$_/painter/Charts/type/Line.Cls',
-            '$_/painter/Charts/type/Pie.Cls'
+            '$_/painter/Charts/type/Bar.cls',
+            '$_/painter/Charts/type/Line.cls',
+            '$_/painter/Charts/type/Pie.cls'
         ], function(_, global, undefined) {
             var document = global.document;
             var location = global.location;

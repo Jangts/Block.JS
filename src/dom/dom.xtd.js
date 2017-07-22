@@ -9,7 +9,7 @@
 block([
     '$_/util/arr.xtd',
     '$_/dom/query.xtd',
-    '$_/dom/Events.Cls'
+    '$_/dom/Events.cls'
 ], function(pandora, global, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
@@ -278,7 +278,7 @@ block([
     _.extend(_.dom, {
         cache: function(elem) {
             if (elem) {
-                return elem.Block.JSUID = elem.Block.JSUID || cache.save({});
+                return elem.BID = elem.BID || cache.save({});
             }
         }
     });
@@ -547,7 +547,7 @@ block([
         },
         events: {
             fire: function(elem, event, eventType) {
-                elem.Block.JSUID && cache.read(elem.Block.JSUID).Events && cache.read(elem.Block.JSUID).Events.fire(event, eventType);
+                elem.BID && cache.read(elem.BID).Events && cache.read(elem.BID).Events.fire(event, eventType);
                 return this;
             },
             add: function(elem, eventType, selector, data, handler) {
@@ -565,8 +565,8 @@ block([
                 return this;
             },
             remove: function(elem, eventType, selector, handler) {
-                if (elem.Block.JSUID && cache.read(elem.Block.JSUID).Events) {
-                    var Events = cache.read(elem.Block.JSUID).Events;
+                if (elem.BID && cache.read(elem.BID).Events) {
+                    var Events = cache.read(elem.BID).Events;
                     if (handler) {
                         Events.removeHandler(eventType, selector, handler);
                     } else {
@@ -577,8 +577,8 @@ block([
                                 Events.removeType(eventType);
                             } else {
                                 Events.remove();
-                                elem.Block.JSUID.Events = undefined;
-                                delete elem.Block.JSUID.Events;
+                                elem.BID.Events = undefined;
+                                delete elem.BID.Events;
                             }
                         }
                     }

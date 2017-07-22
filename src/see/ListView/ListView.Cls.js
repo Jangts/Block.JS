@@ -29,7 +29,7 @@ block([
         render: function() {
             if (_.dom.hasClass(this.Element, 'media-list')) {
                 var itemWidth, mediaWidth, bodyWidth;
-                $('.ic.listview.media-list>.list-item', this.Element).each(function() {
+                $('.bc.listview.media-list>.list-item', this.Element).each(function() {
                     if (_.dom.hasClass(this, 'top-bottom')) {
                         return this;
                     }
@@ -48,7 +48,7 @@ block([
     _.extend(_.see.ListView, {
         auto: function() {
             var ListView = this;
-            $('.ic.listview[data-ic-auto]').each(function() {
+            $('.bc.listview[data-ic-auto]').each(function() {
                 if (($(this).data('icAuto') != 'false') && ($(this).data('icRendered') != 'listview')) {
                     $(this).data('icRendered', 'listview');
                     new ListView(this);

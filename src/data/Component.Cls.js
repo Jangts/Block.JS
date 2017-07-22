@@ -7,7 +7,7 @@
  */
 ;
 block([
-    '$_/util/COM.Cls',
+    '$_/util/COM.cls',
     '$_/data/Observer/'
 ], function(pandora, global, undefined) {
     var _ = pandora,

@@ -142,7 +142,7 @@ block([
 
     _.extend(_.see.Tabs, {
         auto: function() {
-            $('.ic.tabs[data-ic-auto]').each(function() {
+            $('.bc.tabs[data-ic-auto]').each(function() {
                 if (($(this).data('icAuto') != 'false') && ($(this).data('icRendered') != 'tabs')) {
                     $(this).data('icRendered', 'tabs');
                     new _.see.Tabs(this, {

@@ -10,7 +10,7 @@ block([
     '$_/util/bool.xtd',
     '$_/dom/',
     '$_/data/',
-    '$_/data/Uploader.Cls'
+    '$_/data/Uploader.cls'
 ], function(pandora, global, undefined) {
     var _ = pandora,
         cache = pandora.locker;
@@ -23,30 +23,30 @@ block([
         },
         statusTypes = {
             fontstatus: [
-                '<lable>size: </lable><input type="text" class="ic editor-fsize-input" data-name="fontsize" value="14px">',
-                '<lable>color: </lable><input type="text" class="ic editor-color-input" data-name="fontcolor" value="#000000">'
+                '<lable>size: </lable><input type="text" class="bc editor-fsize-input" data-name="fontsize" value="14px">',
+                '<lable>color: </lable><input type="text" class="bc editor-color-input" data-name="fontcolor" value="#000000">'
             ],
             tablestatus: [
-                '<lable>width</lable><input type="text" class="ic editor-tablewidth-input" data-name="tablewidth" value="1">',
-                '<lable>rows: </lable><input type="text" class="ic editor-rowslen" value="1" readonly>',
-                '<i class="ic editor-table-adddata editor-table-addrow">Add Row</i>',
-                '<lable>cols: </lable><input type="text" class="ic editor-colslen" value="1" readonly>',
-                '<i class="ic editor-table-adddata editor-table-addcol">Add Column</i>',
-                '<lable>border: </lable><input type="text" class="ic editor-border-input" data-name="tableborder" value="0">'
+                '<lable>width</lable><input type="text" class="bc editor-tablewidth-input" data-name="tablewidth" value="1">',
+                '<lable>rows: </lable><input type="text" class="bc editor-rowslen" value="1" readonly>',
+                '<i class="bc editor-table-adddata editor-table-addrow">Add Row</i>',
+                '<lable>cols: </lable><input type="text" class="bc editor-colslen" value="1" readonly>',
+                '<i class="bc editor-table-adddata editor-table-addcol">Add Column</i>',
+                '<lable>border: </lable><input type="text" class="bc editor-border-input" data-name="tableborder" value="0">'
             ],
             imagestatus: [
-                '<lable>width</lable><input type="text" class="ic editor-imgwidth-input" data-name="imgwidth" value="1">',
-                '<lable>height</lable><input type="text" class="ic editor-imgheight-input" data-name="imgheight" value="1">',
-                '<lable>border:</lable><input type="text" class="ic editor-border-input" data-name="imgborder" value="0">',
-                '<i class="ic editor-imgfloat" data-float="none">No Float</i><i class="ic editor-imgfloat" data-float="left">Pull Left</i><i class="ic editor-imgfloat" data-float="right">Pull Right</i>'
+                '<lable>width</lable><input type="text" class="bc editor-imgwidth-input" data-name="imgwidth" value="1">',
+                '<lable>height</lable><input type="text" class="bc editor-imgheight-input" data-name="imgheight" value="1">',
+                '<lable>border:</lable><input type="text" class="bc editor-border-input" data-name="imgborder" value="0">',
+                '<i class="bc editor-imgfloat" data-float="none">No Float</i><i class="bc editor-imgfloat" data-float="left">Pull Left</i><i class="bc editor-imgfloat" data-float="right">Pull Right</i>'
             ]
         },
         statusHTML =
-        '<div class="ic editor-fontstatus" title="Font Style"><section>' +
+        '<div class="bc editor-fontstatus" title="Font Style"><section>' +
         statusTypes.fontstatus.join('</section><section>') +
-        '</section></div><div class="ic editor-tablestatus" title="Table Style"><section>' +
+        '</section></div><div class="bc editor-tablestatus" title="Table Style"><section>' +
         statusTypes.tablestatus.join('</section><section>') +
-        '</section></div><div class="ic editor-imagestatus" title="Image Style"><section>' +
+        '</section></div><div class="bc editor-imagestatus" title="Image Style"><section>' +
         statusTypes.imagestatus.join('</section><section>') +
         '</section></div>',
         creators = {},
@@ -92,25 +92,25 @@ block([
                     return '';
                 },
                 separator: function() {
-                    return '<div class="ic editor-tool separator" title="separator"></div>';
+                    return '<div class="bc editor-tool separator" title="separator"></div>';
                 },
                 linebreak: function() {
-                    return '<div class="ic editor-tool linebreak" title="linebreak"></div>';
+                    return '<div class="bc editor-tool linebreak" title="linebreak"></div>';
                 },
                 optionalitem: function(tool) {
-                    var html = '<div class="ic editor-tool ' + tool + '" data-ib-cmds="' + tool + '" title="' + tool + '"><i class="ic editor-icon"></i>';
+                    var html = '<div class="bc editor-tool ' + tool + '" data-ib-cmds="' + tool + '" title="' + tool + '"><i class="bc editor-icon"></i>';
                     html += creators[tool].call(this);
                     html += '</div>';
                     return html;
                 },
                 dialogitem: function(tool) {
-                    var html = '<div class="ic editor-tool ' + tool + '" data-ib-dialog="' + tool + '" title="' + tool + '"><i class="ic editor-icon"></i>';
+                    var html = '<div class="bc editor-tool ' + tool + '" data-ib-dialog="' + tool + '" title="' + tool + '"><i class="bc editor-icon"></i>';
                     html += creators[tool].call(this);
                     html += '</div>';
                     return html;
                 },
                 defaultitem: function(tool) {
-                    return '<div class="ic editor-tool ' + tool + '" data-ib-cmd="' + tool + '" title="' + tool + '"><i class="ic editor-icon"></i></div>';
+                    return '<div class="bc editor-tool ' + tool + '" data-ib-cmd="' + tool + '" title="' + tool + '"><i class="bc editor-icon"></i></div>';
                 }
             },
             toolarea: function(editor, textarea, options, toolarea) {
@@ -134,7 +134,7 @@ block([
                         //console.log(this.options.toolbaritems[i]);
                         html += builders.tools[toolTypes[options.toolbaritems[i]]].call(editor, options.toolbaritems[i]);
                     }
-                    html += '<div class="ic editor-clear"></div>';
+                    html += '<div class="bc editor-clear"></div>';
                     toolarea.innerHTML = html;
                 }
                 _.dom.setAttr(toolarea, 'class', 'ic editor-toolarea editor-' + (options.themeType || 'default'));
@@ -184,7 +184,7 @@ block([
                 });
                 editor.loadmask = _.dom.create('div', editarea, {
                     className: 'ic editor-loadmask',
-                    innerHTML: '<div class="ic editor-spinner"><div class="ic editor-rect1"></div><div class="ic editor-rect2"></div><div class="ic editor-rect3"></div><div class="ic editor-rect4"></div><div class="ic editor-rect5"></div></div>'
+                    innerHTML: '<div class="bc editor-spinner"><div class="bc editor-rect1"></div><div class="bc editor-rect2"></div><div class="bc editor-rect3"></div><div class="bc editor-rect4"></div><div class="bc editor-rect5"></div></div>'
                 });
 
                 editor.statebar = _.dom.create('div', editarea, {

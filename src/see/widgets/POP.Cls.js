@@ -6,7 +6,7 @@
  * Date 2017-04-06
  */
 ;
-block(['$_/util/COM.Cls', '$_/dom/Elements/'], function(pandora, global, undefined) {
+block(['$_/util/COM.cls', '$_/dom/Elements/'], function(pandora, global, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
         cache = pandora.locker,
@@ -30,12 +30,12 @@ block(['$_/util/COM.Cls', '$_/dom/Elements/'], function(pandora, global, undefin
                 var div = document.createElement('div');
                 div.className = 'ic popup';
                 div.style.position = 'fixed';
-                div.innerHTML = '<div class="ic popup-mask"></div><div class="ic popup-document"></div>';
+                div.innerHTML = '<div class="bc popup-mask"></div><div class="bc popup-document"></div>';
                 document.body.appendChild(div);
                 return div;
             }();
-            this.mask = $('.ic.popup-mask', this.Element).get(0);
-            this.document = $('.ic.popup-document', this.Element).get(0);
+            this.mask = $('.bc.popup-mask', this.Element).get(0);
+            this.document = $('.bc.popup-document', this.Element).get(0);
         },
         builder: function() {
             _.dom.setStyle(this.Element, 'display', 'none');

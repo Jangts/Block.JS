@@ -14,7 +14,7 @@
 ;
 block([
     '$_/util/arr.xtd',
-    '$_/painter/Charts/sharp/Arc.Cls'
+    '$_/painter/Charts/sharp/Arc.cls'
 ], function(pandora, global, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,

@@ -8,8 +8,8 @@
 ;
 block([
     '$_/util/bool.xtd',
-    '$_/dom/Events.Cls',
-    '$_/medias/Photos.Cls',
+    '$_/dom/Events.cls',
+    '$_/medias/Photos.cls',
 ], function(pandora, global, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,

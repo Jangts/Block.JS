@@ -9,7 +9,7 @@
 block([
     '$_/util/bool.xtd',
     '$_/dom/',
-    '$_/painter/SVGElement.Cls'
+    '$_/painter/SVGElement.cls'
 ], function(pandora, global, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
