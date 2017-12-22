@@ -137,14 +137,14 @@ block([
                     html += '<div class="bc editor-clear"></div>';
                     toolarea.innerHTML = html;
                 }
-                _.dom.setAttr(toolarea, 'class', 'ic editor-toolarea editor-' + (options.themeType || 'default'));
+                _.dom.setAttr(toolarea, 'class', 'bc editor-toolarea editor-' + (options.themeType || 'default'));
                 return toolarea;
             },
             editarea: function(editor, textarea, options) {
                 var width = options.width || textarea.width - 2,
                     height = options.height || textarea.height - 2,
                     editarea = _.dom.create('div', textarea.Element.parentNode, {
-                        className: 'ic editor editor-' + (options.themeType || 'default'),
+                        className: 'bc editor editor-' + (options.themeType || 'default'),
                         style: {
                             'width': width,
                             'min-height': height,
@@ -155,7 +155,7 @@ block([
                     });
                 _.dom.setAttr(editarea, 'data-editor-id', editor.uid);
                 editor.richarea = _.dom.create('div', editarea, {
-                    className: 'ic editor-richarea',
+                    className: 'bc editor-richarea',
                     placeholder: _.dom.getAttr(textarea.Element, 'placeholder'),
                     contenteditable: 'true',
                     spellcheck: 'true',
@@ -169,7 +169,7 @@ block([
                     innerHTML: textarea.getText()
                 });
                 editor.codearea = _.dom.create('textarea', editarea, {
-                    className: 'ic editor-codearea',
+                    className: 'bc editor-codearea',
                     contenteditable: 'true',
                     spellcheck: 'true',
                     talistenex: 1,
@@ -183,12 +183,12 @@ block([
                     value: textarea.getText()
                 });
                 editor.loadmask = _.dom.create('div', editarea, {
-                    className: 'ic editor-loadmask',
+                    className: 'bc editor-loadmask',
                     innerHTML: '<div class="bc editor-spinner"><div class="bc editor-rect1"></div><div class="bc editor-rect2"></div><div class="bc editor-rect3"></div><div class="bc editor-rect4"></div><div class="bc editor-rect5"></div></div>'
                 });
 
                 editor.statebar = _.dom.create('div', editarea, {
-                    className: 'ic editor-statebar',
+                    className: 'bc editor-statebar',
                     innerHTML: statusHTML
                 });
                 return editarea;

@@ -17,9 +17,13 @@ block([
 
     var dialogs = {},
         wshandler = function(event) {
-            //console.log(event);
+            // console.log(event);
             var editor = event.data;
+            if (event.target === editor.richarea) {
+                return;
+            }
             if (event.eventType === 'click') {
+                console.log(1);
                 editor.hideExtTools();
                 _.each(_.dom.query('img[_selected=_selected]', editor.richarea), function(i, elem) {
                     _.dom.removeAttr(elem, '_selected');
@@ -36,20 +40,24 @@ block([
             editor.onchange();
         },
         outhandler = function(event) {
-            //console.log(event);
+            // console.log(event);
             var editor = event.data;
             editor.outmoment = false;
-            if (event.target === editor.richarea) {
+            if (event.buttons) {
                 editor.selection.saveRange();
-                editor.onchange();
                 editor.outmoment = true;
                 setTimeout(function() {
                     editor.outmoment = false;
                 }, 500);
+                return;
+            }
+            if (event.target === editor.richarea) {
+                editor.selection.saveRange();
+                editor.onchange();
             }
         },
         inhandler = function(event) {
-            //console.log(event);
+            // console.log(event);
             var editor = event.data;
             if ((editor.outmoment === false) && (event.target === editor.richarea)) {
                 editor.selection.restoreSelection();
@@ -169,9 +177,9 @@ block([
                     input.onchange = function() {
                         var doneCallback = function(files) {
                             if (files.length < 6) {
-                                var ul_class = 'ic editor-list-56'
+                                var ul_class = 'bc editor-list-56'
                             } else if (files.length < 19) {
-                                var ul_class = 'ic editor-list-28'
+                                var ul_class = 'bc editor-list-28'
                             } else {
                                 return alert('Cannot more than 18 images!');
                             }
@@ -252,4 +260,4 @@ block([
 
     cache.save(dialogs, 'EDITOR_DIALOGS');
     cache.save(events, 'EDITOR_EVENTS');
-});
+})

@@ -1154,6 +1154,7 @@
                 storage.core.Pathname = calculateRelativePath(src);
                 storage.core.Element = undefined;
             }
+            return block;
         },
 
         /* 实例化一个主代码块 */

@@ -237,7 +237,7 @@ block(function(pandora, global, undefined) {
             }
             return dates[this.id].getMonth() + 1;
         },
-        week: function(val) {
+        dayofweek: function(val) {
             if (typeof val == 'number') {
                 dates[this.id].setDay(val);
                 return this;

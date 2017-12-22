@@ -92,7 +92,7 @@ block('$_/util/Promise.cls', function(pandora, global, undefined) {
                     Promise.listener();
                 };
                 this.xmlhttp.onerror = function() {
-                    console.log(this);
+                    // console.log(this);
                 }
                 this.xmlhttp.send(data);
                 delete this.xmlhttp;

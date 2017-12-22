@@ -28,7 +28,7 @@ block(['$_/util/COM.cls', '$_/dom/Elements/'], function(pandora, global, undefin
         _init: function(elem) {
             this.Element = elem || function() {
                 var div = document.createElement('div');
-                div.className = 'ic popup';
+                div.className = 'bc popup';
                 div.style.position = 'fixed';
                 div.innerHTML = '<div class="bc popup-mask"></div><div class="bc popup-document"></div>';
                 document.body.appendChild(div);

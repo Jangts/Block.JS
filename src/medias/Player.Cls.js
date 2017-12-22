@@ -34,9 +34,13 @@ block('$_/dom/Events.cls', function(pandora, global, undefined) {
                 var that = this;
                 for (var i in sources) {
                     if (this.canPlay(i) == 'maybe') {
-                        this.stop(function() {
+                        try {
                             that.Element.src = sources[i];
-                        });
+                        } catch (e) {
+                            this.stop(function() {
+                                that.Element.src = sources[i];
+                            });
+                        }
                         break;
                     }
                 }
@@ -53,6 +57,7 @@ block('$_/dom/Events.cls', function(pandora, global, undefined) {
             } else if (sheet && sources && (typeof sheet === 'string') && (typeof sources === 'object')) {
                 this.sheet[code] = sheet[code];
             }
+            return this;
         },
         clear: function(sheet, sources) {
             this.sheet = [];
