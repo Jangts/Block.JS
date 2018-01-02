@@ -127,6 +127,7 @@ block([
                     this.angleBeginAtZero,
                     this.angleIntegersOnly,
                     true, true);
+                console.log(valuesArray, this.angleSteps);
             }
             _.extend(this, {
                 angleSteps: this.angleSteps,

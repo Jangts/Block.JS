@@ -207,6 +207,7 @@ block([
                 _.each(types, function(i, type) {
                     for (var i = 0; this.grid.charts[type] && i < this.grid.charts[type].length && actives.length === 0; i++) {
                         var chart = this.grid.charts[type][i];
+                        console.log(chart);
                         activeSegments = ((this.options.tooltip.type == 'axis') ? chart.getSegmentsAtEvent(evt, charts) : chart.getSegmentsAtEvent(evt));
                         _.each(chart.segments, function(index, segment) {
                             segment.restore(_.util.obj.keysArray(restores[type]));

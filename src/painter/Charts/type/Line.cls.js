@@ -8,7 +8,9 @@
 ;
 block([
     '$_/painter/Charts/grid.clsx',
-    '$_/painter/Charts/type/PolarLine.cls',
+    '$_/painter/Charts/type/Default.cls',
+    '$_/painter/Charts/sharp/Line.cls',
+    '$_/painter/Charts/sharp/Point.cls'
 ], function(pandora, global, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
@@ -19,7 +21,43 @@ block([
     var helpers = _.painter.Charts.util.helpers,
         events = _.painter.Charts.util.events;
 
-    declare('painter.Charts.type.Line', _.painter.Charts.type.PolarLine, {
+    var defaultConfig = {
+        name: '',
+        zIndex: 0,
+        showPoint: true,
+        itemStyle: {
+            normal: {
+                color: null,
+                radius: 3,
+                borderColor: null,
+                borderWidth: 1
+            },
+            emphasis: {
+                color: null,
+                radius: 4,
+                borderColor: null,
+                borderWidth: 1
+            }
+        },
+        showLine: true,
+        lineStyle: {
+            normal: {
+                borderColor: null,
+                borderWidth: 2
+            }
+        },
+        showArea: false,
+        areaStyle: {
+            color: null,
+        },
+        hitDetectionRadius: 10,
+        smooth: false,
+        smoothTension: 0.4,
+        data: []
+    };
+
+    declare('painter.Charts.type.Line', _.painter.Charts.type.Default, {
+        defaults: defaultConfig,
         initialize: function(options) {
             var instance = this.instance,
                 options = _.util.obj.deepMerge(this.defaults, options);
@@ -122,6 +160,7 @@ block([
                     index: index,
                     point: segment
                 });
+            console.log(this.grid.status);
             this.lines.push(line);
             this.segments.push(segment);
             this.calculate(index, segment);
@@ -229,22 +268,23 @@ block([
                 this.activedCharts.push(chart);
             }, this);
         } else if (this.polar) {
-            polar = this.polar;
-            polar.charts.lines = polar.charts.lines || [];
-            _.each(this.series.line, function(i, options) {
-                options.index = id++;
-                chartName = this.getChartName(options.name);
-                if (this.historyCharts[chartName] && this.historyCharts[chartName].type == 'line') {
-                    chart = this.historyCharts[chartName];
-                    chart.update(options.data, options.index);
-                } else {
-                    chart = new _.painter.Charts.type.PolarLine(options, this, options.zIndex);
-                    chart.type = 'line';
-                    this.historyCharts[chartName] = chart;
-                }
-                grid.charts.lines.push(chart);
-                this.activedCharts.push(chart);
-            }, this);
+            // 已废弃
+            // polar = this.polar;
+            // polar.charts.lines = polar.charts.lines || [];
+            // _.each(this.series.line, function(i, options) {
+            //     options.index = id++;
+            //     chartName = this.getChartName(options.name);
+            //     if (this.historyCharts[chartName] && this.historyCharts[chartName].type == 'line') {
+            //         chart = this.historyCharts[chartName];
+            //         chart.update(options.data, options.index);
+            //     } else {
+            //         chart = new _.painter.Charts.type.PolarLine(options, this, options.zIndex);
+            //         chart.type = 'line';
+            //         this.historyCharts[chartName] = chart;
+            //     }
+            //     polar.charts.lines.push(chart);
+            //     this.activedCharts.push(chart);
+            // }, this);
         }
     }
 });

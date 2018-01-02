@@ -56,8 +56,8 @@ block('$_/dom/', function(pandora, global, undefined) {
             options = options || {};
             if (options.radar) {
                 this.radarpolar = this.radarpolar || null;
-            }
-            if (options.polar) {
+            } else if (options.polar) {
+                // 已废弃
                 this.polar = this.polar || null;
             } else {
                 this.grid = this.grid || null;

@@ -40,7 +40,7 @@ block([
         },
         update: function(today) {
             time.update();
-            this.today = [time.year(), _.Time.Month.format(time.month()), _.Time.Month.format(time.day()), time.week()];
+            this.today = [time.year(), _.Time.Month.format(time.month()), _.Time.Month.format(time.day()), time.dayofweek()];
             if (today) {
                 this.data = new _.Time.Month(this.today[1], this.today[0]);
             }
