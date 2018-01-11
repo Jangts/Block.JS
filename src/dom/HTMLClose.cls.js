@@ -40,7 +40,7 @@ block(['$_/util/bool.xtd', '$_/util/str.xtd', '$_/dom/'], function(
                             if (f == '/') {
                                 midast['tags'].push({
                                     'is_open': false,
-                                    'tagname': htmtxt.replace('/', '', )
+                                    'tagname': htmtxt.replace('/', '')
                                 });
                                 midast['text'].push(strsum);
                                 strsum = '';

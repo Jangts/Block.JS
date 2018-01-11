@@ -105,7 +105,7 @@ block([
                     this.richarea.innerHTML = this.codearea.value;
                 }
             }
-            this.textarea.value = this.codearea.value;
+            this.textarea.setText(this.codearea.value);
             return this.codearea.value;
         },
         hideExtTools: function() {
