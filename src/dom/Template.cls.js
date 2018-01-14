@@ -44,6 +44,30 @@ block(['$_/util/str.xtd'], function(pandora, global, undefined) {
                     handler: function(match, pattern) {
                         return match.replace(pattern, "<%echo(this.data.$1)%>");
                     }
+                },
+                {
+                    pattern: /<\s*if\s*\(/ig,
+                    handler: function(match, pattern) {
+                        return match.replace(pattern, "<%if(");
+                    }
+                },
+                {
+                    pattern: /<\s*for\s*\(/ig,
+                    handler: function(match, pattern) {
+                        return match.replace(pattern, "<%for(");
+                    }
+                },
+                {
+                    pattern: /\)\s*>/ig,
+                    handler: function(match, pattern) {
+                        return match.replace(pattern, ") {%>");
+                    }
+                },
+                {
+                    pattern: /<\}>/ig,
+                    handler: function(match, pattern) {
+                        return match.replace(pattern, "<%}%>");
+                    }
                 }
             ]
         },

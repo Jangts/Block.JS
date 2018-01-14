@@ -14,14 +14,14 @@
     <script id="template1" type="text/template">
         <tr>
             <td>
-                <%echo(this.data.greeting);%>,
-                    <%echo(this.data.name);%>
+                {@greeting},
+                    {@name}
             </td>
-            <%var arr = [1, 2, 3, 4, 5, 6, 7]; for(var i = 0; i < arr.length; i++){%>
-                <td>
-                    <%=arr[i]%>
-                </td>
-                <%}%>
+            <for (var i of [1, 2, 3, 4, 5, 6, 7]) >
+                <if(i>4)>
+                    <td>{@i,g}</td>
+                <}>
+            <}>
         </tr>
     </script>
     <script id="template2" type="text/template">
@@ -29,9 +29,11 @@
         <table width="360" border="1" cellspacing="1" cellpadding="1">
             <tr>
                 <td>{@showHello ? 'Hello' : 'Bye'}, {@showName && 'Block.JS'}</td>
-                <%var arr = [1, 2, 3, 4, 5, 6, 7]; for(var i = 0; i < arr.length; i++){%>
-                    <td>{@arr[i],g}</td>
-                    <%}%>
+                <for (var i of [1, 2, 3, 4, 5, 6, 7]) >
+                    <if(i<5)>
+                        <td>{@i,g}</td>
+                    <}>
+                <}>
             </tr>
             {@@'temp1'}
         </table>
@@ -57,6 +59,10 @@
             });
             view.innerHTML = temp2.echo();
             console.log(temp2);
+
+            return {
+                temp2
+            }
         }, true);
     </script>
 </body>

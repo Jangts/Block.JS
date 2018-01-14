@@ -31,15 +31,18 @@
         /* 启用调试模式 */
         useDebugMode = false,
 
-        /* 备份全局变量的引用 */
+        /* 备份全局变量的引用，以防止这些变量被其他代码修改 */
         console = global.console,
         open = global.open,
         location = global.location,
         document = global.document,
+        // 获取页面的head元素，如果没有的话，创建之
         head = (function() {
             if (document.head) {
                 return document.head;
             }
+
+            // 兼容一些奇怪的浏览器
             var head = document.getElementsByTagName('head')[0];
             if (head) {
                 return head;
@@ -150,8 +153,9 @@
      * ------------------------------------------------------------------
      */
 
-    var slice = function(arrayLike, startIndex) {
-            return Array.prototype.slice.call(arrayLike, startIndex);
+    var slice = function(arrayLike, startIndex, endIndex) {
+            startIndex = intVal(startIndex) || 0;
+            return Array.prototype.slice.call(arrayLike, startIndex, endIndex);
         },
 
         /********************
@@ -316,13 +320,19 @@
             uid[8] = uid[13] = uid[18] = uid[23] = '-';
             return uid.join('');
         },
-
-        /* 标识符构造方法 */
+        
+        /**
+         * @class Identifier
+         * 定义标识符类
+         */
         Identifier = function(salt, type) {
             this._init(salt, type);
         },
-
-        /* 迭代器构造方法 */
+        
+        /**
+         * @class Iterator
+         * 定义迭代器类
+         */
         Iterator = function(obj, onlyKey) {
             this._init(obj, onlyKey);
         },
@@ -363,7 +373,7 @@
                     };
                 });
             } else if (typeof(Element.onload) === 'object') {
-                Element.addEventListener('load', function() {
+                Element.addEventListene('load', function() {
                     Element.isLoaded = true;
                     callback(Element);
                 });
@@ -378,6 +388,14 @@
     /* 为标识符构造器绑定原型 */
     Identifier.prototype = {
         _p: Storage.classesSharedSpace,
+
+        /**
+         * 标识符构造函数
+         * 
+         * @param string|int    salt    其值为字串时，为自定义标识；为数字时为返值类型
+         * @param int           type    返值类型，当salt为字串时有效
+         * @return 构造函数，无返值
+         */
         _init: function(salt, type) {
             if (typeof salt != 'string') {
                 type = salt;
@@ -405,7 +423,14 @@
                 return uid;
             };
         },
-        /* 批量拓展实例的属性和元素 */
+
+        /**
+         * 批量拓展实例的属性和元素
+         * 
+         * @param array     members
+         * @param bool      strict
+         * @return Identifier
+         */
         _x: function(members, strict) {
             if (strict) {
                 update(this, members);
@@ -414,7 +439,12 @@
             }
             return this;
         },
-        /* 拷贝实例 */
+        
+        /**
+         * 拷贝实例
+         * 
+         * @return object
+         */
         _c: function() {
             return deep(this);
         }
@@ -426,12 +456,22 @@
     /* 拓展迭代器的原型 */
     extend(Iterator.prototype, true, {
         _p: Storage.classesSharedSpace,
+
+        /**
+         * 迭代器构造函数
+         * 
+         * @param object    obj     用以初始化的对象
+         * @param int       onlyKey 是否只录入对象的键
+         * @return 构造函数，无返值
+         */
         _init: function(obj, onlyKey) {
             if ((obj instanceof Array) || (Object.prototype.toString.call(obj) === '[object Array]') || ((typeof(obj.length) === 'number') && ((typeof(obj.item) === 'function') || (typeof(obj.splice) != 'undefined')))) {
+                // if obj is an array object
                 for (var i = 0; i < obj.length; i++) {
                     this.push(obj[i]);
                 }
             } else {
+                // if obj is an normal object
                 each(obj, function(index, val) {
                     if (onlyKey) {
                         this.push(index);
@@ -442,8 +482,14 @@
             }
             this.__ = -1;
         },
-        /* 设置指针位置 */
-        point: function(value) {
+        
+        /**
+         * 指定指针位置
+         * 
+         * @param int   index
+         * @return mixed
+         */
+        point: function(index) {
             if (value < 0) {
                 this.__ = 0;
             } else if (value >= this.length) {
@@ -451,17 +497,30 @@
             }
             return this[this.__];
         },
-        /* 读取第一个元素，同时指针也会跳到开始位置 */
+        
+        /**
+         * 读取第一个元素，同时指针也会跳到开始位置
+         * 
+         * @return mixed
+         */
         first: function() {
             this.__ = 0;
             return this[this.__];
         },
-        /* 读取最后一个元素，同时指针也会跳到最后 */
+        
+        /**
+         * 读取最后一个元素，同时指针也会跳到最后
+         * @return mixed
+         */
         last: function() {
             this.__ = this.length - 1;
             return this[this.__];
         },
-        /* 判断是否存在下一个元素 */
+        
+        /**
+         * 判断是否存在下一个元素
+         * @return array
+         */
         hasNext: function() {
             var next = this.__ + 1;
             if (next < 0 || next >= this.length || null == this[next]) {
@@ -469,44 +528,72 @@
             }
             return true;
         },
-        /* 读取当前元素 */
+        
+        /**
+         * 读取当前元素
+         * 
+         * @return array
+         */
         get: function() {
             return this[this.__];
         },
-        /* 替换当前元素 */
+        
+        /**
+         * 替换当前元素
+         * 
+         * @param mixed elem    新元素
+         * @return mixed
+         */
         set: function(elem) {
             this[this.__] = elem;
             return elem;
         },
-        /* 读取下一个元素 */
+        
+        /**
+         * 读取下一个元素
+         * 
+         * @return mixed
+         */
         next: function() {
             if (this.hasNext()) {
                 return this[++this.__];
             }
             return undefined;
         },
-        /* 一个可控遍历, 如果中途退出，则返回上次回调的返值 */
+        
+        /**
+         * 一个可控遍历, 如果中途退出，则返回上次回调的返值
+         * 
+         * @param function  callback    回调函数
+         * @return mixed
+         */
         each: function(callback) {
             var BREAK = false,
                 lastReturn;
             this.out = function() {
                 BREAK = true;
             }
-            for (var i = 0; i < obj.length; i++) {
+            for (var i = 0; i < this.length; i++) {
                 if (BREAK) {
                     BREAK = false;
                     delete this.out;
                     return lastReturn;
                 }
-                lastReturn = callback.call(this, val);
+                lastReturn = callback.call(this, this[i]);
             }
             return true;
         },
-        /* 更新这个迭代器的所有元素 */
+        
+        /**
+         * 更新这个迭代器的所有元素
+         * 
+         * @param function  callback    回调函数
+         * @return mixed
+         */
         map: function(callback) {
-            each(obj, function(index, val) {
-                this[index] = callback.call(this, val);
-            }, this);
+            for (var i = 0; i < this.length; i++) {
+                this[index] = callback.call(this, this[index]);
+            };
             return this;
         },
         _x: Identifier.prototype._x,
@@ -571,25 +658,44 @@
 
         /* 缓存接口 */
         lockerHandlers = {
-            /* 储存 */
+            /**
+             * 储存
+             * 
+             * @param mixed     data    数据
+             * @param string    salt    自定义标识
+             * @return string
+             */
             save: function(data, salt) {
                 key = new Identifier(salt).toString();
                 storage.locker[key] = data;
                 return key
             },
-
-            /* 读取 */
+            
+            /**
+             * 读取
+             * @param string key 缓存密钥
+             * @return mixed
+             */
             read: function(key) {
                 return storage.locker[key]
             },
-
-            /* 删除 */
+            
+            /**
+             * 删除
+             * 
+             * @param string key 缓存密钥
+             * @return undefined
+             */
             dele: function(key) {
                 storage.locker[key] = undefined;
                 delete storage.locker[key]
             },
-
-            /* 检查缓存列表，仅调试模式下可用 */
+            
+            /**
+             * 检查缓存列表，仅调试模式下可用
+             * 
+             * @return undefined
+             */
             chck: function() {
                 if (useDebugMode) {
                     var i;
@@ -620,6 +726,14 @@
 
         /* 潘多拉拓展接口 */
         pandora = storage.pandora = (function() {
+            /**
+             * 拓展潘多拉对象
+             * 
+             * @param string    name    元素名称
+             * @param mixed     value   元素值
+             * @param bool      update  是否覆盖已有值
+             * @return object
+             */
             function pandora(name, value, update) {
                 if (namingExpr.test(name)) {
                     var object = pandora,
@@ -650,56 +764,127 @@
             return extend(pandora, {
                 /* 获取运行环境信息 */
                 core: {
-                    /* 获取开始时间 */
+                    /**
+                     * 获取开始时间
+                     * 
+                     * @return float
+                     */
                     startTime: function() {
                         return startTime;
                     },
 
-                    /* 获取作者信息 */
+                    /**
+                     * 获取作者信息
+                     * 
+                     * @return string
+                     */
                     author: function() {
                         return author;
                     },
 
-                    /* 获取Block.JS全名 */
+                    /**
+                     * 获取Block.JS全名
+                     * 
+                     * @return string
+                     */
                     name: function() {
                         return name;
                     },
 
-                    /* 获取当前版本信息 */
+                    /**
+                     * 获取当前版本信息
+                     * 
+                     * @param string
+                     */
                     version: function() {
                         return version;
                     },
 
-                    /* 转到Block.JS官网 */
+                    /**
+                     * 转到Block.JS官网
+                     * 
+                     * @return undefined
+                     */
                     website: function() {
                         open(website, name);
                     },
 
-                    /* 获取当前文件URL */
+                    /**
+                     * 获取当前文件URL
+                     * 
+                     * @return string
+                     */
                     dir: function() {
                         return storage.core.Pathname;
                     },
                 },
 
-                /* 强制报错 */
+                /**
+                 * 强制报错
+                 * 中止脚本，并抛出相应的文字描述
+                 * 
+                 * @param string str 需要抛出的信息
+                 * @return undefined
+                 */
                 error: error,
 
-                /* 调试报错 */
+                /**
+                 * 调试报错
+                 * 调试模式下，中止脚本，并抛出相应的文字描述
+                 * 生产模式下，返回一个布尔值false，对进程不产生影响
+                 * 
+                 * @param string str 需要抛出的信息
+                 * @return undefined|bool
+                 */
                 debug: debug,
 
-                /* 计算相对路径 */
+                /**
+                 * 计算相对路径
+                 * 比较两个url，计算他们的相对路径（如果确实存在的话）
+                 * 
+                 * @param string            uri        进行比较的url
+                 * @param string|undefined  reference  被比较的url，可以留空，默认为当前页面的url
+                 * @return string
+                 */
                 relativePath: calculateRelativePath,
 
-                /* 转换为数组 */
+                /**
+                 * 转换为数组，并截取之
+                 * 
+                 * @param object            arrayLike       数组或类似数组的对象
+                 * @param int               startIndex      截取的起始位置，可留空，默认值为0
+                 * @param int|undefined     endIndex        截取的结束位置，可留空，默认为截取的结尾位置
+                 * @return undefined
+                 */
                 slice: slice,
 
-                /* 遍历 */
+                /**
+                 * 一般遍历：用以遍历对象，并执行相应操作
+                 * 
+                 * @param object    obj         遍历的对象
+                 * @param function  handler     处理元素的回调函数
+                 * @param object    that        指定一个回调函数的调用对象
+                 * @return undefined
+                 */
                 each: each,
 
-                /* 高级遍历 */
+                /**
+                 * 可控遍历：相比通用遍历：多了一个中断方法
+                 * 
+                 * @param object    obj         遍历的对象
+                 * @param function  handler     处理元素的回调函数
+                 * @param object    that        指定一个回调函数的调用对象
+                 * @return array
+                 */
                 loop: loop,
 
-                /* 克隆 */
+                /**
+                 * 复制对象
+                 * 
+                 * @param object        source      源对象
+                 * @param bool|int      deeply      是否深拷贝，默认为否
+                 * @return object
+                 */
                 clone: function(source, deeply) {
                     if (deeply === true || deeply === 1) {
                         return deep(source);
@@ -708,7 +893,13 @@
                     }
                 },
 
-                /* 拷贝 */
+                /**
+                 * 拷贝对象
+                 * 
+                 * @param object        source      源对象
+                 * @param bool|int      shallowly   是否浅拷贝，默认为否
+                 * @return object
+                 */
                 copy: function(source, shallowly) {
                     if (shallowly === true || shallowly === 1) {
                         return shallow(source);
@@ -717,22 +908,50 @@
                     }
                 },
 
-                /* 扩展 */
+                /**
+                 * 对象拓展：复制一些对象的元素到指定的对象
+                 * 
+                 * @param object base 被拓展的对象
+                 * @return object
+                 */
                 extend: extend,
 
-                /* 更新 */
+                /**
+                 * 对象更新：仅当对象含有该元素且其值不为undefined时有效
+                 * 
+                 * @param object base 被更新的对象
+                 * @return object
+                 */
                 update: update,
 
-                /* 加载 */
+                /**
+                 * 加载URL
+                 * 
+                 * @param string    url         加载文件的路径
+                 * @param function  callback    加载成功后的回调函数
+                 * @param object    parent      加载资源的存放元素，默认为head元素
+                 * @param string    type        加载资源的类型，支持js、css、img，默认为js
+                 * @return undefined
+                 */
                 load: loadURL,
 
-                /* 迭代器类 */
+                /**
+                 * @class Iterator
+                 * 迭代器类
+                 */
                 Iterator: Iterator,
 
-                /* 标识符类 */
+                /**
+                 * @class Identifier
+                 * 标识符类
+                 */
                 Identifier: Identifier,
 
-                /* 获取宿主URl */
+                /**
+                 * 返回当前URL
+                 * 
+                 * @return string
+                 */
                 mainUrl: function() {
                     return storage.mainUrl;
                 },
@@ -742,8 +961,13 @@
 
                 /* 命名正则 */
                 namingExpr: namingExpr,
-
-                /* 检查具名类 */
+                
+                /**
+                 * 检查具名类
+                 * 
+                 * @param array list
+                 * @return bool
+                 */
                 checkClass: function(list) {
                     list = list || [];
                     each(list, function(i, classname) {
@@ -751,9 +975,15 @@
                             return false;
                         }
                     });
+                    return true;
                 },
-
-                /* 检查潘多拉盒子 */
+                
+                /**
+                 * 检查潘多拉盒子
+                 * 
+                 * @param array list
+                 * @return bool
+                 */
                 checkPandora: function(list) {
                     list = list || [];
                     each(list, function(i, objName) {
@@ -766,19 +996,39 @@
                             }
                         });
                     });
+                    return true;
                 },
-
-                /* 异步代码块 */
+                
+                /**
+                 * 异步代码块
+                 * 
+                 * @param array     includes
+                 * @param function  callback
+                 * @return object
+                 */
                 asyncBlocks: function(includes, callback) {
                     return block(includes, callback, true);
                 },
-
-                /* 异步代码块别名 */
+                
+                /**
+                 * 异步代码块别名
+                 * 
+                 * @param array     includes
+                 * @param function  callback
+                 * @return object
+                 */
                 ab: function(includes, callback) {
                     return block(includes, callback, true);
                 },
-
-                /* 简易渲染 */
+                
+                /**
+                 * 简易渲染
+                 * 
+                 * @param object    style           样式
+                 * @param string    innerHTML       DIV元素的content
+                 * @param string    rewritebody     是否重写整个body
+                 * @return array
+                 */
                 render: function(style, innerHTML, rewritebody) {
                     if (rewritebody) {
                         document.body.innerHTML = '';
@@ -793,8 +1043,13 @@
                     document.body.appendChild(el);
                     return el;
                 },
-
-                /* 本地化语言包数据读写操作 */
+                
+                /**
+                 * 本地化语言包数据读写操作
+                 * 
+                 * @param string namespace
+                 * @return mixed
+                 */
                 locales: function(namespace) {
                     if (namespace && (typeof namespace === 'string')) {
                         namespace = namespace.toLowerCase();
@@ -851,8 +1106,12 @@
                     }
                     return undefined;
                 },
-
-                /* 通用空操作 */
+                
+                /**
+                 * 通用空操作
+                 * 
+                 * @return object
+                 */
                 self: function() {
                     return this;
                 }
@@ -999,11 +1258,27 @@
             });
             block.id = lockerHandlers.save({});
             block.storage = lockerHandlers.read(block.id);
-            block.callback(storage.pandora, global);
-        },
+            var returnObject = block.callback(storage.pandora, global);
 
-        /* 代码块类 */
+            // 将block的返值对象合并到全局变量window，以便在控制台调试
+            each(returnObject, function(index, value){
+                global[index] = value;
+            });
+        },
+        
+        /**
+         * @class Iterator
+         * 代码块类
+         */
         Block = declareClass({
+            /**
+             * 代码块类构造函数
+             * 
+             * @param array     includes
+             * @param function  callback
+             * @param string    blockname
+             * @return 构造函数，无返值
+             */
             _init: function(includes, callback, blockname) {
                 this.requires = [];
                 this.onload = 0;
@@ -1043,12 +1318,22 @@
                     storage.blocks.temp.push(this.core);
                     this.mainid = -1;
                 }
-                this.listener();
+                this.listene();
             },
+            /**
+             * 加载完成后的回调函数
+             * 
+             * @return undefined
+             */
             callback: function() {
                 console.log('Block.JS has loaded some require libraries.');
             },
-            loading: function() {
+            /**
+             * 加载下一个
+             * 
+             * @return undefined
+             */
+            loadnext: function() {
                 var that = this,
                     filetype,
                     url;
@@ -1073,7 +1358,7 @@
                     if (!!storage.blocks.requires[id]) {
                         this.loaded++;
                         loadedCount++;
-                        this.listener();
+                        this.listene();
                     } else {
                         storage.blocks.requires[id] = {
                             status: 'loading',
@@ -1086,17 +1371,22 @@
                             storage.blocks.requires[id].status = 'loaded';
                             storage.blocks.requires[id].blocks = storage.blocks.temp;
                             storage.blocks.temp = [];
-                            that.listener();
+                            that.listene();
                         }, false, filetype);
                     }
                 } else {
                     this.onload++;
                     this.loaded++;
                     loadedCount++;
-                    that.listener();
+                    that.listene();
                 };
             },
-            listener: function() {
+            /**
+             * 监听加载状态
+             * 
+             * @return undefined
+             */
+            listene: function() {
                 if (this.loaded === this.requires.length) {
                     this.result.status = 0;
                     if (loadedCount === requireCount) {
@@ -1111,7 +1401,7 @@
                         };
                     }
                 } else if (this.onload < this.requires.length) {
-                    this.loading();
+                    this.loadnext();
                 }
             },
             result: {
@@ -1126,10 +1416,14 @@
 
     /* 扩展接口 */
     extend(block, {
-        /* 全局配置
+        /**
+         * 全局配置
          * object options {
          *      useDebugMode:是否开启调试模式
          * }
+         * 
+         * @param object    options
+         * @return object
          */
         config: function(options) {
             options = options || {};
@@ -1156,23 +1450,43 @@
             }
             return block;
         },
-
-        /* 实例化一个主代码块 */
+        
+        /**
+         * 实例化一个主代码块
+         * 
+         * @param array includes    该代码块所以依赖的其他代码块的文件路径
+         * @param function callback 改代码块的代码
+         * @return Block
+         */
         main: function(includes, callback) {
             return block(includes, callback, true);
         },
-
-        /* 获取潘多拉 */
+        
+        /**
+         * 取潘多拉
+         * 
+         * @return object
+         */
         pandora: function() {
             return storage.pandora;
         },
-
-        /* 运行前开放代码块 */
+        
+        /**
+         * 运行前开放代码块
+         * 
+         * @param function codes
+         * @return undefined
+         */
         ready: function(codes) {
             codes(global, undefined);
         },
-
-        /* 运行后开放代码块 */
+        
+        /**
+         * 运行后开放代码块
+         * 
+         * @param function codes
+         * @return undefined
+         */
         after: function(codes) {
             storage.afters.push(codes);
         }
