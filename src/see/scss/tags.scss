@@ -40,16 +40,16 @@ span {
 
 article,
 aside,
-dialog,
+details,
+figcaption,
+figure,
 footer,
 header,
 hgroup,
-main,
-section,
+menu,
 nav,
-figure,
-menu {
-    display: block
+section {
+    display: block;
 }
 
 html {
@@ -63,6 +63,89 @@ body {
 html,
 body {
     width: 100%;
+}
+
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+dl,
+dt,
+dd,
+ol,
+nav ul,
+nav li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
 }
 
 body {
@@ -103,8 +186,29 @@ form {
     margin-top: 0em;
 }
 
+ol,
 ul {
     list-style: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+blockquote,
+q {
+    quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+    content: '';
+    content: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
 }
 
 thead {
@@ -151,4 +255,8 @@ a:hover {
 
 a:focus {
     outline: none;
+}
+
+img {
+    max-width: 100%;
 }

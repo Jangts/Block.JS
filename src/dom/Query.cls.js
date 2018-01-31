@@ -81,7 +81,12 @@ block([
                     Elements.push(node);
                 }
             });
-            return Elements;
+            this.prevObject = this;
+            this.splice(0, this.length);
+            for (var i = 0; i < Elements.length; i++) {
+                this.push(Elements[i]);
+            }
+            return this;
         },
         get: function(n) {
             if (typeof n === 'number') {

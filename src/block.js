@@ -154,7 +154,7 @@
      */
 
     var slice = function(arrayLike, startIndex, endIndex) {
-            startIndex = intVal(startIndex) || 0;
+            startIndex = parseInt(startIndex) || 0;
             return Array.prototype.slice.call(arrayLike, startIndex, endIndex);
         },
 
@@ -320,7 +320,7 @@
             uid[8] = uid[13] = uid[18] = uid[23] = '-';
             return uid.join('');
         },
-        
+
         /**
          * @class Identifier
          * 定义标识符类
@@ -328,7 +328,7 @@
         Identifier = function(salt, type) {
             this._init(salt, type);
         },
-        
+
         /**
          * @class Iterator
          * 定义迭代器类
@@ -373,7 +373,7 @@
                     };
                 });
             } else if (typeof(Element.onload) === 'object') {
-                Element.addEventListene('load', function() {
+                Element.addEventListener('load', function() {
                     Element.isLoaded = true;
                     callback(Element);
                 });
@@ -439,7 +439,7 @@
             }
             return this;
         },
-        
+
         /**
          * 拷贝实例
          * 
@@ -482,7 +482,7 @@
             }
             this.__ = -1;
         },
-        
+
         /**
          * 指定指针位置
          * 
@@ -497,7 +497,7 @@
             }
             return this[this.__];
         },
-        
+
         /**
          * 读取第一个元素，同时指针也会跳到开始位置
          * 
@@ -507,7 +507,7 @@
             this.__ = 0;
             return this[this.__];
         },
-        
+
         /**
          * 读取最后一个元素，同时指针也会跳到最后
          * @return mixed
@@ -516,7 +516,7 @@
             this.__ = this.length - 1;
             return this[this.__];
         },
-        
+
         /**
          * 判断是否存在下一个元素
          * @return array
@@ -528,7 +528,7 @@
             }
             return true;
         },
-        
+
         /**
          * 读取当前元素
          * 
@@ -537,7 +537,7 @@
         get: function() {
             return this[this.__];
         },
-        
+
         /**
          * 替换当前元素
          * 
@@ -548,7 +548,7 @@
             this[this.__] = elem;
             return elem;
         },
-        
+
         /**
          * 读取下一个元素
          * 
@@ -560,7 +560,7 @@
             }
             return undefined;
         },
-        
+
         /**
          * 一个可控遍历, 如果中途退出，则返回上次回调的返值
          * 
@@ -583,7 +583,7 @@
             }
             return true;
         },
-        
+
         /**
          * 更新这个迭代器的所有元素
          * 
@@ -670,7 +670,7 @@
                 storage.locker[key] = data;
                 return key
             },
-            
+
             /**
              * 读取
              * @param string key 缓存密钥
@@ -679,7 +679,7 @@
             read: function(key) {
                 return storage.locker[key]
             },
-            
+
             /**
              * 删除
              * 
@@ -690,7 +690,7 @@
                 storage.locker[key] = undefined;
                 delete storage.locker[key]
             },
-            
+
             /**
              * 检查缓存列表，仅调试模式下可用
              * 
@@ -961,7 +961,7 @@
 
                 /* 命名正则 */
                 namingExpr: namingExpr,
-                
+
                 /**
                  * 检查具名类
                  * 
@@ -977,7 +977,7 @@
                     });
                     return true;
                 },
-                
+
                 /**
                  * 检查潘多拉盒子
                  * 
@@ -998,7 +998,7 @@
                     });
                     return true;
                 },
-                
+
                 /**
                  * 异步代码块
                  * 
@@ -1009,7 +1009,7 @@
                 asyncBlocks: function(includes, callback) {
                     return block(includes, callback, true);
                 },
-                
+
                 /**
                  * 异步代码块别名
                  * 
@@ -1020,7 +1020,7 @@
                 ab: function(includes, callback) {
                     return block(includes, callback, true);
                 },
-                
+
                 /**
                  * 简易渲染
                  * 
@@ -1043,7 +1043,7 @@
                     document.body.appendChild(el);
                     return el;
                 },
-                
+
                 /**
                  * 本地化语言包数据读写操作
                  * 
@@ -1106,7 +1106,7 @@
                     }
                     return undefined;
                 },
-                
+
                 /**
                  * 通用空操作
                  * 
@@ -1261,11 +1261,11 @@
             var returnObject = block.callback(storage.pandora, global);
 
             // 将block的返值对象合并到全局变量window，以便在控制台调试
-            each(returnObject, function(index, value){
+            each(returnObject, function(index, value) {
                 global[index] = value;
             });
         },
-        
+
         /**
          * @class Iterator
          * 代码块类
@@ -1450,7 +1450,7 @@
             }
             return block;
         },
-        
+
         /**
          * 实例化一个主代码块
          * 
@@ -1461,7 +1461,7 @@
         main: function(includes, callback) {
             return block(includes, callback, true);
         },
-        
+
         /**
          * 取潘多拉
          * 
@@ -1470,7 +1470,7 @@
         pandora: function() {
             return storage.pandora;
         },
-        
+
         /**
          * 运行前开放代码块
          * 
@@ -1480,7 +1480,7 @@
         ready: function(codes) {
             codes(global, undefined);
         },
-        
+
         /**
          * 运行后开放代码块
          * 
