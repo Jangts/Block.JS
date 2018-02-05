@@ -1,0 +1,19 @@
+{
+    "name": "blockjs",
+    "description": "",
+    "version": "2.0.1",
+    "keywords": [
+        "blockjs",
+        "Block.JS"
+    ],
+    "main": "./block.js",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/YangRAM/Block.JS"
+    },
+    "readmeFilename": "README.md",
+    "bugs": {
+        "url": "https://github.com/YangRAM/Block.JS/issues"
+    },
+    "homepage": "https://github.com/YangRAM/Block.JS"
+}

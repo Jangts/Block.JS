@@ -1,0 +1,85 @@
+@charset "utf-8";
+
+/*********************************************
+ ********** Block.JS SEE UI Framework **********
+ **********  class _.see.ScrollBar  **********
+ **********       theme   dark      **********
+ *********************************************/
+
+.bc.scrollbar.default-light .scroll-bar-vertical {
+    width: 3px;
+}
+
+.bc.scrollbar.default-light .scroll-bar-vertical .scroll-bar {
+    width: 3px;
+    cursor: default;
+}
+
+.bc.scrollbar.default-light .scroll-bar-vertical .scroll-bar .scroll-rail {
+    width: 3px;
+    margin: 0;
+    background: #999;
+    z-index: 100;
+}
+
+.bc.scrollbar.default-light .scroll-bar-vertical .scroll-bar .scroll-dragger {
+    width: 3px;
+    margin: 0;
+    background: #ccc;
+    position: absolute;
+    z-index: 200;
+    cursor: pointer;
+}
+
+.bc.scrollbar.default-light .scroll-bar-vertical .scroll-bar .scroll-dragger:hover {
+    background: #fff;
+}
+
+.bc.scrollbar.default-light .scroll-bar-vertical .scroll-button-prev {
+    display: none;
+    width: 0px;
+    height: 0px
+}
+
+.bc.scrollbar.default-light .scroll-bar-vertical .scroll-button-next {
+    display: none;
+    width: 0px;
+    height: 0px
+}
+
+.bc.scrollbar.default-light .scroll-bar-horizontal .scroll-bar {
+    height: 3px;
+    cursor: default;
+}
+
+.bc.scrollbar.default-light .scroll-bar-horizontal .scroll-bar .scroll-rail {
+    height: 3px;
+    margin: 0;
+    background: #999;
+    z-index: 100;
+}
+
+.bc.scrollbar.default-light .scroll-bar-horizontal .scroll-bar .scroll-dragger {
+    height: 3px;
+    margin: 0;
+    background: #ccc;
+    position: absolute;
+    z-index: 200;
+    cursor: pointer;
+}
+
+.bc.scrollbar.default-light .scroll-bar-horizontal .scroll-bar .scroll-dragger:hover {
+    background: #fff;
+}
+
+.bc.scrollbar.default-light .scroll-bar-horizontal .scroll-button-prev {
+    display: none;
+    width: 0px;
+    height: 0px
+}
+
+.bc.scrollbar.default-light .scroll-bar-horizontal .scroll-button-next {
+    display: none;
+    width: 0px;
+    height: 0px
+}

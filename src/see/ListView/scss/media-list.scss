@@ -1,0 +1,134 @@
+/****************
+/*	Media List
+/************************************************/
+
+@mixin inner-body-style($width, $right, $left) {
+    .list-title,
+    .list-abstract,
+    .list-meta {
+        width: $width;
+        padding: 0 $right 0 $left;
+    }
+}
+
+$sizes:(h51, 51px, 51px),
+(h54, 51px, 51px),
+(h75, 100px, 75px),
+(h96, 128px, 96px),
+(h117, 156px, 117px),
+(h138, 184px, 138px);
+.bc.listview.media-list {
+    .list-item {
+        padding: 0;
+        >* {
+            display: none;
+        }
+        >img,
+        >.list-figure,
+        >.list-image {
+            display: block;
+        }
+        >img,
+        >.list-figure,
+        >.list-image {
+            float: left;
+            margin: 10px 0 10px 10px;
+        }
+        >.list-body:first-child,
+        >.list-body:last-child {
+            display: inline-block;
+        }
+        >.list-body:first-child,
+        >.list-body:last-child {
+            display: inline-block;
+        }
+        @each $name,
+        $width,
+        $height in $sizes {
+            >img.#{$name},
+            >.list-figure.#{$name} img,
+            >.list-image.#{$name},
+            >.list-image.#{$name} img {
+                width: $width;
+                height: $height;
+            }
+            >.list-figure.#{$name} {
+                width: $width;
+                height: $height;
+                padding: 5px;
+                border: 1px solid #ccc;
+            }
+        }
+    }
+    .list-item.content {
+        >img,
+        >.list-figure,
+        >.list-image {
+            margin: 15px 0;
+        }
+        >.list-body {
+            margin: 15px 0;
+            @include inner-body-style(99%, 0, 1%);
+        }
+    }
+    .list-item.cover,
+    .list-item.content.cover {
+        padding: 0;
+        >img,
+        >.list-figure,
+        >.list-image {
+            margin: 10px 10px 10px 0;
+        }
+        >.list-body {
+            margin: 10px 0;
+            .list-title,
+            .list-abstract,
+            .list-meta {
+                width: 100%;
+                padding: 0;
+            }
+        }
+    }
+    .list-item.card.cover,
+    .list-item.card.content.cover {
+        padding: 0;
+        >img,
+        >.list-figure,
+        >.list-image {
+            margin: 0 10px 0 0;
+        }
+        >.list-body {
+            margin: 0;
+            @include inner-body-style(99%, 1%, 0);
+        }
+    }
+    .list-item.pane.cover,
+    .list-item.pane.content.cover {
+        >img,
+        >.list-figure,
+        >.list-image {
+            margin: 10px;
+        }
+        >.list-body {
+            margin: 10px 0;
+            @include inner-body-style(99%, 1%, 0);
+        }
+    }
+}
+
+.bc.listview.media-list[data-list-cols] {
+    .list-item.card.cover,
+    .list-item.pane.cover {
+        margin: 10px 2%;
+    }
+}
+
+.bc.listview.media-list[data-list-cols="1"] {
+    .list-item.card.cover,
+    .list-item.pane.cover {
+        margin: 10px auto;
+    }
+}
+
+@import "media-list-right-left";
+@import "media-list-top-bottom";

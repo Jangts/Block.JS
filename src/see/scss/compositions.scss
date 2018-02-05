@@ -1,0 +1,54 @@
+$heights: 15,
+18,
+21,
+24,
+27,
+30,
+33,
+36,
+40,
+48,
+48,
+60,
+72,
+84,
+96,
+120,
+156;
+@each $height in $heights {
+    .bc.lh-#{$height} {
+        line-height: #{$height/20}rem;
+    }
+}
+
+.bc.al-left {
+    text-align: left;
+}
+
+.bc.al-right {
+    text-align: right;
+}
+
+.bc.al-center {
+    text-align: center;
+}
+
+.bc.al-just {
+    text-align: justify;
+}
+
+.bc.indent-05 {
+    text-indent: .5em;
+}
+
+.bc.indent-10 {
+    text-indent: 1em;
+}
+
+.bc.indent-20 {
+    text-indent: 2em;
+}
+
+.bc.indent-30 {
+    text-indent: 3em;
+}

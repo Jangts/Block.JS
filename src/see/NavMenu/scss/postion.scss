@@ -1,0 +1,78 @@
+/** Submenu Position **/
+
+.bc.navmenu>.menu-item.hasson,
+.bc.navmenu .menu-item.hasson>.submenu>.menu-item.hasson {
+    // Normal
+    >.submenu {
+        display: none;
+        position: absolute;
+    }
+    // Vertical
+    >.submenu,
+    >.submenu.under,
+    >.submenu.under.al-left {
+        top: 100%;
+        left: 0;
+    }
+    >.submenu.upon,
+    >.submenu.upon.al-left {
+        bottom: 100%;
+        left: 0;
+    }
+    >.submenu.al-center,
+    >.submenu.under.al-center,
+    >.submenu.upon.al-center {
+        left: 50%;
+    }
+    >.submenu.al-right,
+    >.submenu.under.al-right,
+    >.submenu.upon.al-right {
+        left: auto;
+        right: 0;
+    }
+    // Horizontal
+    >.submenu.rside,
+    >.submenu.rside.al-top {
+        top: 0;
+        left: 100%;
+    }
+    >.submenu.lside,
+    >.submenu.lside.al-top {
+        top: 0;
+        right: 100%;
+    }
+    >.submenu.rside.al-middle,
+    >.submenu.lside.al-middle {
+        top: 50%;
+    }
+    >.submenu.rside.al-bottom,
+    >.submenu.lside.al-bottom {
+        top: auto;
+        bottom: 0;
+    }
+    // Corner
+    >.submenu.upon.rside {
+        bottom: 100%;
+        left: 100%;
+    }
+    >.submenu.under.rside {
+        top: 100%;
+        left: 100%;
+    }
+    >.submenu.top.lside {
+        top: 100%;
+        right: 100%;
+    }
+    >.submenu.under.lside {
+        right: 100%;
+        bottom: 100%;
+    }
+}
+
+.bc.navmenu>.menu-item.hasson:hover,
+.bc.navmenu .menu-item.hasson>.submenu>.menu-item.hasson:hover {
+    overflow: visible;
+    >.submenu {
+        display: block;
+    }
+}

@@ -1,0 +1,85 @@
+/*** EDITOR LOADMASK ***/
+
+.bc.editor .bc.editor-loadmask {
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    background-color: #FFF;
+    opacity: .8;
+    z-index: -9999;
+}
+
+.bc.editor .bc.editor-loadmask.on {
+    display: block;
+    z-index: 9999;
+}
+
+.bc.editor-spinner {
+    margin: auto;
+    position: absolute;
+    width: 50px;
+    height: 60px;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    text-align: center;
+    font-size: 10px;
+}
+
+.bc.editor-spinner>div {
+    background-color: #67CF22;
+    height: 100%;
+    width: 6px;
+    display: inline-block;
+    -webkit-animation: editor-stretchdelay 1.2s infinite ease-in-out;
+    animation: editor-stretchdelay 1.2s infinite ease-in-out;
+    margin: 0px 2px;
+}
+
+.bc.editor-spinner .bc.editor-rect2 {
+    -webkit-animation-delay: -1.1s;
+    animation-delay: -1.1s;
+}
+
+.bc.editor-spinner .bc.editor-rect3 {
+    -webkit-animation-delay: -1.0s;
+    animation-delay: -1.0s;
+}
+
+.bc.editor-spinner .bc.editor-rect4 {
+    -webkit-animation-delay: -0.9s;
+    animation-delay: -0.9s;
+}
+
+.bc.editor-spinner .bc.editor-rect5 {
+    -webkit-animation-delay: -0.8s;
+    animation-delay: -0.8s;
+}
+
+@-webkit-keyframes editor-stretchdelay {
+    0%,
+    40%,
+    100% {
+        -webkit-transform: scaleY(0.4)
+    }
+    20% {
+        -webkit-transform: scaleY(1.0)
+    }
+}
+
+@keyframes editor-stretchdelay {
+    0%,
+    40%,
+    100% {
+        transform: scaleY(0.4);
+        -webkit-transform: scaleY(0.4);
+    }
+    20% {
+        transform: scaleY(1.0);
+        -webkit-transform: scaleY(1.0);
+    }
+}

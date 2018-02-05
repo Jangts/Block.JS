@@ -1,0 +1,1150 @@
+.bc.editor-default {
+    border: 1px solid #CCC;
+}
+
+
+/*********************************************************************************
+/*** EDITOR TOOLBAR ***/
+
+.bc.editor-toolarea.editor-default {
+    width: 100%;
+    background-color: #FDFDFE;
+    border-bottom: 1px solid #DDD;
+    overflow: visible;
+    z-index: 1024;
+}
+
+.bc.editor-toolarea.editor-default .bc.editor-tool {
+    float: left;
+    width: auto;
+    min-width: 30px;
+    height: 30px;
+    line-height: 30px;
+    color: #444;
+    font-size: 14px;
+    text-align: center;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.bc.editor-toolarea.editor-default .bc.editor-clear {
+    clear: both;
+}
+
+.bc.editor-toolarea.editor-default .bc.editor-tool:hover {
+    background-color: #09C;
+    color: #FFF;
+}
+
+.bc.editor-toolarea.editor-default .bc.editor-tool.active {
+    background-color: #09C;
+    color: #FFF;
+}
+
+.bc.editor-toolarea.editor-default .bc.editor-tool.invalid {
+    background-color: transparent;
+    color: #AAA;
+    cursor: default;
+}
+
+.bc.editor-toolarea.editor-default .bc.editor-tool.invalid:hover {
+    background-color: transparent;
+    color: #AAA;
+}
+
+
+/*** EDITOR TOOLBAR CHARACTER ***********************/
+
+.bc.editor-toolarea.editor-default .bc.editor-tool.separator {
+    min-width: 10px;
+    color: #E6E6E6;
+    cursor: default;
+}
+
+.bc.editor-toolarea.editor-default .bc.editor-tool.separator:before {
+    content: '|';
+}
+
+.bc.editor-toolarea.editor-default .bc.editor-tool.separator:hover {
+    background-color: transparent;
+    color: #E6E6E6;
+}
+
+.bc.editor-toolarea.editor-default .bc.editor-tool.linebreak {
+    width: 100%;
+    height: 1px;
+    background-color: #E6E6E6;
+    margin: 0px;
+}
+
+.bc.editor-toolarea.editor-default .bc.editor-tool.linebreak:hover {
+    background-color: #E6E6E6;
+}
+
+
+/*** EDITOR TOOLBAR ICONS ***************************/
+
+.bc.editor-toolarea .bc.editor-tool .bc.editor-icon {
+    display: block;
+}
+
+.bc.editor-toolarea .bc.editor-icon:before {
+    font-family: 'FontAwesome';
+    font-style: normal;
+    content: '\f042';
+}
+
+
+/* ------------------------- */
+
+.bc.editor-toolarea .undo .bc.editor-icon:before {
+    content: '\f112';
+}
+
+.bc.editor-toolarea .redo .bc.editor-icon:before {
+    content: '\f064';
+}
+
+
+/* --------------- */
+
+.bc.editor-toolarea .selectall .bc.editor-icon:before {
+    content: '\f0c8';
+}
+
+.bc.editor-toolarea .copy .bc.editor-icon:before {
+    content: '\f0c5';
+}
+
+.bc.editor-toolarea .paste .bc.editor-icon:before {
+    content: '\f0ea';
+}
+
+.bc.editor-toolarea .cut .bc.editor-icon:before {
+    content: '\f0c4';
+}
+
+.bc.editor-toolarea .delete .bc.editor-icon:before {
+    content: '\f177';
+}
+
+.bc.editor-toolarea .cleardoc .bc.editor-icon:before {
+    content: '\f014';
+}
+
+.bc.editor-toolarea .print .bc.editor-icon:before {
+    content: '\f02f';
+}
+
+
+/* --------------- */
+
+.bc.editor-toolarea .bold .bc.editor-icon:before {
+    content: '\f032';
+}
+
+.bc.editor-toolarea .italic .bc.editor-icon:before {
+    content: '\f033';
+}
+
+.bc.editor-toolarea .underline .bc.editor-icon:before {
+    content: '\f0cd';
+}
+
+.bc.editor-toolarea .strikethrough .bc.editor-icon:before {
+    content: '\f0cc';
+}
+
+
+/* --------------- */
+
+.bc.editor-toolarea .fontname .bc.editor-icon:before {
+    content: '\f031';
+}
+
+.bc.editor-toolarea .fontsize .bc.editor-icon:before {
+    content: '\f035';
+}
+
+.bc.editor-toolarea .forecolor .bc.editor-icon:before {
+    content: '\f040';
+}
+
+.bc.editor-toolarea .backcolor .bc.editor-icon:before {
+    content: '\f14b';
+}
+
+.bc.editor-toolarea .lineheight .bc.editor-icon:before {
+    content: '\f034';
+}
+
+.bc.editor-toolarea .touppercase .bc.editor-icon:before {
+    line-height: 32px;
+    content: 'TT';
+}
+
+.bc.editor-toolarea .tolowercase .bc.editor-icon:before {
+    content: 'tt';
+}
+
+
+/* --------------- */
+
+.bc.editor-toolarea .justifyleft .bc.editor-icon:before {
+    content: '\f036';
+}
+
+.bc.editor-toolarea .justifycenter .bc.editor-icon:before {
+    content: '\f037';
+}
+
+.bc.editor-toolarea .justifyright .bc.editor-icon:before {
+    content: '\f038';
+}
+
+.bc.editor-toolarea .justifyfull .bc.editor-icon:before {
+    content: '\f039';
+}
+
+
+/* --------------- */
+
+.bc.editor-toolarea .outdent .bc.editor-icon:before {
+    content: '\f03b';
+}
+
+.bc.editor-toolarea .indent .bc.editor-icon:before {
+    content: '\f03c';
+}
+
+
+/* --------------- */
+
+.bc.editor-toolarea .insertunorderedlist .bc.editor-icon:before {
+    content: '\f0ca';
+}
+
+.bc.editor-toolarea .insertorderedlist .bc.editor-icon:before {
+    content: '\f0cb';
+}
+
+
+/* --------------- */
+
+.bc.editor-toolarea .fullscreen .bc.editor-icon:before {
+    content: '\f0b2';
+}
+
+
+/* --------------- */
+
+.bc.editor-toolarea .header .bc.editor-icon:before,
+.bc.editor-toolarea .h1 .bc.editor-icon:before,
+.bc.editor-toolarea .h2 .bc.editor-icon:before,
+.bc.editor-toolarea .h3 .bc.editor-icon:before,
+.bc.editor-toolarea .h4 .bc.editor-icon:before,
+.bc.editor-toolarea .h5 .bc.editor-icon:before,
+.bc.editor-toolarea .h6 .bc.editor-icon:before {
+    content: '\f1dc';
+}
+
+.bc.editor-toolarea .p .bc.editor-icon:before {
+    content: '\f1dd';
+}
+
+.bc.editor-toolarea .blockquote .bc.editor-icon:before {
+    content: '\f10d';
+}
+
+.bc.editor-toolarea .removeformat .bc.editor-icon:before {
+    content: '\f12d';
+}
+
+
+/* --------------- */
+
+.bc.editor-toolarea .subscript .bc.editor-icon:before {
+    content: '\f12c';
+}
+
+.bc.editor-toolarea .superscript .bc.editor-icon:before {
+    content: '\f12b';
+}
+
+.bc.editor-toolarea .inserttime .bc.editor-icon:before {
+    content: '\f017';
+}
+
+.bc.editor-toolarea .insertdate .bc.editor-icon:before {
+    content: '\f073';
+}
+
+
+/* --------------- */
+
+.bc.editor-toolarea .hr .bc.editor-icon:before {
+    content: '\2014';
+}
+
+.bc.editor-toolarea .pagebreak .bc.editor-icon:before {
+    content: '\f0db';
+}
+
+
+/* --------------- */
+
+.bc.editor-toolarea .insertanchor .bc.editor-icon:before {
+    content: '\f13d';
+}
+
+.bc.editor-toolarea .createlink .bc.editor-icon:before {
+    content: '\f0c1';
+}
+
+.bc.editor-toolarea .unlink .bc.editor-icon:before {
+    content: '\f127';
+}
+
+.bc.editor-toolarea .inserttable .bc.editor-icon:before {
+    content: '\f0ce';
+}
+
+
+/* --------------- */
+
+.bc.editor-toolarea .insertfile .bc.editor-icon:before {
+    content: '\f0c6';
+}
+
+.bc.editor-toolarea .insertemoticon .bc.editor-icon:before {
+    content: '\f118';
+}
+
+.bc.editor-toolarea .insertvideo .bc.editor-icon:before {
+    content: '\f03d';
+}
+
+.bc.editor-toolarea .insertimage .bc.editor-icon:before {
+    content: '\f03e';
+}
+
+
+/* --------------- */
+
+.bc.editor-toolarea .source .bc.editor-icon:before {
+    content: '\f121';
+}
+
+.bc.editor-toolarea .insertfragments .bc.editor-icon:before {
+    content: '\f12e';
+}
+
+
+/*** EDITOR TOOLBAR PICKS ***************************/
+
+.bc.editor-toolarea .bc.editor-tool .bc.editor-pick {
+    display: none;
+    position: absolute;
+    width: auto;
+    min-width: 120px;
+    height: auto;
+    top: 30px;
+    left: 0px;
+    padding: 5px;
+    background-color: #FDFDFE;
+    border: 1px solid #DDD;
+    color: #555;
+    overflow: auto;
+}
+
+
+/* ------------------------- */
+
+.bc.editor-toolarea .bc.editor-tool[data-ib-cmds].active {
+    overflow: visible;
+    z-index: 100;
+}
+
+.bc.editor-toolarea .bc.editor-tool.active .bc.editor-pick {
+    display: block;
+}
+
+
+/* ------------------------- */
+
+.bc.editor-toolarea li.bc.editor-font {
+    width: auto;
+    text-align: left;
+    padding: 0px 5px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.bc.editor-toolarea .fontname li.bc.editor-font {
+    font-size: 12px;
+    height: 20px;
+    line-height: 20px;
+}
+
+.bc.editor-toolarea .fontsize li.bc.editor-font {
+    height: auto;
+}
+
+.bc.editor-toolarea li.bc.editor-font:hover {
+    background-color: #09C;
+    color: #FFF;
+}
+
+.bc.editor-toolarea li.bc.editor-font.selected {
+    background-color: #09C;
+    color: #FFF;
+}
+
+
+/* ------------------------- */
+
+.bc.editor-toolarea ul.bc.editor-pick {
+    white-space: nowrap;
+}
+
+.bc.editor-toolarea .forecolor ul.bc.editor-pick {
+    line-height: 0px;
+}
+
+.bc.editor-toolarea .backcolor ul.bc.editor-pick {
+    line-height: 0px;
+}
+
+.bc.editor-toolarea li.bc.editor-color {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    margin: 1px;
+}
+
+.bc.editor-toolarea li.bc.editor-color i {
+    display: block;
+    width: 16px;
+    height: 16px;
+    margin: 1px;
+}
+
+.bc.editor-toolarea li.bc.editor-color:hover {
+    margin: 0px;
+    border: #09C 1px solid;
+}
+
+.bc.editor-toolarea li.bc.editor-color.selected {
+    margin: 0px;
+    border: #09C 1px solid;
+}
+
+.bc.editor-toolarea hr.bc.editor-break {
+    clear: both;
+    height: 0px;
+    border: none;
+    margin: 0 !important;
+    display: block;
+}
+
+.bc.editor-toolarea hr.bc.editor-break+hr.bc.editor-break {
+    clear: both;
+    height: 8px;
+    border: none;
+    display: block;
+}
+
+
+/*** EDITOR TOOLBAR DIALOGS ***************************/
+
+.bc.editor-toolarea .bc.editor-tool .bc.editor-dialog {
+    display: none;
+    position: absolute;
+    width: auto;
+    min-width: 340px;
+    height: auto;
+    top: 30px;
+    left: 0px;
+    margin-left: -165px;
+    padding: 10px;
+    background-color: #FDFDFE;
+    border: 1px solid #DDD;
+    color: #555;
+    overflow: hidden;
+    text-align: left;
+}
+
+
+/* ------------------------- */
+
+.bc.editor-toolarea .bc.editor-tool[data-ib-dialog].active {
+    overflow: visible;
+    z-index: 100;
+}
+
+.bc.editor-toolarea .bc.editor-tool.active .bc.editor-dialog {
+    display: block;
+}
+
+
+/* ------------------------- */
+
+.bc.editor-toolarea .bc.editor-dialog span.bc.editor-title {
+    font-family: Arial, Helvetica, sans-serif;
+    display: block;
+    height: 20px;
+    text-align: left;
+    line-height: 20px;
+    border-left: #444 3px solid;
+    margin-bottom: 10px;
+    padding-left: 3px;
+    font-size: 14px;
+    color: #444;
+    font-weight: bold;
+}
+
+.bc.editor-toolarea .bc.editor-dialog button {
+    height: 30px;
+    text-align: center;
+    background-color: #09C;
+    color: #FFF;
+    transition: background-color 1s ease;
+    -webkit-transition: background-color 1s ease;
+    -o-transition: background-color 1s ease;
+    -ms-transition: background-color 1s ease;
+    -moz-transition: background-color 1s ease;
+    cursor: pointer;
+}
+
+.bc.editor-toolarea .bc.editor-dialog button:hover {
+    background-color: #036;
+}
+
+
+/* --------------- */
+
+.bc.editor-toolarea .bc.editor-dialog .bc.editor-anchor {
+    width: 340px;
+    height: 30px;
+}
+
+.bc.editor-toolarea .bc.editor-dialog .bc.editor-anchor input {
+    float: left;
+    width: 295px;
+    height: 28px;
+    padding: 0px 5px;
+    border: #EEE 1px solid;
+    line-height: 28px;
+}
+
+.bc.editor-toolarea .bc.editor-dialog .bc.editor-anchor button {
+    float: right;
+    width: 30px;
+}
+
+
+/* --------------- */
+
+.bc.editor-toolarea .bc.editor-dialog .bc.editor-aaa,
+.bc.editor-toolarea .bc.editor-dialog .bc.editor-url {
+    width: 340px;
+    height: 30px;
+    margin-bottom: 10px;
+}
+
+.bc.editor-toolarea .bc.editor-dialog .bc.editor-aaa label,
+.bc.editor-toolarea .bc.editor-dialog .bc.editor-url label {
+    float: left;
+    width: 78px;
+    height: 30px;
+    line-height: 30px;
+    background-color: #EEE;
+    text-align: center;
+    font-size: 13px;
+    color: #444;
+}
+
+.bc.editor-toolarea .bc.editor-dialog .bc.editor-aaa input,
+.bc.editor-toolarea .bc.editor-dialog .bc.editor-url input {
+    float: right;
+    width: 250px;
+    height: 28px;
+    padding: 0px 5px;
+    font-size: 12px;
+    border: #EEE 1px solid;
+    line-height: 28px;
+}
+
+
+/* --------------- */
+
+.bc.editor-toolarea .bc.editor-dialog .bc.editor-check {
+    width: 340px;
+    height: 20px;
+    margin-bottom: 10px;
+}
+
+.bc.editor-toolarea .bc.editor-dialog .bc.editor-check label {
+    float: left;
+    width: auto;
+    height: 20px;
+    line-height: 20px;
+    font-size: 12px;
+    color: #999;
+}
+
+.bc.editor-toolarea .bc.editor-dialog .bc.editor-check .bc.editor-checkbox {
+    float: left;
+    width: 14px;
+    height: 14px;
+    margin: 3px;
+    top: 0px;
+}
+
+
+/* --------------- */
+
+.bc.editor-toolarea .bc.editor-dialog .bc.editor-attr {
+    width: 340px;
+    height: 24px;
+    font-size: 12px;
+    margin-bottom: 10px;
+}
+
+.bc.editor-toolarea .bc.editor-dialog .bc.editor-attr-left {
+    float: left;
+}
+
+.bc.editor-toolarea .bc.editor-dialog .bc.editor-attr-right {
+    float: right;
+}
+
+.bc.editor-toolarea .bc.editor-dialog .bc.editor-attr label {
+    float: left;
+    width: auto;
+    height: 24px;
+    line-height: 24px;
+    padding: 0px 5px;
+    background-color: #EEE;
+    text-align: center;
+    color: #444;
+}
+
+.bc.editor-toolarea .bc.editor-dialog .bc.editor-attr span {
+    float: left;
+    width: 24px;
+    height: 24px;
+    font-size: 14px;
+    line-height: 24px;
+    background-color: #EEE;
+    text-align: center;
+    color: #444;
+}
+
+.bc .bc.editor-dialog .bc.editor-table-rows,
+.bc .bc.editor-dialog .bc.editor-table-columns,
+.bc .bc.editor-dialog .bc.editor-table-width,
+.bc .bc.editor-dialog .bc.editor-vidoe-width,
+.bc .bc.editor-dialog .bc.editor-vidoe-height {
+    float: left;
+    width: 43px;
+    height: 22px;
+    padding: 0px 5px;
+    border: #EEE 1px solid;
+    line-height: 22px;
+}
+
+.bc.editor-toolarea .bc.editor-dialog .bc.editor-attr .bc.editor-table-unit {
+    float: left;
+    width: 53px;
+    height: 24px;
+    padding: 0px 5px;
+    font-size: 12px;
+    border: #EEE 1px solid;
+    line-height: 24px;
+}
+
+.bc.editor-toolarea .bc.editor-dialog .bc.editor-attr .bc.editor-vidoe-type {
+    float: left;
+    width: 83px;
+    height: 24px;
+    padding: 0px 5px;
+    font-size: 12px;
+    border: #EEE 1px solid;
+    line-height: 24px;
+}
+
+
+/* --------------- */
+
+.bc.editor-toolarea .bc.editor-dialog .bc.editor-btns {
+    width: 340px;
+    height: 30px;
+}
+
+.bc.editor-toolarea .bc.editor-dialog .bc.editor-btns button {
+    width: 340px;
+}
+
+.bc.editor-toolarea .bc.editor-dialog .bc.editor-btns input {
+    float: left;
+    width: 165px;
+    height: 30px;
+    text-align: center;
+    background-color: #09C;
+    color: #FFF;
+    transition: background-color 1s ease;
+    -webkit-transition: background-color 1s ease;
+    -o-transition: background-color 1s ease;
+    -ms-transition: background-color 1s ease;
+    -moz-transition: background-color 1s ease;
+    cursor: pointer;
+}
+
+.bc.editor-toolarea .bc.editor-dialog .bc.editor-btns input:hover {
+    background-color: #036;
+}
+
+.bc.editor-toolarea .bc.editor-dialog .bc.editor-btns input:first-child {
+    margin-right: 10px;
+}
+
+
+/* --------------- */
+
+.bc.editor-toolarea .bc.editor-dialog .bc.editor-show {
+    width: 330px;
+    height: 72px;
+    padding: 3px 4px;
+    border: #EEE 1px solid;
+    margin-bottom: 10px;
+}
+
+.bc.editor-toolarea .bc.editor-dialog .bc.editor-show span {
+    display: block;
+    width: 330px;
+    height: 72px;
+    text-align: center;
+    line-height: 72px;
+    color: #999;
+}
+
+.bc.editor-toolarea .bc.editor-dialog .bc.editor-show ul {
+    display: block;
+    width: 330px;
+    height: 72px;
+}
+
+.bc.editor-toolarea .bc.editor-dialog .bc.editor-show ul li {
+    float: left;
+    border: #EEE 1px solid;
+    padding: 1px;
+}
+
+.bc.editor-toolarea .bc.editor-dialog .bc.editor-show ul li img {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+}
+
+.bc.editor-toolarea .bc.editor-dialog .bc.editor-show ul.bc.editor-list-56 li {
+    width: 56px;
+    height: 56px;
+    margin: 6px 3px;
+}
+
+.bc.editor-toolarea .bc.editor-dialog .bc.editor-show ul.bc.editor-list-56 li img {
+    max-width: 56px;
+    max-height: 56px;
+}
+
+.bc.editor-toolarea .bc.editor-dialog .bc.editor-show ul.bc.editor-list-28 li {
+    width: 28px;
+    height: 28px;
+    margin: 2px;
+}
+
+.bc.editor-toolarea .bc.editor-dialog .bc.editor-show ul.bc.editor-list-28 li img {
+    max-width: 28px;
+    max-height: 28px;
+}
+
+
+/* --------------- */
+
+.bc.editor-toolarea .bc.editor-dialog textarea.bc.editor-code {
+    width: 330px;
+    height: 40px;
+    padding: 4px;
+    line-height: 20px;
+    font-size: 12px;
+    border: #EEE 1px solid;
+    resize: none;
+    overflow: auto;
+}
+
+
+/* --------------- */
+
+.bc.editor-toolarea .bc.editor-dialog ul.bc.editor-emoticons {
+    width: 340px;
+    height: auto;
+    border-top: #CCC 1px solid;
+    border-left: #CCC 1px solid;
+}
+
+.bc.editor-toolarea .bc.editor-dialog ul.bc.editor-emoticons-default li {
+    float: left;
+    display: table-cell;
+    width: 33px;
+    height: 33px;
+    border-right: #CCC 1px solid;
+    border-bottom: #CCC 1px solid;
+}
+
+.bc.editor-toolarea .bc.editor-dialog ul.bc.editor-emoticons-default li img {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    margin: auto;
+}
+
+
+/*** EDITOR EDITAREA ***/
+
+.bc.editor .bc.editor-richarea {
+    background-color: #FFF;
+    overflow: auto;
+    resize: vertical;
+    z-index: 0;
+    line-height: normal;
+}
+
+.bc.editor .bc.editor-richarea * {
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    overflow: auto;
+}
+
+.bc.editor .bc.editor-richarea i {
+    font-style: italic;
+}
+
+.bc.editor .bc.editor-richarea strong,
+.bc.editor .bc.editor-richarea b {
+    font-weight: bold;
+}
+
+.bc.editor .bc.editor-richarea s,
+.bc.editor .bc.editor-richarea strike,
+.bc.editor .bc.editor-richarea dels {
+    text-decoration: line-through;
+}
+
+.bc.editor .bc.editor-richarea u,
+.bc.editor .bc.editor-richarea ins {
+    text-decoration: underline;
+}
+
+.bc.editor .bc.editor-richarea div {
+    word-break: break-all;
+}
+
+.bc.editor .bc.editor-richarea a {
+    text-decoration: underline;
+    cursor: pointer;
+    color: #06F;
+}
+
+.bc.editor .bc.editor-richarea img {
+    max-width: 100%;
+}
+
+.bc.editor .bc.editor-richarea img:hover {
+    box-sizing: border-box;
+    border: dashed 1px #0CF;
+    cursor: default;
+}
+
+.bc.editor .bc.editor-richarea img[_selected=_selected],
+.bc.editor .bc.editor-richarea img[_selected=_selected]:hover {
+    box-sizing: border-box;
+    border: dashed 1px #039;
+    cursor: default;
+}
+
+.bc.editor .bc.editor-richarea blockquote {
+    color: #666666;
+    font-size: 1em;
+    padding-left: 1em;
+    border-left: 4px solid #dddddd;
+    line-height: 1.5em;
+}
+
+.bc.editor .bc.editor-richarea h2 {
+    font-size: 1.8em;
+    border-left: 10px solid #7fc042;
+    padding-left: 0.5em;
+    margin-bottom: 0.8em;
+    font-weight: 200;
+    color: black;
+}
+
+.bc.editor .bc.editor-richarea ul,
+.bc.editor .bc.editor-richarea ol {
+    margin: auto;
+    padding: 0px 0px 0px 40px;
+    overflow: visible;
+}
+
+.bc.editor .bc.editor-richarea ul {
+    list-style: disc;
+}
+
+.bc.editor .bc.editor-richarea li {
+    margin: auto;
+    padding: 0px;
+    overflow: visible;
+}
+
+.bc.editor .bc.editor-richarea hr {
+    border-style: inset;
+    border-width: 1px;
+}
+
+.bc.editor .bc.editor-richarea .bc.editor-pagebreak {
+    border: 1px dotted #AAA;
+    font-size: 0;
+    height: 2px;
+}
+
+.bc.editor .bc.editor-richarea table {
+    border-collapse: collapse;
+    empty-cells: show;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.bc.editor .bc.editor-richarea td,
+.bc.editor .bc.editor-richarea th {
+    border: solid 1px #ccc;
+    padding: 5px;
+}
+
+.bc.editor .bc.editor-richarea .bc.editor-emoticon {
+    margin: 0px 2px;
+}
+
+
+/*** EDITOR CODEAREA ***/
+
+.bc.editor .bc.editor-codearea {
+    resize: vertical;
+    z-index: 0;
+    font-family: Consolas, "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", Monaco, "Courier New", monospace;
+    color: #FFF;
+    line-height: 20px;
+    font-size: 13px;
+    background-color: #012456;
+    overflow-y: auto;
+}
+
+.bc.editor .bc.editor-codearea::selection {
+    background-color: #FEDBA9;
+    color: #000;
+}
+
+.bc.editor .bc.editor-codearea::-webkit-selection {
+    background-color: #FEDBA9;
+    color: #000;
+}
+
+.bc.editor .bc.editor-codearea::-moz-selection {
+    background-color: #FEDBA9;
+    color: #000;
+}
+
+
+/*** EDITOR STAUSEBAR ***/
+
+.bc.editor .bc.editor-statebar {
+    width: 100%;
+    height: 30px;
+    background-color: #FDFDFE;
+    border-top: 1px solid #DDD;
+    overflow: visible;
+    z-index: 1024;
+}
+
+.bc.editor .bc.editor-statebar section {
+    display: inline-block;
+    width: auto !important;
+    height: 20px !important;
+    margin: 5px;
+    line-height: 20px;
+}
+
+.bc.editor .bc.editor-statebar input {
+    display: inline-block;
+    max-width: 60px;
+    height: 16px;
+    line-height: 16px;
+    font-size: 12px;
+    text-align: center;
+    border-bottom: solid 1px #DDD;
+}
+
+.bc.editor .bc.editor-statebar i {
+    display: inline-block;
+    height: 18px;
+    margin: 1px 6px 0px 1px;
+    padding: 0 5px;
+    line-height: 18px;
+    font-size: 12px;
+    background-color: #BBB;
+    border-bottom: solid 1px #999;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 2px;
+}
+
+.bc.editor .bc.editor-statebar i.active {
+    background-color: #09C;
+    border-bottom: solid 1px #09A;
+}
+
+.bc.editor .bc.editor-statebar i:last-child {
+    margin-right: 0;
+}
+
+.bc.editor .bc.editor-statebar .bc.editor-fontstatus {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 30%;
+    height: 30px;
+    background-color: #FDFDFE;
+    z-index: 0;
+}
+
+.bc.editor .bc.editor-statebar .bc.editor-tablestatus,
+.bc.editor .bc.editor-statebar .bc.editor-imagestatus {
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 70%;
+    height: 30px;
+    background-color: #FDFDFE;
+    z-index: 50;
+    text-align: right;
+}
+
+.bc.editor .bc.editor-statebar .bc.editor-rowslen,
+.bc.editor .bc.editor-statebar .bc.editor-colslen,
+.bc.editor .bc.editor-statebar .bc.editor-border-input {
+    max-width: 30px;
+}
+
+.bc.editor .bc.editor-statebar .bc.editor-imagestatus {
+    z-index: 100;
+}
+
+
+/*** EDITOR LOADMASK ***/
+
+.bc.editor .bc.editor-loadmask {
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    background-color: #FFF;
+    opacity: .8;
+    z-index: -9999;
+}
+
+.bc.editor .bc.editor-loadmask.on {
+    display: block;
+    z-index: 9999;
+}
+
+.bc.editor-spinner {
+    margin: auto;
+    position: absolute;
+    width: 50px;
+    height: 60px;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    text-align: center;
+    font-size: 10px;
+}
+
+.bc.editor-spinner>div {
+    background-color: #67CF22;
+    height: 100%;
+    width: 6px;
+    display: inline-block;
+    -webkit-animation: editor-stretchdelay 1.2s infinite ease-in-out;
+    animation: editor-stretchdelay 1.2s infinite ease-in-out;
+    margin: 0px 2px;
+}
+
+.bc.editor-spinner .bc.editor-rect2 {
+    -webkit-animation-delay: -1.1s;
+    animation-delay: -1.1s;
+}
+
+.bc.editor-spinner .bc.editor-rect3 {
+    -webkit-animation-delay: -1.0s;
+    animation-delay: -1.0s;
+}
+
+.bc.editor-spinner .bc.editor-rect4 {
+    -webkit-animation-delay: -0.9s;
+    animation-delay: -0.9s;
+}
+
+.bc.editor-spinner .bc.editor-rect5 {
+    -webkit-animation-delay: -0.8s;
+    animation-delay: -0.8s;
+}
+
+@-webkit-keyframes editor-stretchdelay {
+    0%,
+    40%,
+    100% {
+        -webkit-transform: scaleY(0.4);
+    }
+    20% {
+        -webkit-transform: scaleY(1);
+    }
+}
+
+@keyframes editor-stretchdelay {
+    0%,
+    40%,
+    100% {
+        transform: scaleY(0.4);
+        -webkit-transform: scaleY(0.4);
+    }
+    20% {
+        transform: scaleY(1);
+        -webkit-transform: scaleY(1);
+    }
+}
+
+
+/*# sourceMappingURL=style.css.map */

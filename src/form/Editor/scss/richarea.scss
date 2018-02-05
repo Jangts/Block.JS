@@ -1,0 +1,132 @@
+/*** EDITOR EDITAREA ***/
+
+.bc.editor .bc.editor-richarea {
+    background-color: #FFF;
+    overflow: auto;
+    resize: vertical;
+    z-index: 0;
+    line-height: normal;
+}
+
+.bc.editor .bc.editor-richarea * {
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    overflow: auto;
+}
+
+.bc.editor .bc.editor-richarea i {
+    font-style: italic;
+}
+
+.bc.editor .bc.editor-richarea strong,
+.bc.editor .bc.editor-richarea b {
+    font-weight: bold;
+}
+
+.bc.editor .bc.editor-richarea s,
+.bc.editor .bc.editor-richarea strike,
+.bc.editor .bc.editor-richarea dels {
+    text-decoration: line-through;
+}
+
+.bc.editor .bc.editor-richarea u,
+.bc.editor .bc.editor-richarea ins {
+    text-decoration: underline;
+}
+
+.bc.editor .bc.editor-richarea div {
+    word-break: break-all;
+}
+
+.bc.editor .bc.editor-richarea a {
+    text-decoration: underline;
+    cursor: pointer;
+    color: #06F;
+}
+
+.bc.editor .bc.editor-richarea img {
+    max-width: 100%;
+}
+
+.bc.editor .bc.editor-richarea img:hover {
+    box-sizing: border-box;
+    border: dashed 1px #0CF;
+    cursor: default;
+}
+
+.bc.editor .bc.editor-richarea img[_selected=_selected],
+.bc.editor .bc.editor-richarea img[_selected=_selected]:hover {
+    box-sizing: border-box;
+    border: dashed 1px #039;
+    cursor: default;
+}
+
+.bc.editor .bc.editor-richarea blockquote {
+    color: #666666;
+    font-size: 1em;
+    padding-left: 1em;
+    border-left: 4px solid #dddddd;
+    line-height: 1.5em;
+}
+
+.bc.editor .bc.editor-richarea h2 {
+    font-size: 1.8em;
+    border-left: 10px solid #7fc042;
+    padding-left: 0.5em;
+    margin-bottom: 0.8em;
+    font-weight: 200;
+    color: black;
+}
+
+.bc.editor .bc.editor-richarea ul,
+.bc.editor .bc.editor-richarea ol {
+    margin: auto;
+    padding: 0px 0px 0px 40px;
+    overflow: visible;
+}
+
+.bc.editor .bc.editor-richarea ul {
+    list-style: disc;
+}
+
+.bc.editor .bc.editor-richarea ol {
+    list-style-type: decimal;
+}
+
+.bc.editor .bc.editor-richarea li {
+    margin: auto;
+    padding: 0px;
+    overflow: visible;
+}
+
+.bc.editor .bc.editor-richarea hr {
+    border-style: inset;
+    border-width: 1px;
+}
+
+.bc.editor .bc.editor-richarea .bc.editor-pagebreak {
+    border: 1px dotted #AAA;
+    font-size: 0;
+    height: 2px;
+}
+
+.bc.editor .bc.editor-richarea table {
+    border-collapse: collapse;
+    empty-cells: show;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.bc.editor .bc.editor-richarea td,
+.bc.editor .bc.editor-richarea th {
+    border: solid 1px #ccc;
+    padding: 5px;
+}
+
+.bc.editor .bc.editor-richarea .bc.editor-emoticon {
+    margin: 0px 2px;
+}

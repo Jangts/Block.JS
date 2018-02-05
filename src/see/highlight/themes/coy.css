@@ -1,0 +1,250 @@
+/* http://prismjs.com/download.html?themes=prism-coy&languages=markup+css+clike+javascript */
+
+
+/**
+ * prism.js Coy theme for JavaScript, CoffeeScript, CSS and HTML
+ * Based on https://github.com/tshedor/workshop-wp-theme (Example: http://workshop.kansan.com/category/sessions/basics or http://workshop.timshedor.com/category/sessions/basics);
+ * @author Tim  Shedor
+ */
+
+code[data-language],
+pre[data-language] {
+    color: black;
+    background: none;
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5em;
+    font-size: 0.92857em;
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+}
+
+
+/* Code blocks */
+
+pre[data-language] {
+    position: relative;
+    margin: 0 0 0.5em;
+    border: 1px solid #358ccb;
+    border-left: 5px solid #358ccb;
+    line-height: 1.5em;
+    background-color: #fdfdfd;
+    background-image: -webkit-linear-gradient(transparent 50%, rgba(69, 142, 209, 0.04) 50%);
+    background-image: -moz-linear-gradient(transparent 50%, rgba(69, 142, 209, 0.04) 50%);
+    background-image: -ms-linear-gradient(transparent 50%, rgba(69, 142, 209, 0.04) 50%);
+    background-image: -o-linear-gradient(transparent 50%, rgba(69, 142, 209, 0.04) 50%);
+    background-image: linear-gradient(transparent 50%, rgba(69, 142, 209, 0.04) 50%);
+    background-size: 4em 3em;
+    background-origin: content-box;
+    overflow: auto;
+    padding: 0px 9px;
+}
+
+code[class*="language"] {
+    max-height: inherit;
+    height: 100%;
+    padding: 0 1em;
+    display: block;
+    overflow: auto;
+}
+
+
+/* Margin bottom to accomodate shadow */
+
+:not(pre)>code[data-language],
+pre[data-language] {
+    background-color: #fdfdfd;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    margin-bottom: 1em;
+}
+
+
+/* Inline code */
+
+:not(pre)>code[data-language] {
+    position: relative;
+    padding: .2em;
+    -webkit-border-radius: 0.3em;
+    -moz-border-radius: 0.3em;
+    -ms-border-radius: 0.3em;
+    -o-border-radius: 0.3em;
+    border-radius: 0.3em;
+    color: #c92c2c;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    display: inline;
+    white-space: normal;
+}
+
+pre[data-language]:before,
+pre[data-language]:after {
+    content: '';
+    z-index: -2;
+    display: block;
+    position: absolute;
+    bottom: 0.75em;
+    left: 0.18em;
+    width: 40%;
+    height: 20%;
+    max-height: 13em;
+    -webkit-box-shadow: 0px 13px 8px #979797;
+    -moz-box-shadow: 0px 13px 8px #979797;
+    box-shadow: 0px 13px 8px #979797;
+    -webkit-transform: rotate(-2deg);
+    -moz-transform: rotate(-2deg);
+    -ms-transform: rotate(-2deg);
+    -o-transform: rotate(-2deg);
+    transform: rotate(-2deg);
+}
+
+:not(pre)>code[data-language]:after,
+pre[data-language]:after {
+    right: 0.75em;
+    left: auto;
+    -webkit-transform: rotate(2deg);
+    -moz-transform: rotate(2deg);
+    -ms-transform: rotate(2deg);
+    -o-transform: rotate(2deg);
+    transform: rotate(2deg);
+}
+
+.ib-hl.comment,
+.ib-hl.block-comment,
+.ib-hl.prolog,
+.ib-hl.doctype,
+.ib-hl.cdata {
+    color: #7D8B99;
+}
+
+.ib-hl.punctuation {
+    color: #5F6364;
+}
+
+.ib-hl.property,
+.ib-hl.tag,
+.ib-hl.boolean,
+.ib-hl.number,
+.ib-hl.function-name,
+.ib-hl.constant,
+.ib-hl.symbol,
+.ib-hl.deleted {
+    color: #c92c2c;
+}
+
+.ib-hl.selector,
+.ib-hl.attr-name,
+.ib-hl.string,
+.ib-hl.char,
+.ib-hl.function,
+.ib-hl.builtin,
+.ib-hl.inserted {
+    color: #2f9c0a;
+}
+
+.ib-hl.operator,
+.ib-hl.entity,
+.ib-hl.url,
+.ib-hl.variable {
+    color: #a67f59;
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.ib-hl.atrule,
+.ib-hl.attr-value,
+.ib-hl.keyword,
+.ib-hl.class-name {
+    color: #1990b8;
+}
+
+.ib-hl.regex,
+.ib-hl.important {
+    color: #e90;
+}
+
+.language-css .ib-hl.string,
+.style .ib-hl.string {
+    color: #a67f59;
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.ib-hl.important {
+    font-weight: normal;
+}
+
+.ib-hl.bold {
+    font-weight: bold;
+}
+
+.ib-hl.italic {
+    font-style: italic;
+}
+
+.ib-hl.entity {
+    cursor: help;
+}
+
+.namespace {
+    opacity: .7;
+}
+
+@media screen and (max-width: 767px) {
+    pre[data-language]:before,
+    pre[data-language]:after {
+        bottom: 14px;
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+    }
+}
+
+
+/* Plugin styles */
+
+.ib-hl.tab:not(:empty):before,
+.ib-hl.cr:before,
+.ib-hl.lf:before {
+    color: #e0d7d1;
+}
+
+
+/* Plugin styles: Line Numbers */
+
+pre[data-language].line-numbers {
+    padding-left: 0;
+}
+
+pre[data-language].line-numbers code {
+    padding-left: 3.8em;
+}
+
+pre[data-language].line-numbers .line-numbers-rows {
+    left: 0;
+}
+
+
+/* Plugin styles: Line Highlight */
+
+pre[data-language][data-line] {
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+}
+
+pre[data-line] code {
+    position: relative;
+    padding-left: 4em;
+}
+
+pre .line-highlight {
+    margin-top: 0;
+}

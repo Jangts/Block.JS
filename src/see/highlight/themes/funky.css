@@ -1,0 +1,123 @@
+/* http://prismjs.com/download.html?themes=prism-funky&languages=markup+css+clike+javascript */
+
+
+/**
+ * prism.js Funky theme
+ * Based on “Polyfilling the gaps” talk slides http://lea.verou.me/polyfilling-the-gaps/
+ * @author Lea Verou
+ */
+
+code[data-language],
+pre[data-language] {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5em;
+    font-size: 0.92857em;
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+}
+
+
+/* Code blocks */
+
+pre[data-language] {
+    padding: .4em .8em;
+    margin: 0 0 0.5em;
+    overflow: auto;
+    background: url('data:image/svg+xml;charset=utf-8,<svg%20version%3D"1.1"%20xmlns%3D"http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg"%20width%3D"100"%20height%3D"100"%20fill%3D"rgba(0%2C0%2C0%2C.2)">%0D%0A<polygon%20points%3D"0%2C50%2050%2C0%200%2C0"%20%2F>%0D%0A<polygon%20points%3D"0%2C100%2050%2C100%20100%2C50%20100%2C0"%20%2F>%0D%0A<%2Fsvg>');
+    background-size: 1em 1em;
+}
+
+code[data-language] {
+    background: black;
+    color: white;
+    box-shadow: -.3em 0 0 .3em black, .3em 0 0 .3em black;
+}
+
+
+/* Inline code */
+
+:not(pre)>code[data-language] {
+    padding: .2em;
+    border-radius: .3em;
+    box-shadow: none;
+    white-space: normal;
+}
+
+.ib-hl.comment,
+.ib-hl.prolog,
+.ib-hl.doctype,
+.ib-hl.cdata {
+    color: #aaa;
+}
+
+.ib-hl.punctuation {
+    color: #999;
+}
+
+.namespace {
+    opacity: .7;
+}
+
+.ib-hl.property,
+.ib-hl.tag,
+.ib-hl.boolean,
+.ib-hl.number,
+.ib-hl.constant,
+.ib-hl.symbol {
+    color: #0cf;
+}
+
+.ib-hl.selector,
+.ib-hl.attr-name,
+.ib-hl.string,
+.ib-hl.char,
+.ib-hl.builtin {
+    color: yellow;
+}
+
+.ib-hl.operator,
+.ib-hl.entity,
+.ib-hl.url,
+.language-css .ib-hl.string,
+.toke.variable,
+.ib-hl.inserted {
+    color: yellowgreen;
+}
+
+.ib-hl.atrule,
+.ib-hl.attr-value,
+.ib-hl.keyword {
+    color: deeppink;
+}
+
+.ib-hl.regex,
+.ib-hl.important {
+    color: orange;
+}
+
+.ib-hl.important,
+.ib-hl.bold {
+    font-weight: bold;
+}
+
+.ib-hl.italic {
+    font-style: italic;
+}
+
+.ib-hl.entity {
+    cursor: help;
+}
+
+.ib-hl.deleted {
+    color: red;
+}

@@ -1,0 +1,16 @@
+@charset "utf-8";
+
+/*********************************************
+ ********** Block.JS SEE UI Framework **********
+ **********   class _.see.NavMenu   **********
+ *********************************************/
+
+@import "postion";
+@import "align";
+@import "colors";
+body.__while-menu-item-get-size-step1 {
+    .bc.navmenu .menu-item.hasson>.submenu {
+        display: block !important;
+        opacity: 0 !important;
+    }
+}

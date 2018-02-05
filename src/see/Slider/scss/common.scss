@@ -1,0 +1,307 @@
+@charset "utf-8";
+
+/****************
+/*	Common
+/************************************************/
+
+.bc.slider .stage {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    display: block;
+}
+
+.bc.slider .stage>* {
+    display: block;
+    position: absolute;
+}
+
+.bc.slider .stage .troupe {
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0;
+    z-index: 0;
+}
+
+.bc.slider .stage .troupe .actor {
+    float: left;
+    position: relative;
+    height: 100%;
+    top: 0px;
+    z-index: 100;
+}
+
+.bc.slider .stage .troupe .actor img {
+    width: 100%;
+    height: 100%;
+    min-width: 100%;
+    min-height: 100%;
+}
+
+
+/*	UP-DOWN Turner
+/*----------------------------------------------*/
+
+.bc.slider .cutter.goto-prev,
+.slide .cutter.goto-next {
+    cursor: pointer;
+    -webkit-transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    transition: all .3s ease;
+}
+
+.bc.slider .cutter.auto-hide {
+    opacity: 0;
+}
+
+.bc.slider:hover .cutter.auto-hide {
+    opacity: 1;
+}
+
+
+/*---| Three Columns |---*/
+
+.bc.slider .cutter.left-col,
+.bc.slider .cutter.right-col,
+.bc.slider .cutter.up-col,
+.bc.slider .cutter.down-col {
+    width: 100%;
+    height: 100%;
+    background-color: #FFF;
+    opacity: .8;
+    cursor: pointer;
+    z-index: 100;
+}
+
+.bc.slider .cutter.left-col {
+    top: 0px;
+    right: 100%;
+}
+
+.bc.slider .cutter.right-col {
+    top: 0px;
+    left: 100%;
+}
+
+.bc.slider .cutter.up-col {
+    bottom: 100%;
+    left: 0;
+}
+
+.bc.slider .cutter.down-col {
+    top: 100%;
+    left: 0;
+}
+
+
+/*---| Previous And Next |---*/
+
+.bc.slider .cutter {
+    position: absolute;
+    overflow: hidden;
+    cursor: pointer;
+    z-index: 999;
+}
+
+.bc.slider .cutter.left-circle,
+.bc.slider .cutter.right-circle,
+.bc.slider .cutter.lt-in-circle,
+.bc.slider .cutter.gt-in-circle,
+.bc.slider .cutter.ll-in-circle,
+.bc.slider .cutter.lg-in-circle,
+.bc.slider .cutter.bl-in-circle,
+.bc.slider .cutter.bg-in-circle {
+    width: 40px;
+    height: 40px;
+    top: 50%;
+    margin-top: -20px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.bc.slider .cutter.left-bigcircle,
+.bc.slider .cutter.right-bigcircle,
+.bc.slider .cutter.lt-in-bigcircle,
+.bc.slider .cutter.gt-in-bigcircle,
+.bc.slider .cutter.ll-in-bigcircle,
+.bc.slider .cutter.lg-in-bigcircle,
+.bc.slider .cutter.bl-in-bigcircle,
+.bc.slider .cutter.bg-in-bigcircle {
+    width: 80px;
+    height: 80px;
+    top: 50%;
+    margin-top: -40px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.bc.slider .cutter.lt-in-circle::before,
+.bc.slider .cutter.gt-in-circle::before,
+.bc.slider .cutter.ll-in-circle::before,
+.bc.slider .cutter.lg-in-circle::before,
+.bc.slider .cutter.bl-in-circle::before,
+.bc.slider .cutter.bg-in-circle::before,
+.bc.slider .cutter.lt-in-bigcircle::before,
+.bc.slider .cutter.gt-in-bigcircle::before,
+.bc.slider .cutter.ll-in-bigcircle::before,
+.bc.slider .cutter.lg-in-bigcircle::before,
+.bc.slider .cutter.bl-in-bigcircle::before,
+.bc.slider .cutter.bg-in-bigcircle::before {
+    font-family: FontAwesome;
+    display: block;
+    width: 110%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    line-height: 42px;
+    text-align: center;
+    text-decoration: none;
+    color: #FFF;
+}
+
+.bc.slider .cutter.big-lt,
+.bc.slider .cutter.big-gt {
+    width: 40px;
+    height: 80px;
+    top: 50%;
+    margin-top: -40px;
+    background: transparent;
+}
+
+.bc.slider .cutter.big-lt::before,
+.bc.slider .cutter.big-gt::before {
+    font-family: FontAwesome;
+    line-height: 82px;
+    font-size: 72px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+
+/*---| Previous |---*/
+
+.bc.slider .cutter.left-circle,
+.bc.slider .cutter.left-bigcircle,
+.bc.slider .cutter.lt-in-circle,
+.bc.slider .cutter.lt-in-bigcircle,
+.bc.slider .cutter.ll-in-circle,
+.bc.slider .cutter.ll-in-bigcircle,
+.bc.slider .cutter.bl-in-circle,
+.bc.slider .cutter.bl-in-bigcircle {
+    left: 10px;
+}
+
+.bc.slider .cutter.lt-in-circle::before,
+.bc.slider .cutter.lt-in-bigcircle::before,
+.bc.slider .cutter.ll-in-circle::before,
+.bc.slider .cutter.ll-in-bigcircle::before,
+.bc.slider .cutter.bl-in-circle::before,
+.bc.slider .cutter.bl-in-bigcircle::before {
+    margin-left: -10%;
+}
+
+.bc.slider .cutter.lt-in-circle::before {
+    font-size: 24px;
+    content: "\f104";
+}
+
+.bc.slider .cutter.ll-in-circle::before {
+    font-size: 30px;
+    content: "<";
+}
+
+.bc.slider .cutter.bl-in-circle::before {
+    font-size: 21px;
+    content: "\f053";
+}
+
+.bc.slider .cutter.lt-in-bigcircle::before,
+.bc.slider .cutter.ll-in-bigcircle::before,
+.bc.slider .cutter.bl-in-bigcircle::before {
+    line-height: 82px;
+}
+
+.bc.slider .cutter.lt-in-bigcircle::before {
+    font-size: 48px;
+    content: "\f104";
+}
+
+.bc.slider .cutter.ll-in-bigcircle::before {
+    font-size: 60px;
+    content: "<";
+}
+
+.bc.slider .cutter.bl-in-bigcircle::before {
+    font-size: 36px;
+    content: "\f053";
+}
+
+.bc.slider .cutter.big-lt {
+    text-align: left;
+    left: 10px;
+}
+
+.bc.slider .cutter.big-lt:before {
+    text-align: left;
+    content: "\f104";
+}
+
+
+/*---| Next |---*/
+
+.bc.slider .cutter.right-circle,
+.bc.slider .cutter.right-bigcircle,
+.bc.slider .cutter.gt-in-circle,
+.bc.slider .cutter.gt-in-bigcircle,
+.bc.slider .cutter.lg-in-circle,
+.bc.slider .cutter.lg-in-bigcircle,
+.bc.slider .cutter.bg-in-circle,
+.bc.slider .cutter.bg-in-bigcircle {
+    right: 10px;
+}
+
+.bc.slider .cutter.gt-in-circle::before {
+    font-size: 24px;
+    content: "\f105";
+}
+
+.bc.slider .cutter.lg-in-circle::before {
+    font-size: 30px;
+    content: ">";
+}
+
+.bc.slider .cutter.bg-in-circle::before {
+    font-size: 21px;
+    content: "\f054";
+}
+
+.bc.slider .cutter.gt-in-bigcircle::before,
+.bc.slider .cutter.lg-in-bigcircle::before,
+.bc.slider .cutter.bg-in-bigcircle::before {
+    line-height: 82px;
+}
+
+.bc.slider .cutter.gt-in-bigcircle::before {
+    font-size: 48px;
+    content: "\f105";
+}
+
+.bc.slider .cutter.lg-in-bigcircle::before {
+    font-size: 60px;
+    content: ">";
+}
+
+.bc.slider .cutter.bg-in-bigcircle::before {
+    font-size: 36px;
+    content: "\f054";
+}
+
+.bc.slider .cutter.big-gt {
+    text-align: right;
+    right: 10px;
+}
+
+.bc.slider .cutter.big-gt:before {
+    text-align: right;
+    content: "\f105";
+}

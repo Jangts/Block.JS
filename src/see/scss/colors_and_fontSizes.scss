@@ -1,0 +1,95 @@
+/** Background Colour **/
+
+$colorpairs: (fff, #FFFFFF, #111111),
+("white", #FFFFFF, #111111),
+(f6, #F6F6F6, #555),
+(light, #E6E6E6, #000000),
+(ashy, #CCCCCC, #333333),
+(999, #999999, #FFFFFF),
+(midgray, #888888, #FFFFFF),
+(666, #666666, #FFFFFF),
+(333, #333333, #EEEEEE),
+(deepgray, #333333, #EEEEEE),
+(222, #222, #EEEEEE),
+(dark, #181818, #FFFFFF),
+(111, #111111, #EEEEEE),
+(deepdark, #111111, #EEEEEE),
+(000, #000000, #EEEEEE),
+("black", #000000, #EEEEEE);
+@each $name,
+$bgcolor,
+$color in $colorpairs {
+    .bc.bg-#{$name} {
+        background-color: $bgcolor;
+        color: $color;
+    }
+}
+
+
+/** Font Colour **/
+
+$colors: (fff:#FFFFFF, e6:#E6E6E6, ccc:#CCCCCC, 888:#888888, 999:#999999, 666:#666666, 000:#000000, "red":#FF0000, "violet":#003AA6, "modena":#036);
+@each $name,
+$color in $colors {
+    .bc.ft-#{$name} {
+        color: $color;
+    }
+}
+
+.hover-green:hover {
+    background: #3C0 !important;
+}
+
+.hover-blue:hover {
+    background: #06F !important;
+}
+
+.hover-red:hover {
+    background: #C33 !important;
+}
+
+.hover-color-dark:hover {
+    color: #999 !important;
+}
+
+.hover-color-white:hover {
+    color: #FFF !important;
+}
+
+.hover-color-blue:hover {
+    color: #36F !important;
+}
+
+
+/** Font Size **/
+
+$sizes: 11,
+12,
+13,
+14,
+15,
+16,
+17,
+18,
+21,
+24,
+27,
+30,
+36,
+48,
+60,
+72;
+@each $size in $sizes {
+    .bc.f#{$size},
+    .bc.ft-#{$size} {
+        font-size: #{$size/20}rem;
+    }
+}
+
+.bc.ft-lighter {
+    font-weight: lighter;
+}
+
+.bc.ft-blod {
+    font-weight: bold;
+}

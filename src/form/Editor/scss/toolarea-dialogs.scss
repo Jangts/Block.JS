@@ -1,0 +1,358 @@
+/*** EDITOR TOOLBAR DIALOGS ***************************/
+
+.bc.editor-toolarea .bc.editor-tool .bc.editor-dialog {
+    display: none;
+    position: absolute;
+    width: auto;
+    min-width: 340px;
+    height: auto;
+    top: 30px;
+    left: 0px;
+    margin-left: -165px;
+    padding: 10px;
+    background-color: #FDFDFE;
+    border: 1px solid #DDD;
+    color: #555;
+    overflow: hidden;
+    text-align: left;
+}
+
+
+/* ------------------------- */
+
+.bc.editor-toolarea .bc.editor-tool[data-ib-dialog].active {
+    overflow: visible;
+    z-index: 100;
+}
+
+.bc.editor-toolarea .bc.editor-tool.active .bc.editor-dialog {
+    display: block;
+}
+
+
+/* ------------------------- */
+
+.bc.editor-toolarea .bc.editor-dialog span.bc.editor-title {
+    font-family: Arial, Helvetica, sans-serif;
+    display: block;
+    height: 20px;
+    text-align: left;
+    line-height: 20px;
+    border-left: #444 3px solid;
+    margin-bottom: 10px;
+    padding-left: 3px;
+    font-size: 14px;
+    color: #444;
+    font-weight: bold;
+}
+
+.bc.editor-toolarea .bc.editor-dialog button {
+    height: 30px;
+    text-align: center;
+    background-color: #09C;
+    color: #FFF;
+    transition: background-color 1s ease;
+    -webkit-transition: background-color 1s ease;
+    -o-transition: background-color 1s ease;
+    -ms-transition: background-color 1s ease;
+    -moz-transition: background-color 1s ease;
+    cursor: pointer;
+}
+
+.bc.editor-toolarea .bc.editor-dialog button:hover {
+    background-color: #036;
+}
+
+
+/* --------------- */
+
+.bc.editor-toolarea .bc.editor-dialog .bc.editor-anchor {
+    width: 340px;
+    height: 30px;
+}
+
+.bc.editor-toolarea .bc.editor-dialog .bc.editor-anchor input {
+    float: left;
+    width: 295px;
+    height: 28px;
+    padding: 0px 5px;
+    border: #EEE 1px solid;
+    line-height: 28px;
+}
+
+.bc.editor-toolarea .bc.editor-dialog .bc.editor-anchor button {
+    float: right;
+    width: 30px;
+}
+
+
+/* --------------- */
+
+.bc.editor-toolarea .bc.editor-dialog .bc.editor-aaa,
+.bc.editor-toolarea .bc.editor-dialog .bc.editor-url {
+    width: 340px;
+    height: 30px;
+    margin-bottom: 10px;
+}
+
+.bc.editor-toolarea .bc.editor-dialog .bc.editor-aaa label,
+.bc.editor-toolarea .bc.editor-dialog .bc.editor-url label {
+    float: left;
+    width: 78px;
+    height: 30px;
+    line-height: 30px;
+    background-color: #EEE;
+    text-align: center;
+    font-size: 13px;
+    color: #444;
+}
+
+.bc.editor-toolarea .bc.editor-dialog .bc.editor-aaa input,
+.bc.editor-toolarea .bc.editor-dialog .bc.editor-url input {
+    float: right;
+    width: 250px;
+    height: 28px;
+    padding: 0px 5px;
+    font-size: 12px;
+    border: #EEE 1px solid;
+    line-height: 28px;
+}
+
+
+/* --------------- */
+
+.bc.editor-toolarea .bc.editor-dialog .bc.editor-check {
+    width: 340px;
+    height: 20px;
+    margin-bottom: 10px;
+}
+
+.bc.editor-toolarea .bc.editor-dialog .bc.editor-check label {
+    float: left;
+    width: auto;
+    height: 20px;
+    line-height: 20px;
+    font-size: 12px;
+    color: #999;
+}
+
+.bc.editor-toolarea .bc.editor-dialog .bc.editor-check .bc.editor-checkbox {
+    float: left;
+    width: 14px;
+    height: 14px;
+    margin: 3px;
+    top: 0px;
+}
+
+
+/* --------------- */
+
+.bc.editor-toolarea .bc.editor-dialog .bc.editor-attr {
+    width: 340px;
+    height: 24px;
+    font-size: 12px;
+    margin-bottom: 10px;
+}
+
+.bc.editor-toolarea .bc.editor-dialog .bc.editor-attr-left {
+    float: left;
+}
+
+.bc.editor-toolarea .bc.editor-dialog .bc.editor-attr-right {
+    float: right;
+}
+
+.bc.editor-toolarea .bc.editor-dialog .bc.editor-attr label {
+    float: left;
+    width: auto;
+    height: 24px;
+    line-height: 24px;
+    padding: 0px 5px;
+    background-color: #EEE;
+    text-align: center;
+    color: #444;
+}
+
+.bc.editor-toolarea .bc.editor-dialog .bc.editor-attr span {
+    float: left;
+    width: 24px;
+    height: 24px;
+    font-size: 14px;
+    line-height: 24px;
+    background-color: #EEE;
+    text-align: center;
+    color: #444;
+}
+
+.bc .bc.editor-dialog .bc.editor-table-rows,
+.bc .bc.editor-dialog .bc.editor-table-columns,
+.bc .bc.editor-dialog .bc.editor-table-width,
+.bc .bc.editor-dialog .bc.editor-vidoe-width,
+.bc .bc.editor-dialog .bc.editor-vidoe-height {
+    float: left;
+    width: 43px;
+    height: 22px;
+    padding: 0px 5px;
+    border: #EEE 1px solid;
+    line-height: 22px;
+}
+
+.bc.editor-toolarea .bc.editor-dialog .bc.editor-attr .bc.editor-table-unit {
+    float: left;
+    width: 53px;
+    height: 24px;
+    padding: 0px 5px;
+    font-size: 12px;
+    border: #EEE 1px solid;
+    line-height: 24px;
+}
+
+.bc.editor-toolarea .bc.editor-dialog .bc.editor-attr .bc.editor-vidoe-type {
+    float: left;
+    width: 83px;
+    height: 24px;
+    padding: 0px 5px;
+    font-size: 12px;
+    border: #EEE 1px solid;
+    line-height: 24px;
+}
+
+
+/* --------------- */
+
+.bc.editor-toolarea .bc.editor-dialog .bc.editor-btns {
+    width: 340px;
+    height: 30px;
+}
+
+.bc.editor-toolarea .bc.editor-dialog .bc.editor-btns button {
+    width: 340px;
+}
+
+.bc.editor-toolarea .bc.editor-dialog .bc.editor-btns input {
+    float: left;
+    width: 165px;
+    height: 30px;
+    text-align: center;
+    background-color: #09C;
+    color: #FFF;
+    transition: background-color 1s ease;
+    -webkit-transition: background-color 1s ease;
+    -o-transition: background-color 1s ease;
+    -ms-transition: background-color 1s ease;
+    -moz-transition: background-color 1s ease;
+    cursor: pointer;
+}
+
+.bc.editor-toolarea .bc.editor-dialog .bc.editor-btns input:hover {
+    background-color: #036;
+}
+
+.bc.editor-toolarea .bc.editor-dialog .bc.editor-btns input:first-child {
+    margin-right: 10px;
+}
+
+
+/* --------------- */
+
+.bc.editor-toolarea .bc.editor-dialog .bc.editor-show {
+    width: 330px;
+    height: 72px;
+    padding: 3px 4px;
+    border: #EEE 1px solid;
+    margin-bottom: 10px;
+}
+
+.bc.editor-toolarea .bc.editor-dialog .bc.editor-show span {
+    display: block;
+    width: 330px;
+    height: 72px;
+    text-align: center;
+    line-height: 72px;
+    color: #999;
+}
+
+.bc.editor-toolarea .bc.editor-dialog .bc.editor-show ul {
+    display: block;
+    width: 330px;
+    height: 72px;
+}
+
+.bc.editor-toolarea .bc.editor-dialog .bc.editor-show ul li {
+    float: left;
+    border: #EEE 1px solid;
+    padding: 1px;
+}
+
+.bc.editor-toolarea .bc.editor-dialog .bc.editor-show ul li img {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+}
+
+.bc.editor-toolarea .bc.editor-dialog .bc.editor-show ul.bc.editor-list-56 li {
+    width: 56px;
+    height: 56px;
+    margin: 6px 3px;
+}
+
+.bc.editor-toolarea .bc.editor-dialog .bc.editor-show ul.bc.editor-list-56 li img {
+    max-width: 56px;
+    max-height: 56px;
+}
+
+.bc.editor-toolarea .bc.editor-dialog .bc.editor-show ul.bc.editor-list-28 li {
+    width: 28px;
+    height: 28px;
+    margin: 2px;
+}
+
+.bc.editor-toolarea .bc.editor-dialog .bc.editor-show ul.bc.editor-list-28 li img {
+    max-width: 28px;
+    max-height: 28px;
+}
+
+
+/* --------------- */
+
+.bc.editor-toolarea .bc.editor-dialog textarea.bc.editor-code {
+    width: 330px;
+    height: 40px;
+    padding: 4px;
+    line-height: 20px;
+    font-size: 12px;
+    border: #EEE 1px solid;
+    resize: none;
+    overflow: auto;
+}
+
+
+/* --------------- */
+
+.bc.editor-toolarea .bc.editor-dialog ul.bc.editor-emoticons {
+    width: 340px;
+    height: auto;
+    border-top: #CCC 1px solid;
+    border-left: #CCC 1px solid;
+}
+
+.bc.editor-toolarea .bc.editor-dialog ul.bc.editor-emoticons-default li {
+    float: left;
+    display: table-cell;
+    width: 33px;
+    height: 33px;
+    border-right: #CCC 1px solid;
+    border-bottom: #CCC 1px solid;
+}
+
+.bc.editor-toolarea .bc.editor-dialog ul.bc.editor-emoticons-default li img {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    margin: auto;
+}
