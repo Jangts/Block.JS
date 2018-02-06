@@ -65,12 +65,13 @@ block([
      * @param {String, Object<HTMLElement> } 
      */
     declare('form.Data', {
-        useMultipartFormData: true,
+        useMultipartFormData: false,
         action: undefined,
         _init: function(form, multipart) {
+            this.forms = [];
             this.data = {};
-            if (multipart == false) {
-                this.useMultipartFormData = false;
+            if (multipart === true) {
+                this.useMultipartFormData = true;
             }
             switch (typeof form) {
                 case 'string':
@@ -94,6 +95,7 @@ block([
             var form = _.util.bool.isEl(form) ? form : document;
             var data = {};
             var selecteds = [];
+            this.forms.push(form);
             _.each(_.query('input[name], select[name], textarea[name]', form), function(i, el) {
                 var key = _.dom.getAttr(this, 'name');
                 switch (this.tagName) {
@@ -106,7 +108,8 @@ block([
                         }
                         break;
                     case 'INPUT':
-                        switch (_.dom.getAttr(this, 'type').toLowerCase()) {
+                        $type = _.dom.getAttr(this, 'type') || 'text';
+                        switch ($type.toLowerCase()) {
                             case 'checkbox':
                                 if (this.checked) {
                                     selecteds[key].push(this.value);
@@ -187,7 +190,11 @@ block([
             }
             var url = options.action || this.action;
             var doneCallback = function() {
-                var method = options.method || _.dom.getAttr(form, 'method') || 'POST';
+                var method = options.method
+                _.each(this.forms, function() {
+                    method = _.dom.getAttr(this, 'method') || method;
+                });
+                method = _.util.bool.isHttpMethod(method) ? method : 'POST';
                 method = method.toUpperCase();
                 if (method === 'GET') {
                     data = "";
@@ -197,7 +204,6 @@ block([
                         url = url + "?" + this.getQueryString();
                     }
                 } else {
-                    method = _.util.bool.isHttpMethod(method) ? method : 'POST';
                     data = this.getQueryString();
                 }
                 _.data.AJAX({
@@ -212,7 +218,7 @@ block([
             var failCallback = options.mistake || function(err) {
                 console.log(err);
             };
-            return this.checkVaule(doneCallback, failCallback);
+            return this.checkValue(doneCallback, failCallback);
         }
     });
 

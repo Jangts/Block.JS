@@ -97,6 +97,9 @@ block([
             this.selection.saveRange();
             return this.onchange();
         },
+        resetValue: function() {
+            this.setValue(this.editarea.resetText);
+        },
         getValue: function() {
             if (this.isRich) {
                 this.codearea.value = this.richarea.innerHTML;
@@ -107,6 +110,11 @@ block([
             }
             this.textarea.setText(this.codearea.value);
             return this.codearea.value;
+        },
+        inForm: function(formElement) {
+            return _.dom.contain(formElement, this.editarea);
+            var parents = _.dom.getParentNodes();
+            return _.bool.inArr(formElement, parents);
         },
         hideExtTools: function() {
             _.each(_.query('.bc.editor-tool[data-ib-dialog], .bc.editor-tool[data-ib-cmds]', this.toolarea), function(i, el) {

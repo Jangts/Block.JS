@@ -123,7 +123,7 @@ block([
                 return false;
             }
         },
-        isHttpMethod: function($method) {
+        isHttpMethod: function(method) {
             return _.util.bool.inArr(method, ['GET', 'CONNECT', 'COPY', 'DELETE', 'HEAD', 'LINK', 'OPTIONS', 'POST', 'PUT', 'PATCH', 'TRACE', 'UNLINK', 'UPDATE', 'WRAPPED']);
         },
         isSupportCanvas: function() {

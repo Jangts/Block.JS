@@ -153,6 +153,7 @@ block([
                             'border-width': (options.border && options.border.width) || '1px'
                         }
                     });
+                editarea.resetText = textarea.getText();
                 _.dom.setAttr(editarea, 'data-editor-id', editor.uid);
                 editor.richarea = _.dom.create('div', editarea, {
                     className: 'bc editor-richarea',

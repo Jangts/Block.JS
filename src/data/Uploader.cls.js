@@ -210,9 +210,7 @@ block(['$_/util/bool.xtd'], function(pandora, global, undefined) {
             return file.size < this.fileMaxSize;
         },
         transfer: function(settings) {
-            for (var i = 0; i < this.files.length; i++) {
-                _.data.Uploader.transfer(this.files[i], settings);
-            }
+            _.data.Uploader.transfer(this.files, settings);
         }
     });
 
@@ -228,7 +226,7 @@ block(['$_/util/bool.xtd'], function(pandora, global, undefined) {
             if (typeof settings.filefield == 'string') {
                 form.append(settings.filefield, file);
             } else {
-                form.append(myfile, file);
+                form.append('myfile', file);
             }
             form.append('enctype', 'multipart/form-data');
         } else if (_.util.bool.isFiles(file)) {

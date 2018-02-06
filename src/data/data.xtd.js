@@ -110,7 +110,7 @@ block([
                 settings.beforeSend(Promise.xmlhttp);
             };
             Promise.progress(settings.progress).success(settings.success).error(settings.fail).complete(settings.complete)
-            if (settings.method === 'POST' || typeof settings.data == 'string') {
+            if (typeof settings.data == 'string') {
                 return Promise.setRequestHeader('Content-type', 'application/x-www-form-urlencoded').send(settings.data);
             } else {
                 Promise.send()
@@ -125,10 +125,10 @@ block([
                 fail: failCallback
             });
         },
-        encodeJSON: function(data){
+        encodeJSON: function(data) {
             return JSON.stringify(data);
         },
-        decodeJSON: function(txt){
+        decodeJSON: function(txt) {
             return JSON.parse(txt)
         },
         encodeQueryString: function(data) {
