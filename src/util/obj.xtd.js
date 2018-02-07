@@ -108,6 +108,14 @@ block(function(pandora, global, undefined) {
         toString: function(obj) {
             return obj == null ? '' : typeof obj === 'object' ? JSON.stringify(obj, null, 2) : String(obj);
         },
+        toQueryString: function(obj) {
+            obj = obj || {};
+            var fields = []
+            for (var i in obj) {
+                fields.push(i + "=" + obj[i]);
+            }
+            return fields.join("&");
+        },
         valuesArray: this.toArray,
         keysArray: function(object) {
             var array = [];

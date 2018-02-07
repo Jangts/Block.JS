@@ -209,12 +209,17 @@ block(['$_/util/bool.xtd'], function(pandora, global, undefined) {
         checkSIZE: function(file) {
             return file.size < this.fileMaxSize;
         },
-        transfer: function(settings) {
-            _.data.Uploader.transfer(this.files, settings);
+        transfer: function(settings, method) {
+            if (this.files.length && this.files.length === 1) {
+                _.data.Uploader.transfer(this.files[0], settings, method);
+            } else {
+                _.data.Uploader.transfer(this.files, settings, method);
+            }
+
         }
     });
 
-    _.data.Uploader.transfer = function(file, settings) {
+    _.data.Uploader.transfer = function(file, settings, method) {
         if (_.util.bool.isFile(file)) {
             settings = settings || {};
             settings.url = settings.url || location.href;
@@ -253,6 +258,9 @@ block(['$_/util/bool.xtd'], function(pandora, global, undefined) {
             }
         } else {
             return _.error('Must Give Transfer A File.');
+        }
+        if (method) {
+            form.append('http_method', method);
         }
         settings.url = settings.url || location.href;
         settings.handlers = settings.handlers || {};

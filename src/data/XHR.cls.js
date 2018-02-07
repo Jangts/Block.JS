@@ -41,7 +41,7 @@ block('$_/util/Promise.cls', function(pandora, global, undefined) {
             }
             this.PromiseStatus = 'pending';
             if (domain == location.host) {
-                var method = (options.method && _.util.bool.isHttpMethod(options.method)) ? options.method : 'GET',
+                var method = options.method && _.util.bool.isHttpMethod(options.method) || 'GET',
                     async = options.async || true;
                 this.url = url;
                 this.xmlhttp = XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");

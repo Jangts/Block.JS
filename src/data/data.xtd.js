@@ -7,6 +7,7 @@
  */
 ;
 block([
+    '$_/util/obj.xtd',
     '$_/util/bool.xtd',
     '$_/dom/',
     '$_/data/XHR.cls'
@@ -15,7 +16,9 @@ block([
         declare = pandora.declareClass,
         cache = pandora.locker,
         document = global.document,
-        console = global.console;
+        location = global.location,
+        console = global.console,
+        FormData = global.FormData;;
 
 
     _('data', {
@@ -92,16 +95,46 @@ block([
                         settings = url;
                     } else if (_.util.bool.isStr(url)) {
                         settings = {
-                            url: url
+                            url: url,
+                            method: 'GET'
                         }
                     }
                     break;
                 case 0:
-                    settings = {};
+                    settings = {
+                        url: location.href,
+                        method: 'GET'
+                    };
                     break;
                 default:
                     return undefined;
             }
+
+            if(!settings.method){
+                if ((typeof settings.data === 'object')||(typeof settings.data === 'string')){
+                    settings.method = 'POST';
+                }else{
+                    settings.method = 'GET';
+                    settings.data = undefined;
+                }
+            }
+            
+            // GET方法无法发送数据，需要整理到URL中
+            if(settings.data&&(settings.method.toUpperCase()==='GET')){
+                if (typeof settings.data == 'object') {
+                    settings.data = _.util.obj.toQueryString(settings.data);
+                }
+                if(typeof settings.data == 'string'){
+                    // console.log(settings.url, settings.url.indexOf('?'));
+                    if (settings.url.indexOf('?')!== -1) {
+                        settings.url = settings.url + "&" + settings.data;
+                    } else {
+                        settings.url = settings.url + "?" + settings.data;
+                    }
+                }
+                settings.data = undefined;
+            }
+
             var Promise = new _.data.XHR(settings);
             Promise.success = Promise.done;
             Promise.error = Promise.fail;
@@ -110,10 +143,22 @@ block([
                 settings.beforeSend(Promise.xmlhttp);
             };
             Promise.progress(settings.progress).success(settings.success).error(settings.fail).complete(settings.complete)
-            if (typeof settings.data == 'string') {
-                return Promise.setRequestHeader('Content-type', 'application/x-www-form-urlencoded').send(settings.data);
+            if (settings.data) {
+                if (typeof settings.data == 'object') {
+                    if(!_.util.bool.isForm(settings.data)){
+                        var formData = new FormData();
+                            for (var i in settings.data) {
+                                formData.append(i, settings.data[i]);
+                            }
+                        settings.data = formData;
+                    }
+                    return Promise.send(settings.data);
+                }
+                if (typeof settings.data == 'string') {
+                    return Promise.setRequestHeader('Content-type', 'application/x-www-form-urlencoded').send(settings.data);
+                }
             } else {
-                Promise.send()
+                Promise.send();
             }
         },
         json: function(url, doneCallback, failCallback) {
@@ -126,17 +171,23 @@ block([
             });
         },
         encodeJSON: function(data) {
-            return JSON.stringify(data);
+            try {
+                return JSON.stringify(data);
+            } catch (error) {
+                console.log(error);
+                return '';
+            }
         },
         decodeJSON: function(txt) {
-            return JSON.parse(txt)
+            try {
+                return JSON.parse(txt)
+            } catch (error) {
+                console.log(error);
+                return false;
+            } 
         },
         encodeQueryString: function(data) {
-            var fields = []
-            for (var i in data) {
-                fields.push(i + "=" + data[i]);
-            }
-            return fields.join("&");
+            return _.util.obj.toQueryString(data)
         },
         decodeQueryString: function(str) {
             var data = {};
@@ -148,6 +199,17 @@ block([
                 data[filed[0]] = filed[1];
             }
             return data;
+        },
+        reBuildUrl: function(url, data){
+            if(typeof url === 'object'){
+                data = url;
+                url = location.href;
+            }
+            // console.log(url, url.indexOf('?'));
+            if (url.indexOf('?')!== -1) {
+                return url + "&" + _.util.obj.toQueryString(data);
+            }
+            return url + "?" + _.util.obj.toQueryString(data);
         },
         cookie: function(name, value, prop) {
             var c = document.cookie,

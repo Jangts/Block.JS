@@ -98,7 +98,7 @@ block([
             }
         },
         isUrl: function(str) {
-            var strRegex = "^((https|http|ftp|rtsp|mms)?://)" +
+            var strRegex = "^((https|http|ftp|rtsp|mms|wss|ws)?://)" +
                 "?(([0-9a-z_!~*'().&=+$%-]+: )?[0-9a-z_!~*'().&=+$%-]+@)?" //ftp的user@
                 +
                 "(([0-9]{1,3}\.){3}[0-9]{1,3}" // IP形式的URL- 199.194.52.184
@@ -124,7 +124,11 @@ block([
             }
         },
         isHttpMethod: function(method) {
-            return _.util.bool.inArr(method, ['GET', 'CONNECT', 'COPY', 'DELETE', 'HEAD', 'LINK', 'OPTIONS', 'POST', 'PUT', 'PATCH', 'TRACE', 'UNLINK', 'UPDATE', 'WRAPPED']);
+            if(typeof method !== 'string'){
+                return false;
+            }
+            method = method.toUpperCase();
+            return _.util.bool.inArr(method, ['GET', 'CONNECT', 'COPY', 'DELETE', 'HEAD', 'LINK', 'OPTIONS', 'POST', 'PUT', 'PATCH', 'TRACE', 'UNLINK', 'UPDATE', 'WRAPPED']) && method;
         },
         isSupportCanvas: function() {
             return typeof CanvasRenderingContext2D != "undefined";

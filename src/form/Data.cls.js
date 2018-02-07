@@ -185,20 +185,36 @@ block([
         submit: function(options) {
             if (options.defaultData) {
                 for (var i in options.defaultData) {
-                    this.data[i] = [options.defaultData[i], null];
+                    if(!_.util.obj.has(this.data, i)){
+                        this.data[i] = [options.defaultData[i], null];
+                    }
+                }
+            }
+            if (options.correctData) {
+                for (var i in options.correctData) {
+                    this.data[i] = [options.correctData[i], null];
                 }
             }
             var url = options.action || this.action;
             var doneCallback = function() {
-                var method = options.method
-                _.each(this.forms, function() {
-                    method = _.dom.getAttr(this, 'method') || method;
-                });
-                method = _.util.bool.isHttpMethod(method) ? method : 'POST';
+                var method;
+                if(options.method){
+                    method = options.method;
+                }else{
+                    var _method;
+                    for(var i = 0; i < this.forms.length; i++){
+                        if(_method = _.dom.getAttr(this, 'method')){
+                            method = _method;
+                            break;
+                        }
+                    }
+                }
+               
+                method = _.util.bool.isHttpMethod(method) || 'POST';
                 method = method.toUpperCase();
                 if (method === 'GET') {
                     data = "";
-                    if (url.indexof('?')) {
+                    if (url.indexOf('?')) {
                         url = url + "&" + this.getQueryString();
                     } else {
                         url = url + "?" + this.getQueryString();
