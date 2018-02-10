@@ -1,7 +1,7 @@
 /*!
  * Block.JS Framework Source Code
  *
- * class form.Range
+ * class form.SelectionRange
  *
  * Date: 2017-04-06
  */
@@ -73,7 +73,7 @@ block('$_/util/bool.xtd', function(pandora, global, undefined) {
             }
         };
 
-    declare('form.Range', {
+    declare('form.SelectionRange', {
         isGetSelection: isGetSelection,
         originRange: undefined,
         type: 'Caret',

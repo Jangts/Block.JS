@@ -85,7 +85,16 @@ block([
         AJAX: function(url, settings) {
             switch (arguments.length) {
                 case 2:
-                    settings = _.util.bool.isObj(settings) ? settings : {};
+                    if (!_.util.bool.isObj(settings)) {
+                        if (_.util.bool.isFn(settings)) {
+                            settings = {
+                                success: settings
+                            }
+                        } else {
+                            settings = {};
+                        }
+                    }
+
                     if (_.util.bool.isStr(url)) {
                         settings.url = url;
                     }
@@ -110,23 +119,23 @@ block([
                     return undefined;
             }
 
-            if(!settings.method){
-                if ((typeof settings.data === 'object')||(typeof settings.data === 'string')){
+            if (!settings.method) {
+                if ((typeof settings.data === 'object') || (typeof settings.data === 'string')) {
                     settings.method = 'POST';
-                }else{
+                } else {
                     settings.method = 'GET';
                     settings.data = undefined;
                 }
             }
-            
+
             // GET方法无法发送数据，需要整理到URL中
-            if(settings.data&&(settings.method.toUpperCase()==='GET')){
+            if (settings.data && (settings.method.toUpperCase() === 'GET')) {
                 if (typeof settings.data == 'object') {
                     settings.data = _.util.obj.toQueryString(settings.data);
                 }
-                if(typeof settings.data == 'string'){
+                if (typeof settings.data == 'string') {
                     // console.log(settings.url, settings.url.indexOf('?'));
-                    if (settings.url.indexOf('?')!== -1) {
+                    if (settings.url.indexOf('?') !== -1) {
                         settings.url = settings.url + "&" + settings.data;
                     } else {
                         settings.url = settings.url + "?" + settings.data;
@@ -145,11 +154,11 @@ block([
             Promise.progress(settings.progress).success(settings.success).error(settings.fail).complete(settings.complete)
             if (settings.data) {
                 if (typeof settings.data == 'object') {
-                    if(!_.util.bool.isForm(settings.data)){
+                    if (!_.util.bool.isForm(settings.data)) {
                         var formData = new FormData();
-                            for (var i in settings.data) {
-                                formData.append(i, settings.data[i]);
-                            }
+                        for (var i in settings.data) {
+                            formData.append(i, settings.data[i]);
+                        }
                         settings.data = formData;
                     }
                     return Promise.send(settings.data);
@@ -184,7 +193,7 @@ block([
             } catch (error) {
                 console.log(error);
                 return false;
-            } 
+            }
         },
         encodeQueryString: function(data) {
             return _.util.obj.toQueryString(data)
@@ -200,13 +209,13 @@ block([
             }
             return data;
         },
-        reBuildUrl: function(url, data){
-            if(typeof url === 'object'){
+        reBuildUrl: function(url, data) {
+            if (typeof url === 'object') {
                 data = url;
                 url = location.href;
             }
             // console.log(url, url.indexOf('?'));
-            if (url.indexOf('?')!== -1) {
+            if (url.indexOf('?') !== -1) {
                 return url + "&" + _.util.obj.toQueryString(data);
             }
             return url + "?" + _.util.obj.toQueryString(data);

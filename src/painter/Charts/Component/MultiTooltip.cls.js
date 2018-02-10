@@ -17,7 +17,7 @@ block([
         console = global.console;
 
     var helpers = _.painter.Charts.util.helpers;
-    declare('painter.Charts.component.MultiTooltip', _.painter.Charts.Component, {
+    declare('painter.Charts.Component.MultiTooltip', _.painter.Charts.Component, {
         initialize: function() {
             this.font = _.painter.canvas.fontString(this.fontSize, this.fontStyle, this.fontFamily);
 

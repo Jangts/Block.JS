@@ -61,7 +61,7 @@ block([
     });
 
     _.painter.Charts.prototype.showTooltip = function(segments, forceRedraw, showMulti) {
-        if (_.painter.Charts.component.Tooltip) {
+        if (_.painter.Charts.Component.Tooltip) {
             if (typeof this.activeElements === 'undefined') {
                 this.activeElements = [];
             }
@@ -165,7 +165,7 @@ block([
                             };
 
                         }).call(this);
-                    new _.painter.Charts.component.MultiTooltip({
+                    new _.painter.Charts.Component.MultiTooltip({
                         x: medianPosition.x,
                         y: medianPosition.y,
                         xPadding: options.tooltipXPadding,
@@ -193,7 +193,7 @@ block([
                     var Element = segments[0],
                         tooltipPosition = Element.tooltipPosition();
 
-                    new _.painter.Charts.component.Tooltip({
+                    new _.painter.Charts.Component.Tooltip({
                         x: Math.round(tooltipPosition.x),
                         y: Math.round(tooltipPosition.y),
                         xPadding: options.tooltipXPadding,

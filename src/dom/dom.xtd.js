@@ -529,7 +529,7 @@ block([
                         return _.util.arr.index(_.query(elem.tagName, elem.parentNode), elem);
                 }
             }
-            return _.arr.index(elem.parentNode.childNodes, elem);
+            return _.util.arr.index(elem.parentNode.childNodes, elem);
 
         }
     });

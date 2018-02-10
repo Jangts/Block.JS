@@ -267,24 +267,6 @@ block([
                 grid.charts.lines.push(chart);
                 this.activedCharts.push(chart);
             }, this);
-        } else if (this.polar) {
-            // 已废弃
-            // polar = this.polar;
-            // polar.charts.lines = polar.charts.lines || [];
-            // _.each(this.series.line, function(i, options) {
-            //     options.index = id++;
-            //     chartName = this.getChartName(options.name);
-            //     if (this.historyCharts[chartName] && this.historyCharts[chartName].type == 'line') {
-            //         chart = this.historyCharts[chartName];
-            //         chart.update(options.data, options.index);
-            //     } else {
-            //         chart = new _.painter.Charts.type.PolarLine(options, this, options.zIndex);
-            //         chart.type = 'line';
-            //         this.historyCharts[chartName] = chart;
-            //     }
-            //     polar.charts.lines.push(chart);
-            //     this.activedCharts.push(chart);
-            // }, this);
         }
     }
 });

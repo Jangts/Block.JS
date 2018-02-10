@@ -24,7 +24,7 @@ block('$_/util/bool.xtd', function(pandora, global, undefined) {
 
         // 恢复选区
         restoreSelection: function() {
-            this.range = new _.form.Range(this.range);
+            this.range = new _.form.SelectionRange(this.range);
         },
 
         // 获取 range 对象
@@ -44,7 +44,7 @@ block('$_/util/bool.xtd', function(pandora, global, undefined) {
                 this.range = range
             } else {
                 // 获取当前的选区
-                range = new _.form.Range();
+                range = new _.form.SelectionRange();
 
                 // 判断选区内容是否在编辑内容之内
                 if (range.isBelongTo(this.editor.richarea)) {
@@ -104,7 +104,7 @@ block('$_/util/bool.xtd', function(pandora, global, undefined) {
         // 创建一个空白（即 &#8203 字符）选区
         createEmptyRange: function() {
             var editor = this.editor,
-                range = new _.form.Range(),
+                range = new _.form.SelectionRange(),
                 elem;
 
             range.selectInput(this.editor.richarea, false);

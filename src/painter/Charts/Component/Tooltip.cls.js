@@ -17,7 +17,7 @@ block([
         console = global.console;
 
     var helpers = _.painter.Charts.util.helpers;
-    declare('painter.Charts.component.Tooltip', _.painter.Charts.Component, {
+    declare('painter.Charts.Component.Tooltip', _.painter.Charts.Component, {
         draw: function() {
 
             var ctx = this.ctx;
