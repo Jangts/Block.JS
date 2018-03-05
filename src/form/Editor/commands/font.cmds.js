@@ -75,8 +75,18 @@ block([
                 //     selection.createRangeByElem(elem || this);
                 // });
                 // this.onchange();
-                this.selection.getRange().execCommand('fontsize', val);
+
+                var id = new _.Identifier(),
+                    range = this.selection.getRange(),
+                    fontname = _.dom.getStyle(range.commonElem, 'font-family');
+
+                this.selection.getRange().execCommand('fontname', id);
                 this.selection.saveRange();
+                _.each(_.query('font[face=' + id + ']', this.richarea), function() {
+                    _.dom.removeAttr(this, 'face');
+                    _.dom.setStyle(this, 'font-family', fontname);
+                    _.dom.setStyle(this, 'font-size', val);
+                });
                 this.onchange();
             },
             'forecolor': function(val) {
