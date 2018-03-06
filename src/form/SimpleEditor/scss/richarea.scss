@@ -1,0 +1,126 @@
+/*** EDITOR EDITAREA ***/
+
+.bc.editor .bc.se-richarea {
+    background-color: #FFF;
+    overflow: auto;
+    resize: vertical;
+    z-index: 0;
+    line-height: normal;
+}
+
+.bc.editor .bc.se-richarea * {
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    overflow: auto;
+}
+
+.bc.editor .bc.se-richarea i {
+    font-style: italic;
+}
+
+.bc.editor .bc.se-richarea strong,
+.bc.editor .bc.se-richarea b {
+    font-weight: bold;
+}
+
+.bc.editor .bc.se-richarea s,
+.bc.editor .bc.se-richarea strike,
+.bc.editor .bc.se-richarea dels {
+    text-decoration: line-through;
+}
+
+.bc.editor .bc.se-richarea u,
+.bc.editor .bc.se-richarea ins {
+    text-decoration: underline;
+}
+
+.bc.editor .bc.se-richarea div {
+    word-break: break-all;
+}
+
+.bc.editor .bc.se-richarea a {
+    text-decoration: underline;
+    cursor: pointer;
+    color: #06F;
+}
+
+.bc.editor .bc.se-richarea img {
+    max-width: 100%;
+}
+
+.bc.editor .bc.se-richarea img:hover {
+    box-sizing: border-box;
+    border: dashed 1px #0CF;
+    cursor: default;
+}
+
+.bc.editor .bc.se-richarea img[_selected=_selected],
+.bc.editor .bc.se-richarea img[_selected=_selected]:hover {
+    box-sizing: border-box;
+    border: dashed 1px #039;
+    cursor: default;
+}
+
+.bc.editor .bc.se-richarea blockquote {
+    color: #666666;
+    font-size: 1em;
+    padding-left: 1em;
+    border-left: 4px solid #dddddd;
+    line-height: 1.5em;
+}
+
+.bc.editor .bc.se-richarea h2 {
+    font-size: 1.8em;
+    border-left: 10px solid #7fc042;
+    padding-left: 0.5em;
+    margin-bottom: 0.8em;
+    font-weight: 200;
+    color: black;
+}
+
+.bc.editor .bc.se-richarea ul,
+.bc.editor .bc.se-richarea ol {
+    margin: auto;
+    padding: 0px 0px 0px 40px;
+    overflow: visible;
+}
+
+.bc.editor .bc.se-richarea ul {
+    list-style: disc;
+}
+
+.bc.editor .bc.se-richarea ol {
+    list-style-type: decimal;
+}
+
+.bc.editor .bc.se-richarea li {
+    margin: auto;
+    padding: 0px;
+    overflow: visible;
+}
+
+.bc.editor .bc.se-richarea hr {
+    border-style: inset;
+    border-width: 1px;
+}
+
+.bc.editor .bc.se-richarea table {
+    border-collapse: collapse;
+    empty-cells: show;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.bc.editor .bc.se-richarea td,
+.bc.editor .bc.se-richarea th {
+    border: solid 1px #ccc;
+    padding: 5px;
+}
+
+.bc.editor .bc.se-richarea .bc.se-emoticon {
+    margin: 0px 2px;
+}

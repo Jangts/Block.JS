@@ -1,0 +1,12 @@
+@charset "UTF-8";
+.bc {
+    border: 1px solid #CCC;
+}
+
+@import "toolarea-themes";
+@import "toolarea-icons";
+@import "toolarea-pickers";
+@import "toolarea-dialogs";
+@import "richarea";
+@import "statebar";
+@import "loadmask";
