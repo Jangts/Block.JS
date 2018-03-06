@@ -1,15 +1,27 @@
 /*********************************************************************************
 /*** EDITOR TOOLBAR ***/
 
-.bc.simpleeditor.se-toolarea {
+.bc.simpleeditor .bc.se-toolarea {
     width: 100%;
     background-color: #FDFDFE;
     border-bottom: 1px solid #DDD;
     overflow: visible;
+    font-size: 0;
+    line-height: 0;
     z-index: 1024;
 }
 
-.bc.simpleeditor.se-toolarea .bc.se-tool {
+.bc.simpleeditor .bc.se-toolarea .bc.se-toolgroup {
+    display: inline-block;
+    border-left: 1px solid #DDD;
+    overflow: visible;
+}
+
+.bc.simpleeditor .bc.se-toolarea .bc.se-toolgroup:first-child {
+    border-left: none;
+}
+
+.bc.simpleeditor .bc.se-toolarea .bc.se-tool {
     float: left;
     width: auto;
     min-width: 30px;
@@ -22,27 +34,27 @@
     overflow: hidden;
 }
 
-.bc.simpleeditor.se-toolarea .bc.se-clear {
+.bc.simpleeditor .bc.se-toolarea .bc.se-clear {
     clear: both
 }
 
-.bc.simpleeditor.se-toolarea .bc.se-tool:hover {
+.bc.simpleeditor .bc.se-toolarea .bc.se-tool:hover {
     background-color: #09C;
     color: #FFF;
 }
 
-.bc.simpleeditor.se-toolarea .bc.se-tool.active {
+.bc.simpleeditor .bc.se-toolarea .bc.se-tool.active {
     background-color: #09C;
     color: #FFF;
 }
 
-.bc.simpleeditor.se-toolarea .bc.se-tool.invalid {
+.bc.simpleeditor .bc.se-toolarea .bc.se-tool.invalid {
     background-color: transparent;
     color: #AAA;
     cursor: default;
 }
 
-.bc.simpleeditor.se-toolarea .bc.se-tool.invalid:hover {
+.bc.simpleeditor .bc.se-toolarea .bc.se-tool.invalid:hover {
     background-color: transparent;
     color: #AAA;
 }
@@ -50,28 +62,28 @@
 
 /*** EDITOR TOOLBAR CHARACTER ***********************/
 
-.bc.simpleeditor.se-toolarea .bc.se-tool.separator {
+.bc.simpleeditor .bc.se-toolarea .bc.se-tool.separator {
     min-width: 10px;
     color: #E6E6E6;
     cursor: default;
 }
 
-.bc.simpleeditor.se-toolarea .bc.se-tool.separator:before {
+.bc.simpleeditor .bc.se-toolarea .bc.se-tool.separator:before {
     content: '|';
 }
 
-.bc.simpleeditor.se-toolarea .bc.se-tool.separator:hover {
+.bc.simpleeditor .bc.se-toolarea .bc.se-tool.separator:hover {
     background-color: transparent;
     color: #E6E6E6;
 }
 
-.bc.simpleeditor.se-toolarea .bc.se-tool.linebreak {
+.bc.simpleeditor .bc.se-toolarea .bc.se-tool.linebreak {
     width: 100%;
     height: 1px;
     background-color: #E6E6E6;
     margin: 0px;
 }
 
-.bc.simpleeditor.se-toolarea .bc.se-tool.linebreak:hover {
+.bc.simpleeditor .bc.se-toolarea .bc.se-tool.linebreak:hover {
     background-color: #E6E6E6;
 }

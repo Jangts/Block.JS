@@ -11,7 +11,7 @@ block([
     '$_/util/bool.xtd',
     '$_/dom/HTMLClose.cls',
     '$_/dom/Events.cls',
-    '$_/data/',    
+    '$_/data/',
     '$_/form/SimpleEditor/Selection.cls',
     '$_/form/SimpleEditor/parameters.tmp',
     '$_/form/SimpleEditor/builders.tmp',
@@ -75,17 +75,14 @@ block([
                 this.attachment_type = settings.uploader.sfixs;
                 this.transfer = settings.uploader.transfer;
             }
-            if (_.util.bool.isArr(elems)) {
-                this.textarea = builders.textarea(elems[0]);
-                this.toolarea = builders.toolarea(this, this.textarea, this.options, elems[1]);
-            } else if (_.util.bool.isEl(elems)) {
+            if (_.util.bool.isEl(elems)) {
                 this.textarea = builders.textarea(elems);
-                this.toolarea = builders.toolarea(this, this.textarea, this.options);
             } else {
                 return _.error('"elems" must be an array or element!');
             }
             this.uid = new _.Identifier();
-            this.editarea = builders.editarea(this, this.textarea, this.options);
+            this.editarea = builders.editarea(this, this.uid, this.textarea, this.options);
+
             this.selection = new _.form.SimpleEditor.Selection(this);
             SimpleEditors[this.uid] = this.listen();
         },
@@ -171,19 +168,19 @@ block([
     }, metheds);
 
     _.extend(_.form, true, {
-        careatSimpleEditor: function(elems, settings) {
+        careatEditor: function(elems, settings) {
             var editor = new _.form.SimpleEditor(elems, settings);
             return editor;
         },
-        careatSimpleEditors: function(selector, settings) {
+        careatEditors: function(selector, settings) {
             var editors = [];
             _.each(_.query(selector), function(i, el) {
-                var editor = _.form.careatSimpleEditor(el, settings);
+                var editor = _.form.careatEditor(el, settings);
                 editors.push(editor);
             });
             return editors;
         },
-        getSimpleEditorById: function(id) {
+        getEditorById: function(id) {
             return id && SimpleEditors[id];
         }
     });
