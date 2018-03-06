@@ -35,7 +35,7 @@ block([
                 }
             }
             if (editor.selection.range && editor.selection.range.type === 'Caret') {
-                if (event.target === editor.richarea||editor.selection.range.commonElem === editor.richarea) {
+                if (event.target === editor.richarea || editor.selection.range.commonElem === editor.richarea) {
                     _.query('.bc.se-tablestatus', editor.statebar)[0].style.display = 'none';
                     editor.onchange();
                     return;
@@ -44,10 +44,10 @@ block([
                     editor.onchange();
                     return;
                 }
-            } 
+            }
             editor.selection.saveRange();
             editor.onchange();
-            
+
         },
         outhandler = function(event) {
             // console.log(event);
@@ -109,6 +109,28 @@ block([
                 var img = editor.selectedImage;
                 img.style.height = parseInt(input.value) + 'px';
                 img.height = parseInt(input.value);
+            },
+            'imgsize': function(editor, size) {
+                var css, attr, img = editor.selectedImage;
+                switch (size) {
+                    case '3':
+                        css = attr = '100%';
+                        break;
+                    case '2':
+                        css = attr = '50%';
+                        break;
+                    case '1':
+                        css = attr = '33%';
+                        break;
+                    default:
+                        css = 'auto';
+                        attr = null;
+                        break;
+                }
+                img.style.width = css;
+                img.width = attr;
+                img.style.height = 'auto';
+                img.height = null;
             },
             'imgborder': function(editor, input) {
                 var img = editor.selectedImage;
@@ -229,6 +251,12 @@ block([
                     var float = _.dom.getAttr(this, 'data-float') || 'none',
                         img = event.data.selectedImage;
                     img.style.float = float;
+                    event.data.selection.saveRange();
+                    event.data.onchange();
+                },
+                '.bc.se-imgsize': function(e) {
+                    var size = _.dom.getAttr(this, 'data-size') || 'none';
+                    inputs['imgsize'](event.data, size);
                     event.data.selection.saveRange();
                     event.data.onchange();
                 },

@@ -1,6 +1,6 @@
 /*** EDITOR TOOLBAR PICKS ***************************/
 
-.bc.simpleeditor.se-toolarea .bc.se-tool .bc.se-pick {
+.bc.simpleeditor .bc.se-toolarea .bc.se-tool .bc.se-pick {
     display: none;
     position: absolute;
     width: auto;
@@ -18,19 +18,19 @@
 
 /* ------------------------- */
 
-.bc.simpleeditor.se-toolarea .bc.se-tool[data-ib-cmds].active {
+.bc.simpleeditor .bc.se-toolarea .bc.se-tool[data-ib-cmds].active {
     overflow: visible;
     z-index: 100;
 }
 
-.bc.simpleeditor.se-toolarea .bc.se-tool.active .bc.se-pick {
+.bc.simpleeditor .bc.se-toolarea .bc.se-tool.active .bc.se-pick {
     display: block;
 }
 
 
 /* ------------------------- */
 
-.bc.simpleeditor.se-toolarea li.bc.simpleeditor.se-font {
+.bc.simpleeditor .bc.se-toolarea li.bc.simpleeditor .bc.se-font {
     width: auto;
     text-align: left;
     padding: 0px 5px;
@@ -38,22 +38,22 @@
     white-space: nowrap;
 }
 
-.bc.simpleeditor.se-toolarea .fontname li.bc.simpleeditor.se-font {
+.bc.simpleeditor .bc.se-toolarea .fontname li.bc.simpleeditor .bc.se-font {
     font-size: 12px;
     height: 20px;
     line-height: 20px;
 }
 
-.bc.simpleeditor.se-toolarea .fontsize li.bc.simpleeditor.se-font {
+.bc.simpleeditor .bc.se-toolarea .fontsize li.bc.simpleeditor .bc.se-font {
     height: auto;
 }
 
-.bc.simpleeditor.se-toolarea li.bc.simpleeditor.se-font:hover {
+.bc.simpleeditor .bc.se-toolarea li.bc.simpleeditor .bc.se-font:hover {
     background-color: #09C;
     color: #FFF;
 }
 
-.bc.simpleeditor.se-toolarea li.bc.simpleeditor.se-font.selected {
+.bc.simpleeditor .bc.se-toolarea li.bc.simpleeditor .bc.se-font.selected {
     background-color: #09C;
     color: #FFF;
 }
@@ -61,43 +61,43 @@
 
 /* ------------------------- */
 
-.bc.simpleeditor.se-toolarea ul.bc.simpleeditor.se-pick {
+.bc.simpleeditor .bc.se-toolarea ul.bc.simpleeditor .bc.se-pick {
     white-space: nowrap;
 }
 
-.bc.simpleeditor.se-toolarea .forecolor ul.bc.simpleeditor.se-pick {
+.bc.simpleeditor .bc.se-toolarea .forecolor ul.bc.simpleeditor .bc.se-pick {
     line-height: 0px;
 }
 
-.bc.simpleeditor.se-toolarea .backcolor ul.bc.simpleeditor.se-pick {
+.bc.simpleeditor .bc.se-toolarea .backcolor ul.bc.simpleeditor .bc.se-pick {
     line-height: 0px;
 }
 
-.bc.simpleeditor.se-toolarea li.bc.simpleeditor.se-color {
+.bc.simpleeditor .bc.se-toolarea li.bc.simpleeditor .bc.se-color {
     display: inline-block;
     width: 18px;
     height: 18px;
     margin: 1px;
 }
 
-.bc.simpleeditor.se-toolarea li.bc.simpleeditor.se-color i {
+.bc.simpleeditor .bc.se-toolarea li.bc.simpleeditor .bc.se-color i {
     display: block;
     width: 16px;
     height: 16px;
     margin: 1px;
 }
 
-.bc.simpleeditor.se-toolarea li.bc.simpleeditor.se-color:hover {
+.bc.simpleeditor .bc.se-toolarea li.bc.simpleeditor .bc.se-color:hover {
     margin: 0px;
     border: #09C 1px solid;
 }
 
-.bc.simpleeditor.se-toolarea li.bc.simpleeditor.se-color.selected {
+.bc.simpleeditor .bc.se-toolarea li.bc.simpleeditor .bc.se-color.selected {
     margin: 0px;
     border: #09C 1px solid;
 }
 
-.bc.simpleeditor.se-toolarea hr.bc.simpleeditor.se-break {
+.bc.simpleeditor .bc.se-toolarea hr.bc.simpleeditor .bc.se-break {
     clear: both;
     height: 0px;
     border: none;
@@ -105,7 +105,7 @@
     display: block;
 }
 
-.bc.simpleeditor.se-toolarea hr.bc.simpleeditor.se-break+hr.bc.simpleeditor.se-break {
+.bc.simpleeditor .bc.se-toolarea hr.bc.simpleeditor .bc.se-break+hr.bc.simpleeditor .bc.se-break {
     clear: both;
     height: 8px;
     border: none;

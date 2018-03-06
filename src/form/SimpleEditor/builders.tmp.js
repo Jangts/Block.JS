@@ -14,22 +14,22 @@ block([
     '$_/form/SimpleEditor/events.tmp'
 ], function(pandora, global, undefined) {
     var
-    _ = pandora,
+        _ = pandora,
         cache = pandora.locker,
         dialogs = cache.read(new _.Identifier('EDITOR_DIALOGS').toString()),
-        
-    conmands = {},
-    metheds = {},
-    tooltypes = {},
-    toolbaritems = [
-        ['bold', 'italic', 'underline', 'strikethrough'],
-        ['fontsize', 'forecolor', 'backcolor'],
-        ['header', 'blockquote', 'insertunorderedlist', 'insertorderedlist'],
-        ['justifyleft', 'justifycenter', 'justifyright', 'justifyfull'],
-        ['createlink', 'unlink', 'inserttable', 'insertfile', 'insertvideo', 'insertimage', 'insertemoticon'],
-        ['removeformat', 'insertfragments']
-    ],
-    statusTypes = {
+
+        conmands = {},
+        metheds = {},
+        tooltypes = {},
+        toolbaritems = [
+            ['bold', 'italic', 'underline', 'strikethrough'],
+            ['fontsize', 'forecolor', 'backcolor'],
+            ['header', 'blockquote', 'insertunorderedlist', 'insertorderedlist'],
+            ['justifyleft', 'justifycenter', 'justifyright', 'justifyfull'],
+            ['createlink', 'unlink', 'inserttable', 'insertfile', 'insertvideo', 'insertimage', 'insertemoticon'],
+            ['removeformat', 'insertfragments']
+        ],
+        statusTypes = {
             fontstatus: [
                 '<lable>color: </lable><input type="text" class="bc se-color-input" data-name="fontcolor" value="#000000">'
             ],
@@ -45,23 +45,15 @@ block([
                 '<lable>width</lable><input type="text" class="bc se-imgwidth-input" data-name="imgwidth" value="1">',
                 '<lable>height</lable><input type="text" class="bc se-imgheight-input" data-name="imgheight" value="1">',
                 '<lable>border:</lable><input type="text" class="bc se-border-input" data-name="imgborder" value="0">',
-                '<i class="bc se-imgsize" data-size="3">L</i>'
-                +'<i class="bc se-imgsize" data-size="2">M</i>'
-                +'<i class="bc se-imgsize" data-size="1">S</i>'
-                +'<i class="bc se-imgsize" data-size="0">O</i>',
-                '<i class="bc se-imgfloat" data-float="none">No Float</i>'
-                +'<i class="bc se-imgfloat" data-float="left">Pull Left</i>'
-                +'<i class="bc se-imgfloat" data-float="right">Pull Right</i>'
+                '<i class="bc se-imgsize" data-size="3">L</i>' +
+                '<i class="bc se-imgsize" data-size="2">M</i>' +
+                '<i class="bc se-imgsize" data-size="1">S</i>' +
+                '<i class="bc se-imgsize" data-size="0">O</i>',
+                '<i class="bc se-imgfloat" data-float="none">No Float</i>' +
+                '<i class="bc se-imgfloat" data-float="left">Pull Left</i>' +
+                '<i class="bc se-imgfloat" data-float="right">Pull Right</i>'
             ]
         },
-        statusHTML =
-        '<div class="bc se-fontstatus" title="Font Style"><section>' +
-        statusTypes.fontstatus.join('</section><section>') +
-        '</section></div><div class="bc se-tablestatus" title="Table Style"><section>' +
-        statusTypes.tablestatus.join('</section><section>') +
-        '</section></div><div class="bc se-imagestatus" title="Image Style"><section>' +
-        statusTypes.imagestatus.join('</section><section>') +
-        '</section></div>',
         creators = {},
         builders = {
             textarea: function(textarea) {
@@ -117,48 +109,47 @@ block([
                     return '<div class="bc se-tool ' + tool + '" data-ib-cmd="' + tool + '" title="' + tool + '"><i class="bc se-icon"></i></div>';
                 }
             },
-            toolarea: function(editor, textarea, options, toolarea) {
-                if (!_.util.bool.isEl(toolarea)) {
-                    var width = options.width || textarea.width - 2;
-                    toolarea = _.dom.create('div', textarea.Element.parentNode, {
-                        style: {
-                            'width': width,
-                            'border-color': (options.border && options.border.color) || '#CCCCCC',
-                            'border-style': (options.border && options.border.style) || 'solid',
-                            'border-width': (options.border && options.border.width) || '1px'
-                        }
-                    });
-                }
-                if (!toolarea.innerHTML) {
-                    var html = '';
-                    for (var i = 0; i < toolbaritems.length; i++) {
-                        html += '<div class="bc se-toolgroup">';
-                        for (var j = 0; j < toolbaritems[i].length; j++) {
-                            html += builders.tools[tooltypes[toolbaritems[i][j]]].call(editor, toolbaritems[i][j]);
-                        }
-                        html += '</div>';
-                    }
-                    html += '<div class="bc se-clear"></div>';
-                    toolarea.innerHTML = html;
-                }
-                _.dom.setAttr(toolarea, 'class', 'bc se-toolarea  simpleeditor');
-                return toolarea;
-            },
-            editarea: function(editor, textarea, options) {
+            editarea: function(editor, uid, textarea, options) {
                 var width = options.width || textarea.width - 2,
-                    height = options.height || textarea.height - 2,
                     editarea = _.dom.create('div', textarea.Element.parentNode, {
-                        className: 'bc editor simpleeditor',
+                        className: 'bc simpleeditor',
                         style: {
                             'width': width,
-                            'min-height': height,
                             'border-color': (options.border && options.border.color) || '#CCCCCC',
                             'border-style': (options.border && options.border.style) || 'solid',
                             'border-width': (options.border && options.border.width) || '1px'
                         }
                     });
                 editarea.resetText = textarea.getText();
-                _.dom.setAttr(editarea, 'data-se-id', editor.uid);
+                _.dom.setAttr(editarea, 'data-se-id', uid);
+                builders.toolarea(editor, textarea, options, editarea, width);
+                builders.richarea(editor, textarea, options, editarea, width);
+                builders.statebar(editor, textarea, options, editarea);
+                return editarea;
+            },
+            toolarea: function(editor, textarea, options, editarea, width) {
+                editor.toolarea = _.dom.create('div', editarea, {
+                    style: {
+                        'width': width,
+                        'border-bottom-color': (options.border && options.border.color) || '#CCCCCC',
+                        'border-bottom-style': (options.border && options.border.style) || 'solid',
+                        'border-bottom-width': (options.border && options.border.width) || '1px'
+                    }
+                });
+                var html = '';
+                for (var i = 0; i < toolbaritems.length; i++) {
+                    html += '<div class="bc se-toolgroup">';
+                    for (var j = 0; j < toolbaritems[i].length; j++) {
+                        html += builders.tools[tooltypes[toolbaritems[i][j]]].call(editor, toolbaritems[i][j]);
+                    }
+                    html += '</div>';
+                }
+                // html += '<div class="bc se-clear"></div>';
+                editor.toolarea.innerHTML = html;
+                _.dom.setAttr(editor.toolarea, 'class', 'bc se-toolarea');
+            },
+            richarea: function(editor, textarea, options, editarea, width) {
+                var height = options.height || textarea.height;
                 editor.richarea = _.dom.create('div', editarea, {
                     className: 'bc se-richarea',
                     placeholder: _.dom.getAttr(textarea.Element, 'placeholder'),
@@ -167,6 +158,7 @@ block([
                     talistenex: 1,
                     style: {
                         'width': width - 12,
+                        'min-height': height,
                         'height': height - 12,
                         'padding': '5px',
                         'outline': 'none'
@@ -177,25 +169,34 @@ block([
                     className: 'bc se-loadmask',
                     innerHTML: '<div class="bc se-spinner"><div class="bc se-rect1"></div><div class="bc se-rect2"></div><div class="bc se-rect3"></div><div class="bc se-rect4"></div><div class="bc se-rect5"></div></div>'
                 });
+            },
+            statebar: function(editor, textarea, options, editarea) {
+                var statusHTML =
+                    '<div class="bc se-fontstatus" title="Font Style"><section>' +
+                    statusTypes.fontstatus.join('</section><section>') +
+                    '</section></div><div class="bc se-tablestatus" title="Table Style"><section>' +
+                    statusTypes.tablestatus.join('</section><section>') +
+                    '</section></div><div class="bc se-imagestatus" title="Image Style"><section>' +
+                    statusTypes.imagestatus.join('</section><section>') +
+                    '</section></div>';
 
                 editor.statebar = _.dom.create('div', editarea, {
                     className: 'bc se-statebar',
                     innerHTML: statusHTML
                 });
-                return editarea;
             }
         };
 
-        var regMethod = function(object, rewrite) {
+    var regMethod = function(object, rewrite) {
             _.extend(_.form.SimpleEditor.prototype, rewrite, object);
         },
-        regCommand= function(cmd, handler) {
+        regCommand = function(cmd, handler) {
             if (conmands[cmd] === undefined) {
                 conmands[cmd] = handler;
                 tooltypes[cmd] = 'defaultitem';
             }
         },
-        regCreater= function(cmd, handler, optional) {
+        regCreater = function(cmd, handler, optional) {
             if (creators[cmd] === undefined) {
                 if (_.util.bool.isFn(handler)) {
                     creators[cmd] = handler;
@@ -207,7 +208,7 @@ block([
                 }
             }
         },
-        regDialog= function(cmd, handler) {
+        regDialog = function(cmd, handler) {
             if (dialogs[cmd] === undefined) {
                 dialogs[cmd] = handler;
                 tooltypes[cmd] = 'dialogitem';

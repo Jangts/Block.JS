@@ -1,10 +1,10 @@
 /*** EDITOR TOOLBAR ICONS ***************************/
 
-.bc.simpleeditor.se-toolarea .bc.se-tool .bc.se-icon {
+.bc.simpleeditor .bc.se-toolarea .bc.se-tool .bc.se-icon {
     display: block;
 }
 
-.bc.simpleeditor.se-toolarea .bc.se-icon:before {
+.bc.simpleeditor .bc.se-toolarea .bc.se-icon:before {
     font-family: 'FontAwesome';
     font-style: normal;
     content: '\f042';
@@ -13,123 +13,125 @@
 
 /* --------------- */
 
-.bc.simpleeditor.se-toolarea .bold .bc.se-icon:before {
+.bc.simpleeditor .bc.se-toolarea .bold .bc.se-icon:before {
     content: '\f032';
 }
 
-.bc.simpleeditor.se-toolarea .italic .bc.se-icon:before {
+.bc.simpleeditor .bc.se-toolarea .italic .bc.se-icon:before {
     content: '\f033';
 }
 
-.bc.simpleeditor.se-toolarea .underline .bc.se-icon:before {
+.bc.simpleeditor .bc.se-toolarea .underline .bc.se-icon:before {
     content: '\f0cd';
 }
 
-.bc.simpleeditor.se-toolarea .strikethrough .bc.se-icon:before {
+.bc.simpleeditor .bc.se-toolarea .strikethrough .bc.se-icon:before {
     content: '\f0cc';
 }
 
 
 /* --------------- */
 
-.bc.simpleeditor.se-toolarea .fontsize .bc.se-icon:before {
+.bc.simpleeditor .bc.se-toolarea .fontsize .bc.se-icon:before {
     content: '\f034';
 }
 
-.bc.simpleeditor.se-toolarea .forecolor .bc.se-icon:before {
+.bc.simpleeditor .bc.se-toolarea .forecolor .bc.se-icon:before {
     content: '\f040';
 }
 
-.bc.simpleeditor.se-toolarea .backcolor .bc.se-icon:before {
+.bc.simpleeditor .bc.se-toolarea .backcolor .bc.se-icon:before {
     content: '\f14b';
 }
 
 
 /* --------------- */
 
-.bc.simpleeditor.se-toolarea .justifyleft .bc.se-icon:before {
+.bc.simpleeditor .bc.se-toolarea .justifyleft .bc.se-icon:before {
     content: '\f036';
 }
 
-.bc.simpleeditor.se-toolarea .justifycenter .bc.se-icon:before {
+.bc.simpleeditor .bc.se-toolarea .justifycenter .bc.se-icon:before {
     content: '\f037';
 }
 
-.bc.simpleeditor.se-toolarea .justifyright .bc.se-icon:before {
+.bc.simpleeditor .bc.se-toolarea .justifyright .bc.se-icon:before {
     content: '\f038';
 }
 
-.bc.simpleeditor.se-toolarea .justifyfull .bc.se-icon:before {
+.bc.simpleeditor .bc.se-toolarea .justifyfull .bc.se-icon:before {
     content: '\f039';
 }
 
 
 /* --------------- */
 
-.bc.simpleeditor.se-toolarea .insertunorderedlist .bc.se-icon:before {
+.bc.simpleeditor .bc.se-toolarea .insertunorderedlist .bc.se-icon:before {
     content: '\f0ca';
 }
 
-.bc.simpleeditor.se-toolarea .insertorderedlist .bc.se-icon:before {
+.bc.simpleeditor .bc.se-toolarea .insertorderedlist .bc.se-icon:before {
     content: '\f0cb';
 }
 
+
 /* --------------- */
 
-.bc.simpleeditor.se-toolarea .header .bc.se-icon:before,
-.bc.simpleeditor.se-toolarea .h1 .bc.se-icon:before,
-.bc.simpleeditor.se-toolarea .h2 .bc.se-icon:before,
-.bc.simpleeditor.se-toolarea .h3 .bc.se-icon:before,
-.bc.simpleeditor.se-toolarea .h4 .bc.se-icon:before,
-.bc.simpleeditor.se-toolarea .h5 .bc.se-icon:before,
-.bc.simpleeditor.se-toolarea .h6 .bc.se-icon:before {
+.bc.simpleeditor .bc.se-toolarea .header .bc.se-icon:before,
+.bc.simpleeditor .bc.se-toolarea .h1 .bc.se-icon:before,
+.bc.simpleeditor .bc.se-toolarea .h2 .bc.se-icon:before,
+.bc.simpleeditor .bc.se-toolarea .h3 .bc.se-icon:before,
+.bc.simpleeditor .bc.se-toolarea .h4 .bc.se-icon:before,
+.bc.simpleeditor .bc.se-toolarea .h5 .bc.se-icon:before,
+.bc.simpleeditor .bc.se-toolarea .h6 .bc.se-icon:before {
     content: '\f1dc';
 }
 
-.bc.simpleeditor.se-toolarea .blockquote .bc.se-icon:before {
+.bc.simpleeditor .bc.se-toolarea .blockquote .bc.se-icon:before {
     content: '\f10d';
 }
 
-.bc.simpleeditor.se-toolarea .removeformat .bc.se-icon:before {
+.bc.simpleeditor .bc.se-toolarea .removeformat .bc.se-icon:before {
     content: '\f12d';
 }
 
+
 /* --------------- */
 
-.bc.simpleeditor.se-toolarea .createlink .bc.se-icon:before {
+.bc.simpleeditor .bc.se-toolarea .createlink .bc.se-icon:before {
     content: '\f0c1';
 }
 
-.bc.simpleeditor.se-toolarea .unlink .bc.se-icon:before {
+.bc.simpleeditor .bc.se-toolarea .unlink .bc.se-icon:before {
     content: '\f127';
 }
 
-.bc.simpleeditor.se-toolarea .inserttable .bc.se-icon:before {
+.bc.simpleeditor .bc.se-toolarea .inserttable .bc.se-icon:before {
     content: '\f0ce';
 }
 
 
 /* --------------- */
 
-.bc.simpleeditor.se-toolarea .insertfile .bc.se-icon:before {
+.bc.simpleeditor .bc.se-toolarea .insertfile .bc.se-icon:before {
     content: '\f0c6';
 }
 
-.bc.simpleeditor.se-toolarea .insertemoticon .bc.se-icon:before {
+.bc.simpleeditor .bc.se-toolarea .insertemoticon .bc.se-icon:before {
     content: '\f118';
 }
 
-.bc.simpleeditor.se-toolarea .insertvideo .bc.se-icon:before {
+.bc.simpleeditor .bc.se-toolarea .insertvideo .bc.se-icon:before {
     content: '\f03d';
 }
 
-.bc.simpleeditor.se-toolarea .insertimage .bc.se-icon:before {
+.bc.simpleeditor .bc.se-toolarea .insertimage .bc.se-icon:before {
     content: '\f03e';
 }
 
 
 /* --------------- */
 
-.bc.simpleeditor.se-toolarea .insertfragments .bc.se-icon:before {
+.bc.simpleeditor .bc.se-toolarea .insertfragments .bc.se-icon:before {
     content: '\f12e';
 }

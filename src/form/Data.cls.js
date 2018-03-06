@@ -127,6 +127,16 @@ block([
                             case 'hidden':
                             case 'password':
                             case 'text':
+                            case 'url':
+                            case 'number':
+                            case 'range':
+                            case 'month':
+                            case 'week':
+                            case 'time':
+                            case 'datetime':
+                            case 'datetime-local':
+                            case 'search':
+                            case 'color':
                                 data[key] = [this.value, _.dom.getAttr(this, 'data-ib-validate')];
                                 break;
                         }
@@ -185,7 +195,7 @@ block([
         submit: function(options) {
             if (options.defaultData) {
                 for (var i in options.defaultData) {
-                    if(!_.util.obj.has(this.data, i)){
+                    if (!_.util.obj.has(this.data, i)) {
                         this.data[i] = [options.defaultData[i], null];
                     }
                 }
@@ -198,18 +208,18 @@ block([
             var url = options.action || this.action;
             var doneCallback = function() {
                 var method;
-                if(options.method){
+                if (options.method) {
                     method = options.method;
-                }else{
+                } else {
                     var _method;
-                    for(var i = 0; i < this.forms.length; i++){
-                        if(_method = _.dom.getAttr(this, 'method')){
+                    for (var i = 0; i < this.forms.length; i++) {
+                        if (_method = _.dom.getAttr(this, 'method')) {
                             method = _method;
                             break;
                         }
                     }
                 }
-               
+
                 method = _.util.bool.isHttpMethod(method) || 'POST';
                 method = method.toUpperCase();
                 if (method === 'GET') {

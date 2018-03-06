@@ -199,6 +199,7 @@ block([
             return _.util.obj.toQueryString(data)
         },
         decodeQueryString: function(str) {
+            str = str.replace(/^#/, '');
             var data = {};
             var fields = str.split('&');
             var i = 0,
