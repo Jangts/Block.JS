@@ -1,0 +1,152 @@
+/****************
+/*	Text List
+/************************************************/
+
+.tangram.listview.page-list {
+    margin: 10px auto;
+    font-size: 0;
+    text-align: center;
+    white-space: nowrap;
+    .list-item {
+        display: inline-table;
+        width: 20px;
+        height: 20px;
+        margin: 4px;
+        font-size: 13px;
+        cursor: pointer;
+        color: #333;
+    }
+    .list-item.actived {
+        color: #0cf;
+    }
+}
+
+.tangram.listview.page-list.al-left {
+    text-align: left;
+}
+
+.tangram.listview.page-list.al-right {
+    text-align: right;
+}
+
+.tangram.listview.page-list.blocks,
+.tangram.listview.page-list.pills,
+.tangram.listview.page-list.spills {
+    .list-item {
+        border: 1px solid #999;
+        line-height: 20px;
+        padding: 5px;
+        text-align: center;
+        color: #333;
+    }
+    .list-item.actived {
+        background-color: #999;
+        color: #fff;
+    }
+    @each $name,
+    $color in $colors {
+        .list-item.#{$name} {
+            border: 1px solid $color;
+            color: $color;
+        }
+        .list-item.#{$name}.actived {
+            background-color: $color;
+            color: #fff;
+        }
+    }
+}
+
+.tangram.listview.page-list.blocks.rounded {
+    .list-item {
+        border-radius: 3px;
+    }
+}
+
+.tangram.listview.page-list.pills {
+    .list-item {
+        border-radius: 15px;
+    }
+}
+
+.tangram.listview.page-list.spills {
+    .list-item {
+        margin: 4px 0;
+        padding: 0 6px;
+        border-radius: 10px;
+    }
+}
+
+.tangram.listview.page-list.train {
+    .list-item {
+        width: 20px;
+        height: 20px;
+        margin: 0;
+        border-top: 1px solid #999;
+        border-right: 1px solid #999;
+        border-bottom: 1px solid #999;
+        line-height: 20px;
+        padding: 5px 6px;
+        text-align: center;
+        color: #333;
+    }
+    .list-item:first-child {
+        border-left: 1px solid #999;
+        border-radius: 15px 0 0 15px;
+        padding: 5px 10px;
+    }
+    .list-item:last-child {
+        border-radius: 0 15px 15px 0;
+        padding: 5px 10px;
+    }
+    .list-item.actived {
+        background-color: #999;
+        color: #fff;
+    }
+    @each $name,
+    $color in $colors {
+        .list-item.#{$name} {
+            border-top: 1px solid $color;
+            border-right: 1px solid $color;
+            border-bottom: 1px solid $color;
+            color: $color;
+        }
+        .list-item.#{$name}:first-child {
+            border-left: 1px solid $color;
+        }
+        .list-item.#{$name}.actived {
+            background-color: $color;
+            color: #fff;
+        }
+    }
+}
+
+@each $name,
+$color in $colors {
+    .tangram.listview.page-list.blocks.#{$name},
+    .tangram.listview.page-list.pills.#{$name},
+    .tangram.listview.page-list.spills.#{$name} {
+        .list-item {
+            border: 1px solid $color;
+            color: $color;
+        }
+        .list-item.actived {
+            background-color: $color;
+            color: #fff;
+        }
+    }
+    .tangram.listview.page-list.train.#{$name} {
+        .list-item {
+            border-top: 1px solid $color;
+            border-right: 1px solid $color;
+            border-bottom: 1px solid $color;
+            color: $color;
+        }
+        .list-item:first-child {
+            border-left: 1px solid $color;
+        }
+        .list-item.actived {
+            background-color: $color;
+            color: #fff;
+        }
+    }
+}

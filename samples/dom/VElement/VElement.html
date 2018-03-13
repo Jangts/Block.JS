@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>VELEMENT</title>
+    <script src="../../../src/tangram.js" data-use-debugmode></script>
+</head>
+
+<body>
+    <script>
+        tangram.block([
+            '$_/dom/VElement/'
+        ], function(_, global, undefined) {
+            var document = global.document;
+
+            var velement = _.dom.VElement.create,
+                diff = _.dom.VElement.diff,
+                patch = _.dom.VElement.patch;
+
+            var vdom = velement('div', {
+                'id': 'container'
+            }, [
+                velement('h1', {
+                    style: 'color:red'
+                }, ['simple virtual dom']),
+                velement('p', ['hello world']),
+                velement('ul', [velement('li', ['item #1']), velement('li', ['item #2'])]),
+            ]);
+            var rootnode = vdom.render();
+            document.body.appendChild(rootnode);
+            var newVdom = velement('div', {
+                'id': 'container'
+            }, [
+                velement('h5', {
+                    style: 'color:red'
+                }, ['simple virtual dom']),
+                velement('p', ['hello world']),
+                velement('ul', [velement('li', ['item #1']), velement('li', ['item #2']), velement('li', ['item #3'])]),
+            ]);
+
+            var patches = diff(vdom, newVdom);
+            console.log(JSON.stringify(patches));
+            patch(rootnode, patches);
+        }, true);
+    </script>
+</body>
+
+</html>

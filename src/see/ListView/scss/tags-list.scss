@@ -1,0 +1,121 @@
+/****************
+/*	Tags List
+/************************************************/
+
+.tangram.listview.tags-list {
+    margin: 10px auto;
+    font-size: 0;
+    text-align: left;
+    .list-item {
+        display: inline-table;
+        width: 20px;
+        height: 20px;
+        margin: 5px;
+        font-size: 13px;
+        cursor: pointer;
+        color: #333;
+        >i,
+        >i.list-tips {
+            margin-left: 3px;
+            padding: 0 6px;
+            border-radius: 9px;
+            background-color: #999;
+            line-height: 18px;
+            font-size: 12px;
+            color: #fff;
+        }
+    }
+    .list-item.selected {
+        color: #0cf;
+        >i,
+        >i.list-tips {
+            background-color: #0cf;
+        }
+    }
+}
+
+.tangram.listview.tags-list.al-center {
+    text-align: center;
+}
+
+.tangram.listview.tags-list.al-right {
+    text-align: right;
+}
+
+.tangram.listview.tags-list.blocks,
+.tangram.listview.tags-list.pills {
+    .list-item {
+        border: 1px solid #999;
+        line-height: 20px;
+        padding: 3px 10px;
+        text-align: center;
+        color: #333;
+    }
+    .list-item.selected {
+        background-color: #999;
+        color: #fff;
+        >i,
+        >i.list-tips {
+            background-color: #fff;
+            color: #999;
+        }
+    }
+    @each $name,
+    $color in $colors {
+        .list-item.#{$name} {
+            border: 1px solid $color;
+            color: $color;
+            >i,
+            >i.list-tips {
+                background-color: $color;
+                color: #fff;
+            }
+        }
+        .list-item.#{$name}.selected {
+            background-color: $color;
+            color: #fff;
+            >i,
+            >i.list-tips {
+                background-color: #fff;
+                color: #0cf;
+            }
+        }
+    }
+}
+
+.tangram.listview.tags-list.blocks.rounded {
+    .list-item {
+        border-radius: 3px;
+    }
+}
+
+.tangram.listview.tags-list.pills {
+    .list-item {
+        border-radius: 13px;
+    }
+}
+
+@each $name,
+$color in $colors {
+    .tangram.listview.tags-list.blocks.#{$name},
+    .tangram.listview.tags-list.pills.#{$name} {
+        .list-item {
+            border: 1px solid $color;
+            color: $color;
+            >i,
+            >i.list-tips {
+                background-color: $color;
+                color: #fff;
+            }
+        }
+        .list-item.selected {
+            background-color: $color;
+            color: #fff;
+            >i,
+            >i.list-tips {
+                background-color: #fff;
+                color: #0cf;
+            }
+        }
+    }
+}

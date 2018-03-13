@@ -1,0 +1,113 @@
+/*** EDITOR TOOLBAR PICKS ***************************/
+
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-tool .tangram.se-pick {
+    display: none;
+    position: absolute;
+    width: auto;
+    min-width: 120px;
+    height: auto;
+    top: 30px;
+    left: 0px;
+    padding: 5px;
+    background-color: #FDFDFE;
+    border: 1px solid #DDD;
+    color: #555;
+    overflow: auto;
+}
+
+
+/* ------------------------- */
+
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-tool[data-ib-cmds].active {
+    overflow: visible;
+    z-index: 100;
+}
+
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-tool.active .tangram.se-pick {
+    display: block;
+}
+
+
+/* ------------------------- */
+
+.tangram.simpleeditor .tangram.se-toolarea li.tangram.simpleeditor .tangram.se-font {
+    width: auto;
+    text-align: left;
+    padding: 0px 5px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.tangram.simpleeditor .tangram.se-toolarea .fontname li.tangram.simpleeditor .tangram.se-font {
+    font-size: 12px;
+    height: 20px;
+    line-height: 20px;
+}
+
+.tangram.simpleeditor .tangram.se-toolarea .fontsize li.tangram.simpleeditor .tangram.se-font {
+    height: auto;
+}
+
+.tangram.simpleeditor .tangram.se-toolarea li.tangram.simpleeditor .tangram.se-font:hover {
+    background-color: #09C;
+    color: #FFF;
+}
+
+.tangram.simpleeditor .tangram.se-toolarea li.tangram.simpleeditor .tangram.se-font.selected {
+    background-color: #09C;
+    color: #FFF;
+}
+
+
+/* ------------------------- */
+
+.tangram.simpleeditor .tangram.se-toolarea ul.tangram.simpleeditor .tangram.se-pick {
+    white-space: nowrap;
+}
+
+.tangram.simpleeditor .tangram.se-toolarea .forecolor ul.tangram.simpleeditor .tangram.se-pick {
+    line-height: 0px;
+}
+
+.tangram.simpleeditor .tangram.se-toolarea .backcolor ul.tangram.simpleeditor .tangram.se-pick {
+    line-height: 0px;
+}
+
+.tangram.simpleeditor .tangram.se-toolarea li.tangram.simpleeditor .tangram.se-color {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    margin: 1px;
+}
+
+.tangram.simpleeditor .tangram.se-toolarea li.tangram.simpleeditor .tangram.se-color i {
+    display: block;
+    width: 16px;
+    height: 16px;
+    margin: 1px;
+}
+
+.tangram.simpleeditor .tangram.se-toolarea li.tangram.simpleeditor .tangram.se-color:hover {
+    margin: 0px;
+    border: #09C 1px solid;
+}
+
+.tangram.simpleeditor .tangram.se-toolarea li.tangram.simpleeditor .tangram.se-color.selected {
+    margin: 0px;
+    border: #09C 1px solid;
+}
+
+.tangram.simpleeditor .tangram.se-toolarea hr.tangram.simpleeditor .tangram.se-break {
+    clear: both;
+    height: 0px;
+    border: none;
+    margin: 0 !important;
+    display: block;
+}
+
+.tangram.simpleeditor .tangram.se-toolarea hr.tangram.simpleeditor .tangram.se-break+hr.tangram.simpleeditor .tangram.se-break {
+    clear: both;
+    height: 8px;
+    border: none;
+    display: block;
+}

@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>TYPE</title>
+    <script src="../../src/tangram.js" data-use-debugmode></script>
+</head>
+
+<body>
+    <script>
+        tangram.block(['$_/util/type.xtd'], function(_, global, undefined) {
+            var document = global.document,
+                objs = [1, '2', 2.5, '3.0', 'four', {
+                        length: 0
+                    }, null, function() {
+                        return 7;
+                    }, (function() {
+                        return 8;
+                    })(), true, false, global, document,
+                    document.body, document.getElementsByTagName('script')
+                ],
+                type = _.util.type(objs) + ' ' + _.util.type(objs, true);
+            _.render({
+                margin: "auto",
+                fontSize: "18px"
+            }, '-1 : ' + type);
+            _.each(objs, function(index, obj) {
+                type = _.util.type(obj) + ' ' + _.util.type(obj, true);
+                _.render({
+                    margin: "auto",
+                    fontSize: "18px"
+                }, index + ': ' + type);
+            });
+            type = _.util.type();
+            _.render({
+                margin: "auto",
+                fontSize: "18px"
+            }, objs.length + ': ' + type);
+        }, true);
+    </script>
+</body>
+
+</html>

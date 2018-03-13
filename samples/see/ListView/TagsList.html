@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Multiple Columns Text List</title>
+    <script type="text/javascript" src="http://tangram.js.nidn.yangram.ni/src/tangram.js"></script>
+    <link type="text/css" rel="stylesheet" href="http://tangram.js.nidn.yangram.ni/src/see/see.css">
+    <link type="text/css" rel="stylesheet" href="http://tangram.js.nidn.yangram.ni/src/see/ListView/style.css">
+    <style>
+        body {
+            background-color: #eeeeee;
+        }
+        
+        body>section>ul {
+            width: 100%;
+            max-width: 1200px;
+            margin: 20px auto;
+        }
+        
+        body>section>ul.ascard {
+            background-color: #ffffff;
+            box-shadow: 0 0 3px #cccccc;
+        }
+        
+        .sample-title {
+            text-align: center;
+            font-size: 24px;
+            line-height: 30px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <section>
+        <p class="sample-title">标签列表 1</p>
+        <ul class="tangram listview tags-list">
+            <li class="list-item">tag1</li>
+            <li class="list-item">tag2</li>
+            <li class="list-item">tag3</li>
+            <li class="list-item selected">tag4</li>
+            <li class="list-item">tag5</li>
+            <li class="list-item">tag6<i>6</i></li>
+            <li class="list-item">tag7</li>
+            <li class="list-item">tag8</li>
+        </ul>
+    </section>
+
+    <section>
+        <p class="sample-title">标签列表 2</p>
+        <ul class="tangram listview tags-list blocks al-right">
+            <li class="list-item">tag1</li>
+            <li class="list-item">tag2</li>
+            <li class="list-item">tag3<i>3</i></li>
+            <li class="list-item selected">tag4</li>
+            <li class="list-item">tag5</li>
+            <li class="list-item">tag6</li>
+            <li class="list-item">tag7</li>
+            <li class="list-item">tag8</li>
+        </ul>
+    </section>
+
+    <section>
+        <p class="sample-title">标签列表 3</p>
+        <ul class="tangram listview tags-list pills al-center">
+            <li class="list-item">tag1</li>
+            <li class="list-item">tag2</li>
+            <li class="list-item">tag3</li>
+            <li class="list-item selected">tag4</li>
+            <li class="list-item">tag5</li>
+            <li class="list-item">tag6</li>
+            <li class="list-item">tag7</li>
+            <li class="list-item">tag8</li>
+        </ul>
+    </section>
+
+    <section>
+        <p class="sample-title">标签列表 4</p>
+        <ul class="tangram listview tags-list blocks rounded blue">
+            <li class="list-item">tag1</li>
+            <li class="list-item">tag2<i>2</i></li>
+            <li class="list-item">tag3</li>
+            <li class="list-item selected">tag4</li>
+            <li class="list-item">tag5</li>
+            <li class="list-item">tag6</li>
+            <li class="list-item">tag7</li>
+            <li class="list-item">tag8</li>
+        </ul>
+    </section>
+
+    <script type="text/javascript">
+        tangram.block('$_/dom/Elements/', function(_, global, undefined) {
+            var $ = _.dom.select;
+            $('.list-item').click(function() {
+                $('.list-item', this.parentNode).removeClass('selected');
+                $(this).addClass('selected');
+            });
+        }, true);
+    </script>
+</body>
+
+</html>

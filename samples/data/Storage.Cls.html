@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Javascript Database Storage</title>
+    <script src="../../src/tangram.js" data-use-debugmode></script>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <table>
+        <tbody id="table-body">
+
+        </tbody>
+    </table>
+    <script>
+        tangram.block(['$_/data/Storage.cls'], function(_, global, undefined) {
+            var db = new _.data.Storage('mydatabase');
+            if (db.length == 0) {
+                db.set('tangram.js', {
+                        name: 'tangram.js',
+                        type: 'Javascripts framework',
+                        keywords: ['block', 'tangram.js', 'Javascripts framework', 'nidn']
+                    })
+                    .set('YangRAM', {
+                        name: 'YangRAM',
+                        type: 'I4s',
+                        keywords: ['YangRAM', 'TNI framework', 'PHP framework', 'nidn']
+                    });
+                console.log('Added');
+            }
+            // db.clear();
+            //console.log(db.get('tangram.js'), db.get('YangRAM'));
+
+            console.log(_.data.Storage('mydatabase'), new _.data.Storage('mydatabase'));
+        }, true);
+    </script>
+</body>
+
+</html>

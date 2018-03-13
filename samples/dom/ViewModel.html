@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>VIEWMODEL</title>
+    <script src="../../src/tangram.js" data-use-debugmode></script>
+</head>
+
+<body>
+    <div id="demo"></div>
+    <script>
+        tangram.block([
+            '$_/dom/ViewModel.cls',
+            '$_/dom/Template.cls'
+        ], function(pandora, global, undefined) {
+            var _ = pandora,
+                document = global.document,
+                console = global.console;
+
+            var ViewModel = _.dom.ViewModel;
+            var demo = new ViewModel({
+                elem: document.getElementById('demo'),
+                template: `
+            <div>
+                <section>
+                    <span>name:</span> {@name}
+                </section>
+                <section>
+                    <span>time:</span> {@time}
+                </section>
+            <div>`,
+                data: {
+                    name: 'YangRAM',
+                    type: 'Computer Software',
+                    time: 2016,
+                    attrs: {
+                        lang: 'PHP',
+                        framework: 'TNI'
+                    }
+                },
+                render: function() {
+                    var temp = new _.dom.Template(this.template, this.data);
+                    this.elem.innerHTML = temp.echo();
+                }
+            });
+
+            setTimeout(function() {
+                demo.name = 'YangRAM Moses';
+                demo.time = 2017;
+            }, 3000);
+        }, true);
+    </script>
+</body>
+
+</html>

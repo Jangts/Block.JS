@@ -1,0 +1,58 @@
+/****************
+/*	Columns
+/************************************************/
+
+.tangram.listview,
+.tangram.listview[data-list-cols="1"] {
+    font-size: 0;
+    -webkit-text-size-adjust: none;
+    .list-item {
+        width: 100%;
+    }
+    .list-item.content {
+        width: 98%;
+    }
+}
+
+@for $i from 2 through 5 {
+    .tangram.listview[data-list-cols="#{$i}"],
+    .tangram.listview.mtext-list[data-list-cols="#{$i}"],
+    .tangram.listview.media-list[data-list-cols="#{$i}"] {
+        .list-item,
+        .list-item.card,
+        .list-item.pane {
+            display: inline-block;
+            width: percentage((1/$i));
+        }
+        .list-item.content {
+            width: percentage((1/$i)-0.02);
+        }
+    }
+    .tangram.listview.media-list[data-list-cols="#{$i}"] {
+        .list-item.card.cover,
+        .list-item.pane.cover {
+            width: percentage((1/$i)-0.04);
+        }
+    }
+    .tangram.listview.text-list[data-list-cols="#{$i}"] {
+        .list-item.pane {
+            margin: 10px 1%;
+        }
+        .list-item,
+        .list-item.content,
+        .list-item.pane.content {
+            width: percentage((1/$i)-0.02);
+        }
+        .list-item.card.content {
+            width: percentage((1/$i)-0.04);
+        }
+        .list-item.cover {
+            width: percentage((1/$i));
+        }
+        .list-item.pane.cover,
+        .list-item.content.cover,
+        .list-item.card.content.cover {
+            width: percentage((1/$i)-0.02);
+        }
+    }
+}

@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>QUERY</title>
+    <script src="../../src/tangram.js" data-use-debugmode></script>
+</head>
+
+<body>
+    <div class="changeText">Original Text</div>
+    <div class="changeText">Original Text</div>
+    <div class="changeText">Original Text</div>
+    <div class="changeText">Original Text</div>
+    <div class="changeText">Original Text</div>
+    <div class="changeText">Original Text</div>
+    <div class="changeText">Original Text</div>
+    <div class="changeText">Original Text</div>
+    <div class="changeText">Original Text</div>
+    <script>
+        tangram.block(['$_/dom/query.xtd'], function(_, global, undefined) {
+
+            var iterator = new _.Iterator(_.dom.query('.changeText')),
+                render = function(elem) {
+                    if (elem) {
+                        setTimeout(function() {
+                            elem.innerHTML = 'Changed Text';
+                            render(iterator.next());
+                        }, 150);
+                    } else {
+                        setTimeout(function() {
+                            _.render({
+                                margin: "10px auto",
+                                fontSize: "13px",
+                                color: "#666"
+                            }, 'Completed');
+                        }, 200);
+                    }
+                };
+
+            setTimeout(function() {
+                render(iterator.next());
+            }, 200);
+
+            console.log(typeof _.dom.query('.changeText'));
+        }, true);
+    </script>
+</body>
+
+</html>

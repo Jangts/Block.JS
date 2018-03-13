@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>GEO | Paint China Map</title>
+    <script src="../../../../src/tangram.js"></script>
+</head>
+
+<body>
+    <script>
+        var includes = [
+            '$_/data/',
+            '$_/dom/Elements/',
+            '$_/painter/SVG.cls'
+        ];
+        tangram.block(includes, function(_, global, undefined) {
+            var document = global.document;
+            var location = global.location;
+            var $ = _.dom.select;
+
+            var width = 960,
+                height = 500;
+            var range = {
+                lt: [73.4766, 53.5693],
+                rb: [135.0879, 18.1055]
+            };
+
+            var url = _.core.dir() + '../data/geomaps/China/china.json';
+
+            _.data.json(url, function(data) {
+                var map = _.painter.geo(document.body, width, height, data["features"], range, function(index, path, type, properties) {
+                    var coordinate = this.coordinateSwitch(properties["cp"]);
+                    path.attr('fill', 'rgba(128,124,139,0.61)')
+                        .attr('stroke', 'rgba(255,255,255,1)')
+                        .attr('stroke-width', 1)
+                        .css('cursor', 'pointer')
+                        .hover(function() {
+                            path.attr('fill', 'rgba(2,2,139,0.61)');
+                        }, function() {
+                            path.attr('fill', 'rgba(128,124,139,0.61)');
+                        })
+                        .bind('click', function() {
+                            alert(properties["name"]);
+                        });
+                    var long = -12,
+                        lat = 6;
+                    if (properties["name"] == '广东') {
+                        lat = -6;
+                    }
+                    if (properties["name"] == '辽宁') {
+                        lat = -1;
+                    }
+                    if (properties["name"] == '甘肃') {
+                        long = -30;
+                        lat = -18;
+                    }
+                    if (properties["name"] == '江苏') {
+                        long = 4;
+                        lat = 18;
+                    }
+                    if (properties["name"] == '内蒙古') {
+                        long = -54;
+                        lat = 84;
+                    }
+                    if (properties["name"] == '上海') {
+                        long = 0;
+                    }
+                    if (properties["name"] == '台湾') {
+                        long = 6;
+                    }
+                    if (properties["name"] == '香港') {
+                        long = 6;
+                    }
+                    this.text(coordinate[0] + long, coordinate[1] + lat, properties["name"], {
+                            'fill': '#EEE',
+                            'font-size': 12,
+                        }).css('cursor', 'pointer')
+                        .hover(function() {
+                            path.attr('fill', 'rgba(2,2,139,0.61)');
+                        }, function() {
+                            path.attr('fill', 'rgba(128,124,139,0.61)');
+                        })
+                        .bind('click', function() {
+                            alert(properties["name"]);
+                        });
+                });
+            }, function() {
+
+            });
+        }, true);
+    </script>
+</body>
+
+</html>

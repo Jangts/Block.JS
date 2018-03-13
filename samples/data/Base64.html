@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>BASE64</title>
+    <script src="../../src/tangram.js" data-use-debugmode></script>
+    <style>
+        .form {
+            margin: 20px auto;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="form">
+        <input id="input" type="text" value="要编码或解码的文本">
+        <input id="encode" type="button" value="编码">
+        <input id="decode" type="button" value="解码">
+    </div>
+    <script>
+        /* 本测试主要测试如下 */
+        /*
+         * 1. 从语句块的可用性；
+         * 2. 使用data.Base64类对文本进行编码和解码；
+         */
+
+        tangram.block(['$_/data/Base64.cls'], function(_, global, undefined) {
+            var document = global.document,
+                input = document.getElementById('input'),
+                encode = document.getElementById('encode'),
+                decode = document.getElementById('decode'),
+                view = _.render({
+                    margin: "10px auto 0",
+                    textAlign: "center",
+                    fontSize: "24px"
+                }),
+                base64 = new _.data.Base64();
+
+            encode.onclick = function() {
+                var text = input.value;
+                view.innerHTML = base64.encode(text);
+            }
+
+            decode.onclick = function() {
+                var text = input.value;
+                view.innerHTML = base64.decode(text);
+            }
+        }, true);
+    </script>
+</body>
+
+</html>

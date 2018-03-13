@@ -1,0 +1,116 @@
+<html lang="zh-cn">
+
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>SLIDER P/N BUTTONS</title>
+    <script src="../../../src/tangram.js"></script>
+    <link href="../../../src/see/see.css" type="text/css" rel="stylesheet">
+    <link href="../../../src/see/fa.css" type="text/css" rel="stylesheet">
+    <link href="../../../src/see/Slider/common.css" type="text/css" rel="stylesheet">
+    <link href="../../../src/see/Slider/panel.css" type="text/css" rel="stylesheet">
+    <style>
+        .tangram h510 {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .tangram.slider .cutter.big-lt {
+            left: 420px;
+        }
+        
+        .tangram.slider .cutter.big-gt {
+            right: 420px;
+        }
+        
+        .tangram.slider .cutter.lt-in-circle,
+        .tangram.slider .cutter.ll-in-circle,
+        .tangram.slider .cutter.bl-in-circle {
+            left: 100px;
+        }
+        
+        .tangram.slider .cutter.gt-in-circle,
+        .tangram.slider .cutter.lg-in-circle,
+        .tangram.slider .cutter.bg-in-circle {
+            right: 100px;
+        }
+        
+        .tangram.slider .cutter.ll-in-circle {
+            top: 30%;
+        }
+        
+        .tangram.slider .cutter.lg-in-circle {
+            top: 30%;
+        }
+        
+        .tangram.slider .cutter.bl-in-circle {
+            top: 70%;
+        }
+        
+        .tangram.slider .cutter.bg-in-circle {
+            top: 70%;
+        }
+        
+        .tangram.slider .cutter.ll-in-bigcircle,
+        .tangram.slider .cutter.lg-in-bigcircle {
+            top: 30%;
+        }
+        
+        .tangram.slider .cutter.bl-in-bigcircle,
+        .tangram.slider .cutter.bg-in-bigcircle {
+            top: 70%;
+        }
+    </style>
+</head>
+
+<body>
+    <section class="tangram h480">
+        <div class="tangram slider" data-use-slider-type="slide">
+            <div class="tangram ov-hide stage width-full hfull">
+                <div class="troupe">
+                    <section class="actor">
+                        <img src="images/slider-0.jpg">
+                    </section>
+                    <section class="actor">
+                        <img src="images/slider-1.jpg">
+                    </section>
+                    <section class="actor">
+                        <img src="images/slider-2.jpg">
+                    </section>
+                </div>
+                <div class="lt-in-circle cutter goto-prev"></div>
+                <div class="gt-in-circle cutter goto-next"></div>
+                <div class="lt-in-bigcircle cutter goto-prev"></div>
+                <div class="gt-in-bigcircle cutter goto-next"></div>
+
+                <div class="ll-in-circle cutter goto-prev"></div>
+                <div class="lg-in-circle cutter goto-next"></div>
+                <div class="ll-in-bigcircle cutter goto-prev"></div>
+                <div class="lg-in-bigcircle cutter goto-next"></div>
+
+                <div class="bl-in-circle cutter goto-prev"></div>
+                <div class="bg-in-circle cutter goto-next"></div>
+                <div class="bl-in-bigcircle cutter goto-prev"></div>
+                <div class="bg-in-bigcircle cutter goto-next"></div>
+
+                <div class="big-lt cutter goto-prev"></div>
+                <div class="big-gt cutter goto-next"></div>
+            </div>
+        </div>
+    </section>
+    <script>
+        tangram.block(['$_/dom/Elements/', '$_/see/Slider/slide.opts'], function(_, global, undefined) {
+            var $ = _.dom.select;
+            $('.tangram.slider[data-use-slider-type]').each(function() {
+                var type = $(this).data('useSliderType');
+                new _.see.Slider(this, type, {
+                    speed: 4000,
+                    duration: 1000,
+                    autoplay: false
+                });
+            });
+        }, true);
+    </script>
+</body>
+
+</html>

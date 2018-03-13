@@ -1,0 +1,17 @@
+@charset "utf-8";
+
+/*********************************************
+ ********** tangram.js SEE UI framework **********
+ **********   class _.see.NavMenu   **********
+ *********************************************/
+
+.tangram.navmenu.gray,
+.tangram.navmenu .gray {
+    >.menu-item {
+        background-color: #999;
+        color: #fff;
+    }
+    >.menu-item:hover {
+        background-color: #666;
+    }
+}

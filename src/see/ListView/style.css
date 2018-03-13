@@ -1,0 +1,4136 @@
+/*********************************************
+ ********** tangram.js SEE UI framework **********
+ **********  class  _.see.ListView  **********
+ *********************************************/
+
+
+/****************
+/*	Columns
+/************************************************/
+
+.tangram.listview .list-item {
+    color: #181818;
+}
+
+.tangram.listview .list-item .list-title {
+    height: 30px;
+    width: 98%;
+    padding: 0 1%;
+    line-height: 30px;
+    font-size: 15px;
+    color: inherit;
+}
+
+.tangram.listview .list-item .list-abstract {
+    width: 98%;
+    padding: 0 1%;
+    line-height: 21px;
+    font-size: 12px;
+    color: #808080;
+    text-align: justify;
+}
+
+.tangram.listview .list-item .list-abstract[data-row="1"] {
+    height: 21px;
+}
+
+.tangram.listview .list-item .list-abstract[data-row="2"] {
+    height: 42px;
+}
+
+.tangram.listview .list-item .list-abstract[data-row="3"] {
+    height: 63px;
+}
+
+.tangram.listview .list-item .list-abstract[data-row="4"] {
+    height: 84px;
+}
+
+.tangram.listview .list-item .list-meta {
+    width: 98%;
+    padding: 0 1%;
+    line-height: 24px;
+    font-size: 13px;
+    color: #515151;
+}
+
+.tangram.listview .list-item .list-meta>span,
+.tangram.listview .list-item .list-meta .list-meta-item {
+    display: inline;
+}
+
+.tangram.listview .list-item .list-meta>span.block,
+.tangram.listview .list-item .list-meta .list-meta-item.block {
+    display: inline-block;
+}
+
+.tangram.listview .list-item .list-meta>span.space,
+.tangram.listview .list-item .list-meta .list-meta-item.space {
+    margin: 0 10px;
+}
+
+.tangram.listview .list-item .list-meta>span.lspace,
+.tangram.listview .list-item .list-meta .list-meta-item.lspace {
+    margin-left: 10px;
+}
+
+.tangram.listview .list-item .list-meta>span.rspace,
+.tangram.listview .list-item .list-meta .list-meta-item.rspace {
+    margin-right: 10px;
+}
+
+.tangram.listview .list-item .list-meta.bottom {
+    margin-top: 12px;
+}
+
+.tangram.listview .list-item>span,
+.tangram.listview .list-item .list-title>span,
+.tangram.listview .list-item .list-text {
+    width: 98%;
+    padding: 0 1%;
+    line-height: 30px;
+    font-size: 13px;
+    color: #c0c0c0;
+    width: auto;
+    padding: 0;
+}
+
+.tangram.listview .list-item>i,
+.tangram.listview .list-item .list-title>i,
+.tangram.listview .list-item .list-icon {
+    margin: 6px 1px;
+    padding: 0 6px;
+    border-radius: 9px;
+    background-color: #999;
+    line-height: 18px;
+    font-size: 12px;
+    color: #fff;
+}
+
+.tangram.listview .list-item>i.hollow,
+.tangram.listview .list-item .list-title>i.hollow,
+.tangram.listview .list-item .list-icon.hollow {
+    padding: 0 6px;
+    background-color: transparent;
+    border: 1px solid #999;
+    line-height: 16px;
+    color: #999;
+}
+
+.tangram.listview .list-item>i.red,
+.tangram.listview .list-item .list-title>i.red,
+.tangram.listview .list-item .list-icon.red {
+    background-color: #d23;
+}
+
+.tangram.listview .list-item>i.hollow.red,
+.tangram.listview .list-item .list-title>i.hollow.red,
+.tangram.listview .list-item .list-icon.hollow.red {
+    background-color: transparent;
+    border: 1px solid #d23;
+    color: #d23;
+}
+
+.tangram.listview .list-item>i.darkred,
+.tangram.listview .list-item .list-title>i.darkred,
+.tangram.listview .list-item .list-icon.darkred {
+    background-color: #600;
+}
+
+.tangram.listview .list-item>i.hollow.darkred,
+.tangram.listview .list-item .list-title>i.hollow.darkred,
+.tangram.listview .list-item .list-icon.hollow.darkred {
+    background-color: transparent;
+    border: 1px solid #600;
+    color: #600;
+}
+
+.tangram.listview .list-item>i.orange,
+.tangram.listview .list-item .list-title>i.orange,
+.tangram.listview .list-item .list-icon.orange {
+    background-color: #f52;
+}
+
+.tangram.listview .list-item>i.hollow.orange,
+.tangram.listview .list-item .list-title>i.hollow.orange,
+.tangram.listview .list-item .list-icon.hollow.orange {
+    background-color: transparent;
+    border: 1px solid #f52;
+    color: #f52;
+}
+
+.tangram.listview .list-item>i.yellow,
+.tangram.listview .list-item .list-title>i.yellow,
+.tangram.listview .list-item .list-icon.yellow {
+    background-color: #ed2;
+}
+
+.tangram.listview .list-item>i.hollow.yellow,
+.tangram.listview .list-item .list-title>i.hollow.yellow,
+.tangram.listview .list-item .list-icon.hollow.yellow {
+    background-color: transparent;
+    border: 1px solid #ed2;
+    color: #ed2;
+}
+
+.tangram.listview .list-item>i.green,
+.tangram.listview .list-item .list-title>i.green,
+.tangram.listview .list-item .list-icon.green {
+    background-color: #2c4;
+}
+
+.tangram.listview .list-item>i.hollow.green,
+.tangram.listview .list-item .list-title>i.hollow.green,
+.tangram.listview .list-item .list-icon.hollow.green {
+    background-color: transparent;
+    border: 1px solid #2c4;
+    color: #2c4;
+}
+
+.tangram.listview .list-item>i.darkgreen,
+.tangram.listview .list-item .list-title>i.darkgreen,
+.tangram.listview .list-item .list-icon.darkgreen {
+    background-color: #363;
+}
+
+.tangram.listview .list-item>i.hollow.darkgreen,
+.tangram.listview .list-item .list-title>i.hollow.darkgreen,
+.tangram.listview .list-item .list-icon.hollow.darkgreen {
+    background-color: transparent;
+    border: 1px solid #363;
+    color: #363;
+}
+
+.tangram.listview .list-item>i.cyan,
+.tangram.listview .list-item .list-title>i.cyan,
+.tangram.listview .list-item .list-icon.cyan {
+    background-color: #09b;
+}
+
+.tangram.listview .list-item>i.hollow.cyan,
+.tangram.listview .list-item .list-title>i.hollow.cyan,
+.tangram.listview .list-item .list-icon.hollow.cyan {
+    background-color: transparent;
+    border: 1px solid #09b;
+    color: #09b;
+}
+
+.tangram.listview .list-item>i.blue,
+.tangram.listview .list-item .list-title>i.blue,
+.tangram.listview .list-item .list-icon.blue {
+    background-color: #09f;
+}
+
+.tangram.listview .list-item>i.hollow.blue,
+.tangram.listview .list-item .list-title>i.hollow.blue,
+.tangram.listview .list-item .list-icon.hollow.blue {
+    background-color: transparent;
+    border: 1px solid #09f;
+    color: #09f;
+}
+
+.tangram.listview .list-item>i.darkblue,
+.tangram.listview .list-item .list-title>i.darkblue,
+.tangram.listview .list-item .list-icon.darkblue {
+    background-color: #036;
+}
+
+.tangram.listview .list-item>i.hollow.darkblue,
+.tangram.listview .list-item .list-title>i.hollow.darkblue,
+.tangram.listview .list-item .list-icon.hollow.darkblue {
+    background-color: transparent;
+    border: 1px solid #036;
+    color: #036;
+}
+
+.tangram.listview .list-item>i.purple,
+.tangram.listview .list-item .list-title>i.purple,
+.tangram.listview .list-item .list-icon.purple {
+    background-color: #c2a;
+}
+
+.tangram.listview .list-item>i.hollow.purple,
+.tangram.listview .list-item .list-title>i.hollow.purple,
+.tangram.listview .list-item .list-icon.hollow.purple {
+    background-color: transparent;
+    border: 1px solid #c2a;
+    color: #c2a;
+}
+
+.tangram.listview .list-item>i.black,
+.tangram.listview .list-item .list-title>i.black,
+.tangram.listview .list-item .list-icon.black {
+    background-color: #000;
+}
+
+.tangram.listview .list-item>i.hollow.black,
+.tangram.listview .list-item .list-title>i.hollow.black,
+.tangram.listview .list-item .list-icon.hollow.black {
+    background-color: transparent;
+    border: 1px solid #000;
+    color: #000;
+}
+
+.tangram.listview .list-item>i.lightgray,
+.tangram.listview .list-item .list-title>i.lightgray,
+.tangram.listview .list-item .list-icon.lightgray {
+    background-color: #ddd;
+}
+
+.tangram.listview .list-item>i.hollow.lightgray,
+.tangram.listview .list-item .list-title>i.hollow.lightgray,
+.tangram.listview .list-item .list-icon.hollow.lightgray {
+    background-color: transparent;
+    border: 1px solid #ddd;
+    color: #ddd;
+}
+
+.tangram.listview .list-item>i.gray,
+.tangram.listview .list-item .list-title>i.gray,
+.tangram.listview .list-item .list-icon.gray {
+    background-color: #999;
+}
+
+.tangram.listview .list-item>i.hollow.gray,
+.tangram.listview .list-item .list-title>i.hollow.gray,
+.tangram.listview .list-item .list-icon.hollow.gray {
+    background-color: transparent;
+    border: 1px solid #999;
+    color: #999;
+}
+
+.tangram.listview .list-item>i.dark-gray,
+.tangram.listview .list-item .list-title>i.dark-gray,
+.tangram.listview .list-item .list-icon.dark-gray {
+    background-color: #666;
+}
+
+.tangram.listview .list-item>i.hollow.dark-gray,
+.tangram.listview .list-item .list-title>i.hollow.dark-gray,
+.tangram.listview .list-item .list-icon.hollow.dark-gray {
+    background-color: transparent;
+    border: 1px solid #666;
+    color: #666;
+}
+
+.tangram.listview .list-item>i.white,
+.tangram.listview .list-item .list-title>i.white,
+.tangram.listview .list-item .list-icon.white {
+    background-color: #fff;
+}
+
+.tangram.listview .list-item>i.hollow.white,
+.tangram.listview .list-item .list-title>i.hollow.white,
+.tangram.listview .list-item .list-icon.hollow.white {
+    background-color: transparent;
+    border: 1px solid #fff;
+    color: #fff;
+}
+
+.tangram.listview .list-item>span.pl-left,
+.tangram.listview .list-item .list-title>span.pl-left,
+.tangram.listview .list-item .list-text.pl-left,
+.tangram.listview .list-item>i.pl-left,
+.tangram.listview .list-item .list-title>i.pl-left,
+.tangram.listview .list-item .list-icon.pl-left,
+.tangram.listview .list-item .list-meta.pl-left {
+    float: left;
+}
+
+.tangram.listview .list-item .list-meta.pl-left {
+    text-align: left;
+}
+
+.tangram.listview .list-item>span.pl-right,
+.tangram.listview .list-item .list-title>span.pl-right,
+.tangram.listview .list-item .list-text.pl-right,
+.tangram.listview .list-item>i.pl-right,
+.tangram.listview .list-item .list-title>i.pl-right,
+.tangram.listview .list-item .list-icon.pl-right,
+.tangram.listview .list-item .list-meta.pl-right {
+    float: right;
+}
+
+.tangram.listview .list-item .list-meta.pl-right {
+    text-align: right;
+}
+
+.tangram.listview .list-item .list-meta.though {
+    display: block;
+    text-align: center;
+}
+
+.tangram.listview .list-item .list-meta.though.al-left {
+    text-align: left;
+}
+
+.tangram.listview .list-item .list-meta.though.al-right {
+    text-align: right;
+}
+
+.tangram.listview .list-item .list-meta.though.al-just {
+    text-align: justify;
+}
+
+.tangram.listview .list-item>i.pl-left,
+.tangram.listview .list-item .list-title>i.pl-left,
+.tangram.listview .list-item .list-icon.pl-left {
+    margin: 6px 2px 6px 0;
+}
+
+.tangram.listview .list-item>i.pl-right,
+.tangram.listview .list-item .list-title>i.pl-right,
+.tangram.listview .list-item .list-icon.pl-right {
+    margin: 6px 0 6px 2px;
+}
+
+.tangram.listview .list-item.pane.rounded,
+.tangram.listview .list-item.card.rounded {
+    border-radius: 5px;
+}
+
+.tangram.listview .list-item.cover .list-meta,
+.tangram.listview .list-item.cover .list-title,
+.tangram.listview .list-item.cover .list-abstract {
+    width: 100%;
+    padding: 0;
+}
+
+
+/****************
+/*	Text List
+/************************************************/
+
+.tangram.listview.text-list .list-item {
+    width: 98%;
+    height: 30px;
+    padding: 5px 1%;
+    font-size: 14px;
+    line-height: 30px;
+}
+
+.tangram.listview.text-list .list-item.topline {
+    height: 29px;
+    border-top: 1px solid #cccccc;
+    line-height: 29px;
+}
+
+.tangram.listview.text-list .list-item.underline {
+    height: 29px;
+    border-bottom: 1px solid #cccccc;
+    line-height: 29px;
+}
+
+.tangram.listview.text-list .list-item.topline.underline {
+    height: 28px;
+    border-top: 1px solid #cccccc;
+    border-bottom: 1px solid #cccccc;
+    line-height: 28px;
+}
+
+.tangram.listview.text-list .list-item.stripe:nth-child(odd) {
+    background-color: #eeeeee;
+}
+
+.tangram.listview.text-list .list-item.stripe:nth-child(even) {
+    background-color: #f8f8f8;
+}
+
+.tangram.listview.text-list .list-item.card {
+    background-color: #ffffff;
+    margin: 10px 0;
+}
+
+.tangram.listview.text-list .list-item.pane {
+    width: 100%;
+    height: 40px;
+    box-sizing: border-box;
+    border: 1px solid #cccccc;
+    margin: 10px 0;
+}
+
+.tangram.listview.text-list .list-item.content {
+    padding: 5px 0;
+    margin: 0 1%;
+}
+
+.tangram.listview.text-list .list-item.content.card {
+    width: 96%;
+}
+
+.tangram.listview.text-list .list-item.content.pane {
+    width: 98%;
+}
+
+.tangram.listview.text-list .list-item.content.card,
+.tangram.listview.text-list .list-item.content.pane {
+    padding: 5px 1%;
+    margin: 10px 1%;
+}
+
+.tangram.listview.text-list .list-item.cover,
+.tangram.listview.text-list .list-item.content.cover {
+    padding: 0;
+}
+
+.tangram.listview.text-list .list-item.pane.cover {
+    height: 30px;
+}
+
+.tangram.listview.text-list .list-item.content.card.cover,
+.tangram.listview.text-list .list-item.pane.cover {
+    padding: 0 1%;
+}
+
+.tangram.listview.text-list .list-item.pane.trueround,
+.tangram.listview.text-list .list-item.card.trueround {
+    border-radius: 20px;
+}
+
+.tangram.listview.text-list .list-item.pane.cover.trueround {
+    border-radius: 15px;
+}
+
+
+/****************
+/*	Columns
+/************************************************/
+
+.tangram.listview,
+.tangram.listview[data-list-cols="1"] {
+    font-size: 0;
+    -webkit-text-size-adjust: none;
+}
+
+.tangram.listview .list-item,
+.tangram.listview[data-list-cols="1"] .list-item {
+    width: 100%;
+}
+
+.tangram.listview .list-item.content,
+.tangram.listview[data-list-cols="1"] .list-item.content {
+    width: 98%;
+}
+
+.tangram.listview[data-list-cols="2"] .list-item,
+.tangram.listview[data-list-cols="2"] .list-item.card,
+.tangram.listview[data-list-cols="2"] .list-item.pane,
+.tangram.listview.mtext-list[data-list-cols="2"] .list-item,
+.tangram.listview.mtext-list[data-list-cols="2"] .list-item.card,
+.tangram.listview.mtext-list[data-list-cols="2"] .list-item.pane,
+.tangram.listview.media-list[data-list-cols="2"] .list-item,
+.tangram.listview.media-list[data-list-cols="2"] .list-item.card,
+.tangram.listview.media-list[data-list-cols="2"] .list-item.pane {
+    display: inline-block;
+    width: 50%;
+}
+
+.tangram.listview[data-list-cols="2"] .list-item.content,
+.tangram.listview.mtext-list[data-list-cols="2"] .list-item.content,
+.tangram.listview.media-list[data-list-cols="2"] .list-item.content {
+    width: 48%;
+}
+
+.tangram.listview.media-list[data-list-cols="2"] .list-item.card.cover,
+.tangram.listview.media-list[data-list-cols="2"] .list-item.pane.cover {
+    width: 46%;
+}
+
+.tangram.listview.text-list[data-list-cols="2"] .list-item.pane {
+    margin: 10px 1%;
+}
+
+.tangram.listview.text-list[data-list-cols="2"] .list-item,
+.tangram.listview.text-list[data-list-cols="2"] .list-item.content,
+.tangram.listview.text-list[data-list-cols="2"] .list-item.pane.content {
+    width: 48%;
+}
+
+.tangram.listview.text-list[data-list-cols="2"] .list-item.card.content {
+    width: 46%;
+}
+
+.tangram.listview.text-list[data-list-cols="2"] .list-item.cover {
+    width: 50%;
+}
+
+.tangram.listview.text-list[data-list-cols="2"] .list-item.pane.cover,
+.tangram.listview.text-list[data-list-cols="2"] .list-item.content.cover,
+.tangram.listview.text-list[data-list-cols="2"] .list-item.card.content.cover {
+    width: 48%;
+}
+
+.tangram.listview[data-list-cols="3"] .list-item,
+.tangram.listview[data-list-cols="3"] .list-item.card,
+.tangram.listview[data-list-cols="3"] .list-item.pane,
+.tangram.listview.mtext-list[data-list-cols="3"] .list-item,
+.tangram.listview.mtext-list[data-list-cols="3"] .list-item.card,
+.tangram.listview.mtext-list[data-list-cols="3"] .list-item.pane,
+.tangram.listview.media-list[data-list-cols="3"] .list-item,
+.tangram.listview.media-list[data-list-cols="3"] .list-item.card,
+.tangram.listview.media-list[data-list-cols="3"] .list-item.pane {
+    display: inline-block;
+    width: 33.33333%;
+}
+
+.tangram.listview[data-list-cols="3"] .list-item.content,
+.tangram.listview.mtext-list[data-list-cols="3"] .list-item.content,
+.tangram.listview.media-list[data-list-cols="3"] .list-item.content {
+    width: 31.33333%;
+}
+
+.tangram.listview.media-list[data-list-cols="3"] .list-item.card.cover,
+.tangram.listview.media-list[data-list-cols="3"] .list-item.pane.cover {
+    width: 29.33333%;
+}
+
+.tangram.listview.text-list[data-list-cols="3"] .list-item.pane {
+    margin: 10px 1%;
+}
+
+.tangram.listview.text-list[data-list-cols="3"] .list-item,
+.tangram.listview.text-list[data-list-cols="3"] .list-item.content,
+.tangram.listview.text-list[data-list-cols="3"] .list-item.pane.content {
+    width: 31.33333%;
+}
+
+.tangram.listview.text-list[data-list-cols="3"] .list-item.card.content {
+    width: 29.33333%;
+}
+
+.tangram.listview.text-list[data-list-cols="3"] .list-item.cover {
+    width: 33.33333%;
+}
+
+.tangram.listview.text-list[data-list-cols="3"] .list-item.pane.cover,
+.tangram.listview.text-list[data-list-cols="3"] .list-item.content.cover,
+.tangram.listview.text-list[data-list-cols="3"] .list-item.card.content.cover {
+    width: 31.33333%;
+}
+
+.tangram.listview[data-list-cols="4"] .list-item,
+.tangram.listview[data-list-cols="4"] .list-item.card,
+.tangram.listview[data-list-cols="4"] .list-item.pane,
+.tangram.listview.mtext-list[data-list-cols="4"] .list-item,
+.tangram.listview.mtext-list[data-list-cols="4"] .list-item.card,
+.tangram.listview.mtext-list[data-list-cols="4"] .list-item.pane,
+.tangram.listview.media-list[data-list-cols="4"] .list-item,
+.tangram.listview.media-list[data-list-cols="4"] .list-item.card,
+.tangram.listview.media-list[data-list-cols="4"] .list-item.pane {
+    display: inline-block;
+    width: 25%;
+}
+
+.tangram.listview[data-list-cols="4"] .list-item.content,
+.tangram.listview.mtext-list[data-list-cols="4"] .list-item.content,
+.tangram.listview.media-list[data-list-cols="4"] .list-item.content {
+    width: 23%;
+}
+
+.tangram.listview.media-list[data-list-cols="4"] .list-item.card.cover,
+.tangram.listview.media-list[data-list-cols="4"] .list-item.pane.cover {
+    width: 21%;
+}
+
+.tangram.listview.text-list[data-list-cols="4"] .list-item.pane {
+    margin: 10px 1%;
+}
+
+.tangram.listview.text-list[data-list-cols="4"] .list-item,
+.tangram.listview.text-list[data-list-cols="4"] .list-item.content,
+.tangram.listview.text-list[data-list-cols="4"] .list-item.pane.content {
+    width: 23%;
+}
+
+.tangram.listview.text-list[data-list-cols="4"] .list-item.card.content {
+    width: 21%;
+}
+
+.tangram.listview.text-list[data-list-cols="4"] .list-item.cover {
+    width: 25%;
+}
+
+.tangram.listview.text-list[data-list-cols="4"] .list-item.pane.cover,
+.tangram.listview.text-list[data-list-cols="4"] .list-item.content.cover,
+.tangram.listview.text-list[data-list-cols="4"] .list-item.card.content.cover {
+    width: 23%;
+}
+
+.tangram.listview[data-list-cols="5"] .list-item,
+.tangram.listview[data-list-cols="5"] .list-item.card,
+.tangram.listview[data-list-cols="5"] .list-item.pane,
+.tangram.listview.mtext-list[data-list-cols="5"] .list-item,
+.tangram.listview.mtext-list[data-list-cols="5"] .list-item.card,
+.tangram.listview.mtext-list[data-list-cols="5"] .list-item.pane,
+.tangram.listview.media-list[data-list-cols="5"] .list-item,
+.tangram.listview.media-list[data-list-cols="5"] .list-item.card,
+.tangram.listview.media-list[data-list-cols="5"] .list-item.pane {
+    display: inline-block;
+    width: 20%;
+}
+
+.tangram.listview[data-list-cols="5"] .list-item.content,
+.tangram.listview.mtext-list[data-list-cols="5"] .list-item.content,
+.tangram.listview.media-list[data-list-cols="5"] .list-item.content {
+    width: 18%;
+}
+
+.tangram.listview.media-list[data-list-cols="5"] .list-item.card.cover,
+.tangram.listview.media-list[data-list-cols="5"] .list-item.pane.cover {
+    width: 16%;
+}
+
+.tangram.listview.text-list[data-list-cols="5"] .list-item.pane {
+    margin: 10px 1%;
+}
+
+.tangram.listview.text-list[data-list-cols="5"] .list-item,
+.tangram.listview.text-list[data-list-cols="5"] .list-item.content,
+.tangram.listview.text-list[data-list-cols="5"] .list-item.pane.content {
+    width: 18%;
+}
+
+.tangram.listview.text-list[data-list-cols="5"] .list-item.card.content {
+    width: 16%;
+}
+
+.tangram.listview.text-list[data-list-cols="5"] .list-item.cover {
+    width: 20%;
+}
+
+.tangram.listview.text-list[data-list-cols="5"] .list-item.pane.cover,
+.tangram.listview.text-list[data-list-cols="5"] .list-item.content.cover,
+.tangram.listview.text-list[data-list-cols="5"] .list-item.card.content.cover {
+    width: 18%;
+}
+
+
+/****************
+/*	Multiple Rows Text List
+/************************************************/
+
+.tangram.listview.mtext-list .list-item,
+.tangram.listview.media-list .list-item {
+    width: 100%;
+    padding: 5px 0;
+}
+
+.tangram.listview.mtext-list .list-item.cover,
+.tangram.listview.media-list .list-item.cover {
+    padding: 0;
+}
+
+.tangram.listview.mtext-list .list-item.topline,
+.tangram.listview.media-list .list-item.topline {
+    border-top: 1px solid #cccccc;
+}
+
+.tangram.listview.mtext-list .list-item.underline,
+.tangram.listview.media-list .list-item.underline {
+    border-bottom: 1px solid #cccccc;
+}
+
+.tangram.listview.mtext-list .list-item.topline.underline,
+.tangram.listview.media-list .list-item.topline.underline {
+    border-top: 1px solid #cccccc;
+    border-bottom: 1px solid #cccccc;
+}
+
+.tangram.listview.mtext-list .list-item.stripe:nth-child(odd),
+.tangram.listview.media-list .list-item.stripe:nth-child(odd) {
+    background-color: #eeeeee;
+}
+
+.tangram.listview.mtext-list .list-item.stripe:nth-child(even),
+.tangram.listview.media-list .list-item.stripe:nth-child(even) {
+    background-color: #f8f8f8;
+}
+
+.tangram.listview.mtext-list .list-item.card,
+.tangram.listview.media-list .list-item.card {
+    background-color: #ffffff;
+    margin: 10px 0;
+}
+
+.tangram.listview.mtext-list .list-item.pane,
+.tangram.listview.media-list .list-item.pane {
+    box-sizing: border-box;
+    border: 1px solid #cccccc;
+    margin: 10px 0;
+}
+
+.tangram.listview.mtext-list .list-item.content,
+.tangram.listview.media-list .list-item.content {
+    width: 98%;
+    margin: 10px 1%;
+}
+
+.tangram.listview.mtext-list .list-item.content.card,
+.tangram.listview.mtext-list .list-item.content.pane,
+.tangram.listview.media-list .list-item.content.card,
+.tangram.listview.media-list .list-item.content.pane {
+    margin: 10px 1%;
+}
+
+.tangram.listview.mtext-list .list-item.cover.card .list-title,
+.tangram.listview.mtext-list .list-item.cover.card .list-abstract,
+.tangram.listview.mtext-list .list-item.cover.card .list-meta,
+.tangram.listview.mtext-list .list-item.cover.pane .list-title,
+.tangram.listview.mtext-list .list-item.cover.pane .list-abstract,
+.tangram.listview.mtext-list .list-item.cover.pane .list-meta,
+.tangram.listview.media-list .list-item.cover.card .list-title,
+.tangram.listview.media-list .list-item.cover.card .list-abstract,
+.tangram.listview.media-list .list-item.cover.card .list-meta,
+.tangram.listview.media-list .list-item.cover.pane .list-title,
+.tangram.listview.media-list .list-item.cover.pane .list-abstract,
+.tangram.listview.media-list .list-item.cover.pane .list-meta {
+    width: 98%;
+    padding: 0 1%;
+}
+
+
+/****************
+/*	Media List
+/************************************************/
+
+.tangram.listview.media-list .list-item {
+    padding: 0;
+}
+
+.tangram.listview.media-list .list-item>* {
+    display: none;
+}
+
+.tangram.listview.media-list .list-item>img,
+.tangram.listview.media-list .list-item>.list-figure,
+.tangram.listview.media-list .list-item>.list-image {
+    display: block;
+}
+
+.tangram.listview.media-list .list-item>img,
+.tangram.listview.media-list .list-item>.list-figure,
+.tangram.listview.media-list .list-item>.list-image {
+    float: left;
+    margin: 10px 0 10px 10px;
+}
+
+.tangram.listview.media-list .list-item>.list-body:first-child,
+.tangram.listview.media-list .list-item>.list-body:last-child {
+    display: inline-block;
+}
+
+.tangram.listview.media-list .list-item>.list-body:first-child,
+.tangram.listview.media-list .list-item>.list-body:last-child {
+    display: inline-block;
+}
+
+.tangram.listview.media-list .list-item>img.h51,
+.tangram.listview.media-list .list-item>.list-figure.h51 img,
+.tangram.listview.media-list .list-item>.list-image.h51,
+.tangram.listview.media-list .list-item>.list-image.h51 img {
+    width: 51px;
+    height: 51px;
+}
+
+.tangram.listview.media-list .list-item>.list-figure.h51 {
+    width: 51px;
+    height: 51px;
+    padding: 5px;
+    border: 1px solid #ccc;
+}
+
+.tangram.listview.media-list .list-item>img.h54,
+.tangram.listview.media-list .list-item>.list-figure.h54 img,
+.tangram.listview.media-list .list-item>.list-image.h54,
+.tangram.listview.media-list .list-item>.list-image.h54 img {
+    width: 51px;
+    height: 51px;
+}
+
+.tangram.listview.media-list .list-item>.list-figure.h54 {
+    width: 51px;
+    height: 51px;
+    padding: 5px;
+    border: 1px solid #ccc;
+}
+
+.tangram.listview.media-list .list-item>img.h75,
+.tangram.listview.media-list .list-item>.list-figure.h75 img,
+.tangram.listview.media-list .list-item>.list-image.h75,
+.tangram.listview.media-list .list-item>.list-image.h75 img {
+    width: 100px;
+    height: 75px;
+}
+
+.tangram.listview.media-list .list-item>.list-figure.h75 {
+    width: 100px;
+    height: 75px;
+    padding: 5px;
+    border: 1px solid #ccc;
+}
+
+.tangram.listview.media-list .list-item>img.h96,
+.tangram.listview.media-list .list-item>.list-figure.h96 img,
+.tangram.listview.media-list .list-item>.list-image.h96,
+.tangram.listview.media-list .list-item>.list-image.h96 img {
+    width: 128px;
+    height: 96px;
+}
+
+.tangram.listview.media-list .list-item>.list-figure.h96 {
+    width: 128px;
+    height: 96px;
+    padding: 5px;
+    border: 1px solid #ccc;
+}
+
+.tangram.listview.media-list .list-item>img.h117,
+.tangram.listview.media-list .list-item>.list-figure.h117 img,
+.tangram.listview.media-list .list-item>.list-image.h117,
+.tangram.listview.media-list .list-item>.list-image.h117 img {
+    width: 156px;
+    height: 117px;
+}
+
+.tangram.listview.media-list .list-item>.list-figure.h117 {
+    width: 156px;
+    height: 117px;
+    padding: 5px;
+    border: 1px solid #ccc;
+}
+
+.tangram.listview.media-list .list-item>img.h138,
+.tangram.listview.media-list .list-item>.list-figure.h138 img,
+.tangram.listview.media-list .list-item>.list-image.h138,
+.tangram.listview.media-list .list-item>.list-image.h138 img {
+    width: 184px;
+    height: 138px;
+}
+
+.tangram.listview.media-list .list-item>.list-figure.h138 {
+    width: 184px;
+    height: 138px;
+    padding: 5px;
+    border: 1px solid #ccc;
+}
+
+.tangram.listview.media-list .list-item.content>img,
+.tangram.listview.media-list .list-item.content>.list-figure,
+.tangram.listview.media-list .list-item.content>.list-image {
+    margin: 15px 0;
+}
+
+.tangram.listview.media-list .list-item.content>.list-body {
+    margin: 15px 0;
+}
+
+.tangram.listview.media-list .list-item.content>.list-body .list-title,
+.tangram.listview.media-list .list-item.content>.list-body .list-abstract,
+.tangram.listview.media-list .list-item.content>.list-body .list-meta {
+    width: 99%;
+    padding: 0 0 0 1%;
+}
+
+.tangram.listview.media-list .list-item.cover,
+.tangram.listview.media-list .list-item.content.cover {
+    padding: 0;
+}
+
+.tangram.listview.media-list .list-item.cover>img,
+.tangram.listview.media-list .list-item.cover>.list-figure,
+.tangram.listview.media-list .list-item.cover>.list-image,
+.tangram.listview.media-list .list-item.content.cover>img,
+.tangram.listview.media-list .list-item.content.cover>.list-figure,
+.tangram.listview.media-list .list-item.content.cover>.list-image {
+    margin: 10px 10px 10px 0;
+}
+
+.tangram.listview.media-list .list-item.cover>.list-body,
+.tangram.listview.media-list .list-item.content.cover>.list-body {
+    margin: 10px 0;
+}
+
+.tangram.listview.media-list .list-item.cover>.list-body .list-title,
+.tangram.listview.media-list .list-item.cover>.list-body .list-abstract,
+.tangram.listview.media-list .list-item.cover>.list-body .list-meta,
+.tangram.listview.media-list .list-item.content.cover>.list-body .list-title,
+.tangram.listview.media-list .list-item.content.cover>.list-body .list-abstract,
+.tangram.listview.media-list .list-item.content.cover>.list-body .list-meta {
+    width: 100%;
+    padding: 0;
+}
+
+.tangram.listview.media-list .list-item.card.cover,
+.tangram.listview.media-list .list-item.card.content.cover {
+    padding: 0;
+}
+
+.tangram.listview.media-list .list-item.card.cover>img,
+.tangram.listview.media-list .list-item.card.cover>.list-figure,
+.tangram.listview.media-list .list-item.card.cover>.list-image,
+.tangram.listview.media-list .list-item.card.content.cover>img,
+.tangram.listview.media-list .list-item.card.content.cover>.list-figure,
+.tangram.listview.media-list .list-item.card.content.cover>.list-image {
+    margin: 0 10px 0 0;
+}
+
+.tangram.listview.media-list .list-item.card.cover>.list-body,
+.tangram.listview.media-list .list-item.card.content.cover>.list-body {
+    margin: 0;
+}
+
+.tangram.listview.media-list .list-item.card.cover>.list-body .list-title,
+.tangram.listview.media-list .list-item.card.cover>.list-body .list-abstract,
+.tangram.listview.media-list .list-item.card.cover>.list-body .list-meta,
+.tangram.listview.media-list .list-item.card.content.cover>.list-body .list-title,
+.tangram.listview.media-list .list-item.card.content.cover>.list-body .list-abstract,
+.tangram.listview.media-list .list-item.card.content.cover>.list-body .list-meta {
+    width: 99%;
+    padding: 0 1% 0 0;
+}
+
+.tangram.listview.media-list .list-item.pane.cover>img,
+.tangram.listview.media-list .list-item.pane.cover>.list-figure,
+.tangram.listview.media-list .list-item.pane.cover>.list-image,
+.tangram.listview.media-list .list-item.pane.content.cover>img,
+.tangram.listview.media-list .list-item.pane.content.cover>.list-figure,
+.tangram.listview.media-list .list-item.pane.content.cover>.list-image {
+    margin: 10px;
+}
+
+.tangram.listview.media-list .list-item.pane.cover>.list-body,
+.tangram.listview.media-list .list-item.pane.content.cover>.list-body {
+    margin: 10px 0;
+}
+
+.tangram.listview.media-list .list-item.pane.cover>.list-body .list-title,
+.tangram.listview.media-list .list-item.pane.cover>.list-body .list-abstract,
+.tangram.listview.media-list .list-item.pane.cover>.list-body .list-meta,
+.tangram.listview.media-list .list-item.pane.content.cover>.list-body .list-title,
+.tangram.listview.media-list .list-item.pane.content.cover>.list-body .list-abstract,
+.tangram.listview.media-list .list-item.pane.content.cover>.list-body .list-meta {
+    width: 99%;
+    padding: 0 1% 0 0;
+}
+
+.tangram.listview.media-list[data-list-cols] .list-item.card.cover,
+.tangram.listview.media-list[data-list-cols] .list-item.pane.cover {
+    margin: 10px 2%;
+}
+
+.tangram.listview.media-list[data-list-cols="1"] .list-item.card.cover,
+.tangram.listview.media-list[data-list-cols="1"] .list-item.pane.cover {
+    margin: 10px auto;
+}
+
+.tangram.listview.media-list .list-item.right-left>img,
+.tangram.listview.media-list .list-item.right-left>.list-figure,
+.tangram.listview.media-list .list-item.right-left>.list-image {
+    float: right;
+    margin-right: 10px 10px 10px 0;
+}
+
+.tangram.listview.media-list .list-item.content.right-left>.list-body {
+    margin: 15px 0;
+}
+
+.tangram.listview.media-list .list-item.content.right-left>.list-body .list-title,
+.tangram.listview.media-list .list-item.content.right-left>.list-body .list-abstract,
+.tangram.listview.media-list .list-item.content.right-left>.list-body .list-meta {
+    width: 99%;
+    padding: 0 1% 0 0;
+}
+
+.tangram.listview.media-list .list-item.card.right-left>img,
+.tangram.listview.media-list .list-item.card.right-left>.list-figure,
+.tangram.listview.media-list .list-item.card.right-left>.list-image {
+    margin: 0 0 0 10px;
+}
+
+.tangram.listview.media-list .list-item.cover.right-left>.list-body,
+.tangram.listview.media-list .list-item.content.cover.right-left>.list-body {
+    margin: 10px 0;
+}
+
+.tangram.listview.media-list .list-item.card.cover.right-left>img,
+.tangram.listview.media-list .list-item.card.cover.right-left>.list-figure,
+.tangram.listview.media-list .list-item.card.cover.right-left>.list-image,
+.tangram.listview.media-list .list-item.card.content.cover.right-left>img,
+.tangram.listview.media-list .list-item.card.content.cover.right-left>.list-figure,
+.tangram.listview.media-list .list-item.card.content.cover.right-left>.list-image {
+    margin: 0 0 0 10px;
+}
+
+.tangram.listview.media-list .list-item.card.cover.right-left>.list-body,
+.tangram.listview.media-list .list-item.card.content.cover.right-left>.list-body {
+    margin: 0;
+}
+
+.tangram.listview.media-list .list-item.card.cover.right-left>.list-body .list-title,
+.tangram.listview.media-list .list-item.card.cover.right-left>.list-body .list-abstract,
+.tangram.listview.media-list .list-item.card.cover.right-left>.list-body .list-meta,
+.tangram.listview.media-list .list-item.card.content.cover.right-left>.list-body .list-title,
+.tangram.listview.media-list .list-item.card.content.cover.right-left>.list-body .list-abstract,
+.tangram.listview.media-list .list-item.card.content.cover.right-left>.list-body .list-meta {
+    width: 99%;
+    padding: 0 0 0 1%;
+}
+
+.tangram.listview.media-list .list-item.top-bottom>img,
+.tangram.listview.media-list .list-item.top-bottom>.list-figure,
+.tangram.listview.media-list .list-item.top-bottom>.list-image {
+    float: none;
+    width: 96%;
+    margin: 20px 2%;
+}
+
+.tangram.listview.media-list .list-item.top-bottom>.list-body.pl-bottom .list-title,
+.tangram.listview.media-list .list-item.top-bottom>.list-body.pl-bottom .list-abstract,
+.tangram.listview.media-list .list-item.top-bottom>.list-body.pl-bottom .list-meta {
+    width: 100%;
+    padding: 0 0 0 0;
+}
+
+.tangram.listview.media-list .list-item.content.top-bottom>img,
+.tangram.listview.media-list .list-item.content.top-bottom>.list-figure,
+.tangram.listview.media-list .list-item.content.top-bottom>.list-image {
+    width: 96%;
+    margin: 5px 2% 0;
+}
+
+.tangram.listview.media-list .list-item.content.top-bottom>.list-body {
+    margin: 0 2% 5px;
+}
+
+.tangram.listview.media-list .list-item.content.top-bottom>.list-body .list-title,
+.tangram.listview.media-list .list-item.content.top-bottom>.list-body .list-abstract,
+.tangram.listview.media-list .list-item.content.top-bottom>.list-body .list-meta {
+    width: 100%;
+    padding: 0 0 0 0;
+}
+
+.tangram.listview.media-list .list-item.cover.top-bottom>img,
+.tangram.listview.media-list .list-item.cover.top-bottom>.list-figure,
+.tangram.listview.media-list .list-item.cover.top-bottom>.list-image,
+.tangram.listview.media-list .list-item.content.cover.top-bottom>img,
+.tangram.listview.media-list .list-item.content.cover.top-bottom>.list-figure,
+.tangram.listview.media-list .list-item.content.cover.top-bottom>.list-image {
+    width: 100%;
+}
+
+.tangram.listview.media-list .list-item.card.cover.top-bottom>.list-body {
+    width: 96%;
+    padding: 0 2%;
+}
+
+.tangram.listview.media-list[data-list-cols] .list-item.card.cover.top-bottom,
+.tangram.listview.media-list[data-list-cols] .list-item.pane.cover.top-bottom {
+    margin: 20px 2%;
+}
+
+.tangram.listview.media-list[data-list-cols="1"] .list-item.card.cover.top-bottom,
+.tangram.listview.media-list[data-list-cols="1"] .list-item.pane.cover.top-bottom {
+    margin: 20px auto;
+}
+
+
+/****************
+/*	Text List
+/************************************************/
+
+.tangram.listview.page-list {
+    margin: 10px auto;
+    font-size: 0;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.tangram.listview.page-list .list-item {
+    display: inline-table;
+    width: 20px;
+    height: 20px;
+    margin: 4px;
+    font-size: 13px;
+    cursor: pointer;
+    color: #333;
+}
+
+.tangram.listview.page-list .list-item.actived {
+    color: #0cf;
+}
+
+.tangram.listview.page-list.al-left {
+    text-align: left;
+}
+
+.tangram.listview.page-list.al-right {
+    text-align: right;
+}
+
+.tangram.listview.page-list.blocks .list-item,
+.tangram.listview.page-list.pills .list-item,
+.tangram.listview.page-list.spills .list-item {
+    border: 1px solid #999;
+    line-height: 20px;
+    padding: 5px;
+    text-align: center;
+    color: #333;
+}
+
+.tangram.listview.page-list.blocks .list-item.actived,
+.tangram.listview.page-list.pills .list-item.actived,
+.tangram.listview.page-list.spills .list-item.actived {
+    background-color: #999;
+    color: #fff;
+}
+
+.tangram.listview.page-list.blocks .list-item.red,
+.tangram.listview.page-list.pills .list-item.red,
+.tangram.listview.page-list.spills .list-item.red {
+    border: 1px solid #d23;
+    color: #d23;
+}
+
+.tangram.listview.page-list.blocks .list-item.red.actived,
+.tangram.listview.page-list.pills .list-item.red.actived,
+.tangram.listview.page-list.spills .list-item.red.actived {
+    background-color: #d23;
+    color: #fff;
+}
+
+.tangram.listview.page-list.blocks .list-item.darkred,
+.tangram.listview.page-list.pills .list-item.darkred,
+.tangram.listview.page-list.spills .list-item.darkred {
+    border: 1px solid #600;
+    color: #600;
+}
+
+.tangram.listview.page-list.blocks .list-item.darkred.actived,
+.tangram.listview.page-list.pills .list-item.darkred.actived,
+.tangram.listview.page-list.spills .list-item.darkred.actived {
+    background-color: #600;
+    color: #fff;
+}
+
+.tangram.listview.page-list.blocks .list-item.orange,
+.tangram.listview.page-list.pills .list-item.orange,
+.tangram.listview.page-list.spills .list-item.orange {
+    border: 1px solid #f52;
+    color: #f52;
+}
+
+.tangram.listview.page-list.blocks .list-item.orange.actived,
+.tangram.listview.page-list.pills .list-item.orange.actived,
+.tangram.listview.page-list.spills .list-item.orange.actived {
+    background-color: #f52;
+    color: #fff;
+}
+
+.tangram.listview.page-list.blocks .list-item.yellow,
+.tangram.listview.page-list.pills .list-item.yellow,
+.tangram.listview.page-list.spills .list-item.yellow {
+    border: 1px solid #ed2;
+    color: #ed2;
+}
+
+.tangram.listview.page-list.blocks .list-item.yellow.actived,
+.tangram.listview.page-list.pills .list-item.yellow.actived,
+.tangram.listview.page-list.spills .list-item.yellow.actived {
+    background-color: #ed2;
+    color: #fff;
+}
+
+.tangram.listview.page-list.blocks .list-item.green,
+.tangram.listview.page-list.pills .list-item.green,
+.tangram.listview.page-list.spills .list-item.green {
+    border: 1px solid #2c4;
+    color: #2c4;
+}
+
+.tangram.listview.page-list.blocks .list-item.green.actived,
+.tangram.listview.page-list.pills .list-item.green.actived,
+.tangram.listview.page-list.spills .list-item.green.actived {
+    background-color: #2c4;
+    color: #fff;
+}
+
+.tangram.listview.page-list.blocks .list-item.darkgreen,
+.tangram.listview.page-list.pills .list-item.darkgreen,
+.tangram.listview.page-list.spills .list-item.darkgreen {
+    border: 1px solid #363;
+    color: #363;
+}
+
+.tangram.listview.page-list.blocks .list-item.darkgreen.actived,
+.tangram.listview.page-list.pills .list-item.darkgreen.actived,
+.tangram.listview.page-list.spills .list-item.darkgreen.actived {
+    background-color: #363;
+    color: #fff;
+}
+
+.tangram.listview.page-list.blocks .list-item.cyan,
+.tangram.listview.page-list.pills .list-item.cyan,
+.tangram.listview.page-list.spills .list-item.cyan {
+    border: 1px solid #09b;
+    color: #09b;
+}
+
+.tangram.listview.page-list.blocks .list-item.cyan.actived,
+.tangram.listview.page-list.pills .list-item.cyan.actived,
+.tangram.listview.page-list.spills .list-item.cyan.actived {
+    background-color: #09b;
+    color: #fff;
+}
+
+.tangram.listview.page-list.blocks .list-item.blue,
+.tangram.listview.page-list.pills .list-item.blue,
+.tangram.listview.page-list.spills .list-item.blue {
+    border: 1px solid #09f;
+    color: #09f;
+}
+
+.tangram.listview.page-list.blocks .list-item.blue.actived,
+.tangram.listview.page-list.pills .list-item.blue.actived,
+.tangram.listview.page-list.spills .list-item.blue.actived {
+    background-color: #09f;
+    color: #fff;
+}
+
+.tangram.listview.page-list.blocks .list-item.darkblue,
+.tangram.listview.page-list.pills .list-item.darkblue,
+.tangram.listview.page-list.spills .list-item.darkblue {
+    border: 1px solid #036;
+    color: #036;
+}
+
+.tangram.listview.page-list.blocks .list-item.darkblue.actived,
+.tangram.listview.page-list.pills .list-item.darkblue.actived,
+.tangram.listview.page-list.spills .list-item.darkblue.actived {
+    background-color: #036;
+    color: #fff;
+}
+
+.tangram.listview.page-list.blocks .list-item.purple,
+.tangram.listview.page-list.pills .list-item.purple,
+.tangram.listview.page-list.spills .list-item.purple {
+    border: 1px solid #c2a;
+    color: #c2a;
+}
+
+.tangram.listview.page-list.blocks .list-item.purple.actived,
+.tangram.listview.page-list.pills .list-item.purple.actived,
+.tangram.listview.page-list.spills .list-item.purple.actived {
+    background-color: #c2a;
+    color: #fff;
+}
+
+.tangram.listview.page-list.blocks .list-item.black,
+.tangram.listview.page-list.pills .list-item.black,
+.tangram.listview.page-list.spills .list-item.black {
+    border: 1px solid #000;
+    color: #000;
+}
+
+.tangram.listview.page-list.blocks .list-item.black.actived,
+.tangram.listview.page-list.pills .list-item.black.actived,
+.tangram.listview.page-list.spills .list-item.black.actived {
+    background-color: #000;
+    color: #fff;
+}
+
+.tangram.listview.page-list.blocks .list-item.lightgray,
+.tangram.listview.page-list.pills .list-item.lightgray,
+.tangram.listview.page-list.spills .list-item.lightgray {
+    border: 1px solid #ddd;
+    color: #ddd;
+}
+
+.tangram.listview.page-list.blocks .list-item.lightgray.actived,
+.tangram.listview.page-list.pills .list-item.lightgray.actived,
+.tangram.listview.page-list.spills .list-item.lightgray.actived {
+    background-color: #ddd;
+    color: #fff;
+}
+
+.tangram.listview.page-list.blocks .list-item.gray,
+.tangram.listview.page-list.pills .list-item.gray,
+.tangram.listview.page-list.spills .list-item.gray {
+    border: 1px solid #999;
+    color: #999;
+}
+
+.tangram.listview.page-list.blocks .list-item.gray.actived,
+.tangram.listview.page-list.pills .list-item.gray.actived,
+.tangram.listview.page-list.spills .list-item.gray.actived {
+    background-color: #999;
+    color: #fff;
+}
+
+.tangram.listview.page-list.blocks .list-item.dark-gray,
+.tangram.listview.page-list.pills .list-item.dark-gray,
+.tangram.listview.page-list.spills .list-item.dark-gray {
+    border: 1px solid #666;
+    color: #666;
+}
+
+.tangram.listview.page-list.blocks .list-item.dark-gray.actived,
+.tangram.listview.page-list.pills .list-item.dark-gray.actived,
+.tangram.listview.page-list.spills .list-item.dark-gray.actived {
+    background-color: #666;
+    color: #fff;
+}
+
+.tangram.listview.page-list.blocks .list-item.white,
+.tangram.listview.page-list.pills .list-item.white,
+.tangram.listview.page-list.spills .list-item.white {
+    border: 1px solid #fff;
+    color: #fff;
+}
+
+.tangram.listview.page-list.blocks .list-item.white.actived,
+.tangram.listview.page-list.pills .list-item.white.actived,
+.tangram.listview.page-list.spills .list-item.white.actived {
+    background-color: #fff;
+    color: #fff;
+}
+
+.tangram.listview.page-list.blocks.rounded .list-item {
+    border-radius: 3px;
+}
+
+.tangram.listview.page-list.pills .list-item {
+    border-radius: 15px;
+}
+
+.tangram.listview.page-list.spills .list-item {
+    margin: 4px 0;
+    padding: 0 6px;
+    border-radius: 10px;
+}
+
+.tangram.listview.page-list.train .list-item {
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    border-top: 1px solid #999;
+    border-right: 1px solid #999;
+    border-bottom: 1px solid #999;
+    line-height: 20px;
+    padding: 5px 6px;
+    text-align: center;
+    color: #333;
+}
+
+.tangram.listview.page-list.train .list-item:first-child {
+    border-left: 1px solid #999;
+    border-radius: 15px 0 0 15px;
+    padding: 5px 10px;
+}
+
+.tangram.listview.page-list.train .list-item:last-child {
+    border-radius: 0 15px 15px 0;
+    padding: 5px 10px;
+}
+
+.tangram.listview.page-list.train .list-item.actived {
+    background-color: #999;
+    color: #fff;
+}
+
+.tangram.listview.page-list.train .list-item.red {
+    border-top: 1px solid #d23;
+    border-right: 1px solid #d23;
+    border-bottom: 1px solid #d23;
+    color: #d23;
+}
+
+.tangram.listview.page-list.train .list-item.red:first-child {
+    border-left: 1px solid #d23;
+}
+
+.tangram.listview.page-list.train .list-item.red.actived {
+    background-color: #d23;
+    color: #fff;
+}
+
+.tangram.listview.page-list.train .list-item.darkred {
+    border-top: 1px solid #600;
+    border-right: 1px solid #600;
+    border-bottom: 1px solid #600;
+    color: #600;
+}
+
+.tangram.listview.page-list.train .list-item.darkred:first-child {
+    border-left: 1px solid #600;
+}
+
+.tangram.listview.page-list.train .list-item.darkred.actived {
+    background-color: #600;
+    color: #fff;
+}
+
+.tangram.listview.page-list.train .list-item.orange {
+    border-top: 1px solid #f52;
+    border-right: 1px solid #f52;
+    border-bottom: 1px solid #f52;
+    color: #f52;
+}
+
+.tangram.listview.page-list.train .list-item.orange:first-child {
+    border-left: 1px solid #f52;
+}
+
+.tangram.listview.page-list.train .list-item.orange.actived {
+    background-color: #f52;
+    color: #fff;
+}
+
+.tangram.listview.page-list.train .list-item.yellow {
+    border-top: 1px solid #ed2;
+    border-right: 1px solid #ed2;
+    border-bottom: 1px solid #ed2;
+    color: #ed2;
+}
+
+.tangram.listview.page-list.train .list-item.yellow:first-child {
+    border-left: 1px solid #ed2;
+}
+
+.tangram.listview.page-list.train .list-item.yellow.actived {
+    background-color: #ed2;
+    color: #fff;
+}
+
+.tangram.listview.page-list.train .list-item.green {
+    border-top: 1px solid #2c4;
+    border-right: 1px solid #2c4;
+    border-bottom: 1px solid #2c4;
+    color: #2c4;
+}
+
+.tangram.listview.page-list.train .list-item.green:first-child {
+    border-left: 1px solid #2c4;
+}
+
+.tangram.listview.page-list.train .list-item.green.actived {
+    background-color: #2c4;
+    color: #fff;
+}
+
+.tangram.listview.page-list.train .list-item.darkgreen {
+    border-top: 1px solid #363;
+    border-right: 1px solid #363;
+    border-bottom: 1px solid #363;
+    color: #363;
+}
+
+.tangram.listview.page-list.train .list-item.darkgreen:first-child {
+    border-left: 1px solid #363;
+}
+
+.tangram.listview.page-list.train .list-item.darkgreen.actived {
+    background-color: #363;
+    color: #fff;
+}
+
+.tangram.listview.page-list.train .list-item.cyan {
+    border-top: 1px solid #09b;
+    border-right: 1px solid #09b;
+    border-bottom: 1px solid #09b;
+    color: #09b;
+}
+
+.tangram.listview.page-list.train .list-item.cyan:first-child {
+    border-left: 1px solid #09b;
+}
+
+.tangram.listview.page-list.train .list-item.cyan.actived {
+    background-color: #09b;
+    color: #fff;
+}
+
+.tangram.listview.page-list.train .list-item.blue {
+    border-top: 1px solid #09f;
+    border-right: 1px solid #09f;
+    border-bottom: 1px solid #09f;
+    color: #09f;
+}
+
+.tangram.listview.page-list.train .list-item.blue:first-child {
+    border-left: 1px solid #09f;
+}
+
+.tangram.listview.page-list.train .list-item.blue.actived {
+    background-color: #09f;
+    color: #fff;
+}
+
+.tangram.listview.page-list.train .list-item.darkblue {
+    border-top: 1px solid #036;
+    border-right: 1px solid #036;
+    border-bottom: 1px solid #036;
+    color: #036;
+}
+
+.tangram.listview.page-list.train .list-item.darkblue:first-child {
+    border-left: 1px solid #036;
+}
+
+.tangram.listview.page-list.train .list-item.darkblue.actived {
+    background-color: #036;
+    color: #fff;
+}
+
+.tangram.listview.page-list.train .list-item.purple {
+    border-top: 1px solid #c2a;
+    border-right: 1px solid #c2a;
+    border-bottom: 1px solid #c2a;
+    color: #c2a;
+}
+
+.tangram.listview.page-list.train .list-item.purple:first-child {
+    border-left: 1px solid #c2a;
+}
+
+.tangram.listview.page-list.train .list-item.purple.actived {
+    background-color: #c2a;
+    color: #fff;
+}
+
+.tangram.listview.page-list.train .list-item.black {
+    border-top: 1px solid #000;
+    border-right: 1px solid #000;
+    border-bottom: 1px solid #000;
+    color: #000;
+}
+
+.tangram.listview.page-list.train .list-item.black:first-child {
+    border-left: 1px solid #000;
+}
+
+.tangram.listview.page-list.train .list-item.black.actived {
+    background-color: #000;
+    color: #fff;
+}
+
+.tangram.listview.page-list.train .list-item.lightgray {
+    border-top: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    color: #ddd;
+}
+
+.tangram.listview.page-list.train .list-item.lightgray:first-child {
+    border-left: 1px solid #ddd;
+}
+
+.tangram.listview.page-list.train .list-item.lightgray.actived {
+    background-color: #ddd;
+    color: #fff;
+}
+
+.tangram.listview.page-list.train .list-item.gray {
+    border-top: 1px solid #999;
+    border-right: 1px solid #999;
+    border-bottom: 1px solid #999;
+    color: #999;
+}
+
+.tangram.listview.page-list.train .list-item.gray:first-child {
+    border-left: 1px solid #999;
+}
+
+.tangram.listview.page-list.train .list-item.gray.actived {
+    background-color: #999;
+    color: #fff;
+}
+
+.tangram.listview.page-list.train .list-item.dark-gray {
+    border-top: 1px solid #666;
+    border-right: 1px solid #666;
+    border-bottom: 1px solid #666;
+    color: #666;
+}
+
+.tangram.listview.page-list.train .list-item.dark-gray:first-child {
+    border-left: 1px solid #666;
+}
+
+.tangram.listview.page-list.train .list-item.dark-gray.actived {
+    background-color: #666;
+    color: #fff;
+}
+
+.tangram.listview.page-list.train .list-item.white {
+    border-top: 1px solid #fff;
+    border-right: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+    color: #fff;
+}
+
+.tangram.listview.page-list.train .list-item.white:first-child {
+    border-left: 1px solid #fff;
+}
+
+.tangram.listview.page-list.train .list-item.white.actived {
+    background-color: #fff;
+    color: #fff;
+}
+
+.tangram.listview.page-list.blocks.red .list-item,
+.tangram.listview.page-list.pills.red .list-item,
+.tangram.listview.page-list.spills.red .list-item {
+    border: 1px solid #d23;
+    color: #d23;
+}
+
+.tangram.listview.page-list.blocks.red .list-item.actived,
+.tangram.listview.page-list.pills.red .list-item.actived,
+.tangram.listview.page-list.spills.red .list-item.actived {
+    background-color: #d23;
+    color: #fff;
+}
+
+.tangram.listview.page-list.train.red .list-item {
+    border-top: 1px solid #d23;
+    border-right: 1px solid #d23;
+    border-bottom: 1px solid #d23;
+    color: #d23;
+}
+
+.tangram.listview.page-list.train.red .list-item:first-child {
+    border-left: 1px solid #d23;
+}
+
+.tangram.listview.page-list.train.red .list-item.actived {
+    background-color: #d23;
+    color: #fff;
+}
+
+.tangram.listview.page-list.blocks.darkred .list-item,
+.tangram.listview.page-list.pills.darkred .list-item,
+.tangram.listview.page-list.spills.darkred .list-item {
+    border: 1px solid #600;
+    color: #600;
+}
+
+.tangram.listview.page-list.blocks.darkred .list-item.actived,
+.tangram.listview.page-list.pills.darkred .list-item.actived,
+.tangram.listview.page-list.spills.darkred .list-item.actived {
+    background-color: #600;
+    color: #fff;
+}
+
+.tangram.listview.page-list.train.darkred .list-item {
+    border-top: 1px solid #600;
+    border-right: 1px solid #600;
+    border-bottom: 1px solid #600;
+    color: #600;
+}
+
+.tangram.listview.page-list.train.darkred .list-item:first-child {
+    border-left: 1px solid #600;
+}
+
+.tangram.listview.page-list.train.darkred .list-item.actived {
+    background-color: #600;
+    color: #fff;
+}
+
+.tangram.listview.page-list.blocks.orange .list-item,
+.tangram.listview.page-list.pills.orange .list-item,
+.tangram.listview.page-list.spills.orange .list-item {
+    border: 1px solid #f52;
+    color: #f52;
+}
+
+.tangram.listview.page-list.blocks.orange .list-item.actived,
+.tangram.listview.page-list.pills.orange .list-item.actived,
+.tangram.listview.page-list.spills.orange .list-item.actived {
+    background-color: #f52;
+    color: #fff;
+}
+
+.tangram.listview.page-list.train.orange .list-item {
+    border-top: 1px solid #f52;
+    border-right: 1px solid #f52;
+    border-bottom: 1px solid #f52;
+    color: #f52;
+}
+
+.tangram.listview.page-list.train.orange .list-item:first-child {
+    border-left: 1px solid #f52;
+}
+
+.tangram.listview.page-list.train.orange .list-item.actived {
+    background-color: #f52;
+    color: #fff;
+}
+
+.tangram.listview.page-list.blocks.yellow .list-item,
+.tangram.listview.page-list.pills.yellow .list-item,
+.tangram.listview.page-list.spills.yellow .list-item {
+    border: 1px solid #ed2;
+    color: #ed2;
+}
+
+.tangram.listview.page-list.blocks.yellow .list-item.actived,
+.tangram.listview.page-list.pills.yellow .list-item.actived,
+.tangram.listview.page-list.spills.yellow .list-item.actived {
+    background-color: #ed2;
+    color: #fff;
+}
+
+.tangram.listview.page-list.train.yellow .list-item {
+    border-top: 1px solid #ed2;
+    border-right: 1px solid #ed2;
+    border-bottom: 1px solid #ed2;
+    color: #ed2;
+}
+
+.tangram.listview.page-list.train.yellow .list-item:first-child {
+    border-left: 1px solid #ed2;
+}
+
+.tangram.listview.page-list.train.yellow .list-item.actived {
+    background-color: #ed2;
+    color: #fff;
+}
+
+.tangram.listview.page-list.blocks.green .list-item,
+.tangram.listview.page-list.pills.green .list-item,
+.tangram.listview.page-list.spills.green .list-item {
+    border: 1px solid #2c4;
+    color: #2c4;
+}
+
+.tangram.listview.page-list.blocks.green .list-item.actived,
+.tangram.listview.page-list.pills.green .list-item.actived,
+.tangram.listview.page-list.spills.green .list-item.actived {
+    background-color: #2c4;
+    color: #fff;
+}
+
+.tangram.listview.page-list.train.green .list-item {
+    border-top: 1px solid #2c4;
+    border-right: 1px solid #2c4;
+    border-bottom: 1px solid #2c4;
+    color: #2c4;
+}
+
+.tangram.listview.page-list.train.green .list-item:first-child {
+    border-left: 1px solid #2c4;
+}
+
+.tangram.listview.page-list.train.green .list-item.actived {
+    background-color: #2c4;
+    color: #fff;
+}
+
+.tangram.listview.page-list.blocks.darkgreen .list-item,
+.tangram.listview.page-list.pills.darkgreen .list-item,
+.tangram.listview.page-list.spills.darkgreen .list-item {
+    border: 1px solid #363;
+    color: #363;
+}
+
+.tangram.listview.page-list.blocks.darkgreen .list-item.actived,
+.tangram.listview.page-list.pills.darkgreen .list-item.actived,
+.tangram.listview.page-list.spills.darkgreen .list-item.actived {
+    background-color: #363;
+    color: #fff;
+}
+
+.tangram.listview.page-list.train.darkgreen .list-item {
+    border-top: 1px solid #363;
+    border-right: 1px solid #363;
+    border-bottom: 1px solid #363;
+    color: #363;
+}
+
+.tangram.listview.page-list.train.darkgreen .list-item:first-child {
+    border-left: 1px solid #363;
+}
+
+.tangram.listview.page-list.train.darkgreen .list-item.actived {
+    background-color: #363;
+    color: #fff;
+}
+
+.tangram.listview.page-list.blocks.cyan .list-item,
+.tangram.listview.page-list.pills.cyan .list-item,
+.tangram.listview.page-list.spills.cyan .list-item {
+    border: 1px solid #09b;
+    color: #09b;
+}
+
+.tangram.listview.page-list.blocks.cyan .list-item.actived,
+.tangram.listview.page-list.pills.cyan .list-item.actived,
+.tangram.listview.page-list.spills.cyan .list-item.actived {
+    background-color: #09b;
+    color: #fff;
+}
+
+.tangram.listview.page-list.train.cyan .list-item {
+    border-top: 1px solid #09b;
+    border-right: 1px solid #09b;
+    border-bottom: 1px solid #09b;
+    color: #09b;
+}
+
+.tangram.listview.page-list.train.cyan .list-item:first-child {
+    border-left: 1px solid #09b;
+}
+
+.tangram.listview.page-list.train.cyan .list-item.actived {
+    background-color: #09b;
+    color: #fff;
+}
+
+.tangram.listview.page-list.blocks.blue .list-item,
+.tangram.listview.page-list.pills.blue .list-item,
+.tangram.listview.page-list.spills.blue .list-item {
+    border: 1px solid #09f;
+    color: #09f;
+}
+
+.tangram.listview.page-list.blocks.blue .list-item.actived,
+.tangram.listview.page-list.pills.blue .list-item.actived,
+.tangram.listview.page-list.spills.blue .list-item.actived {
+    background-color: #09f;
+    color: #fff;
+}
+
+.tangram.listview.page-list.train.blue .list-item {
+    border-top: 1px solid #09f;
+    border-right: 1px solid #09f;
+    border-bottom: 1px solid #09f;
+    color: #09f;
+}
+
+.tangram.listview.page-list.train.blue .list-item:first-child {
+    border-left: 1px solid #09f;
+}
+
+.tangram.listview.page-list.train.blue .list-item.actived {
+    background-color: #09f;
+    color: #fff;
+}
+
+.tangram.listview.page-list.blocks.darkblue .list-item,
+.tangram.listview.page-list.pills.darkblue .list-item,
+.tangram.listview.page-list.spills.darkblue .list-item {
+    border: 1px solid #036;
+    color: #036;
+}
+
+.tangram.listview.page-list.blocks.darkblue .list-item.actived,
+.tangram.listview.page-list.pills.darkblue .list-item.actived,
+.tangram.listview.page-list.spills.darkblue .list-item.actived {
+    background-color: #036;
+    color: #fff;
+}
+
+.tangram.listview.page-list.train.darkblue .list-item {
+    border-top: 1px solid #036;
+    border-right: 1px solid #036;
+    border-bottom: 1px solid #036;
+    color: #036;
+}
+
+.tangram.listview.page-list.train.darkblue .list-item:first-child {
+    border-left: 1px solid #036;
+}
+
+.tangram.listview.page-list.train.darkblue .list-item.actived {
+    background-color: #036;
+    color: #fff;
+}
+
+.tangram.listview.page-list.blocks.purple .list-item,
+.tangram.listview.page-list.pills.purple .list-item,
+.tangram.listview.page-list.spills.purple .list-item {
+    border: 1px solid #c2a;
+    color: #c2a;
+}
+
+.tangram.listview.page-list.blocks.purple .list-item.actived,
+.tangram.listview.page-list.pills.purple .list-item.actived,
+.tangram.listview.page-list.spills.purple .list-item.actived {
+    background-color: #c2a;
+    color: #fff;
+}
+
+.tangram.listview.page-list.train.purple .list-item {
+    border-top: 1px solid #c2a;
+    border-right: 1px solid #c2a;
+    border-bottom: 1px solid #c2a;
+    color: #c2a;
+}
+
+.tangram.listview.page-list.train.purple .list-item:first-child {
+    border-left: 1px solid #c2a;
+}
+
+.tangram.listview.page-list.train.purple .list-item.actived {
+    background-color: #c2a;
+    color: #fff;
+}
+
+.tangram.listview.page-list.blocks.black .list-item,
+.tangram.listview.page-list.pills.black .list-item,
+.tangram.listview.page-list.spills.black .list-item {
+    border: 1px solid #000;
+    color: #000;
+}
+
+.tangram.listview.page-list.blocks.black .list-item.actived,
+.tangram.listview.page-list.pills.black .list-item.actived,
+.tangram.listview.page-list.spills.black .list-item.actived {
+    background-color: #000;
+    color: #fff;
+}
+
+.tangram.listview.page-list.train.black .list-item {
+    border-top: 1px solid #000;
+    border-right: 1px solid #000;
+    border-bottom: 1px solid #000;
+    color: #000;
+}
+
+.tangram.listview.page-list.train.black .list-item:first-child {
+    border-left: 1px solid #000;
+}
+
+.tangram.listview.page-list.train.black .list-item.actived {
+    background-color: #000;
+    color: #fff;
+}
+
+.tangram.listview.page-list.blocks.lightgray .list-item,
+.tangram.listview.page-list.pills.lightgray .list-item,
+.tangram.listview.page-list.spills.lightgray .list-item {
+    border: 1px solid #ddd;
+    color: #ddd;
+}
+
+.tangram.listview.page-list.blocks.lightgray .list-item.actived,
+.tangram.listview.page-list.pills.lightgray .list-item.actived,
+.tangram.listview.page-list.spills.lightgray .list-item.actived {
+    background-color: #ddd;
+    color: #fff;
+}
+
+.tangram.listview.page-list.train.lightgray .list-item {
+    border-top: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    color: #ddd;
+}
+
+.tangram.listview.page-list.train.lightgray .list-item:first-child {
+    border-left: 1px solid #ddd;
+}
+
+.tangram.listview.page-list.train.lightgray .list-item.actived {
+    background-color: #ddd;
+    color: #fff;
+}
+
+.tangram.listview.page-list.blocks.gray .list-item,
+.tangram.listview.page-list.pills.gray .list-item,
+.tangram.listview.page-list.spills.gray .list-item {
+    border: 1px solid #999;
+    color: #999;
+}
+
+.tangram.listview.page-list.blocks.gray .list-item.actived,
+.tangram.listview.page-list.pills.gray .list-item.actived,
+.tangram.listview.page-list.spills.gray .list-item.actived {
+    background-color: #999;
+    color: #fff;
+}
+
+.tangram.listview.page-list.train.gray .list-item {
+    border-top: 1px solid #999;
+    border-right: 1px solid #999;
+    border-bottom: 1px solid #999;
+    color: #999;
+}
+
+.tangram.listview.page-list.train.gray .list-item:first-child {
+    border-left: 1px solid #999;
+}
+
+.tangram.listview.page-list.train.gray .list-item.actived {
+    background-color: #999;
+    color: #fff;
+}
+
+.tangram.listview.page-list.blocks.dark-gray .list-item,
+.tangram.listview.page-list.pills.dark-gray .list-item,
+.tangram.listview.page-list.spills.dark-gray .list-item {
+    border: 1px solid #666;
+    color: #666;
+}
+
+.tangram.listview.page-list.blocks.dark-gray .list-item.actived,
+.tangram.listview.page-list.pills.dark-gray .list-item.actived,
+.tangram.listview.page-list.spills.dark-gray .list-item.actived {
+    background-color: #666;
+    color: #fff;
+}
+
+.tangram.listview.page-list.train.dark-gray .list-item {
+    border-top: 1px solid #666;
+    border-right: 1px solid #666;
+    border-bottom: 1px solid #666;
+    color: #666;
+}
+
+.tangram.listview.page-list.train.dark-gray .list-item:first-child {
+    border-left: 1px solid #666;
+}
+
+.tangram.listview.page-list.train.dark-gray .list-item.actived {
+    background-color: #666;
+    color: #fff;
+}
+
+.tangram.listview.page-list.blocks.white .list-item,
+.tangram.listview.page-list.pills.white .list-item,
+.tangram.listview.page-list.spills.white .list-item {
+    border: 1px solid #fff;
+    color: #fff;
+}
+
+.tangram.listview.page-list.blocks.white .list-item.actived,
+.tangram.listview.page-list.pills.white .list-item.actived,
+.tangram.listview.page-list.spills.white .list-item.actived {
+    background-color: #fff;
+    color: #fff;
+}
+
+.tangram.listview.page-list.train.white .list-item {
+    border-top: 1px solid #fff;
+    border-right: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+    color: #fff;
+}
+
+.tangram.listview.page-list.train.white .list-item:first-child {
+    border-left: 1px solid #fff;
+}
+
+.tangram.listview.page-list.train.white .list-item.actived {
+    background-color: #fff;
+    color: #fff;
+}
+
+
+/****************
+/*	Tags List
+/************************************************/
+
+.tangram.listview.tags-list {
+    margin: 10px auto;
+    font-size: 0;
+    text-align: left;
+}
+
+.tangram.listview.tags-list .list-item {
+    display: inline-table;
+    width: 20px;
+    height: 20px;
+    margin: 5px;
+    font-size: 13px;
+    cursor: pointer;
+    color: #333;
+}
+
+.tangram.listview.tags-list .list-item>i,
+.tangram.listview.tags-list .list-item>i.list-tips {
+    margin-left: 3px;
+    padding: 0 6px;
+    border-radius: 9px;
+    background-color: #999;
+    line-height: 18px;
+    font-size: 12px;
+    color: #fff;
+}
+
+.tangram.listview.tags-list .list-item.selected {
+    color: #0cf;
+}
+
+.tangram.listview.tags-list .list-item.selected>i,
+.tangram.listview.tags-list .list-item.selected>i.list-tips {
+    background-color: #0cf;
+}
+
+.tangram.listview.tags-list.al-center {
+    text-align: center;
+}
+
+.tangram.listview.tags-list.al-right {
+    text-align: right;
+}
+
+.tangram.listview.tags-list.blocks .list-item,
+.tangram.listview.tags-list.pills .list-item {
+    border: 1px solid #999;
+    line-height: 20px;
+    padding: 3px 10px;
+    text-align: center;
+    color: #333;
+}
+
+.tangram.listview.tags-list.blocks .list-item.selected,
+.tangram.listview.tags-list.pills .list-item.selected {
+    background-color: #999;
+    color: #fff;
+}
+
+.tangram.listview.tags-list.blocks .list-item.selected>i,
+.tangram.listview.tags-list.blocks .list-item.selected>i.list-tips,
+.tangram.listview.tags-list.pills .list-item.selected>i,
+.tangram.listview.tags-list.pills .list-item.selected>i.list-tips {
+    background-color: #fff;
+    color: #999;
+}
+
+.tangram.listview.tags-list.blocks .list-item.red,
+.tangram.listview.tags-list.pills .list-item.red {
+    border: 1px solid #d23;
+    color: #d23;
+}
+
+.tangram.listview.tags-list.blocks .list-item.red>i,
+.tangram.listview.tags-list.blocks .list-item.red>i.list-tips,
+.tangram.listview.tags-list.pills .list-item.red>i,
+.tangram.listview.tags-list.pills .list-item.red>i.list-tips {
+    background-color: #d23;
+    color: #fff;
+}
+
+.tangram.listview.tags-list.blocks .list-item.red.selected,
+.tangram.listview.tags-list.pills .list-item.red.selected {
+    background-color: #d23;
+    color: #fff;
+}
+
+.tangram.listview.tags-list.blocks .list-item.red.selected>i,
+.tangram.listview.tags-list.blocks .list-item.red.selected>i.list-tips,
+.tangram.listview.tags-list.pills .list-item.red.selected>i,
+.tangram.listview.tags-list.pills .list-item.red.selected>i.list-tips {
+    background-color: #fff;
+    color: #0cf;
+}
+
+.tangram.listview.tags-list.blocks .list-item.darkred,
+.tangram.listview.tags-list.pills .list-item.darkred {
+    border: 1px solid #600;
+    color: #600;
+}
+
+.tangram.listview.tags-list.blocks .list-item.darkred>i,
+.tangram.listview.tags-list.blocks .list-item.darkred>i.list-tips,
+.tangram.listview.tags-list.pills .list-item.darkred>i,
+.tangram.listview.tags-list.pills .list-item.darkred>i.list-tips {
+    background-color: #600;
+    color: #fff;
+}
+
+.tangram.listview.tags-list.blocks .list-item.darkred.selected,
+.tangram.listview.tags-list.pills .list-item.darkred.selected {
+    background-color: #600;
+    color: #fff;
+}
+
+.tangram.listview.tags-list.blocks .list-item.darkred.selected>i,
+.tangram.listview.tags-list.blocks .list-item.darkred.selected>i.list-tips,
+.tangram.listview.tags-list.pills .list-item.darkred.selected>i,
+.tangram.listview.tags-list.pills .list-item.darkred.selected>i.list-tips {
+    background-color: #fff;
+    color: #0cf;
+}
+
+.tangram.listview.tags-list.blocks .list-item.orange,
+.tangram.listview.tags-list.pills .list-item.orange {
+    border: 1px solid #f52;
+    color: #f52;
+}
+
+.tangram.listview.tags-list.blocks .list-item.orange>i,
+.tangram.listview.tags-list.blocks .list-item.orange>i.list-tips,
+.tangram.listview.tags-list.pills .list-item.orange>i,
+.tangram.listview.tags-list.pills .list-item.orange>i.list-tips {
+    background-color: #f52;
+    color: #fff;
+}
+
+.tangram.listview.tags-list.blocks .list-item.orange.selected,
+.tangram.listview.tags-list.pills .list-item.orange.selected {
+    background-color: #f52;
+    color: #fff;
+}
+
+.tangram.listview.tags-list.blocks .list-item.orange.selected>i,
+.tangram.listview.tags-list.blocks .list-item.orange.selected>i.list-tips,
+.tangram.listview.tags-list.pills .list-item.orange.selected>i,
+.tangram.listview.tags-list.pills .list-item.orange.selected>i.list-tips {
+    background-color: #fff;
+    color: #0cf;
+}
+
+.tangram.listview.tags-list.blocks .list-item.yellow,
+.tangram.listview.tags-list.pills .list-item.yellow {
+    border: 1px solid #ed2;
+    color: #ed2;
+}
+
+.tangram.listview.tags-list.blocks .list-item.yellow>i,
+.tangram.listview.tags-list.blocks .list-item.yellow>i.list-tips,
+.tangram.listview.tags-list.pills .list-item.yellow>i,
+.tangram.listview.tags-list.pills .list-item.yellow>i.list-tips {
+    background-color: #ed2;
+    color: #fff;
+}
+
+.tangram.listview.tags-list.blocks .list-item.yellow.selected,
+.tangram.listview.tags-list.pills .list-item.yellow.selected {
+    background-color: #ed2;
+    color: #fff;
+}
+
+.tangram.listview.tags-list.blocks .list-item.yellow.selected>i,
+.tangram.listview.tags-list.blocks .list-item.yellow.selected>i.list-tips,
+.tangram.listview.tags-list.pills .list-item.yellow.selected>i,
+.tangram.listview.tags-list.pills .list-item.yellow.selected>i.list-tips {
+    background-color: #fff;
+    color: #0cf;
+}
+
+.tangram.listview.tags-list.blocks .list-item.green,
+.tangram.listview.tags-list.pills .list-item.green {
+    border: 1px solid #2c4;
+    color: #2c4;
+}
+
+.tangram.listview.tags-list.blocks .list-item.green>i,
+.tangram.listview.tags-list.blocks .list-item.green>i.list-tips,
+.tangram.listview.tags-list.pills .list-item.green>i,
+.tangram.listview.tags-list.pills .list-item.green>i.list-tips {
+    background-color: #2c4;
+    color: #fff;
+}
+
+.tangram.listview.tags-list.blocks .list-item.green.selected,
+.tangram.listview.tags-list.pills .list-item.green.selected {
+    background-color: #2c4;
+    color: #fff;
+}
+
+.tangram.listview.tags-list.blocks .list-item.green.selected>i,
+.tangram.listview.tags-list.blocks .list-item.green.selected>i.list-tips,
+.tangram.listview.tags-list.pills .list-item.green.selected>i,
+.tangram.listview.tags-list.pills .list-item.green.selected>i.list-tips {
+    background-color: #fff;
+    color: #0cf;
+}
+
+.tangram.listview.tags-list.blocks .list-item.darkgreen,
+.tangram.listview.tags-list.pills .list-item.darkgreen {
+    border: 1px solid #363;
+    color: #363;
+}
+
+.tangram.listview.tags-list.blocks .list-item.darkgreen>i,
+.tangram.listview.tags-list.blocks .list-item.darkgreen>i.list-tips,
+.tangram.listview.tags-list.pills .list-item.darkgreen>i,
+.tangram.listview.tags-list.pills .list-item.darkgreen>i.list-tips {
+    background-color: #363;
+    color: #fff;
+}
+
+.tangram.listview.tags-list.blocks .list-item.darkgreen.selected,
+.tangram.listview.tags-list.pills .list-item.darkgreen.selected {
+    background-color: #363;
+    color: #fff;
+}
+
+.tangram.listview.tags-list.blocks .list-item.darkgreen.selected>i,
+.tangram.listview.tags-list.blocks .list-item.darkgreen.selected>i.list-tips,
+.tangram.listview.tags-list.pills .list-item.darkgreen.selected>i,
+.tangram.listview.tags-list.pills .list-item.darkgreen.selected>i.list-tips {
+    background-color: #fff;
+    color: #0cf;
+}
+
+.tangram.listview.tags-list.blocks .list-item.cyan,
+.tangram.listview.tags-list.pills .list-item.cyan {
+    border: 1px solid #09b;
+    color: #09b;
+}
+
+.tangram.listview.tags-list.blocks .list-item.cyan>i,
+.tangram.listview.tags-list.blocks .list-item.cyan>i.list-tips,
+.tangram.listview.tags-list.pills .list-item.cyan>i,
+.tangram.listview.tags-list.pills .list-item.cyan>i.list-tips {
+    background-color: #09b;
+    color: #fff;
+}
+
+.tangram.listview.tags-list.blocks .list-item.cyan.selected,
+.tangram.listview.tags-list.pills .list-item.cyan.selected {
+    background-color: #09b;
+    color: #fff;
+}
+
+.tangram.listview.tags-list.blocks .list-item.cyan.selected>i,
+.tangram.listview.tags-list.blocks .list-item.cyan.selected>i.list-tips,
+.tangram.listview.tags-list.pills .list-item.cyan.selected>i,
+.tangram.listview.tags-list.pills .list-item.cyan.selected>i.list-tips {
+    background-color: #fff;
+    color: #0cf;
+}
+
+.tangram.listview.tags-list.blocks .list-item.blue,
+.tangram.listview.tags-list.pills .list-item.blue {
+    border: 1px solid #09f;
+    color: #09f;
+}
+
+.tangram.listview.tags-list.blocks .list-item.blue>i,
+.tangram.listview.tags-list.blocks .list-item.blue>i.list-tips,
+.tangram.listview.tags-list.pills .list-item.blue>i,
+.tangram.listview.tags-list.pills .list-item.blue>i.list-tips {
+    background-color: #09f;
+    color: #fff;
+}
+
+.tangram.listview.tags-list.blocks .list-item.blue.selected,
+.tangram.listview.tags-list.pills .list-item.blue.selected {
+    background-color: #09f;
+    color: #fff;
+}
+
+.tangram.listview.tags-list.blocks .list-item.blue.selected>i,
+.tangram.listview.tags-list.blocks .list-item.blue.selected>i.list-tips,
+.tangram.listview.tags-list.pills .list-item.blue.selected>i,
+.tangram.listview.tags-list.pills .list-item.blue.selected>i.list-tips {
+    background-color: #fff;
+    color: #0cf;
+}
+
+.tangram.listview.tags-list.blocks .list-item.darkblue,
+.tangram.listview.tags-list.pills .list-item.darkblue {
+    border: 1px solid #036;
+    color: #036;
+}
+
+.tangram.listview.tags-list.blocks .list-item.darkblue>i,
+.tangram.listview.tags-list.blocks .list-item.darkblue>i.list-tips,
+.tangram.listview.tags-list.pills .list-item.darkblue>i,
+.tangram.listview.tags-list.pills .list-item.darkblue>i.list-tips {
+    background-color: #036;
+    color: #fff;
+}
+
+.tangram.listview.tags-list.blocks .list-item.darkblue.selected,
+.tangram.listview.tags-list.pills .list-item.darkblue.selected {
+    background-color: #036;
+    color: #fff;
+}
+
+.tangram.listview.tags-list.blocks .list-item.darkblue.selected>i,
+.tangram.listview.tags-list.blocks .list-item.darkblue.selected>i.list-tips,
+.tangram.listview.tags-list.pills .list-item.darkblue.selected>i,
+.tangram.listview.tags-list.pills .list-item.darkblue.selected>i.list-tips {
+    background-color: #fff;
+    color: #0cf;
+}
+
+.tangram.listview.tags-list.blocks .list-item.purple,
+.tangram.listview.tags-list.pills .list-item.purple {
+    border: 1px solid #c2a;
+    color: #c2a;
+}
+
+.tangram.listview.tags-list.blocks .list-item.purple>i,
+.tangram.listview.tags-list.blocks .list-item.purple>i.list-tips,
+.tangram.listview.tags-list.pills .list-item.purple>i,
+.tangram.listview.tags-list.pills .list-item.purple>i.list-tips {
+    background-color: #c2a;
+    color: #fff;
+}
+
+.tangram.listview.tags-list.blocks .list-item.purple.selected,
+.tangram.listview.tags-list.pills .list-item.purple.selected {
+    background-color: #c2a;
+    color: #fff;
+}
+
+.tangram.listview.tags-list.blocks .list-item.purple.selected>i,
+.tangram.listview.tags-list.blocks .list-item.purple.selected>i.list-tips,
+.tangram.listview.tags-list.pills .list-item.purple.selected>i,
+.tangram.listview.tags-list.pills .list-item.purple.selected>i.list-tips {
+    background-color: #fff;
+    color: #0cf;
+}
+
+.tangram.listview.tags-list.blocks .list-item.black,
+.tangram.listview.tags-list.pills .list-item.black {
+    border: 1px solid #000;
+    color: #000;
+}
+
+.tangram.listview.tags-list.blocks .list-item.black>i,
+.tangram.listview.tags-list.blocks .list-item.black>i.list-tips,
+.tangram.listview.tags-list.pills .list-item.black>i,
+.tangram.listview.tags-list.pills .list-item.black>i.list-tips {
+    background-color: #000;
+    color: #fff;
+}
+
+.tangram.listview.tags-list.blocks .list-item.black.selected,
+.tangram.listview.tags-list.pills .list-item.black.selected {
+    background-color: #000;
+    color: #fff;
+}
+
+.tangram.listview.tags-list.blocks .list-item.black.selected>i,
+.tangram.listview.tags-list.blocks .list-item.black.selected>i.list-tips,
+.tangram.listview.tags-list.pills .list-item.black.selected>i,
+.tangram.listview.tags-list.pills .list-item.black.selected>i.list-tips {
+    background-color: #fff;
+    color: #0cf;
+}
+
+.tangram.listview.tags-list.blocks .list-item.lightgray,
+.tangram.listview.tags-list.pills .list-item.lightgray {
+    border: 1px solid #ddd;
+    color: #ddd;
+}
+
+.tangram.listview.tags-list.blocks .list-item.lightgray>i,
+.tangram.listview.tags-list.blocks .list-item.lightgray>i.list-tips,
+.tangram.listview.tags-list.pills .list-item.lightgray>i,
+.tangram.listview.tags-list.pills .list-item.lightgray>i.list-tips {
+    background-color: #ddd;
+    color: #fff;
+}
+
+.tangram.listview.tags-list.blocks .list-item.lightgray.selected,
+.tangram.listview.tags-list.pills .list-item.lightgray.selected {
+    background-color: #ddd;
+    color: #fff;
+}
+
+.tangram.listview.tags-list.blocks .list-item.lightgray.selected>i,
+.tangram.listview.tags-list.blocks .list-item.lightgray.selected>i.list-tips,
+.tangram.listview.tags-list.pills .list-item.lightgray.selected>i,
+.tangram.listview.tags-list.pills .list-item.lightgray.selected>i.list-tips {
+    background-color: #fff;
+    color: #0cf;
+}
+
+.tangram.listview.tags-list.blocks .list-item.gray,
+.tangram.listview.tags-list.pills .list-item.gray {
+    border: 1px solid #999;
+    color: #999;
+}
+
+.tangram.listview.tags-list.blocks .list-item.gray>i,
+.tangram.listview.tags-list.blocks .list-item.gray>i.list-tips,
+.tangram.listview.tags-list.pills .list-item.gray>i,
+.tangram.listview.tags-list.pills .list-item.gray>i.list-tips {
+    background-color: #999;
+    color: #fff;
+}
+
+.tangram.listview.tags-list.blocks .list-item.gray.selected,
+.tangram.listview.tags-list.pills .list-item.gray.selected {
+    background-color: #999;
+    color: #fff;
+}
+
+.tangram.listview.tags-list.blocks .list-item.gray.selected>i,
+.tangram.listview.tags-list.blocks .list-item.gray.selected>i.list-tips,
+.tangram.listview.tags-list.pills .list-item.gray.selected>i,
+.tangram.listview.tags-list.pills .list-item.gray.selected>i.list-tips {
+    background-color: #fff;
+    color: #0cf;
+}
+
+.tangram.listview.tags-list.blocks .list-item.dark-gray,
+.tangram.listview.tags-list.pills .list-item.dark-gray {
+    border: 1px solid #666;
+    color: #666;
+}
+
+.tangram.listview.tags-list.blocks .list-item.dark-gray>i,
+.tangram.listview.tags-list.blocks .list-item.dark-gray>i.list-tips,
+.tangram.listview.tags-list.pills .list-item.dark-gray>i,
+.tangram.listview.tags-list.pills .list-item.dark-gray>i.list-tips {
+    background-color: #666;
+    color: #fff;
+}
+
+.tangram.listview.tags-list.blocks .list-item.dark-gray.selected,
+.tangram.listview.tags-list.pills .list-item.dark-gray.selected {
+    background-color: #666;
+    color: #fff;
+}
+
+.tangram.listview.tags-list.blocks .list-item.dark-gray.selected>i,
+.tangram.listview.tags-list.blocks .list-item.dark-gray.selected>i.list-tips,
+.tangram.listview.tags-list.pills .list-item.dark-gray.selected>i,
+.tangram.listview.tags-list.pills .list-item.dark-gray.selected>i.list-tips {
+    background-color: #fff;
+    color: #0cf;
+}
+
+.tangram.listview.tags-list.blocks .list-item.white,
+.tangram.listview.tags-list.pills .list-item.white {
+    border: 1px solid #fff;
+    color: #fff;
+}
+
+.tangram.listview.tags-list.blocks .list-item.white>i,
+.tangram.listview.tags-list.blocks .list-item.white>i.list-tips,
+.tangram.listview.tags-list.pills .list-item.white>i,
+.tangram.listview.tags-list.pills .list-item.white>i.list-tips {
+    background-color: #fff;
+    color: #fff;
+}
+
+.tangram.listview.tags-list.blocks .list-item.white.selected,
+.tangram.listview.tags-list.pills .list-item.white.selected {
+    background-color: #fff;
+    color: #fff;
+}
+
+.tangram.listview.tags-list.blocks .list-item.white.selected>i,
+.tangram.listview.tags-list.blocks .list-item.white.selected>i.list-tips,
+.tangram.listview.tags-list.pills .list-item.white.selected>i,
+.tangram.listview.tags-list.pills .list-item.white.selected>i.list-tips {
+    background-color: #fff;
+    color: #0cf;
+}
+
+.tangram.listview.tags-list.blocks.rounded .list-item {
+    border-radius: 3px;
+}
+
+.tangram.listview.tags-list.pills .list-item {
+    border-radius: 13px;
+}
+
+.tangram.listview.tags-list.blocks.red .list-item,
+.tangram.listview.tags-list.pills.red .list-item {
+    border: 1px solid #d23;
+    color: #d23;
+}
+
+.tangram.listview.tags-list.blocks.red .list-item>i,
+.tangram.listview.tags-list.blocks.red .list-item>i.list-tips,
+.tangram.listview.tags-list.pills.red .list-item>i,
+.tangram.listview.tags-list.pills.red .list-item>i.list-tips {
+    background-color: #d23;
+    color: #fff;
+}
+
+.tangram.listview.tags-list.blocks.red .list-item.selected,
+.tangram.listview.tags-list.pills.red .list-item.selected {
+    background-color: #d23;
+    color: #fff;
+}
+
+.tangram.listview.tags-list.blocks.red .list-item.selected>i,
+.tangram.listview.tags-list.blocks.red .list-item.selected>i.list-tips,
+.tangram.listview.tags-list.pills.red .list-item.selected>i,
+.tangram.listview.tags-list.pills.red .list-item.selected>i.list-tips {
+    background-color: #fff;
+    color: #0cf;
+}
+
+.tangram.listview.tags-list.blocks.darkred .list-item,
+.tangram.listview.tags-list.pills.darkred .list-item {
+    border: 1px solid #600;
+    color: #600;
+}
+
+.tangram.listview.tags-list.blocks.darkred .list-item>i,
+.tangram.listview.tags-list.blocks.darkred .list-item>i.list-tips,
+.tangram.listview.tags-list.pills.darkred .list-item>i,
+.tangram.listview.tags-list.pills.darkred .list-item>i.list-tips {
+    background-color: #600;
+    color: #fff;
+}
+
+.tangram.listview.tags-list.blocks.darkred .list-item.selected,
+.tangram.listview.tags-list.pills.darkred .list-item.selected {
+    background-color: #600;
+    color: #fff;
+}
+
+.tangram.listview.tags-list.blocks.darkred .list-item.selected>i,
+.tangram.listview.tags-list.blocks.darkred .list-item.selected>i.list-tips,
+.tangram.listview.tags-list.pills.darkred .list-item.selected>i,
+.tangram.listview.tags-list.pills.darkred .list-item.selected>i.list-tips {
+    background-color: #fff;
+    color: #0cf;
+}
+
+.tangram.listview.tags-list.blocks.orange .list-item,
+.tangram.listview.tags-list.pills.orange .list-item {
+    border: 1px solid #f52;
+    color: #f52;
+}
+
+.tangram.listview.tags-list.blocks.orange .list-item>i,
+.tangram.listview.tags-list.blocks.orange .list-item>i.list-tips,
+.tangram.listview.tags-list.pills.orange .list-item>i,
+.tangram.listview.tags-list.pills.orange .list-item>i.list-tips {
+    background-color: #f52;
+    color: #fff;
+}
+
+.tangram.listview.tags-list.blocks.orange .list-item.selected,
+.tangram.listview.tags-list.pills.orange .list-item.selected {
+    background-color: #f52;
+    color: #fff;
+}
+
+.tangram.listview.tags-list.blocks.orange .list-item.selected>i,
+.tangram.listview.tags-list.blocks.orange .list-item.selected>i.list-tips,
+.tangram.listview.tags-list.pills.orange .list-item.selected>i,
+.tangram.listview.tags-list.pills.orange .list-item.selected>i.list-tips {
+    background-color: #fff;
+    color: #0cf;
+}
+
+.tangram.listview.tags-list.blocks.yellow .list-item,
+.tangram.listview.tags-list.pills.yellow .list-item {
+    border: 1px solid #ed2;
+    color: #ed2;
+}
+
+.tangram.listview.tags-list.blocks.yellow .list-item>i,
+.tangram.listview.tags-list.blocks.yellow .list-item>i.list-tips,
+.tangram.listview.tags-list.pills.yellow .list-item>i,
+.tangram.listview.tags-list.pills.yellow .list-item>i.list-tips {
+    background-color: #ed2;
+    color: #fff;
+}
+
+.tangram.listview.tags-list.blocks.yellow .list-item.selected,
+.tangram.listview.tags-list.pills.yellow .list-item.selected {
+    background-color: #ed2;
+    color: #fff;
+}
+
+.tangram.listview.tags-list.blocks.yellow .list-item.selected>i,
+.tangram.listview.tags-list.blocks.yellow .list-item.selected>i.list-tips,
+.tangram.listview.tags-list.pills.yellow .list-item.selected>i,
+.tangram.listview.tags-list.pills.yellow .list-item.selected>i.list-tips {
+    background-color: #fff;
+    color: #0cf;
+}
+
+.tangram.listview.tags-list.blocks.green .list-item,
+.tangram.listview.tags-list.pills.green .list-item {
+    border: 1px solid #2c4;
+    color: #2c4;
+}
+
+.tangram.listview.tags-list.blocks.green .list-item>i,
+.tangram.listview.tags-list.blocks.green .list-item>i.list-tips,
+.tangram.listview.tags-list.pills.green .list-item>i,
+.tangram.listview.tags-list.pills.green .list-item>i.list-tips {
+    background-color: #2c4;
+    color: #fff;
+}
+
+.tangram.listview.tags-list.blocks.green .list-item.selected,
+.tangram.listview.tags-list.pills.green .list-item.selected {
+    background-color: #2c4;
+    color: #fff;
+}
+
+.tangram.listview.tags-list.blocks.green .list-item.selected>i,
+.tangram.listview.tags-list.blocks.green .list-item.selected>i.list-tips,
+.tangram.listview.tags-list.pills.green .list-item.selected>i,
+.tangram.listview.tags-list.pills.green .list-item.selected>i.list-tips {
+    background-color: #fff;
+    color: #0cf;
+}
+
+.tangram.listview.tags-list.blocks.darkgreen .list-item,
+.tangram.listview.tags-list.pills.darkgreen .list-item {
+    border: 1px solid #363;
+    color: #363;
+}
+
+.tangram.listview.tags-list.blocks.darkgreen .list-item>i,
+.tangram.listview.tags-list.blocks.darkgreen .list-item>i.list-tips,
+.tangram.listview.tags-list.pills.darkgreen .list-item>i,
+.tangram.listview.tags-list.pills.darkgreen .list-item>i.list-tips {
+    background-color: #363;
+    color: #fff;
+}
+
+.tangram.listview.tags-list.blocks.darkgreen .list-item.selected,
+.tangram.listview.tags-list.pills.darkgreen .list-item.selected {
+    background-color: #363;
+    color: #fff;
+}
+
+.tangram.listview.tags-list.blocks.darkgreen .list-item.selected>i,
+.tangram.listview.tags-list.blocks.darkgreen .list-item.selected>i.list-tips,
+.tangram.listview.tags-list.pills.darkgreen .list-item.selected>i,
+.tangram.listview.tags-list.pills.darkgreen .list-item.selected>i.list-tips {
+    background-color: #fff;
+    color: #0cf;
+}
+
+.tangram.listview.tags-list.blocks.cyan .list-item,
+.tangram.listview.tags-list.pills.cyan .list-item {
+    border: 1px solid #09b;
+    color: #09b;
+}
+
+.tangram.listview.tags-list.blocks.cyan .list-item>i,
+.tangram.listview.tags-list.blocks.cyan .list-item>i.list-tips,
+.tangram.listview.tags-list.pills.cyan .list-item>i,
+.tangram.listview.tags-list.pills.cyan .list-item>i.list-tips {
+    background-color: #09b;
+    color: #fff;
+}
+
+.tangram.listview.tags-list.blocks.cyan .list-item.selected,
+.tangram.listview.tags-list.pills.cyan .list-item.selected {
+    background-color: #09b;
+    color: #fff;
+}
+
+.tangram.listview.tags-list.blocks.cyan .list-item.selected>i,
+.tangram.listview.tags-list.blocks.cyan .list-item.selected>i.list-tips,
+.tangram.listview.tags-list.pills.cyan .list-item.selected>i,
+.tangram.listview.tags-list.pills.cyan .list-item.selected>i.list-tips {
+    background-color: #fff;
+    color: #0cf;
+}
+
+.tangram.listview.tags-list.blocks.blue .list-item,
+.tangram.listview.tags-list.pills.blue .list-item {
+    border: 1px solid #09f;
+    color: #09f;
+}
+
+.tangram.listview.tags-list.blocks.blue .list-item>i,
+.tangram.listview.tags-list.blocks.blue .list-item>i.list-tips,
+.tangram.listview.tags-list.pills.blue .list-item>i,
+.tangram.listview.tags-list.pills.blue .list-item>i.list-tips {
+    background-color: #09f;
+    color: #fff;
+}
+
+.tangram.listview.tags-list.blocks.blue .list-item.selected,
+.tangram.listview.tags-list.pills.blue .list-item.selected {
+    background-color: #09f;
+    color: #fff;
+}
+
+.tangram.listview.tags-list.blocks.blue .list-item.selected>i,
+.tangram.listview.tags-list.blocks.blue .list-item.selected>i.list-tips,
+.tangram.listview.tags-list.pills.blue .list-item.selected>i,
+.tangram.listview.tags-list.pills.blue .list-item.selected>i.list-tips {
+    background-color: #fff;
+    color: #0cf;
+}
+
+.tangram.listview.tags-list.blocks.darkblue .list-item,
+.tangram.listview.tags-list.pills.darkblue .list-item {
+    border: 1px solid #036;
+    color: #036;
+}
+
+.tangram.listview.tags-list.blocks.darkblue .list-item>i,
+.tangram.listview.tags-list.blocks.darkblue .list-item>i.list-tips,
+.tangram.listview.tags-list.pills.darkblue .list-item>i,
+.tangram.listview.tags-list.pills.darkblue .list-item>i.list-tips {
+    background-color: #036;
+    color: #fff;
+}
+
+.tangram.listview.tags-list.blocks.darkblue .list-item.selected,
+.tangram.listview.tags-list.pills.darkblue .list-item.selected {
+    background-color: #036;
+    color: #fff;
+}
+
+.tangram.listview.tags-list.blocks.darkblue .list-item.selected>i,
+.tangram.listview.tags-list.blocks.darkblue .list-item.selected>i.list-tips,
+.tangram.listview.tags-list.pills.darkblue .list-item.selected>i,
+.tangram.listview.tags-list.pills.darkblue .list-item.selected>i.list-tips {
+    background-color: #fff;
+    color: #0cf;
+}
+
+.tangram.listview.tags-list.blocks.purple .list-item,
+.tangram.listview.tags-list.pills.purple .list-item {
+    border: 1px solid #c2a;
+    color: #c2a;
+}
+
+.tangram.listview.tags-list.blocks.purple .list-item>i,
+.tangram.listview.tags-list.blocks.purple .list-item>i.list-tips,
+.tangram.listview.tags-list.pills.purple .list-item>i,
+.tangram.listview.tags-list.pills.purple .list-item>i.list-tips {
+    background-color: #c2a;
+    color: #fff;
+}
+
+.tangram.listview.tags-list.blocks.purple .list-item.selected,
+.tangram.listview.tags-list.pills.purple .list-item.selected {
+    background-color: #c2a;
+    color: #fff;
+}
+
+.tangram.listview.tags-list.blocks.purple .list-item.selected>i,
+.tangram.listview.tags-list.blocks.purple .list-item.selected>i.list-tips,
+.tangram.listview.tags-list.pills.purple .list-item.selected>i,
+.tangram.listview.tags-list.pills.purple .list-item.selected>i.list-tips {
+    background-color: #fff;
+    color: #0cf;
+}
+
+.tangram.listview.tags-list.blocks.black .list-item,
+.tangram.listview.tags-list.pills.black .list-item {
+    border: 1px solid #000;
+    color: #000;
+}
+
+.tangram.listview.tags-list.blocks.black .list-item>i,
+.tangram.listview.tags-list.blocks.black .list-item>i.list-tips,
+.tangram.listview.tags-list.pills.black .list-item>i,
+.tangram.listview.tags-list.pills.black .list-item>i.list-tips {
+    background-color: #000;
+    color: #fff;
+}
+
+.tangram.listview.tags-list.blocks.black .list-item.selected,
+.tangram.listview.tags-list.pills.black .list-item.selected {
+    background-color: #000;
+    color: #fff;
+}
+
+.tangram.listview.tags-list.blocks.black .list-item.selected>i,
+.tangram.listview.tags-list.blocks.black .list-item.selected>i.list-tips,
+.tangram.listview.tags-list.pills.black .list-item.selected>i,
+.tangram.listview.tags-list.pills.black .list-item.selected>i.list-tips {
+    background-color: #fff;
+    color: #0cf;
+}
+
+.tangram.listview.tags-list.blocks.lightgray .list-item,
+.tangram.listview.tags-list.pills.lightgray .list-item {
+    border: 1px solid #ddd;
+    color: #ddd;
+}
+
+.tangram.listview.tags-list.blocks.lightgray .list-item>i,
+.tangram.listview.tags-list.blocks.lightgray .list-item>i.list-tips,
+.tangram.listview.tags-list.pills.lightgray .list-item>i,
+.tangram.listview.tags-list.pills.lightgray .list-item>i.list-tips {
+    background-color: #ddd;
+    color: #fff;
+}
+
+.tangram.listview.tags-list.blocks.lightgray .list-item.selected,
+.tangram.listview.tags-list.pills.lightgray .list-item.selected {
+    background-color: #ddd;
+    color: #fff;
+}
+
+.tangram.listview.tags-list.blocks.lightgray .list-item.selected>i,
+.tangram.listview.tags-list.blocks.lightgray .list-item.selected>i.list-tips,
+.tangram.listview.tags-list.pills.lightgray .list-item.selected>i,
+.tangram.listview.tags-list.pills.lightgray .list-item.selected>i.list-tips {
+    background-color: #fff;
+    color: #0cf;
+}
+
+.tangram.listview.tags-list.blocks.gray .list-item,
+.tangram.listview.tags-list.pills.gray .list-item {
+    border: 1px solid #999;
+    color: #999;
+}
+
+.tangram.listview.tags-list.blocks.gray .list-item>i,
+.tangram.listview.tags-list.blocks.gray .list-item>i.list-tips,
+.tangram.listview.tags-list.pills.gray .list-item>i,
+.tangram.listview.tags-list.pills.gray .list-item>i.list-tips {
+    background-color: #999;
+    color: #fff;
+}
+
+.tangram.listview.tags-list.blocks.gray .list-item.selected,
+.tangram.listview.tags-list.pills.gray .list-item.selected {
+    background-color: #999;
+    color: #fff;
+}
+
+.tangram.listview.tags-list.blocks.gray .list-item.selected>i,
+.tangram.listview.tags-list.blocks.gray .list-item.selected>i.list-tips,
+.tangram.listview.tags-list.pills.gray .list-item.selected>i,
+.tangram.listview.tags-list.pills.gray .list-item.selected>i.list-tips {
+    background-color: #fff;
+    color: #0cf;
+}
+
+.tangram.listview.tags-list.blocks.dark-gray .list-item,
+.tangram.listview.tags-list.pills.dark-gray .list-item {
+    border: 1px solid #666;
+    color: #666;
+}
+
+.tangram.listview.tags-list.blocks.dark-gray .list-item>i,
+.tangram.listview.tags-list.blocks.dark-gray .list-item>i.list-tips,
+.tangram.listview.tags-list.pills.dark-gray .list-item>i,
+.tangram.listview.tags-list.pills.dark-gray .list-item>i.list-tips {
+    background-color: #666;
+    color: #fff;
+}
+
+.tangram.listview.tags-list.blocks.dark-gray .list-item.selected,
+.tangram.listview.tags-list.pills.dark-gray .list-item.selected {
+    background-color: #666;
+    color: #fff;
+}
+
+.tangram.listview.tags-list.blocks.dark-gray .list-item.selected>i,
+.tangram.listview.tags-list.blocks.dark-gray .list-item.selected>i.list-tips,
+.tangram.listview.tags-list.pills.dark-gray .list-item.selected>i,
+.tangram.listview.tags-list.pills.dark-gray .list-item.selected>i.list-tips {
+    background-color: #fff;
+    color: #0cf;
+}
+
+.tangram.listview.tags-list.blocks.white .list-item,
+.tangram.listview.tags-list.pills.white .list-item {
+    border: 1px solid #fff;
+    color: #fff;
+}
+
+.tangram.listview.tags-list.blocks.white .list-item>i,
+.tangram.listview.tags-list.blocks.white .list-item>i.list-tips,
+.tangram.listview.tags-list.pills.white .list-item>i,
+.tangram.listview.tags-list.pills.white .list-item>i.list-tips {
+    background-color: #fff;
+    color: #fff;
+}
+
+.tangram.listview.tags-list.blocks.white .list-item.selected,
+.tangram.listview.tags-list.pills.white .list-item.selected {
+    background-color: #fff;
+    color: #fff;
+}
+
+.tangram.listview.tags-list.blocks.white .list-item.selected>i,
+.tangram.listview.tags-list.blocks.white .list-item.selected>i.list-tips,
+.tangram.listview.tags-list.pills.white .list-item.selected>i,
+.tangram.listview.tags-list.pills.white .list-item.selected>i.list-tips {
+    background-color: #fff;
+    color: #0cf;
+}
+
+
+/****************
+/*	Colors
+/************************************************/
+
+.tangram.listview.text-list .list-item.topline.red,
+.tangram.listview.mtext-list .list-item.topline.red,
+.tangram.listview.media-list .list-item.topline.red {
+    border-top: 1px solid #d23;
+}
+
+.tangram.listview.text-list .list-item.underline.red,
+.tangram.listview.mtext-list .list-item.underline.red,
+.tangram.listview.media-list .list-item.underline.red {
+    border-bottom: 1px solid #d23;
+}
+
+.tangram.listview.text-list .list-item.topline.underline.red,
+.tangram.listview.mtext-list .list-item.topline.underline.red,
+.tangram.listview.media-list .list-item.topline.underline.red {
+    border-top: 1px solid #d23;
+    border-bottom: 1px solid #d23;
+}
+
+.tangram.listview.text-list .list-item.stripe.red:nth-child(odd),
+.tangram.listview.mtext-list .list-item.stripe.red:nth-child(odd),
+.tangram.listview.media-list .list-item.stripe.red:nth-child(odd) {
+    background-color: #d23;
+    color: #ffffff;
+}
+
+.tangram.listview.text-list .list-item.stripe.red:nth-child(even),
+.tangram.listview.mtext-list .list-item.stripe.red:nth-child(even),
+.tangram.listview.media-list .list-item.stripe.red:nth-child(even) {
+    background-color: #e44e5c;
+    color: #ffffff;
+}
+
+.tangram.listview.text-list .list-item.card.red,
+.tangram.listview.mtext-list .list-item.card.red,
+.tangram.listview.media-list .list-item.card.red {
+    background-color: #d23;
+    color: #ffffff;
+}
+
+.tangram.listview.text-list .list-item.pane.red,
+.tangram.listview.mtext-list .list-item.pane.red,
+.tangram.listview.media-list .list-item.pane.red {
+    border: 1px solid #d23;
+}
+
+.tangram.listview.text-list>i.red,
+.tangram.listview.text-list .list-title>i.red,
+.tangram.listview.text-list .list-icon.red,
+.tangram.listview.mtext-list>i.red,
+.tangram.listview.mtext-list .list-title>i.red,
+.tangram.listview.mtext-list .list-icon.red,
+.tangram.listview.media-list>i.red,
+.tangram.listview.media-list .list-title>i.red,
+.tangram.listview.media-list .list-icon.red {
+    background-color: #d23;
+}
+
+.tangram.listview.text-list>i.hollow.red,
+.tangram.listview.text-list .list-title>i.hollow.red,
+.tangram.listview.text-list .list-icon.hollow.red,
+.tangram.listview.mtext-list>i.hollow.red,
+.tangram.listview.mtext-list .list-title>i.hollow.red,
+.tangram.listview.mtext-list .list-icon.hollow.red,
+.tangram.listview.media-list>i.hollow.red,
+.tangram.listview.media-list .list-title>i.hollow.red,
+.tangram.listview.media-list .list-icon.hollow.red {
+    background-color: transparent;
+    border: 1px solid #d23;
+    color: #d23;
+}
+
+.tangram.listview.text-list .list-item.topline.darkred,
+.tangram.listview.mtext-list .list-item.topline.darkred,
+.tangram.listview.media-list .list-item.topline.darkred {
+    border-top: 1px solid #600;
+}
+
+.tangram.listview.text-list .list-item.underline.darkred,
+.tangram.listview.mtext-list .list-item.underline.darkred,
+.tangram.listview.media-list .list-item.underline.darkred {
+    border-bottom: 1px solid #600;
+}
+
+.tangram.listview.text-list .list-item.topline.underline.darkred,
+.tangram.listview.mtext-list .list-item.topline.underline.darkred,
+.tangram.listview.media-list .list-item.topline.underline.darkred {
+    border-top: 1px solid #600;
+    border-bottom: 1px solid #600;
+}
+
+.tangram.listview.text-list .list-item.stripe.darkred:nth-child(odd),
+.tangram.listview.mtext-list .list-item.stripe.darkred:nth-child(odd),
+.tangram.listview.media-list .list-item.stripe.darkred:nth-child(odd) {
+    background-color: #600;
+    color: #ffffff;
+}
+
+.tangram.listview.text-list .list-item.stripe.darkred:nth-child(even),
+.tangram.listview.mtext-list .list-item.stripe.darkred:nth-child(even),
+.tangram.listview.media-list .list-item.stripe.darkred:nth-child(even) {
+    background-color: #990000;
+    color: #ffffff;
+}
+
+.tangram.listview.text-list .list-item.card.darkred,
+.tangram.listview.mtext-list .list-item.card.darkred,
+.tangram.listview.media-list .list-item.card.darkred {
+    background-color: #600;
+    color: #ffffff;
+}
+
+.tangram.listview.text-list .list-item.pane.darkred,
+.tangram.listview.mtext-list .list-item.pane.darkred,
+.tangram.listview.media-list .list-item.pane.darkred {
+    border: 1px solid #600;
+}
+
+.tangram.listview.text-list>i.darkred,
+.tangram.listview.text-list .list-title>i.darkred,
+.tangram.listview.text-list .list-icon.darkred,
+.tangram.listview.mtext-list>i.darkred,
+.tangram.listview.mtext-list .list-title>i.darkred,
+.tangram.listview.mtext-list .list-icon.darkred,
+.tangram.listview.media-list>i.darkred,
+.tangram.listview.media-list .list-title>i.darkred,
+.tangram.listview.media-list .list-icon.darkred {
+    background-color: #600;
+}
+
+.tangram.listview.text-list>i.hollow.darkred,
+.tangram.listview.text-list .list-title>i.hollow.darkred,
+.tangram.listview.text-list .list-icon.hollow.darkred,
+.tangram.listview.mtext-list>i.hollow.darkred,
+.tangram.listview.mtext-list .list-title>i.hollow.darkred,
+.tangram.listview.mtext-list .list-icon.hollow.darkred,
+.tangram.listview.media-list>i.hollow.darkred,
+.tangram.listview.media-list .list-title>i.hollow.darkred,
+.tangram.listview.media-list .list-icon.hollow.darkred {
+    background-color: transparent;
+    border: 1px solid #600;
+    color: #600;
+}
+
+.tangram.listview.text-list .list-item.topline.orange,
+.tangram.listview.mtext-list .list-item.topline.orange,
+.tangram.listview.media-list .list-item.topline.orange {
+    border-top: 1px solid #f52;
+}
+
+.tangram.listview.text-list .list-item.underline.orange,
+.tangram.listview.mtext-list .list-item.underline.orange,
+.tangram.listview.media-list .list-item.underline.orange {
+    border-bottom: 1px solid #f52;
+}
+
+.tangram.listview.text-list .list-item.topline.underline.orange,
+.tangram.listview.mtext-list .list-item.topline.underline.orange,
+.tangram.listview.media-list .list-item.topline.underline.orange {
+    border-top: 1px solid #f52;
+    border-bottom: 1px solid #f52;
+}
+
+.tangram.listview.text-list .list-item.stripe.orange:nth-child(odd),
+.tangram.listview.mtext-list .list-item.stripe.orange:nth-child(odd),
+.tangram.listview.media-list .list-item.stripe.orange:nth-child(odd) {
+    background-color: #f52;
+    color: #ffffff;
+}
+
+.tangram.listview.text-list .list-item.stripe.orange:nth-child(even),
+.tangram.listview.mtext-list .list-item.stripe.orange:nth-child(even),
+.tangram.listview.media-list .list-item.stripe.orange:nth-child(even) {
+    background-color: #ff7c55;
+    color: #ffffff;
+}
+
+.tangram.listview.text-list .list-item.card.orange,
+.tangram.listview.mtext-list .list-item.card.orange,
+.tangram.listview.media-list .list-item.card.orange {
+    background-color: #f52;
+    color: #ffffff;
+}
+
+.tangram.listview.text-list .list-item.pane.orange,
+.tangram.listview.mtext-list .list-item.pane.orange,
+.tangram.listview.media-list .list-item.pane.orange {
+    border: 1px solid #f52;
+}
+
+.tangram.listview.text-list>i.orange,
+.tangram.listview.text-list .list-title>i.orange,
+.tangram.listview.text-list .list-icon.orange,
+.tangram.listview.mtext-list>i.orange,
+.tangram.listview.mtext-list .list-title>i.orange,
+.tangram.listview.mtext-list .list-icon.orange,
+.tangram.listview.media-list>i.orange,
+.tangram.listview.media-list .list-title>i.orange,
+.tangram.listview.media-list .list-icon.orange {
+    background-color: #f52;
+}
+
+.tangram.listview.text-list>i.hollow.orange,
+.tangram.listview.text-list .list-title>i.hollow.orange,
+.tangram.listview.text-list .list-icon.hollow.orange,
+.tangram.listview.mtext-list>i.hollow.orange,
+.tangram.listview.mtext-list .list-title>i.hollow.orange,
+.tangram.listview.mtext-list .list-icon.hollow.orange,
+.tangram.listview.media-list>i.hollow.orange,
+.tangram.listview.media-list .list-title>i.hollow.orange,
+.tangram.listview.media-list .list-icon.hollow.orange {
+    background-color: transparent;
+    border: 1px solid #f52;
+    color: #f52;
+}
+
+.tangram.listview.text-list .list-item.topline.yellow,
+.tangram.listview.mtext-list .list-item.topline.yellow,
+.tangram.listview.media-list .list-item.topline.yellow {
+    border-top: 1px solid #ed2;
+}
+
+.tangram.listview.text-list .list-item.underline.yellow,
+.tangram.listview.mtext-list .list-item.underline.yellow,
+.tangram.listview.media-list .list-item.underline.yellow {
+    border-bottom: 1px solid #ed2;
+}
+
+.tangram.listview.text-list .list-item.topline.underline.yellow,
+.tangram.listview.mtext-list .list-item.topline.underline.yellow,
+.tangram.listview.media-list .list-item.topline.underline.yellow {
+    border-top: 1px solid #ed2;
+    border-bottom: 1px solid #ed2;
+}
+
+.tangram.listview.text-list .list-item.stripe.yellow:nth-child(odd),
+.tangram.listview.mtext-list .list-item.stripe.yellow:nth-child(odd),
+.tangram.listview.media-list .list-item.stripe.yellow:nth-child(odd) {
+    background-color: #ed2;
+    color: #ffffff;
+}
+
+.tangram.listview.text-list .list-item.stripe.yellow:nth-child(even),
+.tangram.listview.mtext-list .list-item.stripe.yellow:nth-child(even),
+.tangram.listview.media-list .list-item.stripe.yellow:nth-child(even) {
+    background-color: #f2e451;
+    color: #ffffff;
+}
+
+.tangram.listview.text-list .list-item.card.yellow,
+.tangram.listview.mtext-list .list-item.card.yellow,
+.tangram.listview.media-list .list-item.card.yellow {
+    background-color: #ed2;
+    color: #ffffff;
+}
+
+.tangram.listview.text-list .list-item.pane.yellow,
+.tangram.listview.mtext-list .list-item.pane.yellow,
+.tangram.listview.media-list .list-item.pane.yellow {
+    border: 1px solid #ed2;
+}
+
+.tangram.listview.text-list>i.yellow,
+.tangram.listview.text-list .list-title>i.yellow,
+.tangram.listview.text-list .list-icon.yellow,
+.tangram.listview.mtext-list>i.yellow,
+.tangram.listview.mtext-list .list-title>i.yellow,
+.tangram.listview.mtext-list .list-icon.yellow,
+.tangram.listview.media-list>i.yellow,
+.tangram.listview.media-list .list-title>i.yellow,
+.tangram.listview.media-list .list-icon.yellow {
+    background-color: #ed2;
+}
+
+.tangram.listview.text-list>i.hollow.yellow,
+.tangram.listview.text-list .list-title>i.hollow.yellow,
+.tangram.listview.text-list .list-icon.hollow.yellow,
+.tangram.listview.mtext-list>i.hollow.yellow,
+.tangram.listview.mtext-list .list-title>i.hollow.yellow,
+.tangram.listview.mtext-list .list-icon.hollow.yellow,
+.tangram.listview.media-list>i.hollow.yellow,
+.tangram.listview.media-list .list-title>i.hollow.yellow,
+.tangram.listview.media-list .list-icon.hollow.yellow {
+    background-color: transparent;
+    border: 1px solid #ed2;
+    color: #ed2;
+}
+
+.tangram.listview.text-list .list-item.topline.green,
+.tangram.listview.mtext-list .list-item.topline.green,
+.tangram.listview.media-list .list-item.topline.green {
+    border-top: 1px solid #2c4;
+}
+
+.tangram.listview.text-list .list-item.underline.green,
+.tangram.listview.mtext-list .list-item.underline.green,
+.tangram.listview.media-list .list-item.underline.green {
+    border-bottom: 1px solid #2c4;
+}
+
+.tangram.listview.text-list .list-item.topline.underline.green,
+.tangram.listview.mtext-list .list-item.topline.underline.green,
+.tangram.listview.media-list .list-item.topline.underline.green {
+    border-top: 1px solid #2c4;
+    border-bottom: 1px solid #2c4;
+}
+
+.tangram.listview.text-list .list-item.stripe.green:nth-child(odd),
+.tangram.listview.mtext-list .list-item.stripe.green:nth-child(odd),
+.tangram.listview.media-list .list-item.stripe.green:nth-child(odd) {
+    background-color: #2c4;
+    color: #ffffff;
+}
+
+.tangram.listview.text-list .list-item.stripe.green:nth-child(even),
+.tangram.listview.mtext-list .list-item.stripe.green:nth-child(even),
+.tangram.listview.media-list .list-item.stripe.green:nth-child(even) {
+    background-color: #42df61;
+    color: #ffffff;
+}
+
+.tangram.listview.text-list .list-item.card.green,
+.tangram.listview.mtext-list .list-item.card.green,
+.tangram.listview.media-list .list-item.card.green {
+    background-color: #2c4;
+    color: #ffffff;
+}
+
+.tangram.listview.text-list .list-item.pane.green,
+.tangram.listview.mtext-list .list-item.pane.green,
+.tangram.listview.media-list .list-item.pane.green {
+    border: 1px solid #2c4;
+}
+
+.tangram.listview.text-list>i.green,
+.tangram.listview.text-list .list-title>i.green,
+.tangram.listview.text-list .list-icon.green,
+.tangram.listview.mtext-list>i.green,
+.tangram.listview.mtext-list .list-title>i.green,
+.tangram.listview.mtext-list .list-icon.green,
+.tangram.listview.media-list>i.green,
+.tangram.listview.media-list .list-title>i.green,
+.tangram.listview.media-list .list-icon.green {
+    background-color: #2c4;
+}
+
+.tangram.listview.text-list>i.hollow.green,
+.tangram.listview.text-list .list-title>i.hollow.green,
+.tangram.listview.text-list .list-icon.hollow.green,
+.tangram.listview.mtext-list>i.hollow.green,
+.tangram.listview.mtext-list .list-title>i.hollow.green,
+.tangram.listview.mtext-list .list-icon.hollow.green,
+.tangram.listview.media-list>i.hollow.green,
+.tangram.listview.media-list .list-title>i.hollow.green,
+.tangram.listview.media-list .list-icon.hollow.green {
+    background-color: transparent;
+    border: 1px solid #2c4;
+    color: #2c4;
+}
+
+.tangram.listview.text-list .list-item.topline.darkgreen,
+.tangram.listview.mtext-list .list-item.topline.darkgreen,
+.tangram.listview.media-list .list-item.topline.darkgreen {
+    border-top: 1px solid #363;
+}
+
+.tangram.listview.text-list .list-item.underline.darkgreen,
+.tangram.listview.mtext-list .list-item.underline.darkgreen,
+.tangram.listview.media-list .list-item.underline.darkgreen {
+    border-bottom: 1px solid #363;
+}
+
+.tangram.listview.text-list .list-item.topline.underline.darkgreen,
+.tangram.listview.mtext-list .list-item.topline.underline.darkgreen,
+.tangram.listview.media-list .list-item.topline.underline.darkgreen {
+    border-top: 1px solid #363;
+    border-bottom: 1px solid #363;
+}
+
+.tangram.listview.text-list .list-item.stripe.darkgreen:nth-child(odd),
+.tangram.listview.mtext-list .list-item.stripe.darkgreen:nth-child(odd),
+.tangram.listview.media-list .list-item.stripe.darkgreen:nth-child(odd) {
+    background-color: #363;
+    color: #ffffff;
+}
+
+.tangram.listview.text-list .list-item.stripe.darkgreen:nth-child(even),
+.tangram.listview.mtext-list .list-item.stripe.darkgreen:nth-child(even),
+.tangram.listview.media-list .list-item.stripe.darkgreen:nth-child(even) {
+    background-color: #448844;
+    color: #ffffff;
+}
+
+.tangram.listview.text-list .list-item.card.darkgreen,
+.tangram.listview.mtext-list .list-item.card.darkgreen,
+.tangram.listview.media-list .list-item.card.darkgreen {
+    background-color: #363;
+    color: #ffffff;
+}
+
+.tangram.listview.text-list .list-item.pane.darkgreen,
+.tangram.listview.mtext-list .list-item.pane.darkgreen,
+.tangram.listview.media-list .list-item.pane.darkgreen {
+    border: 1px solid #363;
+}
+
+.tangram.listview.text-list>i.darkgreen,
+.tangram.listview.text-list .list-title>i.darkgreen,
+.tangram.listview.text-list .list-icon.darkgreen,
+.tangram.listview.mtext-list>i.darkgreen,
+.tangram.listview.mtext-list .list-title>i.darkgreen,
+.tangram.listview.mtext-list .list-icon.darkgreen,
+.tangram.listview.media-list>i.darkgreen,
+.tangram.listview.media-list .list-title>i.darkgreen,
+.tangram.listview.media-list .list-icon.darkgreen {
+    background-color: #363;
+}
+
+.tangram.listview.text-list>i.hollow.darkgreen,
+.tangram.listview.text-list .list-title>i.hollow.darkgreen,
+.tangram.listview.text-list .list-icon.hollow.darkgreen,
+.tangram.listview.mtext-list>i.hollow.darkgreen,
+.tangram.listview.mtext-list .list-title>i.hollow.darkgreen,
+.tangram.listview.mtext-list .list-icon.hollow.darkgreen,
+.tangram.listview.media-list>i.hollow.darkgreen,
+.tangram.listview.media-list .list-title>i.hollow.darkgreen,
+.tangram.listview.media-list .list-icon.hollow.darkgreen {
+    background-color: transparent;
+    border: 1px solid #363;
+    color: #363;
+}
+
+.tangram.listview.text-list .list-item.topline.cyan,
+.tangram.listview.mtext-list .list-item.topline.cyan,
+.tangram.listview.media-list .list-item.topline.cyan {
+    border-top: 1px solid #09b;
+}
+
+.tangram.listview.text-list .list-item.underline.cyan,
+.tangram.listview.mtext-list .list-item.underline.cyan,
+.tangram.listview.media-list .list-item.underline.cyan {
+    border-bottom: 1px solid #09b;
+}
+
+.tangram.listview.text-list .list-item.topline.underline.cyan,
+.tangram.listview.mtext-list .list-item.topline.underline.cyan,
+.tangram.listview.media-list .list-item.topline.underline.cyan {
+    border-top: 1px solid #09b;
+    border-bottom: 1px solid #09b;
+}
+
+.tangram.listview.text-list .list-item.stripe.cyan:nth-child(odd),
+.tangram.listview.mtext-list .list-item.stripe.cyan:nth-child(odd),
+.tangram.listview.media-list .list-item.stripe.cyan:nth-child(odd) {
+    background-color: #09b;
+    color: #ffffff;
+}
+
+.tangram.listview.text-list .list-item.stripe.cyan:nth-child(even),
+.tangram.listview.mtext-list .list-item.stripe.cyan:nth-child(even),
+.tangram.listview.media-list .list-item.stripe.cyan:nth-child(even) {
+    background-color: #00c3ee;
+    color: #ffffff;
+}
+
+.tangram.listview.text-list .list-item.card.cyan,
+.tangram.listview.mtext-list .list-item.card.cyan,
+.tangram.listview.media-list .list-item.card.cyan {
+    background-color: #09b;
+    color: #ffffff;
+}
+
+.tangram.listview.text-list .list-item.pane.cyan,
+.tangram.listview.mtext-list .list-item.pane.cyan,
+.tangram.listview.media-list .list-item.pane.cyan {
+    border: 1px solid #09b;
+}
+
+.tangram.listview.text-list>i.cyan,
+.tangram.listview.text-list .list-title>i.cyan,
+.tangram.listview.text-list .list-icon.cyan,
+.tangram.listview.mtext-list>i.cyan,
+.tangram.listview.mtext-list .list-title>i.cyan,
+.tangram.listview.mtext-list .list-icon.cyan,
+.tangram.listview.media-list>i.cyan,
+.tangram.listview.media-list .list-title>i.cyan,
+.tangram.listview.media-list .list-icon.cyan {
+    background-color: #09b;
+}
+
+.tangram.listview.text-list>i.hollow.cyan,
+.tangram.listview.text-list .list-title>i.hollow.cyan,
+.tangram.listview.text-list .list-icon.hollow.cyan,
+.tangram.listview.mtext-list>i.hollow.cyan,
+.tangram.listview.mtext-list .list-title>i.hollow.cyan,
+.tangram.listview.mtext-list .list-icon.hollow.cyan,
+.tangram.listview.media-list>i.hollow.cyan,
+.tangram.listview.media-list .list-title>i.hollow.cyan,
+.tangram.listview.media-list .list-icon.hollow.cyan {
+    background-color: transparent;
+    border: 1px solid #09b;
+    color: #09b;
+}
+
+.tangram.listview.text-list .list-item.topline.blue,
+.tangram.listview.mtext-list .list-item.topline.blue,
+.tangram.listview.media-list .list-item.topline.blue {
+    border-top: 1px solid #09f;
+}
+
+.tangram.listview.text-list .list-item.underline.blue,
+.tangram.listview.mtext-list .list-item.underline.blue,
+.tangram.listview.media-list .list-item.underline.blue {
+    border-bottom: 1px solid #09f;
+}
+
+.tangram.listview.text-list .list-item.topline.underline.blue,
+.tangram.listview.mtext-list .list-item.topline.underline.blue,
+.tangram.listview.media-list .list-item.topline.underline.blue {
+    border-top: 1px solid #09f;
+    border-bottom: 1px solid #09f;
+}
+
+.tangram.listview.text-list .list-item.stripe.blue:nth-child(odd),
+.tangram.listview.mtext-list .list-item.stripe.blue:nth-child(odd),
+.tangram.listview.media-list .list-item.stripe.blue:nth-child(odd) {
+    background-color: #09f;
+    color: #ffffff;
+}
+
+.tangram.listview.text-list .list-item.stripe.blue:nth-child(even),
+.tangram.listview.mtext-list .list-item.stripe.blue:nth-child(even),
+.tangram.listview.media-list .list-item.stripe.blue:nth-child(even) {
+    background-color: #33adff;
+    color: #ffffff;
+}
+
+.tangram.listview.text-list .list-item.card.blue,
+.tangram.listview.mtext-list .list-item.card.blue,
+.tangram.listview.media-list .list-item.card.blue {
+    background-color: #09f;
+    color: #ffffff;
+}
+
+.tangram.listview.text-list .list-item.pane.blue,
+.tangram.listview.mtext-list .list-item.pane.blue,
+.tangram.listview.media-list .list-item.pane.blue {
+    border: 1px solid #09f;
+}
+
+.tangram.listview.text-list>i.blue,
+.tangram.listview.text-list .list-title>i.blue,
+.tangram.listview.text-list .list-icon.blue,
+.tangram.listview.mtext-list>i.blue,
+.tangram.listview.mtext-list .list-title>i.blue,
+.tangram.listview.mtext-list .list-icon.blue,
+.tangram.listview.media-list>i.blue,
+.tangram.listview.media-list .list-title>i.blue,
+.tangram.listview.media-list .list-icon.blue {
+    background-color: #09f;
+}
+
+.tangram.listview.text-list>i.hollow.blue,
+.tangram.listview.text-list .list-title>i.hollow.blue,
+.tangram.listview.text-list .list-icon.hollow.blue,
+.tangram.listview.mtext-list>i.hollow.blue,
+.tangram.listview.mtext-list .list-title>i.hollow.blue,
+.tangram.listview.mtext-list .list-icon.hollow.blue,
+.tangram.listview.media-list>i.hollow.blue,
+.tangram.listview.media-list .list-title>i.hollow.blue,
+.tangram.listview.media-list .list-icon.hollow.blue {
+    background-color: transparent;
+    border: 1px solid #09f;
+    color: #09f;
+}
+
+.tangram.listview.text-list .list-item.topline.darkblue,
+.tangram.listview.mtext-list .list-item.topline.darkblue,
+.tangram.listview.media-list .list-item.topline.darkblue {
+    border-top: 1px solid #036;
+}
+
+.tangram.listview.text-list .list-item.underline.darkblue,
+.tangram.listview.mtext-list .list-item.underline.darkblue,
+.tangram.listview.media-list .list-item.underline.darkblue {
+    border-bottom: 1px solid #036;
+}
+
+.tangram.listview.text-list .list-item.topline.underline.darkblue,
+.tangram.listview.mtext-list .list-item.topline.underline.darkblue,
+.tangram.listview.media-list .list-item.topline.underline.darkblue {
+    border-top: 1px solid #036;
+    border-bottom: 1px solid #036;
+}
+
+.tangram.listview.text-list .list-item.stripe.darkblue:nth-child(odd),
+.tangram.listview.mtext-list .list-item.stripe.darkblue:nth-child(odd),
+.tangram.listview.media-list .list-item.stripe.darkblue:nth-child(odd) {
+    background-color: #036;
+    color: #ffffff;
+}
+
+.tangram.listview.text-list .list-item.stripe.darkblue:nth-child(even),
+.tangram.listview.mtext-list .list-item.stripe.darkblue:nth-child(even),
+.tangram.listview.media-list .list-item.stripe.darkblue:nth-child(even) {
+    background-color: #004d99;
+    color: #ffffff;
+}
+
+.tangram.listview.text-list .list-item.card.darkblue,
+.tangram.listview.mtext-list .list-item.card.darkblue,
+.tangram.listview.media-list .list-item.card.darkblue {
+    background-color: #036;
+    color: #ffffff;
+}
+
+.tangram.listview.text-list .list-item.pane.darkblue,
+.tangram.listview.mtext-list .list-item.pane.darkblue,
+.tangram.listview.media-list .list-item.pane.darkblue {
+    border: 1px solid #036;
+}
+
+.tangram.listview.text-list>i.darkblue,
+.tangram.listview.text-list .list-title>i.darkblue,
+.tangram.listview.text-list .list-icon.darkblue,
+.tangram.listview.mtext-list>i.darkblue,
+.tangram.listview.mtext-list .list-title>i.darkblue,
+.tangram.listview.mtext-list .list-icon.darkblue,
+.tangram.listview.media-list>i.darkblue,
+.tangram.listview.media-list .list-title>i.darkblue,
+.tangram.listview.media-list .list-icon.darkblue {
+    background-color: #036;
+}
+
+.tangram.listview.text-list>i.hollow.darkblue,
+.tangram.listview.text-list .list-title>i.hollow.darkblue,
+.tangram.listview.text-list .list-icon.hollow.darkblue,
+.tangram.listview.mtext-list>i.hollow.darkblue,
+.tangram.listview.mtext-list .list-title>i.hollow.darkblue,
+.tangram.listview.mtext-list .list-icon.hollow.darkblue,
+.tangram.listview.media-list>i.hollow.darkblue,
+.tangram.listview.media-list .list-title>i.hollow.darkblue,
+.tangram.listview.media-list .list-icon.hollow.darkblue {
+    background-color: transparent;
+    border: 1px solid #036;
+    color: #036;
+}
+
+.tangram.listview.text-list .list-item.topline.purple,
+.tangram.listview.mtext-list .list-item.topline.purple,
+.tangram.listview.media-list .list-item.topline.purple {
+    border-top: 1px solid #c2a;
+}
+
+.tangram.listview.text-list .list-item.underline.purple,
+.tangram.listview.mtext-list .list-item.underline.purple,
+.tangram.listview.media-list .list-item.underline.purple {
+    border-bottom: 1px solid #c2a;
+}
+
+.tangram.listview.text-list .list-item.topline.underline.purple,
+.tangram.listview.mtext-list .list-item.topline.underline.purple,
+.tangram.listview.media-list .list-item.topline.underline.purple {
+    border-top: 1px solid #c2a;
+    border-bottom: 1px solid #c2a;
+}
+
+.tangram.listview.text-list .list-item.stripe.purple:nth-child(odd),
+.tangram.listview.mtext-list .list-item.stripe.purple:nth-child(odd),
+.tangram.listview.media-list .list-item.stripe.purple:nth-child(odd) {
+    background-color: #c2a;
+    color: #ffffff;
+}
+
+.tangram.listview.text-list .list-item.stripe.purple:nth-child(even),
+.tangram.listview.mtext-list .list-item.stripe.purple:nth-child(even),
+.tangram.listview.media-list .list-item.stripe.purple:nth-child(even) {
+    background-color: #df42c0;
+    color: #ffffff;
+}
+
+.tangram.listview.text-list .list-item.card.purple,
+.tangram.listview.mtext-list .list-item.card.purple,
+.tangram.listview.media-list .list-item.card.purple {
+    background-color: #c2a;
+    color: #ffffff;
+}
+
+.tangram.listview.text-list .list-item.pane.purple,
+.tangram.listview.mtext-list .list-item.pane.purple,
+.tangram.listview.media-list .list-item.pane.purple {
+    border: 1px solid #c2a;
+}
+
+.tangram.listview.text-list>i.purple,
+.tangram.listview.text-list .list-title>i.purple,
+.tangram.listview.text-list .list-icon.purple,
+.tangram.listview.mtext-list>i.purple,
+.tangram.listview.mtext-list .list-title>i.purple,
+.tangram.listview.mtext-list .list-icon.purple,
+.tangram.listview.media-list>i.purple,
+.tangram.listview.media-list .list-title>i.purple,
+.tangram.listview.media-list .list-icon.purple {
+    background-color: #c2a;
+}
+
+.tangram.listview.text-list>i.hollow.purple,
+.tangram.listview.text-list .list-title>i.hollow.purple,
+.tangram.listview.text-list .list-icon.hollow.purple,
+.tangram.listview.mtext-list>i.hollow.purple,
+.tangram.listview.mtext-list .list-title>i.hollow.purple,
+.tangram.listview.mtext-list .list-icon.hollow.purple,
+.tangram.listview.media-list>i.hollow.purple,
+.tangram.listview.media-list .list-title>i.hollow.purple,
+.tangram.listview.media-list .list-icon.hollow.purple {
+    background-color: transparent;
+    border: 1px solid #c2a;
+    color: #c2a;
+}
+
+.tangram.listview.text-list .list-item.topline.black,
+.tangram.listview.mtext-list .list-item.topline.black,
+.tangram.listview.media-list .list-item.topline.black {
+    border-top: 1px solid #000;
+}
+
+.tangram.listview.text-list .list-item.underline.black,
+.tangram.listview.mtext-list .list-item.underline.black,
+.tangram.listview.media-list .list-item.underline.black {
+    border-bottom: 1px solid #000;
+}
+
+.tangram.listview.text-list .list-item.topline.underline.black,
+.tangram.listview.mtext-list .list-item.topline.underline.black,
+.tangram.listview.media-list .list-item.topline.underline.black {
+    border-top: 1px solid #000;
+    border-bottom: 1px solid #000;
+}
+
+.tangram.listview.text-list .list-item.stripe.black:nth-child(odd),
+.tangram.listview.mtext-list .list-item.stripe.black:nth-child(odd),
+.tangram.listview.media-list .list-item.stripe.black:nth-child(odd) {
+    background-color: #000;
+    color: #ffffff;
+}
+
+.tangram.listview.text-list .list-item.stripe.black:nth-child(even),
+.tangram.listview.mtext-list .list-item.stripe.black:nth-child(even),
+.tangram.listview.media-list .list-item.stripe.black:nth-child(even) {
+    background-color: #1a1a1a;
+    color: #ffffff;
+}
+
+.tangram.listview.text-list .list-item.card.black,
+.tangram.listview.mtext-list .list-item.card.black,
+.tangram.listview.media-list .list-item.card.black {
+    background-color: #000;
+    color: #ffffff;
+}
+
+.tangram.listview.text-list .list-item.pane.black,
+.tangram.listview.mtext-list .list-item.pane.black,
+.tangram.listview.media-list .list-item.pane.black {
+    border: 1px solid #000;
+}
+
+.tangram.listview.text-list>i.black,
+.tangram.listview.text-list .list-title>i.black,
+.tangram.listview.text-list .list-icon.black,
+.tangram.listview.mtext-list>i.black,
+.tangram.listview.mtext-list .list-title>i.black,
+.tangram.listview.mtext-list .list-icon.black,
+.tangram.listview.media-list>i.black,
+.tangram.listview.media-list .list-title>i.black,
+.tangram.listview.media-list .list-icon.black {
+    background-color: #000;
+}
+
+.tangram.listview.text-list>i.hollow.black,
+.tangram.listview.text-list .list-title>i.hollow.black,
+.tangram.listview.text-list .list-icon.hollow.black,
+.tangram.listview.mtext-list>i.hollow.black,
+.tangram.listview.mtext-list .list-title>i.hollow.black,
+.tangram.listview.mtext-list .list-icon.hollow.black,
+.tangram.listview.media-list>i.hollow.black,
+.tangram.listview.media-list .list-title>i.hollow.black,
+.tangram.listview.media-list .list-icon.hollow.black {
+    background-color: transparent;
+    border: 1px solid #000;
+    color: #000;
+}
+
+.tangram.listview.text-list .list-item.topline.lightgray,
+.tangram.listview.mtext-list .list-item.topline.lightgray,
+.tangram.listview.media-list .list-item.topline.lightgray {
+    border-top: 1px solid #ddd;
+}
+
+.tangram.listview.text-list .list-item.underline.lightgray,
+.tangram.listview.mtext-list .list-item.underline.lightgray,
+.tangram.listview.media-list .list-item.underline.lightgray {
+    border-bottom: 1px solid #ddd;
+}
+
+.tangram.listview.text-list .list-item.topline.underline.lightgray,
+.tangram.listview.mtext-list .list-item.topline.underline.lightgray,
+.tangram.listview.media-list .list-item.topline.underline.lightgray {
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
+
+.tangram.listview.text-list .list-item.stripe.lightgray:nth-child(odd),
+.tangram.listview.mtext-list .list-item.stripe.lightgray:nth-child(odd),
+.tangram.listview.media-list .list-item.stripe.lightgray:nth-child(odd) {
+    background-color: #ddd;
+    color: #ffffff;
+}
+
+.tangram.listview.text-list .list-item.stripe.lightgray:nth-child(even),
+.tangram.listview.mtext-list .list-item.stripe.lightgray:nth-child(even),
+.tangram.listview.media-list .list-item.stripe.lightgray:nth-child(even) {
+    background-color: #f7f7f7;
+    color: #ffffff;
+}
+
+.tangram.listview.text-list .list-item.card.lightgray,
+.tangram.listview.mtext-list .list-item.card.lightgray,
+.tangram.listview.media-list .list-item.card.lightgray {
+    background-color: #ddd;
+    color: #ffffff;
+}
+
+.tangram.listview.text-list .list-item.pane.lightgray,
+.tangram.listview.mtext-list .list-item.pane.lightgray,
+.tangram.listview.media-list .list-item.pane.lightgray {
+    border: 1px solid #ddd;
+}
+
+.tangram.listview.text-list>i.lightgray,
+.tangram.listview.text-list .list-title>i.lightgray,
+.tangram.listview.text-list .list-icon.lightgray,
+.tangram.listview.mtext-list>i.lightgray,
+.tangram.listview.mtext-list .list-title>i.lightgray,
+.tangram.listview.mtext-list .list-icon.lightgray,
+.tangram.listview.media-list>i.lightgray,
+.tangram.listview.media-list .list-title>i.lightgray,
+.tangram.listview.media-list .list-icon.lightgray {
+    background-color: #ddd;
+}
+
+.tangram.listview.text-list>i.hollow.lightgray,
+.tangram.listview.text-list .list-title>i.hollow.lightgray,
+.tangram.listview.text-list .list-icon.hollow.lightgray,
+.tangram.listview.mtext-list>i.hollow.lightgray,
+.tangram.listview.mtext-list .list-title>i.hollow.lightgray,
+.tangram.listview.mtext-list .list-icon.hollow.lightgray,
+.tangram.listview.media-list>i.hollow.lightgray,
+.tangram.listview.media-list .list-title>i.hollow.lightgray,
+.tangram.listview.media-list .list-icon.hollow.lightgray {
+    background-color: transparent;
+    border: 1px solid #ddd;
+    color: #ddd;
+}
+
+.tangram.listview.text-list .list-item.topline.gray,
+.tangram.listview.mtext-list .list-item.topline.gray,
+.tangram.listview.media-list .list-item.topline.gray {
+    border-top: 1px solid #999;
+}
+
+.tangram.listview.text-list .list-item.underline.gray,
+.tangram.listview.mtext-list .list-item.underline.gray,
+.tangram.listview.media-list .list-item.underline.gray {
+    border-bottom: 1px solid #999;
+}
+
+.tangram.listview.text-list .list-item.topline.underline.gray,
+.tangram.listview.mtext-list .list-item.topline.underline.gray,
+.tangram.listview.media-list .list-item.topline.underline.gray {
+    border-top: 1px solid #999;
+    border-bottom: 1px solid #999;
+}
+
+.tangram.listview.text-list .list-item.stripe.gray:nth-child(odd),
+.tangram.listview.mtext-list .list-item.stripe.gray:nth-child(odd),
+.tangram.listview.media-list .list-item.stripe.gray:nth-child(odd) {
+    background-color: #999;
+    color: #ffffff;
+}
+
+.tangram.listview.text-list .list-item.stripe.gray:nth-child(even),
+.tangram.listview.mtext-list .list-item.stripe.gray:nth-child(even),
+.tangram.listview.media-list .list-item.stripe.gray:nth-child(even) {
+    background-color: #b3b3b3;
+    color: #ffffff;
+}
+
+.tangram.listview.text-list .list-item.card.gray,
+.tangram.listview.mtext-list .list-item.card.gray,
+.tangram.listview.media-list .list-item.card.gray {
+    background-color: #999;
+    color: #ffffff;
+}
+
+.tangram.listview.text-list .list-item.pane.gray,
+.tangram.listview.mtext-list .list-item.pane.gray,
+.tangram.listview.media-list .list-item.pane.gray {
+    border: 1px solid #999;
+}
+
+.tangram.listview.text-list>i.gray,
+.tangram.listview.text-list .list-title>i.gray,
+.tangram.listview.text-list .list-icon.gray,
+.tangram.listview.mtext-list>i.gray,
+.tangram.listview.mtext-list .list-title>i.gray,
+.tangram.listview.mtext-list .list-icon.gray,
+.tangram.listview.media-list>i.gray,
+.tangram.listview.media-list .list-title>i.gray,
+.tangram.listview.media-list .list-icon.gray {
+    background-color: #999;
+}
+
+.tangram.listview.text-list>i.hollow.gray,
+.tangram.listview.text-list .list-title>i.hollow.gray,
+.tangram.listview.text-list .list-icon.hollow.gray,
+.tangram.listview.mtext-list>i.hollow.gray,
+.tangram.listview.mtext-list .list-title>i.hollow.gray,
+.tangram.listview.mtext-list .list-icon.hollow.gray,
+.tangram.listview.media-list>i.hollow.gray,
+.tangram.listview.media-list .list-title>i.hollow.gray,
+.tangram.listview.media-list .list-icon.hollow.gray {
+    background-color: transparent;
+    border: 1px solid #999;
+    color: #999;
+}
+
+.tangram.listview.text-list .list-item.topline.dark-gray,
+.tangram.listview.mtext-list .list-item.topline.dark-gray,
+.tangram.listview.media-list .list-item.topline.dark-gray {
+    border-top: 1px solid #666;
+}
+
+.tangram.listview.text-list .list-item.underline.dark-gray,
+.tangram.listview.mtext-list .list-item.underline.dark-gray,
+.tangram.listview.media-list .list-item.underline.dark-gray {
+    border-bottom: 1px solid #666;
+}
+
+.tangram.listview.text-list .list-item.topline.underline.dark-gray,
+.tangram.listview.mtext-list .list-item.topline.underline.dark-gray,
+.tangram.listview.media-list .list-item.topline.underline.dark-gray {
+    border-top: 1px solid #666;
+    border-bottom: 1px solid #666;
+}
+
+.tangram.listview.text-list .list-item.stripe.dark-gray:nth-child(odd),
+.tangram.listview.mtext-list .list-item.stripe.dark-gray:nth-child(odd),
+.tangram.listview.media-list .list-item.stripe.dark-gray:nth-child(odd) {
+    background-color: #666;
+    color: #ffffff;
+}
+
+.tangram.listview.text-list .list-item.stripe.dark-gray:nth-child(even),
+.tangram.listview.mtext-list .list-item.stripe.dark-gray:nth-child(even),
+.tangram.listview.media-list .list-item.stripe.dark-gray:nth-child(even) {
+    background-color: gray;
+    color: #ffffff;
+}
+
+.tangram.listview.text-list .list-item.card.dark-gray,
+.tangram.listview.mtext-list .list-item.card.dark-gray,
+.tangram.listview.media-list .list-item.card.dark-gray {
+    background-color: #666;
+    color: #ffffff;
+}
+
+.tangram.listview.text-list .list-item.pane.dark-gray,
+.tangram.listview.mtext-list .list-item.pane.dark-gray,
+.tangram.listview.media-list .list-item.pane.dark-gray {
+    border: 1px solid #666;
+}
+
+.tangram.listview.text-list>i.dark-gray,
+.tangram.listview.text-list .list-title>i.dark-gray,
+.tangram.listview.text-list .list-icon.dark-gray,
+.tangram.listview.mtext-list>i.dark-gray,
+.tangram.listview.mtext-list .list-title>i.dark-gray,
+.tangram.listview.mtext-list .list-icon.dark-gray,
+.tangram.listview.media-list>i.dark-gray,
+.tangram.listview.media-list .list-title>i.dark-gray,
+.tangram.listview.media-list .list-icon.dark-gray {
+    background-color: #666;
+}
+
+.tangram.listview.text-list>i.hollow.dark-gray,
+.tangram.listview.text-list .list-title>i.hollow.dark-gray,
+.tangram.listview.text-list .list-icon.hollow.dark-gray,
+.tangram.listview.mtext-list>i.hollow.dark-gray,
+.tangram.listview.mtext-list .list-title>i.hollow.dark-gray,
+.tangram.listview.mtext-list .list-icon.hollow.dark-gray,
+.tangram.listview.media-list>i.hollow.dark-gray,
+.tangram.listview.media-list .list-title>i.hollow.dark-gray,
+.tangram.listview.media-list .list-icon.hollow.dark-gray {
+    background-color: transparent;
+    border: 1px solid #666;
+    color: #666;
+}
+
+.tangram.listview.text-list .list-item.topline.white,
+.tangram.listview.mtext-list .list-item.topline.white,
+.tangram.listview.media-list .list-item.topline.white {
+    border-top: 1px solid #fff;
+}
+
+.tangram.listview.text-list .list-item.underline.white,
+.tangram.listview.mtext-list .list-item.underline.white,
+.tangram.listview.media-list .list-item.underline.white {
+    border-bottom: 1px solid #fff;
+}
+
+.tangram.listview.text-list .list-item.topline.underline.white,
+.tangram.listview.mtext-list .list-item.topline.underline.white,
+.tangram.listview.media-list .list-item.topline.underline.white {
+    border-top: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+}
+
+.tangram.listview.text-list .list-item.stripe.white:nth-child(odd),
+.tangram.listview.mtext-list .list-item.stripe.white:nth-child(odd),
+.tangram.listview.media-list .list-item.stripe.white:nth-child(odd) {
+    background-color: #fff;
+    color: #ffffff;
+}
+
+.tangram.listview.text-list .list-item.stripe.white:nth-child(even),
+.tangram.listview.mtext-list .list-item.stripe.white:nth-child(even),
+.tangram.listview.media-list .list-item.stripe.white:nth-child(even) {
+    background-color: white;
+    color: #ffffff;
+}
+
+.tangram.listview.text-list .list-item.card.white,
+.tangram.listview.mtext-list .list-item.card.white,
+.tangram.listview.media-list .list-item.card.white {
+    background-color: #fff;
+    color: #ffffff;
+}
+
+.tangram.listview.text-list .list-item.pane.white,
+.tangram.listview.mtext-list .list-item.pane.white,
+.tangram.listview.media-list .list-item.pane.white {
+    border: 1px solid #fff;
+}
+
+.tangram.listview.text-list>i.white,
+.tangram.listview.text-list .list-title>i.white,
+.tangram.listview.text-list .list-icon.white,
+.tangram.listview.mtext-list>i.white,
+.tangram.listview.mtext-list .list-title>i.white,
+.tangram.listview.mtext-list .list-icon.white,
+.tangram.listview.media-list>i.white,
+.tangram.listview.media-list .list-title>i.white,
+.tangram.listview.media-list .list-icon.white {
+    background-color: #fff;
+}
+
+.tangram.listview.text-list>i.hollow.white,
+.tangram.listview.text-list .list-title>i.hollow.white,
+.tangram.listview.text-list .list-icon.hollow.white,
+.tangram.listview.mtext-list>i.hollow.white,
+.tangram.listview.mtext-list .list-title>i.hollow.white,
+.tangram.listview.mtext-list .list-icon.hollow.white,
+.tangram.listview.media-list>i.hollow.white,
+.tangram.listview.media-list .list-title>i.hollow.white,
+.tangram.listview.media-list .list-icon.hollow.white {
+    background-color: transparent;
+    border: 1px solid #fff;
+    color: #fff;
+}
+
+
+/*# sourceMappingURL=style.css.map */

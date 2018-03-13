@@ -1,0 +1,273 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>IBK BAR CHART</title>
+    <script src="../../../src/tangram.js" data-use-debugmode></script>
+    <style>
+        div {
+            float: left;
+            width: 520px;
+            max-width: 100%;
+            height: 360px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="canvas1"> </div>
+    <div id="canvas2"> </div>
+    <div id="canvas3"> </div>
+    <div id="canvas5"> </div>
+    <script>
+        tangram.block([
+            '$_/painter/Charts/animation.clsx',
+            '$_/painter/Charts/tooltip.clsx',
+            '$_/painter/Charts/type/Bar.cls'
+        ], function(_, global, undefined) {
+
+            var document = global.document;
+            var location = global.location;
+            var randomScalingFactor = function() {
+                return Math.round(Math.random() * 100 + 100)
+            };
+            var option1 = {
+                tooltip: {
+                    show: true,
+                    type: 'axis',
+                },
+                xAxis: {
+                    data: ["January", "February", "March", "April",
+                        "May", "June"
+                    ]
+                },
+                //animation: false,
+                animationDuration: 1000,
+                series: [{
+                    type: "bar",
+                    name: "A",
+                    data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor()]
+                }, {
+                    type: "bar",
+                    name: "BB",
+                    data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor()]
+                }, {
+                    type: "bar",
+                    name: "C",
+                    data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor()]
+                }]
+            }
+            var chart1 = new _.painter.Charts(document.getElementById("canvas1"));
+            chart1.setOption(option1);
+            var option5 = {
+                tooltip: {
+                    show: true,
+                    //type: 'axis',
+                },
+                xAxis: {
+                    data: ["January", "February", "March", "April", "May", "June"]
+                },
+                yAxis: {
+                    axisLine: {
+                        onZero: true,
+                    }
+                },
+                animationDuration: 1000,
+                series: [{
+                    type: "bar",
+                    name: "A",
+                    data: [{
+                        value: [50, 100],
+                        itemStyle: {
+                            normal: {
+                                color: "#F7464A"
+                            },
+                            emphasis: {
+                                color: "#FF5A5E"
+                            }
+                        }
+                    }, {
+                        value: [150, 200],
+                        itemStyle: {
+                            normal: {
+                                color: "#46BFBD"
+                            },
+                            emphasis: {
+                                color: "#5AD3D1"
+                            }
+                        }
+                    }, {
+                        value: [-20, 80],
+                        itemStyle: {
+                            normal: {
+                                color: "#FDB45C"
+                            },
+                            emphasis: {
+                                color: "#FFC870"
+                            }
+                        }
+                    }, {
+                        value: [20, 120],
+                        itemStyle: {
+                            normal: {
+                                color: "#949FB1"
+                            },
+                            emphasis: {
+                                color: "#A8B3C5"
+                            }
+                        }
+                    }, {
+                        value: [80, 130],
+                        itemStyle: {
+                            normal: {
+                                color: "#4D5360"
+                            },
+                            emphasis: {
+                                color: "#616774"
+                            }
+                        }
+                    }, {
+                        value: [160, 200]
+                    }]
+                }, {
+                    type: "bar",
+                    name: "B",
+                    data: [
+                        [10, 130],
+                        [50, 230],
+                        [-70, 50],
+                        [90, 210],
+                        [50, 160],
+                        [60, 100],
+                    ]
+                }, {
+                    type: "bar",
+                    name: "C",
+                    data: [
+                        [-50, 50],
+                        [90, 140],
+                        [10, 80],
+                        [60, 180],
+                        [00, 80],
+                        [-20, 90],
+                    ]
+                }]
+            }
+            var chart5 = new _.painter.Charts(document.getElementById("canvas5"));
+            chart5.setOption(option5);
+            var option2 = {
+                tooltip: {
+                    show: true,
+                    type: 'axis',
+                },
+                xAxis: {
+                    data: ["January", "February", "March", "April", "May", "June"]
+                },
+                //animation: false,
+                animationDuration: 1000,
+                series: [{
+                    type: "bar",
+                    name: "A",
+                    data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor()]
+                }, {
+                    type: "bar",
+                    name: "BB",
+                    data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor()]
+                }, {
+                    type: "bar",
+                    name: "C",
+                    data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor()]
+                }]
+            }
+            var chart2 = new _.painter.Charts(document.getElementById("canvas2"));
+            chart2.setOption(option2);
+            setTimeout(function() {
+                var option = {
+                    xAxis: {
+                        data: ["January", "February", "March", "April", "May", "June", "July"]
+                    },
+                    series: [{
+                        type: "bar",
+                        name: "A",
+                        data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor()]
+                    }, {
+                        type: "bar",
+                        name: "BB",
+                        data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor()]
+                    }, {
+                        type: "bar",
+                        name: "C",
+                        data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor()]
+                    }]
+                }
+                chart2.setOption(option);
+                setInterval(function() {
+                    var option = {
+                        series: [{
+                            type: "bar",
+                            name: "A",
+                            data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor()]
+                        }, {
+                            type: "bar",
+                            name: "BB",
+                            data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor()]
+                        }, {
+                            type: "bar",
+                            name: "C",
+                            data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor()]
+                        }, {
+                            type: "bar",
+                            name: "D",
+                            data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor()]
+                        }, {
+                            type: "bar",
+                            name: "C",
+                            data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor()]
+                        }, {
+                            type: "bar",
+                            name: "D",
+                            data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor()]
+                        }]
+                    }
+                    chart2.setOption(option);
+                }, 1000);
+            }, 1000);
+            var option3 = {
+                tooltip: {
+                    show: true,
+                    //type: 'axis',
+                },
+                xAxis: {
+                    data: ["January", "February", "March", "April", "May", "June"]
+                },
+                yAxis: {
+                    axisLine: {
+                        show: false
+                    }
+                },
+                animationDuration: 1000,
+                series: [{
+                    type: "bar",
+                    name: "A",
+                    data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor()]
+                }, {
+                    type: "bar",
+                    name: "BB",
+                    data: [randomScalingFactor() * -1, randomScalingFactor() * -1, randomScalingFactor() *
+                        -1, randomScalingFactor() * -1, randomScalingFactor() * -1, randomScalingFactor() * -1
+                    ]
+                }, {
+                    type: "bar",
+                    name: "C",
+                    data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor()]
+                }]
+            }
+            var chart3 = new _.painter.Charts(document.getElementById("canvas3"));
+            chart3.setOption(option3);
+            console.log(chart1);
+        }, true);
+    </script>
+</body>
+
+</html>

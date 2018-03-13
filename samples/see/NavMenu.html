@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <title>多级导航菜单</title>
+    <script type="text/javascript" src="http://tangram.js.nidn.yangram.ni/src/tangram.js"></script>
+    <link type="text/css" rel="stylesheet" href="http://tangram.js.nidn.yangram.ni/src/see/see.css">
+    <style>
+        body {
+            height: 100%;
+        }
+        
+        .mainnav {
+            width: 640px;
+            margin: 100px auto;
+        }
+        
+        .mainnav ul {
+            overflow: visible;
+        }
+        
+        .mainnav .navmenu {
+            width: 880px;
+            height: 30px;
+            margin: 15px 0;
+        }
+        
+        .mainnav .submenu {
+            width: auto;
+            height: 30px;
+        }
+        
+        .mainnav .navmenu li {
+            display: block;
+            width: 78px;
+            height: 30px;
+            line-height: 30px;
+            border: 1px solid #FFFFFF;
+            background-color: #666666;
+            text-align: right;
+            color: #FFFFFF;
+        }
+        
+        .mainnav li.actived,
+        .mainnav li:hover {
+            background-color: #660000;
+        }
+    </style>
+</head>
+
+<body>
+    <nav id="mainnav" class="mainnav tangram ov-visi">
+        <ul class="tangram navmenu inline">
+            <li class="menu-item"><a href="">一级菜单1</a></li>
+            <li class="menu-item hasson"><a href="">一级菜单2</a>
+                <ul class="submenu under inline al-center" data-width="480">
+                    <li class="menu-item hasson">
+                        <a href="">二级菜单1</a>
+
+                        <li class="menu-item">
+                            <a href="">二级菜单2</a>
+                        </li>
+                        <li class="menu-item hasson">
+                            <a href="">二级菜单3</a>
+                            <ul class="submenu">
+                                <li class="menu-item">
+                                    <a href="">三级菜单1</a>
+                                </li>
+                                <li class="menu-item">
+                                    <a href="">三级菜单2</a>
+                                </li>
+                                <li class="menu-item hasson">
+                                    <a href="">三级菜单3</a>
+                                    <ul class="submenu rside al-top">
+                                        <li class="menu-item hasson">
+                                            <a href="">四级菜单1</a>
+                                            <ul class="submenu rside al-middle" data-height="120">
+                                                <li class="menu-item">
+                                                    <a href="">五级菜单1</a>
+                                                </li>
+                                                <li class="menu-item">
+                                                    <a href="">五级菜单2</a>
+                                                </li>
+                                                <li class="menu-item hasson">
+                                                    <a href="">五级菜单3</a>
+                                                    <ul class="menu6 submenu rside al-middle inline" data-width="320">
+                                                        <li class="menu-item">
+                                                            <a href="">六级菜单1</a>
+                                                        </li>
+                                                        <li class="menu-item">
+                                                            <a href="">六级菜单2</a>
+                                                        </li>
+                                                        <li class="menu-item">
+                                                            <a href="">六级菜单3</a>
+                                                        </li>
+                                                        <li class="menu-item">
+                                                            <a href="">六级菜单4</a>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li class="menu-item">
+                                                    <a href="">五级菜单4</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="menu-item">
+                                            <a href="">四级菜单2</a>
+                                        </li>
+                                        <li class="menu-item">
+                                            <a href="">四级菜单3</a>
+                                        </li>
+                                        <li class="menu-item">
+                                            <a href="">四级菜单4</a>
+                                        </li>
+                                        <li class="menu-item">
+                                            <a href="">四级菜单5</a>
+                                        </li>
+                                        <li class="menu-item">
+                                            <a href="">四级菜单6</a>
+                                        </li>
+                                        <li class="menu-item">
+                                            <a href="">四级菜单7</a>
+                                        </li>
+                                        <li class="menu-item">
+                                            <a href="">四级菜单8</a>
+                                        </li>
+                                        <li class="menu-item">
+                                            <a href="">四级菜单9</a>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li class="menu-item">
+                                    <a href="">三级菜单4</a>
+                                </li>
+                                <li class="menu-item">
+                                    <a href="">三级菜单5</a>
+                                </li>
+                                <li class="menu-item">
+                                    <a href="">三级菜单6</a>
+                                </li>
+                                <li class="menu-item">
+                                    <a href="">三级菜单7</a>
+                                </li>
+                                <li class="menu-item">
+                                    <a href="">三级菜单8</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </li>
+                    <li class="menu-item">
+                        <a href="">二级菜单4</a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="">二级菜单5</a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="">二级菜单6</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="menu-item"><a href="">一级菜单3</a></li>
+            <li class="menu-item"><a href="">一级菜单4</a></li>
+            <li class="menu-item"><a href="">一级菜单5</a></li>
+            <li class="menu-item"><a href="">一级菜单6</a></li>
+            <li class="menu-item"><a href="">一级菜单7</a></li>
+            <li class="menu-item"><a href="">一级菜单8</a></li>
+        </ul>
+    </nav>
+    <link type="text/css" rel="stylesheet" href="http://tangram.js.nidn.yangram.ni/src/see/NavMenu/style.css">
+    <script type="text/javascript">
+        tangram.block('$_/see/NavMenu/', function(_, global, undefined) {
+            new _.see.NavMenu('mainnav');
+        }, true);
+    </script>
+</body>
+
+</html>

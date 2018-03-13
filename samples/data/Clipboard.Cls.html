@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>CLIPBOARD</title>
+    <script src="../../src/tangram.js" data-use-debugmode></script>
+    <style>
+        .form {
+            margin: 20px auto;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="form">
+        <input id="input" type="text" value="输入你要操作的文本">
+        <input id="copy" type="button" value="复制">
+    </div>
+    <script>
+        /* 本测试主要测试如下 */
+        /*
+         * 1. 从语句块的可用性；
+         * 2. 使用data.Clipboard类对文本进行编码和解码；
+         */
+        // data.Clipboard会自己加载util.bool和dom操作
+        tangram.block(['$_/data/Clipboard.cls'], function(_, global, undefined) {
+            var input = _.dom.query.byId('input'),
+                copy = _.dom.query.byId('copy'),
+                clipboard = new _.data.Clipboard();
+            _.dom.events.add(copy, 'click', null, null, function() {
+                var text = input.value;
+                clipboard.setText(text).copy();
+                alert('文本已复制到剪切板');
+            });
+            /*
+            var document = global.document;
+            input = document.getElementById('input'), copy = document.getElementById('copy'), clipboard = new
+            _.data.Clipboard();
+            copy.onclick = function() {
+                var text = input.value;
+                clipboard.setText(text).copy();  
+            }
+            */
+        }, true);
+    </script>
+</body>
+
+</html>

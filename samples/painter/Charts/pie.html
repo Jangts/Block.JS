@@ -1,0 +1,226 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Pie Chart</title>
+    <script src="../../../src/tangram.js" data-use-debugmode></script>
+    <style>
+        div {
+            float: left;
+            width: 360px;
+            max-width: 100%;
+            height: 600px;
+            margin: 10px 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="canvas1"> </div>
+    <div id="canvas2"> </div>
+    <div id="canvas3"> </div>
+    <script>
+        tangram.block([
+            '$_/painter/Charts/animation.clsx',
+            '$_/painter/Charts/tooltip.clsx',
+            '$_/painter/Charts/type/Pie.cls'
+        ], function(_, global, undefined) {
+            document = global.document;
+            var location = global.location;
+            var option1 = {
+                tooltip: {
+                    show: true,
+                },
+                animationDuration: 2000,
+                series: [{
+                    type: 'pie',
+                    name: "Pie One Up",
+                    center: ['50%', '25%'],
+                    radius: [0, '75%', '80%'],
+                    data: [{
+                        value: 300,
+                        name: "Red"
+                    }, {
+                        value: 50,
+                        name: "Yellow"
+                    }, {
+                        value: 60,
+                        name: "Green"
+                    }, {
+                        value: 120,
+                        name: "Dark Green"
+                    }, {
+                        value: 80,
+                        name: "Blue"
+                    }, {
+                        value: 240,
+                        name: "Dark Blue"
+                    }, {
+                        value: 180,
+                        name: "Grey Purple"
+                    }]
+                }, {
+                    type: 'pie',
+                    name: "Pie One Down",
+                    center: ['50%', '75%'],
+                    radius: ['50%', '75%', '80%'],
+                    data: [{
+                        value: 300,
+                        name: "Red"
+                    }, {
+                        value: 50,
+                        name: "Yellow"
+                    }, {
+                        value: 60,
+                        name: "Green"
+                    }, {
+                        value: 120,
+                        name: "Dark Green"
+                    }, {
+                        value: 80,
+                        name: "Blue"
+                    }, {
+                        value: 240,
+                        name: "Dark Blue"
+                    }, {
+                        value: 180,
+                        name: "Grey Purple"
+                    }]
+                }]
+            };
+            var option2 = {
+                tooltip: {
+                    show: true,
+                },
+                animationDuration: 2000,
+                series: [{
+                    type: 'pie',
+                    name: "Pie Two Up",
+                    center: ['50%', '25%'],
+                    roseType: 'angle',
+                    data: [{
+                        value: 300,
+                        name: "Red"
+                    }, {
+                        value: 50,
+                        name: "Yellow"
+                    }, {
+                        value: 60,
+                        name: "Green"
+                    }, {
+                        value: 120,
+                        name: "Dark Green"
+                    }, {
+                        value: 80,
+                        name: "Blue"
+                    }, {
+                        value: 240,
+                        name: "Dark Blue"
+                    }, {
+                        value: 180,
+                        name: "Grey Purple"
+                    }]
+                }, {
+                    type: 'pie',
+                    name: "Pie Two Down",
+                    center: ['50%', '75%'],
+                    radius: [0, '75%', '80%'],
+                    roseType: 'radius',
+                    data: [{
+                        value: 300,
+                        name: "Red"
+                    }, {
+                        value: 50,
+                        name: "Yellow"
+                    }, {
+                        value: 60,
+                        name: "Green"
+                    }, {
+                        value: 120,
+                        name: "Dark Green"
+                    }, {
+                        value: 80,
+                        name: "Blue"
+                    }, {
+                        value: 240,
+                        name: "Dark Blue"
+                    }, {
+                        value: 180,
+                        name: "Grey Purple"
+                    }]
+                }]
+            };
+            var option3 = {
+                tooltip: {
+                    show: true,
+                },
+                animationDuration: 2000,
+                series: [{
+                    type: 'pie',
+                    name: "Pie Three Up",
+                    center: ['50%', '25%'],
+                    roseType: 'area',
+                    data: [{
+                        value: 300,
+                        name: "Red"
+                    }, {
+                        value: 50,
+                        name: "Yellow"
+                    }, {
+                        value: 60,
+                        name: "Green"
+                    }, {
+                        value: 120,
+                        name: "Dark Green"
+                    }, {
+                        value: 80,
+                        name: "Blue"
+                    }, {
+                        value: 240,
+                        name: "Dark Blue"
+                    }, {
+                        value: 180,
+                        name: "Grey Purple"
+                    }]
+                }, {
+                    type: 'pie',
+                    name: "Pie Three Down",
+                    center: ['50%', '75%'],
+                    radius: ['15%', '75%', '80%'],
+                    roseType: 'area',
+                    data: [{
+                        value: 300,
+                        name: "Red"
+                    }, {
+                        value: 50,
+                        name: "Yellow"
+                    }, {
+                        value: 60,
+                        name: "Green"
+                    }, {
+                        value: 120,
+                        name: "Dark Green"
+                    }, {
+                        value: 80,
+                        name: "Blue"
+                    }, {
+                        value: 240,
+                        name: "Dark Blue"
+                    }, {
+                        value: 180,
+                        name: "Grey Purple"
+                    }]
+                }]
+            };
+            var chart1 = new _.painter.Charts(document.getElementById("canvas1"));
+            var chart2 = new _.painter.Charts(document.getElementById("canvas2"));
+            var chart3 = new _.painter.Charts(document.getElementById("canvas3"));
+            chart1.setOption(option1);
+            chart2.setOption(option2);
+            chart3.setOption(option3);
+        }, true);
+    </script>
+    </div>
+</body>
+
+</html>

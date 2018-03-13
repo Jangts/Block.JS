@@ -1,0 +1,158 @@
+/** Widths **/
+
+.tangram.container {
+    width: 100%;
+}
+
+.tangram.wfull {
+    width: 100%;
+    max-width: 100%;
+}
+
+$widths: 4096,
+2560,
+1920,
+1440,
+1366,
+1280,
+1200,
+1180,
+1100,
+1080,
+1000,
+990,
+950,
+790,
+760,
+720,
+660,
+600,
+560,
+510,
+520,
+460,
+420,
+410,
+380,
+360,
+310,
+320,
+260,
+220,
+210,
+160;
+@each $width in $widths {
+    .tangram.w#{$width} {
+        width: 100%;
+        max-width: #{$width}px;
+        margin: auto;
+    }
+    .tangram.wi#{$width} {
+        width: #{$width}px;
+        max-width: #{$width}px !important;
+        min-width: #{$width}px !important;
+        margin: auto;
+    }
+}
+
+
+/** Absolute Center Widths **/
+
+@each $width in $widths {
+    .tangram.c#{$width} {
+        position: absolute;
+        left: 50%;
+        max-width: #{$width}px;
+        min-width: #{$width}px;
+        margin: auto;
+        margin-left: -#{$width/2}px;
+    }
+}
+
+
+/** Heights **/
+
+.tangram.hfull {
+    height: 100%;
+    max-height: 100%;
+}
+
+$heights: 30,
+50,
+90,
+100,
+120,
+150,
+180,
+210,
+240,
+250,
+260,
+270,
+280,
+290,
+300,
+310,
+320,
+330,
+360,
+390,
+420,
+450,
+460,
+480,
+510,
+540,
+550,
+560,
+570,
+580,
+590,
+600,
+630,
+660,
+690,
+720,
+750,
+780;
+@each $height in $heights {
+    .tangram.h#{$height} {
+        height: #{$height}px;
+        max-height: #{$height}px;
+    }
+    .tangram.hi#{$height} {
+        height: #{$height}px;
+        max-height: #{$height}px !important;
+        min-height: #{$height}px !important;
+    }
+}
+
+
+/** MIN Widths **/
+
+@each $width in $widths {
+    .tangram.mx-w#{$width} {
+        max-width: #{$width}px;
+    }
+}
+
+@each $width in $widths {
+    .tangram.mn-w#{$width} {
+        min-width: #{$width}px;
+    }
+}
+
+
+/** MIN Heights **/
+
+@each $height in $heights {
+    .tangram.mx-h#{$height} {
+        max-height: #{$height}px;
+    }
+}
+
+@each $height in $heights {
+    .tangram.mn-h#{$height} {
+        min-height: #{$height}px;
+    }
+}

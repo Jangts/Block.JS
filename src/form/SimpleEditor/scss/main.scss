@@ -1,0 +1,27 @@
+@charset "UTF-8";
+.tangram.simpleeditor {
+    border: 1px solid #CCC;
+}
+
+$headers: (h1, 50px, 30px),
+(h2, 40px, 24px),
+(h3, 30x, 18px),
+(h4, 30px, 16px),
+(h5, 20px, 14px),
+(h6, 20px, 12px);
+@each $header,
+$lineheight,
+$fontsize in $headers {
+    .tangram.simpleeditor #{$header} {
+        line-height: $lineheight;
+        font-size: $fontsize;
+    }
+}
+
+@import "toolarea-themes";
+@import "toolarea-icons";
+@import "toolarea-pickers";
+@import "toolarea-dialogs";
+@import "richarea";
+@import "statebar";
+@import "loadmask";

@@ -1,0 +1,31 @@
+<html>
+
+<head>
+    <title>Time Picker</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script src="../../../src/tangram.js"></script>
+    <link href="../../../src/see/see.css" data-type="text/css" rel="stylesheet">
+    <link href="../../../src/Time/Picker/style.css" data-type="text/css" rel="stylesheet">
+</head>
+
+<body bgcolor="#999999">
+    <div id="timepicker"></div>
+
+    <script>
+        tangram.block(['$_/Time/', '$_/Time/Picker/'], (_) => {
+            var picker = new _.Time.Picker('timepicker');
+
+            picker.launch('13:30', 'hourminute', function(value) {
+                alert(value);
+
+            }, function(value) {
+                alert(value);
+
+            });
+
+            console.log(picker);
+        }, true);
+    </script>
+</body>
+
+</html>

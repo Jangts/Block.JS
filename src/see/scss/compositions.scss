@@ -1,0 +1,54 @@
+$heights: 15,
+18,
+21,
+24,
+27,
+30,
+33,
+36,
+40,
+48,
+48,
+60,
+72,
+84,
+96,
+120,
+156;
+@each $height in $heights {
+    .tangram.lh-#{$height} {
+        line-height: #{$height/20}rem;
+    }
+}
+
+.tangram.al-left {
+    text-align: left;
+}
+
+.tangram.al-right {
+    text-align: right;
+}
+
+.tangram.al-center {
+    text-align: center;
+}
+
+.tangram.al-just {
+    text-align: justify;
+}
+
+.tangram.indent-05 {
+    text-indent: .5em;
+}
+
+.tangram.indent-10 {
+    text-indent: 1em;
+}
+
+.tangram.indent-20 {
+    text-indent: 2em;
+}
+
+.tangram.indent-30 {
+    text-indent: 3em;
+}

@@ -1,0 +1,1016 @@
+.tangram.simpleeditor {
+    border: 1px solid #CCC;
+}
+
+.tangram.simpleeditor h1 {
+    line-height: 50px;
+    font-size: 30px;
+}
+
+.tangram.simpleeditor h2 {
+    line-height: 40px;
+    font-size: 24px;
+}
+
+.tangram.simpleeditor h3 {
+    line-height: 36px;
+    font-size: 21px;
+}
+
+.tangram.simpleeditor h4 {
+    line-height: 30px;
+    font-size: 18px;
+}
+
+.tangram.simpleeditor h5 {
+    line-height: 24px;
+    font-size: 16px;
+}
+
+.tangram.simpleeditor h6 {
+    line-height: 20px;
+    font-size: 14px;
+}
+
+
+/*********************************************************************************
+/*** EDITOR TOOLBAR ***/
+
+.tangram.simpleeditor .tangram.se-toolarea {
+    width: 100%;
+    background-color: #FDFDFE;
+    border-bottom: 1px solid #DDD;
+    overflow: visible;
+    font-size: 0;
+    line-height: 0;
+    z-index: 1024;
+}
+
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-toolgroup {
+    display: inline-block;
+    border-left: 1px solid #DDD;
+    overflow: visible;
+}
+
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-toolgroup:first-child {
+    border-left: none;
+}
+
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-tool {
+    float: left;
+    width: auto;
+    min-width: 30px;
+    height: 30px;
+    line-height: 30px;
+    color: #444;
+    font-size: 14px;
+    text-align: center;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-clear {
+    clear: both;
+}
+
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-tool:hover {
+    background-color: #09C;
+    color: #FFF;
+}
+
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-tool.active {
+    background-color: #09C;
+    color: #FFF;
+}
+
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-tool.invalid {
+    background-color: transparent;
+    color: #AAA;
+    cursor: default;
+}
+
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-tool.invalid:hover {
+    background-color: transparent;
+    color: #AAA;
+}
+
+
+/*** EDITOR TOOLBAR CHARACTER ***********************/
+
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-tool.separator {
+    min-width: 10px;
+    color: #E6E6E6;
+    cursor: default;
+}
+
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-tool.separator:before {
+    content: '|';
+}
+
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-tool.separator:hover {
+    background-color: transparent;
+    color: #E6E6E6;
+}
+
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-tool.linebreak {
+    width: 100%;
+    height: 1px;
+    background-color: #E6E6E6;
+    margin: 0px;
+}
+
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-tool.linebreak:hover {
+    background-color: #E6E6E6;
+}
+
+
+/*** EDITOR TOOLBAR ICONS ***************************/
+
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-tool .tangram.se-icon {
+    display: block;
+}
+
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-icon:before {
+    font-family: 'FontAwesome';
+    font-style: normal;
+    content: '\f042';
+}
+
+
+/* ------------------------- */
+
+.tangram.simpleeditor .tangram.se-toolarea .bold .tangram.se-icon:before {
+    content: '\f032';
+}
+
+.tangram.simpleeditor .tangram.se-toolarea .italic .tangram.se-icon:before {
+    content: '\f033';
+}
+
+.tangram.simpleeditor .tangram.se-toolarea .underline .tangram.se-icon:before {
+    content: '\f0cd';
+}
+
+.tangram.simpleeditor .tangram.se-toolarea .strikethrough .tangram.se-icon:before {
+    content: '\f0cc';
+}
+
+
+/* --------------- */
+
+.tangram.simpleeditor .tangram.se-toolarea .fontsize .tangram.se-icon:before {
+    content: '\f034';
+}
+
+.tangram.simpleeditor .tangram.se-toolarea .forecolor .tangram.se-icon:before {
+    content: '\f040';
+}
+
+.tangram.simpleeditor .tangram.se-toolarea .backcolor .tangram.se-icon:before {
+    content: '\f14b';
+}
+
+
+/* --------------- */
+
+.tangram.simpleeditor .tangram.se-toolarea .justifyleft .tangram.se-icon:before {
+    content: '\f036';
+}
+
+.tangram.simpleeditor .tangram.se-toolarea .justifycenter .tangram.se-icon:before {
+    content: '\f037';
+}
+
+.tangram.simpleeditor .tangram.se-toolarea .justifyright .tangram.se-icon:before {
+    content: '\f038';
+}
+
+.tangram.simpleeditor .tangram.se-toolarea .justifyfull .tangram.se-icon:before {
+    content: '\f039';
+}
+
+
+/* --------------- */
+
+.tangram.simpleeditor .tangram.se-toolarea .insertunorderedlist .tangram.se-icon:before {
+    content: '\f0ca';
+}
+
+.tangram.simpleeditor .tangram.se-toolarea .insertorderedlist .tangram.se-icon:before {
+    content: '\f0cb';
+}
+
+
+/* --------------- */
+
+.tangram.simpleeditor .tangram.se-toolarea .header .tangram.se-icon:before,
+.tangram.simpleeditor .tangram.se-toolarea .h1 .tangram.se-icon:before,
+.tangram.simpleeditor .tangram.se-toolarea .h2 .tangram.se-icon:before,
+.tangram.simpleeditor .tangram.se-toolarea .h3 .tangram.se-icon:before,
+.tangram.simpleeditor .tangram.se-toolarea .h4 .tangram.se-icon:before,
+.tangram.simpleeditor .tangram.se-toolarea .h5 .tangram.se-icon:before,
+.tangram.simpleeditor .tangram.se-toolarea .h6 .tangram.se-icon:before {
+    content: '\f1dc';
+}
+
+.tangram.simpleeditor .tangram.se-toolarea .blockquote .tangram.se-icon:before {
+    content: '\f10d';
+}
+
+.tangram.simpleeditor .tangram.se-toolarea .removeformat .tangram.se-icon:before {
+    content: '\f12d';
+}
+
+
+/* --------------- */
+
+.tangram.simpleeditor .tangram.se-toolarea .createlink .tangram.se-icon:before {
+    content: '\f0c1';
+}
+
+.tangram.simpleeditor .tangram.se-toolarea .unlink .tangram.se-icon:before {
+    content: '\f127';
+}
+
+.tangram.simpleeditor .tangram.se-toolarea .inserttable .tangram.se-icon:before {
+    content: '\f0ce';
+}
+
+
+/* --------------- */
+
+.tangram.simpleeditor .tangram.se-toolarea .insertfile .tangram.se-icon:before {
+    content: '\f0c6';
+}
+
+.tangram.simpleeditor .tangram.se-toolarea .insertemoticon .tangram.se-icon:before {
+    content: '\f118';
+}
+
+.tangram.simpleeditor .tangram.se-toolarea .insertvideo .tangram.se-icon:before {
+    content: '\f03d';
+}
+
+.tangram.simpleeditor .tangram.se-toolarea .insertimage .tangram.se-icon:before {
+    content: '\f03e';
+}
+
+
+/* --------------- */
+
+.tangram.simpleeditor .tangram.se-toolarea .insertfragments .tangram.se-icon:before {
+    content: '\f12e';
+}
+
+
+/*** EDITOR TOOLBAR PICKS ***************************/
+
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-tool .tangram.se-pick {
+    display: none;
+    position: absolute;
+    width: auto;
+    min-width: 120px;
+    height: auto;
+    top: 30px;
+    left: 0px;
+    padding: 5px;
+    background-color: #FDFDFE;
+    border: 1px solid #DDD;
+    color: #555;
+    overflow: auto;
+}
+
+
+/* ------------------------- */
+
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-tool[data-ib-cmds].active {
+    overflow: visible;
+    z-index: 100;
+}
+
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-tool.active .tangram.se-pick {
+    display: block;
+}
+
+
+/* ------------------------- */
+
+.tangram.simpleeditor .tangram.se-toolarea li.tangram.se-font {
+    width: auto;
+    text-align: left;
+    padding: 0px 5px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.tangram.simpleeditor .tangram.se-toolarea .fontname li.tangram.se-font {
+    font-size: 12px;
+    height: 20px;
+    line-height: 20px;
+}
+
+.tangram.simpleeditor .tangram.se-toolarea .fontsize li.tangram.se-font {
+    height: auto;
+}
+
+.tangram.simpleeditor .tangram.se-toolarea li.tangram.se-font:hover {
+    background-color: #09C;
+    color: #FFF;
+}
+
+.tangram.simpleeditor .tangram.se-toolarea li.tangram.se-font.selected {
+    background-color: #09C;
+    color: #FFF;
+}
+
+
+/* ------------------------- */
+
+.tangram.simpleeditor .tangram.se-toolarea ul.tangram.se-pick {
+    white-space: nowrap;
+}
+
+.tangram.simpleeditor .tangram.se-toolarea .forecolor ul.tangram.se-pick {
+    line-height: 0px;
+}
+
+.tangram.simpleeditor .tangram.se-toolarea .backcolor ul.tangram.se-pick {
+    line-height: 0px;
+}
+
+.tangram.simpleeditor .tangram.se-toolarea li.tangram.se-color {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    margin: 1px;
+}
+
+.tangram.simpleeditor .tangram.se-toolarea li.tangram.se-color i {
+    display: block;
+    width: 16px;
+    height: 16px;
+    margin: 1px;
+}
+
+.tangram.simpleeditor .tangram.se-toolarea li.tangram.se-color:hover {
+    margin: 0px;
+    border: #09C 1px solid;
+}
+
+.tangram.simpleeditor .tangram.se-toolarea li.tangram.se-color.selected {
+    margin: 0px;
+    border: #09C 1px solid;
+}
+
+.tangram.simpleeditor .tangram.se-toolarea hr.tangram.se-break {
+    clear: both;
+    height: 0px;
+    border: none;
+    margin: 0 !important;
+    display: block;
+}
+
+.tangram.simpleeditor .tangram.se-toolarea hr.tangram.se-break+hr.tangram.se-break {
+    clear: both;
+    height: 8px;
+    border: none;
+    display: block;
+}
+
+
+/*** EDITOR TOOLBAR DIALOGS ***************************/
+
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-tool .tangram.se-dialog {
+    display: none;
+    position: absolute;
+    width: auto;
+    min-width: 340px;
+    height: auto;
+    top: 30px;
+    left: 0px;
+    margin-left: -165px;
+    padding: 10px;
+    background-color: #FDFDFE;
+    border: 1px solid #DDD;
+    color: #555;
+    overflow: hidden;
+    text-align: left;
+}
+
+
+/* ------------------------- */
+
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-tool[data-ib-dialog].active {
+    overflow: visible;
+    z-index: 100;
+}
+
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-tool.active .tangram.se-dialog {
+    display: block;
+}
+
+
+/* ------------------------- */
+
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-dialog span.tangram.simpleeditor .tangram.se-title {
+    font-family: Arial, Helvetica, sans-serif;
+    display: block;
+    height: 20px;
+    text-align: left;
+    line-height: 20px;
+    border-left: #444 3px solid;
+    margin-bottom: 10px;
+    padding-left: 3px;
+    font-size: 14px;
+    color: #444;
+    font-weight: bold;
+}
+
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-dialog button {
+    height: 30px;
+    text-align: center;
+    background-color: #09C;
+    color: #FFF;
+    transition: background-color 1s ease;
+    -webkit-transition: background-color 1s ease;
+    -o-transition: background-color 1s ease;
+    -ms-transition: background-color 1s ease;
+    -moz-transition: background-color 1s ease;
+    cursor: pointer;
+}
+
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-dialog button:hover {
+    background-color: #036;
+}
+
+
+/* --------------- */
+
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-dialog .tangram.se-aaa,
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-dialog .tangram.se-url {
+    width: 340px;
+    height: 30px;
+    margin-bottom: 10px;
+}
+
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-dialog .tangram.se-aaa label,
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-dialog .tangram.se-url label {
+    float: left;
+    width: 78px;
+    height: 30px;
+    line-height: 30px;
+    background-color: #EEE;
+    text-align: center;
+    font-size: 13px;
+    color: #444;
+}
+
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-dialog .tangram.se-aaa input,
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-dialog .tangram.se-url input {
+    float: right;
+    width: 250px;
+    height: 28px;
+    padding: 0px 5px;
+    font-size: 12px;
+    border: #EEE 1px solid;
+    line-height: 28px;
+}
+
+
+/* --------------- */
+
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-dialog .tangram.se-check {
+    width: 340px;
+    height: 20px;
+    margin-bottom: 10px;
+}
+
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-dialog .tangram.se-check label {
+    float: left;
+    width: auto;
+    height: 20px;
+    line-height: 20px;
+    font-size: 12px;
+    color: #999;
+}
+
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-dialog .tangram.se-check .tangram.se-checkbox {
+    float: left;
+    width: 14px;
+    height: 14px;
+    margin: 3px;
+    top: 0px;
+}
+
+
+/* --------------- */
+
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-dialog .tangram.se-attr {
+    width: 340px;
+    height: 24px;
+    font-size: 12px;
+    margin-bottom: 10px;
+}
+
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-dialog .tangram.se-attr-left {
+    float: left;
+}
+
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-dialog .tangram.se-attr-right {
+    float: right;
+}
+
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-dialog .tangram.se-attr label {
+    float: left;
+    width: auto;
+    height: 24px;
+    line-height: 24px;
+    padding: 0px 5px;
+    background-color: #EEE;
+    text-align: center;
+    color: #444;
+}
+
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-dialog .tangram.se-attr span {
+    float: left;
+    width: 24px;
+    height: 24px;
+    font-size: 14px;
+    line-height: 24px;
+    background-color: #EEE;
+    text-align: center;
+    color: #444;
+}
+
+.tangram .tangram.se-dialog .tangram.se-table-rows,
+.tangram .tangram.se-dialog .tangram.se-table-columns,
+.tangram .tangram.se-dialog .tangram.se-table-width,
+.tangram .tangram.se-dialog .tangram.se-vidoe-width,
+.tangram .tangram.se-dialog .tangram.se-vidoe-height {
+    float: left;
+    width: 43px;
+    height: 22px;
+    padding: 0px 5px;
+    border: #EEE 1px solid;
+    line-height: 22px;
+}
+
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-dialog .tangram.se-attr .tangram.se-table-unit {
+    float: left;
+    width: 53px;
+    height: 24px;
+    padding: 0px 5px;
+    font-size: 12px;
+    border: #EEE 1px solid;
+    line-height: 24px;
+}
+
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-dialog .tangram.se-attr .tangram.se-vidoe-type {
+    float: left;
+    width: 83px;
+    height: 24px;
+    padding: 0px 5px;
+    font-size: 12px;
+    border: #EEE 1px solid;
+    line-height: 24px;
+}
+
+
+/* --------------- */
+
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-dialog .tangram.se-btns {
+    width: 340px;
+    height: 30px;
+}
+
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-dialog .tangram.se-btns button {
+    width: 340px;
+}
+
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-dialog .tangram.se-btns input {
+    float: left;
+    width: 165px;
+    height: 30px;
+    text-align: center;
+    background-color: #09C;
+    color: #FFF;
+    transition: background-color 1s ease;
+    -webkit-transition: background-color 1s ease;
+    -o-transition: background-color 1s ease;
+    -ms-transition: background-color 1s ease;
+    -moz-transition: background-color 1s ease;
+    cursor: pointer;
+}
+
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-dialog .tangram.se-btns input:hover {
+    background-color: #036;
+}
+
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-dialog .tangram.se-btns input:first-child {
+    margin-right: 10px;
+}
+
+
+/* --------------- */
+
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-dialog .tangram.se-show {
+    width: 330px;
+    height: 72px;
+    padding: 3px 4px;
+    border: #EEE 1px solid;
+    margin-bottom: 10px;
+}
+
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-dialog .tangram.se-show span {
+    display: block;
+    width: 330px;
+    height: 72px;
+    text-align: center;
+    line-height: 72px;
+    color: #999;
+}
+
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-dialog .tangram.se-show ul {
+    display: block;
+    width: 330px;
+    height: 72px;
+}
+
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-dialog .tangram.se-show ul li {
+    float: left;
+    border: #EEE 1px solid;
+    padding: 1px;
+}
+
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-dialog .tangram.se-show ul li img {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+}
+
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-dialog .tangram.se-show ul.tangram.se-list-56 li {
+    width: 56px;
+    height: 56px;
+    margin: 6px 3px;
+}
+
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-dialog .tangram.se-show ul.tangram.se-list-56 li img {
+    max-width: 56px;
+    max-height: 56px;
+}
+
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-dialog .tangram.se-show ul.tangram.se-list-28 li {
+    width: 28px;
+    height: 28px;
+    margin: 2px;
+}
+
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-dialog .tangram.se-show ul.tangram.se-list-28 li img {
+    max-width: 28px;
+    max-height: 28px;
+}
+
+
+/* --------------- */
+
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-dialog textarea.tangram.se-code {
+    width: 330px;
+    height: 40px;
+    padding: 4px;
+    line-height: 20px;
+    font-size: 12px;
+    border: #EEE 1px solid;
+    resize: none;
+    overflow: auto;
+}
+
+
+/* --------------- */
+
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-dialog ul.tangram.se-emoticons {
+    width: 340px;
+    height: auto;
+    border-top: #CCC 1px solid;
+    border-left: #CCC 1px solid;
+}
+
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-dialog ul.tangram.se-emoticons-default li {
+    float: left;
+    display: table-cell;
+    width: 33px;
+    height: 33px;
+    border-right: #CCC 1px solid;
+    border-bottom: #CCC 1px solid;
+}
+
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-dialog ul.tangram.se-emoticons-default li img {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    margin: auto;
+}
+
+
+/*** EDITOR EDITAREA ***/
+
+.tangram.simpleeditor .tangram.se-richarea {
+    background-color: #FFF;
+    overflow: auto;
+    resize: vertical;
+    z-index: 0;
+    line-height: normal;
+}
+
+.tangram.simpleeditor .tangram.se-richarea * {
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    overflow: auto;
+}
+
+.tangram.simpleeditor .tangram.se-richarea i {
+    font-style: italic;
+}
+
+.tangram.simpleeditor .tangram.se-richarea strong,
+.tangram.simpleeditor .tangram.se-richarea b {
+    font-weight: bold;
+}
+
+.tangram.simpleeditor .tangram.se-richarea s,
+.tangram.simpleeditor .tangram.se-richarea strike,
+.tangram.simpleeditor .tangram.se-richarea dels {
+    text-decoration: line-through;
+}
+
+.tangram.simpleeditor .tangram.se-richarea u,
+.tangram.simpleeditor .tangram.se-richarea ins {
+    text-decoration: underline;
+}
+
+.tangram.simpleeditor .tangram.se-richarea div {
+    word-break: break-all;
+}
+
+.tangram.simpleeditor .tangram.se-richarea a {
+    text-decoration: underline;
+    cursor: pointer;
+    color: #06F;
+}
+
+.tangram.simpleeditor .tangram.se-richarea img {
+    max-width: 100%;
+}
+
+.tangram.simpleeditor .tangram.se-richarea img:hover {
+    box-sizing: border-box;
+    border: dashed 1px #0CF;
+    cursor: default;
+}
+
+.tangram.simpleeditor .tangram.se-richarea img[_selected=_selected],
+.tangram.simpleeditor .tangram.se-richarea img[_selected=_selected]:hover {
+    box-sizing: border-box;
+    border: dashed 1px #039;
+    cursor: default;
+}
+
+.tangram.simpleeditor .tangram.se-richarea blockquote {
+    color: #666666;
+    font-size: 1em;
+    padding-left: 1em;
+    border-left: 4px solid #dddddd;
+    line-height: 1.5em;
+}
+
+.tangram.simpleeditor .tangram.se-richarea h2 {
+    font-size: 1.8em;
+    border-left: 10px solid #7fc042;
+    padding-left: 0.5em;
+    margin-bottom: 0.8em;
+    font-weight: 200;
+    color: black;
+}
+
+.tangram.simpleeditor .tangram.se-richarea ul,
+.tangram.simpleeditor .tangram.se-richarea ol {
+    margin: auto;
+    padding: 0px 0px 0px 40px;
+    overflow: visible;
+}
+
+.tangram.simpleeditor .tangram.se-richarea ul {
+    list-style: disc;
+}
+
+.tangram.simpleeditor .tangram.se-richarea li {
+    margin: auto;
+    padding: 0px;
+    overflow: visible;
+}
+
+.tangram.simpleeditor .tangram.se-richarea hr {
+    border-style: inset;
+    border-width: 1px;
+}
+
+.tangram.simpleeditor .tangram.se-richara table {
+    border-collapse: collapse;
+    empty-cells: show;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.tangram.simpleeditor .tangram.se-richarea td,
+.tangram.simpleeditor .tangram.se-richarea th {
+    border: solid 1px #ccc;
+    padding: 5px;
+}
+
+.tangram.simpleeditor .tangram.se-richarea .tangram.se-emoticon {
+    margin: 0px 2px;
+}
+
+
+/*** EDITOR STAUSEBAR ***/
+
+.tangram.simpleeditor .tangram.se-statebar {
+    width: 100%;
+    height: 30px;
+    background-color: #FDFDFE;
+    border-top: 1px solid #DDD;
+    overflow: visible;
+    z-index: 1024;
+}
+
+.tangram.simpleeditor .tangram.se-statebar section {
+    display: inline-block;
+    width: auto !important;
+    height: 20px !important;
+    margin: 5px;
+    line-height: 20px;
+}
+
+.tangram.simpleeditor .tangram.se-statebar input {
+    display: inline-block;
+    max-width: 60px;
+    height: 16px;
+    line-height: 16px;
+    font-size: 12px;
+    text-align: center;
+    border-bottom: solid 1px #DDD;
+}
+
+.tangram.simpleeditor .tangram.se-statebar i {
+    display: inline-block;
+    height: 18px;
+    margin: 1px 6px 0px 1px;
+    padding: 0 5px;
+    line-height: 18px;
+    font-size: 12px;
+    background-color: #BBB;
+    border-bottom: solid 1px #999;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 2px;
+}
+
+.tangram.simpleeditor .tangram.se-statebar i.active {
+    background-color: #09C;
+    border-bottom: solid 1px #09A;
+}
+
+.tangram.simpleeditor .tangram.se-statebar i:last-child {
+    margin-right: 0;
+}
+
+.tangram.simpleeditor .tangram.se-statebar .tangram.se-fontstatus {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 14%;
+    height: 30px;
+    background-color: #FDFDFE;
+    z-index: 0;
+}
+
+.tangram.simpleeditor .tangram.se-statebar .tangram.se-tablestatus,
+.tangram.simpleeditor .tangram.se-statebar .tangram.se-imagestatus {
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 86%;
+    height: 30px;
+    background-color: #FDFDFE;
+    z-index: 50;
+    text-align: right;
+}
+
+.tangram.simpleeditor .tangram.se-statebar .tangram.se-rowslen,
+.tangram.simpleeditor .tangram.se-statebar .tangram.se-colslen,
+.tangram.simpleeditor .tangram.se-statebar .tangram.se-border-input {
+    max-width: 30px;
+}
+
+.tangram.simpleeditor .tangram.se-statebar .tangram.se-imagestatus {
+    z-index: 100;
+}
+
+
+/*** EDITOR LOADMASK ***/
+
+.tangram.simpleeditor .tangram.se-loadmask {
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    background-color: #FFF;
+    opacity: .8;
+    z-index: -9999;
+}
+
+.tangram.simpleeditor .tangram.se-loadmask.on {
+    display: block;
+    z-index: 9999;
+}
+
+.tangram.simpleeditor .tangram.se-spinner {
+    margin: auto;
+    position: absolute;
+    width: 50px;
+    height: 60px;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    text-align: center;
+    font-size: 10px;
+}
+
+.tangram.simpleeditor .tangram.se-spinner>div {
+    background-color: #67CF22;
+    height: 100%;
+    width: 6px;
+    display: inline-block;
+    -webkit-animation: se-stretchdelay 1.2s infinite ease-in-out;
+    animation: se-stretchdelay 1.2s infinite ease-in-out;
+    margin: 0px 2px;
+}
+
+.tangram.simpleeditor .tangram.se-spinner .tangram.se-rect2 {
+    -webkit-animation-delay: -1.1s;
+    animation-delay: -1.1s;
+}
+
+.tangram.simpleeditor .tangram.se-spinner .tangram.se-rect3 {
+    -webkit-animation-delay: -1.0s;
+    animation-delay: -1.0s;
+}
+
+.tangram.simpleeditor .tangram.se-spinner .tangram.se-rect4 {
+    -webkit-animation-delay: -0.9s;
+    animation-delay: -0.9s;
+}
+
+.tangram.simpleeditor .tangram.se-spinner .tangram.se-rect5 {
+    -webkit-animation-delay: -0.8s;
+    animation-delay: -0.8s;
+}
+
+@-webkit-keyframes se-stretchdelay {
+    0%,
+    40%,
+    100% {
+        -webkit-transform: scaleY(0.4);
+    }
+    20% {
+        -webkit-transform: scaleY(1);
+    }
+}
+
+@keyframes se-stretchdelay {
+    0%,
+    40%,
+    100% {
+        transform: scaleY(0.4);
+        -webkit-transform: scaleY(0.4);
+    }
+    20% {
+        transform: scaleY(1);
+        -webkit-transform: scaleY(1);
+    }
+}
+
+
+/*# sourceMappingURL=style.css.map */

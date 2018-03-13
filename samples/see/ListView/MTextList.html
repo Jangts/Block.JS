@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Multiple Rows Text List</title>
+    <script type="text/javascript" src="http://tangram.js.nidn.yangram.ni/src/tangram.js"></script>
+    <link type="text/css" rel="stylesheet" href="http://tangram.js.nidn.yangram.ni/src/see/see.css">
+    <link type="text/css" rel="stylesheet" href="http://tangram.js.nidn.yangram.ni/src/see/ListView/style.css">
+    <style>
+        body {
+            background-color: #eeeeee;
+        }
+        
+        body>section>ul {
+            width: 100%;
+            max-width: 1200px;
+            margin: 20px auto;
+        }
+        
+        body>section>ul.ascard {
+            background-color: #ffffff;
+            box-shadow: 0 0 3px #cccccc;
+        }
+        
+        .sample-title {
+            text-align: center;
+            font-size: 24px;
+            line-height: 30px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <section>
+        <p class="sample-title">单列多行文本 1</p>
+        <ul class="ascard tangram listview mtext-list" data-list-cols="1">
+            <li class="list-item">
+                <h4 class="list-title"><a href="javascript:;">item1</a></h4>
+                <p class="list-abstract">this is a list item...</p>
+            </li>
+            <li class="list-item">
+                <h4 class="list-title"><a href="javascript:;">item2</a></h4>
+                <p class="list-abstract">this is a list item...</p>
+            </li>
+            <li class="list-item">
+                <h4 class="list-title"><a href="javascript:;">item3</a></h4>
+                <p class="list-abstract">this is a list item...</p>
+            </li>
+        </ul>
+    </section>
+    <section>
+        <p class="sample-title">单列多行文本 2</p>
+        <ul class="ascard tangram listview mtext-list" data-list-cols="1">
+            <li class="list-item underline">
+                <h4 class="list-title"><a href="javascript:;">item1</a><span>2017-06-07</span></h4>
+                <p class="list-abstract">this is a list item...</p>
+                <p class="list-meta though">metainfo</p>
+            </li>
+            <li class="list-item underline">
+                <h4 class="list-title"><a href="javascript:;">item2</a><span class="pl-left">2017-06-07</span></h4>
+                <p class="list-abstract">this is a list item...</p>
+                <p class="list-meta pl-left">metainfo</p>
+            </li>
+            <li class="list-item underline">
+                <h4 class="list-title"><a href="javascript:;">item3</a><span class="pl-right">2017-06-07</span></h4>
+                <p class="list-abstract">this is a list item...</p>
+                <p class="list-meta pl-right">metainfo</p>
+            </li>
+        </ul>
+    </section>
+    <section>
+        <p class="sample-title">单列多行文本 3</p>
+        <ul class="tangram listview mtext-list" data-list-cols="1">
+            <li class="list-item topline underline">
+                <h4 class="list-title"><a href="javascript:;">item1</a></h4>
+                <p class="list-abstract">this is a list item...</p>
+                <p class="list-meta pl-left"><span>info1</span>
+                    <a class="list-meta-item space">info2</a>
+                    <i class="list-meta-item">info3</i>
+                </p>
+            </li>
+            <li class="list-item underline">
+                <h4 class="list-title"><a href="javascript:;">item2</a></h4>
+                <p class="list-abstract">this is a list item...</p>
+                <p class="list-meta pl-right"><span>info1</span>
+                    <a class="list-meta-item lspace">info2</a>
+                    <i class="list-meta-item lspace">info3</i>
+                </p>
+            </li>
+            <li class="list-item underline">
+                <h4 class="list-title"><a href="javascript:;">item3</a></h4>
+                <p class="list-abstract">this is a list item...</p>
+                <p class="list-meta though al-just">
+                    <a class="list-meta-item space">justify info1</a>
+                    <a class="list-meta-item space">justify info2</a>
+                    <a class="list-meta-item space">justify info3</a>
+                    <a class="list-meta-item space">justify info4</a>
+                    <a class="list-meta-item space">justify info5</a>
+                    <a class="list-meta-item space">justify info6</a>
+                    <a class="list-meta-item space">justify info7</a>
+                    <a class="list-meta-item space">justify info6</a>
+                    <a class="list-meta-item space">justify info5</a>
+                    <a class="list-meta-item space">justify info4</a>
+                    <a class="list-meta-item space">justify info3</a>
+                    <a class="list-meta-item space">justify info2</a>
+                    <a class="list-meta-item space">justify info1</a>
+                </p>
+            </li>
+        </ul>
+    </section>
+    <section>
+        <p class="sample-title">单列多行文本 4</p>
+        <ul class="tangram listview mtext-list" data-list-cols="1">
+            <li class="list-item cover topline underline">
+                <h4 class="list-title"><a href="javascript:;">item1</a></h4>
+                <p class="list-abstract">this is a list item...</p>
+            </li>
+            <li class="list-item cover underline">
+                <h4 class="list-title"><a href="javascript:;">item2</a></h4>
+                <p class="list-abstract">this is a list item...</p>
+            </li>
+            <li class="list-item cover underline">
+                <h4 class="list-title"><a href="javascript:;">item3</a></h4>
+                <p class="list-abstract">this is a list item...</p>
+            </li>
+        </ul>
+    </section>
+    <section>
+        <p class="sample-title">单列多行文本 5</p>
+        <ul class="ascard tangram listview mtext-list" data-list-cols="1">
+
+            <li class="list-item stripe yellow">
+                <h4 class="list-title"><a href="javascript:;">item1</a><i class="purple">7</i></h4>
+                <p class="list-abstract">this is a list item...</p>
+            </li>
+            <li class="list-item stripe yellow">
+                <h4 class="list-title"><a href="javascript:;">item2</a><i class="pl-left hollow white">Essence</i></h4>
+                <p class="list-abstract">this is a list item...</p>
+            </li>
+            <li class="list-item stripe yellow">
+                <h4 class="list-title"><a href="javascript:;">item3</a><i class="pl-right">More</i></h4>
+                <p class="list-abstract">this is a list item...</p>
+            </li>
+        </ul>
+    </section>
+    <section>
+        <p class="sample-title">多列多行文本 6</p>
+        <ul class="tangram listview mtext-list" data-list-cols="2">
+            <li class="list-item card">
+                <h4 class="list-title"><a href="javascript:;">item1</a></h4>
+                <p class="list-abstract">this is a list item...</p>
+            </li>
+            <li class="list-item card">
+                <h4 class="list-title"><a href="javascript:;">item2</a></h4>
+                <p class="list-abstract">this is a list item...</p>
+            </li>
+            <li class="list-item card">
+                <h4 class="list-title"><a href="javascript:;">item3</a></h4>
+                <p class="list-abstract">this is a list item...</p>
+            </li>
+            <li class="list-item card">
+                <h4 class="list-title"><a href="javascript:;">item4</a></h4>
+                <p class="list-abstract">this is a list item...</p>
+            </li>
+            <li class="list-item card">
+                <h4 class="list-title"><a href="javascript:;">item5</a></h4>
+                <p class="list-abstract">this is a list item...</p>
+            </li>
+            <li class="list-item card">
+                <h4 class="list-title"><a href="javascript:;">item6</a></h4>
+                <p class="list-abstract">this is a list item...</p>
+            </li>
+        </ul>
+    </section>
+    <section>
+        <p class="sample-title">多列多行文本 7</p>
+        <ul class="tangram listview mtext-list" data-list-cols="2">
+            <li class="list-item content pane">
+                <h4 class="list-title"><a href="javascript:;">item1</a></h4>
+                <p class="list-abstract">this is a list item...</p>
+            </li>
+            <li class="list-item content pane">
+                <h4 class="list-title"><a href="javascript:;">item2</a></h4>
+                <p class="list-abstract">this is a list item...</p>
+            </li>
+            <li class="list-item content pane">
+                <h4 class="list-title"><a href="javascript:;">item3</a></h4>
+                <p class="list-abstract">this is a list item...</p>
+            </li>
+            <li class="list-item content pane">
+                <h4 class="list-title"><a href="javascript:;">item4</a></h4>
+                <p class="list-abstract">this is a list item...</p>
+            </li>
+            <li class="list-item content cover pane">
+                <h4 class="list-title"><a href="javascript:;">item5</a></h4>
+                <p class="list-abstract">this is a list item...</p>
+            </li>
+            <li class="list-item content cover pane">
+                <h4 class="list-title"><a href="javascript:;">item6</a></h4>
+                <p class="list-abstract">this is a list item...</p>
+            </li>
+        </ul>
+    </section>
+    <script type="text/javascript">
+        tangram.block(function(_, global, undefined) {
+
+        }, true);
+    </script>
+</body>
+
+</html>

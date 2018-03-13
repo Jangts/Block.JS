@@ -1,0 +1,23 @@
+{
+    "name": "@jangts/tangram.js",
+    "description": "A Web Front-end Development Javascript framework",
+    "version": "2.0.1",
+    "keywords": [
+        "tangram.js",
+        "tangram.js"
+    ],
+    "main": "./tangram.js",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/NIDN/tangram.js.git"
+    },
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/NIDN/tangram.js/issues"
+    },
+    "author": "Jangts",
+    "homepage": "https://github.com/NIDN/tangram.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    }
+}

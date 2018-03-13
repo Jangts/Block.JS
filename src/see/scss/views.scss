@@ -1,0 +1,91 @@
+.tangram.clear {
+    clear: both;
+}
+
+.tangram.inline {
+    display: inline;
+}
+
+.tangram.block {
+    display: block;
+}
+
+.tangram.inline.block {
+    display: inline-block;
+}
+
+.tangram.hidden {
+    display: none;
+}
+
+.tangram.border-box {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    /* Firefox */
+    -webkit-box-sizing: border-box;
+    /* Safari */
+}
+
+.tangram.pointer {
+    cursor: pointer;
+}
+
+.tangram.cursor {
+    cursor: default;
+}
+
+.tangram.op-00 {
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+
+@for $i from 1 through 10 {
+    .tangram.op-#{$i*10} {
+        opacity: $i/10;
+        filter: alpha(opacity=#{$i*10});
+    }
+}
+
+.tangram.ov-visi {
+    overflow: visible;
+}
+
+.tangram.ov-hide {
+    overflow: hidden;
+}
+
+.tangram.ov-scrl {
+    overflow: scroll;
+}
+
+.tangram.ov-auto {
+    overflow: auto;
+}
+
+
+/*
+/** Border Radius **/
+
+.tangram.fillet {
+    border-radius: 2%;
+}
+
+.tangram.fillet10 {
+    border-radius: 10px;
+}
+
+.tangram.circle {
+    border-radius: 50%;
+}
+
+$radiuses: 2,
+3,
+4,
+5,
+10,
+20;
+@each $radius in $radiuses {
+    .tangram.radius-#{$radius} {
+        border-radius: #{$radius}px;
+    }
+}
