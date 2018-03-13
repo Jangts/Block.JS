@@ -372,7 +372,7 @@
             blocks: {
                 /* 临时代码块缓存 */
                 temp: [],
-                /* 主代码块 */
+                /* 主（动）代码块 */
                 mains: [],
                 /* 从（引用）代码块 */
                 requires: {}
@@ -1262,7 +1262,7 @@
             return new Block(includes, callback, blockname).result;
         },
 
-        /* 当前主代码块的指针 */
+        /* 当前主（动）代码块的指针 */
         mainPointer = 0,
 
         /* 代码块依赖计数 */
@@ -1391,7 +1391,7 @@
                         loadURL(url, function(script) {
                             that.loaded++;
                             loadedCount++;
-                            script.setAttribute('data-include-id', id);
+                            script.setAttribute('data-tangram-id', id);
                             storage.blocks.requires[id].status = 'loaded';
                             storage.blocks.requires[id].blocks = storage.blocks.temp;
                             storage.blocks.temp = [];
@@ -1472,13 +1472,13 @@
         },
 
         /**
-         * 实例化一个主代码块
+         * 实例化一个主（动）代码块
          * 
          * @param array includes    该代码块所以依赖的其他代码块的文件路径
          * @param function callback 改代码块的代码
          * @return Block
          */
-        main: function(includes, callback) {
+        auto: function(includes, callback) {
             return block(includes, callback, true);
         },
 
