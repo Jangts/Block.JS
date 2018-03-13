@@ -14,7 +14,6 @@
 ;
 (function(global, factory) {
     if (typeof exports === 'object' && typeof module === 'object') {
-        // console.log(1);
         global.console = console;
         global.tangram = factory(global);
         exports = module.exports = {
@@ -23,7 +22,6 @@
         }
     } else if (typeof define === 'function' && define.amd) {
         // AMD
-        // console.log(0);
         define('tangram', [], function() {
             return factory(global);
         });
@@ -31,7 +29,6 @@
         exports.tangram = factory(global);
         exports.block = exports.tangram.block;
     } else {
-        // console.log(2);
         global.tangram = factory(global);
         global.block = global.tangram.block;
     }
