@@ -3,8 +3,8 @@
         module.exports = factory();
     else if (typeof define === 'function' && define.amd)
         define('mymodule', [], factory);
-    else if (typeof block === 'function' && typeof block.module === 'object')
-        block.module.declare(factory);
+    else if (typeof block === 'function' && typeof tangram.module === 'object')
+        tangram.module.declare(factory);
     else if (typeof exports === 'object')
         exports["mymodule"] = factory();
     else

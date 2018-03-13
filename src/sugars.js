@@ -1,5 +1,5 @@
 /*!
- * Tangram.JS Framework Source Code
+ * tangram.js framework source code
  *
  * syntactic sugars for tangram.js
  *

@@ -1,5 +1,5 @@
 /*!
- * Tangram.JS Framework Source Code
+ * tangram.js framework source code
  *
  * class dom.VElement
  *
@@ -21,7 +21,7 @@ tangram.block([
         diff = _.dom.VElement.diff;
 
     /**
-     * Tangram.JS Virtual Document Object Model
+     * tangram.js Virtual Document Object Model
      * 一个轻量的虚拟DOM类
      * 
      * @param   {String}    tagName         要创建的元素的标签名

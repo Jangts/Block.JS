@@ -1,7 +1,7 @@
-# Tangram.JS Framework
+# tangram.js framework
 # 互联块框架
 
-* A Web Front-end Development Javascript Framework
+* A Web Front-end Development Javascript framework
 * 一个互联网前端开发脚本框架
 
 * Mainly Use For 

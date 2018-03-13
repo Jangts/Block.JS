@@ -1,5 +1,5 @@
 /*!
- * Tangram.JS Framework Source Code
+ * tangram.js framework source code
  *
  * static util.imports
  * init UMD
@@ -367,7 +367,7 @@ tangram.block(function(pandora, global, undefined) {
         settings = settings || {};
 
         if (settings.mainUrl) {
-            global.block.config({
+            global.tangram.config({
                 mainUrl: settings.mainUrl
             });
         }

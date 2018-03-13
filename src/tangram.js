@@ -1,7 +1,7 @@
 /*!
- * Tangram.JS Framework Source Code
+ * tangram.js framework source code
  * 互联代码块框架源码
- * A Web Front-end Development Javascript Framework
+ * A Web Front-end Development Javascript framework
  * 一个互联网前端开发脚本框架
  * Mainly Use For DOM Operation, Data Operation, Graphic Processing, Front-end UI, And Some Basic Calculations.
  * 主要用于DOM操作，数据操作，图形相关，前端视觉，和一些基础计算。
@@ -13,15 +13,7 @@
  */
 ;
 (function(global, factory) {
-
-    if (typeof define === 'function' && define.amd) {
-        // AMD
-        // console.log(0);
-        define('tangram', function() {
-            return factory(global);
-        });
-
-    } else if (typeof exports === 'object') {
+    if (typeof exports === 'object' && typeof module === 'object') {
         // console.log(1);
         global.console = console;
         global.tangram = factory(global);
@@ -29,6 +21,15 @@
             tangram: global.tangram,
             block: global.tangram.block
         }
+    } else if (typeof define === 'function' && define.amd) {
+        // AMD
+        // console.log(0);
+        define('tangram', [], function() {
+            return factory(global);
+        });
+    } else if (typeof exports === 'object') {
+        exports.tangram = factory(global);
+        exports.block = exports.tangram.block;
     } else {
         // console.log(2);
         global.tangram = factory(global);
@@ -44,7 +45,7 @@
      * ------------------------------------------------------------------
      */
 
-    var name = 'Tangram.JS JavaScript Framework',
+    var name = 'tangram.js JavaScript framework',
         version = '0.9.00',
         website = 'nidn.yangram.com/tangram.js/',
 
@@ -61,7 +62,7 @@
         document = global.document,
         // 获取页面的head元素，如果没有的话，创建之
         head = (function() {
-            if (document) {
+            if (document !== undefined) {
                 if (document.head) {
                     return document.head;
                 }
@@ -137,7 +138,7 @@
 
         /* 计算宿主文件的目录地址 */
         maindir = (function() {
-            if (location) {
+            if (location !== undefined) {
                 var pathname_array = location.pathname.split('/');
                 pathname_array.length--;
                 return location.origin + pathname_array.join('/') + '/';
@@ -146,9 +147,9 @@
 
         /* 计算核心运行文件的相关信息 */
         runtime = (function() {
-            if (document) {
+            if (document !== undefined) {
                 var scripts = document.getElementsByTagName('script'),
-                    preg = /([\w\-\.\/:]+\/)block[\w\-\.]*\.js/i,
+                    preg = /([\w\-\.\/:]+\/)tangram[\w\-\.]*\.js/i,
                     i,
                     src,
                     matchs;
@@ -194,10 +195,10 @@
 
         /* 强制报错：当方法被调用时抛出相应的错误描述 */
         error = function(str) {
-            throw "Tangram.JS Error: " + str;
+            throw "tangram.js Error: " + str;
         },
 
-        /* 调式报错：只有Tangram.JS处于调试模式时，才会抛出相应的错误描述，否则返回一个布尔值 */
+        /* 调式报错：只有tangram.js处于调试模式时，才会抛出相应的错误描述，否则返回一个布尔值 */
         debug = function(str) {
             if (useDebugMode) {
                 error(str);
@@ -809,7 +810,7 @@
                     },
 
                     /**
-                     * 获取Tangram.JS全名
+                     * 获取tangram.js全名
                      * 
                      * @return string
                      */
@@ -827,7 +828,7 @@
                     },
 
                     /**
-                     * 转到Tangram.JS官网
+                     * 转到tangram.js官网
                      * 
                      * @return undefined
                      */
@@ -1147,7 +1148,7 @@
 
         /********************
          * The tangram.js class factory
-         * Tangram.JS类工厂
+         * tangram.js类工厂
          */
 
         /* 祖先类 */
@@ -1352,7 +1353,7 @@
              * @return undefined
              */
             callback: function() {
-                console.log('Tangram.JS has loaded some require libraries.');
+                console.log('tangram.js has loaded some require libraries.');
             },
             /**
              * 加载下一个
@@ -1552,7 +1553,7 @@
 
     /* 打卡 */
     if (!global.parent || global.parent == global) {
-        console.log('[' + startTime.toLocaleString() + ']Tangram.JS Framework Start Working!');
+        console.log('[' + startTime.toLocaleString() + ']tangram.js framework Start Working!');
     }
 
     return tangram;

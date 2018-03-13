@@ -3,19 +3,13 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Tangram.JS RUNTIME</title>
-    <script src="https://cdn.bootcss.com/require.js/2.3.5/require.min.js"></script>
-    <!--script src="../src/tangram.js" data-use-debugmode></script-->
+    <title>RUNTIME</title>
+    <script src="require.min.js"></script>
+    <script src="../src/tangram.js" data-use-debugmode></script>
 </head>
 
 <body>
     <script>
-        requirejs.config({
-            baseUrl: '../src/',
-            paths: {
-                // tangram: 'tangram'
-            }
-        });
         require(['tangram'], function(tangram) {
             tangram.block([], function(pandora, global, undefined) {
                 var _ = pandora,

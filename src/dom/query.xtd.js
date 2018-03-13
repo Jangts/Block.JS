@@ -1,5 +1,5 @@
 /*!
- * Tangram.JS Framework Source Code
+ * tangram.js framework source code
  *
  * package dom.query
  *
@@ -113,7 +113,7 @@ tangram.block(['$_/util/str.xtd', '$_/util/arr.xtd', '$_/util/obj.xtd'], functio
     };
 
     /**
-     * Sub Selectors And Other Auxiliary Methods Of Tangram.JS Selector
+     * Sub Selectors And Other Auxiliary Methods Of tangram.js Selector
      * ------------------------------------------------------------------
      */
 

@@ -1,5 +1,5 @@
 /*!
- * Tangram.JS Framework Source Code
+ * tangram.js framework source code
  *
  * class dom.Template
  *
@@ -172,7 +172,7 @@ tangram.block(['$_/util/str.xtd'], function(pandora, global, undefined) {
             settings = settings || {};
 
             if (settings.mainUrl) {
-                global.block.config({
+                global.tangram.config({
                     mainUrl: settings.mainUrl
                 });
             }

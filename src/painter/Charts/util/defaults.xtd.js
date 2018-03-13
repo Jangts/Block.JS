@@ -1,6 +1,6 @@
 /*!
- * Tangram.JS Framework Source Code
- * A Web Front-end Development Javascript Framework
+ * tangram.js framework source code
+ * A Web Front-end Development Javascript framework
  * Mainly For DOM Operation, Data Exchange, Graphic Effects (Image, Canvas, SVG And Ect.), Front-end UI, And Some Basic Calculations.
  * Stripped from Tangram New Idea (TNI)
  *

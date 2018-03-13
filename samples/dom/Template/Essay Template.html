@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Tangram.JS TEMPLATE</title>
+    <title>TEMPLATE</title>
     <script src="../../../src/tangram.js" data-use-debugmode></script>
 </head>
 
@@ -27,7 +27,7 @@
         {@repeat | repeat, 3}
         <table width="360" border="1" cellspacing="1" cellpadding="1">
             <tr>
-                <td>{@showHello ? 'Hello' : 'Bye'}, {@showName && 'Tangram.JS'}</td>
+                <td>{@showHello ? 'Hello' : 'Bye'}, {@showName && 'tangram.js'}</td>
                 <for (var i of [1, 2, 3, 4, 5, 6, 7])>
                     <if(i<5)>
                         <td>{@i,g}</td>
@@ -53,7 +53,7 @@
             }, {
                 temp1: new _.dom.Template(template1, {
                     greeting: 'Hello',
-                    name: 'Tangram.JS'
+                    name: 'tangram.js'
                 })
             });
             view.innerHTML = temp2.echo();

@@ -1,5 +1,5 @@
 /*!
- * Tangram.JS Framework Source Code
+ * tangram.js framework source code
  *
  * class data.ZClip
  *
@@ -91,7 +91,7 @@ tangram.block([
         };
 
     /**
-     * ZeroClipboard for Tangram.JS
+     * ZeroClipboard for tangram.js
      * 一款基于flash的剪切板，相比_.data.Clipboard更具兼容性
      * 
      * @param   {Element}       elem        需要被复制的数据所在的Element元素
