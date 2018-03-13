@@ -1,12 +1,12 @@
 /*!
- * Block.JS Framework Source Code
+ * Tangram.JS Framework Source Code
  *
  * static see.highlight.language
  *
  * Date: 2017-04-06
  */
 ;
-block([
+tangram.block([
     '$_/see/highlight/highlight.xtd',
     '$_/see/highlight/languages/autoit.xtd'
 ], function(_, global, undefined) {

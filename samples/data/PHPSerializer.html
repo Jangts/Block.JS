@@ -3,8 +3,8 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Block.JS PHPSERIALIZER</title>
-    <script src="../../src/block.js" data-use-debugmode></script>
+    <title>Tangram.JS PHPSERIALIZER</title>
+    <script src="../../src/tangram.js" data-use-debugmode></script>
 </head>
 
 <body>
@@ -15,7 +15,7 @@
          * 2. 使用data.PHPSerializer类对文本进行编码和解码；
          */
 
-        block(['$_/data/PHPSerializer.cls'], function(_, global, undefined) {
+        tangram.block(['$_/data/PHPSerializer.cls'], function(_, global, undefined) {
 
             var se = new _.data.PHPSerializer(),
                 view = _.render({

@@ -1,47 +1,47 @@
 /** Normal Screen **/
 
-ul.bc.v-top,
-ol.bc.v-top {
+ul.tangram.v-top,
+ol.tangram.v-top {
     >li {
         display: block;
     }
 }
 
-ul.bc.h-left,
-ol.bc.h-left {
+ul.tangram.h-left,
+ol.tangram.h-left {
     >li {
         float: left;
     }
 }
 
-ul.bc.h-right,
-ol.bc.h-right {
+ul.tangram.h-right,
+ol.tangram.h-right {
     >li {
         float: right;
     }
 }
 
-ul.bc.al-left,
-ul.bc.al-right,
-ul.bc.al-center,
-ul.bc.al-just,
-ol.bc.al-left,
-ol.bc.al-right,
-ol.bc.al-center,
-ol.bc.al-just {
+ul.tangram.al-left,
+ul.tangram.al-right,
+ul.tangram.al-center,
+ul.tangram.al-just,
+ol.tangram.al-left,
+ol.tangram.al-right,
+ol.tangram.al-center,
+ol.tangram.al-just {
     >li {
         display: inline;
     }
 }
 
-ul.bc.al-left.blocks,
-ul.bc.al-right.blocks,
-ul.bc.al-center.blocks,
-ul.bc.al-just.blocks,
-ol.bc.al-left.blocks,
-ol.bc.al-right.blocks,
-ol.bc.al-center.blocks,
-ol.bc.al-just.blocks {
+ul.tangram.al-left.blocks,
+ul.tangram.al-right.blocks,
+ul.tangram.al-center.blocks,
+ul.tangram.al-just.blocks,
+ol.tangram.al-left.blocks,
+ol.tangram.al-right.blocks,
+ol.tangram.al-center.blocks,
+ol.tangram.al-just.blocks {
     >li {
         display: inline-block;
     }

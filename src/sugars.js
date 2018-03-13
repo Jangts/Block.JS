@@ -1,7 +1,7 @@
 /*!
- * Block.JS Framework Source Code
+ * Tangram.JS Framework Source Code
  *
- * syntactic sugars for blockjs
+ * syntactic sugars for tangram.js
  *
  * Date 2017-04-06
  */
@@ -13,9 +13,9 @@
             getIncs = function(text) {
                 if (text) {
                     array = text.replace(/[;\r\n]+/g, ';').replace(/^include\s+/, '"').replace(/\s*;\s*include\s+/g, '", "').replace(/\s*;\s*$/, '') + '"';
-                    return "block([" + array + "], " + stings;
+                    return "tangram.tangram.block([" + array + "], " + stings;
                 } else {
-                    return "block(" + stings;
+                    return "tangram.tangram.block(" + stings;
                 }
             },
             getBlock = function(text) {
@@ -30,7 +30,7 @@
             "console = global.console;\r\n";
         each(scripts, function(i, script) {
             // 判断是否为InterBlock
-            if (script.type === "text/blockjs") {
+            if (script.type === "text/tangram.js") {
                 // 获取代码并删除注释
                 // var text = script.innerHTML.replace(/\s*\/\/.*/g, '').replace(/\s*\/\*[\s\S]*?\*\/\s*/g, '').replace(/\s*[;\r\n]+\s*/, ';\r\n').replace(/^[;\s\r\n]*/, ''),
 

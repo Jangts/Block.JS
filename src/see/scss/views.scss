@@ -1,24 +1,24 @@
-.bc.clear {
+.tangram.clear {
     clear: both;
 }
 
-.bc.inline {
+.tangram.inline {
     display: inline;
 }
 
-.bc.block {
+.tangram.block {
     display: block;
 }
 
-.bc.inline.block {
+.tangram.inline.block {
     display: inline-block;
 }
 
-.bc.hidden {
+.tangram.hidden {
     display: none;
 }
 
-.bc.border-box {
+.tangram.border-box {
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     /* Firefox */
@@ -26,39 +26,39 @@
     /* Safari */
 }
 
-.bc.pointer {
+.tangram.pointer {
     cursor: pointer;
 }
 
-.bc.cursor {
+.tangram.cursor {
     cursor: default;
 }
 
-.bc.op-00 {
+.tangram.op-00 {
     opacity: 0;
     filter: alpha(opacity=0);
 }
 
 @for $i from 1 through 10 {
-    .bc.op-#{$i*10} {
+    .tangram.op-#{$i*10} {
         opacity: $i/10;
         filter: alpha(opacity=#{$i*10});
     }
 }
 
-.bc.ov-visi {
+.tangram.ov-visi {
     overflow: visible;
 }
 
-.bc.ov-hide {
+.tangram.ov-hide {
     overflow: hidden;
 }
 
-.bc.ov-scrl {
+.tangram.ov-scrl {
     overflow: scroll;
 }
 
-.bc.ov-auto {
+.tangram.ov-auto {
     overflow: auto;
 }
 
@@ -66,15 +66,15 @@
 /*
 /** Border Radius **/
 
-.bc.fillet {
+.tangram.fillet {
     border-radius: 2%;
 }
 
-.bc.fillet10 {
+.tangram.fillet10 {
     border-radius: 10px;
 }
 
-.bc.circle {
+.tangram.circle {
     border-radius: 50%;
 }
 
@@ -85,7 +85,7 @@ $radiuses: 2,
 10,
 20;
 @each $radius in $radiuses {
-    .bc.radius-#{$radius} {
+    .tangram.radius-#{$radius} {
         border-radius: #{$radius}px;
     }
 }

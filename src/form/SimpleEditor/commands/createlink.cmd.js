@@ -1,12 +1,12 @@
 /*!
- * Block.JS Framework Source Code
+ * Tangram.JS Framework Source Code
  *
  * class forms/SimpleEditor
  * 
  * Date: 2015-09-04
  */
 ;
-block([
+tangram.block([
     '$_/util/bool.xtd',
     '$_/dom/',
     '$_/form/SimpleEditor/'
@@ -48,15 +48,15 @@ block([
     });
 
     regCreater('createlink', function() {
-        var html = '<dialog class="bc se-dialog">';
-        html += '<span class="bc se-title">Insert link</span>';
-        html += '<div class="bc se-url">';
-        html += '<label>Enter URL</label><input type="text" class="bc se-input createlink" placeholder="http://www.yangram.com/blockjs/" />';
+        var html = '<dialog class="tangram se-dialog">';
+        html += '<span class="tangram se-title">Insert link</span>';
+        html += '<div class="tangram se-url">';
+        html += '<label>Enter URL</label><input type="text" class="tangram se-input createlink" placeholder="http://www.yangram.com/tangram.js/" />';
         html += '</div>';
-        html += '<div class="bc se-check">';
-        html += '<input type="checkbox" class="bc se-checkbox" checked="checked"> <label>Open in new tab</label>';
+        html += '<div class="tangram se-check">';
+        html += '<input type="checkbox" class="tangram se-checkbox" checked="checked"> <label>Open in new tab</label>';
         html += '</div>';
-        html += '<div class="bc se-btns">';
+        html += '<div class="tangram se-btns">';
         html += '<button type="button" data-ib-cmd="createlink">OK</button>';
         html += '</div>';
         html += '</dialog>';
@@ -65,8 +65,8 @@ block([
 
     regDialog('createlink', function(btn) {
         var dialog = _.dom.closest(btn, 'dialog');
-        var input = _.query('.bc.se-url .bc.se-input', dialog)[0];
-        var checkbox = _.query('.bc.se-check .bc.se-checkbox', dialog)[0]
+        var input = _.query('.tangram.se-url .tangram.se-input', dialog)[0];
+        var checkbox = _.query('.tangram.se-check .tangram.se-checkbox', dialog)[0]
         if (input && input.value != '') {
             return {
                 url: input.value,

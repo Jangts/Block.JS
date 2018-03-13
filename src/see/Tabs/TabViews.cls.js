@@ -1,5 +1,5 @@
 /*!
- * Block.JS Framework Source Code
+ * Tangram.JS Framework Source Code
  *
  * class see.Tabs,
  * class see.Tabs.Auto
@@ -7,7 +7,7 @@
  * Date: 2017-04-06
  */
 ;
-block([
+tangram.block([
     '$_/util/bool.xtd',
     '$_/dom/Elements/'
 ], function(pandora, global, undefined) {

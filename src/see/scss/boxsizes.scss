@@ -1,10 +1,10 @@
 /** Widths **/
 
-.bc.container {
+.tangram.container {
     width: 100%;
 }
 
-.bc.wfull {
+.tangram.wfull {
     width: 100%;
     max-width: 100%;
 }
@@ -42,12 +42,12 @@ $widths: 4096,
 210,
 160;
 @each $width in $widths {
-    .bc.w#{$width} {
+    .tangram.w#{$width} {
         width: 100%;
         max-width: #{$width}px;
         margin: auto;
     }
-    .bc.wi#{$width} {
+    .tangram.wi#{$width} {
         width: #{$width}px;
         max-width: #{$width}px !important;
         min-width: #{$width}px !important;
@@ -59,7 +59,7 @@ $widths: 4096,
 /** Absolute Center Widths **/
 
 @each $width in $widths {
-    .bc.c#{$width} {
+    .tangram.c#{$width} {
         position: absolute;
         left: 50%;
         max-width: #{$width}px;
@@ -72,7 +72,7 @@ $widths: 4096,
 
 /** Heights **/
 
-.bc.hfull {
+.tangram.hfull {
     height: 100%;
     max-height: 100%;
 }
@@ -116,11 +116,11 @@ $heights: 30,
 750,
 780;
 @each $height in $heights {
-    .bc.h#{$height} {
+    .tangram.h#{$height} {
         height: #{$height}px;
         max-height: #{$height}px;
     }
-    .bc.hi#{$height} {
+    .tangram.hi#{$height} {
         height: #{$height}px;
         max-height: #{$height}px !important;
         min-height: #{$height}px !important;
@@ -131,13 +131,13 @@ $heights: 30,
 /** MIN Widths **/
 
 @each $width in $widths {
-    .bc.mx-w#{$width} {
+    .tangram.mx-w#{$width} {
         max-width: #{$width}px;
     }
 }
 
 @each $width in $widths {
-    .bc.mn-w#{$width} {
+    .tangram.mn-w#{$width} {
         min-width: #{$width}px;
     }
 }
@@ -146,13 +146,13 @@ $heights: 30,
 /** MIN Heights **/
 
 @each $height in $heights {
-    .bc.mx-h#{$height} {
+    .tangram.mx-h#{$height} {
         max-height: #{$height}px;
     }
 }
 
 @each $height in $heights {
-    .bc.mn-h#{$height} {
+    .tangram.mn-h#{$height} {
         min-height: #{$height}px;
     }
 }

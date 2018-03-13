@@ -1,12 +1,12 @@
 /*!
- * Block.JS Framework Source Code
+ * Tangram.JS Framework Source Code
  *
  * class painter/Charts/typeExtend
  *
  * Date: 2015-09-04
  */
 ;
-block([
+tangram.block([
     '$_/util/bool.xtd',
     '$_/util/obj.xtd',
     '$_/painter/Charts/Charts.cls',

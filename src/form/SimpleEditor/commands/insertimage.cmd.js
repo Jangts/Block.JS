@@ -1,12 +1,12 @@
 /*!
- * Block.JS Framework Source Code
+ * Tangram.JS Framework Source Code
  *
  * class forms/SimpleEditor
  * 
  * Date: 2015-09-04
  */
 ;
-block([
+tangram.block([
     '$_/util/bool.xtd',
     '$_/dom/',
     '$_/painter/canvas.xtd',
@@ -17,7 +17,7 @@ block([
         cache = pandora.locker,
         document = global.document,
         console = global.console,
-        
+
         regMethod = cache.read(new _.Identifier('EDITOR_REG_M').toString()),
         regCommand = cache.read(new _.Identifier('EDITOR_REG_CMD').toString()),
         regCreater = cache.read(new _.Identifier('EDITOR_REG_C').toString()),
@@ -46,14 +46,14 @@ block([
     });
 
     regCreater('insertimage', function() {
-        var html = '<dialog class="bc se-dialog">';
-        html += '<span class="bc se-title">Insert Pictures</span>';
-        html += '<div class="bc se-url">';
-        html += '<label>Enter URL</label><input type="text" class="bc se-input" placeholder="Image URL" />';
+        var html = '<dialog class="tangram se-dialog">';
+        html += '<span class="tangram se-title">Insert Pictures</span>';
+        html += '<div class="tangram se-url">';
+        html += '<label>Enter URL</label><input type="text" class="tangram se-input" placeholder="Image URL" />';
         html += '</div>';
-        html += '<input type="file" class="bc se-files" value="" hidden="" multiple />';
-        html += '<div class="bc se-show"><span>click to upload</span></div>';
-        html += '<div class="bc se-btns">';
+        html += '<input type="file" class="tangram se-files" value="" hidden="" multiple />';
+        html += '<div class="tangram se-show"><span>click to upload</span></div>';
+        html += '<div class="tangram se-btns">';
         html += '<input type="button" data-ib-cmd="insertimage" value="Insert Web Picture"/>';
         html += '<input type="button" data-ib-cmd="uploadimage" value="Upload And Insert"/>';
         html += '</div>';
@@ -63,7 +63,7 @@ block([
 
     regDialog('insertimage', function(btn) {
         var dialog = _.dom.closest(btn, 'dialog');
-        var input = _.query('.bc.se-url .bc.se-input', dialog)[0];
+        var input = _.query('.tangram.se-url .tangram.se-input', dialog)[0];
         if (input && input.value) {
             return [input.value];
         }
@@ -72,7 +72,7 @@ block([
 
     regDialog('uploadimage', function(btn) {
         var dialog = _.dom.closest(btn, 'dialog');
-        var images = _.query('.bc.se-show', dialog)[0];
+        var images = _.query('.tangram.se-show', dialog)[0];
         var files = images.files;
         if (files && files.length > 0) {
             var that = this;

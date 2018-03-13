@@ -3,9 +3,9 @@
 <head>
     <meta charset="utf-8">
     <title>Multiple Columns Text List</title>
-    <script type="text/javascript" src="http://blockjs.nidn.yangram.ni/src/block.js"></script>
-    <link type="text/css" rel="stylesheet" href="http://blockjs.nidn.yangram.ni/src/see/see.css">
-    <link type="text/css" rel="stylesheet" href="http://blockjs.nidn.yangram.ni/src/see/ListView/style.css">
+    <script type="text/javascript" src="http://tangram.js.nidn.yangram.ni/src/tangram.js"></script>
+    <link type="text/css" rel="stylesheet" href="http://tangram.js.nidn.yangram.ni/src/see/see.css">
+    <link type="text/css" rel="stylesheet" href="http://tangram.js.nidn.yangram.ni/src/see/ListView/style.css">
     <style>
         body {
             background-color: #eeeeee;
@@ -34,7 +34,7 @@
 <body>
     <section>
         <p class="sample-title">分页列表 1</p>
-        <ul class="bc listview page-list">
+        <ul class="tangram listview page-list">
             <li class="list-item">First</li>
             <li class="list-item">Previous</li>
             <li class="list-item">1</li>
@@ -52,7 +52,7 @@
 
     <section>
         <p class="sample-title">分页列表 2</p>
-        <ul class="bc listview page-list blocks al-right">
+        <ul class="tangram listview page-list blocks al-right">
             <li class="list-item">First</li>
             <li class="list-item">Previous</li>
             <li class="list-item">1</li>
@@ -70,7 +70,7 @@
 
     <section>
         <p class="sample-title">分页列表 3</p>
-        <ul class="bc listview page-list blocks rounded green">
+        <ul class="tangram listview page-list blocks rounded green">
             <li class="list-item">First</li>
             <li class="list-item">Previous</li>
             <li class="list-item">1</li>
@@ -88,7 +88,7 @@
 
     <section>
         <p class="sample-title">分页列表 4</p>
-        <ul class="bc listview page-list pills al-left">
+        <ul class="tangram listview page-list pills al-left">
             <li class="list-item">First</li>
             <li class="list-item">Previous</li>
             <li class="list-item">1</li>
@@ -106,7 +106,7 @@
 
     <section>
         <p class="sample-title">分页列表 5</p>
-        <ul class="bc listview page-list spills purple">
+        <ul class="tangram listview page-list spills purple">
             <li class="list-item">First</li>
             <li class="list-item">Previous</li>
             <li class="list-item">1</li>
@@ -124,7 +124,7 @@
 
     <section>
         <p class="sample-title">分页列表 6</p>
-        <ul class="bc listview page-list train blue">
+        <ul class="tangram listview page-list train blue">
             <li class="list-item">First</li>
             <li class="list-item">Previous</li>
             <li class="list-item">1</li>
@@ -141,7 +141,7 @@
     </section>
 
     <script type="text/javascript">
-        block('$_/dom/Elements/', function(_, global, undefined) {
+        tangram.block('$_/dom/Elements/', function(_, global, undefined) {
             var $ = _.dom.select;
             $('.list-item').click(function() {
                 if (parseInt($(this).html())) {

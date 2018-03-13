@@ -1,6 +1,6 @@
 /*** EDITOR TOOLBAR PICKS ***************************/
 
-.bc.simpleeditor .bc.se-toolarea .bc.se-tool .bc.se-pick {
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-tool .tangram.se-pick {
     display: none;
     position: absolute;
     width: auto;
@@ -18,19 +18,19 @@
 
 /* ------------------------- */
 
-.bc.simpleeditor .bc.se-toolarea .bc.se-tool[data-ib-cmds].active {
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-tool[data-ib-cmds].active {
     overflow: visible;
     z-index: 100;
 }
 
-.bc.simpleeditor .bc.se-toolarea .bc.se-tool.active .bc.se-pick {
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-tool.active .tangram.se-pick {
     display: block;
 }
 
 
 /* ------------------------- */
 
-.bc.simpleeditor .bc.se-toolarea li.bc.simpleeditor .bc.se-font {
+.tangram.simpleeditor .tangram.se-toolarea li.tangram.simpleeditor .tangram.se-font {
     width: auto;
     text-align: left;
     padding: 0px 5px;
@@ -38,22 +38,22 @@
     white-space: nowrap;
 }
 
-.bc.simpleeditor .bc.se-toolarea .fontname li.bc.simpleeditor .bc.se-font {
+.tangram.simpleeditor .tangram.se-toolarea .fontname li.tangram.simpleeditor .tangram.se-font {
     font-size: 12px;
     height: 20px;
     line-height: 20px;
 }
 
-.bc.simpleeditor .bc.se-toolarea .fontsize li.bc.simpleeditor .bc.se-font {
+.tangram.simpleeditor .tangram.se-toolarea .fontsize li.tangram.simpleeditor .tangram.se-font {
     height: auto;
 }
 
-.bc.simpleeditor .bc.se-toolarea li.bc.simpleeditor .bc.se-font:hover {
+.tangram.simpleeditor .tangram.se-toolarea li.tangram.simpleeditor .tangram.se-font:hover {
     background-color: #09C;
     color: #FFF;
 }
 
-.bc.simpleeditor .bc.se-toolarea li.bc.simpleeditor .bc.se-font.selected {
+.tangram.simpleeditor .tangram.se-toolarea li.tangram.simpleeditor .tangram.se-font.selected {
     background-color: #09C;
     color: #FFF;
 }
@@ -61,43 +61,43 @@
 
 /* ------------------------- */
 
-.bc.simpleeditor .bc.se-toolarea ul.bc.simpleeditor .bc.se-pick {
+.tangram.simpleeditor .tangram.se-toolarea ul.tangram.simpleeditor .tangram.se-pick {
     white-space: nowrap;
 }
 
-.bc.simpleeditor .bc.se-toolarea .forecolor ul.bc.simpleeditor .bc.se-pick {
+.tangram.simpleeditor .tangram.se-toolarea .forecolor ul.tangram.simpleeditor .tangram.se-pick {
     line-height: 0px;
 }
 
-.bc.simpleeditor .bc.se-toolarea .backcolor ul.bc.simpleeditor .bc.se-pick {
+.tangram.simpleeditor .tangram.se-toolarea .backcolor ul.tangram.simpleeditor .tangram.se-pick {
     line-height: 0px;
 }
 
-.bc.simpleeditor .bc.se-toolarea li.bc.simpleeditor .bc.se-color {
+.tangram.simpleeditor .tangram.se-toolarea li.tangram.simpleeditor .tangram.se-color {
     display: inline-block;
     width: 18px;
     height: 18px;
     margin: 1px;
 }
 
-.bc.simpleeditor .bc.se-toolarea li.bc.simpleeditor .bc.se-color i {
+.tangram.simpleeditor .tangram.se-toolarea li.tangram.simpleeditor .tangram.se-color i {
     display: block;
     width: 16px;
     height: 16px;
     margin: 1px;
 }
 
-.bc.simpleeditor .bc.se-toolarea li.bc.simpleeditor .bc.se-color:hover {
+.tangram.simpleeditor .tangram.se-toolarea li.tangram.simpleeditor .tangram.se-color:hover {
     margin: 0px;
     border: #09C 1px solid;
 }
 
-.bc.simpleeditor .bc.se-toolarea li.bc.simpleeditor .bc.se-color.selected {
+.tangram.simpleeditor .tangram.se-toolarea li.tangram.simpleeditor .tangram.se-color.selected {
     margin: 0px;
     border: #09C 1px solid;
 }
 
-.bc.simpleeditor .bc.se-toolarea hr.bc.simpleeditor .bc.se-break {
+.tangram.simpleeditor .tangram.se-toolarea hr.tangram.simpleeditor .tangram.se-break {
     clear: both;
     height: 0px;
     border: none;
@@ -105,7 +105,7 @@
     display: block;
 }
 
-.bc.simpleeditor .bc.se-toolarea hr.bc.simpleeditor .bc.se-break+hr.bc.simpleeditor .bc.se-break {
+.tangram.simpleeditor .tangram.se-toolarea hr.tangram.simpleeditor .tangram.se-break+hr.tangram.simpleeditor .tangram.se-break {
     clear: both;
     height: 8px;
     border: none;

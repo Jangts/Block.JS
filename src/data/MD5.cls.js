@@ -1,12 +1,12 @@
 /*!
- * Block.JS Framework Source Code
+ * Tangram.JS Framework Source Code
  *
  * class data.MD5
  *
  * Date 2017-04-06
  */
 ;
-block(['$_/data/hash.xtd'], function(pandora, global, undefined) {
+tangram.block(['$_/data/hash.xtd'], function(pandora, global, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
         console = global.console,

@@ -3,8 +3,8 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Block.JS EDITOR</title>
-    <script src="../../../src/block.js" data-use-debugmode></script>
+    <title>Tangram.JS EDITOR</title>
+    <script src="../../../src/tangram.js" data-use-debugmode></script>
     <link href="../../../src/see/see.css" type="text/css" rel="stylesheet" />
     <link href="../../../src/see/fa.css" type="text/css" rel="stylesheet" />
     <style>
@@ -21,10 +21,10 @@
 </head>
 
 <body>
-    <div class="myeditor"><textarea>Block.JS SimpleEditor 1</textarea></div>
-    <div class="myeditor"><textarea>Block.JS SimpleEditor 2</textarea></div>
+    <div class="myeditor"><textarea>Tangram.JS SimpleEditor 1</textarea></div>
+    <div class="myeditor"><textarea>Tangram.JS SimpleEditor 2</textarea></div>
     <script>
-        block([
+        tangram.block([
             '$_/dom/Elements/',
             '$_/form/SimpleEditor/'
         ], function(pandora, global, undefined) {
@@ -32,7 +32,7 @@
                 document = global.document,
                 console = global.console;
 
-            var editors = _.form.careatSimpleEditors('.myeditor textarea', {
+            var editors = _.form.careatEditors('.myeditor textarea', {
                 fragments: [{
                     name: '分页符',
                     code: '{{@page_break}}'

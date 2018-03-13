@@ -1,12 +1,12 @@
 /*!
- * Block.JS Framework Source Code
+ * Tangram.JS Framework Source Code
  *
  * locales.en.times
  *
  * Date 2017-04-06
  */
 ;
-block(function(pandora, global, undefined) {
+tangram.block(function(pandora, global, undefined) {
     var _ = pandora;
 
     var en = {

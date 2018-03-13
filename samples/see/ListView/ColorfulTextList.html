@@ -3,9 +3,9 @@
 <head>
     <meta charset="utf-8">
     <title>Colorful Text List</title>
-    <script type="text/javascript" src="http://blockjs.nidn.yangram.ni/src/block.js"></script>
-    <link type="text/css" rel="stylesheet" href="http://blockjs.nidn.yangram.ni/src/see/see.css">
-    <link type="text/css" rel="stylesheet" href="http://blockjs.nidn.yangram.ni/src/see/ListView/style.css">
+    <script type="text/javascript" src="http://tangram.js.nidn.yangram.ni/src/tangram.js"></script>
+    <link type="text/css" rel="stylesheet" href="http://tangram.js.nidn.yangram.ni/src/see/see.css">
+    <link type="text/css" rel="stylesheet" href="http://tangram.js.nidn.yangram.ni/src/see/ListView/style.css">
     <style>
         body {
             background-color: #eeeeee;
@@ -34,7 +34,7 @@
 <body>
     <section>
         <p class="sample-title">单列单行文本 1</p>
-        <ul class="ascard bc listview text-list" data-list-cols="1">
+        <ul class="ascard tangram listview text-list" data-list-cols="1">
             <li class="list-item stripe green"><a href="javascript:;">item1</a></li>
             <li class="list-item stripe green"><a href="javascript:;">item2</a></li>
             <li class="list-item stripe green"><a href="javascript:;">item3</a></li>
@@ -45,7 +45,7 @@
     </section>
     <section>
         <p class="sample-title">多列单行文本 2</p>
-        <ul class="ascard bc listview text-list" data-list-cols="2">
+        <ul class="ascard tangram listview text-list" data-list-cols="2">
             <li class="list-item content underline blue"><a href="javascript:;">item1</a><i class="red">7</i></li>
             <li class="list-item content underline blue"><a href="javascript:;">item2</a></li>
             <li class="list-item content underline yellow"><a href="javascript:;">item3</a><i class="pl-right bule">Back</i><i class="pl-right bule">Go</i></li>
@@ -56,7 +56,7 @@
     </section>
     <section>
         <p class="sample-title">多列单行文本 3</p>
-        <ul class="bc listview text-list" data-list-cols="4">
+        <ul class="tangram listview text-list" data-list-cols="4">
             <li class="list-item content topline underline red"><a href="javascript:;">item1</a></li>
             <li class="list-item content topline underline black"><a href="javascript:;">item2</a></li>
             <li class="list-item content topline underline purple"><a href="javascript:;">item3</a></li>
@@ -73,7 +73,7 @@
     </section>
     <section>
         <p class="sample-title">多列单行文本 4</p>
-        <ul class="bc listview text-list" data-list-cols="3">
+        <ul class="tangram listview text-list" data-list-cols="3">
             <li class="list-item content card yellow"><a href="javascript:;">item1</a></li>
             <li class="list-item content card green"><a href="javascript:;">item2</a></li>
             <li class="list-item content card blue"><a href="javascript:;">item3</a></li>
@@ -87,7 +87,7 @@
     </section>
     <section>
         <p class="sample-title">多列单行文本 5</p>
-        <ul class="bc listview text-list" data-list-cols="4">
+        <ul class="tangram listview text-list" data-list-cols="4">
             <li class="list-item cover topline underline red"><a href="javascript:;">item1</a></li>
             <li class="list-item cover topline underline black"><a href="javascript:;">item2</a></li>
             <li class="list-item cover topline underline purple"><a href="javascript:;">item3</a></li>
@@ -103,7 +103,7 @@
         </ul>
     </section>
     <script type="text/javascript">
-        block(function(_, global, undefined) {
+        tangram.block(function(_, global, undefined) {
 
         }, true);
     </script>

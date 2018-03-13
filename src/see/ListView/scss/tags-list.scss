@@ -2,7 +2,7 @@
 /*	Tags List
 /************************************************/
 
-.bc.listview.tags-list {
+.tangram.listview.tags-list {
     margin: 10px auto;
     font-size: 0;
     text-align: left;
@@ -34,16 +34,16 @@
     }
 }
 
-.bc.listview.tags-list.al-center {
+.tangram.listview.tags-list.al-center {
     text-align: center;
 }
 
-.bc.listview.tags-list.al-right {
+.tangram.listview.tags-list.al-right {
     text-align: right;
 }
 
-.bc.listview.tags-list.blocks,
-.bc.listview.tags-list.pills {
+.tangram.listview.tags-list.blocks,
+.tangram.listview.tags-list.pills {
     .list-item {
         border: 1px solid #999;
         line-height: 20px;
@@ -83,13 +83,13 @@
     }
 }
 
-.bc.listview.tags-list.blocks.rounded {
+.tangram.listview.tags-list.blocks.rounded {
     .list-item {
         border-radius: 3px;
     }
 }
 
-.bc.listview.tags-list.pills {
+.tangram.listview.tags-list.pills {
     .list-item {
         border-radius: 13px;
     }
@@ -97,8 +97,8 @@
 
 @each $name,
 $color in $colors {
-    .bc.listview.tags-list.blocks.#{$name},
-    .bc.listview.tags-list.pills.#{$name} {
+    .tangram.listview.tags-list.blocks.#{$name},
+    .tangram.listview.tags-list.pills.#{$name} {
         .list-item {
             border: 1px solid $color;
             color: $color;

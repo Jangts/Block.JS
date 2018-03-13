@@ -1,5 +1,5 @@
 /*!
- * Block.JS Framework Source Code
+ * Tangram.JS Framework Source Code
  *
  * class see.Tabs,
  * class see.Tabs.Auto
@@ -7,7 +7,7 @@
  * Date: 2017-04-06
  */
 ;
-block([
+tangram.block([
     '$_/see/Tabs/',
 ], function(pandora, global, undefined) {
     var _ = pandora,
@@ -63,7 +63,7 @@ block([
 
     _.extend(_.see.Tabs.SlideTabs, {
         auto: function() {
-            $('.bc.stabs[data-ic-auto]').each(function() {
+            $('.tangram.stabs[data-ic-auto]').each(function() {
                 if ($(this).data('icAuto') != 'false') {
                     new _.see.Tabs.SlideTabs(this, {
                         trigger: $(this).data('tabsTrigger') || 'mouseover',

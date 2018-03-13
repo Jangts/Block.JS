@@ -1,12 +1,12 @@
 /*!
- * Block.JS Framework Source Code
+ * Tangram.JS Framework Source Code
  *
  * class dom.Events
  *
  * Date 2017-04-06
  */
 ;
-block([
+tangram.block([
     '$_/data/Component.cls',
     '$_/dom/Elements/',
     '$_/Time/Month.cls'

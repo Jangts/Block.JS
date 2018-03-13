@@ -1,12 +1,12 @@
 /*!
- * Block.JS Framework Source Code
+ * Tangram.JS Framework Source Code
  *
  * class forms/SimpleEditor
  * 
  * Date: 2015-09-04
  */
 ;
-block([
+tangram.block([
     '$_/dom/'
 ], function(pandora, global, undefined) {
     var _ = pandora,
@@ -24,7 +24,7 @@ block([
                 _.each(_.dom.query('img[_selected=_selected]', editor.richarea), function(i, elem) {
                     _.dom.removeAttr(elem, '_selected');
                 });
-                _.query('.bc.se-imagestatus', editor.statebar)[0].style.display = 'none';
+                _.query('.tangram.se-imagestatus', editor.statebar)[0].style.display = 'none';
                 if (event.target.tagName === 'IMG') {
                     editor.selectedImage = event.target;
                     editor.selection.saveRange();
@@ -36,7 +36,7 @@ block([
             }
             if (editor.selection.range && editor.selection.range.type === 'Caret') {
                 if (event.target === editor.richarea || editor.selection.range.commonElem === editor.richarea) {
-                    _.query('.bc.se-tablestatus', editor.statebar)[0].style.display = 'none';
+                    _.query('.tangram.se-tablestatus', editor.statebar)[0].style.display = 'none';
                     editor.onchange();
                     return;
                 }
@@ -148,7 +148,7 @@ block([
                     if (event.target.tagName == 'I') {
                         var editor = event.data,
                             dialog = _.dom.getAttr(this, 'data-ib-dialog');
-                        _.each(_.query('.bc.se-tool[data-ib-dialog] input[type=text], .bc.se-tool[data-ib-dialog] textarea, .bc.se-tool[data-ib-dialog] input.bc.se-files', editor.toolarea), function(i, el) {
+                        _.each(_.query('.tangram.se-tool[data-ib-dialog] input[type=text], .tangram.se-tool[data-ib-dialog] textarea, .tangram.se-tool[data-ib-dialog] input.tangram.se-files', editor.toolarea), function(i, el) {
                             if (_.dom.hasClass(this, 'createlink')) {
                                 var elem = editor.selection.getRange().commonElem;
                                 if (!elem.tagName === 'A') {
@@ -164,7 +164,7 @@ block([
                             }
                         });
 
-                        _.query('.bc.se-tool[data-ib-dialog] .bc.se-show', editor.toolarea)[0].innerHTML = '<span>click to upload</span>';
+                        _.query('.tangram.se-tool[data-ib-dialog] .tangram.se-show', editor.toolarea)[0].innerHTML = '<span>click to upload</span>';
                         editor.showDialog(dialog, this);
                         editor.selection.restoreSelection();
                     };
@@ -202,17 +202,17 @@ block([
                         editor.execCommand(cmd, val);
                     }
                 },
-                '.bc.se-show span': function(event) {
+                '.tangram.se-show span': function(event) {
                     var editor = event.data;
                     var previewer = this.parentNode,
                         dialog = _.dom.closest(this, 'dialog'),
-                        input = _.query('.bc.se-files', dialog)[0];
+                        input = _.query('.tangram.se-files', dialog)[0];
                     input.onchange = function() {
                         var doneCallback = function(files) {
                             if (files.length < 6) {
-                                var ul_class = 'bc se-list-56'
+                                var ul_class = 'tangram se-list-56'
                             } else if (files.length < 19) {
-                                var ul_class = 'bc se-list-28'
+                                var ul_class = 'tangram se-list-28'
                             } else {
                                 return alert('Cannot more than 18 images!');
                             }
@@ -247,20 +247,20 @@ block([
         },
         'statebar': {
             'mouseup': {
-                '.bc.se-imgfloat': function(e) {
+                '.tangram.se-imgfloat': function(e) {
                     var float = _.dom.getAttr(this, 'data-float') || 'none',
                         img = event.data.selectedImage;
                     img.style.float = float;
                     event.data.selection.saveRange();
                     event.data.onchange();
                 },
-                '.bc.se-imgsize': function(e) {
+                '.tangram.se-imgsize': function(e) {
                     var size = _.dom.getAttr(this, 'data-size') || 'none';
                     inputs['imgsize'](event.data, size);
                     event.data.selection.saveRange();
                     event.data.onchange();
                 },
-                '.bc.se-table-addrow': function(e) {
+                '.tangram.se-table-addrow': function(e) {
                     var editor = e.data,
                         table = editor.selectedTable,
                         row = editor.selectedTableRow,
@@ -268,7 +268,7 @@ block([
                     _.dom.after(row, '<tr>' + _.util.str.repeat('<td>&nbsp;</td>', len) + '</tr>');
 
                 },
-                '.bc.se-table-addcol': function(e) {
+                '.tangram.se-table-addcol': function(e) {
                     var editor = e.data,
                         table = editor.selectedTable,
                         row = editor.selectedTableRow,

@@ -1,4 +1,4 @@
-.bc.listview.media-list {
+.tangram.listview.media-list {
     .list-item.top-bottom {
         >img,
         >.list-figure,
@@ -39,14 +39,14 @@
     }
 }
 
-.bc.listview.media-list[data-list-cols] {
+.tangram.listview.media-list[data-list-cols] {
     .list-item.card.cover.top-bottom,
     .list-item.pane.cover.top-bottom {
         margin: 20px 2%;
     }
 }
 
-.bc.listview.media-list[data-list-cols="1"] {
+.tangram.listview.media-list[data-list-cols="1"] {
     .list-item.card.cover.top-bottom,
     .list-item.pane.cover.top-bottom {
         margin: 20px auto;

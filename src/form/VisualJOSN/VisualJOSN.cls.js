@@ -1,12 +1,12 @@
 /*!
- * Block.JS Framework Source Code
+ * Tangram.JS Framework Source Code
  *
  * class forms/VisualJOSN
  * 
  * Date: 2015-09-04
  */
 ;
-block([
+tangram.block([
     '$_/form/VisualJOSN/style.css',
     '$_/util/bool.xtd',
     '$_/dom/HTMLClose.cls',

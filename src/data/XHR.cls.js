@@ -1,12 +1,12 @@
 /*!
- * Block.JS Framework Source Code
+ * Tangram.JS Framework Source Code
  *
  * class data.XHR extends util.Promise
  *
  * Date 2017-04-06
  */
 ;
-block('$_/util/Promise.cls', function(pandora, global, undefined) {
+tangram.block('$_/util/Promise.cls', function(pandora, global, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
         console = global.console;
@@ -49,7 +49,7 @@ block('$_/util/Promise.cls', function(pandora, global, undefined) {
                 this.readyState = 1;
             } else {
                 this.readyState = 0;
-                this.PromiseValue = 'Block.JSXHR Unable to perform cross domain operation';
+                this.PromiseValue = 'Tangram.JSXHR Unable to perform cross domain operation';
             };
             this.handlers = {
                 always: [],

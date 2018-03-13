@@ -1,12 +1,12 @@
 /*!
- * Block.JS Framework Source Code
+ * Tangram.JS Framework Source Code
  *
  * class forms/SimpleEditor
  * 
  * Date: 2015-09-04
  */
 ;
-block([
+tangram.block([
     '$_/util/bool.xtd',
     '$_/dom/',
     '$_/form/SimpleEditor/commands/insert.cmds'
@@ -14,7 +14,7 @@ block([
     var _ = pandora,
         cache = pandora.locker,
         console = global.console,
-        
+
         parameters = cache.read(new _.Identifier('EDITOR_PARAMS').toString()),
         regMethod = cache.read(new _.Identifier('EDITOR_REG_M').toString()),
         regCommand = cache.read(new _.Identifier('EDITOR_REG_CMD').toString()),
@@ -36,7 +36,7 @@ block([
                     this.execCommand('insert', code);
                 } else {
                     var src = parameters.basePath + 'emoticons/' + val.pack + '/' + emoticons[val.pack][val.name];
-                    var html = '<img src="' + src + '" class="bc se-emoticon" />';
+                    var html = '<img src="' + src + '" class="tangram se-emoticon" />';
                     this.execCommand('insert', html);
                 }
                 this.collapse();
@@ -49,9 +49,9 @@ block([
         var pack = this.options.emoticonsTable && emoticons[this.options.emoticonsTable] ? this.options.emoticonsTable : parameters.emoticonsTable;
         var emtb = emoticons[pack];
         var path = parameters.basePath + 'emoticons/' + pack + '/';
-        var html = '<dialog class="bc se-dialog"><ul class="bc se-emoticons bc se-emoticons-' + pack + '">';
+        var html = '<dialog class="tangram se-dialog"><ul class="tangram se-emoticons tangram se-emoticons-' + pack + '">';
         for (var i in emtb) {
-            html += '<li class="bc se-emoticon" data-ib-cmd="insertemoticon" data-ib-val="' + pack + ', ' + i + '" title="' + i + '"><img src="' + path + emtb[i] + '"></li>';
+            html += '<li class="tangram se-emoticon" data-ib-cmd="insertemoticon" data-ib-val="' + pack + ', ' + i + '" title="' + i + '"><img src="' + path + emtb[i] + '"></li>';
         }
         html += '</ul></dialog>';
         return html;
@@ -69,7 +69,7 @@ block([
         }
         return null;
     });
-    
+
     // regEmoticon:
     cache.save(function(theme, images) {
         if (emoticons[theme] === undefined) {

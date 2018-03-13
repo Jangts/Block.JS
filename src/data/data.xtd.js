@@ -1,12 +1,12 @@
 /*!
- * Block.JS Framework Source Code
+ * Tangram.JS Framework Source Code
  *
  * static data
  *
  * Date 2017-04-06
  */
 ;
-block([
+tangram.block([
     '$_/util/obj.xtd',
     '$_/util/bool.xtd',
     '$_/dom/',
@@ -199,6 +199,7 @@ block([
             return _.util.obj.toQueryString(data)
         },
         decodeQueryString: function(str) {
+            str = str.replace(/^#/, '');
             var data = {};
             var fields = str.split('&');
             var i = 0,

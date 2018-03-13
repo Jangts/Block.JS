@@ -1,5 +1,5 @@
 /*!
- * Block.JS Framework Source Code
+ * Tangram.JS Framework Source Code
  *
  * class see.Tabs,
  * class see.Tabs.Auto
@@ -7,7 +7,7 @@
  * Date: 2017-04-06
  */
 ;
-block([
+tangram.block([
     '$_/util/bool.xtd',
     '$_/dom/Elements/',
     '$_/math/easing.xtd'
@@ -142,7 +142,7 @@ block([
 
     _.extend(_.see.Tabs, {
         auto: function() {
-            $('.bc.tabs[data-ic-auto]').each(function() {
+            $('.tangram.tabs[data-ic-auto]').each(function() {
                 if (($(this).data('icAuto') != 'false') && ($(this).data('icRendered') != 'tabs')) {
                     $(this).data('icRendered', 'tabs');
                     new _.see.Tabs(this, {

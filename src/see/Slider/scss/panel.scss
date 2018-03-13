@@ -5,7 +5,7 @@
  * 面板位置
  */
 
-.bc.slider .panel {
+.tangram.slider .panel {
     position: absolute;
     width: 100%;
     left: 0;
@@ -14,28 +14,28 @@
     box-sizing: border-box;
 }
 
-.bc.slider .panel.upon-remote {
+.tangram.slider .panel.upon-remote {
     top: 0px;
     text-align: right;
 }
 
-.bc.slider .panel.top-remote {
+.tangram.slider .panel.top-remote {
     top: 0px;
     text-align: right;
 }
 
-.bc.slider .panel.middle-remote {
+.tangram.slider .panel.middle-remote {
     top: 50%;
     margin-top: -50px;
     text-align: right;
 }
 
-.bc.slider .panel.bottom-remote {
+.tangram.slider .panel.bottom-remote {
     bottom: 0px;
     text-align: right;
 }
 
-.bc.slider .panel.under-remote {
+.tangram.slider .panel.under-remote {
     bottom: -30px;
     text-align: center;
 }
@@ -46,33 +46,33 @@
  * 按钮位置
  */
 
-.bc.slider .panel.panel.al-left {
+.tangram.slider .panel.panel.al-left {
     left: 0;
     right: auto;
     text-align: left;
 }
 
-.bc.slider .panel.panel.al-right {
+.tangram.slider .panel.panel.al-right {
     left: auto;
     right: 0;
     text-align: right;
 }
 
-.bc.slider .panel.panel.al-center {
+.tangram.slider .panel.panel.al-center {
     left: 0;
     right: 0;
     margin: auto;
     text-align: center;
 }
 
-.bc.slider .panel.panel.al-just {
+.tangram.slider .panel.panel.al-just {
     left: 0;
     right: 0;
     text-align: justify;
 }
 
-.bc.slider .panel.middle-remote.al-center,
-.bc.slider .panel.middle-remote.al-just {
+.tangram.slider .panel.middle-remote.al-center,
+.tangram.slider .panel.middle-remote.al-just {
     display: none!important;
 }
 
@@ -88,19 +88,19 @@
 
 /*- circles -*/
 
-.bc.slider .panel.circles {
+.tangram.slider .panel.circles {
     height: 40px;
 }
 
-.bc.slider .panel.circles.al-left {
+.tangram.slider .panel.circles.al-left {
     padding-left: 10px;
 }
 
-.bc.slider .panel.circles.al-right {
+.tangram.slider .panel.circles.al-right {
     padding-right: 10px;
 }
 
-.bc.slider .panel.circles .slider-anchor {
+.tangram.slider .panel.circles .slider-anchor {
     display: inline-block;
     box-sizing: border-box;
     width: 20px;
@@ -117,19 +117,19 @@
 
 /*- points -*/
 
-.bc.slider .panel.points {
+.tangram.slider .panel.points {
     height: 30px;
 }
 
-.bc.slider .panel.points.al-left {
+.tangram.slider .panel.points.al-left {
     padding-left: 10px;
 }
 
-.bc.slider .panel.points.al-right {
+.tangram.slider .panel.points.al-right {
     padding-right: 10px;
 }
 
-.bc.slider .panel.points .slider-anchor {
+.tangram.slider .panel.points .slider-anchor {
     display: inline-block;
     opacity: .8;
     box-sizing: border-box;
@@ -144,22 +144,22 @@
 
 /*- rings -*/
 
-.bc.slider .panel.rings {
+.tangram.slider .panel.rings {
     height: 40px;
 }
 
-.bc.slider .panel.rings.al-left,
-.bc.slider .panel.rings-sm.al-left {
+.tangram.slider .panel.rings.al-left,
+.tangram.slider .panel.rings-sm.al-left {
     padding-left: 10px;
 }
 
-.bc.slider .panel.rings.al-right,
-.bc.slider .panel.rings-sm.al-right {
+.tangram.slider .panel.rings.al-right,
+.tangram.slider .panel.rings-sm.al-right {
     padding-right: 10px;
 }
 
-.bc.slider .panel.rings .slider-anchor,
-.bc.slider .panel.rings-sm .slider-anchor {
+.tangram.slider .panel.rings .slider-anchor,
+.tangram.slider .panel.rings-sm .slider-anchor {
     display: inline-block;
     box-sizing: border-box;
     width: 16px;
@@ -175,11 +175,11 @@
 
 /*- small rings -*/
 
-.bc.slider .panel.rings-sm {
+.tangram.slider .panel.rings-sm {
     height: 30px;
 }
 
-.bc.slider .panel.rings-sm .slider-anchor {
+.tangram.slider .panel.rings-sm .slider-anchor {
     width: 10px;
     height: 10px;
     margin: 10px 5px;
@@ -193,22 +193,22 @@
 
 /*- square -*/
 
-.bc.slider .panel.squares {
+.tangram.slider .panel.squares {
     height: 30px;
 }
 
-.bc.slider .panel.squares.al-left,
-.bc.slider .panel.squares-rd.al-left {
+.tangram.slider .panel.squares.al-left,
+.tangram.slider .panel.squares-rd.al-left {
     padding-left: 10px;
 }
 
-.bc.slider .panel.squares.al-right,
-.bc.slider .panel.squares-rd.al-right {
+.tangram.slider .panel.squares.al-right,
+.tangram.slider .panel.squares-rd.al-right {
     padding-right: 10px;
 }
 
-.bc.slider .panel.squares .slider-anchor,
-.bc.slider .panel.squares-rd .slider-anchor {
+.tangram.slider .panel.squares .slider-anchor,
+.tangram.slider .panel.squares-rd .slider-anchor {
     display: inline-block;
     width: 10px;
     height: 10px;
@@ -220,11 +220,11 @@
 
 /*- rounded square -*/
 
-.bc.slider .panel.squares-rd {
+.tangram.slider .panel.squares-rd {
     height: 40px;
 }
 
-.bc.slider .panel.squares-rd .slider-anchor {
+.tangram.slider .panel.squares-rd .slider-anchor {
     width: 16px;
     height: 16px;
     margin: 12px 6px;
@@ -234,22 +234,22 @@
 
 /*- rectangles -*/
 
-.bc.slider .panel.rectangles {
+.tangram.slider .panel.rectangles {
     height: 30px;
 }
 
-.bc.slider .panel.rectangles.al-left,
-.bc.slider .panel.rectangles-rd.al-left {
+.tangram.slider .panel.rectangles.al-left,
+.tangram.slider .panel.rectangles-rd.al-left {
     padding-left: 10px;
 }
 
-.bc.slider .panel.rectangles.al-right,
-.bc.slider .panel.rectangles-rd.al-right {
+.tangram.slider .panel.rectangles.al-right,
+.tangram.slider .panel.rectangles-rd.al-right {
     padding-right: 10px;
 }
 
-.bc.slider .panel.rectangles .slider-anchor,
-.bc.slider .panel.rectangles-rd .slider-anchor {
+.tangram.slider .panel.rectangles .slider-anchor,
+.tangram.slider .panel.rectangles-rd .slider-anchor {
     display: inline-block;
     width: 16px;
     height: 10px;
@@ -261,7 +261,7 @@
 
 /*- round rectangles -*/
 
-.bc.slider .panel.rectangles-rd .slider-anchor {
+.tangram.slider .panel.rectangles-rd .slider-anchor {
     border-radius: 3px;
 }
 
@@ -271,23 +271,23 @@
 
 /*- bars -*/
 
-.bc.slider .panel.bars,
-.bc.slider .panel.bars-rd {
+.tangram.slider .panel.bars,
+.tangram.slider .panel.bars-rd {
     height: 30px;
 }
 
-.bc.slider .panel.bars.al-left,
-.bc.slider .panel.bars-rd.al-left {
+.tangram.slider .panel.bars.al-left,
+.tangram.slider .panel.bars-rd.al-left {
     padding-left: 10px;
 }
 
-.bc.slider .panel.bars.al-right,
-.bc.slider .panel.bars-rd.al-right {
+.tangram.slider .panel.bars.al-right,
+.tangram.slider .panel.bars-rd.al-right {
     padding-right: 10px;
 }
 
-.bc.slider .panel.bars .slider-anchor,
-.bc.slider .panel.bars-rd .slider-anchor {
+.tangram.slider .panel.bars .slider-anchor,
+.tangram.slider .panel.bars-rd .slider-anchor {
     display: inline-block;
     width: 24px;
     height: 6px;
@@ -299,7 +299,7 @@
 
 /*- rounded bars -*/
 
-.bc.slider .panel.bars-rd .slider-anchor {
+.tangram.slider .panel.bars-rd .slider-anchor {
     border-radius: 3px;
 }
 
@@ -309,23 +309,23 @@
 
 /*- lines -*/
 
-.bc.slider .panel.lines,
-.bc.slider .panel.lines-wb {
+.tangram.slider .panel.lines,
+.tangram.slider .panel.lines-wb {
     height: 30px;
 }
 
-.bc.slider .panel.lines.al-left,
-.bc.slider .panel.lines-wb.al-left {
+.tangram.slider .panel.lines.al-left,
+.tangram.slider .panel.lines-wb.al-left {
     padding-left: 10px;
 }
 
-.bc.slider .panel.lines.al-right,
-.bc.slider .panel.lines-wb.al-right {
+.tangram.slider .panel.lines.al-right,
+.tangram.slider .panel.lines-wb.al-right {
     padding-right: 10px;
 }
 
-.bc.slider .panel.lines .slider-anchor,
-.bc.slider .panel.lines-wb .slider-anchor {
+.tangram.slider .panel.lines .slider-anchor,
+.tangram.slider .panel.lines-wb .slider-anchor {
     display: inline-block;
     width: 50px;
     height: 1px;
@@ -334,7 +334,7 @@
     margin: 12px 5px;
 }
 
-.bc.slider .panel.lines-wb .slider-anchor {
+.tangram.slider .panel.lines-wb .slider-anchor {
     border-style: solid;
     border-width: 1px;
 }
@@ -342,7 +342,7 @@
 
 /*- lines with border -*/
 
-.bc.slider .panel.lines-wb .slider-anchor.active {
+.tangram.slider .panel.lines-wb .slider-anchor.active {
     width: 48px;
     height: 1px;
 }
@@ -356,19 +356,19 @@
 
 /*- thumbs -*/
 
-.bc.slider .panel.context,
-.bc.slider .panel.thumbs {
+.tangram.slider .panel.context,
+.tangram.slider .panel.thumbs {
     width: 100%;
     height: 50px;
 }
 
-.bc.slider .panel.thumbs {
+.tangram.slider .panel.thumbs {
     height: 80px;
     font-size: 0;
 }
 
-.bc.slider .panel.context.middle-remote,
-.bc.slider .panel.thumbs.middle-remote {
+.tangram.slider .panel.context.middle-remote,
+.tangram.slider .panel.thumbs.middle-remote {
     width: 200px;
     height: 100%;
     top: 0;
@@ -376,12 +376,12 @@
     box-sizing: content-box;
 }
 
-.bc.slider .panel.thumbs.middle-remote {
+.tangram.slider .panel.thumbs.middle-remote {
     width: 160px;
 }
 
-.bc.slider .panel.context .slider-anchor,
-.bc.slider .panel.thumbs .slider-anchor {
+.tangram.slider .panel.context .slider-anchor,
+.tangram.slider .panel.thumbs .slider-anchor {
     display: inline-block;
     box-sizing: border-box;
     height: 50px;
@@ -394,8 +394,8 @@
     cursor: pointer;
 }
 
-.bc.slider .panel.context.middle-remote .slider-anchor,
-.bc.slider .panel.thumbs.middle-remote .slider-anchor {
+.tangram.slider .panel.context.middle-remote .slider-anchor,
+.tangram.slider .panel.thumbs.middle-remote .slider-anchor {
     width: 100%;
     height: auto;
     display: block;

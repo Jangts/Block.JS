@@ -1,10 +1,10 @@
 /*!
- * Block.JS Framework Source Code
+ * Tangram.JS Framework Source Code
  * 
  * Date: 2015-09-04
  */
 ;
-block('$_/form/SimpleEditor/commands/insertemoticon.cmd', function(pandora, global, undefined) {
+tangram.block('$_/form/SimpleEditor/commands/insertemoticon.cmd', function(pandora, global, undefined) {
     var _ = pandora,
         cache = pandora.locker,
         regEmoticon = cache.read(new _.Identifier('EDITOR_REG_EMT').toString());

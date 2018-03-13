@@ -1,4 +1,4 @@
-block([
+tangram.block([
     '$_/dom/Elements/'
 ], function(pandora, global, undefined) {
     var _ = pandora,

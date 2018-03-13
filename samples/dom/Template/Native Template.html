@@ -3,8 +3,8 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Block.JS TEMPLATE</title>
-    <script src="../../../src/block.js" data-use-debugmode></script>
+    <title>Tangram.JS TEMPLATE</title>
+    <script src="../../../src/tangram.js" data-use-debugmode></script>
 </head>
 
 <body>
@@ -25,7 +25,7 @@
         </table>
     </script>
     <script>
-        block([
+        tangram.block([
             '$_/dom/Template.cls'
         ], function(_, global, undefined) {
             var document = global.document;
@@ -33,7 +33,7 @@
             var template = document.getElementById('template').innerHTML;
             var temp = new _.dom.Template(template, {
                 greeting: 'Hello',
-                name: 'Block.JS',
+                name: 'Tangram.JS',
             });
             view.innerHTML = temp.echo();
             console.log(temp);

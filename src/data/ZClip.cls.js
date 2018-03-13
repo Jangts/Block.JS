@@ -1,12 +1,12 @@
 /*!
- * Block.JS Framework Source Code
+ * Tangram.JS Framework Source Code
  *
  * class data.ZClip
  *
  * Date 2017-04-06
  */
 ;
-block([
+tangram.block([
     '$_/util/bool.xtd',
     '$_/dom/events.xtd'
 ], function(pandora, global, undefined) {
@@ -91,7 +91,7 @@ block([
         };
 
     /**
-     * ZeroClipboard for Block.JS
+     * ZeroClipboard for Tangram.JS
      * 一款基于flash的剪切板，相比_.data.Clipboard更具兼容性
      * 
      * @param   {Element}       elem        需要被复制的数据所在的Element元素

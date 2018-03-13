@@ -3,8 +3,8 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Block.JS GEO | Paint Brazil Map</title>
-    <script src="../../../../src/block.js"></script>
+    <title>Tangram.JS GEO | Paint Brazil Map</title>
+    <script src="../../../../src/tangram.js"></script>
 </head>
 
 <body>
@@ -14,7 +14,7 @@
             '$_/dom/Elements/',
             '$_/painter/SVG.cls'
         ];
-        block(includes, function(_, global, undefined) {
+        tangram.block(includes, function(_, global, undefined) {
             var document = global.document;
             var location = global.location;
             var $ = _.dom.select;

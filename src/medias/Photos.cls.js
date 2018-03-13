@@ -1,12 +1,12 @@
 /*!
- * Block.JS Framework Source Code
+ * Tangram.JS Framework Source Code
  *
  * class medias.Photos
  *
  * Date: 2017-04-06
  */
 ;
-block([
+tangram.block([
     '$_/util/XHR.cls',
     '$_/util/query.xtd',
     '$_/util/bool.xtd',

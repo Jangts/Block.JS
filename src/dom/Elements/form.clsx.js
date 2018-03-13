@@ -1,12 +1,12 @@
 /*!
- * Block.JS Framework Source Code
+ * Tangram.JS Framework Source Code
  *
  * extends some form methods to class dom.Elements
  *
  * Date: 2017-04-06
  */
 ;
-block([
+tangram.block([
     '$_/dom/Elements/',
 ], function(pandora, global, undefined) {
     var _ = pandora,

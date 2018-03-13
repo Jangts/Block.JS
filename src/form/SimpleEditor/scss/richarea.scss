@@ -1,6 +1,6 @@
 /*** EDITOR EDITAREA ***/
 
-.bc.simpleeditor .bc.se-richarea {
+.tangram.simpleeditor .tangram.se-richarea {
     background-color: #FFF;
     overflow: auto;
     resize: vertical;
@@ -8,61 +8,61 @@
     line-height: normal;
 }
 
-.bc.simpleeditor .bc.se-richarea * {
+.tangram.simpleeditor .tangram.se-richarea * {
     -webkit-box-sizing: content-box;
     -moz-box-sizing: content-box;
     box-sizing: content-box;
     overflow: auto;
 }
 
-.bc.simpleeditor .bc.se-richarea i {
+.tangram.simpleeditor .tangram.se-richarea i {
     font-style: italic;
 }
 
-.bc.simpleeditor .bc.se-richarea strong,
-.bc.simpleeditor .bc.se-richarea b {
+.tangram.simpleeditor .tangram.se-richarea strong,
+.tangram.simpleeditor .tangram.se-richarea b {
     font-weight: bold;
 }
 
-.bc.simpleeditor .bc.se-richarea s,
-.bc.simpleeditor .bc.se-richarea strike,
-.bc.simpleeditor .bc.se-richarea dels {
+.tangram.simpleeditor .tangram.se-richarea s,
+.tangram.simpleeditor .tangram.se-richarea strike,
+.tangram.simpleeditor .tangram.se-richarea dels {
     text-decoration: line-through;
 }
 
-.bc.simpleeditor .bc.se-richarea u,
-.bc.simpleeditor .bc.se-richarea ins {
+.tangram.simpleeditor .tangram.se-richarea u,
+.tangram.simpleeditor .tangram.se-richarea ins {
     text-decoration: underline;
 }
 
-.bc.simpleeditor .bc.se-richarea div {
+.tangram.simpleeditor .tangram.se-richarea div {
     word-break: break-all;
 }
 
-.bc.simpleeditor .bc.se-richarea a {
+.tangram.simpleeditor .tangram.se-richarea a {
     text-decoration: underline;
     cursor: pointer;
     color: #06F;
 }
 
-.bc.simpleeditor .bc.se-richarea img {
+.tangram.simpleeditor .tangram.se-richarea img {
     max-width: 100%;
 }
 
-.bc.simpleeditor .bc.se-richarea img:hover {
+.tangram.simpleeditor .tangram.se-richarea img:hover {
     box-sizing: border-box;
     border: dashed 1px #0CF;
     cursor: default;
 }
 
-.bc.simpleeditor .bc.se-richarea img[_selected=_selected],
-.bc.simpleeditor .bc.se-richarea img[_selected=_selected]:hover {
+.tangram.simpleeditor .tangram.se-richarea img[_selected=_selected],
+.tangram.simpleeditor .tangram.se-richarea img[_selected=_selected]:hover {
     box-sizing: border-box;
     border: dashed 1px #039;
     cursor: default;
 }
 
-.bc.simpleeditor .bc.se-richarea blockquote {
+.tangram.simpleeditor .tangram.se-richarea blockquote {
     color: #666666;
     font-size: 1em;
     padding-left: 1em;
@@ -70,7 +70,7 @@
     line-height: 1.5em;
 }
 
-.bc.simpleeditor .bc.se-richarea h2 {
+.tangram.simpleeditor .tangram.se-richarea h2 {
     font-size: 1.8em;
     border-left: 10px solid #7fc042;
     padding-left: 0.5em;
@@ -79,33 +79,33 @@
     color: black;
 }
 
-.bc.simpleeditor .bc.se-richarea ul,
-.bc.simpleeditor .bc.se-richarea ol {
+.tangram.simpleeditor .tangram.se-richarea ul,
+.tangram.simpleeditor .tangram.se-richarea ol {
     margin: auto;
     padding: 0px 0px 0px 40px;
     overflow: visible;
 }
 
-.bc.simpleeditor .bc.se-richarea ul {
+.tangram.simpleeditor .tangram.se-richarea ul {
     list-style: disc;
 }
 
-.bc.simpleeditor .bc.se-richarea ol {
+.tangram.simpleeditor .tangram.se-richarea ol {
     list-style-type: decimal;
 }
 
-.bc.simpleeditor .bc.se-richarea li {
+.tangram.simpleeditor .tangram.se-richarea li {
     margin: auto;
     padding: 0px;
     overflow: visible;
 }
 
-.bc.simpleeditor .bc.se-richarea hr {
+.tangram.simpleeditor .tangram.se-richarea hr {
     border-style: inset;
     border-width: 1px;
 }
 
-.bc.simpleeditor .bc.se-richarea table {
+.tangram.simpleeditor .tangram.se-richarea table {
     border-collapse: collapse;
     empty-cells: show;
     margin-bottom: 10px;
@@ -115,12 +115,12 @@
     box-sizing: border-box;
 }
 
-.bc.simpleeditor .bc.se-richarea td,
-.bc.simpleeditor .bc.se-richarea th {
+.tangram.simpleeditor .tangram.se-richarea td,
+.tangram.simpleeditor .tangram.se-richarea th {
     border: solid 1px #ccc;
     padding: 5px;
 }
 
-.bc.simpleeditor .bc.se-richarea .bc.se-emoticon {
+.tangram.simpleeditor .tangram.se-richarea .tangram.se-emoticon {
     margin: 0px 2px;
 }

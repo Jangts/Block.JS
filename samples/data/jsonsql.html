@@ -3,8 +3,8 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Block.JS JSONSQL</title>
-    <script src="../../src/block.js" data-use-debugmode></script>
+    <title>Tangram.JS JSONSQL</title>
+    <script src="../../src/tangram.js" data-use-debugmode></script>
 </head>
 
 <body>
@@ -25,7 +25,7 @@
     <p>只支持 Select 查询语句，“JSON”：“json.channel.items”指向一个对象数组, 排序接受参数：asc,desc,ascnum,descnum， limit：接受1，或2个参数，指定要获取数据数量个数。
     </P>
     <script type="text/javascript">
-        block(['$_/data/',
+        tangram.block(['$_/data/',
             '$_/data/jsonsql.xtd'
         ], function(_, global, undefined) {
             function getAll() {

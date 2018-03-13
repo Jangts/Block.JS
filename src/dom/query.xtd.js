@@ -1,12 +1,12 @@
 /*!
- * Block.JS Framework Source Code
+ * Tangram.JS Framework Source Code
  *
  * package dom.query
  *
  * Date 2017-04-06
  */
 ;
-block(['$_/util/str.xtd', '$_/util/arr.xtd', '$_/util/obj.xtd'], function(pandora, global, undefined) {
+tangram.block(['$_/util/str.xtd', '$_/util/arr.xtd', '$_/util/obj.xtd'], function(pandora, global, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
         cache = pandora.locker;
@@ -113,7 +113,7 @@ block(['$_/util/str.xtd', '$_/util/arr.xtd', '$_/util/obj.xtd'], function(pandor
     };
 
     /**
-     * Sub Selectors And Other Auxiliary Methods Of Block.JS Selector
+     * Sub Selectors And Other Auxiliary Methods Of Tangram.JS Selector
      * ------------------------------------------------------------------
      */
 

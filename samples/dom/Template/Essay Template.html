@@ -3,8 +3,8 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Block.JS TEMPLATE</title>
-    <script src="../../../src/block.js" data-use-debugmode></script>
+    <title>Tangram.JS TEMPLATE</title>
+    <script src="../../../src/tangram.js" data-use-debugmode></script>
 </head>
 
 <body>
@@ -14,32 +14,31 @@
     <script id="template1" type="text/template">
         <tr>
             <td>
-                {@greeting},
-                    {@name}
+                {@greeting}, {@name}
             </td>
-            <for (var i of [1, 2, 3, 4, 5, 6, 7]) >
+            <for (var i of [1, 2, 3, 4, 5, 6, 7])>
                 <if(i>4)>
                     <td>{@i,g}</td>
-                <}>
-            <}>
+                    <}>
+                        <}>
         </tr>
     </script>
     <script id="template2" type="text/template">
         {@repeat | repeat, 3}
         <table width="360" border="1" cellspacing="1" cellpadding="1">
             <tr>
-                <td>{@showHello ? 'Hello' : 'Bye'}, {@showName && 'Block.JS'}</td>
-                <for (var i of [1, 2, 3, 4, 5, 6, 7]) >
+                <td>{@showHello ? 'Hello' : 'Bye'}, {@showName && 'Tangram.JS'}</td>
+                <for (var i of [1, 2, 3, 4, 5, 6, 7])>
                     <if(i<5)>
                         <td>{@i,g}</td>
-                    <}>
-                <}>
+                        <}>
+                            <}>
             </tr>
             {@@'temp1'}
         </table>
     </script>
     <script>
-        block([
+        tangram.block([
             '$_/dom/Template.cls'
         ], function(_, global, undefined) {
 
@@ -54,7 +53,7 @@
             }, {
                 temp1: new _.dom.Template(template1, {
                     greeting: 'Hello',
-                    name: 'Block.JS'
+                    name: 'Tangram.JS'
                 })
             });
             view.innerHTML = temp2.echo();

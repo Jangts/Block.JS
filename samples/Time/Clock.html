@@ -1,9 +1,9 @@
 <html>
 
 <head>
-    <title>Block.JS Clock</title>
+    <title>Tangram.JS Clock</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <script src="../../src/block.js"></script>
+    <script src="../../src/tangram.js"></script>
     <link href="../../src/see/see.css" type="text/css" rel="stylesheet" />
     <link href="../../src/Time/Clock.cls.css" type="text/css" rel="stylesheet">
     <style>
@@ -26,7 +26,7 @@
     <div id="myclock"></div>
 
     <script>
-        block(['$_/Time/', '$_/Time/Clock.cls'], (_) => {
+        tangram.block(['$_/Time/', '$_/Time/Clock.cls'], (_) => {
             var $ = _.dom.select,
                 time = new _.Time(),
                 times = time.now(),

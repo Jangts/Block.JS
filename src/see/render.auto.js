@@ -1,12 +1,12 @@
 /*!
- * Block.JS Framework Source Code
+ * Tangram.JS Framework Source Code
  *
  * class see.Sticker,
  *
  * Date: 2017-04-06
  */
 ;
-block([
+tangram.block([
     '$_/see/NavMenu/',
     '$_/see/Scrollbar/',
     '$_/see/Tabs/SlideTabs.cls',
@@ -21,7 +21,7 @@ block([
 
     _.extend(_.see.Scrollbar, {
         auto: function() {
-            $('.bc.scrollbar[data-ic-auto]').each(function() {
+            $('.tangram.scrollbar[data-ic-auto]').each(function() {
                 if (($(this).data('icAuto') != 'false') && ($(this).data('icRendered') != 'scrollbar')) {
                     $(this).data('icRendered', 'scrollbar');
                     new _.see.Scrollbar(this, {

@@ -16,39 +16,39 @@ $heights: 15,
 120,
 156;
 @each $height in $heights {
-    .bc.lh-#{$height} {
+    .tangram.lh-#{$height} {
         line-height: #{$height/20}rem;
     }
 }
 
-.bc.al-left {
+.tangram.al-left {
     text-align: left;
 }
 
-.bc.al-right {
+.tangram.al-right {
     text-align: right;
 }
 
-.bc.al-center {
+.tangram.al-center {
     text-align: center;
 }
 
-.bc.al-just {
+.tangram.al-just {
     text-align: justify;
 }
 
-.bc.indent-05 {
+.tangram.indent-05 {
     text-indent: .5em;
 }
 
-.bc.indent-10 {
+.tangram.indent-10 {
     text-indent: 1em;
 }
 
-.bc.indent-20 {
+.tangram.indent-20 {
     text-indent: 2em;
 }
 
-.bc.indent-30 {
+.tangram.indent-30 {
     text-indent: 3em;
 }

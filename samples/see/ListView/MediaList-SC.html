@@ -3,9 +3,9 @@
 <head>
     <meta charset="utf-8">
     <title>Single Columns Media List</title>
-    <script type="text/javascript" src="http://blockjs.nidn.yangram.ni/src/block.js"></script>
-    <link type="text/css" rel="stylesheet" href="http://blockjs.nidn.yangram.ni/src/see/see.css">
-    <link type="text/css" rel="stylesheet" href="http://blockjs.nidn.yangram.ni/src/see/ListView/style.css">
+    <script type="text/javascript" src="http://tangram.js.nidn.yangram.ni/src/tangram.js"></script>
+    <link type="text/css" rel="stylesheet" href="http://tangram.js.nidn.yangram.ni/src/see/see.css">
+    <link type="text/css" rel="stylesheet" href="http://tangram.js.nidn.yangram.ni/src/see/ListView/style.css">
     <style>
         body {
             background-color: #eeeeee;
@@ -34,7 +34,7 @@
 <body>
     <section>
         <p class="sample-title">单列多行文本带插图 1</p>
-        <ul class="ascard bc listview media-list" data-ic-auto="true" data-list-cols="1">
+        <ul class="ascard tangram listview media-list" data-ic-auto="true" data-list-cols="1">
             <li class="list-item underline">
                 <img src="./images/timg.jpg" class="list-image h75">
                 <div class="list-body">
@@ -63,7 +63,7 @@
     </section>
     <section>
         <p class="sample-title">单列多行文本带插图 2</p>
-        <ul class="bc listview media-list" data-ic-auto="true" data-list-cols="1">
+        <ul class="tangram listview media-list" data-ic-auto="true" data-list-cols="1">
             <li class="list-item topline underline">
                 <img src="./images/timg.jpg" class="list-image h75">
                 <div class="list-body">
@@ -92,7 +92,7 @@
     </section>
     <section>
         <p class="sample-title">单列多行文本带插图 3</p>
-        <ul class="bc listview media-list" data-ic-auto="true" data-list-cols="1">
+        <ul class="tangram listview media-list" data-ic-auto="true" data-list-cols="1">
             <li class="list-item cover topline underline">
                 <img src="./images/timg.jpg" class="list-image h75">
                 <div class="list-body pl-right">
@@ -121,7 +121,7 @@
     </section>
     <section>
         <p class="sample-title">单列多行文本带插图 4</p>
-        <ul class="bc listview media-list" data-ic-auto="true" data-list-cols="1">
+        <ul class="tangram listview media-list" data-ic-auto="true" data-list-cols="1">
             <li class="list-item content topline underline">
                 <figure class="list-figure h117">
                     <img src="./images/timg.jpg"></figure>
@@ -169,7 +169,7 @@
     </section>
     <section>
         <p class="sample-title">单列多行文本带插图 5</p>
-        <ul class="bc listview media-list" data-ic-auto="true" data-list-cols="1">
+        <ul class="tangram listview media-list" data-ic-auto="true" data-list-cols="1">
             <li class="list-item content card cover right-left">
                 <img src="./images/timg.jpg" class="h51">
                 <div class="list-body">
@@ -195,7 +195,7 @@
     </section>
     <section>
         <p class="sample-title">单列多行文本带插图 6</p>
-        <ul class="bc listview media-list" data-ic-auto="true" data-list-cols="1">
+        <ul class="tangram listview media-list" data-ic-auto="true" data-list-cols="1">
             <li class="list-item pane content cover">
                 <img src="./images/timg.jpg" class="h51">
                 <div class="list-body">
@@ -221,7 +221,7 @@
     </section>
     <section>
         <p class="sample-title">单列多行文本带插图 7</p>
-        <ul class="bc listview media-list" data-ic-auto="true" data-list-cols="1">
+        <ul class="tangram listview media-list" data-ic-auto="true" data-list-cols="1">
             <li class="list-item pane cover">
                 <img src="./images/timg.jpg" class="h51">
                 <div class="list-body">
@@ -246,7 +246,7 @@
         </ul>
     </section>
     <script type="text/javascript">
-        block('$_/see/ListView/', function(_, global, undefined) {
+        tangram.block('$_/see/ListView/', function(_, global, undefined) {
             _.see.ListView.auto();
         }, true);
     </script>

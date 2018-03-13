@@ -1,12 +1,12 @@
 /*!
- * Block.JS Framework Source Code
+ * Tangram.JS Framework Source Code
  * 
  * extends animation methods for class Elements
  *
  * Date: 2017-04-06
  */
 ;
-block([
+tangram.block([
     '$_/dom/animator.xtd',
     '$_/dom/Elements/',
     '$_/math/easing.xtd'

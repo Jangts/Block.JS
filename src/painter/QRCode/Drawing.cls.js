@@ -1,12 +1,12 @@
 /*!
- * Block.JS Framework Source Code
+ * Tangram.JS Framework Source Code
  *
  * extend_static_methods graphic/canvas
  *
  * Date: 2017-04-06
  */
 
-block([
+tangram.block([
     '$_/util/bool.xtd',
     '$_/painter/QRCode/SVGDrawing.cls'
 ], function(pandora, global, undefined) {
@@ -80,7 +80,7 @@ block([
                     el.onabort = error;
                     el.onerror = error;
                     el.onload = success;
-                    el.src = "data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDBlock.JSE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg=="; // the Image contains 1px data.
+                    el.src = "data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDTangram.JSE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg=="; // the Image contains 1px data.
                     return;
                 } else if (that.isSupportDataURI === true && that.success) {
                     that.success.call(that);

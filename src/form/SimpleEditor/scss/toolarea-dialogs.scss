@@ -1,6 +1,6 @@
 /*** EDITOR TOOLBAR DIALOGS ***************************/
 
-.bc.simpleeditor .bc.se-toolarea .bc.se-tool .bc.se-dialog {
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-tool .tangram.se-dialog {
     display: none;
     position: absolute;
     width: auto;
@@ -20,19 +20,19 @@
 
 /* ------------------------- */
 
-.bc.simpleeditor .bc.se-toolarea .bc.se-tool[data-ib-dialog].active {
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-tool[data-ib-dialog].active {
     overflow: visible;
     z-index: 100;
 }
 
-.bc.simpleeditor .bc.se-toolarea .bc.se-tool.active .bc.se-dialog {
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-tool.active .tangram.se-dialog {
     display: block;
 }
 
 
 /* ------------------------- */
 
-.bc.simpleeditor .bc.se-toolarea .bc.se-dialog span.bc.simpleeditor .bc.se-title {
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-dialog span.tangram.simpleeditor .tangram.se-title {
     font-family: Arial, Helvetica, sans-serif;
     display: block;
     height: 20px;
@@ -46,7 +46,7 @@
     font-weight: bold;
 }
 
-.bc.simpleeditor .bc.se-toolarea .bc.se-dialog button {
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-dialog button {
     height: 30px;
     text-align: center;
     background-color: #09C;
@@ -59,22 +59,22 @@
     cursor: pointer;
 }
 
-.bc.simpleeditor .bc.se-toolarea .bc.se-dialog button:hover {
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-dialog button:hover {
     background-color: #036;
 }
 
 
 /* --------------- */
 
-.bc.simpleeditor .bc.se-toolarea .bc.se-dialog .bc.se-aaa,
-.bc.simpleeditor .bc.se-toolarea .bc.se-dialog .bc.se-url {
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-dialog .tangram.se-aaa,
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-dialog .tangram.se-url {
     width: 340px;
     height: 30px;
     margin-bottom: 10px;
 }
 
-.bc.simpleeditor .bc.se-toolarea .bc.se-dialog .bc.se-aaa label,
-.bc.simpleeditor .bc.se-toolarea .bc.se-dialog .bc.se-url label {
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-dialog .tangram.se-aaa label,
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-dialog .tangram.se-url label {
     float: left;
     width: 78px;
     height: 30px;
@@ -85,8 +85,8 @@
     color: #444;
 }
 
-.bc.simpleeditor .bc.se-toolarea .bc.se-dialog .bc.se-aaa input,
-.bc.simpleeditor .bc.se-toolarea .bc.se-dialog .bc.se-url input {
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-dialog .tangram.se-aaa input,
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-dialog .tangram.se-url input {
     float: right;
     width: 250px;
     height: 28px;
@@ -99,13 +99,13 @@
 
 /* --------------- */
 
-.bc.simpleeditor .bc.se-toolarea .bc.se-dialog .bc.se-check {
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-dialog .tangram.se-check {
     width: 340px;
     height: 20px;
     margin-bottom: 10px;
 }
 
-.bc.simpleeditor .bc.se-toolarea .bc.se-dialog .bc.se-check label {
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-dialog .tangram.se-check label {
     float: left;
     width: auto;
     height: 20px;
@@ -114,7 +114,7 @@
     color: #999;
 }
 
-.bc.simpleeditor .bc.se-toolarea .bc.se-dialog .bc.se-check .bc.se-checkbox {
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-dialog .tangram.se-check .tangram.se-checkbox {
     float: left;
     width: 14px;
     height: 14px;
@@ -125,22 +125,22 @@
 
 /* --------------- */
 
-.bc.simpleeditor .bc.se-toolarea .bc.se-dialog .bc.se-attr {
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-dialog .tangram.se-attr {
     width: 340px;
     height: 24px;
     font-size: 12px;
     margin-bottom: 10px;
 }
 
-.bc.simpleeditor .bc.se-toolarea .bc.se-dialog .bc.se-attr-left {
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-dialog .tangram.se-attr-left {
     float: left;
 }
 
-.bc.simpleeditor .bc.se-toolarea .bc.se-dialog .bc.se-attr-right {
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-dialog .tangram.se-attr-right {
     float: right;
 }
 
-.bc.simpleeditor .bc.se-toolarea .bc.se-dialog .bc.se-attr label {
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-dialog .tangram.se-attr label {
     float: left;
     width: auto;
     height: 24px;
@@ -151,7 +151,7 @@
     color: #444;
 }
 
-.bc.simpleeditor .bc.se-toolarea .bc.se-dialog .bc.se-attr span {
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-dialog .tangram.se-attr span {
     float: left;
     width: 24px;
     height: 24px;
@@ -162,11 +162,11 @@
     color: #444;
 }
 
-.bc .bc.se-dialog .bc.se-table-rows,
-.bc .bc.se-dialog .bc.se-table-columns,
-.bc .bc.se-dialog .bc.se-table-width,
-.bc .bc.se-dialog .bc.se-vidoe-width,
-.bc .bc.se-dialog .bc.se-vidoe-height {
+.tangram .tangram.se-dialog .tangram.se-table-rows,
+.tangram .tangram.se-dialog .tangram.se-table-columns,
+.tangram .tangram.se-dialog .tangram.se-table-width,
+.tangram .tangram.se-dialog .tangram.se-vidoe-width,
+.tangram .tangram.se-dialog .tangram.se-vidoe-height {
     float: left;
     width: 43px;
     height: 22px;
@@ -175,7 +175,7 @@
     line-height: 22px;
 }
 
-.bc.simpleeditor .bc.se-toolarea .bc.se-dialog .bc.se-attr .bc.se-table-unit {
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-dialog .tangram.se-attr .tangram.se-table-unit {
     float: left;
     width: 53px;
     height: 24px;
@@ -185,7 +185,7 @@
     line-height: 24px;
 }
 
-.bc.simpleeditor .bc.se-toolarea .bc.se-dialog .bc.se-attr .bc.se-vidoe-type {
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-dialog .tangram.se-attr .tangram.se-vidoe-type {
     float: left;
     width: 83px;
     height: 24px;
@@ -198,16 +198,16 @@
 
 /* --------------- */
 
-.bc.simpleeditor .bc.se-toolarea .bc.se-dialog .bc.se-btns {
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-dialog .tangram.se-btns {
     width: 340px;
     height: 30px;
 }
 
-.bc.simpleeditor .bc.se-toolarea .bc.se-dialog .bc.se-btns button {
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-dialog .tangram.se-btns button {
     width: 340px;
 }
 
-.bc.simpleeditor .bc.se-toolarea .bc.se-dialog .bc.se-btns input {
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-dialog .tangram.se-btns input {
     float: left;
     width: 165px;
     height: 30px;
@@ -222,18 +222,18 @@
     cursor: pointer;
 }
 
-.bc.simpleeditor .bc.se-toolarea .bc.se-dialog .bc.se-btns input:hover {
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-dialog .tangram.se-btns input:hover {
     background-color: #036;
 }
 
-.bc.simpleeditor .bc.se-toolarea .bc.se-dialog .bc.se-btns input:first-child {
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-dialog .tangram.se-btns input:first-child {
     margin-right: 10px;
 }
 
 
 /* --------------- */
 
-.bc.simpleeditor .bc.se-toolarea .bc.se-dialog .bc.se-show {
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-dialog .tangram.se-show {
     width: 330px;
     height: 72px;
     padding: 3px 4px;
@@ -241,7 +241,7 @@
     margin-bottom: 10px;
 }
 
-.bc.simpleeditor .bc.se-toolarea .bc.se-dialog .bc.se-show span {
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-dialog .tangram.se-show span {
     display: block;
     width: 330px;
     height: 72px;
@@ -250,19 +250,19 @@
     color: #999;
 }
 
-.bc.simpleeditor .bc.se-toolarea .bc.se-dialog .bc.se-show ul {
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-dialog .tangram.se-show ul {
     display: block;
     width: 330px;
     height: 72px;
 }
 
-.bc.simpleeditor .bc.se-toolarea .bc.se-dialog .bc.se-show ul li {
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-dialog .tangram.se-show ul li {
     float: left;
     border: #EEE 1px solid;
     padding: 1px;
 }
 
-.bc.simpleeditor .bc.se-toolarea .bc.se-dialog .bc.se-show ul li img {
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-dialog .tangram.se-show ul li img {
     position: absolute;
     top: 0;
     right: 0;
@@ -271,24 +271,24 @@
     margin: auto;
 }
 
-.bc.simpleeditor .bc.se-toolarea .bc.se-dialog .bc.se-show ul.bc.simpleeditor .bc.se-list-56 li {
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-dialog .tangram.se-show ul.tangram.simpleeditor .tangram.se-list-56 li {
     width: 56px;
     height: 56px;
     margin: 6px 3px;
 }
 
-.bc.simpleeditor .bc.se-toolarea .bc.se-dialog .bc.se-show ul.bc.simpleeditor .bc.se-list-56 li img {
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-dialog .tangram.se-show ul.tangram.simpleeditor .tangram.se-list-56 li img {
     max-width: 56px;
     max-height: 56px;
 }
 
-.bc.simpleeditor .bc.se-toolarea .bc.se-dialog .bc.se-show ul.bc.simpleeditor .bc.se-list-28 li {
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-dialog .tangram.se-show ul.tangram.simpleeditor .tangram.se-list-28 li {
     width: 28px;
     height: 28px;
     margin: 2px;
 }
 
-.bc.simpleeditor .bc.se-toolarea .bc.se-dialog .bc.se-show ul.bc.simpleeditor .bc.se-list-28 li img {
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-dialog .tangram.se-show ul.tangram.simpleeditor .tangram.se-list-28 li img {
     max-width: 28px;
     max-height: 28px;
 }
@@ -296,7 +296,7 @@
 
 /* --------------- */
 
-.bc.simpleeditor .bc.se-toolarea .bc.se-dialog textarea.bc.simpleeditor .bc.se-code {
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-dialog textarea.tangram.simpleeditor .tangram.se-code {
     width: 330px;
     height: 40px;
     padding: 4px;
@@ -310,14 +310,14 @@
 
 /* --------------- */
 
-.bc.simpleeditor .bc.se-toolarea .bc.se-dialog ul.bc.simpleeditor .bc.se-emoticons {
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-dialog ul.tangram.simpleeditor .tangram.se-emoticons {
     width: 340px;
     height: auto;
     border-top: #CCC 1px solid;
     border-left: #CCC 1px solid;
 }
 
-.bc.simpleeditor .bc.se-toolarea .bc.se-dialog ul.bc.simpleeditor .bc.se-emoticons-default li {
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-dialog ul.tangram.simpleeditor .tangram.se-emoticons-default li {
     float: left;
     display: table-cell;
     width: 33px;
@@ -326,7 +326,7 @@
     border-bottom: #CCC 1px solid;
 }
 
-.bc.simpleeditor .bc.se-toolarea .bc.se-dialog ul.bc.simpleeditor .bc.se-emoticons-default li img {
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-dialog ul.tangram.simpleeditor .tangram.se-emoticons-default li img {
     position: absolute;
     top: 0px;
     right: 0px;

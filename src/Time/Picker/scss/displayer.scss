@@ -1,4 +1,4 @@
-.bc.timepicker .displayer {
+.tangram.timepicker .displayer {
     display: block;
     position: absolute;
     width: 656px;
@@ -9,15 +9,15 @@
     border-radius: 10px 10px 10px 10px;
 }
 
-.bc.timepicker .displayer .display-item {
+.tangram.timepicker .displayer .display-item {
     display: none;
 }
 
-.bc.timepicker .displayer .display-item.actived {
+.tangram.timepicker .displayer .display-item.actived {
     display: block;
 }
 
-.bc.timepicker .displayer .display-item .display-char {
+.tangram.timepicker .displayer .display-item .display-char {
     float: left;
     cursor: pointer;
 }
@@ -25,45 +25,45 @@
 
 /**********************************************/
 
-.bc.timepicker .displayer .display-item {
+.tangram.timepicker .displayer .display-item {
     height: 50px;
     margin: 40px auto;
 }
 
-.bc.timepicker .displayer .display-item[data-type=datetime] {
+.tangram.timepicker .displayer .display-item[data-type=datetime] {
     width: 620px;
 }
 
-.bc.timepicker .displayer .display-item[data-type=fulldate] {
+.tangram.timepicker .displayer .display-item[data-type=fulldate] {
     width: 330px;
 }
 
-.bc.timepicker .displayer .display-item[data-type=dayofyear] {
+.tangram.timepicker .displayer .display-item[data-type=dayofyear] {
     width: 400px;
 }
 
-.bc.timepicker .displayer .display-item[data-type=timeofday] {
+.tangram.timepicker .displayer .display-item[data-type=timeofday] {
     width: 290px;
 }
 
-.bc.timepicker .displayer .display-item[data-type=hourminute] {
+.tangram.timepicker .displayer .display-item[data-type=hourminute] {
     width: 220px;
 }
 
-.bc.timepicker .displayer .display-item[data-type=fulldate],
-.bc.timepicker .displayer .display-item[data-type=dayofyear],
-.bc.timepicker .displayer .display-item[data-type=timeofday],
-.bc.timepicker .displayer .display-item[data-type=hourminute] {
+.tangram.timepicker .displayer .display-item[data-type=fulldate],
+.tangram.timepicker .displayer .display-item[data-type=dayofyear],
+.tangram.timepicker .displayer .display-item[data-type=timeofday],
+.tangram.timepicker .displayer .display-item[data-type=hourminute] {
     transform: scale(2, 2);
 }
 
-.bc.timepicker .displayer .display-item[data-type=dayofweek] {
+.tangram.timepicker .displayer .display-item[data-type=dayofweek] {
     width: 656px;
     height: 130px;
     margin: 0;
 }
 
-.bc.timepicker .displayer .display-item[data-type=dayofweek]::after {
+.tangram.timepicker .displayer .display-item[data-type=dayofweek]::after {
     display: block;
     position: absolute;
     width: 100%;
@@ -78,16 +78,16 @@
 
 /**********************************************/
 
-.bc.timepicker .displayer .display-item .display-char {
+.tangram.timepicker .displayer .display-item .display-char {
     display: block;
     position: relative;
     font-style: normal;
 }
 
-.bc.timepicker .displayer .display-item .display-char[data-char-type=year],
-.bc.timepicker .displayer .display-item .display-char[data-char-type=month],
-.bc.timepicker .displayer .display-item .display-char[data-char-type=mon],
-.bc.timepicker .displayer .display-item .display-char[data-char-type=date] {
+.tangram.timepicker .displayer .display-item .display-char[data-char-type=year],
+.tangram.timepicker .displayer .display-item .display-char[data-char-type=month],
+.tangram.timepicker .displayer .display-item .display-char[data-char-type=mon],
+.tangram.timepicker .displayer .display-item .display-char[data-char-type=date] {
     height: 50px;
     margin-right: 10px;
     text-align: center;
@@ -97,33 +97,33 @@
     color: #fff;
 }
 
-.bc.timepicker .displayer .display-item .display-char[data-char-type=year] {
+.tangram.timepicker .displayer .display-item .display-char[data-char-type=year] {
     width: 110px;
     margin-left: 50px;
 }
 
-.bc.timepicker .displayer .display-item .display-char[data-char-type=month] {
+.tangram.timepicker .displayer .display-item .display-char[data-char-type=month] {
     width: 240px;
     margin-left: 50px;
 }
 
-.bc.timepicker .displayer .display-item .display-char[data-char-type=mon],
-.bc.timepicker .displayer .display-item .display-char[data-char-type=date] {
+.tangram.timepicker .displayer .display-item .display-char[data-char-type=mon],
+.tangram.timepicker .displayer .display-item .display-char[data-char-type=date] {
     width: 50px;
 }
 
-.bc.timepicker .displayer .display-item .display-char[data-char-type=date] {
+.tangram.timepicker .displayer .display-item .display-char[data-char-type=date] {
     margin-right: 50px;
 }
 
-.bc.timepicker .displayer .display-item .display-char[data-char-type=year]::after,
-.bc.timepicker .displayer .display-item .display-char[data-char-type=mon]::after,
-.bc.timepicker .displayer .display-item .display-char[data-char-type=month]::after,
-.bc.timepicker .displayer .display-item .display-char[data-char-type=date]::after,
-.bc.timepicker .displayer .display-item .display-char[data-char-type=hour]::after,
-.bc.timepicker .displayer .display-item .display-char[data-char-type=minute]::after,
-.bc.timepicker .displayer .display-item .display-char[data-char-type=first]::after,
-.bc.timepicker .displayer .display-item .display-char[data-char-type=second]::after {
+.tangram.timepicker .displayer .display-item .display-char[data-char-type=year]::after,
+.tangram.timepicker .displayer .display-item .display-char[data-char-type=mon]::after,
+.tangram.timepicker .displayer .display-item .display-char[data-char-type=month]::after,
+.tangram.timepicker .displayer .display-item .display-char[data-char-type=date]::after,
+.tangram.timepicker .displayer .display-item .display-char[data-char-type=hour]::after,
+.tangram.timepicker .displayer .display-item .display-char[data-char-type=minute]::after,
+.tangram.timepicker .displayer .display-item .display-char[data-char-type=first]::after,
+.tangram.timepicker .displayer .display-item .display-char[data-char-type=second]::after {
     display: block;
     position: absolute;
     width: 100%;
@@ -134,10 +134,10 @@
     content: "";
 }
 
-.bc.timepicker .displayer .display-item .display-char[data-char-type=hour],
-.bc.timepicker .displayer .display-item .display-char[data-char-type=minute],
-.bc.timepicker .displayer .display-item .display-char[data-char-type=first],
-.bc.timepicker .displayer .display-item .display-char[data-char-type=second] {
+.tangram.timepicker .displayer .display-item .display-char[data-char-type=hour],
+.tangram.timepicker .displayer .display-item .display-char[data-char-type=minute],
+.tangram.timepicker .displayer .display-item .display-char[data-char-type=first],
+.tangram.timepicker .displayer .display-item .display-char[data-char-type=second] {
     width: 50px;
     height: 50px;
     margin-right: 20px;
@@ -149,17 +149,17 @@
     overflow: visible;
 }
 
-.bc.timepicker .displayer .display-item .display-char[data-char-type=hour] {
+.tangram.timepicker .displayer .display-item .display-char[data-char-type=hour] {
     margin-left: 50px;
 }
 
-.bc.timepicker .displayer .display-item .display-char[data-char-type=minute],
-.bc.timepicker .displayer .display-item .display-char[data-char-type=second] {
+.tangram.timepicker .displayer .display-item .display-char[data-char-type=minute],
+.tangram.timepicker .displayer .display-item .display-char[data-char-type=second] {
     margin-right: 50px;
 }
 
-.bc.timepicker .displayer .display-item .display-char[data-char-type=hour]::before,
-.bc.timepicker .displayer .display-item .display-char[data-char-type=first]::before {
+.tangram.timepicker .displayer .display-item .display-char[data-char-type=hour]::before,
+.tangram.timepicker .displayer .display-item .display-char[data-char-type=first]::before {
     display: block;
     position: absolute;
     width: 20px;
@@ -171,7 +171,7 @@
     z-index: -99;
 }
 
-.bc.timepicker .displayer .display-item .display-char[data-char-type=day] {
+.tangram.timepicker .displayer .display-item .display-char[data-char-type=day] {
     width: 600px;
     height: 80px;
     margin: 25px 28px;

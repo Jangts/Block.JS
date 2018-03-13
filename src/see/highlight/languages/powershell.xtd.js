@@ -1,12 +1,12 @@
 /*!
- * Block.JS Framework Source Code
+ * Tangram.JS Framework Source Code
  *
  * static see.highlight.language
  *
  * Date: 2017-04-06
  */
 ;
-block('$_/see/highlight/languages/clike.xtd', function(_, global, undefined) {
+tangram.block('$_/see/highlight/languages/clike.xtd', function(_, global, undefined) {
     var document = global.document,
         location = global.location,
         highlight = _.see.highlight;

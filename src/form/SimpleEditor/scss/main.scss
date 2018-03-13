@@ -1,5 +1,5 @@
 @charset "UTF-8";
-.bc.simpleeditor {
+.tangram.simpleeditor {
     border: 1px solid #CCC;
 }
 
@@ -12,7 +12,7 @@ $headers: (h1, 50px, 30px),
 @each $header,
 $lineheight,
 $fontsize in $headers {
-    .bc.simpleeditor #{$header} {
+    .tangram.simpleeditor #{$header} {
         line-height: $lineheight;
         font-size: $fontsize;
     }

@@ -2,7 +2,7 @@
 /*	Text List
 /************************************************/
 
-.bc.listview.page-list {
+.tangram.listview.page-list {
     margin: 10px auto;
     font-size: 0;
     text-align: center;
@@ -21,17 +21,17 @@
     }
 }
 
-.bc.listview.page-list.al-left {
+.tangram.listview.page-list.al-left {
     text-align: left;
 }
 
-.bc.listview.page-list.al-right {
+.tangram.listview.page-list.al-right {
     text-align: right;
 }
 
-.bc.listview.page-list.blocks,
-.bc.listview.page-list.pills,
-.bc.listview.page-list.spills {
+.tangram.listview.page-list.blocks,
+.tangram.listview.page-list.pills,
+.tangram.listview.page-list.spills {
     .list-item {
         border: 1px solid #999;
         line-height: 20px;
@@ -56,19 +56,19 @@
     }
 }
 
-.bc.listview.page-list.blocks.rounded {
+.tangram.listview.page-list.blocks.rounded {
     .list-item {
         border-radius: 3px;
     }
 }
 
-.bc.listview.page-list.pills {
+.tangram.listview.page-list.pills {
     .list-item {
         border-radius: 15px;
     }
 }
 
-.bc.listview.page-list.spills {
+.tangram.listview.page-list.spills {
     .list-item {
         margin: 4px 0;
         padding: 0 6px;
@@ -76,7 +76,7 @@
     }
 }
 
-.bc.listview.page-list.train {
+.tangram.listview.page-list.train {
     .list-item {
         width: 20px;
         height: 20px;
@@ -122,9 +122,9 @@
 
 @each $name,
 $color in $colors {
-    .bc.listview.page-list.blocks.#{$name},
-    .bc.listview.page-list.pills.#{$name},
-    .bc.listview.page-list.spills.#{$name} {
+    .tangram.listview.page-list.blocks.#{$name},
+    .tangram.listview.page-list.pills.#{$name},
+    .tangram.listview.page-list.spills.#{$name} {
         .list-item {
             border: 1px solid $color;
             color: $color;
@@ -134,7 +134,7 @@ $color in $colors {
             color: #fff;
         }
     }
-    .bc.listview.page-list.train.#{$name} {
+    .tangram.listview.page-list.train.#{$name} {
         .list-item {
             border-top: 1px solid $color;
             border-right: 1px solid $color;

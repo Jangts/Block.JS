@@ -1,12 +1,12 @@
 /*!
- * Block.JS Framework Source Code
+ * Tangram.JS Framework Source Code
  *
  * class forms/SimpleEditor
  * 
  * Date: 2015-09-04
  */
 ;
-block([
+tangram.block([
     '$_/util/bool.xtd',
     '$_/dom/',
     '$_/dom/Events.cls',

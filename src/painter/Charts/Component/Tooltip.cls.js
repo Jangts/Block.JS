@@ -1,12 +1,12 @@
 /*!
- * Block.JS Framework Source Code
+ * Tangram.JS Framework Source Code
  *
  * extend_static_methods painter/Charts/component/Tooltip
  *
  * Date: 2015-09-04
  */
 ;
-block([
+tangram.block([
     '$_/painter/Charts/util/helpers.xtd',
     '$_/painter/Charts/Component/Component.cls'
 ], function(pandora, global, undefined) {

@@ -1,4 +1,4 @@
-# Block.JS Framework
+# Tangram.JS Framework
 # 互联块框架
 
 * A Web Front-end Development Javascript Framework
@@ -10,6 +10,6 @@
 * #### DOM操作，数据操作，图形相关，前端视觉，和一些基础计算。
 
 ##### Written and Designed By Jang Ts
-##### http://blockjs.nidn.yangram.com/
+##### http://tangram.js.nidn.yangram.com/
 
 ##### Date: 2017-04-06

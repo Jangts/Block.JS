@@ -1,12 +1,12 @@
 /*!
- * Block.JS Framework Source Code
+ * Tangram.JS Framework Source Code
  *
  * static util.bool
  *
  * Date 2017-04-06
  */
 ;
-block([
+tangram.block([
     '$_/util/type.xtd',
     '$_/dom/'
 ], function(pandora, global, undefined) {
@@ -124,7 +124,7 @@ block([
             }
         },
         isHttpMethod: function(method) {
-            if(typeof method !== 'string'){
+            if (typeof method !== 'string') {
                 return false;
             }
             method = method.toUpperCase();

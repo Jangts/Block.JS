@@ -1,4 +1,4 @@
-.bc.clock .clock-dial {
+.tangram.clock .clock-dial {
     position: relative;
     width: 100%;
     height: 100%;
@@ -6,14 +6,14 @@
     overflow: hidden;
 }
 
-.bc.clock .clock-dial .clock-fixer,
-.bc.clock .clock-dial .clock-hand {
+.tangram.clock .clock-dial .clock-fixer,
+.tangram.clock .clock-dial .clock-hand {
     position: absolute;
     top: 50%;
     left: 50%;
 }
 
-.bc.clock .clock-dial .clock-fixer {
+.tangram.clock .clock-dial .clock-fixer {
     width: 10%;
     height: 10%;
     margin-top: -5%;
@@ -23,7 +23,7 @@
     z-index: 30;
 }
 
-.bc.clock .clock-dial .clock-fixer::before {
+.tangram.clock .clock-dial .clock-fixer::before {
     display: block;
     position: absolute;
     width: 40%;
@@ -34,7 +34,7 @@
     content: '';
 }
 
-.bc.clock .clock-dial .clock-hand.hour {
+.tangram.clock .clock-dial .clock-hand.hour {
     width: 6%;
     height: 60%;
     margin-top: -30%;
@@ -42,7 +42,7 @@
     z-index: 0;
 }
 
-.bc.clock .clock-dial .clock-hand.minute {
+.tangram.clock .clock-dial .clock-hand.minute {
     width: 4%;
     height: 80%;
     margin-top: -40%;
@@ -50,7 +50,7 @@
     z-index: 10;
 }
 
-.bc.clock .clock-dial .clock-hand.second {
+.tangram.clock .clock-dial .clock-hand.second {
     width: 2%;
     height: 90%;
     margin-top: -45%;
@@ -58,7 +58,7 @@
     z-index: 20;
 }
 
-.bc.clock .clock-dial .clock-hand::before {
+.tangram.clock .clock-dial .clock-hand::before {
     display: block;
     position: absolute;
     width: 100%;
@@ -68,16 +68,16 @@
     content: '';
 }
 
-.bc.clock .clock-dial .clock-hand.hour::before {
+.tangram.clock .clock-dial .clock-hand.hour::before {
     background-color: #000;
 }
 
-.bc.clock .clock-dial .clock-hand.minute::before {
+.tangram.clock .clock-dial .clock-hand.minute::before {
     background-color: #C60;
 }
 
-.bc.clock .clock-dial .clock-fixer::before,
-.bc.clock .clock-dial .clock-hand.second::before {
+.tangram.clock .clock-dial .clock-fixer::before,
+.tangram.clock .clock-dial .clock-hand.second::before {
     background-color: #FC0;
 }
 
@@ -91,11 +91,11 @@ $colors: ('red', #800, #F35),
 @each $name,
 $color1,
 $color2 in $colors {
-    .bc.clock.#{$name} .clock-dial .clock-hand.minute::before {
+    .tangram.clock.#{$name} .clock-dial .clock-hand.minute::before {
         background-color: $color1;
     }
-    .bc.clock.#{$name} .clock-dial .clock-fixer::before,
-    .bc.clock.#{$name} .clock-dial .clock-hand.second::before {
+    .tangram.clock.#{$name} .clock-dial .clock-fixer::before,
+    .tangram.clock.#{$name} .clock-dial .clock-hand.second::before {
         background-color: $color2;
     }
 }

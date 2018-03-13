@@ -1,9 +1,9 @@
 <html>
 
 <head>
-    <title>Block.JS Kalendar</title>
+    <title>Tangram.JS Kalendar</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <script src="../../src/block.js"></script>
+    <script src="../../src/tangram.js"></script>
     <link href="../../src/see/see.css" type="text/css" rel="stylesheet" />
     <link href="../../src/Time/Kalendar.cls.css" type="text/css" rel="stylesheet">
     <style>
@@ -17,7 +17,7 @@
     <kalendar id="mykld"></kalendar>
 
     <script>
-        block(['$_/Time/', '$_/Time/Kalendar.cls'], (_) => {
+        tangram.block(['$_/Time/', '$_/Time/Kalendar.cls'], (_) => {
             var $ = _.dom.select,
                 kalendar = new _.Time.Kalendar('mykld');
             kalendar.drawEvents([false, true, true, false, false, false, false, true, false, false, false, false, false, false, true, false, true, true, false, false, false, false, true, false, false, false, false, false, false, true]);

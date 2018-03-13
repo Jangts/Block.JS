@@ -1,10 +1,10 @@
 /*** EDITOR TOOLBAR ICONS ***************************/
 
-.bc.simpleeditor .bc.se-toolarea .bc.se-tool .bc.se-icon {
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-tool .tangram.se-icon {
     display: block;
 }
 
-.bc.simpleeditor .bc.se-toolarea .bc.se-icon:before {
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-icon:before {
     font-family: 'FontAwesome';
     font-style: normal;
     content: '\f042';
@@ -13,125 +13,125 @@
 
 /* --------------- */
 
-.bc.simpleeditor .bc.se-toolarea .bold .bc.se-icon:before {
+.tangram.simpleeditor .tangram.se-toolarea .bold .tangram.se-icon:before {
     content: '\f032';
 }
 
-.bc.simpleeditor .bc.se-toolarea .italic .bc.se-icon:before {
+.tangram.simpleeditor .tangram.se-toolarea .italic .tangram.se-icon:before {
     content: '\f033';
 }
 
-.bc.simpleeditor .bc.se-toolarea .underline .bc.se-icon:before {
+.tangram.simpleeditor .tangram.se-toolarea .underline .tangram.se-icon:before {
     content: '\f0cd';
 }
 
-.bc.simpleeditor .bc.se-toolarea .strikethrough .bc.se-icon:before {
+.tangram.simpleeditor .tangram.se-toolarea .strikethrough .tangram.se-icon:before {
     content: '\f0cc';
 }
 
 
 /* --------------- */
 
-.bc.simpleeditor .bc.se-toolarea .fontsize .bc.se-icon:before {
+.tangram.simpleeditor .tangram.se-toolarea .fontsize .tangram.se-icon:before {
     content: '\f034';
 }
 
-.bc.simpleeditor .bc.se-toolarea .forecolor .bc.se-icon:before {
+.tangram.simpleeditor .tangram.se-toolarea .forecolor .tangram.se-icon:before {
     content: '\f040';
 }
 
-.bc.simpleeditor .bc.se-toolarea .backcolor .bc.se-icon:before {
+.tangram.simpleeditor .tangram.se-toolarea .backcolor .tangram.se-icon:before {
     content: '\f14b';
 }
 
 
 /* --------------- */
 
-.bc.simpleeditor .bc.se-toolarea .justifyleft .bc.se-icon:before {
+.tangram.simpleeditor .tangram.se-toolarea .justifyleft .tangram.se-icon:before {
     content: '\f036';
 }
 
-.bc.simpleeditor .bc.se-toolarea .justifycenter .bc.se-icon:before {
+.tangram.simpleeditor .tangram.se-toolarea .justifycenter .tangram.se-icon:before {
     content: '\f037';
 }
 
-.bc.simpleeditor .bc.se-toolarea .justifyright .bc.se-icon:before {
+.tangram.simpleeditor .tangram.se-toolarea .justifyright .tangram.se-icon:before {
     content: '\f038';
 }
 
-.bc.simpleeditor .bc.se-toolarea .justifyfull .bc.se-icon:before {
+.tangram.simpleeditor .tangram.se-toolarea .justifyfull .tangram.se-icon:before {
     content: '\f039';
 }
 
 
 /* --------------- */
 
-.bc.simpleeditor .bc.se-toolarea .insertunorderedlist .bc.se-icon:before {
+.tangram.simpleeditor .tangram.se-toolarea .insertunorderedlist .tangram.se-icon:before {
     content: '\f0ca';
 }
 
-.bc.simpleeditor .bc.se-toolarea .insertorderedlist .bc.se-icon:before {
+.tangram.simpleeditor .tangram.se-toolarea .insertorderedlist .tangram.se-icon:before {
     content: '\f0cb';
 }
 
 
 /* --------------- */
 
-.bc.simpleeditor .bc.se-toolarea .header .bc.se-icon:before,
-.bc.simpleeditor .bc.se-toolarea .h1 .bc.se-icon:before,
-.bc.simpleeditor .bc.se-toolarea .h2 .bc.se-icon:before,
-.bc.simpleeditor .bc.se-toolarea .h3 .bc.se-icon:before,
-.bc.simpleeditor .bc.se-toolarea .h4 .bc.se-icon:before,
-.bc.simpleeditor .bc.se-toolarea .h5 .bc.se-icon:before,
-.bc.simpleeditor .bc.se-toolarea .h6 .bc.se-icon:before {
+.tangram.simpleeditor .tangram.se-toolarea .header .tangram.se-icon:before,
+.tangram.simpleeditor .tangram.se-toolarea .h1 .tangram.se-icon:before,
+.tangram.simpleeditor .tangram.se-toolarea .h2 .tangram.se-icon:before,
+.tangram.simpleeditor .tangram.se-toolarea .h3 .tangram.se-icon:before,
+.tangram.simpleeditor .tangram.se-toolarea .h4 .tangram.se-icon:before,
+.tangram.simpleeditor .tangram.se-toolarea .h5 .tangram.se-icon:before,
+.tangram.simpleeditor .tangram.se-toolarea .h6 .tangram.se-icon:before {
     content: '\f1dc';
 }
 
-.bc.simpleeditor .bc.se-toolarea .blockquote .bc.se-icon:before {
+.tangram.simpleeditor .tangram.se-toolarea .blockquote .tangram.se-icon:before {
     content: '\f10d';
 }
 
-.bc.simpleeditor .bc.se-toolarea .removeformat .bc.se-icon:before {
+.tangram.simpleeditor .tangram.se-toolarea .removeformat .tangram.se-icon:before {
     content: '\f12d';
 }
 
 
 /* --------------- */
 
-.bc.simpleeditor .bc.se-toolarea .createlink .bc.se-icon:before {
+.tangram.simpleeditor .tangram.se-toolarea .createlink .tangram.se-icon:before {
     content: '\f0c1';
 }
 
-.bc.simpleeditor .bc.se-toolarea .unlink .bc.se-icon:before {
+.tangram.simpleeditor .tangram.se-toolarea .unlink .tangram.se-icon:before {
     content: '\f127';
 }
 
-.bc.simpleeditor .bc.se-toolarea .inserttable .bc.se-icon:before {
+.tangram.simpleeditor .tangram.se-toolarea .inserttable .tangram.se-icon:before {
     content: '\f0ce';
 }
 
 
 /* --------------- */
 
-.bc.simpleeditor .bc.se-toolarea .insertfile .bc.se-icon:before {
+.tangram.simpleeditor .tangram.se-toolarea .insertfile .tangram.se-icon:before {
     content: '\f0c6';
 }
 
-.bc.simpleeditor .bc.se-toolarea .insertemoticon .bc.se-icon:before {
+.tangram.simpleeditor .tangram.se-toolarea .insertemoticon .tangram.se-icon:before {
     content: '\f118';
 }
 
-.bc.simpleeditor .bc.se-toolarea .insertvideo .bc.se-icon:before {
+.tangram.simpleeditor .tangram.se-toolarea .insertvideo .tangram.se-icon:before {
     content: '\f03d';
 }
 
-.bc.simpleeditor .bc.se-toolarea .insertimage .bc.se-icon:before {
+.tangram.simpleeditor .tangram.se-toolarea .insertimage .tangram.se-icon:before {
     content: '\f03e';
 }
 
 
 /* --------------- */
 
-.bc.simpleeditor .bc.se-toolarea .insertfragments .bc.se-icon:before {
+.tangram.simpleeditor .tangram.se-toolarea .insertfragments .tangram.se-icon:before {
     content: '\f12e';
 }

@@ -3,13 +3,13 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Block.JS RUNTIME</title>
-    <script src="../src/block.js" data-use-debugmode></script>
+    <title>Tangram.JS RUNTIME</title>
+    <script src="../src/tangram.js" data-use-debugmode></script>
 </head>
 
 <body>
     <script>
-        block(function(pandora, global, undefined) {
+        tangram.block(function(pandora, global, undefined) {
             var _ = pandora;
 
             _('animals', [{
@@ -36,7 +36,7 @@
             }]);
         }, '$_/animals.xtd');
 
-        block(function(pandora, global, undefined) {
+        tangram.block(function(pandora, global, undefined) {
             var _ = pandora,
                 declare = pandora.declareClass;
 
@@ -53,7 +53,7 @@
 
         }, '$_/Animal.cls');
 
-        block(['$_/animals.xtd', '$_/Animal.cls'], function(_, global, undefined) {
+        tangram.block(['$_/animals.xtd', '$_/Animal.cls'], function(_, global, undefined) {
             var it;
             _.each(_.animals, function(i, animal) {
                 it = _.Animal(this);

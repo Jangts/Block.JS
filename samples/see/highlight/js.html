@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 
 <meta charset=utf-8>
-<title>Block.JS SYNTAX HIGHLIGHTING FOR js</title>
-<script src="../../../src/block.js"></script>
+<title>Tangram.JS SYNTAX HIGHLIGHTING FOR js</title>
+<script src="../../../src/tangram.js"></script>
 
 <body style="font-size:0.875em;">
     <pre>
@@ -87,7 +87,7 @@ function _attr(el, attr) {
          * 2. 使用load加载okaidia样式并调用see.highlight.rendertAll；
          * 3. 使用see.highlight.renderAll渲染javascript代码；
          */
-        block(['$_/see/highlight/languages/javascript.xtd'], function(_, global, undefined) {
+        tangram.block(['$_/see/highlight/languages/javascript.xtd'], function(_, global, undefined) {
             _.load('../../../src/see/highlight/themes/okaidia.css', _.see.highlight.renderAll, null, 'css');
         }, true);
     </script>

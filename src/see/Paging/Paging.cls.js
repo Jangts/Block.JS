@@ -1,12 +1,12 @@
 /*!
- * Block.JS Framework Source Code
+ * Tangram.JS Framework Source Code
  *
  * class see/Paging
  *
  * Date: 2017-04-06
  */
 ;
-block([
+tangram.block([
     '$_/util/bool.xtd',
     '$_/dom/Elements/',
 ], function(pandora, global, undefined) {
@@ -67,26 +67,26 @@ block([
             gotoPreviousAnchorname = gotoPreviousAnchornamee || 'Prev';
             gotoNextAnchorname = gotoNextAnchorname || 'Next';
             var pages = this.getData();
-            var html = '<ul class="bc page-list"';
+            var html = '<ul class="tangram page-list"';
             if ($pages[`length`] > 0) {
                 if (gotoFirstAnchorname) {
-                    html += '<li class="bc page-list-item" onclick="window.location.href=\'?page=' + pages["f"] + '\'">' + gotoFirstAnchorname + '</li>';
+                    html += '<li class="tangram page-list-item" onclick="window.location.href=\'?page=' + pages["f"] + '\'">' + gotoFirstAnchorname + '</li>';
                 }
                 if (this.currentpage > pages["f"]) {
-                    $html += '<li class="bc page-list-item" onclick="window.location.href=\'?page=' + pages["p"] + '\'">' + gotoPreviousAnchorname + '</li>';
+                    $html += '<li class="tangram page-list-item" onclick="window.location.href=\'?page=' + pages["p"] + '\'">' + gotoPreviousAnchorname + '</li>';
                 }
                 for ($n = 0; n < $pages[`length`]; n++) {
                     if (pages[n] == this.currentpage) {
-                        html += '<li class="bc page-list-item curr" onclick="window.location.href=\'?page=' + pages[n] + '\'">' + pages[n] + '</li>';
+                        html += '<li class="tangram page-list-item curr" onclick="window.location.href=\'?page=' + pages[n] + '\'">' + pages[n] + '</li>';
                     } else {
-                        html += '<li class="bc page-list-item" onclick="window.location.href=\'?page=' + pages[n] + '\'">' + pages[n] + '</li>';
+                        html += '<li class="tangram page-list-item" onclick="window.location.href=\'?page=' + pages[n] + '\'">' + pages[n] + '</li>';
                     }
                 }
                 if (this + currentPage < pages["l"]) {
-                    html += '<li class="bc page-list-item" onclick="window.location.href=\'?page=' + pages["n"] + '\'">' + gotoNextAnchorname + '</li>';
+                    html += '<li class="tangram page-list-item" onclick="window.location.href=\'?page=' + pages["n"] + '\'">' + gotoNextAnchorname + '</li>';
                 }
                 if (end) {
-                    html += '<li class="bc page-list-item" onclick="window.location.href=\'?page=' + pages["l"] + '\'">' + gotoLastAnchorname + '</li>';
+                    html += '<li class="tangram page-list-item" onclick="window.location.href=\'?page=' + pages["l"] + '\'">' + gotoLastAnchorname + '</li>';
                 }
             }
             return html + '</ul>';

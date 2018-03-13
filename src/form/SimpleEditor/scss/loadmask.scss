@@ -1,6 +1,6 @@
 /*** EDITOR LOADMASK ***/
 
-.bc.simpleeditor .bc.se-loadmask {
+.tangram.simpleeditor .tangram.se-loadmask {
     display: none;
     position: absolute;
     width: 100%;
@@ -12,12 +12,12 @@
     z-index: -9999;
 }
 
-.bc.simpleeditor .bc.se-loadmask.on {
+.tangram.simpleeditor .tangram.se-loadmask.on {
     display: block;
     z-index: 9999;
 }
 
-.bc.simpleeditor .bc.se-spinner {
+.tangram.simpleeditor .tangram.se-spinner {
     margin: auto;
     position: absolute;
     width: 50px;
@@ -30,7 +30,7 @@
     font-size: 10px;
 }
 
-.bc.simpleeditor .bc.se-spinner>div {
+.tangram.simpleeditor .tangram.se-spinner>div {
     background-color: #67CF22;
     height: 100%;
     width: 6px;
@@ -40,22 +40,22 @@
     margin: 0px 2px;
 }
 
-.bc.simpleeditor .bc.se-spinner .bc.se-rect2 {
+.tangram.simpleeditor .tangram.se-spinner .tangram.se-rect2 {
     -webkit-animation-delay: -1.1s;
     animation-delay: -1.1s;
 }
 
-.bc.simpleeditor .bc.se-spinner .bc.se-rect3 {
+.tangram.simpleeditor .tangram.se-spinner .tangram.se-rect3 {
     -webkit-animation-delay: -1.0s;
     animation-delay: -1.0s;
 }
 
-.bc.simpleeditor .bc.se-spinner .bc.se-rect4 {
+.tangram.simpleeditor .tangram.se-spinner .tangram.se-rect4 {
     -webkit-animation-delay: -0.9s;
     animation-delay: -0.9s;
 }
 
-.bc.simpleeditor .bc.se-spinner .bc.se-rect5 {
+.tangram.simpleeditor .tangram.se-spinner .tangram.se-rect5 {
     -webkit-animation-delay: -0.8s;
     animation-delay: -0.8s;
 }

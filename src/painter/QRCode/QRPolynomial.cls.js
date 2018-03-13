@@ -1,12 +1,12 @@
 /*!
- * Block.JS Framework Source Code
+ * Tangram.JS Framework Source Code
  *
  * extend_static_methods graphic/canvas
  *
  * Date: 2017-04-06
  */
 
-block([
+tangram.block([
     '$_/math/qrcode.xtd'
 ], function(pandora, global, undefined) {
     var _ = pandora,

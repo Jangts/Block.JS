@@ -1,13 +1,13 @@
 /*!
- * Block.JS Framework Source Code
+ * Tangram.JS Framework Source Code
  *
- * http://www.yangram.net/blockjs/
+ * http://www.yangram.net/tangram.js/
  *
  * Date: 2017-04-06
  */
 
 ;
-block([
+tangram.block([
     '$_/util/bool.xtd',
     '$_/dom/'
 ], function(pandora, global, undefined) {

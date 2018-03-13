@@ -1,4 +1,4 @@
-block([
+tangram.block([
     '$_/dom/',
     '$_/Time/Month.cls'
 ], function(pandora, global, undefined) {

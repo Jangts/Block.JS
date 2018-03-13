@@ -3,8 +3,8 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Block.JS Javascript Database Storage</title>
-    <script src="../../src/block.js" data-use-debugmode></script>
+    <title>Tangram.JS Javascript Database Storage</title>
+    <script src="../../src/tangram.js" data-use-debugmode></script>
     <style>
 
     </style>
@@ -17,13 +17,13 @@
         </tbody>
     </table>
     <script>
-        block(['$_/data/Storage.cls'], function(_, global, undefined) {
+        tangram.block(['$_/data/Storage.cls'], function(_, global, undefined) {
             var db = new _.data.Storage('mydatabase');
             if (db.length == 0) {
-                db.set('blockjs', {
-                        name: 'blockjs',
+                db.set('tangram.js', {
+                        name: 'tangram.js',
                         type: 'Javascripts Framework',
-                        keywords: ['block', 'blockjs', 'Javascripts Framework', 'nidn']
+                        keywords: ['block', 'tangram.js', 'Javascripts Framework', 'nidn']
                     })
                     .set('YangRAM', {
                         name: 'YangRAM',
@@ -33,7 +33,7 @@
                 console.log('Added');
             }
             // db.clear();
-            //console.log(db.get('blockjs'), db.get('YangRAM'));
+            //console.log(db.get('tangram.js'), db.get('YangRAM'));
 
             console.log(_.data.Storage('mydatabase'), new _.data.Storage('mydatabase'));
         }, true);

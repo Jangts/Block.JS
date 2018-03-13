@@ -1,5 +1,5 @@
 /*!
- * Block.JS Framework Source Code
+ * Tangram.JS Framework Source Code
  * 互联代码块框架源码
  * A Web Front-end Development Javascript Framework
  * 一个互联网前端开发脚本框架
@@ -7,12 +7,35 @@
  * 主要用于DOM操作，数据操作，图形相关，前端视觉，和一些基础计算。
  *
  * Written and Designed By Jang Ts
- * http://nidn.yangram.com/blockjs/
+ * http://nidn.yangram.com/tangram.js/
  *
  * Date 2017-04-06
  */
 ;
-(function(global, undefined) {
+(function(global, factory) {
+
+    if (typeof define === 'function' && define.amd) {
+        // AMD
+        // console.log(0);
+        define('tangram', function() {
+            return factory(global);
+        });
+
+    } else if (typeof exports === 'object') {
+        // console.log(1);
+        global.console = console;
+        global.tangram = factory(global);
+        exports = module.exports = {
+            tangram: global.tangram,
+            block: global.tangram.block
+        }
+    } else {
+        // console.log(2);
+        global.tangram = factory(global);
+        global.block = global.tangram.block;
+    }
+
+}(this, function(global, undefined) {
 
     /**
      * ------------------------------------------------------------------
@@ -21,9 +44,9 @@
      * ------------------------------------------------------------------
      */
 
-    var name = 'Block.JS JavaScript Framework',
+    var name = 'Tangram.JS JavaScript Framework',
         version = '0.9.00',
-        website = 'nidn.yangram.com/blockjs/',
+        website = 'nidn.yangram.com/tangram.js/',
 
         /* 获取当前时间戳 */
         startTime = new Date(),
@@ -38,20 +61,22 @@
         document = global.document,
         // 获取页面的head元素，如果没有的话，创建之
         head = (function() {
-            if (document.head) {
-                return document.head;
-            }
+            if (document) {
+                if (document.head) {
+                    return document.head;
+                }
 
-            // 兼容一些奇怪的浏览器
-            var head = document.getElementsByTagName('head')[0];
-            if (head) {
+                // 兼容一些奇怪的浏览器
+                var head = document.getElementsByTagName('head')[0];
+                if (head) {
+                    return head;
+                }
+                /* 如果原网页中没有HEAD标签，则创建一个 */
+                head = document.createElement('head'),
+                    documentElement = document.documentElement || document.getElementsByTagName('*')[0];
+                documentElement.appendChild(head);
                 return head;
             }
-            /* 如果原网页中没有HEAD标签，则创建一个 */
-            head = document.createElement('head'),
-                documentElement = document.documentElement || document.getElementsByTagName('*')[0];
-            documentElement.appendChild(head);
-            return head;
         })(),
 
         /********************
@@ -112,34 +137,38 @@
 
         /* 计算宿主文件的目录地址 */
         maindir = (function() {
-            var pathname_array = location.pathname.split('/');
-            pathname_array.length--;
-            return location.origin + pathname_array.join('/') + '/';
+            if (location) {
+                var pathname_array = location.pathname.split('/');
+                pathname_array.length--;
+                return location.origin + pathname_array.join('/') + '/';
+            }
         })(),
 
         /* 计算核心运行文件的相关信息 */
         runtime = (function() {
-            var scripts = document.getElementsByTagName('script'),
-                preg = /([\w\-\.\/:]+\/)block[\w\-\.]*\.js/i,
-                i,
-                src,
-                matchs;
-            for (i = scripts.length - 1; i >= 0; i--) {
-                if (scripts[i].hasAttribute('blockjs')) {
-                    return {
-                        Element: scripts[i],
-                        Pathname: calculateRelativePath(scripts[i].src)
-                    };
-                }
-                src = scripts[i].src || '';
-                matchs = src.match(preg);
-                if (matchs) {
-                    return {
-                        Element: scripts[i],
-                        Pathname: calculateRelativePath(src)
-                    };
-                }
-            };
+            if (document) {
+                var scripts = document.getElementsByTagName('script'),
+                    preg = /([\w\-\.\/:]+\/)block[\w\-\.]*\.js/i,
+                    i,
+                    src,
+                    matchs;
+                for (i = scripts.length - 1; i >= 0; i--) {
+                    if (scripts[i].hasAttribute('tangram.js')) {
+                        return {
+                            Element: scripts[i],
+                            Pathname: calculateRelativePath(scripts[i].src)
+                        };
+                    }
+                    src = scripts[i].src || '';
+                    matchs = src.match(preg);
+                    if (matchs) {
+                        return {
+                            Element: scripts[i],
+                            Pathname: calculateRelativePath(src)
+                        };
+                    }
+                };
+            }
             return {
                 Element: null,
                 Pathname: './'
@@ -165,10 +194,10 @@
 
         /* 强制报错：当方法被调用时抛出相应的错误描述 */
         error = function(str) {
-            throw "Block.JS Error: " + str;
+            throw "Tangram.JS Error: " + str;
         },
 
-        /* 调式报错：只有Block.JS处于调试模式时，才会抛出相应的错误描述，否则返回一个布尔值 */
+        /* 调式报错：只有Tangram.JS处于调试模式时，才会抛出相应的错误描述，否则返回一个布尔值 */
         debug = function(str) {
             if (useDebugMode) {
                 error(str);
@@ -304,6 +333,113 @@
 
     /**
      * ------------------------------------------------------------------
+     * Define Generic Data Cache Container, and hanlders of locker area
+     * 定义通用数据缓存容器，及缓存区的操作方法
+     * ------------------------------------------------------------------
+     */
+
+    var storage = {
+            maps: {
+                /* 链接标签映射 */
+                linkTags: {},
+                /* 缺省加载源类型 */
+                sourceTypes: {
+                    js: {
+                        tag: 'script',
+                        source: 'src'
+                    },
+                    css: {
+                        tag: 'link',
+                        source: 'href',
+                        attrs: {
+                            type: 'text/css',
+                            rel: 'stylesheet'
+                        }
+                    },
+                    img: {
+                        tag: 'img',
+                        source: 'src'
+                    }
+                },
+                /* 标识符注册表 */
+                identifiersReg: [],
+                /* 标识符描述映射表 */
+                identifiersMap: {},
+            },
+            classes: {},
+            classesSharedSpace: {},
+            locales: {},
+            core: runtime,
+            packagesUrl: runtime.Pathname,
+            blocks: {
+                /* 临时代码块缓存 */
+                temp: [],
+                /* 主代码块 */
+                mains: [],
+                /* 从（引用）代码块 */
+                requires: {}
+            },
+            mainUrl: './',
+            locker: {},
+            afters: []
+        },
+
+        /* 缓存接口 */
+        lockerHandlers = {
+            /**
+             * 储存
+             * 
+             * @param mixed     data    数据
+             * @param string    salt    自定义标识
+             * @return string
+             */
+            save: function(data, salt) {
+                key = new Identifier(salt).toString();
+                storage.locker[key] = data;
+                return key
+            },
+
+            /**
+             * 读取
+             * @param string key 缓存密钥
+             * @return mixed
+             */
+            read: function(key) {
+                return storage.locker[key]
+            },
+
+            /**
+             * 删除
+             * 
+             * @param string key 缓存密钥
+             * @return undefined
+             */
+            dele: function(key) {
+                storage.locker[key] = undefined;
+                delete storage.locker[key]
+            },
+
+            /**
+             * 检查缓存列表，仅调试模式下可用
+             * 
+             * @return undefined
+             */
+            chck: function() {
+                if (useDebugMode) {
+                    var i;
+                    each(storage.locker, function(index, locker) {
+                        i++;
+                        console.log(locker);
+                    });
+                    i === undefined && console.log('no data in locker');
+                } else {
+                    error('The locker list can be checked only in the debug mode.');
+                }
+            }
+        };
+
+    /**
+     * ------------------------------------------------------------------
      * Identifier, Iterator and LoadURL
      * 唯一标识符、迭代器，及加载器
      * ------------------------------------------------------------------
@@ -386,8 +522,8 @@
      */
 
     /* 为标识符构造器绑定原型 */
-    Identifier.prototype = {
-        _p: Storage.classesSharedSpace,
+    storage.classes.Identifier = Identifier.prototype = {
+        _p: storage.classesSharedSpace,
 
         /**
          * 标识符构造函数
@@ -451,11 +587,11 @@
     };
 
     /* 为迭代器绑定原型 */
-    Iterator.prototype = new Array;
+    storage.classes.Iterator = Iterator.prototype = new Array;
 
     /* 拓展迭代器的原型 */
     extend(Iterator.prototype, true, {
-        _p: Storage.classesSharedSpace,
+        _p: storage.classesSharedSpace,
 
         /**
          * 迭代器构造函数
@@ -602,116 +738,6 @@
 
     /**
      * ------------------------------------------------------------------
-     * Define Generic Data Cache Container, and hanlders of locker area
-     * 定义通用数据缓存容器，及缓存区的操作方法
-     * ------------------------------------------------------------------
-     */
-
-    var storage = {
-            maps: {
-                /* 链接标签映射 */
-                linkTags: {},
-                /* 缺省加载源类型 */
-                sourceTypes: {
-                    js: {
-                        tag: 'script',
-                        source: 'src'
-                    },
-                    css: {
-                        tag: 'link',
-                        source: 'href',
-                        attrs: {
-                            type: 'text/css',
-                            rel: 'stylesheet'
-                        }
-                    },
-                    img: {
-                        tag: 'img',
-                        source: 'src'
-                    }
-                },
-                /* 标识符注册表 */
-                identifiersReg: [],
-                /* 标识符描述映射表 */
-                identifiersMap: {},
-            },
-            classes: {
-                'Iterator': Iterator.prototype,
-                'Identifier': Identifier.prototype
-            },
-            classesSharedSpace: {},
-            locales: {},
-            core: runtime,
-            packagesUrl: runtime.Pathname,
-            blocks: {
-                /* 临时代码块缓存 */
-                temp: [],
-                /* 主代码块 */
-                mains: [],
-                /* 从（引用）代码块 */
-                requires: {}
-            },
-            mainUrl: './',
-            locker: {},
-            afters: []
-        },
-
-        /* 缓存接口 */
-        lockerHandlers = {
-            /**
-             * 储存
-             * 
-             * @param mixed     data    数据
-             * @param string    salt    自定义标识
-             * @return string
-             */
-            save: function(data, salt) {
-                key = new Identifier(salt).toString();
-                storage.locker[key] = data;
-                return key
-            },
-
-            /**
-             * 读取
-             * @param string key 缓存密钥
-             * @return mixed
-             */
-            read: function(key) {
-                return storage.locker[key]
-            },
-
-            /**
-             * 删除
-             * 
-             * @param string key 缓存密钥
-             * @return undefined
-             */
-            dele: function(key) {
-                storage.locker[key] = undefined;
-                delete storage.locker[key]
-            },
-
-            /**
-             * 检查缓存列表，仅调试模式下可用
-             * 
-             * @return undefined
-             */
-            chck: function() {
-                if (useDebugMode) {
-                    var i;
-                    each(storage.locker, function(index, locker) {
-                        i++;
-                        console.log(locker);
-                    });
-                    i === undefined && console.log('no data in locker');
-                } else {
-                    error('The locker list can be checked only in the debug mode.');
-                }
-            }
-        };
-
-    /**
-     * ------------------------------------------------------------------
      * Definition of Pandora Box and Class Factory
      * 初始化潘多拉盒子与类工厂
      * ------------------------------------------------------------------
@@ -783,7 +809,7 @@
                     },
 
                     /**
-                     * 获取Block.JS全名
+                     * 获取Tangram.JS全名
                      * 
                      * @return string
                      */
@@ -801,7 +827,7 @@
                     },
 
                     /**
-                     * 转到Block.JS官网
+                     * 转到Tangram.JS官网
                      * 
                      * @return undefined
                      */
@@ -1120,13 +1146,13 @@
 
 
         /********************
-         * The blockjs class factory
-         * Block.JS类工厂
+         * The tangram.js class factory
+         * Tangram.JS类工厂
          */
 
         /* 祖先类 */
         blockClass = {
-            _p: Storage.classesSharedSpace,
+            _p: storage.classesSharedSpace,
             _init: function() {},
             _x: Identifier.prototype._x,
             _c: Identifier.prototype._c
@@ -1326,7 +1352,7 @@
              * @return undefined
              */
             callback: function() {
-                console.log('Block.JS has loaded some require libraries.');
+                console.log('Tangram.JS has loaded some require libraries.');
             },
             /**
              * 加载下一个
@@ -1409,13 +1435,9 @@
             }
         });
 
-    /********************
-     * Expand the block interface and expose it to the global
-     * 拓展block接口并暴露其到全局
-     */
-
-    /* 扩展接口 */
-    extend(block, {
+    /* 接口开放到全局 */
+    var tangram = {
+        block: block,
         /**
          * 全局配置
          * object options {
@@ -1490,10 +1512,7 @@
         after: function(codes) {
             storage.afters.push(codes);
         }
-    });
-
-    /* 接口开放到全局 */
-    global.block = block;
+    };
 
     /**
      * ------------------------------------------------------------------
@@ -1512,7 +1531,7 @@
             loadURL(url, '$Config');
         };
         if (global.blockConfiguration) {
-            block.config(global.blockConfiguration);
+            tangram.config(global.blockConfiguration);
         }
         if (mains) {
             var mArr = mains.split(/,\s*/);
@@ -1528,11 +1547,13 @@
 
     /* 检查是否调试模式 */
     if (useDebugMode) {
-        global.console.log(storage);
+        console.log(storage);
     }
 
     /* 打卡 */
     if (!global.parent || global.parent == global) {
-        global.console.log('[' + startTime.toLocaleString() + ']Block.JS Framework Start Working!');
+        console.log('[' + startTime.toLocaleString() + ']Tangram.JS Framework Start Working!');
     }
-}(window));
+
+    return tangram;
+}));

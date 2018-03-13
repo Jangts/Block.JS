@@ -1,12 +1,12 @@
 /*!
- * Block.JS Framework Source Code
+ * Tangram.JS Framework Source Code
  *
  * class painter/Charts
  *
  * Date: 2015-09-04
  */
 ;
-block([
+tangram.block([
     '$_/util/arr.xtd',
     '$_/painter/Charts/radar.clsx',
     '$_/painter/Charts/type/Default.cls',

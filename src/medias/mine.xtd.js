@@ -1,12 +1,12 @@
 /*!
- * Block.JS Framework Source Code
+ * Tangram.JS Framework Source Code
  *
  * class media/mime
  *
  * Date: 2017-04-06
  */
 ;
-block(function(_, global, undefined) {
+tangram.block(function(_, global, undefined) {
     _('media.mimes', {
         "css": "text/css",
         "gif": "image/gif",

@@ -1,5 +1,5 @@
 /*!
- * Block.JS Framework Source Code
+ * Tangram.JS Framework Source Code
  *
  * static util.imports
  * init UMD
@@ -7,7 +7,7 @@
  * Date 2017-04-06
  */
 ;
-block(function(pandora, global, undefined) {
+tangram.block(function(pandora, global, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
         cache = pandora.locker,

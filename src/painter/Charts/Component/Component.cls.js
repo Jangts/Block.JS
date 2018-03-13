@@ -1,12 +1,12 @@
 /*!
- * Block.JS Framework Source Code
+ * Tangram.JS Framework Source Code
  *
  * class painter/Charts/Element
  *
  * Date: 2015-09-04
  */
 ;
-block([
+tangram.block([
     '$_/painter/Charts/Charts.cls',
     '$_/painter/Charts/util/helpers.xtd'
 ], function(pandora, global, undefined) {

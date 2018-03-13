@@ -1,12 +1,12 @@
 /*!
- * Block.JS Framework Source Code
+ * Tangram.JS Framework Source Code
  *
  * class forms/SimpleEditor
  * 
  * Date: 2015-09-04
  */
 ;
-block([
+tangram.block([
     '$_/form/SimpleEditor/style.css',
     '$_/util/bool.xtd',
     '$_/dom/HTMLClose.cls',
@@ -108,11 +108,9 @@ block([
         },
         inForm: function(formElement) {
             return _.dom.contain(formElement, this.editarea);
-            var parents = _.dom.getParentNodes();
-            return _.bool.inArr(formElement, parents);
         },
         hideExtTools: function() {
-            _.each(_.query('.bc.se-tool[data-ib-dialog], .bc.se-tool[data-ib-cmds]', this.toolarea), function(i, el) {
+            _.each(_.query('.tangram.se-tool[data-ib-dialog], .tangram.se-tool[data-ib-cmds]', this.toolarea), function(i, el) {
                 _.dom.toggleClass(this, 'active', false);
             });
             return this;
@@ -120,7 +118,7 @@ block([
         showDialog: function(dialog) {
             this.hideExtTools();
             if (dialog) {
-                var button = arguments[1] || _.query('.bc.se-tool[data-ib-dialog=' + dialog + ']', this.toolarea)[0];
+                var button = arguments[1] || _.query('.tangram.se-tool[data-ib-dialog=' + dialog + ']', this.toolarea)[0];
                 _.dom.toggleClass(button, 'active');
             };
             return this;
@@ -129,9 +127,9 @@ block([
             this.hideExtTools();
             if (cmds) {
                 var height = _.dom.getHeight(this.richarea, 'box');
-                var button = arguments[1] || _.query('.bc.se-tool[data-ib-cmds=' + cmds + ']', this.toolarea)[0];
+                var button = arguments[1] || _.query('.tangram.se-tool[data-ib-cmds=' + cmds + ']', this.toolarea)[0];
                 _.dom.toggleClass(button, 'active');
-                var list = _.query('.bc.se-pick', button)[0];
+                var list = _.query('.tangram.se-pick', button)[0];
                 _.dom.setStyle(list, 'max-height', height - 15);
             };
             return this;

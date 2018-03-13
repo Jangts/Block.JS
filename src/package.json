@@ -1,19 +1,23 @@
 {
-    "name": "blockjs",
-    "description": "",
+    "name": "@jangts/tangram.js",
+    "description": "A Web Front-end Development Javascript Framework",
     "version": "2.0.1",
     "keywords": [
-        "blockjs",
-        "Block.JS"
+        "tangram.js",
+        "Tangram.JS"
     ],
-    "main": "./block.js",
+    "main": "./tangram.js",
     "repository": {
         "type": "git",
-        "url": "git://github.com/YangRAM/Block.JS"
+        "url": "https://github.com/NIDN/tangram.js.git"
     },
-    "readmeFilename": "README.md",
+    "license": "MIT",
     "bugs": {
-        "url": "https://github.com/YangRAM/Block.JS/issues"
+        "url": "https://github.com/NIDN/tangram.js/issues"
     },
-    "homepage": "https://github.com/YangRAM/Block.JS"
+    "author": "Jangts",
+    "homepage": "https://github.com/NIDN/tangram.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    }
 }

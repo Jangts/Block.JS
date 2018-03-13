@@ -1,5 +1,5 @@
 /*!
- * Block.JS Framework Source Code
+ * Tangram.JS Framework Source Code
  *
  * class dom.Template
  *
@@ -8,7 +8,7 @@
  * Contact xiaodpro@gmail.com
  */
 ;
-block(['$_/util/str.xtd'], function(pandora, global, undefined) {
+tangram.block(['$_/util/str.xtd'], function(pandora, global, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
         cache = pandora.locker,

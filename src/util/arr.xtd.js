@@ -1,12 +1,12 @@
 /*!
- * Block.JS Framework Source Code
+ * Tangram.JS Framework Source Code
  *
  * static util.arr
  *
  * Date 2017-04-06
  */
 ;
-block(['$_/util/type.xtd'], function(pandora, global, undefined) {
+tangram.block(['$_/util/type.xtd'], function(pandora, global, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
         cache = pandora.locker,

@@ -1,12 +1,12 @@
 ﻿/*!
- * Block.JS Framework Source Code
+ * Tangram.JS Framework Source Code
  *
  * class medias.FlashSoundPlayer
  *
  * Date 2017-04-06
  */
 ;
-block('$_/dom/', function(pandora, global, undefined) {
+tangram.block('$_/dom/', function(pandora, global, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
         document = global.document,

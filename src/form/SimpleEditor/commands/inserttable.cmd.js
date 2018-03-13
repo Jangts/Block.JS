@@ -1,19 +1,19 @@
 /*!
- * Block.JS Framework Source Code
+ * Tangram.JS Framework Source Code
  *
  * class forms/SimpleEditor
  * 
  * Date: 2015-09-04
  */
 ;
-block([
+tangram.block([
     '$_/dom/',
     '$_/form/SimpleEditor/commands/insert.cmds'
 ], function(pandora, global, undefined) {
     var _ = pandora,
         cache = pandora.locker,
         console = global.console,
-        
+
         regMethod = cache.read(new _.Identifier('EDITOR_REG_M').toString()),
         regCommand = cache.read(new _.Identifier('EDITOR_REG_CMD').toString()),
         regCreater = cache.read(new _.Identifier('EDITOR_REG_C').toString()),
@@ -51,18 +51,18 @@ block([
     });
 
     regCreater('inserttable', function() {
-        var html = '<dialog class="bc se-dialog">';
-        html += '<span class="bc se-title">Insert Table</span>';
-        html += '<div class="bc se-attr"><div class="bc se-attr-left">';
-        html += '<label>Size</label><input type="text" class="bc se-table-rows" placeholder="1">';
-        html += '<span>×</span><input type="text" class="bc se-table-columns" placeholder="1">';
-        html += '</div><div class="bc se-attr-right">';
-        html += '<label>Width</label><input type="text" class="bc se-table-width" placeholder="100">';
-        html += '<select class="bc se-table-unit">';
+        var html = '<dialog class="tangram se-dialog">';
+        html += '<span class="tangram se-title">Insert Table</span>';
+        html += '<div class="tangram se-attr"><div class="tangram se-attr-left">';
+        html += '<label>Size</label><input type="text" class="tangram se-table-rows" placeholder="1">';
+        html += '<span>×</span><input type="text" class="tangram se-table-columns" placeholder="1">';
+        html += '</div><div class="tangram se-attr-right">';
+        html += '<label>Width</label><input type="text" class="tangram se-table-width" placeholder="100">';
+        html += '<select class="tangram se-table-unit">';
         html += '<option value="%" selected="selected">%</option>';
         html += '<option value="">px</option>';
         html += '</select></div></div>';
-        html += '<div class="bc se-btns">';
+        html += '<div class="tangram se-btns">';
         html += '<button type="button" data-ib-cmd="inserttable">OK</button>';
         html += '</div>';
         html += '</dialog>';
@@ -71,10 +71,10 @@ block([
 
     regDialog('inserttable', function(btn) {
         var dialog = _.dom.closest(btn, 'dialog');
-        var rowsInput = _.query('.bc.se-attr .bc.se-table-rows', dialog)[0];
-        var columnsInput = _.query('.bc.se-attr .bc.se-table-columns', dialog)[0];
-        var widthInput = _.query('.bc.se-attr .bc.se-table-width', dialog)[0];
-        var unitInput = _.query('.bc.se-attr .bc.se-table-unit', dialog)[0];
+        var rowsInput = _.query('.tangram.se-attr .tangram.se-table-rows', dialog)[0];
+        var columnsInput = _.query('.tangram.se-attr .tangram.se-table-columns', dialog)[0];
+        var widthInput = _.query('.tangram.se-attr .tangram.se-table-width', dialog)[0];
+        var unitInput = _.query('.tangram.se-attr .tangram.se-table-unit', dialog)[0];
         if (rowsInput && columnsInput) {
             return {
                 rows: rowsInput.value == '' ? 1 : rowsInput.value,

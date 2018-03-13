@@ -1,8 +1,8 @@
 @charset "utf-8";
 
-/*** .bc.kalendar ***/
+/*** .tangram.kalendar ***/
 
-.bc.kalendar {
+.tangram.kalendar {
     display: block;
     width: 380px;
     height: 450px;
@@ -10,14 +10,14 @@
     overflow: hidden;
 }
 
-.bc.kalendar .months {
+.tangram.kalendar .months {
     display: block;
     width: 360px;
     height: 80px;
     margin: 10px 10px 0;
 }
 
-.bc.kalendar .months .month {
+.tangram.kalendar .months .month {
     display: block;
     height: 80px;
     text-align: center;
@@ -27,26 +27,26 @@
     transition: all ease .4s;
 }
 
-.bc.kalendar .months .prev-month {
+.tangram.kalendar .months .prev-month {
     width: 55px;
     float: left;
     font-family: Consola;
     font-size: 32px;
 }
 
-.bc.kalendar .months .curr-month {
+.tangram.kalendar .months .curr-month {
     width: 250px;
     float: left;
 }
 
-.bc.kalendar .months .next-month {
+.tangram.kalendar .months .next-month {
     width: 55px;
     float: right;
     font-family: Consola;
     font-size: 32px;
 }
 
-.bc.kalendar .week {
+.tangram.kalendar .week {
     display: block;
     width: 350px;
     height: 28px;
@@ -54,7 +54,7 @@
     padding: 5px;
 }
 
-.bc.kalendar .week .day-of-week {
+.tangram.kalendar .week .day-of-week {
     display: block;
     width: 46px;
     height: 24px;
@@ -67,7 +67,7 @@
     border-radius: 2px;
 }
 
-.bc.kalendar .days {
+.tangram.kalendar .days {
     display: block;
     width: 350px;
     height: 300px;
@@ -75,7 +75,7 @@
     padding: 5px;
 }
 
-.bc.kalendar .days .day {
+.tangram.kalendar .days .day {
     display: block;
     width: 48px;
     height: 48px;
@@ -87,74 +87,74 @@
     cursor: pointer;
 }
 
-.bc.kalendar .days .day.actived {
+.tangram.kalendar .days .day.actived {
     margin: 0;
 }
 
-.bc.kalendar .days .day.actived {
+.tangram.kalendar .days .day.actived {
     margin: 0;
 }
 
-.bc.kalendar .days .day:hover {
+.tangram.kalendar .days .day:hover {
     margin: 0;
 }
 
-.bc.kalendar .months {
+.tangram.kalendar .months {
     width: 360px;
     background: #222;
 }
 
-.bc.kalendar .months .month {
+.tangram.kalendar .months .month {
     color: #999;
 }
 
-.bc.kalendar .months .month:hover {
+.tangram.kalendar .months .month:hover {
     background: #181818;
 }
 
-.bc.kalendar .week {
+.tangram.kalendar .week {
     background: #222;
 }
 
-.bc.kalendar .week .day-of-week {
+.tangram.kalendar .week .day-of-week {
     color: #999;
 }
 
-.bc.kalendar .week .day-of-week:hover {
+.tangram.kalendar .week .day-of-week:hover {
     background: #191919;
 }
 
-.bc.kalendar .week .day-of-week.today {
+.tangram.kalendar .week .day-of-week.today {
     background: #191919;
 }
 
-.bc.kalendar .days {
+.tangram.kalendar .days {
     background: #222;
 }
 
-.bc.kalendar .days .day {
+.tangram.kalendar .days .day {
     color: #999;
     background: #181818;
 }
 
-.bc.kalendar .days .day.events {
+.tangram.kalendar .days .day.events {
     background: #522;
 }
 
-.bc.kalendar .days .day.today {
+.tangram.kalendar .days .day.today {
     background: #663300;
 }
 
-.bc.kalendar .days .day.actived,
-.bc.kalendar .days .day:hover {
+.tangram.kalendar .days .day.actived,
+.tangram.kalendar .days .day:hover {
     border: #ab3f45 1px solid;
 }
 
-.bc.kalendar .days .day.disabled {
+.tangram.kalendar .days .day.disabled {
     color: #666;
     background: #282828;
 }
 
-.bc.kalendar .days .day.disabled:hover {
+.tangram.kalendar .days .day.disabled:hover {
     border: #282828 1px solid;
 }

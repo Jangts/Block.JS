@@ -1,12 +1,12 @@
 /*!
- * Block.JS Framework Source Code
+ * Tangram.JS Framework Source Code
  *
  * static dom.VElement.diff
  *
  * Date 2017-04-06
  */
 ;
-block([
+tangram.block([
     '$_/util/bool.xtd',
     '$_/dom/',
     '$_/dom/VElement/patch.xtd',

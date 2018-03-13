@@ -1,19 +1,19 @@
 /*!
- * Block.JS Framework Source Code
+ * Tangram.JS Framework Source Code
  *
  * class forms/SimpleEditor
  * 
  * Date: 2015-09-04
  */
 ;
-block([
+tangram.block([
     '$_/dom/',
     '$_/form/SimpleEditor/commands/insert.cmds'
 ], function(pandora, global, undefined) {
     var _ = pandora,
         cache = pandora.locker,
         console = global.console,
-        
+
         regMethod = cache.read(new _.Identifier('EDITOR_REG_M').toString()),
         regCommand = cache.read(new _.Identifier('EDITOR_REG_CMD').toString()),
         regCreater = cache.read(new _.Identifier('EDITOR_REG_C').toString()),
@@ -88,23 +88,23 @@ block([
     });
 
     regCreater('insertvideo', function() {
-        var html = '<dialog class="bc se-dialog">';
-        html += '<span class="bc se-title">Insert Video</span>';
-        html += '<textarea class="bc se-code" placeholder="Embedded code"></textarea>';
-        html += '<div class="bc se-url">';
-        html += '<label>Enter URL</label><input type="text" class="bc se-input" placeholder="Video URL" />';
+        var html = '<dialog class="tangram se-dialog">';
+        html += '<span class="tangram se-title">Insert Video</span>';
+        html += '<textarea class="tangram se-code" placeholder="Embedded code"></textarea>';
+        html += '<div class="tangram se-url">';
+        html += '<label>Enter URL</label><input type="text" class="tangram se-input" placeholder="Video URL" />';
         html += '</div>';
-        html += '<div class="bc se-attr"><div class="bc se-attr-left">';
-        html += '<label>Size</label><input type="text" class="bc se-vidoe-width" placeholder="640">';
-        html += '<span>×</span><input type="text" class="bc se-vidoe-height" placeholder="480">';
-        html += '</div><div class="bc se-attr-right">';
-        html += '<label>Type</label><select class="bc se-vidoe-type">';
+        html += '<div class="tangram se-attr"><div class="tangram se-attr-left">';
+        html += '<label>Size</label><input type="text" class="tangram se-vidoe-width" placeholder="640">';
+        html += '<span>×</span><input type="text" class="tangram se-vidoe-height" placeholder="480">';
+        html += '</div><div class="tangram se-attr-right">';
+        html += '<label>Type</label><select class="tangram se-vidoe-type">';
         html += '<option value="swf" selected="selected">swf</option>';
         html += '<option value="webm">webm</option>';
         html += '<option value="mp4">mp4</option>';
         html += '<option value="ogg">ogg</option>';
         html += '</select></div></div>';
-        html += '<div class="bc se-btns">';
+        html += '<div class="tangram se-btns">';
         html += '<button type="button" data-ib-cmd="insertvideo">OK</button>';
         html += '</div>';
         html += '</dialog>';
@@ -113,16 +113,16 @@ block([
 
     regDialog('insertvideo', function(btn) {
         var dialog = _.dom.closest(btn, 'dialog');
-        var textarea = _.query('.bc.se-code', dialog)[0];
+        var textarea = _.query('.tangram.se-code', dialog)[0];
         if (textarea && textarea.value != '') {
             return {
                 code: textarea.value
             }
         }
-        var input = _.query('.bc.se-url .bc.se-input', dialog)[0];
-        var widthInput = _.query('.bc.se-attr .bc.se-vidoe-width', dialog)[0];
-        var heightInput = _.query('.bc.se-attr .bc.se-vidoe-height', dialog)[0];
-        var typeInput = _.query('.bc.se-attr .bc.se-vidoe-type', dialog)[0];
+        var input = _.query('.tangram.se-url .tangram.se-input', dialog)[0];
+        var widthInput = _.query('.tangram.se-attr .tangram.se-vidoe-width', dialog)[0];
+        var heightInput = _.query('.tangram.se-attr .tangram.se-vidoe-height', dialog)[0];
+        var typeInput = _.query('.tangram.se-attr .tangram.se-vidoe-type', dialog)[0];
         if (input && input.value != '') {
             return {
                 url: input.value,

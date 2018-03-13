@@ -4,12 +4,12 @@ $posis: relative,
 absolute,
 fixed;
 @each $posi in $posis {
-    .bc.#{$posi} {
+    .tangram.#{$posi} {
         position: $posi;
     }
 }
 
-.bc.hf-screen {
+.tangram.hf-screen {
     width: 50%;
     height: 50%;
     bottom: 50%;
@@ -17,25 +17,25 @@ fixed;
     overflow: visible;
 }
 
-.bc.hf-top {
+.tangram.hf-top {
     height: 50%;
     bottom: 50%;
     overflow: visible;
 }
 
-.bc.hf-right {
+.tangram.hf-right {
     width: 50%;
     left: 50%;
     overflow: visible;
 }
 
-.bc.hf-bottom {
+.tangram.hf-bottom {
     height: 50%;
     top: 50%;
     overflow: visible;
 }
 
-.bc.hf-left {
+.tangram.hf-left {
     width: 50%;
     right: 50%;
     overflow: visible;
@@ -44,37 +44,37 @@ fixed;
 
 /* Pulls */
 
-.bc.pl-left {
+.tangram.pl-left {
     float: left;
 }
 
-.bc.pl-right {
+.tangram.pl-right {
     float: right;
 }
 
-.bc.absolute.pl-left {
+.tangram.absolute.pl-left {
     float: none;
     left: 0;
     top: 0;
 }
 
-.bc.absolute.pl-right {
+.tangram.absolute.pl-right {
     float: none;
     right: 0;
     top: 0;
 }
 
-.bc.pl-center {
+.tangram.pl-center {
     display: block;
     margin: auto;
 }
 
-.bc.pl-top {
+.tangram.pl-top {
     position: absolute;
     top: 0px;
 }
 
-.bc.pl-bottom {
+.tangram.pl-bottom {
     position: absolute;
     bottom: 0px;
 }
@@ -97,56 +97,56 @@ $pds: 2,
 
 @each $d in $pds {
     @if($d==5) {
-        .bc.pa-0#{$d} {
+        .tangram.pa-0#{$d} {
             padding: #{$d}px;
         }
-        .bc.pa-h0#{$d} {
+        .tangram.pa-h0#{$d} {
             padding: 0 #{$d}px;
         }
-        .bc.pa-v0#{$d} {
+        .tangram.pa-v0#{$d} {
             padding: #{$d}px 0;
         }
     }
     @else if($d <10) {
-        .bc.pa-h0#{$d} {
+        .tangram.pa-h0#{$d} {
             padding: 0 #{$d}px;
         }
     }
     @else {
-        .bc.pa-#{$d} {
+        .tangram.pa-#{$d} {
             padding: #{$d}px;
         }
-        .bc.pa-h#{$d} {
+        .tangram.pa-h#{$d} {
             padding: 0 #{$d}px;
         }
-        .bc.pa-v#{$d} {
+        .tangram.pa-v#{$d} {
             padding: #{$d}px 0;
         }
     }
 }
 
-.bc.pa-none-top {
+.tangram.pa-none-top {
     padding-top: 0px;
 }
 
-.bc.pa-none-right {
+.tangram.pa-none-right {
     padding-right: 0px;
 }
 
-.bc.pa-none-bottom {
+.tangram.pa-none-bottom {
     padding-bottom: 0px;
 }
 
-.bc.pa-none-left {
+.tangram.pa-none-left {
     padding-left: 0px;
 }
 
-.bc.pa-none-vert {
+.tangram.pa-none-vert {
     padding-top: 0px;
     padding-bottom: 0px;
 }
 
-.bc.pa-none-hor {
+.tangram.pa-none-hor {
     padding-right: 0px;
     padding-left: 0px;
 }
@@ -166,55 +166,55 @@ $mds: 5,
 60;
 @each $d in $mds {
     @if($d <10) {
-        .bc.ma-0#{$d} {
+        .tangram.ma-0#{$d} {
             margin: #{$d}px;
         }
-        .bc.ma-t0#{$d} {
+        .tangram.ma-t0#{$d} {
             margin-top: #{$d}px;
         }
-        .bc.ma-r0#{$d} {
+        .tangram.ma-r0#{$d} {
             margin-right: #{$d}px;
         }
-        .bc.ma-b0#{$d} {
+        .tangram.ma-b0#{$d} {
             margin-bottom: #{$d}px;
         }
-        .bc.ma-l0#{$d} {
+        .tangram.ma-l0#{$d} {
             margin-left: #{$d}px;
         }
-        .bc.ma-v0#{$d} {
+        .tangram.ma-v0#{$d} {
             margin: #{$d}px auto;
         }
-        .bc.ma-h0#{$d} {
+        .tangram.ma-h0#{$d} {
             margin: 0 #{$d}px;
         }
-        .bc.ma-x0#{$d} {
+        .tangram.ma-x0#{$d} {
             margin-right: -#{$d/2}px;
             margin-left: -#{$d/2}px;
         }
     }
     @else {
-        .bc.ma-#{$d} {
+        .tangram.ma-#{$d} {
             margin: #{$d}px;
         }
-        .bc.ma-t#{$d} {
+        .tangram.ma-t#{$d} {
             margin-top: #{$d}px;
         }
-        .bc.ma-r#{$d} {
+        .tangram.ma-r#{$d} {
             margin-right: #{$d}px;
         }
-        .bc.ma-b#{$d} {
+        .tangram.ma-b#{$d} {
             margin-bottom: #{$d}px;
         }
-        .bc.ma-l#{$d} {
+        .tangram.ma-l#{$d} {
             margin-left: #{$d}px;
         }
-        .bc.ma-v#{$d} {
+        .tangram.ma-v#{$d} {
             margin: #{$d}px auto;
         }
-        .bc.ma-h#{$d} {
+        .tangram.ma-h#{$d} {
             margin: 0 #{$d}px;
         }
-        .bc.ma-x#{$d} {
+        .tangram.ma-x#{$d} {
             margin-right: -#{$d/2}px;
             margin-left: -#{$d/2}px;
         }

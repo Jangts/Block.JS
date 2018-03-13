@@ -1,18 +1,18 @@
 /*!
- * Block.JS Framework Source Code
+ * Tangram.JS Framework Source Code
  * A Web Front-end Development Javascript Framework
  * Mainly For DOM Operation, Data Exchange, Graphic Effects (Image, Canvas, SVG And Ect.), Front-end UI, And Some Basic Calculations.
  * Stripped from Tangram New Idea (TNI)
  *
  * class painter/Charts/typeExtend
- * http://www.yangram.net/blockjs/
+ * http://www.yangram.net/tangram.js/
  *
  * Written and Designed By Ivan Yeung
  *
  * Date: 2015-09-04
  */
 ;
-block([
+tangram.block([
     '$_/util/obj.xtd',
     '$_/painter/Charts/Charts.cls',
     '$_/painter/Charts/util/helpers.xtd',

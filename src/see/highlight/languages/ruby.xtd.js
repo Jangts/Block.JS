@@ -1,5 +1,5 @@
 /*!
- * Block.JS Framework Source Code
+ * Tangram.JS Framework Source Code
  *
  * static see.highlight.language
  *
@@ -11,7 +11,7 @@
  * 		constant, builtin, variable, symbol, regex
  */
 ;
-block([
+tangram.block([
     '$_/see/highlight/highlight.xtd',
     '$_/see/highlight/languages/clike.xtd'
 ], function(_, global, undefined) {

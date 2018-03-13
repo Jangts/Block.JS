@@ -1,12 +1,12 @@
 /*!
- * Block.JS Framework Source Code
+ * Tangram.JS Framework Source Code
  *
  * class widgets.POP
  *
  * Date 2017-04-06
  */
 ;
-block(['$_/util/COM.cls', '$_/dom/Elements/'], function(pandora, global, undefined) {
+tangram.block(['$_/util/COM.cls', '$_/dom/Elements/'], function(pandora, global, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
         cache = pandora.locker,
@@ -28,14 +28,14 @@ block(['$_/util/COM.cls', '$_/dom/Elements/'], function(pandora, global, undefin
         _init: function(elem) {
             this.Element = elem || function() {
                 var div = document.createElement('div');
-                div.className = 'bc popup';
+                div.className = 'tangram popup';
                 div.style.position = 'fixed';
-                div.innerHTML = '<div class="bc popup-mask"></div><div class="bc popup-document"></div>';
+                div.innerHTML = '<div class="tangram popup-mask"></div><div class="tangram popup-document"></div>';
                 document.body.appendChild(div);
                 return div;
             }();
-            this.mask = $('.bc.popup-mask', this.Element).get(0);
-            this.document = $('.bc.popup-document', this.Element).get(0);
+            this.mask = $('.tangram.popup-mask', this.Element).get(0);
+            this.document = $('.tangram.popup-document', this.Element).get(0);
         },
         builder: function() {
             _.dom.setStyle(this.Element, 'display', 'none');

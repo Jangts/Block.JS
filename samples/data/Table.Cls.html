@@ -3,8 +3,8 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Block.JS Javascript Database Table</title>
-    <script src="../../src/block.js" data-use-debugmode></script>
+    <title>Tangram.JS Javascript Database Table</title>
+    <script src="../../src/tangram.js" data-use-debugmode></script>
     <style>
 
     </style>
@@ -13,7 +13,7 @@
 <body>
     <div id="test"></div>
     <script>
-        block(['$_/dom/Elements/', '$_/data/Table.cls'], function(_, global, undefined) {
+        tangram.block(['$_/dom/Elements/', '$_/data/Table.cls'], function(_, global, undefined) {
             var $ = _.dom.select,
                 db = new _.data.Table('mytable');
             // db.drop();

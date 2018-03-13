@@ -3,9 +3,9 @@
 <head>
     <meta charset="utf-8">
     <title>Multiple Columns Text List</title>
-    <script type="text/javascript" src="http://blockjs.nidn.yangram.ni/src/block.js"></script>
-    <link type="text/css" rel="stylesheet" href="http://blockjs.nidn.yangram.ni/src/see/see.css">
-    <link type="text/css" rel="stylesheet" href="http://blockjs.nidn.yangram.ni/src/see/ListView/style.css">
+    <script type="text/javascript" src="http://tangram.js.nidn.yangram.ni/src/tangram.js"></script>
+    <link type="text/css" rel="stylesheet" href="http://tangram.js.nidn.yangram.ni/src/see/see.css">
+    <link type="text/css" rel="stylesheet" href="http://tangram.js.nidn.yangram.ni/src/see/ListView/style.css">
     <style>
         body {
             background-color: #eeeeee;
@@ -34,7 +34,7 @@
 <body>
     <section>
         <p class="sample-title">标签列表 1</p>
-        <ul class="bc listview tags-list">
+        <ul class="tangram listview tags-list">
             <li class="list-item">tag1</li>
             <li class="list-item">tag2</li>
             <li class="list-item">tag3</li>
@@ -48,7 +48,7 @@
 
     <section>
         <p class="sample-title">标签列表 2</p>
-        <ul class="bc listview tags-list blocks al-right">
+        <ul class="tangram listview tags-list blocks al-right">
             <li class="list-item">tag1</li>
             <li class="list-item">tag2</li>
             <li class="list-item">tag3<i>3</i></li>
@@ -62,7 +62,7 @@
 
     <section>
         <p class="sample-title">标签列表 3</p>
-        <ul class="bc listview tags-list pills al-center">
+        <ul class="tangram listview tags-list pills al-center">
             <li class="list-item">tag1</li>
             <li class="list-item">tag2</li>
             <li class="list-item">tag3</li>
@@ -76,7 +76,7 @@
 
     <section>
         <p class="sample-title">标签列表 4</p>
-        <ul class="bc listview tags-list blocks rounded blue">
+        <ul class="tangram listview tags-list blocks rounded blue">
             <li class="list-item">tag1</li>
             <li class="list-item">tag2<i>2</i></li>
             <li class="list-item">tag3</li>
@@ -89,7 +89,7 @@
     </section>
 
     <script type="text/javascript">
-        block('$_/dom/Elements/', function(_, global, undefined) {
+        tangram.block('$_/dom/Elements/', function(_, global, undefined) {
             var $ = _.dom.select;
             $('.list-item').click(function() {
                 $('.list-item', this.parentNode).removeClass('selected');

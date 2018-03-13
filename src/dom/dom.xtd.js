@@ -1,12 +1,12 @@
 /*!
- * Block.JS Framework Source Code
+ * Tangram.JS Framework Source Code
  *
  * static dom
  *
  * Date 2017-04-06
  */
 ;
-block([
+tangram.block([
     '$_/util/arr.xtd',
     '$_/dom/query.xtd',
     '$_/dom/Events.cls'

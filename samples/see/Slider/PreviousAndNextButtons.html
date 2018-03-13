@@ -3,70 +3,70 @@
 <head>
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Block.JS SLIDER P/N BUTTONS</title>
-    <script src="../../../src/block.js"></script>
+    <title>Tangram.JS SLIDER P/N BUTTONS</title>
+    <script src="../../../src/tangram.js"></script>
     <link href="../../../src/see/see.css" type="text/css" rel="stylesheet">
     <link href="../../../src/see/fa.css" type="text/css" rel="stylesheet">
     <link href="../../../src/see/Slider/common.css" type="text/css" rel="stylesheet">
     <link href="../../../src/see/Slider/panel.css" type="text/css" rel="stylesheet">
     <style>
-        .bc h510 {
+        .tangram h510 {
             width: 100%;
             height: 100%;
         }
         
-        .bc.slider .cutter.big-lt {
+        .tangram.slider .cutter.big-lt {
             left: 420px;
         }
         
-        .bc.slider .cutter.big-gt {
+        .tangram.slider .cutter.big-gt {
             right: 420px;
         }
         
-        .bc.slider .cutter.lt-in-circle,
-        .bc.slider .cutter.ll-in-circle,
-        .bc.slider .cutter.bl-in-circle {
+        .tangram.slider .cutter.lt-in-circle,
+        .tangram.slider .cutter.ll-in-circle,
+        .tangram.slider .cutter.bl-in-circle {
             left: 100px;
         }
         
-        .bc.slider .cutter.gt-in-circle,
-        .bc.slider .cutter.lg-in-circle,
-        .bc.slider .cutter.bg-in-circle {
+        .tangram.slider .cutter.gt-in-circle,
+        .tangram.slider .cutter.lg-in-circle,
+        .tangram.slider .cutter.bg-in-circle {
             right: 100px;
         }
         
-        .bc.slider .cutter.ll-in-circle {
+        .tangram.slider .cutter.ll-in-circle {
             top: 30%;
         }
         
-        .bc.slider .cutter.lg-in-circle {
+        .tangram.slider .cutter.lg-in-circle {
             top: 30%;
         }
         
-        .bc.slider .cutter.bl-in-circle {
+        .tangram.slider .cutter.bl-in-circle {
             top: 70%;
         }
         
-        .bc.slider .cutter.bg-in-circle {
+        .tangram.slider .cutter.bg-in-circle {
             top: 70%;
         }
         
-        .bc.slider .cutter.ll-in-bigcircle,
-        .bc.slider .cutter.lg-in-bigcircle {
+        .tangram.slider .cutter.ll-in-bigcircle,
+        .tangram.slider .cutter.lg-in-bigcircle {
             top: 30%;
         }
         
-        .bc.slider .cutter.bl-in-bigcircle,
-        .bc.slider .cutter.bg-in-bigcircle {
+        .tangram.slider .cutter.bl-in-bigcircle,
+        .tangram.slider .cutter.bg-in-bigcircle {
             top: 70%;
         }
     </style>
 </head>
 
 <body>
-    <section class="bc h480">
-        <div class="bc slider" data-use-slider-type="slide">
-            <div class="bc ov-hide stage width-full hfull">
+    <section class="tangram h480">
+        <div class="tangram slider" data-use-slider-type="slide">
+            <div class="tangram ov-hide stage width-full hfull">
                 <div class="troupe">
                     <section class="actor">
                         <img src="images/slider-0.jpg">
@@ -99,9 +99,9 @@
         </div>
     </section>
     <script>
-        block(['$_/dom/Elements/', '$_/see/Slider/slide.opts'], function(_, global, undefined) {
+        tangram.block(['$_/dom/Elements/', '$_/see/Slider/slide.opts'], function(_, global, undefined) {
             var $ = _.dom.select;
-            $('.bc.slider[data-use-slider-type]').each(function() {
+            $('.tangram.slider[data-use-slider-type]').each(function() {
                 var type = $(this).data('useSliderType');
                 new _.see.Slider(this, type, {
                     speed: 4000,

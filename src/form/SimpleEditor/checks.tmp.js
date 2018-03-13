@@ -1,12 +1,12 @@
 /*!
- * Block.JS Framework Source Code
+ * Tangram.JS Framework Source Code
  *
  * class forms/SimpleEditor
  * 
  * Date: 2015-09-04
  */
 ;
-block([
+tangram.block([
     '$_/dom/',
     '$_/util/Color.cls'
 ], function(pandora, global, undefined) {
@@ -36,12 +36,12 @@ block([
         checkFontFormat = function(style) {
             var range = this.selection.range;
             if (range && range.commonElem) {
-                _.each(_.query('.bc.se-pick li', this.toolarea), function(i, el) {
+                _.each(_.query('.tangram.se-pick li', this.toolarea), function(i, el) {
                     _.dom.toggleClass(this, 'selected', false);
                 });
-                selector = ", .fontsize .bc.se-font[data-ib-val=\"" + style.fontSize + "\"]";
-                selector += ", .forecolor .bc.se-color[data-ib-val=\"" + rbgaToHexadecimal(style.color) + "\"]";
-                selector += ", .backcolor .bc.se-color[data-ib-val=\"" + rbgaToHexadecimal(style.backgroundColor) + "\"]";
+                selector = ", .fontsize .tangram.se-font[data-ib-val=\"" + style.fontSize + "\"]";
+                selector += ", .forecolor .tangram.se-color[data-ib-val=\"" + rbgaToHexadecimal(style.color) + "\"]";
+                selector += ", .backcolor .tangram.se-color[data-ib-val=\"" + rbgaToHexadecimal(style.backgroundColor) + "\"]";
                 _.each(_.query(selector, this.toolarea), function(i, el) {
                     _.dom.toggleClass(this, 'selected', true);
                 });
@@ -109,28 +109,28 @@ block([
                     node = _.dom.closest(range.commonElem, 'table'),
                     row = _.dom.closest(range.commonElem, 'tr'),
                     cell = _.dom.closest(range.commonElem, 'td', true);
-                _.query('.bc.se-fontstatus .bc.se-color-input', this.statebar)[0].value = _.util.Color.rgbFormat(style.color, 'hex6');
+                _.query('.tangram.se-fontstatus .tangram.se-color-input', this.statebar)[0].value = _.util.Color.rgbFormat(style.color, 'hex6');
                 if (node && row) {
-                    _.query('.bc.se-tablestatus', this.statebar)[0].style.display = 'block';
+                    _.query('.tangram.se-tablestatus', this.statebar)[0].style.display = 'block';
                     var rowslen = node.rows.length,
                         colslen = row.cells.length;
                     this.selectedTable = node;
                     this.selectedTableRow = row;
                     this.selectedTableCell = cell;
                     //console.log([node]);
-                    _.query('.bc.se-tablestatus .bc.se-tablewidth-input', this.statebar)[0].value = node.offsetWidth;
-                    _.query('.bc.se-tablestatus .bc.se-rowslen', this.statebar)[0].value = rowslen;
-                    _.query('.bc.se-tablestatus .bc.se-colslen', this.statebar)[0].value = colslen;
-                    _.query('.bc.se-tablestatus .bc.se-border-input', this.statebar)[0].value = node.border || 0;
+                    _.query('.tangram.se-tablestatus .tangram.se-tablewidth-input', this.statebar)[0].value = node.offsetWidth;
+                    _.query('.tangram.se-tablestatus .tangram.se-rowslen', this.statebar)[0].value = rowslen;
+                    _.query('.tangram.se-tablestatus .tangram.se-colslen', this.statebar)[0].value = colslen;
+                    _.query('.tangram.se-tablestatus .tangram.se-border-input', this.statebar)[0].value = node.border || 0;
                 } else {
-                    _.query('.bc.se-tablestatus', this.statebar)[0].style.display = 'none';
+                    _.query('.tangram.se-tablestatus', this.statebar)[0].style.display = 'none';
                 }
                 if (this.selectedImage) {
-                    _.query('.bc.se-imagestatus', this.statebar)[0].style.display = 'block';
-                    _.query('.bc.se-imagestatus .bc.se-imgwidth-input', this.statebar)[0].value = this.selectedImage.offsetWidth;
-                    _.query('.bc.se-imagestatus .bc.se-imgheight-input', this.statebar)[0].value = this.selectedImage.offsetHeight;
-                    _.query('.bc.se-imagestatus .bc.se-border-input', this.statebar)[0].value = this.selectedImage.border || 0;
-                    var nodes = _.query('.bc.se-imagestatus .bc.se-imgfloat', this.statebar),
+                    _.query('.tangram.se-imagestatus', this.statebar)[0].style.display = 'block';
+                    _.query('.tangram.se-imagestatus .tangram.se-imgwidth-input', this.statebar)[0].value = this.selectedImage.offsetWidth;
+                    _.query('.tangram.se-imagestatus .tangram.se-imgheight-input', this.statebar)[0].value = this.selectedImage.offsetHeight;
+                    _.query('.tangram.se-imagestatus .tangram.se-border-input', this.statebar)[0].value = this.selectedImage.border || 0;
+                    var nodes = _.query('.tangram.se-imagestatus .tangram.se-imgfloat', this.statebar),
                         select = this.selectedImage.style.float ? this.selectedImage.style.float : 'none';
                     _.each(nodes, function(i, node) {
                         _.dom.toggleClass(node, 'active', false);
@@ -139,12 +139,12 @@ block([
                     if (_.util.arr.has(['left', 'right', 'none'], select) === false) {
                         select = 'none';
                     }
-                    _.dom.toggleClass(_.query('.bc.se-imagestatus .bc.se-imgfloat[data-float=' + select + ']', this.statebar)[0], 'active', true);
+                    _.dom.toggleClass(_.query('.tangram.se-imagestatus .tangram.se-imgfloat[data-float=' + select + ']', this.statebar)[0], 'active', true);
                     if (!this.selectedImage.border) {
                         _.dom.setAttr(this.selectedImage, '_selected', '_selected');
                     }
                 } else {
-                    _.query('.bc.se-imagestatus', this.statebar)[0].style.display = 'none';
+                    _.query('.tangram.se-imagestatus', this.statebar)[0].style.display = 'none';
                 }
             }
         };

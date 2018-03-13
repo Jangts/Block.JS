@@ -3,8 +3,8 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Block.JS HASH</title>
-    <script src="../../src/block.js" data-use-debugmode></script>
+    <title>Tangram.JS HASH</title>
+    <script src="../../src/tangram.js" data-use-debugmode></script>
     <style>
         .form {
             margin: 20px auto;
@@ -26,7 +26,7 @@
         2. 使用data.hash加密包中的md5和sha1方面加密一段文本；
         */
 
-        block(['$_/data/hash.xtd'], function(_, global, undefined) {
+        tangram.block(['$_/data/hash.xtd'], function(_, global, undefined) {
             var document = global.document,
                 input = document.getElementById('input'),
                 md5 = document.getElementById('md5'),

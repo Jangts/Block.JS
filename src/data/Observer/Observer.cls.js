@@ -1,12 +1,12 @@
 /*!
- * Block.JS Framework Source Code
+ * Tangram.JS Framework Source Code
  *
  * class data.Observer
  *
  * Date 2017-04-06
  */
 ;
-block([
+tangram.block([
     '$_/data/Observer/Subscriber.cls',
     '$_/data/Observer/Listener.cls'
 ], function(pandora, global, undefined) {

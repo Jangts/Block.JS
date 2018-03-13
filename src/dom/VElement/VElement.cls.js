@@ -1,12 +1,12 @@
 /*!
- * Block.JS Framework Source Code
+ * Tangram.JS Framework Source Code
  *
  * class dom.VElement
  *
  * Date 2017-04-06
  */
 ;
-block([
+tangram.block([
     '$_/util/bool.xtd',
     '$_/dom/',
     '$_/dom/VElement/patch.xtd',
@@ -21,7 +21,7 @@ block([
         diff = _.dom.VElement.diff;
 
     /**
-     * Block.JS Virtual Document Object Model
+     * Tangram.JS Virtual Document Object Model
      * 一个轻量的虚拟DOM类
      * 
      * @param   {String}    tagName         要创建的元素的标签名

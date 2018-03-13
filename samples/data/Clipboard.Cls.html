@@ -3,8 +3,8 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Block.JS CLIPBOARD</title>
-    <script src="../../src/block.js" data-use-debugmode></script>
+    <title>Tangram.JS CLIPBOARD</title>
+    <script src="../../src/tangram.js" data-use-debugmode></script>
     <style>
         .form {
             margin: 20px auto;
@@ -25,7 +25,7 @@
          * 2. 使用data.Clipboard类对文本进行编码和解码；
          */
         // data.Clipboard会自己加载util.bool和dom操作
-        block(['$_/data/Clipboard.cls'], function(_, global, undefined) {
+        tangram.block(['$_/data/Clipboard.cls'], function(_, global, undefined) {
             var input = _.dom.query.byId('input'),
                 copy = _.dom.query.byId('copy'),
                 clipboard = new _.data.Clipboard();

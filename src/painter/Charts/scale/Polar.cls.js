@@ -1,12 +1,12 @@
 /*!
- * Block.JS Framework Source Code
+ * Tangram.JS Framework Source Code
  *
  * extend_static_methods painter/Charts/util
  * 
  * Date: 2015-09-04
  */
 ;
-block([
+tangram.block([
     '$_/util/arr.xtd',
     '$_/painter/Charts/util/helpers.xtd',
     '$_/painter/Charts/Component/Component.cls'

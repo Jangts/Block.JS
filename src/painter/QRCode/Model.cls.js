@@ -1,12 +1,12 @@
 /*!
- * Block.JS Framework Source Code
+ * Tangram.JS Framework Source Code
  *
  * extend_static_methods graphic/canvas
  *
  * Date: 2017-04-06
  */
 
-block([
+tangram.block([
     '$_/painter/QRCode/QR8bitByte.cls',
     '$_/painter/QRCode/util.xtd',
     '$_/painter/QRCode/QRBitBuffer.cls',

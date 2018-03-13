@@ -19,7 +19,7 @@ $colorpairs: (fff, #FFFFFF, #111111),
 @each $name,
 $bgcolor,
 $color in $colorpairs {
-    .bc.bg-#{$name} {
+    .tangram.bg-#{$name} {
         background-color: $bgcolor;
         color: $color;
     }
@@ -31,7 +31,7 @@ $color in $colorpairs {
 $colors: (fff:#FFFFFF, e6:#E6E6E6, ccc:#CCCCCC, 888:#888888, 999:#999999, 666:#666666, 000:#000000, "red":#FF0000, "violet":#003AA6, "modena":#036);
 @each $name,
 $color in $colors {
-    .bc.ft-#{$name} {
+    .tangram.ft-#{$name} {
         color: $color;
     }
 }
@@ -80,16 +80,16 @@ $sizes: 11,
 60,
 72;
 @each $size in $sizes {
-    .bc.f#{$size},
-    .bc.ft-#{$size} {
+    .tangram.f#{$size},
+    .tangram.ft-#{$size} {
         font-size: #{$size/20}rem;
     }
 }
 
-.bc.ft-lighter {
+.tangram.ft-lighter {
     font-weight: lighter;
 }
 
-.bc.ft-blod {
+.tangram.ft-blod {
     font-weight: bold;
 }

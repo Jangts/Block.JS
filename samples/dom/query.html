@@ -3,8 +3,8 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Block.JS QUERY</title>
-    <script src="../../src/block.js" data-use-debugmode></script>
+    <title>Tangram.JS QUERY</title>
+    <script src="../../src/tangram.js" data-use-debugmode></script>
 </head>
 
 <body>
@@ -18,7 +18,7 @@
     <div class="changeText">Original Text</div>
     <div class="changeText">Original Text</div>
     <script>
-        block(['$_/dom/query.xtd'], function(_, global, undefined) {
+        tangram.block(['$_/dom/query.xtd'], function(_, global, undefined) {
 
             var iterator = new _.Iterator(_.dom.query('.changeText')),
                 render = function(elem) {

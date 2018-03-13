@@ -1,12 +1,12 @@
 /*!
- * Block.JS Framework Source Code
+ * Tangram.JS Framework Source Code
  *
- * http://www.yangram.net/blockjs/
+ * http://www.yangram.net/tangram.js/
  *
  * Date: 2017-04-06
  */
 ;
-block([
+tangram.block([
     '$_/util/bool.xtd',
     '$_/dom/Elements/animation.clsx'
 ], function(pandora, global, undefined) {
@@ -29,7 +29,7 @@ block([
         render: function() {
             if (_.dom.hasClass(this.Element, 'media-list')) {
                 var itemWidth, mediaWidth, bodyWidth;
-                $('.bc.listview.media-list>.list-item', this.Element).each(function() {
+                $('.tangram.listview.media-list>.list-item', this.Element).each(function() {
                     if (_.dom.hasClass(this, 'top-bottom')) {
                         return this;
                     }
@@ -48,7 +48,7 @@ block([
     _.extend(_.see.ListView, {
         auto: function() {
             var ListView = this;
-            $('.bc.listview[data-ic-auto]').each(function() {
+            $('.tangram.listview[data-ic-auto]').each(function() {
                 if (($(this).data('icAuto') != 'false') && ($(this).data('icRendered') != 'listview')) {
                     $(this).data('icRendered', 'listview');
                     new ListView(this);

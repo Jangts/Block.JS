@@ -1,7 +1,7 @@
 /*********************************************************************************
 /*** EDITOR TOOLBAR ***/
 
-.bc.simpleeditor .bc.se-toolarea {
+.tangram.simpleeditor .tangram.se-toolarea {
     width: 100%;
     background-color: #FDFDFE;
     border-bottom: 1px solid #DDD;
@@ -11,17 +11,17 @@
     z-index: 1024;
 }
 
-.bc.simpleeditor .bc.se-toolarea .bc.se-toolgroup {
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-toolgroup {
     display: inline-block;
     border-left: 1px solid #DDD;
     overflow: visible;
 }
 
-.bc.simpleeditor .bc.se-toolarea .bc.se-toolgroup:first-child {
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-toolgroup:first-child {
     border-left: none;
 }
 
-.bc.simpleeditor .bc.se-toolarea .bc.se-tool {
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-tool {
     float: left;
     width: auto;
     min-width: 30px;
@@ -34,27 +34,27 @@
     overflow: hidden;
 }
 
-.bc.simpleeditor .bc.se-toolarea .bc.se-clear {
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-clear {
     clear: both
 }
 
-.bc.simpleeditor .bc.se-toolarea .bc.se-tool:hover {
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-tool:hover {
     background-color: #09C;
     color: #FFF;
 }
 
-.bc.simpleeditor .bc.se-toolarea .bc.se-tool.active {
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-tool.active {
     background-color: #09C;
     color: #FFF;
 }
 
-.bc.simpleeditor .bc.se-toolarea .bc.se-tool.invalid {
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-tool.invalid {
     background-color: transparent;
     color: #AAA;
     cursor: default;
 }
 
-.bc.simpleeditor .bc.se-toolarea .bc.se-tool.invalid:hover {
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-tool.invalid:hover {
     background-color: transparent;
     color: #AAA;
 }
@@ -62,28 +62,28 @@
 
 /*** EDITOR TOOLBAR CHARACTER ***********************/
 
-.bc.simpleeditor .bc.se-toolarea .bc.se-tool.separator {
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-tool.separator {
     min-width: 10px;
     color: #E6E6E6;
     cursor: default;
 }
 
-.bc.simpleeditor .bc.se-toolarea .bc.se-tool.separator:before {
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-tool.separator:before {
     content: '|';
 }
 
-.bc.simpleeditor .bc.se-toolarea .bc.se-tool.separator:hover {
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-tool.separator:hover {
     background-color: transparent;
     color: #E6E6E6;
 }
 
-.bc.simpleeditor .bc.se-toolarea .bc.se-tool.linebreak {
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-tool.linebreak {
     width: 100%;
     height: 1px;
     background-color: #E6E6E6;
     margin: 0px;
 }
 
-.bc.simpleeditor .bc.se-toolarea .bc.se-tool.linebreak:hover {
+.tangram.simpleeditor .tangram.se-toolarea .tangram.se-tool.linebreak:hover {
     background-color: #E6E6E6;
 }

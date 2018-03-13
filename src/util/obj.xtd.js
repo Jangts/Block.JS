@@ -1,12 +1,12 @@
 /*!
- * Block.JS Framework Source Code
+ * Tangram.JS Framework Source Code
  *
  * static util.obj
  *
  * Date 2017-04-06
  */
 ;
-block(function(pandora, global, undefined) {
+tangram.block(function(pandora, global, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
         cache = pandora.locker,
@@ -112,7 +112,7 @@ block(function(pandora, global, undefined) {
             obj = obj || {};
             var fields = []
             for (var i in obj) {
-                fields.push(i + "=" + obj[i]);
+                fields.push(i + "=" + encodeURIComponent(obj[i]));
             }
             return fields.join("&");
         },

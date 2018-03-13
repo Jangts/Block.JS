@@ -1,12 +1,12 @@
 /*!
- * Block.JS Framework Source Code
+ * Tangram.JS Framework Source Code
  *
  * static see.highlight.language
  *
  * Date: 2017-04-06
  */
 ;
-block('$_/see/highlight/highlight.xtd', function(_, global, undefined) {
+tangram.block('$_/see/highlight/highlight.xtd', function(_, global, undefined) {
     var highlight = _.see.highlight;
     // We don't allow for pipes inside parentheses
     // to not break table pattern |(. foo |). bar |

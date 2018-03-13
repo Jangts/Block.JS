@@ -1,9 +1,9 @@
 <html>
 
 <head>
-    <title>Block.JS Time Picker</title>
+    <title>Tangram.JS Time Picker</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <script src="../../../src/block.js"></script>
+    <script src="../../../src/tangram.js"></script>
     <link href="../../../src/see/see.css" data-type="text/css" rel="stylesheet">
     <link href="../../../src/Time/Picker/style.css" data-type="text/css" rel="stylesheet">
 </head>
@@ -12,7 +12,7 @@
     <div id="timepicker"></div>
 
     <script>
-        block(['$_/Time/', '$_/Time/Picker/'], (_) => {
+        tangram.block(['$_/Time/', '$_/Time/Picker/'], (_) => {
             var picker = new _.Time.Picker('timepicker');
 
             picker.launch('13:30:00', 'timeofday', function(value) {

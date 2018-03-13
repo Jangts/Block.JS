@@ -3,8 +3,8 @@
 <head>
     <meta charset="utf-8">
     <title>多级导航菜单</title>
-    <script type="text/javascript" src="http://blockjs.nidn.yangram.ni/src/block.js"></script>
-    <link type="text/css" rel="stylesheet" href="http://blockjs.nidn.yangram.ni/src/see/see.css">
+    <script type="text/javascript" src="http://tangram.js.nidn.yangram.ni/src/tangram.js"></script>
+    <link type="text/css" rel="stylesheet" href="http://tangram.js.nidn.yangram.ni/src/see/see.css">
     <style>
         body {
             height: 100%;
@@ -49,8 +49,8 @@
 </head>
 
 <body>
-    <nav id="mainnav" class="mainnav bc ov-visi">
-        <ul class="bc navmenu inline">
+    <nav id="mainnav" class="mainnav tangram ov-visi">
+        <ul class="tangram navmenu inline">
             <li class="menu-item"><a href="">一级菜单1</a></li>
             <li class="menu-item hasson"><a href="">一级菜单2</a>
                 <ul class="submenu under inline al-center" data-width="480">
@@ -167,9 +167,9 @@
             <li class="menu-item"><a href="">一级菜单8</a></li>
         </ul>
     </nav>
-    <link type="text/css" rel="stylesheet" href="http://blockjs.nidn.yangram.ni/src/see/NavMenu/style.css">
+    <link type="text/css" rel="stylesheet" href="http://tangram.js.nidn.yangram.ni/src/see/NavMenu/style.css">
     <script type="text/javascript">
-        block('$_/see/NavMenu/', function(_, global, undefined) {
+        tangram.block('$_/see/NavMenu/', function(_, global, undefined) {
             new _.see.NavMenu('mainnav');
         }, true);
     </script>
