@@ -1,0 +1,34 @@
+<html>
+
+<head>
+    <title>Kalendar</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script src="../../src/tangram.js"></script>
+    <link href="../../src/see/see.css" type="text/css" rel="stylesheet" />
+    <link href="../../src/Time/Kalendar.cls.css" type="text/css" rel="stylesheet">
+    <style>
+        .kalendar {
+            margin: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <kalendar id="mykld"></kalendar>
+
+    <script>
+        tangram.block(['$_/Time/', '$_/Time/Kalendar.cls'], (_) => {
+            var $ = _.dom.select,
+                kalendar = new _.Time.Kalendar('mykld');
+            kalendar.drawEvents([false, true, true, false, false, false, false, true, false, false, false, false, false, false, true, false, true, true, false, false, false, false, true, false, false, false, false, false, false, true]);
+
+            $(kalendar.Element).on('click', '.month.prev-month', function() {
+                kalendar.prevMonth();
+            }).on('click', '.month.next-month', function() {
+                kalendar.nextMonth();
+            });
+        }, true);
+    </script>
+</body>
+
+</html>

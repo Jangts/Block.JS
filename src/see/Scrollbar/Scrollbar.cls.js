@@ -32,7 +32,7 @@ tangram.block([
                 uesHorizontal: false
             });
             this.Element = _.util.bool.isStr(elem) ? _.dom.query.byId(elem) : elem;
-            _.dom.addClass(this.Element, 'bc')
+            _.dom.addClass(this.Element, 'tangram')
                 .addClass(this.Element, 'scrollbar')
                 .addClass(this.Element, settings.theme || 'light');
             this.build(settings.uesVertical, settings.uesHorizontal);

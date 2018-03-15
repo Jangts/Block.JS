@@ -29,7 +29,7 @@ tangram.block([
             elem = _.util.type.isElement(elem) ? elem : document.getElementById(elem);
             if (elem) {
                 this.Element = elem;
-                _.dom.addClass(elem, 'bc').addClass(elem, 'kalendar');
+                _.dom.addClass(elem, 'tangram').addClass(elem, 'kalendar');
                 this.months = $('.months', elem)[0] || _.dom.create('ul', elem, { className: 'months' });
                 this.week = $('.week', elem)[0] || _.dom.create('ul', elem, { className: 'week' });
                 this.days = $('.days', elem)[0] || _.dom.create('ul', elem, { className: 'days' });

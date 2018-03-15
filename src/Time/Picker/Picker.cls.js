@@ -32,7 +32,7 @@ tangram.block([
             elem = _.util.type.isElement(elem) ? elem : document.getElementById(elem);
             if (elem) {
                 elem.innerHTML = '';
-                _.dom.addClass(elem, 'bc').addClass(elem, 'timepicker');
+                _.dom.addClass(elem, 'tangram').addClass(elem, 'timepicker');
                 this.Element = elem;
                 this.build();
                 this.builder = new _.Time.Picker.Builder(this);
