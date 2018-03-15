@@ -23,11 +23,14 @@ tangram.block([
                 this.onchange();
                 return this;
             },
-            'p': function(val) {
-                this.selection.getRange().execCommand('formatblock', '<p>');
-            },
+            // 'p': function(val) {
+            //     this.selection.getRange().execCommand('formatblock', '<p>');
+            // },
             'blockquote': function(val) {
                 this.selection.getRange().execCommand('formatblock', '<blockquote>');
+                this.selection.saveRange();
+                this.onchange();
+                return this;
             }
         };
 

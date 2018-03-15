@@ -8,12 +8,16 @@
     <link href="../../../src/see/see.css" type="text/css" rel="stylesheet" />
     <link href="../../../src/see/fa.css" type="text/css" rel="stylesheet" />
     <style>
-        .myeditor {
-            width: 900px;
+        body>div {
             margin: 20px;
         }
         
-        .myeditor textarea {
+        .myeditor {
+            width: 900px;
+            height: 300px;
+        }
+        
+        textarea.myeditor {
             width: 898px;
             height: 298px;
         }
@@ -22,7 +26,8 @@
 
 <body>
     <div class="myeditor"><textarea>tangram.js SimpleEditor 1</textarea></div>
-    <div class="myeditor"><textarea>tangram.js SimpleEditor 2</textarea></div>
+    <div class="myeditor">angram.js SimpleEditor 2</div>
+    <div><textarea class="myeditor">tangram.js SimpleEditor 3</textarea></div>
     <script>
         tangram.block([
             '$_/dom/Elements/',
@@ -32,7 +37,7 @@
                 document = global.document,
                 console = global.console;
 
-            var editors = _.form.careatEditors('.myeditor textarea', {
+            var editors = _.form.careatEditors('.myeditor', {
                 fragments: [{
                     name: '分页符',
                     code: '{{@page_break}}'

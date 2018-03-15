@@ -6,26 +6,15 @@
  * Date: 2015-09-04
  */
 ;
-tangram.block([
-    '$_/form/VisualJOSN/style.css',
-    '$_/util/bool.xtd',
-    '$_/dom/HTMLClose.cls',
-    '$_/dom/Events.cls',
-    '$_/data/',
-    '$_/form/VisualJOSN/Selection.cls',
-    '$_/form/VisualJOSN/parameters.tmp',
-    '$_/form/VisualJOSN/builders.tmp',
-    '$_/form/VisualJOSN/events.tmp',
-    '$_/form/VisualJOSN/checks.tmp'
-], function(pandora, global, undefined) {
+tangram.block([], function(pandora, global, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
         cache = pandora.locker,
         document = global.document,
         console = global.console;
 
-    //Define NameSpace 'form'
-    _('form');
+    //Define NameSpace 'form.VisualJOSN'
+    _('form.VisualJOSN');
 
     //Declare Class 'form.VisualJOSN'
     /**
@@ -35,16 +24,34 @@ tangram.block([
      * @param {Mix, Object }
      */
 
-    declare('form.VisualJOSN', {
-        textarea: null,
-        toolarea: null,
-    });
+    declare('form.VisualJOSN.Object', {
+        _init: function(elem) {
+            if (_.util.bool.isEl(elem)) {
+                var commonNode, text, width, height,
+                    htmlclose = new _.dom.HTMLClose();
 
-    _.extend(_.form.VisualJOSN, {
-        extends: function(object, rewrite) {
-            _.extend(_.form.VisualJOSN.prototype, rewrite, object);
+                if (textarea.tagName.toUpperCase() === 'TEXTAREA') {
+                    commonNode = textarea.parentNode;
+                    width = textarea.offsetWidth;
+                    height = textarea.offsetHeight;
+                } else {
+                    commonNode = textarea;
+                    width = commonNode.offsetWidth - 2;
+                    height = commonNode.offsetHeight - 2;
+                    var selects = _.dom.selector('input, textarea', textarea);
+                    if (selects.length) {
+                        textarea = selects[0];
+                    } else {
+                        text = commonNode.innerHTML;
+                        commonNode.innerHTML = '';
+                        textarea = _.dom.create('textarea', commonNode, {
+                            className: 'tangram simpleeditor',
+                            value: text
+                        });
+                    }
+                }
+            }
+            return _.error('"textarea" must be an element!');
         }
     });
-
-    //console.log(dialogs);
 });

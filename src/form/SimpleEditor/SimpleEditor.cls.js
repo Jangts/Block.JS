@@ -64,7 +64,7 @@ tangram.block([
         attachment_type: null,
         upload_maxsize: 1024 * 1024 * 20,
         transfer: null,
-        _init: function(elems, settings) {
+        _init: function(elem, settings) {
             settings = settings || {};
             this.options = {};
             for (var i in settings) {
@@ -75,8 +75,8 @@ tangram.block([
                 this.attachment_type = settings.uploader.sfixs;
                 this.transfer = settings.uploader.transfer;
             }
-            if (_.util.bool.isEl(elems)) {
-                this.textarea = builders.textarea(elems);
+            if (_.util.bool.isEl(elem)) {
+                this.textarea = builders.textarea(elem);
             } else {
                 return _.error('"elems" must be an array or element!');
             }

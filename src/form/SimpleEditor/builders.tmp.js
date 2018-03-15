@@ -58,13 +58,35 @@ tangram.block([
         builders = {
             textarea: function(textarea) {
                 if (_.util.bool.isEl(textarea)) {
-                    var text,
-                        htmlclose = new _.dom.HTMLClose(),
-                        width = textarea.offsetWidth,
+                    var commonNode, text, width, height,
+                        htmlclose = new _.dom.HTMLClose();
+
+                    if (textarea.tagName.toUpperCase() === 'TEXTAREA') {
+                        commonNode = textarea.parentNode;
+                        width = textarea.offsetWidth;
                         height = textarea.offsetHeight;
+                    } else {
+                        commonNode = textarea;
+                        width = commonNode.offsetWidth - 2;
+                        height = commonNode.offsetHeight - 2;
+                        var selects = _.dom.selector('textarea', textarea);
+                        if (selects.length) {
+                            textarea = selects[0];
+                        } else {
+                            text = commonNode.innerHTML;
+                            commonNode.innerHTML = '';
+                            textarea = _.dom.create('textarea', commonNode, {
+                                className: 'tangram simpleeditor',
+                                value: text
+                            });
+                        }
+                    }
+                    _.dom.setStyle(commonNode, 'height', 'auto');
                     _.dom.setStyle(textarea, 'display', 'none');
+
                     return {
                         Element: textarea,
+                        commonNode: commonNode,
                         width: width,
                         height: height,
                         getText: function() {
@@ -111,7 +133,7 @@ tangram.block([
             },
             editarea: function(editor, uid, textarea, options) {
                 var width = options.width || textarea.width - 2,
-                    editarea = _.dom.create('div', textarea.Element.parentNode, {
+                    editarea = _.dom.create('div', textarea.commonNode, {
                         className: 'tangram simpleeditor',
                         style: {
                             'width': width,

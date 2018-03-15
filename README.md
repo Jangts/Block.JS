@@ -10,6 +10,6 @@
 * #### DOM操作，数据操作，图形相关，前端视觉，和一些基础计算。
 
 ##### Written and Designed By Jang Ts
-##### http://tangram.js.nidn.yangram.com/
+##### http://nidn.yangram.com/tangram.js
 
 ##### Date: 2017-04-06

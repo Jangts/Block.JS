@@ -33,14 +33,13 @@ tangram.block([
                 this.execCommand('insert', val.url);
             }
             this.selection.getRange().execCommand('createlink', url);
-            var a = _.query('a[href="' + url + '"]')[0];
-            if (a) {
-                a.href = val.url;
-                a.href = val.url;
+            var a = _.query('a[href="' + url + '"]');
+            _.each(a, function() {
+                this.href = val.url;
                 if (val.isNew) {
-                    a.target = '_blank';
+                    this.target = '_blank';
                 }
-            }
+            });
             this.selection.saveRange();
             this.onchange();
         }

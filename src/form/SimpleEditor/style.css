@@ -808,6 +808,10 @@
     list-style: disc;
 }
 
+.tangram.simpleeditor .tangram.se-richarea ol {
+    list-style: decimal;
+}
+
 .tangram.simpleeditor .tangram.se-richarea li {
     margin: auto;
     padding: 0px;

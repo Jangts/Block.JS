@@ -17,7 +17,6 @@ tangram.block([
 
     var dialogs = {},
         wshandler = function(event) {
-            // console.log(event.target === event.data.richarea);
             var editor = event.data;
             if (event.eventType === 'mouseup') {
                 editor.hideExtTools();
@@ -27,57 +26,61 @@ tangram.block([
                 _.query('.tangram.se-imagestatus', editor.statebar)[0].style.display = 'none';
                 if (event.target.tagName === 'IMG') {
                     editor.selectedImage = event.target;
-                    editor.selection.saveRange();
-                    editor.onchange();
-                    return;
                 } else {
                     editor.selectedImage = undefined;
                 }
             }
-            if (editor.selection.range && editor.selection.range.type === 'Caret') {
-                if (event.target === editor.richarea || editor.selection.range.commonElem === editor.richarea) {
-                    _.query('.tangram.se-tablestatus', editor.statebar)[0].style.display = 'none';
-                    editor.onchange();
-                    return;
-                }
-                if (event.target === editor.selection.range.commonElem) {
-                    editor.onchange();
-                    return;
-                }
-            }
             editor.selection.saveRange();
             editor.onchange();
+            // return;
+            // // console.log(event.target === event.data.richarea);
+            // var editor = event.data;
 
+            // if (editor.selection.range && editor.selection.range.type === 'Caret') {
+            //     if (event.target === editor.richarea || editor.selection.range.commonElem === editor.richarea) {
+            //         _.query('.tangram.se-tablestatus', editor.statebar)[0].style.display = 'none';
+            //         editor.onchange();
+            //         return;
+            //     }
+            //     if (event.target === editor.selection.range.commonElem) {
+            //         editor.onchange();
+            //         return;
+            //     }
+            // }
+            // editor.selection.saveRange();
+            // editor.onchange();
         },
-        outhandler = function(event) {
-            // console.log(event);
-            var editor = event.data;
-            editor.outmoment = false;
-            if (event.buttons) {
-                editor.selection.saveRange();
-                editor.outmoment = true;
-                setTimeout(function() {
-                    editor.outmoment = false;
-                }, 500);
-                editor.onchange();
-                return;
-            }
-            if (event.target === editor.richarea) {
-                editor.selection.saveRange();
-                editor.onchange();
-            }
-        },
-        inhandler = function(event) {
-            // console.log(event);
-            var editor = event.data;
-            if ((editor.outmoment === false) && (event.target === editor.richarea)) {
-                editor.selection.restoreSelection();
-            }
-            editor.onchange();
-        },
-        xhandlers = {
+        // outhandler = function(event) {
+        //     return;
+        //     // console.log(event);
+        //     var editor = event.data;
+        //     editor.outmoment = false;
+        //     if (event.buttons) {
+        //         editor.selection.saveRange();
+        //         editor.outmoment = true;
+        //         setTimeout(function() {
+        //             editor.outmoment = false;
+        //         }, 500);
+        //         editor.onchange();
+        //         return;
+        //     }
+        //     if (event.target === editor.richarea) {
+        //         editor.selection.saveRange();
+        //         editor.onchange();
+        //     }
+        // },
+        // inhandler = function(event) {
+        //     return;
+        //     // console.log(event);
+        //     var editor = event.data;
+        //     if ((editor.outmoment === false) && (event.target === editor.richarea)) {
+        //         editor.selection.restoreSelection();
+        //     }
+        //     editor.onchange();
+        // },
+        // xhandlers = {
 
-        },
+        // },
         inputs = {
             'fontsize': function(editor, input) {
                 editor.execCommand('fontsize', input.value);
@@ -143,6 +146,12 @@ tangram.block([
         }
     events = {
         'toolarea': {
+            'mousedown': function(event) {
+                var editor = event.data;
+                editor.selection.restoreSelection();
+                // editor.selection.saveRange();
+                editor.onchange();
+            },
             'mouseup': {
                 '[data-ib-dialog]': function(event) {
                     if (event.target.tagName == 'I') {
@@ -172,11 +181,16 @@ tangram.block([
                 '[data-ib-cmds]': function(event) {
                     var editor = event.data,
                         cmds = _.dom.getAttr(this, 'data-ib-cmds');
+                    // editor.onchange();
+                    editor.selection.restoreSelection();
                     editor.showPick(cmds, this);
                     editor.selection.restoreSelection();
+                    editor.onchange();
                 },
                 '[data-ib-cmd]': function(event) {
                     var editor = event.data;
+                    editor.selection.restoreSelection();
+                    // editor.onchange();
                     if (!_.dom.hasClass(this, 'invalid')) {
                         editor.hideExtTools();
                         var cmd = _.dom.getAttr(this, 'data-ib-cmd');
@@ -200,6 +214,7 @@ tangram.block([
                                 break;
                         }
                         editor.execCommand(cmd, val);
+                        editor.onchange();
                     }
                 },
                 '.tangram.se-show span': function(event) {
@@ -291,8 +306,8 @@ tangram.block([
             }
         },
         'workspace': {
-            'mouseout': outhandler,
-            'mouseenter': inhandler,
+            // 'mouseout': outhandler,
+            // 'mouseenter': inhandler,
             'mouseup': wshandler,
             'keyup': wshandler
         }

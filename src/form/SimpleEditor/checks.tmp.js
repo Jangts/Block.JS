@@ -50,12 +50,13 @@ tangram.block([
         checkFormat = function() {
             var range = this.selection.range;
             if (range && range.commonElem) {
-                _.each(_.query('.bold, .italic, .underline, .strikethrough, .justifyleft, .justifycenter, .justifyright, .justifyfull, .insertunorderedlist, .insertorderedlist', this.toolarea), function(i, el) {
+                _.each(_.query('.bold, .italic, .underline, .strikethrough, .justifyleft, .justifycenter, .justifyright, .justifyfull, .blockquote, .insertunorderedlist, .insertorderedlist', this.toolarea), function(i, el) {
                     _.dom.toggleClass(this, 'active', false);
                 });
                 var style = _.dom.getStyle(range.commonElem);
                 var selector = [];
-                if (style.fontWeight == 'bold') {
+                // console.log(range, range.commonElem, style.fontWeight, style.fontStyle);
+                if (style.fontWeight === 'bold' || style.fontWeight == 700) {
                     selector.push('.bold');
                 }
                 if (style.fontStyle == 'italic') {
@@ -84,12 +85,17 @@ tangram.block([
                         selector.push('.justifyfull');
                         break;
                 }
-                if (_.dom.closest(range.commonElem, 'ul')) {
+                if (_.dom.closest(range.commonElem, 'ul', true)) {
                     selector.push('.insertunorderedlist');
                 }
-                if (_.dom.closest(range.commonElem, 'ol')) {
+                if (_.dom.closest(range.commonElem, 'ol', true)) {
                     selector.push('.insertorderedlist');
                 }
+                if (_.dom.closest(range.commonElem, 'blockquote', true)) {
+                    selector.push('.blockquote');
+                }
+
+
                 // if ((range.commonElem.tagName === 'A') || _.dom.closest(range.commonElem, 'a')) {
                 //     selector.push('.createlink');
                 // }

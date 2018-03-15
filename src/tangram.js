@@ -7,7 +7,7 @@
  * 主要用于DOM操作，数据操作，图形相关，前端视觉，和一些基础计算。
  *
  * Written and Designed By Jang Ts
- * http://nidn.yangram.com/tangram.js/
+ * http://nidn.yangram.com/tangram.js
  *
  * Date 2017-04-06
  */
@@ -44,7 +44,7 @@
 
     var name = 'tangram.js JavaScript framework',
         version = '0.9.00',
-        website = 'nidn.yangram.com/tangram.js/',
+        website = 'nidn.yangram.com/tangram.js',
 
         /* 获取当前时间戳 */
         startTime = new Date(),
