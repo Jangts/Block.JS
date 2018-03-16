@@ -1,126 +1,106 @@
-/*** EDITOR EDITAREA ***/
+/*** EDITOR RICHAREA ***/
 
-.tangram.simpleeditor .tangram.se-richarea {
+.tangram.se-richarea {
     background-color: #FFF;
     overflow: auto;
     resize: vertical;
     z-index: 0;
     line-height: normal;
-}
-
-.tangram.simpleeditor .tangram.se-richarea * {
-    -webkit-box-sizing: content-box;
-    -moz-box-sizing: content-box;
-    box-sizing: content-box;
-    overflow: auto;
-}
-
-.tangram.simpleeditor .tangram.se-richarea i {
-    font-style: italic;
-}
-
-.tangram.simpleeditor .tangram.se-richarea strong,
-.tangram.simpleeditor .tangram.se-richarea b {
-    font-weight: bold;
-}
-
-.tangram.simpleeditor .tangram.se-richarea s,
-.tangram.simpleeditor .tangram.se-richarea strike,
-.tangram.simpleeditor .tangram.se-richarea dels {
-    text-decoration: line-through;
-}
-
-.tangram.simpleeditor .tangram.se-richarea u,
-.tangram.simpleeditor .tangram.se-richarea ins {
-    text-decoration: underline;
-}
-
-.tangram.simpleeditor .tangram.se-richarea div {
-    word-break: break-all;
-}
-
-.tangram.simpleeditor .tangram.se-richarea a {
-    text-decoration: underline;
-    cursor: pointer;
-    color: #06F;
-}
-
-.tangram.simpleeditor .tangram.se-richarea img {
-    max-width: 100%;
-}
-
-.tangram.simpleeditor .tangram.se-richarea img:hover {
-    box-sizing: border-box;
-    border: dashed 1px #0CF;
-    cursor: default;
-}
-
-.tangram.simpleeditor .tangram.se-richarea img[_selected=_selected],
-.tangram.simpleeditor .tangram.se-richarea img[_selected=_selected]:hover {
-    box-sizing: border-box;
-    border: dashed 1px #039;
-    cursor: default;
-}
-
-.tangram.simpleeditor .tangram.se-richarea blockquote {
-    color: #666666;
-    font-size: 1em;
-    padding-left: 1em;
-    border-left: 4px solid #dddddd;
-    line-height: 1.5em;
-}
-
-.tangram.simpleeditor .tangram.se-richarea h2 {
-    font-size: 1.8em;
-    border-left: 10px solid #7fc042;
-    padding-left: 0.5em;
-    margin-bottom: 0.8em;
-    font-weight: 200;
-    color: black;
-}
-
-.tangram.simpleeditor .tangram.se-richarea ul,
-.tangram.simpleeditor .tangram.se-richarea ol {
-    margin: auto;
-    padding: 0px 0px 0px 40px;
-    overflow: visible;
-}
-
-.tangram.simpleeditor .tangram.se-richarea ul {
-    list-style: disc;
-}
-
-.tangram.simpleeditor .tangram.se-richarea ol {
-    list-style-type: decimal;
-}
-
-.tangram.simpleeditor .tangram.se-richarea li {
-    margin: auto;
-    padding: 0px;
-    overflow: visible;
-}
-
-.tangram.simpleeditor .tangram.se-richarea hr {
-    border-style: inset;
-    border-width: 1px;
-}
-
-.tangram.simpleeditor .tangram.se-richarea table {
-    border-collapse: collapse;
-    empty-cells: show;
-    margin-bottom: 10px;
-    margin-top: 10px;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-}
-
-.tangram.simpleeditor .tangram.se-richarea td,
-.tangram.simpleeditor .tangram.se-richarea th {
-    border: solid 1px #ccc;
-    padding: 5px;
-}
-
-.tangram.simpleeditor .tangram.se-richarea .tangram.se-emoticon {
-    margin: 0px 2px;
+    * {
+        -webkit-box-sizing: content-box;
+        -moz-box-sizing: content-box;
+        box-sizing: content-box;
+        overflow: auto;
+    }
+    i {
+        font-style: italic;
+    }
+    strong,
+    b {
+        font-weight: bold;
+    }
+    s,
+    strike,
+    dels {
+        text-decoration: line-through;
+    }
+    u,
+    ins {
+        text-decoration: underline;
+    }
+    div {
+        word-break: break-all;
+    }
+    a {
+        text-decoration: underline;
+        cursor: pointer;
+        color: #06F;
+    }
+    img {
+        max-width: 100%;
+    }
+    img:hover {
+        box-sizing: border-box;
+        border: dashed 1px #0CF;
+        cursor: default;
+    }
+    img[_selected=_selected],
+    img[_selected=_selected]:hover {
+        box-sizing: border-box;
+        border: dashed 1px #039;
+        cursor: default;
+    }
+    blockquote {
+        color: #666666;
+        font-size: 1em;
+        padding-left: 1em;
+        border-left: 4px solid #dddddd;
+        line-height: 1.5em;
+    }
+    h2 {
+        font-size: 1.8em;
+        border-left: 10px solid #7fc042;
+        padding-left: 0.5em;
+        margin-bottom: 0.8em;
+        font-weight: 200;
+        color: black;
+    }
+    ul,
+    ol {
+        margin: auto;
+        padding: 0px 0px 0px 40px;
+        overflow: visible;
+    }
+    ul {
+        list-style: disc;
+    }
+    ol {
+        list-style: decimal;
+    }
+    li {
+        margin: auto;
+        padding: 0px;
+        overflow: visible;
+    }
+    hr {
+        border-style: inset;
+        border-width: 1px;
+    }
+    table {
+        border-collapse: collapse;
+        empty-cells: show;
+        margin-bottom: 10px;
+        margin-top: 10px;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+    td,
+    th {
+        border: solid 1px #ccc;
+        padding: 5px;
+    }
+    .tangram.se-emoticon {
+        margin: 0px 2px;
+    }
 }

@@ -55,36 +55,79 @@ tangram.block([
      * @param {Mix, Object }
      */
 
-    declare('form.SimpleEditor', {
-        textarea: null,
+    declare('form.SimpleEditor', {  
+        cElement: null,
+        mainareas: null,  
+        richareas: null,
+        textareas: null,
+        loadmasks:null,
+        statebars: null,
         toolarea: null,
-        editarea: null,
-        richarea: null,
         selection: null,
         attachment_type: null,
         upload_maxsize: 1024 * 1024 * 20,
         transfer: null,
-        _init: function(elem, settings) {
-            settings = settings || {};
-            this.options = {};
-            for (var i in settings) {
-                this.options[i] = settings[i];
-            }
-            if (settings.uploader) {
-                this.upload_maxsize = settings.uploader.maxsize;
-                this.attachment_type = settings.uploader.sfixs;
-                this.transfer = settings.uploader.transfer;
-            }
+        _init: function(elem, options, textareas) {
             if (_.util.bool.isEl(elem)) {
-                this.textarea = builders.textarea(elem);
-            } else {
-                return _.error('"elems" must be an array or element!');
-            }
-            this.uid = new _.Identifier();
-            this.editarea = builders.editarea(this, this.uid, this.textarea, this.options);
+                options = options || {};
+                this.options = {};
+                this.uid = new _.Identifier();
+                for (var i in options) {
+                    this.options[i] = options[i];
+                }
+                if (options.uploader) {
+                    this.upload_maxsize = options.uploader.maxsize;
+                    this.attachment_type = options.uploader.sfixs;
+                    this.transfer = options.uploader.transfer;
+                }
 
-            this.selection = new _.form.SimpleEditor.Selection(this);
-            SimpleEditors[this.uid] = this.listen();
+                if (elem.tagName.toUpperCase() === 'TEXTAREA' || elem.tagName.toUpperCase() === 'INPUT') {
+                    textareas = elem;
+                    this.cElement = builders.initEl(elem.parentNode, options, elem);
+                }else{
+                    this.cElement = builders.initEl(elem, options);
+                }
+
+                this.textareas = [];
+                if (textareas) {
+                    if (_.util.bool.isEl(textareas)) {
+                        this.textareas = [builders.textarea(textareas)];
+                    } else if (_.util.bool.isArr(textareas)) {
+                        _.each(textareas, function () {
+                            if (_.util.bool.isEl(textareas)) {
+                                this.textareas.push(builders.textarea(textareas));
+                            }
+                        }, this);
+                    }
+                }else{
+                    _.each(_.query('textarea, input', this.cElement.Element), function (i, el) {
+                        this.textareas.push(builders.textarea(el));
+                    }, this);
+                }
+
+                this.mainareas = [];
+                this.richareas = [];
+                this.loadmasks = [];
+                this.statebars = [];
+                if (this.textareas.length){
+                    _.each(this.textareas, function (i, textarea) {
+                        this.mainareas.push(builders.mainarea.call(this, options, textarea.getText()));
+                    }, this);
+                }else{
+                    this.mainareas.push(builders.mainarea.call(this, options, this.cElement.Element.innerHTML));
+                }
+
+                this.toolarea = builders.toolarea.call(this, options);
+
+                _.each(this.mainareas, function (i, mainarea) {
+                    builders.workspace.call(this, mainarea, options);
+                }, this);
+
+                this.selection = new _.form.SimpleEditor.Selection(this);
+                SimpleEditors[this.uid] = this.listen();
+            }else{
+                return _.error('@param "elem" must be an element!');
+            }
         },
         execCommand: function(cmd, val) {
             cmd = cmd.toLowerCase();
@@ -138,8 +181,8 @@ tangram.block([
             var editor = this,
                 listeners = {
                     toolarea: new _.dom.Events(this.toolarea),
-                    statebar: new _.dom.Events(this.statebar),
-                    workspace: new _.dom.Events(this.richarea)
+                    // statebar: new _.dom.Events(this.statebar),
+                    workspaces: new _.dom.Events(this.cElement.Element)
                 };
             _.each(listeners, function(name, listener) {
                 _.each(events[name], function(eventType, handler) {
@@ -166,14 +209,14 @@ tangram.block([
     }, metheds);
 
     _.extend(_.form, true, {
-        careatEditor: function(elems, settings) {
-            var editor = new _.form.SimpleEditor(elems, settings);
+        careatEditor: function(elems, options) {
+            var editor = new _.form.SimpleEditor(elems, options);
             return editor;
         },
-        careatEditors: function(selector, settings) {
+        careatEditors: function(selector, options) {
             var editors = [];
             _.each(_.query(selector), function(i, el) {
-                var editor = _.form.careatEditor(el, settings);
+                var editor = _.form.careatEditor(el, options);
                 editors.push(editor);
             });
             return editors;

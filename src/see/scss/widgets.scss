@@ -59,13 +59,12 @@ $padding in $titles {
 
 .tangram.nav-item.nav-hasson:hover {
     overflow: visible;
+    .nav-ason {
+        display: block;
+    }
 }
 
 .tangram.nav-item.nav-hasson .nav-ason {
     display: none;
     position: absolute;
-}
-
-.tangram.nav-item.nav-hasson:hover .nav-ason {
-    display: block;
 }

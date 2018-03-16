@@ -1,370 +1,280 @@
 /*********************************************
- ********** tangram.js SEE UI framework **********
+ ******** tangram.js SEE UI framework ********
  **********  Class _.see.ScrollBar  **********
  *********************************************/
-
 .scroll-doc-container {
-    position: relative;
-    overflow: hidden;
-    min-width: 100%;
-    min-height: 100%;
-    top: 0;
-    left: 0;
-}
+  position: relative;
+  overflow: hidden;
+  min-width: 100%;
+  min-height: 100%;
+  top: 0;
+  left: 0; }
 
 .scroll-bar-vertical {
-    position: absolute;
-    width: 16px;
-    height: 100%;
-    top: 0;
-    right: 0;
-    z-index: 10000;
-}
+  position: absolute;
+  width: 16px;
+  height: 100%;
+  top: 0;
+  right: 0;
+  z-index: 10000; }
 
 .scroll-bar-horizontal {
-    position: absolute;
-    width: 100%;
-    height: 16px;
-    bottom: 0;
-    left: 0;
-    z-index: 10000;
-}
-
+  position: absolute;
+  width: 100%;
+  height: 16px;
+  bottom: 0;
+  left: 0;
+  z-index: 10000; }
 
 /*********************************************
- ********** tangram.js SEE UI framework **********
+ ******** tangram.js SEE UI framework ********
  **********  class _.see.ScrollBar  **********
  **********       theme   dark      **********
  *********************************************/
-
 .tangram.scrollbar.default-dark .scroll-bar-vertical {
+  width: 6px; }
+  .tangram.scrollbar.default-dark .scroll-bar-vertical .scroll-bar {
     width: 6px;
-}
-
-.tangram.scrollbar.default-dark .scroll-bar-vertical .scroll-bar {
-    width: 6px;
-    cursor: default;
-}
-
-.tangram.scrollbar.default-dark .scroll-bar-vertical .scroll-bar .scroll-rail {
-    width: 6px;
-    margin: 0;
-    background: #666;
-    z-index: 100;
-}
-
-.tangram.scrollbar.default-dark .scroll-bar-vertical .scroll-bar .scroll-dragger {
-    width: 6px;
-    margin: 0;
-    background: #484848;
-    position: absolute;
-    z-index: 200;
-    cursor: pointer;
-}
-
-.tangram.scrollbar.default-dark .scroll-bar-vertical .scroll-bar .scroll-dragger:hover {
-    background: #282828;
-}
-
-.tangram.scrollbar.default-dark .scroll-bar-vertical .scroll-button-prev {
+    cursor: default; }
+    .tangram.scrollbar.default-dark .scroll-bar-vertical .scroll-bar .scroll-rail {
+      width: 6px;
+      margin: 0;
+      background: #666;
+      z-index: 100; }
+    .tangram.scrollbar.default-dark .scroll-bar-vertical .scroll-bar .scroll-dragger {
+      width: 6px;
+      margin: 0;
+      background: #484848;
+      position: absolute;
+      z-index: 200;
+      cursor: pointer; }
+    .tangram.scrollbar.default-dark .scroll-bar-vertical .scroll-bar .scroll-dragger:hover {
+      background: #282828; }
+  .tangram.scrollbar.default-dark .scroll-bar-vertical .scroll-button-prev {
     display: none;
     width: 0px;
-    height: 0px;
-}
-
-.tangram.scrollbar.default-dark .scroll-bar-vertical .scroll-button-next {
+    height: 0px; }
+  .tangram.scrollbar.default-dark .scroll-bar-vertical .scroll-button-next {
     display: none;
     width: 0px;
-    height: 0px;
-}
+    height: 0px; }
 
-.tangram.scrollbar.default-dark .scroll-bar-horizontal .scroll-bar {
+.tangram.scrollbar.default-dark .scroll-bar-horizontal {
+  height: 6px; }
+  .tangram.scrollbar.default-dark .scroll-bar-horizontal .scroll-bar {
     height: 6px;
-    cursor: default;
-}
-
-.tangram.scrollbar.default-dark .scroll-bar-horizontal .scroll-bar .scroll-rail {
-    height: 6px;
-    margin: 0;
-    background: #666;
-    z-index: 100;
-}
-
-.tangram.scrollbar.default-dark .scroll-bar-horizontal .scroll-bar .scroll-dragger {
-    height: 6px;
-    margin: 0;
-    background: #484848;
-    position: absolute;
-    z-index: 200;
-    cursor: pointer;
-}
-
-.tangram.scrollbar.default-dark .scroll-bar-horizontal .scroll-bar .scroll-dragger:hover {
-    background: #282828;
-}
-
-.tangram.scrollbar.default-dark .scroll-bar-horizontal .scroll-button-prev {
+    cursor: default; }
+    .tangram.scrollbar.default-dark .scroll-bar-horizontal .scroll-bar .scroll-rail {
+      height: 6px;
+      margin: 0;
+      background: #666;
+      z-index: 100; }
+    .tangram.scrollbar.default-dark .scroll-bar-horizontal .scroll-bar .scroll-dragger {
+      height: 6px;
+      margin: 0;
+      background: #484848;
+      position: absolute;
+      z-index: 200;
+      cursor: pointer; }
+    .tangram.scrollbar.default-dark .scroll-bar-horizontal .scroll-bar .scroll-dragger:hover {
+      background: #282828; }
+  .tangram.scrollbar.default-dark .scroll-bar-horizontal .scroll-button-prev {
     display: none;
     width: 0px;
-    height: 0px;
-}
-
-.tangram.scrollbar.default-dark .scroll-bar-horizontal .scroll-button-next {
+    height: 0px; }
+  .tangram.scrollbar.default-dark .scroll-bar-horizontal .scroll-button-next {
     display: none;
     width: 0px;
-    height: 0px;
-}
-
+    height: 0px; }
 
 /*********************************************
- ********** tangram.js SEE UI framework **********
+ ******** tangram.js SEE UI framework ********
  **********  class _.see.ScrollBar  **********
  **********       theme   dark      **********
  *********************************************/
-
 .tangram.scrollbar.default-light .scroll-bar-vertical {
+  width: 3px; }
+  .tangram.scrollbar.default-light .scroll-bar-vertical .scroll-bar {
     width: 3px;
-}
-
-.tangram.scrollbar.default-light .scroll-bar-vertical .scroll-bar {
-    width: 3px;
-    cursor: default;
-}
-
-.tangram.scrollbar.default-light .scroll-bar-vertical .scroll-bar .scroll-rail {
-    width: 3px;
-    margin: 0;
-    background: #999;
-    z-index: 100;
-}
-
-.tangram.scrollbar.default-light .scroll-bar-vertical .scroll-bar .scroll-dragger {
-    width: 3px;
-    margin: 0;
-    background: #ccc;
-    position: absolute;
-    z-index: 200;
-    cursor: pointer;
-}
-
-.tangram.scrollbar.default-light .scroll-bar-vertical .scroll-bar .scroll-dragger:hover {
-    background: #fff;
-}
-
-.tangram.scrollbar.default-light .scroll-bar-vertical .scroll-button-prev {
+    cursor: default; }
+    .tangram.scrollbar.default-light .scroll-bar-vertical .scroll-bar .scroll-rail {
+      width: 3px;
+      margin: 0;
+      background: #999;
+      z-index: 100; }
+    .tangram.scrollbar.default-light .scroll-bar-vertical .scroll-bar .scroll-dragger {
+      width: 3px;
+      margin: 0;
+      background: #ccc;
+      position: absolute;
+      z-index: 200;
+      cursor: pointer; }
+    .tangram.scrollbar.default-light .scroll-bar-vertical .scroll-bar .scroll-dragger:hover {
+      background: #fff; }
+  .tangram.scrollbar.default-light .scroll-bar-vertical .scroll-button-prev {
     display: none;
     width: 0px;
-    height: 0px;
-}
-
-.tangram.scrollbar.default-light .scroll-bar-vertical .scroll-button-next {
+    height: 0px; }
+  .tangram.scrollbar.default-light .scroll-bar-vertical .scroll-button-next {
     display: none;
     width: 0px;
-    height: 0px;
-}
+    height: 0px; }
 
 .tangram.scrollbar.default-light .scroll-bar-horizontal .scroll-bar {
-    height: 3px;
-    cursor: default;
-}
-
-.tangram.scrollbar.default-light .scroll-bar-horizontal .scroll-bar .scroll-rail {
+  height: 3px;
+  cursor: default; }
+  .tangram.scrollbar.default-light .scroll-bar-horizontal .scroll-bar .scroll-rail {
     height: 3px;
     margin: 0;
     background: #999;
-    z-index: 100;
-}
-
-.tangram.scrollbar.default-light .scroll-bar-horizontal .scroll-bar .scroll-dragger {
+    z-index: 100; }
+  .tangram.scrollbar.default-light .scroll-bar-horizontal .scroll-bar .scroll-dragger {
     height: 3px;
     margin: 0;
     background: #ccc;
     position: absolute;
     z-index: 200;
-    cursor: pointer;
-}
-
-.tangram.scrollbar.default-light .scroll-bar-horizontal .scroll-bar .scroll-dragger:hover {
-    background: #fff;
-}
+    cursor: pointer; }
+  .tangram.scrollbar.default-light .scroll-bar-horizontal .scroll-bar .scroll-dragger:hover {
+    background: #fff; }
 
 .tangram.scrollbar.default-light .scroll-bar-horizontal .scroll-button-prev {
-    display: none;
-    width: 0px;
-    height: 0px;
-}
+  display: none;
+  width: 0px;
+  height: 0px; }
 
 .tangram.scrollbar.default-light .scroll-bar-horizontal .scroll-button-next {
-    display: none;
-    width: 0px;
-    height: 0px;
-}
-
+  display: none;
+  width: 0px;
+  height: 0px; }
 
 /*********************************************
- ********** tangram.js SEE UI framework **********
+ ******** tangram.js SEE UI framework ********
  **********  class _.see.ScrollBar  **********
  **********      theme  weiming     **********
  *********************************************/
-
 .tangram.scrollbar.weiming .scroll-bar-vertical .scroll-bar {
-    width: 16px;
-    cursor: default;
-}
-
-.tangram.scrollbar.weiming .scroll-bar-vertical .scroll-bar .scroll-rail {
+  width: 16px;
+  cursor: default; }
+  .tangram.scrollbar.weiming .scroll-bar-vertical .scroll-bar .scroll-rail {
     width: 4px;
     margin: 0px 6px;
     background: #FFF;
-    z-index: 100;
-}
-
-.tangram.scrollbar.weiming .scroll-bar-vertical .scroll-bar .scroll-dragger {
+    z-index: 100; }
+  .tangram.scrollbar.weiming .scroll-bar-vertical .scroll-bar .scroll-dragger {
     width: 6px;
     margin: 0px 5px;
     background: #DDD;
     position: absolute;
     z-index: 200;
-    cursor: pointer;
-}
-
-.tangram.scrollbar.weiming .scroll-bar-vertical .scroll-bar .scroll-dragger:hover {
-    background: #CCC;
-}
+    cursor: pointer; }
+  .tangram.scrollbar.weiming .scroll-bar-vertical .scroll-bar .scroll-dragger:hover {
+    background: #CCC; }
 
 .tangram.scrollbar.weiming .scroll-bar-vertical .scroll-button-prev {
-    display: none;
-    width: 0px;
-    height: 0px;
-}
+  display: none;
+  width: 0px;
+  height: 0px; }
 
 .tangram.scrollbar.weiming .scroll-bar-vertical .scroll-button-next {
-    display: none;
-    width: 0px;
-    height: 0px;
-}
+  display: none;
+  width: 0px;
+  height: 0px; }
 
 .tangram.scrollbar.weiming .scroll-bar-horizontal .scroll-bar {
-    height: 16px;
-    cursor: default;
-}
-
-.tangram.scrollbar.weiming .scroll-bar-horizontal .scroll-bar .scroll-rail {
+  height: 16px;
+  cursor: default; }
+  .tangram.scrollbar.weiming .scroll-bar-horizontal .scroll-bar .scroll-rail {
     height: 4px;
     margin: 6px 0px;
     background: #FFF;
-    z-index: 100;
-}
-
-.tangram.scrollbar.weiming .scroll-bar-horizontal .scroll-bar .scroll-dragger {
+    z-index: 100; }
+  .tangram.scrollbar.weiming .scroll-bar-horizontal .scroll-bar .scroll-dragger {
     height: 6px;
     margin: 5px 0px;
     background: #DDD;
     position: absolute;
     z-index: 200;
-    cursor: pointer;
-}
-
-.tangram.scrollbar.weiming .scroll-bar-horizontal .scroll-bar .scroll-dragger:hover {
-    background: #CCC;
-}
+    cursor: pointer; }
+  .tangram.scrollbar.weiming .scroll-bar-horizontal .scroll-bar .scroll-dragger:hover {
+    background: #CCC; }
 
 .tangram.scrollbar.weiming .scroll-bar-horizontal .scroll-button-prev {
-    display: none;
-    width: 0px;
-    height: 0px;
-}
+  display: none;
+  width: 0px;
+  height: 0px; }
 
 .tangram.scrollbar.weiming .scroll-bar-horizontal .scroll-button-next {
-    display: none;
-    width: 0px;
-    height: 0px;
-}
-
+  display: none;
+  width: 0px;
+  height: 0px; }
 
 /*********************************************
- ********** tangram.js SEE UI framework **********
+ ******** tangram.js SEE UI framework ********
  **********  class _.see.ScrollBar  **********
  **********       theme   dark      **********
  *********************************************/
-
 .tangram.scrollbar.dark .scroll-bar-vertical {
-    width: 6px;
-}
+  width: 6px; }
 
 .tangram.scrollbar.dark .scroll-bar-vertical .scroll-bar {
-    width: 6px;
-    cursor: default;
-}
+  width: 6px;
+  cursor: default; }
 
 .tangram.scrollbar.dark .scroll-bar-vertical .scroll-bar .scroll-rail {
-    width: 6px;
-    margin: 0;
-    background: #666;
-    z-index: 100;
-}
+  width: 6px;
+  margin: 0;
+  background: #666;
+  z-index: 100; }
 
 .tangram.scrollbar.dark .scroll-bar-vertical .scroll-bar .scroll-dragger {
-    width: 6px;
-    margin: 0;
-    background: #484848;
-    position: absolute;
-    z-index: 200;
-    cursor: pointer;
-}
+  width: 6px;
+  margin: 0;
+  background: #484848;
+  position: absolute;
+  z-index: 200;
+  cursor: pointer; }
 
 .tangram.scrollbar.dark .scroll-bar-vertical .scroll-bar .scroll-dragger:hover {
-    background: #282828;
-}
+  background: #282828; }
 
 .tangram.scrollbar.dark .scroll-bar-vertical .scroll-button-prev {
-    display: none;
-    width: 0px;
-    height: 0px;
-}
+  display: none;
+  width: 0px;
+  height: 0px; }
 
 .tangram.scrollbar.dark .scroll-bar-vertical .scroll-button-next {
-    display: none;
-    width: 0px;
-    height: 0px;
-}
+  display: none;
+  width: 0px;
+  height: 0px; }
 
 .tangram.scrollbar.dark .scroll-bar-horizontal .scroll-bar {
-    height: 6px;
-    cursor: default;
-}
+  height: 6px;
+  cursor: default; }
 
 .tangram.scrollbar.dark .scroll-bar-horizontal .scroll-bar .scroll-rail {
-    height: 6px;
-    margin: 0;
-    background: #666;
-    z-index: 100;
-}
+  height: 6px;
+  margin: 0;
+  background: #666;
+  z-index: 100; }
 
 .tangram.scrollbar.dark .scroll-bar-horizontal .scroll-bar .scroll-dragger {
-    height: 6px;
-    margin: 0;
-    background: #484848;
-    position: absolute;
-    z-index: 200;
-    cursor: pointer;
-}
+  height: 6px;
+  margin: 0;
+  background: #484848;
+  position: absolute;
+  z-index: 200;
+  cursor: pointer; }
 
 .tangram.scrollbar.dark .scroll-bar-horizontal .scroll-bar .scroll-dragger:hover {
-    background: #282828;
-}
+  background: #282828; }
 
 .tangram.scrollbar.dark .scroll-bar-horizontal .scroll-button-prev {
-    display: none;
-    width: 0px;
-    height: 0px;
-}
+  display: none;
+  width: 0px;
+  height: 0px; }
 
 .tangram.scrollbar.dark .scroll-bar-horizontal .scroll-button-next {
-    display: none;
-    width: 0px;
-    height: 0px;
-}
-
-
-/*# sourceMappingURL=style.css.map */
+  display: none;
+  width: 0px;
+  height: 0px; }

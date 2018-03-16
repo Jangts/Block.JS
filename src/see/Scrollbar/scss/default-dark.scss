@@ -1,85 +1,78 @@
 @charset "utf-8";
 
 /*********************************************
- ********** tangram.js SEE UI framework **********
+ ******** tangram.js SEE UI framework ********
  **********  class _.see.ScrollBar  **********
  **********       theme   dark      **********
  *********************************************/
 
-.tangram.scrollbar.default-dark .scroll-bar-vertical {
-    width: 6px;
-}
-
-.tangram.scrollbar.default-dark .scroll-bar-vertical .scroll-bar {
-    width: 6px;
-    cursor: default;
-}
-
-.tangram.scrollbar.default-dark .scroll-bar-vertical .scroll-bar .scroll-rail {
-    width: 6px;
-    margin: 0;
-    background: #666;
-    z-index: 100;
-}
-
-.tangram.scrollbar.default-dark .scroll-bar-vertical .scroll-bar .scroll-dragger {
-    width: 6px;
-    margin: 0;
-    background: #484848;
-    position: absolute;
-    z-index: 200;
-    cursor: pointer;
-}
-
-.tangram.scrollbar.default-dark .scroll-bar-vertical .scroll-bar .scroll-dragger:hover {
-    background: #282828;
-}
-
-.tangram.scrollbar.default-dark .scroll-bar-vertical .scroll-button-prev {
-    display: none;
-    width: 0px;
-    height: 0px
-}
-
-.tangram.scrollbar.default-dark .scroll-bar-vertical .scroll-button-next {
-    display: none;
-    width: 0px;
-    height: 0px
-}
-
-.tangram.scrollbar.default-dark .scroll-bar-horizontal .scroll-bar {
-    height: 6px;
-    cursor: default;
-}
-
-.tangram.scrollbar.default-dark .scroll-bar-horizontal .scroll-bar .scroll-rail {
-    height: 6px;
-    margin: 0;
-    background: #666;
-    z-index: 100;
-}
-
-.tangram.scrollbar.default-dark .scroll-bar-horizontal .scroll-bar .scroll-dragger {
-    height: 6px;
-    margin: 0;
-    background: #484848;
-    position: absolute;
-    z-index: 200;
-    cursor: pointer;
-}
-
-.tangram.scrollbar.default-dark .scroll-bar-horizontal .scroll-bar .scroll-dragger:hover {
-    background: #282828;
-}
-
-.tangram.scrollbar.default-dark .scroll-bar-horizontal .scroll-button-prev {
-    display: none;
-    width: 0px;
-    height: 0px
-}
-
-.tangram.scrollbar.default-dark .scroll-bar-horizontal .scroll-button-next {
-    display: none;
-    width: 0px;
-    height: 0px
+.tangram.scrollbar.default-dark {
+    .scroll-bar-vertical {
+        width: 6px;
+        .scroll-bar {
+            width: 6px;
+            cursor: default;
+            .scroll-rail {
+                width: 6px;
+                margin: 0;
+                background: #666;
+                z-index: 100;
+            }
+            .scroll-dragger {
+                width: 6px;
+                margin: 0;
+                background: #484848;
+                position: absolute;
+                z-index: 200;
+                cursor: pointer;
+            }
+            .scroll-dragger:hover {
+                background: #282828;
+            }
+        }
+        .scroll-button-prev {
+            display: none;
+            width: 0px;
+            height: 0px
+        }
+        .scroll-button-next {
+            display: none;
+            width: 0px;
+            height: 0px
+        }
+    }
+    .scroll-bar-horizontal {
+        height: 6px;
+        .scroll-bar {
+            height: 6px;
+            cursor: default;
+            .scroll-rail {
+                height: 6px;
+                margin: 0;
+                background: #666;
+                z-index: 100;
+            }
+            .scroll-dragger {
+                height: 6px;
+                margin: 0;
+                background: #484848;
+                position: absolute;
+                z-index: 200;
+                cursor: pointer;
+            }
+            .scroll-dragger:hover {
+                background: #282828;
+            }
+        }
+        .scroll-button-prev {
+            display: none;
+            width: 0px;
+            height: 0px
+        }
+        .scroll-button-next {
+            display: none;
+            width: 0px;
+            height: 0px
+        }
+    }
 }

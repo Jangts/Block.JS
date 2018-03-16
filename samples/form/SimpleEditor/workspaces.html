@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>EDITOR</title>
+    <script src="../../../src/tangram.js" data-use-debugmode></script>
+    <link href="../../../src/see/see.css" type="text/css" rel="stylesheet" />
+    <link href="../../../src/see/fa.css" type="text/css" rel="stylesheet" />
+    <style>
+        body>div {
+            margin: 20px;
+        }
+        
+        .myeditor {
+            width: 900px;
+            height: 300px;
+        }
+        
+        textarea.myeditor {
+            width: 898px;
+            height: 298px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="myeditor"><textarea>tangram.js SimpleEditor 1</textarea><textarea>tangram.js SimpleEditor 2</textarea><textarea>tangram.js SimpleEditor 3</textarea></div>
+    <script>
+        tangram.block([
+            '$_/dom/Elements/',
+            '$_/form/SimpleEditor/'
+        ], function(pandora, global, undefined) {
+            var _ = pandora,
+                document = global.document,
+                console = global.console;
+
+            var editor = _.form.careatEditors('.myeditor', {
+                fragments: [{
+                    name: '分页符',
+                    code: '{{@page_break}}'
+                }, {
+                    name: '分页符2',
+                    code: '{{@page_break2}}'
+                }]
+            })[0];
+            console.log(editor);
+        }, true);
+    </script>
+</body>
+
+</html>

@@ -262,39 +262,7 @@ tangram.block([
         },
         'statebar': {
             'mouseup': {
-                '.tangram.se-imgfloat': function(e) {
-                    var float = _.dom.getAttr(this, 'data-float') || 'none',
-                        img = event.data.selectedImage;
-                    img.style.float = float;
-                    event.data.selection.saveRange();
-                    event.data.onchange();
-                },
-                '.tangram.se-imgsize': function(e) {
-                    var size = _.dom.getAttr(this, 'data-size') || 'none';
-                    inputs['imgsize'](event.data, size);
-                    event.data.selection.saveRange();
-                    event.data.onchange();
-                },
-                '.tangram.se-table-addrow': function(e) {
-                    var editor = e.data,
-                        table = editor.selectedTable,
-                        row = editor.selectedTableRow,
-                        len = row.cells.length;
-                    _.dom.after(row, '<tr>' + _.util.str.repeat('<td>&nbsp;</td>', len) + '</tr>');
-
-                },
-                '.tangram.se-table-addcol': function(e) {
-                    var editor = e.data,
-                        table = editor.selectedTable,
-                        row = editor.selectedTableRow,
-                        cell = editor.selectedTableCell,
-                        index = _.dom.index(cell, row.cells);
-                    _.each(table.rows, function(i, row) {
-                        cell = row.cells[index] || row.cells[row.length - 1];
-                        _.dom.after(row.cells[index], '<td>&nbsp;</td>');
-                    });
-
-                }
+                
             },
             'change': {
                 'input': function(e) {
@@ -305,11 +273,48 @@ tangram.block([
                 }
             }
         },
-        'workspace': {
+        'workspaces': {
             // 'mouseout': outhandler,
             // 'mouseenter': inhandler,
-            'mouseup': wshandler,
-            'keyup': wshandler
+            'mouseup': {
+                '.tangram.se-statebar .se-imgfloat': function (e) {
+                    var float = _.dom.getAttr(this, 'data-float') || 'none',
+                        img = event.data.selectedImage;
+                    img.style.float = float;
+                    event.data.selection.saveRange();
+                    event.data.onchange();
+                },
+                '.tangram.se-statebar .se-imgsize': function (e) {
+                    var size = _.dom.getAttr(this, 'data-size') || 'none';
+                    inputs['imgsize'](event.data, size);
+                    event.data.selection.saveRange();
+                    event.data.onchange();
+                },
+                '.tangram.se-statebar .se-table-addrow': function (e) {
+                    var editor = e.data,
+                        table = editor.selectedTable,
+                        row = editor.selectedTableRow,
+                        len = row.cells.length;
+                    _.dom.after(row, '<tr>' + _.util.str.repeat('<td>&nbsp;</td>', len) + '</tr>');
+
+                },
+                '.tangram.se-statebar .se-table-addcol': function (e) {
+                    var editor = e.data,
+                        table = editor.selectedTable,
+                        row = editor.selectedTableRow,
+                        cell = editor.selectedTableCell,
+                        index = _.dom.index(cell, row.cells);
+                    _.each(table.rows, function (i, row) {
+                        cell = row.cells[index] || row.cells[row.length - 1];
+                        _.dom.after(row.cells[index], '<td>&nbsp;</td>');
+                    });
+
+                },
+                '.tangram.se-richarea': wshandler
+            },
+            'keyup': {
+                '.tangram.se-richarea': wshandler
+            }
         }
     };
 

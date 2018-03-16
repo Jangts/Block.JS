@@ -1,163 +1,115 @@
 @charset "UTF-8";
-
 /*********************************************
- ********** tangram.js SEE UI framework **********
+ ******** tangram.js SEE UI framework ********
  **********   class  _.see.Silder   **********
  *********************************************/
-
-
-/** Elements Initialization **/
-
-
 /****************
 /*	Common
 /************************************************/
 
-.tangram.slider .stage {
+  .tangram.slider .stage {
     position: relative;
     width: 100%;
     height: 100%;
     margin: auto;
-    display: block;
-}
-
-.tangram.slider .stage>* {
-    display: block;
-    position: absolute;
-}
-
-.tangram.slider .stage .troupe {
-    width: 100%;
-    height: 100%;
-    top: 0px;
-    left: 0;
-    z-index: 0;
-}
-
-.tangram.slider .stage .troupe .actor {
-    float: left;
-    position: relative;
-    height: 100%;
-    top: 0px;
-    z-index: 100;
-}
-
-.tangram.slider .stage .troupe .actor img {
-    width: 100%;
-    height: 100%;
-    min-width: 100%;
-    min-height: 100%;
-}
-
-
-/*	UP-DOWN Turner
-/*----------------------------------------------*/
-
-.tangram.slider .cutter.goto-prev,
-.slide .cutter.goto-next {
+    display: block; }
+    .tangram.slider .stage > * {
+      display: block;
+      position: absolute; }
+    .tangram.slider .stage .troupe {
+      width: 100%;
+      height: 100%;
+      top: 0px;
+      left: 0;
+      z-index: 0; }
+    .tangram.slider .stage .troupe .actor {
+      float: left;
+      position: relative;
+      height: 100%;
+      top: 0px;
+      z-index: 100; }
+    .tangram.slider .stage .troupe .actor img {
+      width: 100%;
+      height: 100%;
+      min-width: 100%;
+      min-height: 100%; }
+  .tangram.slider .cutter.goto-prev,
+  .tangram.slider .slide .cutter.goto-next {
     cursor: pointer;
     -webkit-transition: all .3s ease;
     -moz-transition: all .3s ease;
-    transition: all .3s ease;
-}
-
-.tangram.slider .cutter.auto-hide {
-    opacity: 0;
-}
-
-.tangram.slider:hover .cutter.auto-hide {
-    opacity: 1;
-}
-
-
-/*---| Three Columns |---*/
-
-.tangram.slider .cutter.left-col,
-.tangram.slider .cutter.right-col,
-.tangram.slider .cutter.up-col,
-.tangram.slider .cutter.down-col {
+    transition: all .3s ease; }
+  .tangram.slider .cutter.auto-hide {
+    opacity: 0; }
+  .tangram.slider .tangram.slider:hover .cutter.auto-hide {
+    opacity: 1; }
+  .tangram.slider .cutter.left-col,
+  .tangram.slider .cutter.right-col,
+  .tangram.slider .cutter.up-col,
+  .tangram.slider .cutter.down-col {
     width: 100%;
     height: 100%;
     background-color: #FFF;
     opacity: .8;
     cursor: pointer;
-    z-index: 100;
-}
-
-.tangram.slider .cutter.left-col {
+    z-index: 100; }
+  .tangram.slider .cutter.left-col {
     top: 0px;
-    right: 100%;
-}
-
-.tangram.slider .cutter.right-col {
+    right: 100%; }
+  .tangram.slider .cutter.right-col {
     top: 0px;
-    left: 100%;
-}
-
-.tangram.slider .cutter.up-col {
+    left: 100%; }
+  .tangram.slider .cutter.up-col {
     bottom: 100%;
-    left: 0;
-}
-
-.tangram.slider .cutter.down-col {
+    left: 0; }
+  .tangram.slider .cutter.down-col {
     top: 100%;
-    left: 0;
-}
-
-
-/*---| Previous And Next |---*/
-
-.tangram.slider .cutter {
+    left: 0; }
+  .tangram.slider .cutter {
     position: absolute;
     overflow: hidden;
     cursor: pointer;
-    z-index: 999;
-}
-
-.tangram.slider .cutter.left-circle,
-.tangram.slider .cutter.right-circle,
-.tangram.slider .cutter.lt-in-circle,
-.tangram.slider .cutter.gt-in-circle,
-.tangram.slider .cutter.ll-in-circle,
-.tangram.slider .cutter.lg-in-circle,
-.tangram.slider .cutter.bl-in-circle,
-.tangram.slider .cutter.bg-in-circle {
+    z-index: 999; }
+  .tangram.slider .cutter.left-circle,
+  .tangram.slider .cutter.right-circle,
+  .tangram.slider .cutter.lt-in-circle,
+  .tangram.slider .cutter.gt-in-circle,
+  .tangram.slider .cutter.ll-in-circle,
+  .tangram.slider .cutter.lg-in-circle,
+  .tangram.slider .cutter.bl-in-circle,
+  .tangram.slider .cutter.bg-in-circle {
     width: 40px;
     height: 40px;
     top: 50%;
     margin-top: -20px;
     border-radius: 50%;
-    background: rgba(0, 0, 0, 0.6);
-}
-
-.tangram.slider .cutter.left-bigcircle,
-.tangram.slider .cutter.right-bigcircle,
-.tangram.slider .cutter.lt-in-bigcircle,
-.tangram.slider .cutter.gt-in-bigcircle,
-.tangram.slider .cutter.ll-in-bigcircle,
-.tangram.slider .cutter.lg-in-bigcircle,
-.tangram.slider .cutter.bl-in-bigcircle,
-.tangram.slider .cutter.bg-in-bigcircle {
+    background: rgba(0, 0, 0, 0.6); }
+  .tangram.slider .cutter.left-bigcircle,
+  .tangram.slider .cutter.right-bigcircle,
+  .tangram.slider .cutter.lt-in-bigcircle,
+  .tangram.slider .cutter.gt-in-bigcircle,
+  .tangram.slider .cutter.ll-in-bigcircle,
+  .tangram.slider .cutter.lg-in-bigcircle,
+  .tangram.slider .cutter.bl-in-bigcircle,
+  .tangram.slider .cutter.bg-in-bigcircle {
     width: 80px;
     height: 80px;
     top: 50%;
     margin-top: -40px;
     border-radius: 50%;
-    background: rgba(0, 0, 0, 0.6);
-}
-
-.tangram.slider .cutter.lt-in-circle::before,
-.tangram.slider .cutter.gt-in-circle::before,
-.tangram.slider .cutter.ll-in-circle::before,
-.tangram.slider .cutter.lg-in-circle::before,
-.tangram.slider .cutter.bl-in-circle::before,
-.tangram.slider .cutter.bg-in-circle::before,
-.tangram.slider .cutter.lt-in-bigcircle::before,
-.tangram.slider .cutter.gt-in-bigcircle::before,
-.tangram.slider .cutter.ll-in-bigcircle::before,
-.tangram.slider .cutter.lg-in-bigcircle::before,
-.tangram.slider .cutter.bl-in-bigcircle::before,
-.tangram.slider .cutter.bg-in-bigcircle::before {
+    background: rgba(0, 0, 0, 0.6); }
+  .tangram.slider .cutter.lt-in-circle::before,
+  .tangram.slider .cutter.gt-in-circle::before,
+  .tangram.slider .cutter.ll-in-circle::before,
+  .tangram.slider .cutter.lg-in-circle::before,
+  .tangram.slider .cutter.bl-in-circle::before,
+  .tangram.slider .cutter.bg-in-circle::before,
+  .tangram.slider .cutter.lt-in-bigcircle::before,
+  .tangram.slider .cutter.gt-in-bigcircle::before,
+  .tangram.slider .cutter.ll-in-bigcircle::before,
+  .tangram.slider .cutter.lg-in-bigcircle::before,
+  .tangram.slider .cutter.bl-in-bigcircle::before,
+  .tangram.slider .cutter.bg-in-bigcircle::before {
     font-family: FontAwesome;
     display: block;
     width: 110%;
@@ -166,989 +118,896 @@
     line-height: 42px;
     text-align: center;
     text-decoration: none;
-    color: #FFF;
-}
-
-.tangram.slider .cutter.big-lt,
-.tangram.slider .cutter.big-gt {
+    color: #FFF; }
+  .tangram.slider .cutter.big-lt,
+  .tangram.slider .cutter.big-gt {
     width: 40px;
     height: 80px;
     top: 50%;
     margin-top: -40px;
-    background: transparent;
-}
-
-.tangram.slider .cutter.big-lt::before,
-.tangram.slider .cutter.big-gt::before {
+    background: transparent; }
+  .tangram.slider .cutter.big-lt::before,
+  .tangram.slider .cutter.big-gt::before {
     font-family: FontAwesome;
     line-height: 82px;
     font-size: 72px;
-    color: rgba(255, 255, 255, 0.8);
-}
-
-
-/*---| Previous |---*/
-
-.tangram.slider .cutter.left-circle,
-.tangram.slider .cutter.left-bigcircle,
-.tangram.slider .cutter.lt-in-circle,
-.tangram.slider .cutter.lt-in-bigcircle,
-.tangram.slider .cutter.ll-in-circle,
-.tangram.slider .cutter.ll-in-bigcircle,
-.tangram.slider .cutter.bl-in-circle,
-.tangram.slider .cutter.bl-in-bigcircle {
-    left: 10px;
-}
-
-.tangram.slider .cutter.lt-in-circle::before,
-.tangram.slider .cutter.lt-in-bigcircle::before,
-.tangram.slider .cutter.ll-in-circle::before,
-.tangram.slider .cutter.ll-in-bigcircle::before,
-.tangram.slider .cutter.bl-in-circle::before,
-.tangram.slider .cutter.bl-in-bigcircle::before {
-    margin-left: -10%;
-}
-
-.tangram.slider .cutter.lt-in-circle::before {
+    color: rgba(255, 255, 255, 0.8); }
+  .tangram.slider .cutter.left-circle,
+  .tangram.slider .cutter.left-bigcircle,
+  .tangram.slider .cutter.lt-in-circle,
+  .tangram.slider .cutter.lt-in-bigcircle,
+  .tangram.slider .cutter.ll-in-circle,
+  .tangram.slider .cutter.ll-in-bigcircle,
+  .tangram.slider .cutter.bl-in-circle,
+  .tangram.slider .cutter.bl-in-bigcircle {
+    left: 10px; }
+  .tangram.slider .cutter.lt-in-circle::before,
+  .tangram.slider .cutter.lt-in-bigcircle::before,
+  .tangram.slider .cutter.ll-in-circle::before,
+  .tangram.slider .cutter.ll-in-bigcircle::before,
+  .tangram.slider .cutter.bl-in-circle::before,
+  .tangram.slider .cutter.bl-in-bigcircle::before {
+    margin-left: -10%; }
+  .tangram.slider .cutter.lt-in-circle::before {
     font-size: 24px;
-    content: "\f104";
-}
-
-.tangram.slider .cutter.ll-in-circle::before {
+    content: "\f104"; }
+  .tangram.slider .cutter.ll-in-circle::before {
     font-size: 30px;
-    content: "<";
-}
-
-.tangram.slider .cutter.bl-in-circle::before {
+    content: "<"; }
+  .tangram.slider .cutter.bl-in-circle::before {
     font-size: 21px;
-    content: "\f053";
-}
-
-.tangram.slider .cutter.lt-in-bigcircle::before,
-.tangram.slider .cutter.ll-in-bigcircle::before,
-.tangram.slider .cutter.bl-in-bigcircle::before {
-    line-height: 82px;
-}
-
-.tangram.slider .cutter.lt-in-bigcircle::before {
+    content: "\f053"; }
+  .tangram.slider .cutter.lt-in-bigcircle::before,
+  .tangram.slider .cutter.ll-in-bigcircle::before,
+  .tangram.slider .cutter.bl-in-bigcircle::before {
+    line-height: 82px; }
+  .tangram.slider .cutter.lt-in-bigcircle::before {
     font-size: 48px;
-    content: "\f104";
-}
-
-.tangram.slider .cutter.ll-in-bigcircle::before {
+    content: "\f104"; }
+  .tangram.slider .cutter.ll-in-bigcircle::before {
     font-size: 60px;
-    content: "<";
-}
-
-.tangram.slider .cutter.bl-in-bigcircle::before {
+    content: "<"; }
+  .tangram.slider .cutter.bl-in-bigcircle::before {
     font-size: 36px;
-    content: "\f053";
-}
-
-.tangram.slider .cutter.big-lt {
+    content: "\f053"; }
+  .tangram.slider .cutter.big-lt {
     text-align: left;
-    left: 10px;
-}
-
-.tangram.slider .cutter.big-lt:before {
+    left: 10px; }
+  .tangram.slider .cutter.big-lt:before {
     text-align: left;
-    content: "\f104";
-}
-
-
-/*---| Next |---*/
-
-.tangram.slider .cutter.right-circle,
-.tangram.slider .cutter.right-bigcircle,
-.tangram.slider .cutter.gt-in-circle,
-.tangram.slider .cutter.gt-in-bigcircle,
-.tangram.slider .cutter.lg-in-circle,
-.tangram.slider .cutter.lg-in-bigcircle,
-.tangram.slider .cutter.bg-in-circle,
-.tangram.slider .cutter.bg-in-bigcircle {
-    right: 10px;
-}
-
-.tangram.slider .cutter.gt-in-circle::before {
+    content: "\f104"; }
+  .tangram.slider .cutter.right-circle,
+  .tangram.slider .cutter.right-bigcircle,
+  .tangram.slider .cutter.gt-in-circle,
+  .tangram.slider .cutter.gt-in-bigcircle,
+  .tangram.slider .cutter.lg-in-circle,
+  .tangram.slider .cutter.lg-in-bigcircle,
+  .tangram.slider .cutter.bg-in-circle,
+  .tangram.slider .cutter.bg-in-bigcircle {
+    right: 10px; }
+  .tangram.slider .cutter.gt-in-circle::before {
     font-size: 24px;
-    content: "\f105";
-}
-
-.tangram.slider .cutter.lg-in-circle::before {
+    content: "\f105"; }
+  .tangram.slider .cutter.lg-in-circle::before {
     font-size: 30px;
-    content: ">";
-}
-
-.tangram.slider .cutter.bg-in-circle::before {
+    content: ">"; }
+  .tangram.slider .cutter.bg-in-circle::before {
     font-size: 21px;
-    content: "\f054";
-}
-
-.tangram.slider .cutter.gt-in-bigcircle::before,
-.tangram.slider .cutter.lg-in-bigcircle::before,
-.tangram.slider .cutter.bg-in-bigcircle::before {
-    line-height: 82px;
-}
-
-.tangram.slider .cutter.gt-in-bigcircle::before {
+    content: "\f054"; }
+  .tangram.slider .cutter.gt-in-bigcircle::before,
+  .tangram.slider .cutter.lg-in-bigcircle::before,
+  .tangram.slider .cutter.bg-in-bigcircle::before {
+    line-height: 82px; }
+  .tangram.slider .cutter.gt-in-bigcircle::before {
     font-size: 48px;
-    content: "\f105";
-}
-
-.tangram.slider .cutter.lg-in-bigcircle::before {
+    content: "\f105"; }
+  .tangram.slider .cutter.lg-in-bigcircle::before {
     font-size: 60px;
-    content: ">";
-}
-
-.tangram.slider .cutter.bg-in-bigcircle::before {
+    content: ">"; }
+  .tangram.slider .cutter.bg-in-bigcircle::before {
     font-size: 36px;
-    content: "\f054";
-}
-
-.tangram.slider .cutter.big-gt {
+    content: "\f054"; }
+  .tangram.slider .cutter.big-gt {
     text-align: right;
-    right: 10px;
-}
-
-.tangram.slider .cutter.big-gt:before {
+    right: 10px; }
+  .tangram.slider .cutter.big-gt:before {
     text-align: right;
-    content: "\f105";
-}
-
+    content: "\f105"; }
 
 /*
  * Panel Position
  * 面板位置
  */
 
-.tangram.slider .panel {
+  .tangram.slider .panel {
     position: absolute;
     width: 100%;
     left: 0;
     z-index: 999;
     font-size: 0px;
-    box-sizing: border-box;
-}
-
-.tangram.slider .panel.upon-remote {
+    box-sizing: border-box; }
+  .tangram.slider .panel.upon-remote {
     top: 0px;
-    text-align: right;
-}
-
-.tangram.slider .panel.top-remote {
+    text-align: right; }
+  .tangram.slider .panel.top-remote {
     top: 0px;
-    text-align: right;
-}
-
-.tangram.slider .panel.middle-remote {
+    text-align: right; }
+  .tangram.slider .panel.middle-remote {
     top: 50%;
     margin-top: -50px;
-    text-align: right;
-}
-
-.tangram.slider .panel.bottom-remote {
+    text-align: right; }
+  .tangram.slider .panel.bottom-remote {
     bottom: 0px;
-    text-align: right;
-}
-
-.tangram.slider .panel.under-remote {
+    text-align: right; }
+  .tangram.slider .panel.under-remote {
     bottom: -30px;
-    text-align: center;
-}
-
-
-/*
- * Buttons Position
- * 按钮位置
- */
-
-.tangram.slider .panel.panel.al-left {
+    text-align: center; }
+  .tangram.slider .panel.panel.al-left {
     left: 0;
     right: auto;
-    text-align: left;
-}
-
-.tangram.slider .panel.panel.al-right {
+    text-align: left; }
+  .tangram.slider .panel.panel.al-right {
     left: auto;
     right: 0;
-    text-align: right;
-}
-
-.tangram.slider .panel.panel.al-center {
+    text-align: right; }
+  .tangram.slider .panel.panel.al-center {
     left: 0;
     right: 0;
     margin: auto;
-    text-align: center;
-}
-
-.tangram.slider .panel.panel.al-just {
+    text-align: center; }
+  .tangram.slider .panel.panel.al-just {
     left: 0;
     right: 0;
-    text-align: justify;
-}
-
-.tangram.slider .panel.middle-remote.al-center,
-.tangram.slider .panel.middle-remote.al-just {
-    display: none !important;
-}
-
-
-/*
- * Buttons Style
- * 按钮样式
- */
-
-
-/*---| 圆/点/圈 |---*/
-
-
-/*- circles -*/
-
-.tangram.slider .panel.circles {
-    height: 40px;
-}
-
-.tangram.slider .panel.circles.al-left {
-    padding-left: 10px;
-}
-
-.tangram.slider .panel.circles.al-right {
-    padding-right: 10px;
-}
-
-.tangram.slider .panel.circles .slider-anchor {
-    display: inline-block;
-    box-sizing: border-box;
-    width: 20px;
-    height: 20px;
-    margin: 8px 10px;
-    border-style: solid;
-    border-width: 2px;
-    border-radius: 10px;
-    overflow: hidden;
-    cursor: pointer;
-    opacity: .8;
-}
-
-
-/*- points -*/
-
-.tangram.slider .panel.points {
-    height: 30px;
-}
-
-.tangram.slider .panel.points.al-left {
-    padding-left: 10px;
-}
-
-.tangram.slider .panel.points.al-right {
-    padding-right: 10px;
-}
-
-.tangram.slider .panel.points .slider-anchor {
-    display: inline-block;
-    opacity: .8;
-    box-sizing: border-box;
-    width: 12px;
-    height: 12px;
-    margin: 9px 5px;
-    border-radius: 6px;
-    overflow: hidden;
-    cursor: pointer;
-}
-
-
-/*- rings -*/
-
-.tangram.slider .panel.rings {
-    height: 40px;
-}
-
-.tangram.slider .panel.rings.al-left,
-.tangram.slider .panel.rings-sm.al-left {
-    padding-left: 10px;
-}
-
-.tangram.slider .panel.rings.al-right,
-.tangram.slider .panel.rings-sm.al-right {
-    padding-right: 10px;
-}
-
-.tangram.slider .panel.rings .slider-anchor,
-.tangram.slider .panel.rings-sm .slider-anchor {
-    display: inline-block;
-    box-sizing: border-box;
-    width: 16px;
-    height: 16px;
-    margin: 10px 5px;
-    border-style: solid;
-    border-width: 2px;
-    border-radius: 8px;
-    overflow: hidden;
-    cursor: pointer;
-}
-
-
-/*- small rings -*/
-
-.tangram.slider .panel.rings-sm {
-    height: 30px;
-}
-
-.tangram.slider .panel.rings-sm .slider-anchor {
-    width: 10px;
-    height: 10px;
-    margin: 10px 5px;
-    border-width: 1px;
-    border-radius: 5px;
-}
-
-
-/*---| 方形 |---*/
-
-
-/*- square -*/
-
-.tangram.slider .panel.squares {
-    height: 30px;
-}
-
-.tangram.slider .panel.squares.al-left,
-.tangram.slider .panel.squares-rd.al-left {
-    padding-left: 10px;
-}
-
-.tangram.slider .panel.squares.al-right,
-.tangram.slider .panel.squares-rd.al-right {
-    padding-right: 10px;
-}
-
-.tangram.slider .panel.squares .slider-anchor,
-.tangram.slider .panel.squares-rd .slider-anchor {
-    display: inline-block;
-    width: 10px;
-    height: 10px;
-    overflow: hidden;
-    cursor: pointer;
-    margin: 10px 5px;
-}
-
-
-/*- rounded square -*/
-
-.tangram.slider .panel.squares-rd {
-    height: 40px;
-}
-
-.tangram.slider .panel.squares-rd .slider-anchor {
-    width: 16px;
-    height: 16px;
-    margin: 12px 6px;
-    border-radius: 3px;
-}
-
-
-/*- rectangles -*/
-
-.tangram.slider .panel.rectangles {
-    height: 30px;
-}
-
-.tangram.slider .panel.rectangles.al-left,
-.tangram.slider .panel.rectangles-rd.al-left {
-    padding-left: 10px;
-}
-
-.tangram.slider .panel.rectangles.al-right,
-.tangram.slider .panel.rectangles-rd.al-right {
-    padding-right: 10px;
-}
-
-.tangram.slider .panel.rectangles .slider-anchor,
-.tangram.slider .panel.rectangles-rd .slider-anchor {
-    display: inline-block;
-    width: 16px;
-    height: 10px;
-    overflow: hidden;
-    cursor: pointer;
-    margin: 10px 6px;
-}
-
-
-/*- round rectangles -*/
-
-.tangram.slider .panel.rectangles-rd .slider-anchor {
-    border-radius: 3px;
-}
-
-
-/*---| 条状 |---*/
-
-
-/*- bars -*/
-
-.tangram.slider .panel.bars,
-.tangram.slider .panel.bars-rd {
-    height: 30px;
-}
-
-.tangram.slider .panel.bars.al-left,
-.tangram.slider .panel.bars-rd.al-left {
-    padding-left: 10px;
-}
-
-.tangram.slider .panel.bars.al-right,
-.tangram.slider .panel.bars-rd.al-right {
-    padding-right: 10px;
-}
-
-.tangram.slider .panel.bars .slider-anchor,
-.tangram.slider .panel.bars-rd .slider-anchor {
-    display: inline-block;
-    width: 24px;
-    height: 6px;
-    overflow: hidden;
-    cursor: pointer;
-    margin: 12px 3px;
-}
-
-
-/*- rounded bars -*/
-
-.tangram.slider .panel.bars-rd .slider-anchor {
-    border-radius: 3px;
-}
-
-
-/*---| 线形 |---*/
-
-
-/*- lines -*/
-
-.tangram.slider .panel.lines,
-.tangram.slider .panel.lines-wb {
-    height: 30px;
-}
-
-.tangram.slider .panel.lines.al-left,
-.tangram.slider .panel.lines-wb.al-left {
-    padding-left: 10px;
-}
-
-.tangram.slider .panel.lines.al-right,
-.tangram.slider .panel.lines-wb.al-right {
-    padding-right: 10px;
-}
-
-.tangram.slider .panel.lines .slider-anchor,
-.tangram.slider .panel.lines-wb .slider-anchor {
-    display: inline-block;
-    width: 50px;
-    height: 1px;
-    overflow: hidden;
-    cursor: pointer;
-    margin: 12px 5px;
-}
-
-.tangram.slider .panel.lines-wb .slider-anchor {
-    border-style: solid;
-    border-width: 1px;
-}
-
-
-/*- lines with border -*/
-
-.tangram.slider .panel.lines-wb .slider-anchor.active {
-    width: 48px;
-    height: 1px;
-}
-
-
-/*---| 索引 |---*/
-
-
-/*- context -*/
-
-
-/*- thumbs -*/
-
-.tangram.slider .panel.context,
-.tangram.slider .panel.thumbs {
+    text-align: justify; }
+  .tangram.slider .panel.middle-remote.al-center,
+  .tangram.slider .panel.middle-remote.al-just {
+    display: none !important; }
+  .tangram.slider .panel.circles {
+    height: 40px; }
+    .tangram.slider .panel.circles .slider-anchor {
+      display: inline-block;
+      box-sizing: border-box;
+      width: 20px;
+      height: 20px;
+      margin: 8px 10px;
+      border-style: solid;
+      border-width: 2px;
+      border-radius: 10px;
+      overflow: hidden;
+      cursor: pointer;
+      opacity: .8; }
+  .tangram.slider .panel.circles.al-left {
+    padding-left: 10px; }
+  .tangram.slider .panel.circles.al-right {
+    padding-right: 10px; }
+  .tangram.slider .panel.points {
+    height: 30px; }
+    .tangram.slider .panel.points .slider-anchor {
+      display: inline-block;
+      opacity: .8;
+      box-sizing: border-box;
+      width: 12px;
+      height: 12px;
+      margin: 9px 5px;
+      border-radius: 6px;
+      overflow: hidden;
+      cursor: pointer; }
+  .tangram.slider .panel.points.al-left {
+    padding-left: 10px; }
+  .tangram.slider .panel.points.al-right {
+    padding-right: 10px; }
+  .tangram.slider .panel.rings {
+    height: 40px; }
+  .tangram.slider .panel.rings.al-left,
+  .tangram.slider .panel.rings-sm.al-left {
+    padding-left: 10px; }
+  .tangram.slider .panel.rings.al-right,
+  .tangram.slider .panel.rings-sm.al-right {
+    padding-right: 10px; }
+    .tangram.slider .panel.rings.al-right .slider-anchor,
+    .tangram.slider .panel.rings-sm.al-right .slider-anchor {
+      display: inline-block;
+      box-sizing: border-box;
+      width: 16px;
+      height: 16px;
+      margin: 10px 5px;
+      border-style: solid;
+      border-width: 2px;
+      border-radius: 8px;
+      overflow: hidden;
+      cursor: pointer; }
+  .tangram.slider .panel.rings-sm {
+    height: 30px; }
+    .tangram.slider .panel.rings-sm .slider-anchor {
+      width: 10px;
+      height: 10px;
+      margin: 10px 5px;
+      border-width: 1px;
+      border-radius: 5px; }
+  .tangram.slider .panel.squares,
+  .tangram.slider .panel.squares-rd {
+    height: 30px; }
+    .tangram.slider .panel.squares .slider-anchor,
+    .tangram.slider .panel.squares-rd .slider-anchor {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      overflow: hidden;
+      cursor: pointer;
+      margin: 10px 5px; }
+  .tangram.slider .panel.squares.al-left,
+  .tangram.slider .panel.squares-rd.al-left {
+    padding-left: 10px; }
+  .tangram.slider .panel.squares.al-right,
+  .tangram.slider .panel.squares-rd.al-right {
+    padding-right: 10px; }
+  .tangram.slider .panel.squares-rd {
+    height: 40px; }
+    .tangram.slider .panel.squares-rd .slider-anchor {
+      width: 16px;
+      height: 16px;
+      margin: 12px 6px;
+      border-radius: 3px; }
+  .tangram.slider .panel.rectangles,
+  .tangram.slider .panel.rectangles-rd {
+    height: 30px; }
+    .tangram.slider .panel.rectangles .slider-anchor,
+    .tangram.slider .panel.rectangles-rd .slider-anchor {
+      display: inline-block;
+      width: 16px;
+      height: 10px;
+      overflow: hidden;
+      cursor: pointer;
+      margin: 10px 6px; }
+  .tangram.slider .panel.rectangles.al-left,
+  .tangram.slider .panel.rectangles-rd.al-left {
+    padding-left: 10px; }
+  .tangram.slider .panel.rectangles.al-right,
+  .tangram.slider .panel.rectangles-rd.al-right {
+    padding-right: 10px; }
+  .tangram.slider .panel.rectangles-rd .slider-anchor {
+    border-radius: 3px; }
+  .tangram.slider .panel.bars,
+  .tangram.slider .panel.bars-rd {
+    height: 30px; }
+    .tangram.slider .panel.bars .slider-anchor,
+    .tangram.slider .panel.bars-rd .slider-anchor {
+      display: inline-block;
+      width: 24px;
+      height: 6px;
+      overflow: hidden;
+      cursor: pointer;
+      margin: 12px 3px; }
+  .tangram.slider .panel.bars.al-left,
+  .tangram.slider .panel.bars-rd.al-left {
+    padding-left: 10px; }
+  .tangram.slider .panel.bars.al-right,
+  .tangram.slider .panel.bars-rd.al-right {
+    padding-right: 10px; }
+  .tangram.slider .panel.bars-rd .slider-anchor {
+    border-radius: 3px; }
+  .tangram.slider .panel.lines,
+  .tangram.slider .panel.lines-wb {
+    height: 30px; }
+    .tangram.slider .panel.lines .slider-anchor,
+    .tangram.slider .panel.lines-wb .slider-anchor {
+      display: inline-block;
+      width: 50px;
+      height: 1px;
+      overflow: hidden;
+      cursor: pointer;
+      margin: 12px 5px; }
+  .tangram.slider .panel.lines.al-left,
+  .tangram.slider .panel.lines-wb.al-left {
+    padding-left: 10px; }
+  .tangram.slider .panel.lines.al-right,
+  .tangram.slider .panel.lines-wb.al-right {
+    padding-right: 10px; }
+
+    .tangram.slider .panel.lines-wb .slider-anchor {
+      border-style: solid;
+      border-width: 1px; }
+    .tangram.slider .panel.lines-wb .slider-anchor.active {
+      width: 48px;
+      height: 1px; }
+  .tangram.slider .panel.context,
+  .tangram.slider .panel.thumbs {
     width: 100%;
-    height: 50px;
-}
-
-.tangram.slider .panel.thumbs {
+    height: 50px; }
+    .tangram.slider .panel.context .slider-anchor,
+    .tangram.slider .panel.thumbs .slider-anchor {
+      display: inline-block;
+      box-sizing: border-box;
+      height: 50px;
+      border-top: rgba(255, 255, 255, 0.5) solid 1px;
+      border-right: rgba(255, 255, 255, 0.5) solid 1px;
+      line-height: 50px;
+      font-size: 14px;
+      transition: background-color ease-in .3s;
+      overflow: hidden;
+      cursor: pointer; }
+  .tangram.slider .panel.thumbs {
     height: 80px;
-    font-size: 0;
-}
-
-.tangram.slider .panel.context.middle-remote,
-.tangram.slider .panel.thumbs.middle-remote {
+    font-size: 0; }
+  .tangram.slider .panel.context.middle-remote,
+  .tangram.slider .panel.thumbs.middle-remote {
     width: 200px;
     height: 100%;
     top: 0;
     margin-top: 0;
-    box-sizing: content-box;
-}
-
-.tangram.slider .panel.thumbs.middle-remote {
-    width: 160px;
-}
-
-.tangram.slider .panel.context .slider-anchor,
-.tangram.slider .panel.thumbs .slider-anchor {
-    display: inline-block;
-    box-sizing: border-box;
-    height: 50px;
-    border-top: rgba(255, 255, 255, 0.5) solid 1px;
-    border-right: rgba(255, 255, 255, 0.5) solid 1px;
-    line-height: 50px;
-    font-size: 14px;
-    transition: background-color ease-in .3s;
-    overflow: hidden;
-    cursor: pointer;
-}
-
-.tangram.slider .panel.context.middle-remote .slider-anchor,
-.tangram.slider .panel.thumbs.middle-remote .slider-anchor {
-    width: 100%;
-    height: auto;
-    display: block;
-}
-
+    box-sizing: content-box; }
+    .tangram.slider .panel.context.middle-remote .slider-anchor,
+    .tangram.slider .panel.thumbs.middle-remote .slider-anchor {
+      width: 100%;
+      height: auto;
+      display: block; }
+  .tangram.slider .panel.thumbs.middle-remote {
+    width: 160px; }
 
 /*
  * Anchor Colors
- * 閿氱偣棰滆壊
+ * 锚点颜色
  */
-
-
 /**** TYPES ****/
-
-
 /* Without Border **/
 
-.tangram.slider .panel.bars .slider-anchor,
-.tangram.slider .panel.bars-rd .slider-anchor,
-.tangram.slider .panel.rectangles .slider-anchor,
-.tangram.slider .panel.squares .slider-anchor,
-.tangram.slider .panel.squares-rd .slider-anchor,
-.tangram.slider .panel.points .slider-anchor,
-.tangram.slider .panel.lines .slider-anchor {
+  .tangram.slider .panel.bars .slider-anchor,
+  .tangram.slider .panel.bars-rd .slider-anchor,
+  .tangram.slider .panel.rectangles .slider-anchor,
+  .tangram.slider .panel.squares .slider-anchor,
+  .tangram.slider .panel.squares-rd .slider-anchor,
+  .tangram.slider .panel.points .slider-anchor,
+  .tangram.slider .panel.lines .slider-anchor {
+    background-color: #DDD; }
+  .tangram.slider .panel.circles .slider-anchor {
     background-color: #DDD;
-}
-
-
-/* Circles */
-
-.tangram.slider .panel.circles .slider-anchor {
-    background-color: #DDD;
-    border-color: #DDD;
-}
-
-
-/* With Border */
-
-.tangram.slider .panel.lines-wb .slider-anchor,
-.tangram.slider .panel.rings .slider-anchor,
-.tangram.slider .panel.rings-sm .slider-anchor {
+    border-color: #DDD; }
+  .tangram.slider .panel.lines-wb .slider-anchor,
+  .tangram.slider .panel.rings .slider-anchor,
+  .tangram.slider .panel.rings-sm .slider-anchor {
     background-color: transparent;
-    border-color: #888;
-}
-
-
-/**** COLOURS ****/
-
-
-/* default:gray */
-
-.tangram.slider .panel.squares .slider-anchor.active,
-.tangram.slider .panel.squares-rd .slider-anchor.active,
-.tangram.slider .panel.rectangles .slider-anchor.active,
-.tangram.slider .panel.bars .slider-anchor.active,
-.tangram.slider .panel.bars-rd .slider-anchor.active,
-.tangram.slider .panel.points .slider-anchor.active,
-.tangram.slider .panel.lines .slider-anchor.active,
-.tangram.slider .panel.rings .slider-anchor:hover,
-.tangram.slider .panel.rings-sm .slider-anchor:hover {
+    border-color: #888; }
+  .tangram.slider .panel.squares .slider-anchor.active,
+  .tangram.slider .panel.squares-rd .slider-anchor.active,
+  .tangram.slider .panel.rectangles .slider-anchor.active,
+  .tangram.slider .panel.bars .slider-anchor.active,
+  .tangram.slider .panel.bars-rd .slider-anchor.active,
+  .tangram.slider .panel.points .slider-anchor.active,
+  .tangram.slider .panel.lines .slider-anchor.active,
+  .tangram.slider .panel.rings .slider-anchor:hover,
+  .tangram.slider .panel.rings-sm .slider-anchor:hover {
+    background-color: #888; }
+  .tangram.slider .panel.circles .slider-anchor.active,
+  .tangram.slider .panel.lines-wb .slider-anchor.active,
+  .tangram.slider .panel.rings .slider-anchor.active,
+  .tangram.slider .panel.rings-sm .slider-anchor.active {
     background-color: #888;
-}
-
-.tangram.slider .panel.circles .slider-anchor.active,
-.tangram.slider .panel.lines-wb .slider-anchor.active,
-.tangram.slider .panel.rings .slider-anchor.active,
-.tangram.slider .panel.rings-sm .slider-anchor.active {
-    background-color: #888;
-    border-color: #888;
-}
-
-
-/* red */
-
-.tangram.slider .panel.red.squares .slider-anchor.active,
-.tangram.slider .panel.red.squares-rd .slider-anchor.active,
-.tangram.slider .panel.red.rectangles .slider-anchor.active,
-.tangram.slider .panel.red.bars .slider-anchor.active,
-.tangram.slider .panel.red.bars-rd .slider-anchor.active,
-.tangram.slider .panel.red.points .slider-anchor.active,
-.tangram.slider .panel.red.lines .slider-anchor.active,
-.tangram.slider .panel.red.rings .slider-anchor:hover,
-.tangram.slider .panel.red.rings-sm .slider-anchor:hover {
-    background-color: #F03;
-}
-
-.tangram.slider .panel.red.circles .slider-anchor.active,
-.tangram.slider .panel.red.lines-wb .slider-anchor.active,
-.tangram.slider .panel.red.rings .slider-anchor.active,
-.tangram.slider .panel.red.rings-sm .slider-anchor.active {
+    border-color: #888; }
+  .tangram.slider .panel.red.squares .slider-anchor.active,
+  .tangram.slider .panel.red.squares-rd .slider-anchor.active,
+  .tangram.slider .panel.red.rectangles .slider-anchor.active,
+  .tangram.slider .panel.red.bars .slider-anchor.active,
+  .tangram.slider .panel.red.bars-rd .slider-anchor.active,
+  .tangram.slider .panel.red.points .slider-anchor.active,
+  .tangram.slider .panel.red.lines .slider-anchor.active,
+  .tangram.slider .panel.red.rings .slider-anchor:hover,
+  .tangram.slider .panel.red.rings-sm .slider-anchor:hover {
+    background-color: #F03; }
+  .tangram.slider .panel.red.circles .slider-anchor.active,
+  .tangram.slider .panel.red.lines-wb .slider-anchor.active,
+  .tangram.slider .panel.red.rings .slider-anchor.active,
+  .tangram.slider .panel.red.rings-sm .slider-anchor.active {
     background-color: #FCC;
-    border-color: #F03;
-}
-
-
-/* orange */
-
-.tangram.slider .panel.orange.squares .slider-anchor.active,
-.tangram.slider .panel.orange.squares-rd .slider-anchor.active,
-.tangram.slider .panel.orange.rectangles .slider-anchor.active,
-.tangram.slider .panel.orange.bars .slider-anchor.active,
-.tangram.slider .panel.orange.bars-rd .slider-anchor.active,
-.tangram.slider .panel.orange.points .slider-anchor.active,
-.tangram.slider .panel.orange.lines .slider-anchor.active,
-.tangram.slider .panel.orange.rings .slider-anchor:hover,
-.tangram.slider .panel.orange.rings-sm .slider-anchor:hover {
-    background-color: #F60;
-}
-
-.tangram.slider .panel.orange.circles .slider-anchor.active,
-.tangram.slider .panel.orange.lines-wb .slider-anchor.active,
-.tangram.slider .panel.orange.rings .slider-anchor.active,
-.tangram.slider .panel.orange.rings-sm .slider-anchor.active {
+    border-color: #F03; }
+  .tangram.slider .panel.orange.squares .slider-anchor.active,
+  .tangram.slider .panel.orange.squares-rd .slider-anchor.active,
+  .tangram.slider .panel.orange.rectangles .slider-anchor.active,
+  .tangram.slider .panel.orange.bars .slider-anchor.active,
+  .tangram.slider .panel.orange.bars-rd .slider-anchor.active,
+  .tangram.slider .panel.orange.points .slider-anchor.active,
+  .tangram.slider .panel.orange.lines .slider-anchor.active,
+  .tangram.slider .panel.orange.rings .slider-anchor:hover,
+  .tangram.slider .panel.orange.rings-sm .slider-anchor:hover {
+    background-color: #F60; }
+  .tangram.slider .panel.orange.circles .slider-anchor.active,
+  .tangram.slider .panel.orange.lines-wb .slider-anchor.active,
+  .tangram.slider .panel.orange.rings .slider-anchor.active,
+  .tangram.slider .panel.orange.rings-sm .slider-anchor.active {
     background-color: #FC9;
-    border-color: #F60;
-}
-
-
-/* brown */
-
-.tangram.slider .panel.brown.squares .slider-anchor.active,
-.tangram.slider .panel.brown.squares-rd .slider-anchor.active,
-.tangram.slider .panel.brown.rectangles .slider-anchor.active,
-.tangram.slider .panel.brown.bars .slider-anchor.active,
-.tangram.slider .panel.brown.bars-rd .slider-anchor.active,
-.tangram.slider .panel.brown.points .slider-anchor.active,
-.tangram.slider .panel.brown.lines .slider-anchor.active,
-.tangram.slider .panel.brown.rings .slider-anchor:hover,
-.tangram.slider .panel.brown.rings-sm .slider-anchor:hover {
-    background-color: #C93;
-}
-
-.tangram.slider .panel.brown.circles .slider-anchor.active,
-.tangram.slider .panel.brown.lines-wb .slider-anchor.active,
-.tangram.slider .panel.brown.rings .slider-anchor.active,
-.tangram.slider .panel.brown.rings-sm .slider-anchor.active {
+    border-color: #F60; }
+  .tangram.slider .panel.brown.squares .slider-anchor.active,
+  .tangram.slider .panel.brown.squares-rd .slider-anchor.active,
+  .tangram.slider .panel.brown.rectangles .slider-anchor.active,
+  .tangram.slider .panel.brown.bars .slider-anchor.active,
+  .tangram.slider .panel.brown.bars-rd .slider-anchor.active,
+  .tangram.slider .panel.brown.points .slider-anchor.active,
+  .tangram.slider .panel.brown.lines .slider-anchor.active,
+  .tangram.slider .panel.brown.rings .slider-anchor:hover,
+  .tangram.slider .panel.brown.rings-sm .slider-anchor:hover {
+    background-color: #C93; }
+  .tangram.slider .panel.brown.circles .slider-anchor.active,
+  .tangram.slider .panel.brown.lines-wb .slider-anchor.active,
+  .tangram.slider .panel.brown.rings .slider-anchor.active,
+  .tangram.slider .panel.brown.rings-sm .slider-anchor.active {
     background-color: #FC9;
-    border-color: #C93;
-}
-
-
-/* yellow */
-
-.tangram.slider .panel.yellow.squares .slider-anchor.active,
-.tangram.slider .panel.yellow.squares-rd .slider-anchor.active,
-.tangram.slider .panel.yellow.rectangles .slider-anchor.active,
-.tangram.slider .panel.yellow.bars .slider-anchor.active,
-.tangram.slider .panel.yellow.bars-rd .slider-anchor.active,
-.tangram.slider .panel.yellow.points .slider-anchor.active,
-.tangram.slider .panel.yellow.lines .slider-anchor.active,
-.tangram.slider .panel.yellow.rings .slider-anchor:hover,
-.tangram.slider .panel.yellow.rings-sm .slider-anchor:hover {
-    background-color: #CC0;
-}
-
-.tangram.slider .panel.yellow.circles .slider-anchor.active,
-.tangram.slider .panel.yellow.lines-wb .slider-anchor.active,
-.tangram.slider .panel.yellow.rings .slider-anchor.active,
-.tangram.slider .panel.yellow.rings-sm .slider-anchor.active {
+    border-color: #C93; }
+  .tangram.slider .panel.yellow.squares .slider-anchor.active,
+  .tangram.slider .panel.yellow.squares-rd .slider-anchor.active,
+  .tangram.slider .panel.yellow.rectangles .slider-anchor.active,
+  .tangram.slider .panel.yellow.bars .slider-anchor.active,
+  .tangram.slider .panel.yellow.bars-rd .slider-anchor.active,
+  .tangram.slider .panel.yellow.points .slider-anchor.active,
+  .tangram.slider .panel.yellow.lines .slider-anchor.active,
+  .tangram.slider .panel.yellow.rings .slider-anchor:hover,
+  .tangram.slider .panel.yellow.rings-sm .slider-anchor:hover {
+    background-color: #CC0; }
+  .tangram.slider .panel.yellow.circles .slider-anchor.active,
+  .tangram.slider .panel.yellow.lines-wb .slider-anchor.active,
+  .tangram.slider .panel.yellow.rings .slider-anchor.active,
+  .tangram.slider .panel.yellow.rings-sm .slider-anchor.active {
     background-color: #FFC;
-    border-color: #CC0;
-}
-
-
-/* green */
-
-.tangram.slider .panel.green.squares .slider-anchor.active,
-.tangram.slider .panel.green.squares-rd .slider-anchor.active,
-.tangram.slider .panel.green.rectangles .slider-anchor.active,
-.tangram.slider .panel.green.bars .slider-anchor.active,
-.tangram.slider .panel.green.bars-rd .slider-anchor.active,
-.tangram.slider .panel.green.points .slider-anchor.active,
-.tangram.slider .panel.green.lines .slider-anchor.active,
-.tangram.slider .panel.green.rings .slider-anchor:hover,
-.tangram.slider .panel.green.rings-sm .slider-anchor:hover {
-    background-color: #6C6;
-}
-
-.tangram.slider .panel.green.circles .slider-anchor.active,
-.tangram.slider .panel.green.lines-wb .slider-anchor.active,
-.tangram.slider .panel.green.rings .slider-anchor.active,
-.tangram.slider .panel.green.rings-sm .slider-anchor.active {
+    border-color: #CC0; }
+  .tangram.slider .panel.green.squares .slider-anchor.active,
+  .tangram.slider .panel.green.squares-rd .slider-anchor.active,
+  .tangram.slider .panel.green.rectangles .slider-anchor.active,
+  .tangram.slider .panel.green.bars .slider-anchor.active,
+  .tangram.slider .panel.green.bars-rd .slider-anchor.active,
+  .tangram.slider .panel.green.points .slider-anchor.active,
+  .tangram.slider .panel.green.lines .slider-anchor.active,
+  .tangram.slider .panel.green.rings .slider-anchor:hover,
+  .tangram.slider .panel.green.rings-sm .slider-anchor:hover {
+    background-color: #6C6; }
+  .tangram.slider .panel.green.circles .slider-anchor.active,
+  .tangram.slider .panel.green.lines-wb .slider-anchor.active,
+  .tangram.slider .panel.green.rings .slider-anchor.active,
+  .tangram.slider .panel.green.rings-sm .slider-anchor.active {
     background-color: #CFC;
-    border-color: #6C6;
-}
-
-
-/* darkgreen */
-
-.tangram.slider .panel.darkgreen.squares .slider-anchor.active,
-.tangram.slider .panel.darkgreen.squares-rd .slider-anchor.active,
-.tangram.slider .panel.darkgreen.rectangles .slider-anchor.active,
-.tangram.slider .panel.darkgreen.bars .slider-anchor.active,
-.tangram.slider .panel.darkgreen.bars-rd .slider-anchor.active,
-.tangram.slider .panel.darkdarkgreen.points .slider-anchor.active,
-.tangram.slider .panel.darkgreen.lines .slider-anchor.active,
-.tangram.slider .panel.darkgreen.rings .slider-anchor:hover,
-.tangram.slider .panel.darkgreen.rings-sm .slider-anchor:hover {
-    background-color: #090;
-}
-
-.tangram.slider .panel.darkgreen.circles .slider-anchor.active,
-.tangram.slider .panel.darkgreen.lines-wb .slider-anchor.active,
-.tangram.slider .panel.darkgreen.rings .slider-anchor.active,
-.tangram.slider .panel.darkgreen.rings-sm .slider-anchor.active {
+    border-color: #6C6; }
+  .tangram.slider .panel.darkgreen.squares .slider-anchor.active,
+  .tangram.slider .panel.darkgreen.squares-rd .slider-anchor.active,
+  .tangram.slider .panel.darkgreen.rectangles .slider-anchor.active,
+  .tangram.slider .panel.darkgreen.bars .slider-anchor.active,
+  .tangram.slider .panel.darkgreen.bars-rd .slider-anchor.active,
+  .tangram.slider .panel.darkdarkgreen.points .slider-anchor.active,
+  .tangram.slider .panel.darkgreen.lines .slider-anchor.active,
+  .tangram.slider .panel.darkgreen.rings .slider-anchor:hover,
+  .tangram.slider .panel.darkgreen.rings-sm .slider-anchor:hover {
+    background-color: #090; }
+  .tangram.slider .panel.darkgreen.circles .slider-anchor.active,
+  .tangram.slider .panel.darkgreen.lines-wb .slider-anchor.active,
+  .tangram.slider .panel.darkgreen.rings .slider-anchor.active,
+  .tangram.slider .panel.darkgreen.rings-sm .slider-anchor.active {
     background-color: #CFC;
-    border-color: #090;
-}
-
-
-/* cyan */
-
-.tangram.slider .panel.cyan.squares .slider-anchor.active,
-.tangram.slider .panel.cyan.squares-rd .slider-anchor.active,
-.tangram.slider .panel.cyan.rectangles .slider-anchor.active,
-.tangram.slider .panel.cyan.bars .slider-anchor.active,
-.tangram.slider .panel.cyan.bars-rd .slider-anchor.active,
-.tangram.slider .panel.cyan.points .slider-anchor.active,
-.tangram.slider .panel.cyan.lines .slider-anchor.active,
-.tangram.slider .panel.cyan.rings .slider-anchor:hover,
-.tangram.slider .panel.cyan.rings-sm .slider-anchor:hover {
-    background-color: #6CF;
-}
-
-.tangram.slider .panel.cyan.circles .slider-anchor.active,
-.tangram.slider .panel.cyan.lines-wb .slider-anchor.active,
-.tangram.slider .panel.cyan.rings .slider-anchor.active,
-.tangram.slider .panel.cyan.rings-sm .slider-anchor.active {
-    background-color: #CFF;
-    border-color: #6CF;
-}
-
-
-/* blue */
-
-.tangram.slider .panel.blue.squares .slider-anchor.active,
-.tangram.slider .panel.blue.squares-rd .slider-anchor.active,
-.tangram.slider .panel.blue.rectangles .slider-anchor.active,
-.tangram.slider .panel.blue.bars .slider-anchor.active,
-.tangram.slider .panel.blue.bars-rd .slider-anchor.active,
-.tangram.slider .panel.blue.points .slider-anchor.active,
-.tangram.slider .panel.blue.lines .slider-anchor.active,
-.tangram.slider .panel.blue.rings .slider-anchor:hover,
-.tangram.slider .panel.blue.rings-sm .slider-anchor:hover {
-    background-color: #08F;
-}
-
-.tangram.slider .panel.blue.circles .slider-anchor.active,
-.tangram.slider .panel.blue.lines-wb .slider-anchor.active,
-.tangram.slider .panel.blue.rings .slider-anchor.active,
-.tangram.slider .panel.blue.rings-sm .slider-anchor.active {
-    background-color: #6FF;
-    border-color: #08F;
-}
-
-
-/* darkblue */
-
-.tangram.slider .panel.darkblue.squares .slider-anchor.active,
-.tangram.slider .panel.darkblue.squares-rd .slider-anchor.active,
-.tangram.slider .panel.darkblue.rectangles .slider-anchor.active,
-.tangram.slider .panel.darkblue.bars .slider-anchor.active,
-.tangram.slider .panel.darkblue.bars-rd .slider-anchor.active,
-.tangram.slider .panel.darkblue.points .slider-anchor.active,
-.tangram.slider .panel.darkblue.lines .slider-anchor.active,
-.tangram.slider .panel.darkblue.rings .slider-anchor:hover,
-.tangram.slider .panel.darkblue.rings-sm .slider-anchor:hover {
-    background-color: #038;
-}
-
-.tangram.slider .panel.darkblue.circles .slider-anchor.active,
-.tangram.slider .panel.darkblue.lines-wb .slider-anchor.active,
-.tangram.slider .panel.darkblue.rings .slider-anchor.active,
-.tangram.slider .panel.darkblue.rings-sm .slider-anchor.active {
-    background-color: #6CF;
-    border-color: #038;
-}
-
-
-/* purple */
-
-.tangram.slider .panel.purple.squares .slider-anchor.active,
-.tangram.slider .panel.purple.squares-rd .slider-anchor.active,
-.tangram.slider .panel.purple.rectangles .slider-anchor.active,
-.tangram.slider .panel.purple.bars .slider-anchor.active,
-.tangram.slider .panel.purple.bars-rd .slider-anchor.active,
-.tangram.slider .panel.purple.points .slider-anchor.active,
-.tangram.slider .panel.purple.lines .slider-anchor.active,
-.tangram.slider .panel.purple.rings .slider-anchor:hover,
-.tangram.slider .panel.purple.rings-sm .slider-anchor:hover {
-    background-color: #D0C;
-}
-
-.tangram.slider .panel.purple.circles .slider-anchor.active,
-.tangram.slider .panel.purple.lines-wb .slider-anchor.active,
-.tangram.slider .panel.purple.rings .slider-anchor.active,
-.tangram.slider .panel.purple.rings-sm .slider-anchor.active {
-    background-color: #FCE;
-    border-color: #D0C;
-}
-
-
-/* magenta */
-
-.tangram.slider .panel.magenta.squares .slider-anchor.active,
-.tangram.slider .panel.magenta.squares-rd .slider-anchor.active,
-.tangram.slider .panel.magenta.rectangles .slider-anchor.active,
-.tangram.slider .panel.magenta.bars .slider-anchor.active,
-.tangram.slider .panel.magenta.bars-rd .slider-anchor.active,
-.tangram.slider .panel.magenta.points .slider-anchor.active,
-.tangram.slider .panel.magenta.lines .slider-anchor.active,
-.tangram.slider .panel.magenta.rings .slider-anchor:hover,
-.tangram.slider .panel.magenta.rings-sm .slider-anchor:hover {
-    background-color: #F07;
-}
-
-.tangram.slider .panel.magenta.circles .slider-anchor.active,
-.tangram.slider .panel.magenta.lines-wb .slider-anchor.active,
-.tangram.slider .panel.magenta.rings .slider-anchor.active,
-.tangram.slider .panel.magenta.rings-sm .slider-anchor.active {
-    background-color: #F9C;
-    border-color: #F07;
-}
-
-
-/* pink */
-
-.tangram.slider .panel.pink.squares .slider-anchor.active,
-.tangram.slider .panel.pink.squares-rd .slider-anchor.active,
-.tangram.slider .panel.pink.rectangles .slider-anchor.active,
-.tangram.slider .panel.pink.bars .slider-anchor.active,
-.tangram.slider .panel.pink.bars-rd .slider-anchor.active,
-.tangram.slider .panel.pink.points .slider-anchor.active,
-.tangram.slider .panel.pink.lines .slider-anchor.active,
-.tangram.slider .panel.pink.rings .slider-anchor:hover,
-.tangram.slider .panel.pink.rings-sm .slider-anchor:hover {
-    background-color: #F69;
-}
-
-.tangram.slider .panel.pink.circles .slider-anchor.active,
-.tangram.slider .panel.pink.lines-wb .slider-anchor.active,
-.tangram.slider .panel.pink.rings .slider-anchor.active,
-.tangram.slider .panel.pink.rings-sm .slider-anchor.active {
-    background-color: #F9F;
-    border-color: #F69;
-}
-
-
-/* white */
-
-.tangram.slider .panel.white.squares .slider-anchor.active,
-.tangram.slider .panel.white.squares-rd .slider-anchor.active,
-.tangram.slider .panel.white.rectangles .slider-anchor.active,
-.tangram.slider .panel.white.bars .slider-anchor.active,
-.tangram.slider .panel.white.bars-rd .slider-anchor.active,
-.tangram.slider .panel.white.points .slider-anchor.active,
-.tangram.slider .panel.white.lines .slider-anchor.active,
-.tangram.slider .panel.white.rings .slider-anchor:hover,
-.tangram.slider .panel.white.rings-sm .slider-anchor:hover {
-    background-color: #FFF;
-}
-
-.tangram.slider .panel.white.circles .slider-anchor.active,
-.tangram.slider .panel.white.lines-wb .slider-anchor.active,
-.tangram.slider .panel.white.rings .slider-anchor.active,
-.tangram.slider .panel.white.rings-sm .slider-anchor.active {
+    border-color: #090; }
+  .tangram.slider .panel.bars .slider-anchor,
+  .tangram.slider .tangram.slider .panel.bars-rd .slider-anchor,
+  .tangram.slider .tangram.slider .panel.rectangles .slider-anchor,
+  .tangram.slider .tangram.slider .panel.squares .slider-anchor,
+  .tangram.slider .tangram.slider .panel.squares-rd .slider-anchor,
+  .tangram.slider .tangram.slider .panel.points .slider-anchor,
+  .tangram.slider .tangram.slider .panel.lines .slider-anchor {
+    background-color: #DDD; }
+  .tangram.slider .tangram.slider .panel.circles .slider-anchor {
     background-color: #DDD;
-    border-color: #FFF;
-}
-
-
-/* dark */
-
-.tangram.slider .panel.dark.squares .slider-anchor.active,
-.tangram.slider .panel.dark.squares-rd .slider-anchor.active,
-.tangram.slider .panel.dark.rectangles .slider-anchor.active,
-.tangram.slider .panel.dark.bars .slider-anchor.active,
-.tangram.slider .panel.dark.bars-rd .slider-anchor.active,
-.tangram.slider .panel.dark.points .slider-anchor.active,
-.tangram.slider .panel.dark.lines .slider-anchor.active,
-.tangram.slider .panel.dark.rings .slider-anchor:hover,
-.tangram.slider .panel.dark.rings-sm .slider-anchor:hover {
-    background-color: #333;
-}
-
-.tangram.slider .panel.dark.circles .slider-anchor.active,
-.tangram.slider .panel.dark.lines-wb .slider-anchor.active,
-.tangram.slider .panel.dark.rings .slider-anchor.active,
-.tangram.slider .panel.dark.rings-sm .slider-anchor.active {
+    border-color: #DDD; }
+  .tangram.slider .tangram.slider .panel.lines-wb .slider-anchor,
+  .tangram.slider .tangram.slider .panel.rings .slider-anchor,
+  .tangram.slider .tangram.slider .panel.rings-sm .slider-anchor {
+    background-color: transparent;
+    border-color: #888; }
+  .tangram.slider .tangram.slider .panel.squares .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.squares-rd .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.rectangles .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.bars .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.bars-rd .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.points .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.lines .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.rings .slider-anchor:hover,
+  .tangram.slider .tangram.slider .panel.rings-sm .slider-anchor:hover {
+    background-color: #888; }
+  .tangram.slider .tangram.slider .panel.circles .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.lines-wb .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.rings .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.rings-sm .slider-anchor.active {
+    background-color: #888;
+    border-color: #888; }
+  .tangram.slider .tangram.slider .panel.red.squares .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.red.squares-rd .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.red.rectangles .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.red.bars .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.red.bars-rd .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.red.points .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.red.lines .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.red.rings .slider-anchor:hover,
+  .tangram.slider .tangram.slider .panel.red.rings-sm .slider-anchor:hover {
+    background-color: #F03; }
+  .tangram.slider .tangram.slider .panel.red.circles .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.red.lines-wb .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.red.rings .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.red.rings-sm .slider-anchor.active {
+    background-color: #FCC;
+    border-color: #F03; }
+  .tangram.slider .tangram.slider .panel.orange.squares .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.orange.squares-rd .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.orange.rectangles .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.orange.bars .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.orange.bars-rd .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.orange.points .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.orange.lines .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.orange.rings .slider-anchor:hover,
+  .tangram.slider .tangram.slider .panel.orange.rings-sm .slider-anchor:hover {
+    background-color: #F60; }
+  .tangram.slider .tangram.slider .panel.orange.circles .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.orange.lines-wb .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.orange.rings .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.orange.rings-sm .slider-anchor.active {
+    background-color: #FC9;
+    border-color: #F60; }
+  .tangram.slider .tangram.slider .panel.brown.squares .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.brown.squares-rd .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.brown.rectangles .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.brown.bars .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.brown.bars-rd .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.brown.points .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.brown.lines .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.brown.rings .slider-anchor:hover,
+  .tangram.slider .tangram.slider .panel.brown.rings-sm .slider-anchor:hover {
+    background-color: #C93; }
+  .tangram.slider .tangram.slider .panel.brown.circles .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.brown.lines-wb .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.brown.rings .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.brown.rings-sm .slider-anchor.active {
+    background-color: #FC9;
+    border-color: #C93; }
+  .tangram.slider .tangram.slider .panel.yellow.squares .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.yellow.squares-rd .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.yellow.rectangles .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.yellow.bars .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.yellow.bars-rd .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.yellow.points .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.yellow.lines .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.yellow.rings .slider-anchor:hover,
+  .tangram.slider .tangram.slider .panel.yellow.rings-sm .slider-anchor:hover {
+    background-color: #CC0; }
+  .tangram.slider .tangram.slider .panel.yellow.circles .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.yellow.lines-wb .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.yellow.rings .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.yellow.rings-sm .slider-anchor.active {
+    background-color: #FFC;
+    border-color: #CC0; }
+  .tangram.slider .tangram.slider .panel.green.squares .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.green.squares-rd .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.green.rectangles .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.green.bars .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.green.bars-rd .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.green.points .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.green.lines .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.green.rings .slider-anchor:hover,
+  .tangram.slider .tangram.slider .panel.green.rings-sm .slider-anchor:hover {
+    background-color: #6C6; }
+  .tangram.slider .tangram.slider .panel.green.circles .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.green.lines-wb .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.green.rings .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.green.rings-sm .slider-anchor.active {
+    background-color: #CFC;
+    border-color: #6C6; }
+  .tangram.slider .tangram.slider .panel.darkgreen.squares .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.darkgreen.squares-rd .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.darkgreen.rectangles .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.darkgreen.bars .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.darkgreen.bars-rd .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.darkdarkgreen.points .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.darkgreen.lines .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.darkgreen.rings .slider-anchor:hover,
+  .tangram.slider .tangram.slider .panel.darkgreen.rings-sm .slider-anchor:hover {
+    background-color: #090; }
+  .tangram.slider .tangram.slider .panel.darkgreen.circles .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.darkgreen.lines-wb .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.darkgreen.rings .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.darkgreen.rings-sm .slider-anchor.active {
+    background-color: #CFC;
+    border-color: #090; }
+  .tangram.slider .tangram.slider .panel.cyan.squares .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.cyan.squares-rd .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.cyan.rectangles .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.cyan.bars .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.cyan.bars-rd .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.cyan.points .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.cyan.lines .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.cyan.rings .slider-anchor:hover,
+  .tangram.slider .tangram.slider .panel.cyan.rings-sm .slider-anchor:hover {
+    background-color: #6CF; }
+  .tangram.slider .tangram.slider .panel.cyan.circles .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.cyan.lines-wb .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.cyan.rings .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.cyan.rings-sm .slider-anchor.active {
+    background-color: #CFF;
+    border-color: #6CF; }
+  .tangram.slider .tangram.slider .panel.blue.squares .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.blue.squares-rd .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.blue.rectangles .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.blue.bars .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.blue.bars-rd .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.blue.points .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.blue.lines .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.blue.rings .slider-anchor:hover,
+  .tangram.slider .tangram.slider .panel.blue.rings-sm .slider-anchor:hover {
+    background-color: #08F; }
+  .tangram.slider .tangram.slider .panel.blue.circles .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.blue.lines-wb .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.blue.rings .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.blue.rings-sm .slider-anchor.active {
+    background-color: #6FF;
+    border-color: #08F; }
+  .tangram.slider .tangram.slider .panel.darkblue.squares .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.darkblue.squares-rd .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.darkblue.rectangles .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.darkblue.bars .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.darkblue.bars-rd .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.darkblue.points .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.darkblue.lines .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.darkblue.rings .slider-anchor:hover,
+  .tangram.slider .tangram.slider .panel.darkblue.rings-sm .slider-anchor:hover {
+    background-color: #038; }
+  .tangram.slider .tangram.slider .panel.darkblue.circles .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.darkblue.lines-wb .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.darkblue.rings .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.darkblue.rings-sm .slider-anchor.active {
+    background-color: #6CF;
+    border-color: #038; }
+  .tangram.slider .tangram.slider .panel.purple.squares .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.purple.squares-rd .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.purple.rectangles .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.purple.bars .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.purple.bars-rd .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.purple.points .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.purple.lines .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.purple.rings .slider-anchor:hover,
+  .tangram.slider .tangram.slider .panel.purple.rings-sm .slider-anchor:hover {
+    background-color: #D0C; }
+  .tangram.slider .tangram.slider .panel.purple.circles .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.purple.lines-wb .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.purple.rings .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.purple.rings-sm .slider-anchor.active {
+    background-color: #FCE;
+    border-color: #D0C; }
+  .tangram.slider .tangram.slider .panel.magenta.squares .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.magenta.squares-rd .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.magenta.rectangles .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.magenta.bars .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.magenta.bars-rd .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.magenta.points .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.magenta.lines .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.magenta.rings .slider-anchor:hover,
+  .tangram.slider .tangram.slider .panel.magenta.rings-sm .slider-anchor:hover {
+    background-color: #F07; }
+  .tangram.slider .tangram.slider .panel.magenta.circles .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.magenta.lines-wb .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.magenta.rings .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.magenta.rings-sm .slider-anchor.active {
+    background-color: #F9C;
+    border-color: #F07; }
+  .tangram.slider .tangram.slider .panel.pink.squares .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.pink.squares-rd .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.pink.rectangles .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.pink.bars .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.pink.bars-rd .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.pink.points .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.pink.lines .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.pink.rings .slider-anchor:hover,
+  .tangram.slider .tangram.slider .panel.pink.rings-sm .slider-anchor:hover {
+    background-color: #F69; }
+  .tangram.slider .tangram.slider .panel.pink.circles .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.pink.lines-wb .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.pink.rings .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.pink.rings-sm .slider-anchor.active {
+    background-color: #F9F;
+    border-color: #F69; }
+  .tangram.slider .tangram.slider .panel.white.squares .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.white.squares-rd .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.white.rectangles .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.white.bars .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.white.bars-rd .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.white.points .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.white.lines .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.white.rings .slider-anchor:hover,
+  .tangram.slider .tangram.slider .panel.white.rings-sm .slider-anchor:hover {
+    background-color: #FFF; }
+  .tangram.slider .tangram.slider .panel.white.circles .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.white.lines-wb .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.white.rings .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.white.rings-sm .slider-anchor.active {
+    background-color: #DDD;
+    border-color: #FFF; }
+  .tangram.slider .tangram.slider .panel.dark.squares .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.dark.squares-rd .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.dark.rectangles .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.dark.bars .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.dark.bars-rd .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.dark.points .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.dark.lines .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.dark.rings .slider-anchor:hover,
+  .tangram.slider .tangram.slider .panel.dark.rings-sm .slider-anchor:hover {
+    background-color: #333; }
+  .tangram.slider .tangram.slider .panel.dark.circles .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.dark.lines-wb .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.dark.rings .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.dark.rings-sm .slider-anchor.active {
     background-color: #666;
-    border-color: #333;
-}
-
-
-/* black */
-
-.tangram.slider .panel.black.squares .slider-anchor.active,
-.tangram.slider .panel.black.squares-rd .slider-anchor.active,
-.tangram.slider .panel.black.rectangles .slider-anchor.active,
-.tangram.slider .panel.black.bars .slider-anchor.active,
-.tangram.slider .panel.black.bars-rd .slider-anchor.active,
-.tangram.slider .panel.black.points .slider-anchor.active,
-.tangram.slider .panel.black.lines .slider-anchor.active,
-.tangram.slider .panel.black.rings .slider-anchor:hover,
-.tangram.slider .panel.black.rings-sm .slider-anchor:hover {
-    background-color: #000;
-}
-
-.tangram.slider .panel.black.circles .slider-anchor.active,
-.tangram.slider .panel.black.lines-wb .slider-anchor.active,
-.tangram.slider .panel.black.rings .slider-anchor.active,
-.tangram.slider .panel.black.rings-sm .slider-anchor.active {
+    border-color: #333; }
+  .tangram.slider .tangram.slider .panel.black.squares .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.black.squares-rd .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.black.rectangles .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.black.bars .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.black.bars-rd .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.black.points .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.black.lines .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.black.rings .slider-anchor:hover,
+  .tangram.slider .tangram.slider .panel.black.rings-sm .slider-anchor:hover {
+    background-color: #000; }
+  .tangram.slider .tangram.slider .panel.black.circles .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.black.lines-wb .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.black.rings .slider-anchor.active,
+  .tangram.slider .tangram.slider .panel.black.rings-sm .slider-anchor.active {
     background-color: #666;
-    border-color: #000;
-}
-
-
-/**** Only Border ****/
+    border-color: #000; }
+  .tangram.slider .panel.cyan.squares .slider-anchor.active,
+  .tangram.slider .panel.cyan.squares-rd .slider-anchor.active,
+  .tangram.slider .panel.cyan.rectangles .slider-anchor.active,
+  .tangram.slider .panel.cyan.bars .slider-anchor.active,
+  .tangram.slider .panel.cyan.bars-rd .slider-anchor.active,
+  .tangram.slider .panel.cyan.points .slider-anchor.active,
+  .tangram.slider .panel.cyan.lines .slider-anchor.active,
+  .tangram.slider .panel.cyan.rings .slider-anchor:hover,
+  .tangram.slider .panel.cyan.rings-sm .slider-anchor:hover {
+    background-color: #6CF; }
+  .tangram.slider .panel.cyan.circles .slider-anchor.active,
+  .tangram.slider .panel.cyan.lines-wb .slider-anchor.active,
+  .tangram.slider .panel.cyan.rings .slider-anchor.active,
+  .tangram.slider .panel.cyan.rings-sm .slider-anchor.active {
+    background-color: #CFF;
+    border-color: #6CF; }
+  .tangram.slider .panel.blue.squares .slider-anchor.active,
+  .tangram.slider .panel.blue.squares-rd .slider-anchor.active,
+  .tangram.slider .panel.blue.rectangles .slider-anchor.active,
+  .tangram.slider .panel.blue.bars .slider-anchor.active,
+  .tangram.slider .panel.blue.bars-rd .slider-anchor.active,
+  .tangram.slider .panel.blue.points .slider-anchor.active,
+  .tangram.slider .panel.blue.lines .slider-anchor.active,
+  .tangram.slider .panel.blue.rings .slider-anchor:hover,
+  .tangram.slider .panel.blue.rings-sm .slider-anchor:hover {
+    background-color: #08F; }
+  .tangram.slider .panel.blue.circles .slider-anchor.active,
+  .tangram.slider .panel.blue.lines-wb .slider-anchor.active,
+  .tangram.slider .panel.blue.rings .slider-anchor.active,
+  .tangram.slider .panel.blue.rings-sm .slider-anchor.active {
+    background-color: #6FF;
+    border-color: #08F; }
+  .tangram.slider .panel.darkblue.squares .slider-anchor.active,
+  .tangram.slider .panel.darkblue.squares-rd .slider-anchor.active,
+  .tangram.slider .panel.darkblue.rectangles .slider-anchor.active,
+  .tangram.slider .panel.darkblue.bars .slider-anchor.active,
+  .tangram.slider .panel.darkblue.bars-rd .slider-anchor.active,
+  .tangram.slider .panel.darkblue.points .slider-anchor.active,
+  .tangram.slider .panel.darkblue.lines .slider-anchor.active,
+  .tangram.slider .panel.darkblue.rings .slider-anchor:hover,
+  .tangram.slider .panel.darkblue.rings-sm .slider-anchor:hover {
+    background-color: #038; }
+  .tangram.slider .panel.darkblue.circles .slider-anchor.active,
+  .tangram.slider .panel.darkblue.lines-wb .slider-anchor.active,
+  .tangram.slider .panel.darkblue.rings .slider-anchor.active,
+  .tangram.slider .panel.darkblue.rings-sm .slider-anchor.active {
+    background-color: #6CF;
+    border-color: #038; }
+  .tangram.slider .panel.purple.squares .slider-anchor.active,
+  .tangram.slider .panel.purple.squares-rd .slider-anchor.active,
+  .tangram.slider .panel.purple.rectangles .slider-anchor.active,
+  .tangram.slider .panel.purple.bars .slider-anchor.active,
+  .tangram.slider .panel.purple.bars-rd .slider-anchor.active,
+  .tangram.slider .panel.purple.points .slider-anchor.active,
+  .tangram.slider .panel.purple.lines .slider-anchor.active,
+  .tangram.slider .panel.purple.rings .slider-anchor:hover,
+  .tangram.slider .panel.purple.rings-sm .slider-anchor:hover {
+    background-color: #D0C; }
+  .tangram.slider .panel.purple.circles .slider-anchor.active,
+  .tangram.slider .panel.purple.lines-wb .slider-anchor.active,
+  .tangram.slider .panel.purple.rings .slider-anchor.active,
+  .tangram.slider .panel.purple.rings-sm .slider-anchor.active {
+    background-color: #FCE;
+    border-color: #D0C; }
+  .tangram.slider .panel.magenta.squares .slider-anchor.active,
+  .tangram.slider .panel.magenta.squares-rd .slider-anchor.active,
+  .tangram.slider .panel.magenta.rectangles .slider-anchor.active,
+  .tangram.slider .panel.magenta.bars .slider-anchor.active,
+  .tangram.slider .panel.magenta.bars-rd .slider-anchor.active,
+  .tangram.slider .panel.magenta.points .slider-anchor.active,
+  .tangram.slider .panel.magenta.lines .slider-anchor.active,
+  .tangram.slider .panel.magenta.rings .slider-anchor:hover,
+  .tangram.slider .panel.magenta.rings-sm .slider-anchor:hover {
+    background-color: #F07; }
+  .tangram.slider .panel.magenta.circles .slider-anchor.active,
+  .tangram.slider .panel.magenta.lines-wb .slider-anchor.active,
+  .tangram.slider .panel.magenta.rings .slider-anchor.active,
+  .tangram.slider .panel.magenta.rings-sm .slider-anchor.active {
+    background-color: #F9C;
+    border-color: #F07; }
+  .tangram.slider .panel.pink.squares .slider-anchor.active,
+  .tangram.slider .panel.pink.squares-rd .slider-anchor.active,
+  .tangram.slider .panel.pink.rectangles .slider-anchor.active,
+  .tangram.slider .panel.pink.bars .slider-anchor.active,
+  .tangram.slider .panel.pink.bars-rd .slider-anchor.active,
+  .tangram.slider .panel.pink.points .slider-anchor.active,
+  .tangram.slider .panel.pink.lines .slider-anchor.active,
+  .tangram.slider .panel.pink.rings .slider-anchor:hover,
+  .tangram.slider .panel.pink.rings-sm .slider-anchor:hover {
+    background-color: #F69; }
+  .tangram.slider .panel.pink.circles .slider-anchor.active,
+  .tangram.slider .panel.pink.lines-wb .slider-anchor.active,
+  .tangram.slider .panel.pink.rings .slider-anchor.active,
+  .tangram.slider .panel.pink.rings-sm .slider-anchor.active {
+    background-color: #F9F;
+    border-color: #F69; }
+  .tangram.slider .panel.white.squares .slider-anchor.active,
+  .tangram.slider .panel.white.squares-rd .slider-anchor.active,
+  .tangram.slider .panel.white.rectangles .slider-anchor.active,
+  .tangram.slider .panel.white.bars .slider-anchor.active,
+  .tangram.slider .panel.white.bars-rd .slider-anchor.active,
+  .tangram.slider .panel.white.points .slider-anchor.active,
+  .tangram.slider .panel.white.lines .slider-anchor.active,
+  .tangram.slider .panel.white.rings .slider-anchor:hover,
+  .tangram.slider .panel.white.rings-sm .slider-anchor:hover {
+    background-color: #FFF; }
+  .tangram.slider .panel.white.circles .slider-anchor.active,
+  .tangram.slider .panel.white.lines-wb .slider-anchor.active,
+  .tangram.slider .panel.white.rings .slider-anchor.active,
+  .tangram.slider .panel.white.rings-sm .slider-anchor.active {
+    background-color: #DDD;
+    border-color: #FFF; }
+  .tangram.slider .panel.dark.squares .slider-anchor.active,
+  .tangram.slider .panel.dark.squares-rd .slider-anchor.active,
+  .tangram.slider .panel.dark.rectangles .slider-anchor.active,
+  .tangram.slider .panel.dark.bars .slider-anchor.active,
+  .tangram.slider .panel.dark.bars-rd .slider-anchor.active,
+  .tangram.slider .panel.dark.points .slider-anchor.active,
+  .tangram.slider .panel.dark.lines .slider-anchor.active,
+  .tangram.slider .panel.dark.rings .slider-anchor:hover,
+  .tangram.slider .panel.dark.rings-sm .slider-anchor:hover {
+    background-color: #333; }
+  .tangram.slider .panel.dark.circles .slider-anchor.active,
+  .tangram.slider .panel.dark.lines-wb .slider-anchor.active,
+  .tangram.slider .panel.dark.rings .slider-anchor.active,
+  .tangram.slider .panel.dark.rings-sm .slider-anchor.active {
+    background-color: #666;
+    border-color: #333; }
+  .tangram.slider .panel.black.squares .slider-anchor.active,
+  .tangram.slider .panel.black.squares-rd .slider-anchor.active,
+  .tangram.slider .panel.black.rectangles .slider-anchor.active,
+  .tangram.slider .panel.black.bars .slider-anchor.active,
+  .tangram.slider .panel.black.bars-rd .slider-anchor.active,
+  .tangram.slider .panel.black.points .slider-anchor.active,
+  .tangram.slider .panel.black.lines .slider-anchor.active,
+  .tangram.slider .panel.black.rings .slider-anchor:hover,
+  .tangram.slider .panel.black.rings-sm .slider-anchor:hover {
+    background-color: #000; }
+  .tangram.slider .panel.black.circles .slider-anchor.active,
+  .tangram.slider .panel.black.lines-wb .slider-anchor.active,
+  .tangram.slider .panel.black.rings .slider-anchor.active,
+  .tangram.slider .panel.black.rings-sm .slider-anchor.active {
+    background-color: #666;
+    border-color: #000; }
 
 .tangram.slider.colx3 .cutter {
-    width: 100%;
-    height: 100%;
-    background-color: #FFF;
-    opacity: .8;
-    cursor: pointer;
-    z-index: 100;
-}
+  width: 100%;
+  height: 100%;
+  background-color: #FFF;
+  opacity: .8;
+  cursor: pointer;
+  z-index: 100; }
 
 .tangram.slider.colx3 .cutter.goto-prev {
-    top: 0px;
-    right: 100%;
-}
+  top: 0px;
+  right: 100%; }
 
 .tangram.slider.colx3 .cutter.goto-next {
-    top: 0px;
-    left: 100%;
-}
-
-
-/*# sourceMappingURL=style.css.map */
+  top: 0px;
+  left: 100%; }

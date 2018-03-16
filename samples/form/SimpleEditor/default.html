@@ -25,9 +25,7 @@
 </head>
 
 <body>
-    <div class="myeditor"><textarea>tangram.js SimpleEditor 1</textarea></div>
-    <div class="myeditor">angram.js SimpleEditor 2</div>
-    <div><textarea class="myeditor">tangram.js SimpleEditor 3</textarea></div>
+    <div class="myeditor">tangram.js SimpleEditor</div>
     <script>
         tangram.block([
             '$_/dom/Elements/',
@@ -37,16 +35,8 @@
                 document = global.document,
                 console = global.console;
 
-            var editors = _.form.careatEditors('.myeditor', {
-                fragments: [{
-                    name: '分页符',
-                    code: '{{@page_break}}'
-                }, {
-                    name: '分页符2',
-                    code: '{{@page_break2}}'
-                }]
-            })[0];
-            //console.log(editors);
+            var editor = _.form.careatEditors('.myeditor')[0];
+            console.log(editor);
         }, true);
     </script>
 </body>
