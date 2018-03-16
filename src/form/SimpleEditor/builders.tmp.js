@@ -57,35 +57,35 @@ tangram.block([
         creators = {},
         builders = {
             tools: {
-                optionalitem: function (tool) {
-                    var html = '<div class="tangram se-tool ' + tool + '" data-ib-cmds="' + tool + '" title="' + tool + '"><i class="tangram se-icon"></i>';
+                optionalitem: function(tool) {
+                    var html = '<div class="tangram se-tool ' + tool + '" data-se-cmds="' + tool + '" title="' + tool + '"><i class="tangram se-icon"></i>';
                     html += creators[tool].call(this);
                     html += '</div>';
                     return html;
                 },
-                dialogitem: function (tool) {
-                    var html = '<div class="tangram se-tool ' + tool + '" data-ib-dialog="' + tool + '" title="' + tool + '"><i class="tangram se-icon"></i>';
+                dialogitem: function(tool) {
+                    var html = '<div class="tangram se-tool ' + tool + '" data-se-dialog="' + tool + '" title="' + tool + '"><i class="tangram se-icon"></i>';
                     html += creators[tool].call(this);
                     html += '</div>';
                     return html;
                 },
-                defaultitem: function (tool) {
-                    return '<div class="tangram se-tool ' + tool + '" data-ib-cmd="' + tool + '" title="' + tool + '"><i class="tangram se-icon"></i></div>';
+                defaultitem: function(tool) {
+                    return '<div class="tangram se-tool ' + tool + '" data-se-cmd="' + tool + '" title="' + tool + '"><i class="tangram se-icon"></i></div>';
                 }
             },
-            initEl: function (elem, options, textarea){
+            initEl: function(elem, options, textarea) {
                 var width, height;
-                if (textarea){
+                if (textarea) {
                     width = textarea.offsetWidth + 2;
                     height = textarea.offsetHeight + 2;
-                }else{
+                } else {
                     width = elem.offsetWidth;
                     height = elem.offsetHeight;
                 }
-                if (options.width){
+                if (options.width) {
                     width = options.width;
                 }
-                if (options.height){
+                if (options.height) {
                     height = options.height;
                 }
                 _.dom.setStyle(elem, 'height', 'auto');
@@ -95,22 +95,29 @@ tangram.block([
                     height: height
                 };
             },
-            textarea: function (textarea) {
-                var text;
+            textarea: function(textarea) {
+                var text,
+                    htmlclose = new _.dom.HTMLClose();
                 _.dom.setStyle(textarea, 'display', 'none');
                 return {
                     Element: textarea,
-                    getText: function () {
-                        if (text === undefined) {
+                    getText: function() {
+                        if (textarea.value) {
                             text = textarea.value;
+                        } else {
+                            text = textarea.innerHTML;
                         }
                         if (!text) {
                             text = '<div><br></div>';
                         }
                         return text;
                     },
-                    setText: function (value) {
-                        text = textarea.value = htmlclose.compile(value).replace(/_selected(="\w")?/, '');
+                    setText: function(value) {
+                        if (textarea.value) {
+                            text = textarea.value = htmlclose.compile(value).replace(/_selected(="\w")?/, '');
+                        } else {
+                            text = textarea.innerHTML = htmlclose.compile(value).replace(/_selected(="\w")?/, '');
+                        }
                         return text;
                     }
                 };
@@ -130,12 +137,12 @@ tangram.block([
                 _.dom.setAttr(mainarea, 'data-se-id', this.uid);
                 return mainarea;
             },
-            workspace: function (mainarea, options) {
+            workspace: function(mainarea, options, isBuildStateBar) {
                 var width = this.cElement.width - 2,
-                height = this.cElement.height;
+                    height = this.cElement.height;
                 this.richareas.push(_.dom.create('div', mainarea, {
                     className: 'tangram se-richarea',
-                    placeholder: options.placeholder || '',   // _.dom.getAttr(textarea.Element, 'placeholder'),
+                    placeholder: options.placeholder || '', // _.dom.getAttr(textarea.Element, 'placeholder'),
                     contenteditable: 'true',
                     spellcheck: 'true',
                     talistenex: 1,
@@ -152,31 +159,37 @@ tangram.block([
                     className: 'tangram se-loadmask',
                     innerHTML: '<div class="tangram se-spinner"><div class="tangram se-rect1"></div><div class="tangram se-rect2"></div><div class="tangram se-rect3"></div><div class="tangram se-rect4"></div><div class="tangram se-rect5"></div></div>'
                 }));
-                var statusHTML =
-                    '<div class="tangram se-fontstatus" title="Font Style"><section>' +
-                    statusTypes.fontstatus.join('</section><section>') +
-                    '</section></div><div class="tangram se-tablestatus" title="Table Style"><section>' +
-                    statusTypes.tablestatus.join('</section><section>') +
-                    '</section></div><div class="tangram se-imagestatus" title="Image Style"><section>' +
-                    statusTypes.imagestatus.join('</section><section>') +
-                    '</section></div>';
+                if (isBuildStateBar) {
+                    var statusHTML =
+                        '<div class="tangram se-fontstatus" title="Font Style"><section>' +
+                        statusTypes.fontstatus.join('</section><section>') +
+                        '</section></div><div class="tangram se-tablestatus" title="Table Style"><section>' +
+                        statusTypes.tablestatus.join('</section><section>') +
+                        '</section></div><div class="tangram se-imagestatus" title="Image Style"><section>' +
+                        statusTypes.imagestatus.join('</section><section>') +
+                        '</section></div>';
 
-                this.statebars.push(_.dom.create('div', mainarea, {
-                    className: 'tangram se-statebar',
-                    innerHTML: statusHTML
-                }));
+                    this.statebar = _.dom.create('div', mainarea, {
+                        className: 'tangram se-statebar',
+                        innerHTML: statusHTML
+                    });
+                }
+
             },
-            toolarea: function (options) {
+            toolbar: function(options) {
                 if (options.toolarea && _.util.bool.isEl(options.toolarea)) {
                     options.toolarea.innerHTML = '';
+                    _.dom.addClass(options.toolarea, 'tangram simpleeditor');
                     _.dom.setStyle(options.toolarea, {
+
                         'border-color': (options.border && options.border.color) || '#CCCCCC',
                         'border-style': (options.border && options.border.style) || 'solid',
-                        'border-width': (options.border && options.border.width) || '1px'
+                        'border-width': (options.border && options.border.width) || '1px',
+                        'overflow': 'visible'
                     });
-                    this.toolarea = _.dom.create('div', options.toolarea);
+                    var toolbar = _.dom.create('div', options.toolarea);
                 } else {
-                    this.toolarea = _.dom.create('div', this.mainareas[0], {
+                    var toolbar = _.dom.create('div', this.mainareas[0], {
                         style: {
                             'width': this.cElement.width,
                             'border-bottom-color': (options.border && options.border.color) || '#CCCCCC',
@@ -195,8 +208,9 @@ tangram.block([
                     html += '</div>';
                 }
                 // html += '<div class="tangram se-clear"></div>';
-                this.toolarea.innerHTML = html;
-                _.dom.setAttr(this.toolarea, 'class', 'tangram se-toolarea');
+                toolbar.innerHTML = html;
+                _.dom.setAttr(toolbar, 'class', 'tangram se-toolbar');
+                return toolbar;
             }
         };
 

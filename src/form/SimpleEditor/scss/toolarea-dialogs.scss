@@ -192,7 +192,7 @@
         padding: 3px 4px;
         border: #EEE 1px solid;
         margin-bottom: 10px;
-        .span {
+        span {
             display: block;
             width: 330px;
             height: 72px;
@@ -275,7 +275,7 @@
 
 /* ------------------------- */
 
-.tangram.se-tool[data-ib-dialog].active {
+.tangram.se-tool[data-se-dialog].active {
     overflow: visible;
     z-index: 100;
 }
@@ -283,4 +283,3 @@
 .tangram.se-tool.active .tangram.se-dialog {
     display: block;
 }
-

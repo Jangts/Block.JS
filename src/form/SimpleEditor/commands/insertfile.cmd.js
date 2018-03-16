@@ -55,8 +55,8 @@ tangram.block([
         html += '</div>';
         html += '<input type="file" class="tangram se-files" value="" hidden="" />';
         html += '<div class="tangram se-btns">';
-        html += '<input type="button" data-ib-cmd="insertfile" value="Insert Url"/>';
-        html += '<input type="button" data-ib-cmd="uploadfile" value="Or Upload"/>';
+        html += '<input type="button" data-se-cmd="insertfile" value="Insert Url"/>';
+        html += '<input type="button" data-se-cmd="uploadfile" value="Or Upload"/>';
         html += '</div>';
         html += '</dialog>';
         return html;

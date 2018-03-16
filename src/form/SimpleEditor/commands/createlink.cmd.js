@@ -33,6 +33,7 @@ tangram.block([
                 this.execCommand('insert', val.url);
             }
             this.selection.getRange().execCommand('createlink', url);
+            this.selection.collapseRange();
             var a = _.query('a[href="' + url + '"]');
             _.each(a, function() {
                 this.href = val.url;
@@ -40,7 +41,7 @@ tangram.block([
                     this.target = '_blank';
                 }
             });
-            this.selection.saveRange();
+            this.selection.restoreSelection();
             this.onchange();
         }
         return this;
@@ -56,7 +57,7 @@ tangram.block([
         html += '<input type="checkbox" class="tangram se-checkbox" checked="checked"> <label>Open in new tab</label>';
         html += '</div>';
         html += '<div class="tangram se-btns">';
-        html += '<button type="button" data-ib-cmd="createlink">OK</button>';
+        html += '<button type="button" data-se-cmd="createlink">OK</button>';
         html += '</div>';
         html += '</dialog>';
         return html;

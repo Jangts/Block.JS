@@ -17,13 +17,18 @@ tangram.block([
 
     var dialogs = {},
         wshandler = function(event) {
+            // console.log(event);
             var editor = event.data;
             if (event.eventType === 'mouseup') {
                 editor.hideExtTools();
-                _.each(_.dom.query('img[_selected=_selected]', editor.richarea), function(i, elem) {
-                    _.dom.removeAttr(elem, '_selected');
+                _.each(editor.richareas, function(i, richarea) {
+                    _.each(_.dom.query('img[_selected=_selected]', richarea), function(i, elem) {
+                        _.dom.removeAttr(elem, '_selected');
+                    });
                 });
-                _.query('.tangram.se-imagestatus', editor.statebar)[0].style.display = 'none';
+                if (editor.statebar) {
+                    _.query('.tangram.se-imagestatus', editor.statebar)[0].style.display = 'none';
+                }
                 if (event.target.tagName === 'IMG') {
                     editor.selectedImage = event.target;
                 } else {
@@ -32,55 +37,7 @@ tangram.block([
             }
             editor.selection.saveRange();
             editor.onchange();
-            // return;
-            // // console.log(event.target === event.data.richarea);
-            // var editor = event.data;
-
-            // if (editor.selection.range && editor.selection.range.type === 'Caret') {
-            //     if (event.target === editor.richarea || editor.selection.range.commonElem === editor.richarea) {
-            //         _.query('.tangram.se-tablestatus', editor.statebar)[0].style.display = 'none';
-            //         editor.onchange();
-            //         return;
-            //     }
-            //     if (event.target === editor.selection.range.commonElem) {
-            //         editor.onchange();
-            //         return;
-            //     }
-            // }
-            // editor.selection.saveRange();
-            // editor.onchange();
         },
-        // outhandler = function(event) {
-        //     return;
-        //     // console.log(event);
-        //     var editor = event.data;
-        //     editor.outmoment = false;
-        //     if (event.buttons) {
-        //         editor.selection.saveRange();
-        //         editor.outmoment = true;
-        //         setTimeout(function() {
-        //             editor.outmoment = false;
-        //         }, 500);
-        //         editor.onchange();
-        //         return;
-        //     }
-        //     if (event.target === editor.richarea) {
-        //         editor.selection.saveRange();
-        //         editor.onchange();
-        //     }
-        // },
-        // inhandler = function(event) {
-        //     return;
-        //     // console.log(event);
-        //     var editor = event.data;
-        //     if ((editor.outmoment === false) && (event.target === editor.richarea)) {
-        //         editor.selection.restoreSelection();
-        //     }
-        //     editor.onchange();
-        // },
-        // xhandlers = {
-
-        // },
         inputs = {
             'fontsize': function(editor, input) {
                 editor.execCommand('fontsize', input.value);
@@ -92,7 +49,7 @@ tangram.block([
                 var table = editor.selectedTable;
                 table.style.width = parseInt(input.value) + 'px';
                 table.width = parseInt(input.value);
-                editor.selection.saveRange();
+                editor.selection.restoreSelection();
             },
             'tableborder': function(editor, input) {
                 var table = editor.selectedTable;
@@ -145,20 +102,21 @@ tangram.block([
             }
         }
     events = {
-        'toolarea': {
+        'toolbar': {
             'mousedown': function(event) {
+                // console.log(event);
                 var editor = event.data;
                 editor.selection.restoreSelection();
-                // editor.selection.saveRange();
                 editor.onchange();
             },
             'mouseup': {
-                '[data-ib-dialog]': function(event) {
+                '[data-se-dialog]': function(event) {
                     if (event.target.tagName == 'I') {
                         var editor = event.data,
-                            dialog = _.dom.getAttr(this, 'data-ib-dialog');
-                        _.each(_.query('.tangram.se-tool[data-ib-dialog] input[type=text], .tangram.se-tool[data-ib-dialog] textarea, .tangram.se-tool[data-ib-dialog] input.tangram.se-files', editor.toolarea), function(i, el) {
+                            dialog = _.dom.getAttr(this, 'data-se-dialog');
+                        _.each(_.query('.tangram.se-tool[data-se-dialog] input[type=text], .tangram.se-tool[data-se-dialog] textarea, .tangram.se-tool[data-se-dialog] input.tangram.se-files', editor.toolbar), function(i, el) {
                             if (_.dom.hasClass(this, 'createlink')) {
+                                // console.log(editor.selection, editor.selection.getRange());
                                 var elem = editor.selection.getRange().commonElem;
                                 if (!elem.tagName === 'A') {
                                     elem = _.dom.closest(elem, 'a');
@@ -173,27 +131,29 @@ tangram.block([
                             }
                         });
 
-                        _.query('.tangram.se-tool[data-ib-dialog] .tangram.se-show', editor.toolarea)[0].innerHTML = '<span>click to upload</span>';
+                        _.query('.tangram.se-tool[data-se-dialog] .tangram.se-show', editor.toolbar)[0].innerHTML = '<span>click to upload</span>';
                         editor.showDialog(dialog, this);
                         editor.selection.restoreSelection();
                     };
                 },
-                '[data-ib-cmds]': function(event) {
+                '[data-se-cmds]': function(event) {
+                    // console.log(event);
                     var editor = event.data,
-                        cmds = _.dom.getAttr(this, 'data-ib-cmds');
+                        cmds = _.dom.getAttr(this, 'data-se-cmds');
                     // editor.onchange();
                     editor.selection.restoreSelection();
                     editor.showPick(cmds, this);
                     editor.selection.restoreSelection();
                     editor.onchange();
                 },
-                '[data-ib-cmd]': function(event) {
+                '[data-se-cmd]': function(event) {
+                    // console.log(event);
                     var editor = event.data;
                     editor.selection.restoreSelection();
                     // editor.onchange();
                     if (!_.dom.hasClass(this, 'invalid')) {
                         editor.hideExtTools();
-                        var cmd = _.dom.getAttr(this, 'data-ib-cmd');
+                        var cmd = _.dom.getAttr(this, 'data-se-cmd');
                         switch (cmd) {
                             case 'createlink':
                             case 'inserttable':
@@ -203,14 +163,14 @@ tangram.block([
                                 var val = dialogs[cmd](this);
                                 break;
                             case 'insertemoticon':
-                                var val = dialogs[cmd](_.dom.getAttr(this, 'data-ib-val'));
+                                var val = dialogs[cmd](_.dom.getAttr(this, 'data-se-val'));
                                 break;
                             case 'uploadfile':
                                 return dialogs[cmd].call(editor, this);
                             case 'uploadimage':
                                 return dialogs[cmd].call(editor, this);
                             default:
-                                var val = _.dom.getAttr(this, 'data-ib-val');
+                                var val = _.dom.getAttr(this, 'data-se-val');
                                 break;
                         }
                         editor.execCommand(cmd, val);
@@ -260,60 +220,54 @@ tangram.block([
                 }
             }
         },
-        'statebar': {
-            'mouseup': {
-                
-            },
-            'change': {
-                'input': function(e) {
-                    var name = _.dom.getAttr(this, 'data-name');
-                    if (_.util.bool.isFn(inputs[name])) {
-                        inputs[name](event.data, this);
-                    }
-                }
-            }
-        },
         'workspaces': {
-            // 'mouseout': outhandler,
-            // 'mouseenter': inhandler,
             'mouseup': {
-                '.tangram.se-statebar .se-imgfloat': function (e) {
+                '.tangram.se-statebar .se-imgfloat': function(e) {
                     var float = _.dom.getAttr(this, 'data-float') || 'none',
                         img = event.data.selectedImage;
                     img.style.float = float;
-                    event.data.selection.saveRange();
+                    // event.data.selection.restoreSelection();
                     event.data.onchange();
                 },
-                '.tangram.se-statebar .se-imgsize': function (e) {
+                '.tangram.se-statebar .se-imgsize': function(e) {
                     var size = _.dom.getAttr(this, 'data-size') || 'none';
                     inputs['imgsize'](event.data, size);
-                    event.data.selection.saveRange();
+                    // event.data.selection.restoreSelection();
                     event.data.onchange();
                 },
-                '.tangram.se-statebar .se-table-addrow': function (e) {
+                '.tangram.se-statebar .se-table-addrow': function(e) {
                     var editor = e.data,
                         table = editor.selectedTable,
                         row = editor.selectedTableRow,
                         len = row.cells.length;
                     _.dom.after(row, '<tr>' + _.util.str.repeat('<td>&nbsp;</td>', len) + '</tr>');
-
+                    event.data.selection.restoreSelection();
                 },
-                '.tangram.se-statebar .se-table-addcol': function (e) {
+                '.tangram.se-statebar .se-table-addcol': function(e) {
                     var editor = e.data,
                         table = editor.selectedTable,
                         row = editor.selectedTableRow,
                         cell = editor.selectedTableCell,
                         index = _.dom.index(cell, row.cells);
-                    _.each(table.rows, function (i, row) {
+                    _.each(table.rows, function(i, row) {
                         cell = row.cells[index] || row.cells[row.length - 1];
                         _.dom.after(row.cells[index], '<td>&nbsp;</td>');
                     });
-
+                    event.data.selection.restoreSelection();
                 },
                 '.tangram.se-richarea': wshandler
             },
             'keyup': {
                 '.tangram.se-richarea': wshandler
+            },
+            'change': {
+                '.tangram.se-statebar input': function(event) {
+                    // console.log(event);
+                    var name = _.dom.getAttr(this, 'data-name');
+                    if (_.util.bool.isFn(inputs[name])) {
+                        inputs[name](event.data, this);
+                    }
+                }
             }
         }
     };

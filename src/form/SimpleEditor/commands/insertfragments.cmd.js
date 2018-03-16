@@ -32,7 +32,7 @@ tangram.block([
             var html = '<ul class="tangram se-pick">';
             _.each(fragments, function(i, fragment) {
                 codesFragments.push(fragment.code);
-                html += '<li class="tangram se-font" data-ib-cmd="insertfragments" data-ib-val="' + i + '">' + fragment.name + '</li>';
+                html += '<li class="tangram se-font" data-se-cmd="insertfragments" data-se-val="' + i + '">' + fragment.name + '</li>';
             });
             html += '</ul>';
             return html;

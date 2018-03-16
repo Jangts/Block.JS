@@ -15,8 +15,7 @@ $headers: (h1, 50px, 30px),
             font-size: $fontsize;
         }
     }
-    @import "toolarea-main";
-    
+    @import "toolbar-main";
     @import "richarea";
     @import "statebar";
     @import "loadmask";

@@ -1,0 +1,108 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>APIs of Simple Editor</title>
+    <script src="../../../src/tangram.js" data-use-debugmode></script>
+    <link href="../../../src/see/see.css" type="text/css" rel="stylesheet" />
+    <link href="../../../src/see/fa.css" type="text/css" rel="stylesheet" />
+    <style>
+        body>div {
+            margin: 20px;
+        }
+        
+        .myeditor {
+            width: 900px;
+            height: 300px;
+        }
+        
+        textarea.myeditor {
+            width: 898px;
+            height: 298px;
+        }
+        
+        button {
+            width: auto;
+            height: 24px;
+            padding: 0 10px;
+            margin: 5px;
+            line-height: 24px;
+            border-radius: 3px;
+            font-size: 12px;
+            background-color: #090;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <input name="myinput" value="tangram.js SimpleEditor" />
+    <div class="myeditor"></div>
+    <div>
+        <button onclick="getContent()">获得内容</button>
+        <button onclick="setContent()">写入内容</button>
+        <button onclick="getContentTxt()">获得纯文本</button>
+        <button onclick="setFocus()">使编辑器获得焦点</button>
+        <button onclick="getText()">获得当前选中的文本</button>
+        <button onclick="insertHtml()">插入给定的内容</button>
+        <button onclick="resetInputValue()">重置绑定INPUT的值</button>
+    </div>
+    <script>
+        tangram.block([
+            '$_/dom/Elements/form.clsx',
+            '$_/form/SimpleEditor/'
+        ], function(pandora, global, undefined) {
+            var _ = pandora,
+                document = global.document,
+                console = global.console,
+                $ = _.dom.select;
+            global.$ = $;
+            global.editor = new _.form.SimpleEditor($('.myeditor')[0], {}, $('[name="myinput"]'));
+        }, true);
+
+        function insertHtml() {
+            var value = prompt('插入html代码', '');
+            editor.execCommand('insert', value)
+        }
+
+        function getContent() {
+            var arr = [];
+            arr.push("使用editor.getContent()方法可以获得编辑器的内容");
+            arr.push("内容为：");
+            arr.push(editor.getValue());
+            alert(arr.join("\n"));
+        }
+
+        function setContent(isAppendTo) {
+            var arr = [];
+            arr.push("使用editor.setContent('欢迎使用ueditor')方法可以设置编辑器的内容");
+            editor.setValue('欢迎使用ueditor', isAppendTo);
+            alert(arr.join("\n"));
+        }
+
+        function getText() {
+            var txt = editor.getText();
+            alert(txt)
+        }
+
+        function getContentTxt() {
+            var arr = [];
+            arr.push("使用editor.getContentTxt()方法可以获得编辑器的纯文本内容");
+            arr.push("编辑器的纯文本内容为：");
+            arr.push(editor.getContentTxt());
+            alert(arr.join("\n"));
+        }
+
+        function setFocus() {
+            editor.focus(0);
+        }
+
+        function resetInputValue() {
+            editor.getValue();
+            alert($('[name="myinput"]').val());
+        }
+    </script>
+</body>
+
+</html>

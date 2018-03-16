@@ -37,7 +37,7 @@ tangram.block([
 
     declare('form.VisualJOSN', {
         textarea: null,
-        toolarea: null,
+        toolbar: null,
     });
 
     _.extend(_.form.VisualJOSN, {
@@ -47,16 +47,14 @@ tangram.block([
     });
 
     var sample = {
-        model:[
-            {
-                fieldname:'',
-                valuetype:'',
-                defaultval:'',
-                range:[]
-                
-            }
-        ],
-        handlers:{
+        model: [{
+            fieldname: '',
+            valuetype: '',
+            defaultval: '',
+            range: []
+
+        }],
+        handlers: {
 
         }
     }

@@ -37,7 +37,7 @@ tangram.block([
 
     declare('form.VisualJOSN', {
         textarea: null,
-        toolarea: null,
+        toolbar: null,
     });
 
     _.extend(_.form.VisualJOSN, {

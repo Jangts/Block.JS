@@ -1,10 +1,10 @@
 /*********************************************************************************
 /*** EDITOR TOOLBAR ***/
 
-.tangram.se-toolarea {
+.tangram.se-toolbar {
     width: 100%;
     background-color: #FDFDFE;
-    border-bottom: 1px solid #DDD;
+    // border-bottom: 1px solid #DDD;
     overflow: visible;
     font-size: 0;
     line-height: 0;
@@ -71,8 +71,7 @@
     .tangram.se-tool.linebreak:hover {
         background-color: #E6E6E6;
     }
-
-    @import "toolarea-icons";
-    @import "toolarea-pickers";
-    @import "toolarea-dialogs";
+    @import "toolbar-icons";
+    @import "toolbar-pickers";
+    @import "toolbar-dialogs";
 }

@@ -24,35 +24,38 @@ tangram.block('$_/util/bool.xtd', function(pandora, global, undefined) {
 
         // 恢复选区
         restoreSelection: function() {
-            this.range = new _.form.SelectionRange(this.range);
+            if (this.range) {
+                this.range = new _.form.SelectionRange(this.range);
+            } else {
+                this.createEmptyRange();
+            }
         },
 
         // 获取 range 对象
         getRange: function() {
-            if (this.range) {
-                this.restoreSelection(this.range);
-            } else {
-                this.createEmptyRange();
-            }
+            this.restoreSelection();
             return this.range;
         },
 
         // 保存选区
         saveRange: function(range) {
-            if (range) {
-                // 保存已有选区
-                this.range = range
-            } else {
+            if (!range) {
                 // 获取当前的选区
                 range = new _.form.SelectionRange();
-
-                // 判断选区内容是否在编辑内容之内
-                if (range.isBelongTo(this.editor.richarea)) {
-                    // 是编辑内容之内的
+            } else {
+                new _.form.SelectionRange(range);
+            }
+            // 判断选区内容是否在编辑内容之内
+            var i = 0,
+                richareas = this.editor.richareas;
+            for (i; i < richareas.length; i++) {
+                if (range.isBelongTo(richareas[i])) {
+                    // 是编辑内容之内
                     this.range = range;
+                    break;
                 }
             }
-            return range;
+            return this.range;
         },
 
         // 折叠选区
@@ -60,6 +63,7 @@ tangram.block('$_/util/bool.xtd', function(pandora, global, undefined) {
             if (this.range) {
                 this.range.collapse(toStart);
             }
+            return this;
         },
 
         // 选中区域的文字
@@ -102,13 +106,13 @@ tangram.block('$_/util/bool.xtd', function(pandora, global, undefined) {
         },
 
         // 创建一个空白（即 &#8203 字符）选区
-        createEmptyRange: function() {
+        createEmptyRange: function(index) {
             var editor = this.editor,
                 range = new _.form.SelectionRange(),
                 elem;
-
-            range.selectInput(this.editor.richarea, false);
-            this.saveRange(range);
+            index = parseInt(index) || 0;
+            range.selectInput(this.editor.richareas[index], false);
+            this.collapseRange().saveRange(range);
 
             if (!this.isSelectionEmpty()) {
                 // 当前选区必须没有内容才可以

@@ -28,9 +28,9 @@ tangram.block([
             var rows = parseInt(val.rows) || 1;
             var columns = parseInt(val.columns) || 1;
             if (val.width && parseInt(val.width)) {
-                var html = '<table data-ib-temp width="' + parseInt(val.width) + val.unit + '"><tbody>'
+                var html = '<table data-se-temp width="' + parseInt(val.width) + val.unit + '"><tbody>'
             } else {
-                var html = '<table data-ib-temp><tbody>';
+                var html = '<table data-se-temp><tbody>';
             }
             for (var r = 0; r < rows; r++) {
                 html += '<tr>';
@@ -41,8 +41,8 @@ tangram.block([
             }
             html += '</tbody></table>';
             this.execCommand('insert', html);
-            var table = _.query('table[data-ib-temp]')[0];
-            _.dom.removeAttr(table, 'data-ib-temp');
+            var table = _.query('table[data-se-temp]')[0];
+            _.dom.removeAttr(table, 'data-se-temp');
             window.getSelection && window.getSelection().selectAllChildren(_.query('td', table)[0]);
             this.selection.saveRange().collapse(true);
             this.onchange();
@@ -63,7 +63,7 @@ tangram.block([
         html += '<option value="">px</option>';
         html += '</select></div></div>';
         html += '<div class="tangram se-btns">';
-        html += '<button type="button" data-ib-cmd="inserttable">OK</button>';
+        html += '<button type="button" data-se-cmd="inserttable">OK</button>';
         html += '</div>';
         html += '</dialog>';
         return html;

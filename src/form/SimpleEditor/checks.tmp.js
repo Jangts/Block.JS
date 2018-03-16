@@ -36,13 +36,13 @@ tangram.block([
         checkFontFormat = function(style) {
             var range = this.selection.range;
             if (range && range.commonElem) {
-                _.each(_.query('.tangram.se-pick li', this.toolarea), function(i, el) {
+                _.each(_.query('.tangram.se-pick li', this.toolbar), function(i, el) {
                     _.dom.toggleClass(this, 'selected', false);
                 });
-                selector = ", .fontsize .tangram.se-font[data-ib-val=\"" + style.fontSize + "\"]";
-                selector += ", .forecolor .tangram.se-color[data-ib-val=\"" + rbgaToHexadecimal(style.color) + "\"]";
-                selector += ", .backcolor .tangram.se-color[data-ib-val=\"" + rbgaToHexadecimal(style.backgroundColor) + "\"]";
-                _.each(_.query(selector, this.toolarea), function(i, el) {
+                selector = ", .fontsize .tangram.se-font[data-se-val=\"" + style.fontSize + "\"]";
+                selector += ", .forecolor .tangram.se-color[data-se-val=\"" + rbgaToHexadecimal(style.color) + "\"]";
+                selector += ", .backcolor .tangram.se-color[data-se-val=\"" + rbgaToHexadecimal(style.backgroundColor) + "\"]";
+                _.each(_.query(selector, this.toolbar), function(i, el) {
                     _.dom.toggleClass(this, 'selected', true);
                 });
             }
@@ -50,7 +50,7 @@ tangram.block([
         checkFormat = function() {
             var range = this.selection.range;
             if (range && range.commonElem) {
-                _.each(_.query('.bold, .italic, .underline, .strikethrough, .justifyleft, .justifycenter, .justifyright, .justifyfull, .blockquote, .insertunorderedlist, .insertorderedlist', this.toolarea), function(i, el) {
+                _.each(_.query('.bold, .italic, .underline, .strikethrough, .justifyleft, .justifycenter, .justifyright, .justifyfull, .blockquote, .insertunorderedlist, .insertorderedlist', this.toolbar), function(i, el) {
                     _.dom.toggleClass(this, 'active', false);
                 });
                 var style = _.dom.getStyle(range.commonElem);
@@ -94,13 +94,8 @@ tangram.block([
                 if (_.dom.closest(range.commonElem, 'blockquote', true)) {
                     selector.push('.blockquote');
                 }
-
-
-                // if ((range.commonElem.tagName === 'A') || _.dom.closest(range.commonElem, 'a')) {
-                //     selector.push('.createlink');
-                // }
                 if (selector.length > 0) {
-                    _.each(_.query(selector.join(', '), this.toolarea), function(i, el) {
+                    _.each(_.query(selector.join(', '), this.toolbar), function(i, el) {
                         _.dom.toggleClass(this, 'active', true);
                     });
                 }
@@ -108,49 +103,53 @@ tangram.block([
             }
         },
         checkStatus = function() {
-            var range = this.selection.range;
-            // console.log(range && range.commonElem);
-            if (range && range.commonElem) {
-                var style = _.dom.getStyle(range.commonElem),
-                    node = _.dom.closest(range.commonElem, 'table'),
-                    row = _.dom.closest(range.commonElem, 'tr'),
-                    cell = _.dom.closest(range.commonElem, 'td', true);
-                _.query('.tangram.se-fontstatus .tangram.se-color-input', this.statebar)[0].value = _.util.Color.rgbFormat(style.color, 'hex6');
-                if (node && row) {
-                    _.query('.tangram.se-tablestatus', this.statebar)[0].style.display = 'block';
-                    var rowslen = node.rows.length,
-                        colslen = row.cells.length;
-                    this.selectedTable = node;
-                    this.selectedTableRow = row;
-                    this.selectedTableCell = cell;
-                    //console.log([node]);
-                    _.query('.tangram.se-tablestatus .tangram.se-tablewidth-input', this.statebar)[0].value = node.offsetWidth;
-                    _.query('.tangram.se-tablestatus .tangram.se-rowslen', this.statebar)[0].value = rowslen;
-                    _.query('.tangram.se-tablestatus .tangram.se-colslen', this.statebar)[0].value = colslen;
-                    _.query('.tangram.se-tablestatus .tangram.se-border-input', this.statebar)[0].value = node.border || 0;
-                } else {
-                    _.query('.tangram.se-tablestatus', this.statebar)[0].style.display = 'none';
-                }
-                if (this.selectedImage) {
-                    _.query('.tangram.se-imagestatus', this.statebar)[0].style.display = 'block';
-                    _.query('.tangram.se-imagestatus .tangram.se-imgwidth-input', this.statebar)[0].value = this.selectedImage.offsetWidth;
-                    _.query('.tangram.se-imagestatus .tangram.se-imgheight-input', this.statebar)[0].value = this.selectedImage.offsetHeight;
-                    _.query('.tangram.se-imagestatus .tangram.se-border-input', this.statebar)[0].value = this.selectedImage.border || 0;
-                    var nodes = _.query('.tangram.se-imagestatus .tangram.se-imgfloat', this.statebar),
-                        select = this.selectedImage.style.float ? this.selectedImage.style.float : 'none';
-                    _.each(nodes, function(i, node) {
-                        _.dom.toggleClass(node, 'active', false);
-                    });
-                    // console.log(select, _.util.arr.has(['left', 'right', 'none'], select));
-                    if (_.util.arr.has(['left', 'right', 'none'], select) === false) {
-                        select = 'none';
+            if (this.statebar) {
+                var range = this.selection.range;
+                // console.log(range && range.commonElem);
+                if (range && range.commonElem) {
+                    var style = _.dom.getStyle(range.commonElem),
+                        node = _.dom.closest(range.commonElem, 'table'),
+                        row = _.dom.closest(range.commonElem, 'tr'),
+                        cell = _.dom.closest(range.commonElem, 'td', true);
+
+
+                    _.query('.tangram.se-fontstatus .tangram.se-color-input', this.statebar)[0].value = _.util.Color.rgbFormat(style.color, 'hex6');
+                    if (node && row) {
+                        _.query('.tangram.se-tablestatus', this.statebar)[0].style.display = 'block';
+                        var rowslen = node.rows.length,
+                            colslen = row.cells.length;
+                        this.selectedTable = node;
+                        this.selectedTableRow = row;
+                        this.selectedTableCell = cell;
+                        //console.log([node]);
+                        _.query('.tangram.se-tablestatus .tangram.se-tablewidth-input', this.statebar)[0].value = node.offsetWidth;
+                        _.query('.tangram.se-tablestatus .tangram.se-rowslen', this.statebar)[0].value = rowslen;
+                        _.query('.tangram.se-tablestatus .tangram.se-colslen', this.statebar)[0].value = colslen;
+                        _.query('.tangram.se-tablestatus .tangram.se-border-input', this.statebar)[0].value = node.border || 0;
+                    } else {
+                        _.query('.tangram.se-tablestatus', this.statebar)[0].style.display = 'none';
                     }
-                    _.dom.toggleClass(_.query('.tangram.se-imagestatus .tangram.se-imgfloat[data-float=' + select + ']', this.statebar)[0], 'active', true);
-                    if (!this.selectedImage.border) {
-                        _.dom.setAttr(this.selectedImage, '_selected', '_selected');
+                    if (this.selectedImage) {
+                        _.query('.tangram.se-imagestatus', this.statebar)[0].style.display = 'block';
+                        _.query('.tangram.se-imagestatus .tangram.se-imgwidth-input', this.statebar)[0].value = this.selectedImage.offsetWidth;
+                        _.query('.tangram.se-imagestatus .tangram.se-imgheight-input', this.statebar)[0].value = this.selectedImage.offsetHeight;
+                        _.query('.tangram.se-imagestatus .tangram.se-border-input', this.statebar)[0].value = this.selectedImage.border || 0;
+                        var nodes = _.query('.tangram.se-imagestatus .tangram.se-imgfloat', this.statebar),
+                            select = this.selectedImage.style.float ? this.selectedImage.style.float : 'none';
+                        _.each(nodes, function(i, node) {
+                            _.dom.toggleClass(node, 'active', false);
+                        });
+                        // console.log(select, _.util.arr.has(['left', 'right', 'none'], select));
+                        if (_.util.arr.has(['left', 'right', 'none'], select) === false) {
+                            select = 'none';
+                        }
+                        _.dom.toggleClass(_.query('.tangram.se-imagestatus .tangram.se-imgfloat[data-float=' + select + ']', this.statebar)[0], 'active', true);
+                        if (!this.selectedImage.border) {
+                            _.dom.setAttr(this.selectedImage, '_selected', '_selected');
+                        }
+                    } else {
+                        _.query('.tangram.se-imagestatus', this.statebar)[0].style.display = 'none';
                     }
-                } else {
-                    _.query('.tangram.se-imagestatus', this.statebar)[0].style.display = 'none';
                 }
             }
         };

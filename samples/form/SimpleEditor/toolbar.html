@@ -3,13 +3,17 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Simple Editor</title>
+    <title>Custom Toolbar For Simple Editor</title>
     <script src="../../../src/tangram.js" data-use-debugmode></script>
     <link href="../../../src/see/see.css" type="text/css" rel="stylesheet" />
     <link href="../../../src/see/fa.css" type="text/css" rel="stylesheet" />
     <style>
         body>div {
             margin: 20px;
+        }
+        
+        .mytoolbar {
+            width: 298px;
         }
         
         .myeditor {
@@ -25,6 +29,7 @@
 </head>
 
 <body>
+    <div class="mytoolbar">placeholder</div>
     <div class="myeditor">tangram.js SimpleEditor</div>
     <script>
         tangram.block([
@@ -33,9 +38,12 @@
         ], function(pandora, global, undefined) {
             var _ = pandora,
                 document = global.document,
-                console = global.console;
+                console = global.console,
+                $ = _.dom.select;
 
-            var editor = _.form.careatEditors('.myeditor')[0];
+            var editor = _.form.careatEditors('.myeditor', {
+                toolarea: $('.mytoolbar').get(0)
+            })[0];
             console.log(editor);
         }, true);
     </script>

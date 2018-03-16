@@ -100,7 +100,7 @@ tangram.block([
                 var key = _.dom.getAttr(this, 'name');
                 switch (this.tagName) {
                     case 'TEXTAREA':
-                        data[key] = [this.value, _.dom.getAttr(this, 'data-ib-validate')];
+                        data[key] = [this.value, _.dom.getAttr(this, 'data-tangram-validate')];
                         break;
                     case 'SELECT':
                         if (this.selectedIndex >= 0 && this.options[this.selectedIndex]) {
@@ -137,7 +137,7 @@ tangram.block([
                             case 'datetime-local':
                             case 'search':
                             case 'color':
-                                data[key] = [this.value, _.dom.getAttr(this, 'data-ib-validate')];
+                                data[key] = [this.value, _.dom.getAttr(this, 'data-tangram-validate')];
                                 break;
                         }
                         break;
