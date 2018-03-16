@@ -9,22 +9,58 @@
     <script src="../../../src/tangram.js" data-use-debugmode></script>
     <link href="../../../src/see/see.css" type="text/css" rel="stylesheet" />
     <link href="../../../src/see/fa.css" type="text/css" rel="stylesheet" />
+    <style>
+        .myinputs {
+            width: 900px;
+        }
+        
+        .myinputs input[data-prop-name] {
+            width: 118px;
+            height: 24px;
+            margin: 10px;
+            padding: 0 5px;
+            border: solid 1px #9cf;
+            border-radius: 4px;
+        }
+        
+        button {
+            width: auto;
+            height: 24px;
+            padding: 0 10px;
+            margin: 10px;
+            line-height: 24px;
+            border-radius: 3px;
+            font-size: 12px;
+            background-color: #9cf;
+            color: white;
+        }
+    </style>
 </head>
 
 <body>
     <form>
-        <div class="tangram visual-json visual-json-obj"></div>
+        <input name="myinput" value='{"name":"Yang Chi","age":27,"city":"Wuhan"}' />
+        <div class="myinputs"></div>
+        <button onclick="resetInputValue()">重置绑定INPUT的值</button>
     </form>
     <script>
         tangram.auto([
-            '$_/dom/Elements/',
+            '$_/dom/Elements/form.clsx',
             '$_/form/VisualJOSN/Object.cls'
         ], function(pandora, global, undefined) {
             var _ = pandora,
                 document = global.document,
-                console = global.console;
+                console = global.console,
+                $ = _.dom.select;
 
-            console.log(_.form.VisualJOSN.Object);
+            var visualBbject = new _.form.VisualJOSN.Object($('.myinputs')[0], $('[name="myinput"]')[0]);
+
+
+            global.resetInputValue = function() {
+                var json = visualBbject.getJSON();
+                alert(json);
+                alert($('[name="myinput"]').val());
+            }
         });
     </script>
 </body>

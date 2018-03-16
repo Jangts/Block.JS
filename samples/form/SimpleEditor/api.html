@@ -57,6 +57,7 @@
                 document = global.document,
                 console = global.console,
                 $ = _.dom.select;
+
             global.$ = $;
             global.editor = new _.form.SimpleEditor($('.myeditor')[0], {}, $('[name="myinput"]'));
         }, true);

@@ -6,7 +6,9 @@
  * Date: 2015-09-04
  */
 ;
-tangram.block([], function(pandora, global, undefined) {
+tangram.block([
+    '$_/dom/'
+], function(pandora, global, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
         cache = pandora.locker,
@@ -24,34 +26,70 @@ tangram.block([], function(pandora, global, undefined) {
      * @param {Mix, Object }
      */
 
-    declare('form.VisualJOSN.Object', {
-        _init: function(elem) {
-            if (_.util.bool.isEl(elem)) {
-                var commonNode, text, width, height,
-                    htmlclose = new _.dom.HTMLClose();
-
-                if (textarea.tagName.toUpperCase() === 'TEXTAREA') {
-                    commonNode = textarea.parentNode;
-                    width = textarea.offsetWidth;
-                    height = textarea.offsetHeight;
+    var buildTextarea = function(textarea) {
+        var text;
+        _.dom.setStyle(textarea, 'display', 'none');
+        return {
+            Element: textarea,
+            getText: function() {
+                if (textarea.value) {
+                    text = JSON.stringify(JSON.parse(textarea.value) || {});
                 } else {
-                    commonNode = textarea;
-                    width = commonNode.offsetWidth - 2;
-                    height = commonNode.offsetHeight - 2;
-                    var selects = _.dom.selector('input, textarea', textarea);
-                    if (selects.length) {
-                        textarea = selects[0];
-                    } else {
-                        text = commonNode.innerHTML;
-                        commonNode.innerHTML = '';
-                        textarea = _.dom.create('textarea', commonNode, {
-                            className: 'tangram simpleeditor',
-                            value: text
-                        });
-                    }
+                    text = JSON.stringify(JSON.parse(textarea.innerHTML) || {});
                 }
+                if (!text) {
+                    text = '{}';
+                }
+                return text;
+            },
+            setText: function(value) {
+                if (textarea.value) {
+                    text = textarea.value = JSON.stringify(JSON.parse(value) || {});
+                } else {
+                    text = textarea.innerHTML = JSON.stringify(JSON.parse(value) || {});
+                }
+                return text;
             }
-            return _.error('"textarea" must be an element!');
+        };
+    }
+
+    declare('form.VisualJOSN.Object', {
+        Element: null,
+        textarea: null,
+        _init: function(elem, textarea) {
+            if (_.util.bool.isEl(elem)) {
+                this.Element = elem;
+                _.dom.addClass(this.Element, 'tangram visual-json visual-json-obj');
+                if (_.util.bool.isEl(textarea)) {
+                    this.textarea = buildTextarea(textarea);
+                    this.loadJSON(this.textarea.getText());
+                }
+            } else {
+                return _.error('"textarea" must be an element!');
+            }
+
+        },
+        loadJSON: function(string) {
+            var inputs = [],
+                obj = JSON.parse(string) || {};
+
+            _.each(obj, function(prop, value) {
+                inputs.push('<input data-prop-name="' + prop + '" value="' + value + '" />');
+            });
+            this.Element.innerHTML = inputs.join('');
+        },
+        getJSON: function(string) {
+            var json, prop, obj = {};
+
+            _.each(_.query('[data-prop-name]', this.Element), function() {
+                prop = _.dom.getAttr(this, 'data-prop-name');
+                obj[prop] = this.value;
+            });
+            json = JSON.stringify(obj);
+            if (this.textarea) {
+                this.textarea.setText(json);
+            }
+            return json;
         }
     });
 });
