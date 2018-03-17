@@ -1,0 +1,43 @@
+.tangram-form {
+    figure {
+        margin-bottom: 0 !important;
+    }
+    figure.img-item {
+        width: 200px !important;
+        padding: 30px;
+        border: solid 1px #ddd;
+        text-align: center;
+    }
+    figure.img-item img.img-show {
+        display: block;
+        position: relative;
+        max-width: 200px;
+        max-height: 150px;
+        margin: 0 auto;
+    }
+    figure.img-item i.image-button {
+        display: block;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        cursor: pointer;
+    }
+    figure.img-item i.image-button:hover {
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+    i.reset-button {
+        display: block;
+        width: 120px;
+        height: 24px;
+        left: 110px;
+        margin-top: 8px;
+        margin-bottom: 12px;
+        background-color: #498bea;
+        line-height: 24px;
+        text-align: center;
+        color: #fff;
+        cursor: pointer;
+    }
+}

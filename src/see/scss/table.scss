@@ -1,48 +1,161 @@
-/** Normal Screen **/
-
-ul.tangram.v-top,
-ol.tangram.v-top {
-    >li {
-        display: block;
+$table_cell_widths: 140,
+80,
+70,
+60,
+50,
+40;
+$table_cell_maxwidths: 540,
+580,
+670,
+860,
+950,
+1040;
+table.tangram-table,
+table.tangram.tangram-table {
+    margin: 20px auto 10px;
+    border-radius: 5px;
+    cursor: default;
+    font-size: 12px;
+    tr.tangram-header-tr {
+        height: 40px;
+        background-color: transparent !important;
+        border-bottom: solid 5px white;
+        th {
+            height: 40px;
+            line-height: 40px;
+        }
     }
-}
-
-ul.tangram.h-left,
-ol.tangram.h-left {
-    >li {
-        float: left;
+    tr {
+        height: 30px;
+        th {
+            height: 40px;
+            line-height: 40px;
+            padding: 0px 10px;
+            font-size: 13px;
+            font-weight: normal;
+            background: #666;
+            color: #FFF;
+        }
+        th.lightpurple {
+            background: #C6C;
+        }
+        th.lightdatered {
+            background: #C66;
+        }
+        th.lightmagenta {
+            background: #F38;
+        }
+        th.lightazure {
+            background: #0CF;
+        }
+        td {
+            height: 30px;
+            line-height: 30px;
+            padding: 0px 10px;
+            color: #333;
+            font-weight: normal;
+            font-size: 12px;
+            text-align: center;
+            a {
+                display: block;
+                width: 100%;
+                height: 100%;
+                font-size: 14px;
+            }
+            .tangram-td-click {
+                display: block;
+            }
+            .on {
+                color: #090;
+            }
+            .off {
+                color: #666;
+            }
+        }
+        td.lightpurple .off {
+            color: #969;
+        }
+        td.lightdatered .off {
+            color: #966;
+        }
+        td.lightmagenta .off {
+            color: #936;
+        }
+        td.lightazure .off {
+            color: #369;
+        }
+        @each $width in $table_cell_widths {
+            >.w#{$width} {
+                width: #{$width}px;
+            }
+        }
+        @each $width in $table_cell_maxwidths {
+            >.m#{$width} {
+                max-width: #{$width}px;
+            }
+        }
+        @for $i from 1 through 21 {
+            >.w#{$i} {
+                width: percentage($i/21);
+            }
+        }
+        @for $i from 11 through 21 {
+            >.m#{$i} {
+                max-width: percentage($i/21);
+            }
+        }
     }
-}
-
-ul.tangram.h-right,
-ol.tangram.h-right {
-    >li {
-        float: right;
+    tr.tangram-tips {
+        height: 100px;
+        line-height: 100px;
+        text-align: center;
+        background: rgba(204, 204, 204, .3);
+        td {
+            height: 100px;
+            line-height: 100px;
+            color: #999;
+        }
     }
-}
-
-ul.tangram.al-left,
-ul.tangram.al-right,
-ul.tangram.al-center,
-ul.tangram.al-just,
-ol.tangram.al-left,
-ol.tangram.al-right,
-ol.tangram.al-center,
-ol.tangram.al-just {
-    >li {
-        display: inline;
+    tr.tangram-tips:hover {
+        background: rgba(204, 204, 204, .3);
+        cursor: text;
+        td {
+            cursor: text;
+        }
     }
-}
-
-ul.tangram.al-left.blocks,
-ul.tangram.al-right.blocks,
-ul.tangram.al-center.blocks,
-ul.tangram.al-just.blocks,
-ol.tangram.al-left.blocks,
-ol.tangram.al-right.blocks,
-ol.tangram.al-center.blocks,
-ol.tangram.al-just.blocks {
-    >li {
-        display: inline-block;
+    tr.tangram-creator {
+        height: 40px;
+        border-top: solid 5px white;
+        background-color: transparent !important;
+        td {
+            background-color: green;
+            height: 40px;
+            line-height: 40px;
+            color: white;
+        }
+    }
+    tr.creator:hover {
+        background-color: #ccc;
+    }
+    tr:nth-child(odd) {
+        background-color: #ddd;
+        background: rgba(204, 204, 204, .3);
+    }
+    tr:nth-child(even) {
+        background-color: #eee;
+        background: rgba(153, 153, 153, .3);
+    }
+    tr:hover {
+        background: rgba(153, 153, 153, .4);
+        color: #F6F6F6;
+        td {
+            cursor: pointer;
+        }
+    }
+    td:nth-child(odd) {
+        background: rgba(153, 153, 153, .3);
+    }
+    td:nth-child(even) {
+        background: rgba(204, 204, 204, .3);
     }
 }

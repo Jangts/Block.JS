@@ -3,18 +3,28 @@
 /************************************************/
 
 .tangram.listview.page-list {
+    width: auto;
     margin: 10px auto;
     font-size: 0;
     text-align: center;
     white-space: nowrap;
+    font-size: 12px;
+    text-align: right;
+    cursor: default;
     .list-item {
         display: inline-table;
         width: 20px;
+        min-width: 10px;
         height: 20px;
         margin: 4px;
+        padding: 0px 5px;
         font-size: 13px;
+        text-align: center;
         cursor: pointer;
-        color: #333;
+        .button-item {
+            display: block;
+            cursor: pointer;
+        }
     }
     .list-item.actived {
         color: #0cf;
@@ -23,6 +33,10 @@
 
 .tangram.listview.page-list.al-left {
     text-align: left;
+}
+
+.tangram.listview.page-list.al-center {
+    text-align: center;
 }
 
 .tangram.listview.page-list.al-right {
@@ -34,10 +48,13 @@
 .tangram.listview.page-list.spills {
     .list-item {
         border: 1px solid #999;
-        line-height: 20px;
-        padding: 5px;
+        line-height: 18px;
+        padding: 3px;
         text-align: center;
         color: #333;
+    }
+    .list-item.long {
+        padding: 3px 8px;
     }
     .list-item.actived {
         background-color: #999;
@@ -70,33 +87,37 @@
 
 .tangram.listview.page-list.spills {
     .list-item {
+        min-width: 18px;
         margin: 4px 0;
-        padding: 0 6px;
+        padding: 0;
         border-radius: 10px;
+    }
+    .list-item.long {
+        padding: 0 6px;
     }
 }
 
 .tangram.listview.page-list.train {
+    font-size: 0;
     .list-item {
-        width: 20px;
-        height: 20px;
+        height: 18px;
         margin: 0;
         border-top: 1px solid #999;
         border-right: 1px solid #999;
         border-bottom: 1px solid #999;
-        line-height: 20px;
-        padding: 5px 6px;
+        line-height: 18px;
+        padding: 3px 4px;
         text-align: center;
         color: #333;
     }
     .list-item:first-child {
         border-left: 1px solid #999;
         border-radius: 15px 0 0 15px;
-        padding: 5px 10px;
+        padding: 3px 10px;
     }
     .list-item:last-child {
         border-radius: 0 15px 15px 0;
-        padding: 5px 10px;
+        padding: 3px 10px;
     }
     .list-item.actived {
         background-color: #999;

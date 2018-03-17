@@ -1,0 +1,41 @@
+/*
+ * Backgound Colors
+ */
+
+$bgcolorpairs: ('white', #333, #FFF, #CCC),
+('silvery', #222, #EEE, #CCC),
+('light', #444, #DDD, #CCC),
+('lightgray', #111, #CCC, #aaa),
+('gray', #000, #888, #666),
+('darkgray', #EEE, #484848, #555),
+('dark', #CCC, #282828, #181818),
+('deep', #EEE, #181818, #181818),
+('black', #EEE, #000, #111),
+('red', #FFF, #e6162d, #e6162d),
+('yellow', #FFF, #ffc700, #ffc700),
+('green', #FFF, #0dad51, #0dad51),
+('cyan', #FFF, #22c1cb, #22c1cb),
+('blue', #DEF, #2e3f85, #2e3f85),
+('magenta', #FFF, #df226e, #df226e),
+('darkred', #FFF, #a50000, #a50000),
+('datered', #FFF, #b2212f, #7b1b1b),
+('redorange', #FFF, #d64a24, #d64a24),
+('orange', #FFF, #ff5c0e, #ff5c0e),
+('brown', #FFF, #fc9432, #fc9432),
+('darkgreen', #FFF, #306b39, #306b39),
+('azure', #FFF, #27b6ea, #27b6ea),
+('purple', #FFF, #9a39b2, #9a39b2),
+('darkpurple', #FFF, #6D196D, #6D196D),
+('pink', #FFF, #ff668c, #ff668c);
+@each $name,
+$color,
+$bgcolor,
+$bordercolor in $bgcolorpairs {
+    [data-tangram-bgcolor=#{$name}],
+    .tangram.bg-color-#{$name},
+    {
+        color: $color;
+        background-color: $bgcolor;
+        border-color: $bordercolor;
+    }
+}
