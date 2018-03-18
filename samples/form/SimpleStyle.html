@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Simple Style Form</title>
+    <link href="../../src/form/style.css" type="text/css" rel="stylesheet" />
+    <style>
+        body{
+            background-color: #EEE;
+        }
+
+        .tangram-form.simple-style-form .inputs-section {
+            margin: 20px auto;
+        }
+        .tangram-form.simple-style-form .inputs-section {
+            width: 860px;
+        }
+    </style>
+</head>
+
+<body>
+    <form class="tangram-form simple-style-form" name="myform" method="PUT" action="">
+        <section class="inputs-section">
+            <div class="tangram-inputs" data-type="primer">
+                <label class="input-label">新闻引题</label>
+                <input type="text" name="PRIMER" value="" placeholder="引题">
+            </div>
+            <div class="tangram-inputs" data-type="title">
+                <label class="input-label">新闻副标题</label>
+                <input class="Title" name="TITLE" type="text" value="" placeholder="在这里输入文章标题">
+            </div>
+            <div class="tangram-inputs" data-type="subtitle">
+                <label class="input-label">新闻副标题</label>
+                <input type="text" name="SUBTITLE" value="" placeholder="副标题">
+            </div>
+            <div class="tangram-inputs">
+                <label class="input-label">新闻分类</label>
+                <select class="sel-items" name="FOLDER">
+                    <option value="7">集团新闻</option>
+                    <option value="8" selected="selected">行业动态</option>
+                </select>
+            </div>
+            <div class="tangram-inputs inline-inputs">
+                <label class="input-label">来源</label>
+                <input class="text-item" name="PRESS" value="中国食品科技网" type="text">
+                <label class="inline-label">URL</label>
+                <input class="text-item" name="ORIGINATE_URL" value="" type="text">
+            </div>
+            <div class="tangram-inputs">
+                <label class="input-label">原文发布日期</label>
+                <input class="use-tp fulldate-item" name="PRESS_DATE" type="text" value="2018-03-09">
+            </div>
+            <div class="tangram-inputs inline-inputs">
+                <label class="input-label">记者</label>
+                <label class="inline-label">通讯员</label>
+                <input class="text-item" name="REPORTER" value="" type="text">
+                <label class="inline-label">摄影</label>
+                <input class="text-item" name="PHOTOGRAPHER" type="text" value="">
+            </div>
+            <div class="tangram-inputs" data-type="blocks">
+                <label class="input-label">内容概述</label>
+                <textarea class="text-area" name="ABSTRACT"></textarea>
+            </div>
+            <div class="tangram-inputs inline-inputs">
+                <label class="input-label">是否全职</label>
+                <label class="radio-label">
+                    <input name="IS_FULLTIME" type="radio" value="0">否</label>
+                <label class="radio-label">
+                    <input name="IS_FULLTIME" type="radio" value="1" checked="checked">是</label>
+            </div>
+            <div class="tangram-inputs">
+                <label class="input-label">文章评级</label>
+                <select class="sel-items" name="RANK">
+                    <option value="1">★</option>
+                    <option value="2">★★</option>
+                    <option value="4">★★★</option>
+                    <option value="3">★★★★</option>
+                    <option value="5">★★★★★</option>
+                    <option value="6" selected="selected">★★★★★★</option>
+                    <option value="7">★★★★★★★</option>
+                </select>
+            </div>
+            <div class="tangram-inputs inline-inputs" data-type="blocks">
+                <label class="input-label">复选框</label>
+                <div class="inputs-line">
+                    <label class="checkbox-label">
+                        <input name="checkbox11" type="checkbox" value="0">11</label>
+                    <label class="checkbox-label">
+                        <input name="checkbox12" type="checkbox" value="1" checked="checked">12</label>
+                </div>
+                <div class="inputs-line">
+                    <label class="checkbox-label">
+                        <input name="checkbox21" type="checkbox" value="0">21</label>
+                    <label class="checkbox-label">
+                        <input name="checkbox22" type="checkbox" value="1" checked="checked">22</label>
+                </div>
+            </div>
+            <div class="tangram-inputs">
+                <label class="input-label">本站发布时间</label>
+                <input class="use-tp datetime-item" readonly="readonly" name="PUBTIME" value="2017-01-12 16:41:15" type="text">
+            </div>
+            <div class="tangram-inputs">
+                <label class="input-label">排序级数</label>
+                <input class="num-item" name="LEVEL" type="number" value="0">
+            </div>
+        </section>
+    </form>
+</body>
+
+</html>

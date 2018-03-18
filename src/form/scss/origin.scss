@@ -1,83 +1,13 @@
-.tangram-form {
-    display: block;
-    width: 900px;
-    height: auto;
-    border: #DDD 1px solid;
-    margin: 24px auto;
-    background-color: #FFF;
+.tangram-form.simple-style-form {
+    
+    
+    
+    
     .tangram-inputs {
-        display: block;
-        input {
-            outline: none;
-            background-color: transparent;
-        }
-    }
-    .tangram-inputs[type=primer] {
-        padding: 5px 0px 4px;
-        margin: 0px 20px;
-        border-bottom: #EEE dashed 1px;
-        input {
-            width: 860px;
-            text-align: left;
-            font-size: 18px;
-            line-height: 25px;
-        }
-    }
-    .tangram-inputs[type=title] {
-        padding: 10px 20px;
-        input {
-            width: 860px;
-            text-align: center;
-            font-size: 24px;
-            line-height: 35px;
-        }
-    }
-    .tangram-inputs[type=subtitle] {
-        padding: 4px 0px 5px;
-        margin: 0px 20px;
-        border-top: #EEE dashed 1px;
-        input {
-            width: 860px;
-            text-align: right;
-            font-size: 18px;
-            line-height: 25px;
-        }
-    }
-    .tangram-inputs[type=hidden] {
-        display: none;
-        width: 0;
-        height: 0;
-    }
-    .tangram-inputs[type=text] {
         width: 860px;
-        height: 30px;
-        margin: 0px 20px;
-        line-height: 30px;
-        border-top: 1px #E6E6E6 solid;
-        label {
-            display: block;
-            position: absolute;
-            width: 110px;
-            height: 24px;
-            line-height: 24px;
-            background-color: #F6F6F6;
-            top: 3px;
-            left: 0px;
-        }
-        label {
-            color: #282828;
-            font-size: 12px;
-            margin-right: 10px;
-            text-align: center;
-        }
-        input {
-            display: block;
-            width: 740px;
-            height: 30px;
-            margin-left: 120px;
-            color: #555;
-            font-size: 12px;
-        }
+        
+        
+        
         .tangram-form-click[type=pick] {
             display: block;
             position: absolute;
@@ -370,24 +300,5 @@
         color: #999;
         font-size: 12px;
         text-align: justify;
-    }
-}
-
-.tangram-form[type] {
-    display: none;
-    .tangram-inputs {
-        display: none;
-    }
-}
-
-.tangram-form[type=origin] {
-    display: block;
-    width: 900px;
-    height: auto;
-    border: #DDD 1px solid;
-    margin: 24px auto;
-    background-color: #FFF;
-    .tangram-inputs {
-        display: block;
     }
 }
