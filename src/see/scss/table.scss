@@ -95,12 +95,12 @@ table.tangram.tangram-table {
             }
         }
         @for $i from 1 through 21 {
-            >.w#{$i} {
+            >.w#{$i}in21 {
                 width: percentage($i/21);
             }
         }
         @for $i from 11 through 21 {
-            >.m#{$i} {
+            >.m#{$i}in21 {
                 max-width: percentage($i/21);
             }
         }

@@ -7,6 +7,7 @@
  */
 ;
 tangram.block([
+    '$_/util/bool.xtd',
     '$_/util/obj.xtd',
     '$_/data/hash.xtd'
 ], function(pandora, global, undefined) {
@@ -15,65 +16,169 @@ tangram.block([
         cache = pandora.locker,
         document = global.document,
         console = global.console,
-        location = global.location,
-        localStorage = global.localStorage;
+        location = global.location;
 
-    var data = {};
-
-    declare('data.Storage', {
-        _init: function(name) {
-            if (name && (typeof name === 'string')) {
-                this.id = _.data.hash.md5.pseudoIdentity(name);
-            } else {
-                this.id = new _.Identifier(name, 1).toString();
-            }
-            try {
-                data[this.id] = global.JSON.parse(localStorage[this.id]);
-                this.length = _.util.obj.length(data[this.id], true);
-            } catch (e) {
-                data[this.id] = {};
-                localStorage[this.id] = '{}';
-                this.length = 0;
-            }
-            // console.log(name, data);
-            return this;
+    var models = {},
+        normalFormatter = function(attributes) {
+            return {
+                base: attributes.type,
+                type: attributes.type,
+                length: attributes.length || 0,
+                default: attributes.default || '',
+                range: attributes.range || null
+            };
         },
-        set: function(key, value) {
-            if (key && typeof key === 'string') {
-                if (value === undefined) {
-                    if (data[this.id].hasOwnProperty(key)) {
-                        delete data[this.id][key];
-                        localStorage[this.id] = global.JSON.stringify(data[this.id]);
-                        this.length = _.util.obj.length(data[this.id], true);
-                    }
+        notNullFormatter = function(attributes) {
+            return {
+                base: attributes.type.split(' ')[0],
+                type: attributes.type,
+                length: attributes.length || 0,
+                default: attributes.default || null,
+                range: attributes.range || null
+            };
+        },
+        formatter = {
+            'any': function() {
+                return {
+                    base: 'any',
+                    type: 'any',
+                    length: 0,
+                    default: attributes.default || '',
+                    range: attributes.range || null
+                }
+            },
+            'scala': function() {
+                return {
+                    base: 'any',
+                    type: 'scala',
+                    length: attributes.length || 0,
+                    default: attributes.default || '',
+                    range: attributes.range || null
+                }
+            },
+            'string': function(attributes) {
+                return {
+                    base: 'string',
+                    type: 'string',
+                    length: attributes.length || 0,
+                    default: attributes.default || '',
+                    range: attributes.range || null
+                };
+            },
+            'bool': function(attributes) {
+                return {
+                    base: 'bool',
+                    default: !!attributes.default
+                };
+            },
+            'string not null': notNullFormatter,
+            'int': normalFormatter,
+            'int not null': notNullFormatter,
+            'number': normalFormatter,
+            'number not null': notNullFormatter
+        },
+        modelsConstrutor = function(input) {
+            var keys = _.util.obj.keysArray(input).sort(),
+                props = {};
+            _.each(input, function(prop, attributes) {
+                if (attributes.type && formatter[attributes.type]) {
+                    input[prop] = formatter[attributes.type](attributes);
                 } else {
-                    data[this.id][key] = value;
-                    localStorage[this.id] = global.JSON.stringify(data[this.id]);
-                    this.length = _.util.obj.length(data[this.id], true);
+                    input[prop] = formatter['scala'](attributes);
                 }
-            }
-            return this;
+            });
+            _.each(keys, function(i, prop) {
+                props[prop] = input[prop];
+            });
+            return props;
         },
-        get: function(key) {
-            if (key === undefined) {
-                return data[this.id];
-            }
-            if (key && typeof key === 'string') {
-                if (data[this.id].hasOwnProperty(key)) {
-                    return data[this.id][key];
-                }
-            }
-            return undefined;
+        uidMaker = function(props) {
+            var josn = JSON.stringify(props);
+            return _.data.hash.md5(josn);
         },
-        clear: function(del) {
-            if (del) {
-                delete data[this.id];
-                delete localStorage[this.id];
-            } else {
-                data[this.id] = {};
-                localStorage[this.id] = '{}';
+        check = function(property, value) {
+            switch (property.base) {
+                case 'string':
+                    return checkString(property, value);
+
+                case 'int':
+                case 'number':
+                    return checkNumber(property, value);
+
+                case 'bool':
+                    return checkBoolean(value);
+
+                case 'any':
+                    return checkAny(property, value);
             }
-            return null;
+            return false;
+        },
+        checkString = function(property, value) {
+            if (value || property.type === 'string') {
+                return _.util.bool.isStr(value) && checkLength(property.length, value) && checkRange(property.range, value);
+            }
+            return false;
+        },
+        checkNumber = function(property, value) {
+            switch (property.type) {
+                case 'int not null':
+                    if (!value && value != 0) {
+                        return false;
+                    }
+                case 'int':
+                    return _.util.type.isInt(value) && checkLength(property.length, value) && checkRange(property.range, value);
+
+                case 'number not null':
+                    if (!value && value != 0) {
+                        return false;
+                    }
+                default:
+                    return _.util.bool.isNumeric(value) && checkLength(property.length, value) && checkRange(property.range, value);
+            }
+        },
+        checkBoolean = function(value) {
+            return _.util.bool.isBool(value);
+        },
+        checkAny = function(property, value) {
+            if (property.type === 'any') {
+                return checkRange(property.range, value);
+            }
+
+        },
+        checkLength = function(length, value) {
+            if (length) {
+                return value.length <= length;
+            }
+            return true;
+        },
+        checkRange = function(range, value) {
+            if (range && range.length) {
+                return _.util.bool.inArr(value, range, true);
+            }
+            return true;
+        };
+
+    declare('data.Model', {
+        _init: function(props) {
+            var props = modelsConstrutor(props);
+
+            this.uid = uidMaker(props);
+
+            models[this.uid] = props;
+
+            console.log(this.uid, props, models);
+        },
+        check: function(prop, value) {
+
+        },
+        create: function($data) {
+
+        },
+        read: function($ID) {
+
+        },
+        updata: function($ID, $data) {
+
         }
     });
 });

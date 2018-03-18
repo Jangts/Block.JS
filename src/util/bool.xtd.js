@@ -26,11 +26,14 @@ tangram.block([
         is: function(file, __class) {
             return _.util.bool.isObj(file) && file instanceof __class;
         },
+        isCcala: function(vari) {
+            return typeof vari === 'boolean' || typeof vari === 'string' || typeof vari === 'number';
+        },
         isBool: function(vari) {
-            return typeof vari == 'boolean';
+            return typeof vari === 'boolean';
         },
         isObj: function(obj) {
-            return typeof obj == 'object' && obj;
+            return typeof obj === 'object' && obj;
         },
         hasProp: _.util.obj.hasProp,
         isWin: _.util.type.isGlobal,
@@ -40,11 +43,19 @@ tangram.block([
             return _.dom.getStyle(elem, 'display') != 'none';
         },
         isHide: function(elem) {
-            return _.dom.getStyle(elem, 'display') == 'none';
+            return _.dom.getStyle(elem, 'display') === 'none';
         },
         isEls: _.util.type.isElements,
         isArr: _.util.type.isArray,
-        inArr: function(elem, array) {
+        inArr: function(elem, array, ignoreType) {
+            if (ignoreType) {
+                for (var i = 0; i < array.length; i++) {
+                    if (array[i] == elem) {
+                        return i;
+                    };
+                };
+                return false;
+            }
             return _.util.arr.has(array, elem);
         },
         in: function(elem, object) {
@@ -67,10 +78,10 @@ tangram.block([
             return _.util.bool.isObj(data) && data instanceof FormData
         },
         isFn: function(obj) {
-            return typeof obj == 'function';
+            return typeof obj === 'function';
         },
         isStr: function(str) {
-            return typeof str == 'string';
+            return typeof str === 'string';
         },
         isOuterHTML: function(str) {
             return /^<(\w+)[\s\S]+<\/\1>$/.test(str) || /^<(\w+)[^>]*\/\s*>$/.test(str);
@@ -81,14 +92,20 @@ tangram.block([
             return (typeof str === 'string') && (/^[-\+]{0,1}(\d+(\.\d+){0,1}|\.\d+)\%$/.test(str));
         },
         hasStr: _.hasString,
+        isInt: function(num) {
+            return _.util.type.isInteger(num) || _.util.type.isIntStr(num);
+        },
         isNum: function(num) {
-            return typeof num == 'number';
+            return typeof num === 'number';
         },
         isNumber: function(num) {
             return !isNaN(parseFloat(num)) && isFinite(num);
         },
+        isFinite: function(num) {
+            return isFinite(num);
+        },
         isNumeric: function(num) {
-            return typeof num == 'number' || _.util.type.isIntStr(num) || _.util.type.isFloatStr(num);
+            return typeof num === 'number' || _.util.type.isIntStr(num) || _.util.type.isFloatStr(num);
         },
         isNul: function(obj) {
             if (obj) {

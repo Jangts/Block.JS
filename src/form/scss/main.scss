@@ -11,6 +11,13 @@
         padding-bottom: 20px;
         border-bottom: solid 1px #e6e6e6;
     }
+    .inputs-section,
+    .inputs-section.on {
+        display: block;
+    }
+    .inputs-section.off {
+        display: none;
+    }
     .inputs-section:last-child {
         border-bottom: none;
     }
@@ -135,7 +142,17 @@
     }
 }
 
-.tangram-form.simple-style-form {
+.tangram-form[data-type=tabs] {
+    .inputs-section.on {
+        display: block;
+    }
+    .inputs-section,
+    .inputs-section.off {
+        display: none;
+    }
+}
+
+.tangram-form[data-type=pages] {
     .inputs-section {
         height: auto;
         margin: 10px auto;
@@ -259,7 +276,7 @@
             margin-top: 3px;
             line-height: 27px;
         }
-        .inputs-line{
+        .inputs-line {
             border-top: solid 1px #eee;
             border-bottom: none;
         }
@@ -269,3 +286,5 @@
         }
     }
 }
+
+.tangram-form[data-type=panels] {}

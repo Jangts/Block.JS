@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../../src/tangram.js" data-use-debugmode></script>
+    <title>Model</title>
+</head>
+
+<body>
+    <script>
+        tangram.auto([
+            '$_/data/Model.cls'
+        ], function(_, root) {
+            var model1 = new _.data.Model({
+                    name: {
+                        type: 'string not null',
+                        length: 3
+                    },
+                    age: {
+                        type: 'int not null',
+                        length: 3,
+                        default: 18
+                    },
+                    city: {
+                        type: 'string',
+                        default: 'wuhan',
+                        range: ['', 'wuhan', 'guangzhou', 'beijing']
+                    }
+                }),
+                model2 = new _.data.Model({
+                    age: {
+                        type: 'int not null',
+                        length: 3,
+                        default: 18
+                    },
+                    name: {
+                        type: 'string not null',
+                        length: 3
+                    },
+                    city: {
+                        type: 'string',
+                        range: ['', 'wuhan', 'guangzhou', 'beijing'],
+                        default: 'wuhan'
+                    }
+                });
+        });
+    </script>
+</body>
+
+</html>
