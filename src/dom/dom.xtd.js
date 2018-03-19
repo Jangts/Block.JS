@@ -490,7 +490,7 @@ tangram.block([
         append: function(target, content) {
             if (_.util.type(content) == 'Element') {
                 target.appendChild(content);
-            } else if (_.util.type(str) == 'String') {
+            } else if (_.util.type(content) == 'String') {
                 target.innerHTML = target.innerHTML + content;
             }
             return this;

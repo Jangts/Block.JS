@@ -13,27 +13,21 @@
  */
 ;
 (function(global, factory) {
-    if (typeof exports === 'object' && typeof module === 'object') {
-        global.console = console;
-        global.tangram = factory(global);
-        exports = module.exports = {
-            tangram: global.tangram,
-            block: global.tangram.block
+    if (typeof exports === 'object') {
+        exports = factory(global);
+        if (typeof module === 'object') {
+            module.exports = exports;
         }
     } else if (typeof define === 'function' && define.amd) {
         // AMD
         define('tangram', [], function() {
             return factory(global);
         });
-    } else if (typeof exports === 'object') {
-        exports.tangram = factory(global);
-        exports.block = exports.tangram.block;
     } else {
         global.tangram = factory(global);
         global.block = global.tangram.block;
     }
-
-}(this, function(global, undefined) {
+}(window || this, function(global, undefined) {
 
     /**
      * ------------------------------------------------------------------
@@ -53,10 +47,11 @@
         useDebugMode = false,
 
         /* 备份全局变量的引用，以防止这些变量被其他代码修改 */
-        console = global.console,
+        console = global.console || console,
+        document = global.document,
         open = global.open,
         location = global.location,
-        document = global.document,
+
         // 获取页面的head元素，如果没有的话，创建之
         head = (function() {
             if (document !== undefined) {
@@ -140,6 +135,7 @@
                 pathname_array.length--;
                 return location.origin + pathname_array.join('/') + '/';
             }
+            return './';
         })(),
 
         /* 计算核心运行文件的相关信息 */
@@ -166,10 +162,14 @@
                         };
                     }
                 };
+                return {
+                    Element: null,
+                    Pathname: './'
+                };
             }
             return {
-                Element: null,
-                Pathname: './'
+                Element: undefined,
+                Pathname: './node_mudules/@jangts/tangram.js/'
             };
         })();
 
@@ -1458,16 +1458,24 @@
                     anchor = document.createElement('a');
                 anchor.href = options.mainUrl + '/';
                 maindir = anchor.href;
-                storage.mainUrl = calculateRelativePath(anchor.href, _maindir).replace(/\/+$/, '/');
+                storage.mainUrl = calculateRelativePath(anchor.href, _maindir).replace(/[\/\\]+$/, '/');
             }
 
-            if (storage.core.Element === null && options.corePath) {
-                var anchor = document.createElement('a');
-                anchor.href = options.corePath + '/';
-                var src = anchor.href;
-                storage.core.Pathname = calculateRelativePath(src);
-                storage.core.Element = undefined;
+            if (options.corePath) {
+                if (document) {
+                    if (storage.core.Element === null) {
+                        var anchor = document.createElement('a');
+                        anchor.href = (options.corePath + '/').replace(/[\/\\]+$/, '/');
+                        console.log(anchor.href);
+                        var src = anchor.href;
+                        storage.core.Pathname = calculateRelativePath(src);
+                        storage.core.Element = undefined;
+                    }
+                } else {
+                    storage.core.Pathname = calculateRelativePath((options.corePath + '/').replace(/[\/\\]+$/, '/'));
+                }
             }
+
             return block;
         },
 

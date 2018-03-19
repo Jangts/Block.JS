@@ -17,12 +17,16 @@
             var model1 = new _.data.Model({
                     name: {
                         type: 'string not null',
-                        length: 3
+                        length: 32
                     },
                     age: {
                         type: 'int not null',
                         length: 3,
                         default: 18
+                    },
+                    birthday: {
+                        type: 'fulldate',
+                        default: '2000-01-01'
                     },
                     city: {
                         type: 'string',
@@ -31,6 +35,10 @@
                     }
                 }),
                 model2 = new _.data.Model({
+                    birthday: {
+                        type: 'fulldate',
+                        default: '2000-01-01'
+                    },
                     age: {
                         type: 'int not null',
                         length: 3,
@@ -38,14 +46,56 @@
                     },
                     name: {
                         type: 'string not null',
-                        length: 3
+                        length: 32
                     },
                     city: {
                         type: 'string',
                         range: ['', 'wuhan', 'guangzhou', 'beijing'],
                         default: 'wuhan'
                     }
+                }),
+                results = [
+                    'name',
+                    model1.check('name'),
+                    model1.check('name', ''),
+                    model1.check('name', 'Yang Chi'),
+
+                    'age',
+                    model1.check('age'),
+                    model1.check('age', '二十七'),
+                    model1.check('age', '0'),
+                    model1.check('age', '27'),
+                    model1.check('age', 27),
+                    model1.check('age', 2018),
+
+                    'birthday',
+                    model1.check('birthday'),
+                    model1.check('birthday', '1990-12-04'),
+                    model1.check('birthday', '1990-12-04 13:00:00'),
+
+                    'city',
+                    model1.check('city'),
+                    model1.check('city', ''),
+                    model1.check('city', 'wuhan'),
+                    model1.check('city', 'shanghai'),
+                ],
+                $ID = model2.create({
+                    name: 'Yang Chi',
+                    age: 26,
+                    birthday: '1990-12-04'
+                }),
+                data1 = model2.read($ID),
+                data2 = model2.update($ID, 'age', '25'),
+                data3 = model2.update($ID, {
+                    age: 27,
                 });
+
+                $ID = model2.create(data1); model2.create(data2); model2.create(data3);
+                model2.delete($ID);
+                
+                console.log(model1, model2, results, $ID, data1, data2, data3, model1.read());
+
+                model2.render();
         });
     </script>
 </body>

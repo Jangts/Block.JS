@@ -73,7 +73,7 @@ tangram.block([
                 data._observer = this;
             },
             listen: function(property, writeCallback, readCallback) {
-                if (_.util.bool.isStr(property) && _.util.bool.hasProp(property, this.data)) {
+                if (_.util.bool.isStr(property) && _.util.bool.hasProp(this.data, property)) {
                     return new Listener(this, property, writeCallback, readCallback);
                 }
                 if (_.util.bool.isFn(property)) {
@@ -81,7 +81,7 @@ tangram.block([
                     writeCallback = property;
                 }
                 _.each(this.data, function(property) {
-                    if (property !== '_observer' && _.util.bool.hasProp(property, this.data)) {
+                    if (property !== '_observer' && _.util.bool.hasProp(this.data, property)) {
                         new Listener(this, property, writeCallback, readCallback);
                     }
                 }, this);

@@ -26,7 +26,7 @@ tangram.block([
         is: function(file, __class) {
             return _.util.bool.isObj(file) && file instanceof __class;
         },
-        isCcala: function(vari) {
+        isScala: function(vari) {
             return typeof vari === 'boolean' || typeof vari === 'string' || typeof vari === 'number';
         },
         isBool: function(vari) {
@@ -51,7 +51,7 @@ tangram.block([
             if (ignoreType) {
                 for (var i = 0; i < array.length; i++) {
                     if (array[i] == elem) {
-                        return i;
+                        return true;
                     };
                 };
                 return false;

@@ -29,7 +29,7 @@ tangram.block(function(pandora, global, undefined) {
     };
 
     _('util.obj', {
-        hasProp: function(property, obj) {
+        hasProp: function (obj, property) {
             return obj && obj.hasOwnProperty && obj.hasOwnProperty(property);
         },
         merge: function() {
