@@ -18,7 +18,8 @@ tangram.block([
         console = global.console,
         location = global.location;
 
-    var alias = {},models = {},
+    var alias = {},
+        models = {},
         modeldata = {},
         normalFormatter = function(attributes) {
             return {
@@ -29,7 +30,7 @@ tangram.block([
                 range: attributes.range || null
             };
         },
-        notNullFormatter = function (attributes) {
+        notNullFormatter = function(attributes) {
             return {
                 base: attributes.type.split(' ')[0],
                 type: attributes.type,
@@ -38,7 +39,7 @@ tangram.block([
                 range: attributes.range || null
             };
         },
-        timeFormatter = function (attributes) {
+        timeFormatter = function(attributes) {
             return {
                 base: 'time',
                 type: attributes.type,
@@ -57,6 +58,7 @@ tangram.block([
                 return {
                     base: 'any',
                     type: 'scala',
+                    length: attributes.length || 0,
                     default: attributes.default || '',
                     range: attributes.range || null
                 }
@@ -126,14 +128,14 @@ tangram.block([
             }
             return false;
         },
-        checkString = function (property, value) {
+        checkString = function(property, value) {
             if (value || property.type === 'string') {
                 return _.util.bool.isStr(value) && checkLength(property.length, value) && checkRange(property.range, value);
             }
             return false;
         },
-        checkTime = function (property, value) {
-            if (_.util.bool.isStr(value)){
+        checkTime = function(property, value) {
+            if (_.util.bool.isStr(value)) {
                 switch (property.type) {
                     case 'fulldate':
                         return /^\s*\d{4}\-\d{1,2}\-\d{1,2}\s*$/.test(value);
@@ -173,7 +175,20 @@ tangram.block([
             if (property.type === 'any') {
                 return true;
             }
-            return _.util.bool.isScala(value) && checkRange(property.range, value);
+            switch (typeof value) {
+                case 'string':
+                    return checkLength(property.length, value) && checkRange(property.range, value);
+
+                case 'number':
+                    return checkLength(property.length, value.toString()) && checkRange(property.range, value);
+
+                case 'boolean':
+                    if (value) {
+                        return checkLength(property.length, 'true') && checkRange(property.range, value);
+                    }
+                    return checkLength(property.length, 'false') && checkRange(property.range, value);
+            }
+            return false;
         },
         checkLength = function(length, value) {
             if (length) {
@@ -194,55 +209,55 @@ tangram.block([
 
             this.uid = uidMaker(props);
 
-            if(name){
+            if (name) {
                 alias[this.uid] = name;
-            }else{
+            } else {
                 alias[this.uid] = this.uid;
             }
             models[this.uid] = props;
             modeldata[this.uid] = [];
 
-            console.log(this.uid, props, models);
+            // console.log(this.uid, props, models);
         },
         check: function(prop, value) {
-            if (property=models[this.uid][prop]){
+            if (property = models[this.uid][prop]) {
                 return check(property, value);
             }
             return false;
         },
-        create: function (data) {
+        create: function(data) {
             var newdata = {};
-            _.each(models[this.uid], function (prop, property){
+            _.each(models[this.uid], function(prop, property) {
                 // console.log(data, prop, _.util.obj.hasProp(data, prop));
-                if (_.util.obj.hasProp(data, prop)&&check(property, data[prop])){
+                if (_.util.obj.hasProp(data, prop) && check(property, data[prop])) {
                     newdata[prop] = data[prop];
-                } else if (property.default){
+                } else if (property.default) {
                     newdata[prop] = property.default;
-                }else{
-                    _.error('Must input a correct [' + prop + '] for model [' +alias[this.uid]+']');
+                } else {
+                    _.error('Must input a correct [' + prop + '] for model [' + alias[this.uid] + ']');
                 }
             }, this);
             modeldata[this.uid].push(newdata);
             return modeldata[this.uid].length;
         },
         read: function($ID) {
-            if ($ID){
+            if ($ID) {
                 return _.clone(modeldata[this.uid][$ID - 1]);
             }
             var list = {};
-            _.each(modeldata[this.uid], function(i, data){
-                if (data){
+            _.each(modeldata[this.uid], function(i, data) {
+                if (data) {
                     list[i + 1] = _.clone(data);
                 }
-                
+
             });
             return list;
         },
-        update: function ($ID, prop, value) {
+        update: function($ID, prop, value) {
             if (_.util.bool.isObj(prop)) {
                 var props = models[this.uid],
-                data = modeldata[this.uid][$ID - 1];
-                _.each(prop, function(p, v){
+                    data = modeldata[this.uid][$ID - 1];
+                _.each(prop, function(p, v) {
                     if (_.util.obj.hasProp(data, p) && check(props[p], v)) {
                         data[p] = v;
                     }
@@ -254,38 +269,38 @@ tangram.block([
             }
             return this.read($ID);
         },
-        delete: function ($ID){
+        delete: function($ID) {
             modeldata[this.uid][$ID - 1] = undefined;
             return true;
         },
-        render:function(context){
+        render: function(context) {
             var that = this;
             _.ab([
                 '$_/see/see.css',
                 '$_/dom/'
-            ], function(){
+            ], function() {
                 var list = that.read(),
                     table = '<table class="tangram tangram-table">';
                 table += '<tr class="tangram-header-tr"><th></th>';
-                _.each(models[that.uid], function (prop) {
-                    table += '<th>' + prop.toUpperCase() +'</th>';
+                _.each(models[that.uid], function(prop) {
+                    table += '<th>' + prop.toUpperCase() + '</th>';
                 });
                 table += '</tr>';
-                _.each(list, function ($ID, data) {
-                    table += '<tr><td>'+$ID+'</td>';
-                    _.each(data, function (prop, value) {
-                        if (_.util.bool.isScala(value)){
+                _.each(list, function($ID, data) {
+                    table += '<tr><td>' + $ID + '</td>';
+                    _.each(data, function(prop, value) {
+                        if (_.util.bool.isScala(value)) {
                             table += '<td>' + value + '</td>';
-                        }else{
+                        } else {
                             table += '<td>-</td>';
                         }
                     });
                     table += '</tr>';
                 });
                 table += '</table>';
-                if (context){
+                if (context) {
                     _.dom.append(context, table);
-                }else{
+                } else {
                     _.dom.append(document.body, table);
                 }
             });

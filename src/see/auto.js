@@ -6,7 +6,7 @@
  * Date: 2017-04-06
  */
 ;
-tangram.block([
+tangram.auto([
     '$_/see/NavMenu/',
     '$_/see/Scrollbar/',
     '$_/see/Tabs/SlideTabs.cls',
@@ -37,4 +37,4 @@ tangram.block([
     _.see.Tabs.auto();
     _.see.Tabs.SlideTabs.auto();
     _.see.ListView.auto();
-}, true);
+});

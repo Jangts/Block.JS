@@ -18,14 +18,6 @@ tangram.block([
     //Define NameSpace 'form.VisualJOSN'
     _('form.VisualJOSN');
 
-    //Declare Class 'form.VisualJOSN'
-    /**
-     * forms inspection and submission and ect.
-     * @class 'VisualJOSN'
-     * @constructor
-     * @param {Mix, Object }
-     */
-
     var buildTextarea = function(textarea) {
         var text;
         _.dom.setStyle(textarea, 'display', 'none');

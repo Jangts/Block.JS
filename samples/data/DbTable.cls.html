@@ -13,11 +13,11 @@
 <body>
     <div id="test"></div>
     <script>
-        tangram.block(['$_/dom/Elements/', '$_/data/Table.cls'], function(_, global, undefined) {
+        tangram.block(['$_/dom/Elements/', '$_/data/DbTable.cls'], function(_, global, undefined) {
             var $ = _.dom.select,
-                db = new _.data.Table('mytable');
+                db = new _.data.DbTable('mytable');
             // db.drop();
-            // db = new _.data.Table('mytable');
+            // db = new _.data.DbTable('mytable');
 
             // db.add('city', '', {})
             //     .add('code', '', {
@@ -55,13 +55,13 @@
             // }));
 
 
-            // _.data.Table.exec("select * from mytable order by palce desc");
-            // _.data.Table.exec("select id, price,city from mytable where (code == '') order by id desc limit 1,9");
-            // _.data.Table.exec("delete from mytable where (code == ''||id<=100)");
-            // _.data.Table.exec("update mytable set {city:'BeiJing'} where (id < 30)");
-            // _.data.Table.exec("insert into mytable values {city:'BeiJing', code:'bj'},{city:'London',code: 'ld'} , {city:'London',code: 'ld'}");
+            // _.data.DbTable.exec("select * from mytable order by palce desc");
+            // _.data.DbTable.exec("select id, price,city from mytable where (code == '') order by id desc limit 1,9");
+            // _.data.DbTable.exec("delete from mytable where (code == ''||id<=100)");
+            // _.data.DbTable.exec("update mytable set {city:'BeiJing'} where (id < 30)");
+            // _.data.DbTable.exec("insert into mytable values {city:'BeiJing', code:'bj'},{city:'London',code: 'ld'} , {city:'London',code: 'ld'}");
 
-            $('#test').html(db.createtable(400, 1));
+            db.render(400, 1, $('#test')[0]);
         }, true);
     </script>
 </body>

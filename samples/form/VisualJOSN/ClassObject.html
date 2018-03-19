@@ -1,18 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Visual JOSN For Class Object</title>
+    <script src="../../../src/tangram.js" data-use-debugmode></script>
+    <link href="../../../src/see/see.css" type="text/css" rel="stylesheet" />
+    <link href="../../../src/see/fa.css" type="text/css" rel="stylesheet" />
+    <style>
+        .myinputs {
+            width: 900px;
+        }
+        
+        .myinputs input[data-prop-name] {
+            width: 118px;
+            height: 24px;
+            margin: 10px;
+            padding: 0 5px;
+            border: solid 1px #9cf;
+            border-radius: 4px;
+        }
+        
+        button {
+            width: auto;
+            height: 24px;
+            padding: 0 10px;
+            margin: 10px;
+            line-height: 24px;
+            border-radius: 3px;
+            font-size: 12px;
+            background-color: #9cf;
+            color: white;
+        }
+    </style>
 </head>
+
 <body>
     <form>
-        <div class="tangram visual-json visual-json-co">
-            <input />
-            <input />
-            <input />
-        </div>
+        <input name="myinput" value='{"name":"Yang Chi","age":27,"city":"Wuhan"}' />
+        <div class="myinputs"></div>
+        <button onclick="resetInputValue()">重置绑定INPUT的值</button>
     </form>
+    <script>
+        tangram.auto([
+            '$_/dom/Elements/form.clsx',
+            '$_/form/VisualJOSN/ClassObject.cls'
+        ], function(pandora, global, undefined) {
+            var _ = pandora,
+                document = global.document,
+                console = global.console,
+                $ = _.dom.select;
+
+            var visualObject = new _.form.VisualJOSN.ClassObject($('.myinputs')[0], {
+                "name": "Yang Chi",
+                "age": 27,
+                "city": "Wuhan"
+            }, $('[name="myinput"]')[0]);
+
+            console.log(visualObject);
+
+
+            global.resetInputValue = function() {
+                var json = visualObject.getJSON();
+                alert(json);
+                alert($('[name="myinput"]').val());
+            }
+        });
+    </script>
 </body>
+
 </html>

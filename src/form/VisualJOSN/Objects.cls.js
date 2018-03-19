@@ -7,16 +7,7 @@
  */
 ;
 tangram.block([
-    '$_/form/VisualJOSN/style.css',
-    '$_/util/bool.xtd',
-    '$_/dom/HTMLClose.cls',
-    '$_/dom/Events.cls',
-    '$_/data/',
-    '$_/form/VisualJOSN/Selection.cls',
-    '$_/form/VisualJOSN/parameters.tmp',
-    '$_/form/VisualJOSN/builders.tmp',
-    '$_/form/VisualJOSN/events.tmp',
-    '$_/form/VisualJOSN/checks.tmp'
+
 ], function(pandora, global, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,

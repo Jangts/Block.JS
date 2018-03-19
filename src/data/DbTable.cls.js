@@ -121,7 +121,7 @@ tangram.block([
             return _data;
         };
 
-    declare('data.Table', {
+    declare('data.DbTable', {
         _init: function(tablename, fields, primarykey, constraints) {
             if (namingExpr.test(tablename)) {
                 this.tablename = tablename;
@@ -267,42 +267,52 @@ tangram.block([
             }
             return false;
         },
-        createtable: function(width, border) {
-            var mateinfs = infs[this.tablename];
-            if (mateinfs) {
-                if (width) {
-                    _width = ' width="' + width + '"';
-                } else {
-                    _width = '';
-                }
-                if (border) {
-                    _border = ' border="' + border + '"';
-                } else {
-                    _border = '';
-                }
-                var rows = tables[this.tablename],
-                    html = '<table ' + _width + _border + '><tbody><tr><th>' + mateinfs.pk + '</th>';
-                _.each(mateinfs.fields, function(fieldname) {
-                    if (fieldname != mateinfs.pk) {
-                        html += '<th>' + fieldname + '</th>';
+        render: function(width, border, context) {
+            var that = this;
+            _.ab([
+                '$_/see/see.css',
+                '$_/dom/'
+            ], function() {
+                var mateinfs = infs[that.tablename];
+                if (mateinfs) {
+                    if (width) {
+                        _width = ' width="' + width + '"';
+                    } else {
+                        _width = '';
                     }
-                });
-                _.each(rows, function(id, row) {
-                    html += '</tr><tr><th>' + id + '</th>';
-                    _.each(row, function(fieldname, value) {
+                    if (border) {
+                        _border = ' border="' + border + '"';
+                    } else {
+                        _border = '';
+                    }
+                    var rows = tables[that.tablename],
+                        html = '<table class="tangram tangram-table" ' + _width + _border + '><tbody><tr class="tangram-header-tr"><th>' + mateinfs.pk + '</th>';
+                    _.each(mateinfs.fields, function(fieldname) {
                         if (fieldname != mateinfs.pk) {
-                            html += '<td>' + value + '</td>';
+                            html += '<th>' + fieldname + '</th>';
                         }
                     });
-                });
-                html += '</tr></tbody></table>';
-                return html;
-            }
-            return false;
+                    _.each(rows, function(id, row) {
+                        html += '</tr><tr><td>' + id + '</td>';
+                        _.each(row, function(fieldname, value) {
+                            if (fieldname != mateinfs.pk) {
+                                html += '<td>' + value + '</td>';
+                            }
+                        });
+                    });
+                    html += '</tr></tbody></table>';
+                    if (context) {
+                        _.dom.append(context, html);
+                    } else {
+                        _.dom.append(document.body, html);
+                    }
+                }
+                return false;
+            });
         }
     });
 
-    _('data.Table', {
+    _('data.DbTable', {
         exec: function(str) {
             var matchs = str.match(/^(select|delete|update|insert)([\w\,\*\s]+from\s+|\s+from\s+|\s+into\s+|\s+)([A-Z_]\w*)\s+(.+)/i);
             if (matchs) {
@@ -319,7 +329,7 @@ tangram.block([
                             var sql = 'select * from ' + table + ' ' + matchs[4],
                                 result = jsonsql.query(sql, tables);
                             if (result.length) {
-                                var table = new _.data.Table(matchs[3]);
+                                var table = new _.data.DbTable(matchs[3]);
                                 _.each(result, function(i, row) {
                                     table.delete(row[mateinfs.pk]);
                                 });
@@ -335,7 +345,7 @@ tangram.block([
                                         var sql = 'select * from ' + table + ' ' + mas[2],
                                             result = jsonsql.query(sql, tables);
                                         if (result.length) {
-                                            var table = new _.data.Table(matchs[3]);
+                                            var table = new _.data.DbTable(matchs[3]);
                                             _.each(result, function(i, row) {
                                                 table.update(row[mateinfs.pk], data);
                                             });
@@ -354,7 +364,7 @@ tangram.block([
                                 try {
                                     eval('var data = [' + mas[1] + ']');
                                     if (typeof(data)) {
-                                        var table = new _.data.Table(matchs[3]);
+                                        var table = new _.data.DbTable(matchs[3]);
                                         return table.insert.apply(table, data);
                                     }
                                 } catch (e) {

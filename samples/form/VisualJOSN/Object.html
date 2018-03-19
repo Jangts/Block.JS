@@ -53,11 +53,11 @@
                 console = global.console,
                 $ = _.dom.select;
 
-            var visualBbject = new _.form.VisualJOSN.Object($('.myinputs')[0], $('[name="myinput"]')[0]);
+            var visualObject = new _.form.VisualJOSN.Object($('.myinputs')[0], $('[name="myinput"]')[0]);
 
 
             global.resetInputValue = function() {
-                var json = visualBbject.getJSON();
+                var json = visualObject.getJSON();
                 alert(json);
                 alert($('[name="myinput"]').val());
             }

@@ -7,16 +7,8 @@
  */
 ;
 tangram.block([
-    '$_/form/VisualJOSN/style.css',
-    '$_/util/bool.xtd',
-    '$_/dom/HTMLClose.cls',
-    '$_/dom/Events.cls',
-    '$_/data/',
-    '$_/form/VisualJOSN/Selection.cls',
-    '$_/form/VisualJOSN/parameters.tmp',
-    '$_/form/VisualJOSN/builders.tmp',
-    '$_/form/VisualJOSN/events.tmp',
-    '$_/form/VisualJOSN/checks.tmp'
+    '$_/data/Model.cls',
+    '$_/form/VisualJOSN/Object.cls'
 ], function(pandora, global, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
@@ -24,40 +16,72 @@ tangram.block([
         document = global.document,
         console = global.console;
 
+    var models = {
+
+        },
+        declareModel = function(options) {
+            return {};
+            return new _.data.Model(options);
+        };
+
     //Define NameSpace 'form'
     _('form');
 
-    //Declare Class 'form.VisualJOSN'
-    /**
-     * forms inspection and submission and ect.
-     * @class 'VisualJOSN'
-     * @constructor
-     * @param {Mix, Object }
-     */
-
-    declare('form.VisualJOSN', {
+    declare('form.VisualJOSN.ClassObject', _.form.VisualJOSN.Object, {
+        Element: null,
+        model: null,
         textarea: null,
-        toolbar: null,
-    });
+        _init: function(elem, $class, textarea) {
+            this._parent._init.call(this, elem, textarea);
+            if (_.util.bool.isStr($class) && /\w+/.test($class)) {
+                if (models[$class]) {
+                    this.model = models[$class];
+                } else {
+                    return _.error('class [' + classname + '] not declared.');
+                }
+            } else if (_.util.bool.isObj($class)) {
+                this.model = declareModel($class);
+            } else {
+                return _.error('params error');
+            }
+        },
+        loadJSON: function(string) {
+            var inputs = [],
+                obj = JSON.parse(string) || {};
 
-    _.extend(_.form.VisualJOSN, {
-        extends: function(object, rewrite) {
-            _.extend(_.form.VisualJOSN.prototype, rewrite, object);
+            _.each(obj, function(prop, value) {
+                inputs.push('<input data-prop-name="' + prop + '" value="' + value + '" />');
+            });
+            this.Element.innerHTML = inputs.join('');
+        },
+        getJSON: function(string) {
+            var json, prop, obj = {};
+
+            _.each(_.query('[data-prop-name]', this.Element), function() {
+                prop = _.dom.getAttr(this, 'data-prop-name');
+                obj[prop] = this.value;
+            });
+            json = JSON.stringify(obj);
+            if (this.textarea) {
+                this.textarea.setText(json);
+            }
+            return json;
         }
     });
 
-    var sample = {
-        model: [{
-            fieldname: '',
-            valuetype: '',
-            defaultval: '',
-            range: []
-
-        }],
-        handlers: {
-
+    _.extend(_.form.VisualJOSN.ClassObject, true, {
+        declare: function(classname, options) {
+            if (_.util.bool.isStr(classname) && /\w+/.test(classname) && _.util.bool.isObj(options)) {
+                var _i = 0,
+                    _classname = classname;
+                while (models[classname]) {
+                    _i++;
+                    classname = _classname + '_' + _i;
+                }
+                models[classname] = declareModel(options);
+                return classname;
+            }
+            return _.error('params error');
         }
-    }
-
-    //console.log(dialogs);
+    });
 });
