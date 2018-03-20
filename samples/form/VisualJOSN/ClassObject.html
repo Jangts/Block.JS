@@ -39,7 +39,8 @@
 
 <body>
     <form>
-        <input name="myinput" value='{"name":"Yang Chi","age":27,"city":"Wuhan"}' />
+        <input name="myinput" value='{"name":"Yang Chi","age":27,"city":"wuhan"}' />
+        <div class="myinputs"></div>
         <div class="myinputs"></div>
         <button onclick="resetInputValue()">重置绑定INPUT的值</button>
     </form>
@@ -53,17 +54,23 @@
                 console = global.console,
                 $ = _.dom.select;
 
-            var visualObject = new _.form.VisualJOSN.ClassObject($('.myinputs')[0], {
-                "name": "Yang Chi",
-                "age": 27,
-                "city": "Wuhan"
-            }, $('[name="myinput"]')[0]);
+            var visualObject1 = new _.form.VisualJOSN.ClassObject($('.myinputs')[0], [
+                ["name", "text", "Zhang San"],
+                ["age", "number", 3, 18],
+                ["city", "", 'guangzhou', ['', 'wuhan', 'guangzhou', 'beijing'], ['保密', 'Wuhan', 'Guangzhou', 'Beijing']]
+            ]).input({});
 
-            console.log(visualObject);
+            var visualObject2 = new _.form.VisualJOSN.ClassObject($('.myinputs')[1], [
+                ["name"],
+                ["age", "number", 3, 27],
+                ["city", "", ['', 'wuhan', 'guangzhou', 'beijing'], ['保密', 'Wuhan', 'Guangzhou', 'Beijing']]
+            ], $('[name="myinput"]')[0]);
+
+            console.log(visualObject1, visualObject2);
 
 
             global.resetInputValue = function() {
-                var json = visualObject.getJSON();
+                var json = visualObject2.getJSON();
                 alert(json);
                 alert($('[name="myinput"]').val());
             }

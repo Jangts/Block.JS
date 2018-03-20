@@ -85,6 +85,7 @@ tangram.block([
             'number not null': notNullFormatter,
             'fulldate': timeFormatter,
             'dayofyear': timeFormatter,
+            'month': timeFormatter,
             'timeofday': timeFormatter,
             'hourminute': timeFormatter,
             'datetime': timeFormatter
@@ -139,6 +140,8 @@ tangram.block([
                 switch (property.type) {
                     case 'fulldate':
                         return /^\s*\d{4}\-\d{1,2}\-\d{1,2}\s*$/.test(value);
+                    case 'month':
+                        return /^\s*\d{4}\-\d{1,2}\s*$/.test(value);
                     case 'dayofyear':
                         return /^\s*\d{1,2}\-\d{1,2}\s*$/.test(value);
                     case 'timeofday':
@@ -146,7 +149,7 @@ tangram.block([
                     case 'hourminute':
                         return /^\s*\d{1,2}\:\d{1,2}\s*$/.test(value);
                     default:
-                        return /^\s*\d{4}\-\d{1,2}\-\d{1,2}\s+\d{1,2}\:\d{1,2}\:\d{1,2}\s*$/.test(value);
+                        return /^\s*\d{4}\-\d{1,2}\-\d{1,2}\s\d{1,2}\:\d{1,2}\:\d{1,2}\s*$/.test(value);
                 }
             }
             return false;
@@ -231,7 +234,7 @@ tangram.block([
                 // console.log(data, prop, _.util.obj.hasProp(data, prop));
                 if (_.util.obj.hasProp(data, prop) && check(property, data[prop])) {
                     newdata[prop] = data[prop];
-                } else if (property.default) {
+                } else if (property.default!== undefined) {
                     newdata[prop] = property.default;
                 } else {
                     _.error('Must input a correct [' + prop + '] for model [' + alias[this.uid] + ']');

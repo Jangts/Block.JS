@@ -47,7 +47,7 @@
         useDebugMode = false,
 
         /* 备份全局变量的引用，以防止这些变量被其他代码修改 */
-        console = global.console || console,
+        console = global.console = global.console || console,
         document = global.document,
         open = global.open,
         location = global.location,

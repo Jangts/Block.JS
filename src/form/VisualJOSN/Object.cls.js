@@ -52,14 +52,18 @@ tangram.block([
             if (_.util.bool.isEl(elem)) {
                 this.Element = elem;
                 _.dom.addClass(this.Element, 'tangram visual-json visual-json-obj');
-                if (_.util.bool.isEl(textarea)) {
-                    this.textarea = buildTextarea(textarea);
-                    this.loadJSON(this.textarea.getText());
-                }
+                this.bindInput(textarea);
             } else {
                 return _.error('"textarea" must be an element!');
             }
 
+        },
+        bindInput: function (textarea){
+            if (_.util.bool.isEl(textarea)) {
+                this.textarea = buildTextarea(textarea);
+                this.loadJSON(this.textarea.getText());
+            }
+            return this;
         },
         loadJSON: function(string) {
             var inputs = [],
@@ -69,8 +73,9 @@ tangram.block([
                 inputs.push('<input data-prop-name="' + prop + '" value="' + value + '" />');
             });
             this.Element.innerHTML = inputs.join('');
+            return this;
         },
-        getJSON: function(string) {
+        getJSON: function() {
             var json, prop, obj = {};
 
             _.each(_.query('[data-prop-name]', this.Element), function() {

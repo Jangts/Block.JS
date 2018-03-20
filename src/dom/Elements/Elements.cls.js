@@ -460,13 +460,25 @@ tangram.block([
                     break;
             };
             this.each(function() {
-                _.dom.events.add(this, eventType, selector, data, handler);
+                if (_.util.bool.isArr(eventType)){
+                    _.each(eventType, function(i, et){
+                        _.dom.events.add(this, et, selector, data, handler);
+                    }, this);
+                }else{
+                    _.dom.events.add(this, eventType, selector, data, handler);
+                }
             });
             return this;
         },
         off: function(eventType, selector, handler) {
             this.each(function() {
-                _.dom.events.remove(this, eventType, selector, handler);
+                if (_.util.bool.isArr(eventType)) {
+                    _.each(eventType, function (i, et) {
+                        _.dom.events.remove(this, et, selector, handler);
+                    }, this);
+                } else {
+                    _.dom.events.remove(this, eventType, selector, handler);
+                }
             });
             return this;
         },
