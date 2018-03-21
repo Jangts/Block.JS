@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework source code
  * 互联代码块框架源码
- * A Web Front-end Development Javascript framework
+ * A Web Front-end Development Javascript Framework
  * 一个互联网前端开发脚本框架
  * Mainly Use For DOM Operation, Data Operation, Graphic Processing, Front-end UI, And Some Basic Calculations.
  * 主要用于DOM操作，数据操作，图形相关，前端视觉，和一些基础计算。

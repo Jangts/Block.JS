@@ -27,7 +27,7 @@ tangram.block([
                 new _.dom.Animation(this, {
                     to: to,
                     duration: duration,
-                    tween: _.Animation.getTween(easing),
+                    tween: _.dom.Animation.getTween(easing),
                     callback: callback
                 }).play(1);
             });

@@ -1,8 +1,5 @@
 /*!
  * tangram.js framework source code
- * 
- * class painter/Charts
- * 
  * Date: 2015-09-04
  */
 ;

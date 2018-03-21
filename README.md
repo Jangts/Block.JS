@@ -1,15 +1,17 @@
 # tangram.js framework
-# 互联块框架
 
-* A Web Front-end Development Javascript framework
+## 互联块框架
+
+* A Web Front-end Development Javascript Framework
 * 一个互联网前端开发脚本框架
 
 * Mainly Use For 
-* #### DOM Operation, Data Operation, Graphic GProcessing, Front-end UI, And Some Basic Calculations.
+* ### DOM Operation, Data Operation, Graphic Processing, Front-end UI, And Some Basic Calculations.
 * 主要用于 
-* #### DOM操作，数据操作，图形相关，前端视觉，和一些基础计算。
+* ### DOM操作，数据操作，图形相关，前端视觉，和一些基础计算。
 
-##### Written and Designed By Jang Ts
-##### http://nidn.yangram.com/tangram.js
+#### Written and Designed By Jang Ts
 
-##### Date: 2017-04-06
+#### http://nidn.yangram.com/tangram.js
+
+#### Date: 2017-04-06

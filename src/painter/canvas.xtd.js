@@ -1,15 +1,6 @@
 /*!
  * tangram.js framework source code
- * A Web Front-end Development Javascript framework
- * Mainly For DOM Operation, Data Exchange, Graphic Effects (Image, Canvas, SVG And Ect.), Front-end UI, And Some Basic Calculations.
- * Stripped from Tangram New Idea (TNI)
- *
- * extend_static_methods painter/canvas
- * http://www.yangram.net/tangram.js/
- *
- * Written and Designed By Ivan Yeung
- *
- * Date: 2017-04-06
+ * Date: 2015-09-04
  */
 
 tangram.block('$_/util/bool.xtd', function(pandora, global, undefined) {
