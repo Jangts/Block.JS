@@ -91,25 +91,25 @@ tangram.block([
     });
 
     var mouseUp = function() {
-        if (_.util.bool.isFn(settings.copy) || _.util.bool.isStr(settings.copy)) {
-            if (_.util.bool.isFn(settings.copy)) {
-                var text = settings.copy.call(this);
+        if (_.util.bool.isFn(options.copy) || _.util.bool.isStr(options.copy)) {
+            if (_.util.bool.isFn(options.copy)) {
+                var text = options.copy.call(this);
             } else {
-                var text = settings.copy
+                var text = options.copy
             }
             clip.setText(text).copy();
-            if (_.util.bool.isFn(settings.done)) {
-                settings.done.call(this);
+            if (_.util.bool.isFn(options.done)) {
+                options.done.call(this);
             }
         } else {
-            if (_.util.bool.isFn(settings.fail)) {
-                settings.fail.call(this);
+            if (_.util.bool.isFn(options.fail)) {
+                options.fail.call(this);
             }
         }
     };
 
     _.extend(_.data.Clipboard, {
-        glue: function(selector, settings, clip) {
+        glue: function(selector, options, clip) {
             if (!_.util.bool.isObj(clip) || !(clip instanceof _.data.Clipboard)) {
                 clip = new _.data.Clipboard();
             }

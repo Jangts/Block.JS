@@ -20,18 +20,18 @@ tangram.block([
     _('medias');
 
     declare('medias.PhotoAlbum', _.medias.Photos, {
-        _init: function(stage, settings) {
+        _init: function(stage, options) {
             this.Element = _.util.bool.isStr(stage) ? _.dom.query.byId(stage) : stage;
-            this.build(settings);
-            if (settings.url) {
-                this.redata(settings.url);
-            } else if (settings.data) {
-                this.redata(settings.data);
-            } else if (settings.imagePath) {
+            this.build(options);
+            if (options.url) {
+                this.redata(options.url);
+            } else if (options.data) {
+                this.redata(options.data);
+            } else if (options.imagePath) {
                 this.redata({
-                    imagePath: settings.imagePath,
-                    totalImages: settings.totalImages,
-                    imageExtension: settings.imageExtension
+                    imagePath: options.imagePath,
+                    totalImages: options.totalImages,
+                    imageExtension: options.imageExtension
                 });
             }
         },
@@ -76,8 +76,8 @@ tangram.block([
             };
             return this;
         },
-        build: function(settings) {
-            settings = settings || {};
+        build: function(options) {
+            options = options || {};
             if (_.byCn('ib-photo-actor', this.Element)[0]) {
                 this.Actor = _.byCn('ib-photo-actor', this.Element)[0];
                 var size = _.dom.getSize(this.Actor);
@@ -85,7 +85,7 @@ tangram.block([
                 this.ActorHeight = size.height;
 
             } else {
-                var size = settings.maxSize || _.dom.getSize(this.Element);
+                var size = options.maxSize || _.dom.getSize(this.Element);
                 this.Actor = _.dom.create('div', this.Element, {
                     className: 'ib-photo-actor',
                     style: size
@@ -122,12 +122,12 @@ tangram.block([
                 }
             });
             this.ratio = this.ActorWidth / this.ActorHeight;
-            this.AnimTrans = settings.AnimTrans;
-            this.duration = settings.duration || 500;
-            this.trigger = settings.trigger || 'none';
-            this.defaultImage = settings.defaultImage;
+            this.AnimTrans = options.AnimTrans;
+            this.duration = options.duration || 500;
+            this.trigger = options.trigger || 'none';
+            this.defaultImage = options.defaultImage;
             this.Nav = _.dom.query('.ib-photo-nav ul', this.Element)[0];
-            if (this.Nav) this.thumbNum = settings.thumbNum || 10;
+            if (this.Nav) this.thumbNum = options.thumbNum || 10;
             this.bind();
         },
         bind: function() {

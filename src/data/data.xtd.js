@@ -82,35 +82,35 @@ tangram.block([
                 };
             };
         },
-        AJAX: function(url, settings) {
+        AJAX: function(url, options) {
             switch (arguments.length) {
                 case 2:
-                    if (!_.util.bool.isObj(settings)) {
-                        if (_.util.bool.isFn(settings)) {
-                            settings = {
-                                success: settings
+                    if (!_.util.bool.isObj(options)) {
+                        if (_.util.bool.isFn(options)) {
+                            options = {
+                                success: options
                             }
                         } else {
-                            settings = {};
+                            options = {};
                         }
                     }
 
                     if (_.util.bool.isStr(url)) {
-                        settings.url = url;
+                        options.url = url;
                     }
                     break;
                 case 1:
                     if (_.util.bool.isObj(url)) {
-                        settings = url;
+                        options = url;
                     } else if (_.util.bool.isStr(url)) {
-                        settings = {
+                        options = {
                             url: url,
                             method: 'GET'
                         }
                     }
                     break;
                 case 0:
-                    settings = {
+                    options = {
                         url: location.href,
                         method: 'GET'
                     };
@@ -119,52 +119,52 @@ tangram.block([
                     return undefined;
             }
 
-            if (!settings.method) {
-                if ((typeof settings.data === 'object') || (typeof settings.data === 'string')) {
-                    settings.method = 'POST';
+            if (!options.method) {
+                if ((typeof options.data === 'object') || (typeof options.data === 'string')) {
+                    options.method = 'POST';
                 } else {
-                    settings.method = 'GET';
-                    settings.data = undefined;
+                    options.method = 'GET';
+                    options.data = undefined;
                 }
             }
 
             // GET方法无法发送数据，需要整理到URL中
-            if (settings.data && (settings.method.toUpperCase() === 'GET')) {
-                if (typeof settings.data == 'object') {
-                    settings.data = _.util.obj.toQueryString(settings.data);
+            if (options.data && (options.method.toUpperCase() === 'GET')) {
+                if (typeof options.data == 'object') {
+                    options.data = _.util.obj.toQueryString(options.data);
                 }
-                if (typeof settings.data == 'string') {
-                    // console.log(settings.url, settings.url.indexOf('?'));
-                    if (settings.url.indexOf('?') !== -1) {
-                        settings.url = settings.url + "&" + settings.data;
+                if (typeof options.data == 'string') {
+                    // console.log(options.url, options.url.indexOf('?'));
+                    if (options.url.indexOf('?') !== -1) {
+                        options.url = options.url + "&" + options.data;
                     } else {
-                        settings.url = settings.url + "?" + settings.data;
+                        options.url = options.url + "?" + options.data;
                     }
                 }
-                settings.data = undefined;
+                options.data = undefined;
             }
 
-            var Promise = new _.data.XHR(settings);
+            var Promise = new _.data.XHR(options);
             Promise.success = Promise.done;
             Promise.error = Promise.fail;
             Promise.complete = Promise.always;
-            if (settings.beforeSend && typeof settings.beforeSend == 'function') {
-                settings.beforeSend(Promise.xmlhttp);
+            if (options.beforeSend && typeof options.beforeSend == 'function') {
+                options.beforeSend(Promise.xmlhttp);
             };
-            Promise.progress(settings.progress).success(settings.success).error(settings.fail).complete(settings.complete)
-            if (settings.data) {
-                if (typeof settings.data == 'object') {
-                    if (!_.util.bool.isForm(settings.data)) {
+            Promise.progress(options.progress).success(options.success).error(options.fail).complete(options.complete)
+            if (options.data) {
+                if (typeof options.data == 'object') {
+                    if (!_.util.bool.isForm(options.data)) {
                         var formData = new FormData();
-                        for (var i in settings.data) {
-                            formData.append(i, settings.data[i]);
+                        for (var i in options.data) {
+                            formData.append(i, options.data[i]);
                         }
-                        settings.data = formData;
+                        options.data = formData;
                     }
-                    return Promise.send(settings.data);
+                    return Promise.send(options.data);
                 }
-                if (typeof settings.data == 'string') {
-                    return Promise.setRequestHeader('Content-type', 'application/x-www-form-urlencoded').send(settings.data);
+                if (typeof options.data == 'string') {
+                    return Promise.setRequestHeader('Content-type', 'application/x-www-form-urlencoded').send(options.data);
                 }
             } else {
                 Promise.send();

@@ -368,7 +368,7 @@
             classesSharedSpace: {},
             locales: {},
             core: runtime,
-            packagesUrl: runtime.Pathname,
+            addinUrl: runtime.Pathname + 'add-ins/',
             blocks: {
                 /* 临时代码块缓存 */
                 temp: [],
@@ -1362,18 +1362,17 @@
                     filetype,
                     url;
 
+                url = this.requires[this.onload].replace(/^\$_\//, storage.core.Pathname).replace(/^\$\.\//, storage.mainUrl).replace(/^\$\+\//, storage.addinUrl);
                 /* 检查引用文件类型 */
-                if (this.requires[this.onload].match(/\.css$/)) {
+                if (url.match(/\.css$/) || url.match(/^[\?]+\.css\?$/)) {
                     filetype = 'css';
-                    url = this.requires[this.onload].replace(/^\$_\//, storage.core.Pathname).replace(/^\$\.\//, storage.mainUrl).replace(/^\$pkg\//, storage.packagesUrl);
-                } else if (this.requires[this.onload].match(/\?/) || this.requires[this.onload].match(/\.js$/) || this.requires[this.onload].match(/\.json$/)) {
+                } else if (url.match(/\.js$/) || url.match(/\.json$/) || url.match(/^[\?]+\.js\?/) || url.match(/^[\?]+\.json\?/)) {
                     filetype = 'js';
-                    url = this.requires[this.onload].replace(/^\$_\//, storage.core.Pathname).replace(/^\$\.\//, storage.mainUrl).replace(/^\$pkg\//, storage.packagesUrl);
                 } else {
+                    url = url + '.js';
                     filetype = 'js';
-                    url = this.requires[this.onload].replace(/^\$_\//, storage.core.Pathname).replace(/^\$\.\//, storage.mainUrl).replace(/^\$pkg\//, storage.packagesUrl) + '.js';
-                    url = url.replace(/([A-Z][\w\$]+)\/.js$/, '$1/$1.cls.js').replace(/([a-z][\w\$]+)\/.js$/, '$1/$1.xtd.js');
                 }
+                url = url.replace(/([A-Z][\w\$]+)\/.js$/, '$1/$1.cls.js').replace(/([a-z][\w\$]+)\/.js$/, '$1/$1.xtd.js');
 
                 if (this.requires[this.onload]) {
                     var id = this.requires[this.onload].toLowerCase();
@@ -1449,8 +1448,8 @@
             options = options || {};
             useDebugMode = options.useDebugMode ? true : false;
 
-            if (options.packagesUrl) {
-                storage.packagesUrl = options.packagesUrl;
+            if (options.addinUrl) {
+                storage.addinUrl = options.addinUrl;
             }
 
             if (options.mainUrl) {

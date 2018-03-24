@@ -25,8 +25,8 @@ tangram.block([
     scrollbar += '<a href="javascript:void(0);" class="scroll-button-next" oncontextmenu="return false;"></a>';
 
     declare('see.Scrollbar', _.see.BasicScrollBAR, {
-        _init: function(elem, settings) {
-            settings = _.extend(settings || {}, false, {
+        _init: function(elem, options) {
+            options = _.extend(options || {}, false, {
                 theme: 'default-dark',
                 uesVertical: true,
                 uesHorizontal: false
@@ -34,11 +34,11 @@ tangram.block([
             this.Element = _.util.bool.isStr(elem) ? _.dom.query.byId(elem) : elem;
             _.dom.addClass(this.Element, 'tangram')
                 .addClass(this.Element, 'scrollbar')
-                .addClass(this.Element, settings.theme || 'light');
-            this.build(settings.uesVertical, settings.uesHorizontal);
+                .addClass(this.Element, options.theme || 'light');
+            this.build(options.uesVertical, options.uesHorizontal);
             this.resize();
             this.bind();
-            // console.log(settings);
+            // console.log(options);
         },
         Element: document,
         scrollbar: scrollbar,

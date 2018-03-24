@@ -12,7 +12,7 @@ tangram.block(['$_/dom/Animation.cls'], function(pandora, global, undefined) {
         cache = pandora.locker;
 
     // 注册_.dom.animator命名空间到pandora
-    _('dom.animator', function(elem, settings) {
+    _('dom.animator', function(elem, options) {
         if (elem) {
             var eleCache = cache.read(_.dom.cache(elem));
             if (eleCache.Animation) {
@@ -21,20 +21,20 @@ tangram.block(['$_/dom/Animation.cls'], function(pandora, global, undefined) {
                 var Animation = new _.dom.Animation(elem);
                 eleCache.Animation = Animation;
             }
-            if (settings) {
-                var last = settings.duration || 5000;
-                Animation.loop = settings.loop || 1;
-                Animation.callback = settings.callback || null;
-                Animation.data = settings.data || null;
-                if (settings.keyframes) {
+            if (options) {
+                var last = options.duration || 5000;
+                Animation.loop = options.loop || 1;
+                Animation.callback = options.callback || null;
+                Animation.data = options.data || null;
+                if (options.keyframes) {
                     var h = 0;
-                    for (var i in settings.keyframes) {
+                    for (var i in options.keyframes) {
                         if (i > 0 && i <= 100) {
-                            var from = settings.keyframes[h] || null,
-                                to = settings.keyframes[i],
+                            var from = options.keyframes[h] || null,
+                                to = options.keyframes[i],
                                 duration = (i - h) / 100 * last,
-                                callback = (settings.callbacks && settings.callbacks[i]) ? settings.callbacks[i] : null,
-                                tween = settings.tween ? _.dom.Animation.getTween(settings.tween) : null;
+                                callback = (options.callbacks && options.callbacks[i]) ? options.callbacks[i] : null,
+                                tween = options.tween ? _.dom.Animation.getTween(options.tween) : null;
                             Animation.push({
                                 duration: duration,
                                 from: from,
@@ -47,7 +47,7 @@ tangram.block(['$_/dom/Animation.cls'], function(pandora, global, undefined) {
                         h = i;
                     }
                 }
-                settings.autoplay && Animation.play();
+                options.autoplay && Animation.play();
             }
         }
         return Animation;

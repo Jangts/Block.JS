@@ -6,6 +6,7 @@ $headers: (h1, 50px, 30px),
 (h5, 20px, 14px),
 (h6, 20px, 12px);
 .tangram.simpleeditor {
+    box-sizing: border-box;
     border: 1px solid #CCC;
     @each $header,
     $lineheight,
@@ -15,7 +16,7 @@ $headers: (h1, 50px, 30px),
             font-size: $fontsize;
         }
     }
-    @import "toolbar-main";
+    @import "toolarea-main";
     @import "richarea";
     @import "statebar";
     @import "loadmask";

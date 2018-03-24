@@ -363,18 +363,18 @@ tangram.block(function(pandora, global, undefined) {
         new Import(requires, callback);
     };
 
-    global.require.config = _.util.imports.config = function(settings) {
-        settings = settings || {};
+    global.require.config = _.util.imports.config = function(options) {
+        options = options || {};
 
-        if (settings.mainUrl) {
+        if (options.mainUrl) {
             global.tangram.config({
-                mainUrl: settings.mainUrl
+                mainUrl: options.mainUrl
             });
         }
         mainUrl = _.mainUrl();
 
-        if (settings.paths) {
-            _.each(settings.paths, function(name, path) {
+        if (options.paths) {
+            _.each(options.paths, function(name, path) {
                 if (/^\w+$/.test(name) && /^[\w\.\/\:\-]+$/.test(path)) {
                     Storage.modulePaths[name] = path;
                 }
@@ -382,8 +382,8 @@ tangram.block(function(pandora, global, undefined) {
             _module_paths_build();
         }
 
-        if (settings.packages) {
-            _.each(settings.packages, function(i, pkg) {
+        if (options.packages) {
+            _.each(options.packages, function(i, pkg) {
                 var name = pkg.name || '',
                     path = pkg.location || '',
                     main = pkg.main || '';

@@ -23,37 +23,37 @@ tangram.block([
         currTabName: '',
         Tabs: {},
         trigger: 'click',
-        _init: function(elem, settings) {
+        _init: function(elem, options) {
             this.Element = elem;
             this.options = _.dom.query('ul,tab-options', this.Element)[0];
             this.sections = _.dom.query('.tab-sections', this.Element)[0];
-            this.build(settings);
+            this.build(options);
             this.bind().start();
         },
-        build: function(settings) {
+        build: function(options) {
             this.tabs = {};
-            settings = settings || {};
-            if (_.util.bool.isStr(settings.starttab)) {
-                this.startTabName = settings.starttab.toUpperCase();
+            options = options || {};
+            if (_.util.bool.isStr(options.starttab)) {
+                this.startTabName = options.starttab.toUpperCase();
             }
-            if (_.util.bool.isFn(settings.start)) {
-                this.start = settings.start;
+            if (_.util.bool.isFn(options.start)) {
+                this.start = options.start;
             }
-            if (_.util.bool.isFn(settings.onbeforeunload)) {
-                this.onbeforeunload = settings.onbeforeunload;
+            if (_.util.bool.isFn(options.onbeforeunload)) {
+                this.onbeforeunload = options.onbeforeunload;
             }
-            if (_.util.bool.isFn(settings.onbeforewrite)) {
-                this.onbeforewrite = settings.onbeforewrite;
+            if (_.util.bool.isFn(options.onbeforewrite)) {
+                this.onbeforewrite = options.onbeforewrite;
             }
-            if (_.util.bool.isFn(settings.onbeforecut)) {
-                this.onbeforecut = settings.onbeforecut;
+            if (_.util.bool.isFn(options.onbeforecut)) {
+                this.onbeforecut = options.onbeforecut;
             }
-            if (_.util.bool.isFn(settings.onaftercut)) {
-                this.onaftercut = settings.onaftercut;
+            if (_.util.bool.isFn(options.onaftercut)) {
+                this.onaftercut = options.onaftercut;
             }
 
-            if (_.util.bool.isFn(settings.onafterdestroy)) {
-                this.onafterdestroy = settings.onafterdestroy;
+            if (_.util.bool.isFn(options.onafterdestroy)) {
+                this.onafterdestroy = options.onafterdestroy;
             }
             return this;
         },

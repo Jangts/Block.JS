@@ -56,11 +56,14 @@ table.tangram.tangram-table {
             font-weight: normal;
             font-size: 12px;
             text-align: center;
+            vertical-align: middle;
             a {
+                display: inline;
+            }
+            a.block {
                 display: block;
                 width: 100%;
                 height: 100%;
-                font-size: 14px;
             }
             .tangram-td-click {
                 display: block;
@@ -128,10 +131,14 @@ table.tangram.tangram-table {
         border-top: solid 5px white;
         background-color: transparent !important;
         td {
-            background-color: green;
+            background-color: #6c9;
             height: 40px;
+            font-size: 14px;
             line-height: 40px;
             color: white;
+        }
+        td:hover {
+            background-color: #3a6;
         }
     }
     tr.creator:hover {

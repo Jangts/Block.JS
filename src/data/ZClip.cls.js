@@ -353,7 +353,7 @@ tangram.block([
         },
         create: function(elem, params) {
             if (_.util.bool.isEl(elem) && _.util.bool.isObj(params) && !_.util.bool.isArr(params)) {
-                var settings = {
+                var options = {
                     path: moviePath,
                     copy: null,
                     before: null,
@@ -362,16 +362,16 @@ tangram.block([
                     setHandCursor: true,
                     setCSSEffects: true
                 };
-                _.extend(settings, params);
+                _.extend(options, params);
                 if (_.util.bool.isVisi(elem)) {
-                    this.setMoviePath(settings.path);
+                    this.setMoviePath(options.path);
                     var clip = new _.Data.ZClip();
 
-                    clip.setHandCursor(settings.setHandCursor);
-                    clip.setCSSEffects(settings.setCSSEffects);
+                    clip.setHandCursor(options.setHandCursor);
+                    clip.setCSSEffects(options.setCSSEffects);
 
-                    clip.setHandCursor(settings.setHandCursor);
-                    clip.setCSSEffects(settings.setCSSEffects);
+                    clip.setHandCursor(options.setHandCursor);
+                    clip.setCSSEffects(options.setCSSEffects);
                     clip.addEventListener('mouseOver', function(client) {
                         _.dom.events.trigger(elem, 'mouseenter');
                     });
@@ -380,13 +380,13 @@ tangram.block([
                     });
                     clip.addEventListener('mouseDown', function(client) {
                         _.dom.events.trigger(elem, 'mousedown');
-                        if (!_.util.bool.isFn(settings.copy)) {
-                            clip.setText(settings.copy);
+                        if (!_.util.bool.isFn(options.copy)) {
+                            clip.setText(options.copy);
                         } else {
-                            clip.setText(settings.copy.call(elem));
+                            clip.setText(options.copy.call(elem));
                         }
-                        if (_.util.bool.isFn(settings.before)) {
-                            settings.before.call(elem);
+                        if (_.util.bool.isFn(options.before)) {
+                            options.before.call(elem);
                         }
                     });
                     clip.addEventListener('mouseUp', function(client) {
@@ -394,8 +394,8 @@ tangram.block([
                         _.dom.events.trigger(elem, 'mouseup');
                     });
                     clip.addEventListener('complete', function(client, text) {
-                        if (_.util.bool.isFn(settings.after)) {
-                            settings.after.call(elem, text);
+                        if (_.util.bool.isFn(options.after)) {
+                            options.after.call(elem, text);
                         } else {
                             if (text.length > 500) {
                                 text = text.substr(0, 500) + "...\n\n(" + (text.length - 500) + " characters not shown)";
@@ -403,7 +403,7 @@ tangram.block([
                             _.dom.removeClass(elem, 'hover');
                             alert("Copied text to clipboard:\n\n " + text);
                         }
-                        if (settings.clickAfter) {
+                        if (options.clickAfter) {
                             _.dom.events.trigger(elem, 'click');
                         }
                     });

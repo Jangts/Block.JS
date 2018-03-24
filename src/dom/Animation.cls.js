@@ -25,14 +25,14 @@ tangram.block(['$_/util/bool.xtd', '$_/util/Color.cls', '$_/dom/'], function(
     })();
 
     declare('dom.Animation', _.Iterator, {
-        _init: function(elem, settings) {
+        _init: function(elem, options) {
             this.Element = elem;
             this.curScene = 0;
             this.curFrame = 0;
             this.playback = true;
             this.running = false;
             this.looped = 0;
-            settings && this.push(settings);
+            options && this.push(options);
         },
         fps: 36,
         loop: 1,
@@ -43,16 +43,16 @@ tangram.block(['$_/util/bool.xtd', '$_/util/Color.cls', '$_/dom/'], function(
             return c * t / d + b;
         },
 
-        cut: function(settings) {
-            this.duration = settings.duration || 1000;
-            this.tween = typeof(settings.tween) == 'function' ? settings.tween : this.tween;
+        cut: function(options) {
+            this.duration = options.duration || 1000;
+            this.tween = typeof(options.tween) == 'function' ? options.tween : this.tween;
             this.mc = {};
-            for (var i in settings.to) {
+            for (var i in options.to) {
                 this.mc[i] = {
-                    from: settings.from && typeof(settings.from[i]) != 'undefined' ? this.rgbFormat(settings.from[i]) : this.rgbFormat(_.dom.getStyle(this.Element, i)),
-                    to: this.rgbFormat(settings.to[i]),
-                    over: settings.over && settings.over[i] ? this.rgbFormat(settings.over[i]) : this.rgbFormat(settings.to[i]),
-                    tween: settings.tween && settings.tween[i] ? settings.tween[i] : this.tween
+                    from: options.from && typeof(options.from[i]) != 'undefined' ? this.rgbFormat(options.from[i]) : this.rgbFormat(_.dom.getStyle(this.Element, i)),
+                    to: this.rgbFormat(options.to[i]),
+                    over: options.over && options.over[i] ? this.rgbFormat(options.over[i]) : this.rgbFormat(options.to[i]),
+                    tween: options.tween && options.tween[i] ? options.tween[i] : this.tween
                 };
             };
             this.frames = Math.ceil(this.duration * this.fps / 1000);

@@ -25,17 +25,17 @@ tangram.block([
 
     declare('see.Sticker', {
         animationDuration: 0,
-        _init: function(elem, settings) {
+        _init: function(elem, options) {
             this.Element = _.util.type.isElement(elem) ? elem : document.getElementById(elem);
             this.uid = new _.Identifier().toString();
             handlers[this.uid] = {};
-            settings = settings || {};
-            var position = settings.position || 'fixed';
-            var zIndex = settings.zIndex || infinity;
+            options = options || {};
+            var position = options.position || 'fixed';
+            var zIndex = options.zIndex || infinity;
             $(this.Element).css('position', position).css('z-index', zIndex);
-            if (settings.autoShow) {
-                if (settings.autoShow.scrollTop) {
-                    var autoShowScrollTop = settings.autoShow.scrollTop;
+            if (options.autoShow) {
+                if (options.autoShow.scrollTop) {
+                    var autoShowScrollTop = options.autoShow.scrollTop;
                 } else {
                     var autoShowScrollTop = 0;
                 }
@@ -54,9 +54,9 @@ tangram.block([
             } else {
                 this.show();
             }
-            if (settings.animation) {
-                if (settings.animation.duration) {
-                    this.animationDuration = settings.animation.duration;
+            if (options.animation) {
+                if (options.animation.duration) {
+                    this.animationDuration = options.animation.duration;
                 } else {
                     this.animationDuration = 500;
                 }

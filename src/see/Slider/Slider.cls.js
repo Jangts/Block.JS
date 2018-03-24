@@ -90,18 +90,18 @@ tangram.block([
         };
 
     declare('see.Slider', {
-        _init: function(elem, preset, settings) {
+        _init: function(elem, preset, options) {
             this.Element = _.util.bool.isStr(elem) ? _.dom.query.byId(elem) : elem;
             if (_.util.bool.isEl(this.Element)) {
-                settings = settings || {};
+                options = options || {};
                 if (_.util.bool.isStr(preset) && _.see.Slider.presets[preset]) {
-                    _.extend(settings, _.see.Slider.presets[preset]);
+                    _.extend(options, _.see.Slider.presets[preset]);
                 } else if (_.util.bool.isObj(preset)) {
-                    _.extend(settings, preset);
+                    _.extend(options, preset);
                 } else {
-                    _.extend(settings, _.see.Slider.presets.slide);
+                    _.extend(options, _.see.Slider.presets.slide);
                 }
-                _.extend(this, true, settings);
+                _.extend(this, true, options);
                 if (this.Element && this.layout) {
                     var that = this;
                     $(this.Element).addClass(preset);

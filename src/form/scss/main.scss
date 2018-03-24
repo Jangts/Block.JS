@@ -9,7 +9,7 @@
         min-width: 800px;
         margin: 10px 0;
         padding-bottom: 20px;
-        border-bottom: solid 1px #e6e6e6;
+        border-top: solid 1px #e6e6e6;
     }
     .inputs-section,
     .inputs-section.on {
@@ -18,8 +18,8 @@
     .inputs-section.off {
         display: none;
     }
-    .inputs-section:last-child {
-        border-bottom: none;
+    .inputs-section:first-child {
+        border-top: none;
     }
     .tangram-inputs {
         display: block;
@@ -34,7 +34,7 @@
             top: 8px;
             left: 0;
             line-height: 24px;
-            font-size: 12px;
+            font-size: 14px;
             text-align: right;
         }
         >input,
@@ -66,6 +66,12 @@
         input.use-tp.timeofday-item {
             cursor: pointer;
         }
+        input[type=hidden],
+        input[hidden] {
+            display: none;
+            width: 0;
+            height: 0;
+        }
         input.num-item,
         input[type=number] {
             width: 270px !important;
@@ -90,6 +96,17 @@
         textarea.high-item {
             height: 390px;
             resize: vertical;
+        }
+        .custom-item {
+            box-sizing: border-box;
+            display: block;
+            width: 100%;
+            height: auto;
+            margin: 7px 0;
+            line-height: 24px;
+            font-family: inherit;
+            font-size: 12px;
+            color: #666;
         }
     }
     .tangram-inputs.inline-inputs {
@@ -173,7 +190,7 @@
             background-color: #f9f9f9;
             line-height: 24px;
             color: #282828;
-            font-size: 12px;
+            font-size: 14px;
             margin-right: 10px;
             text-align: center;
         }
@@ -288,3 +305,5 @@
 }
 
 .tangram-form[data-type=panels] {}
+
+@import 'figure';

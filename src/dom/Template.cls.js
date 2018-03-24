@@ -168,12 +168,12 @@ tangram.block(['$_/util/str.xtd'], function(pandora, global, undefined) {
     });
 
     _.extend(_.dom.Template, {
-        config: function(settings) {
-            settings = settings || {};
+        config: function(options) {
+            options = options || {};
 
-            if (settings.mainUrl) {
+            if (options.mainUrl) {
                 global.tangram.config({
-                    mainUrl: settings.mainUrl
+                    mainUrl: options.mainUrl
                 });
             }
 

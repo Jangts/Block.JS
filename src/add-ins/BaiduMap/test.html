@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./../../tangram.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            width: 100%;
+            text-align: center;
+            overflow-x: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="owner-map"></div>
+    <div class="mymap"></div>
+    <script>
+        tangram.auto([
+            '$+/BaiduMap/style.css',
+            '$+/BaiduMap/',
+            '$_/dom/Elements/'
+        ], function(_, global, undefined) {
+            var $ = _.dom.select;
+            dvcode = new _.BaiduMap('owner-map', {
+                title: "机构名称",
+                desc: "机构描述",
+                coords: [113.330953, 23.316237],
+                isOpen: 0,
+                icon: {
+                    png: 'icon.png',
+                    w: 21,
+                    h: 21,
+                    l: 0,
+                    t: 0,
+                    x: 6,
+                    lb: 5
+                }
+            });
+            dvcode = new _.BaiduMap($('.mymap')[0], {
+                title: "机构名称",
+                desc: "机构描述",
+                coords: [113.330953, 23.316237],
+                isOpen: 0,
+                icon: {
+                    png: 'icon.png',
+                    w: 21,
+                    h: 21,
+                    l: 0,
+                    t: 0,
+                    x: 6,
+                    lb: 5
+                }
+            });
+        });
+    </script>
+
+</html>

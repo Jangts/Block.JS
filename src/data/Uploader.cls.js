@@ -209,40 +209,40 @@ tangram.block(['$_/util/bool.xtd'], function(pandora, global, undefined) {
         checkSIZE: function(file) {
             return file.size < this.fileMaxSize;
         },
-        transfer: function(settings, method) {
+        transfer: function(options, method) {
             if (this.files.length && this.files.length === 1) {
-                _.data.Uploader.transfer(this.files[0], settings, method);
+                _.data.Uploader.transfer(this.files[0], options, method);
             } else {
-                _.data.Uploader.transfer(this.files, settings, method);
+                _.data.Uploader.transfer(this.files, options, method);
             }
 
         }
     });
 
-    _.data.Uploader.transfer = function(file, settings, method) {
+    _.data.Uploader.transfer = function(file, options, method) {
         if (_.util.bool.isFile(file)) {
-            settings = settings || {};
-            settings.url = settings.url || location.href;
-            settings.data = settings.data || {};
+            options = options || {};
+            options.url = options.url || location.href;
+            options.data = options.data || {};
             var form = new FormData();
-            for (var i in settings.data) {
-                form.append(i, settings.data[i]);
+            for (var i in options.data) {
+                form.append(i, options.data[i]);
             }
-            if (typeof settings.filefield == 'string') {
-                form.append(settings.filefield, file);
+            if (typeof options.filefield == 'string') {
+                form.append(options.filefield, file);
             } else {
                 form.append('myfile', file);
             }
             form.append('enctype', 'multipart/form-data');
         } else if (_.util.bool.isFiles(file)) {
-            settings = settings || {};
-            settings.data = settings.data || {};
+            options = options || {};
+            options.data = options.data || {};
             var form = new FormData();
-            for (var i in settings.data) {
-                form.append(i, settings.data[i]);
+            for (var i in options.data) {
+                form.append(i, options.data[i]);
             }
-            if (typeof settings.filefield == 'string') {
-                filefield = settings.filefield + '[]';
+            if (typeof options.filefield == 'string') {
+                filefield = options.filefield + '[]';
             } else {
                 filefield = 'myfile[]';
             }
@@ -251,10 +251,10 @@ tangram.block(['$_/util/bool.xtd'], function(pandora, global, undefined) {
             }
             form.append('enctype', 'multipart/form-data');
         } else if (_.util.bool.isForm(file)) {
-            settings = settings || {};
+            options = options || {};
             var form = file;
-            for (var i in settings.data) {
-                form.append(i, settings.data[i]);
+            for (var i in options.data) {
+                form.append(i, options.data[i]);
             }
         } else {
             return _.error('Must Give Transfer A File.');
@@ -262,8 +262,8 @@ tangram.block(['$_/util/bool.xtd'], function(pandora, global, undefined) {
         if (method) {
             form.append('http_method', method);
         }
-        settings.url = settings.url || location.href;
-        settings.handlers = settings.handlers || {};
-        fileTransfer(settings.url, form, settings.handlers);
+        options.url = options.url || location.href;
+        options.handlers = options.handlers || {};
+        fileTransfer(options.url, form, options.handlers);
     }
 });

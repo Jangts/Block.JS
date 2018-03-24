@@ -21,8 +21,8 @@ tangram.block([
         speed: 5000,
         timer: undefined,
         progress: 0,
-        _init: function(elem, settings) {
-            this._parent._init.call(this, elem, settings);
+        _init: function(elem, options) {
+            this._parent._init.call(this, elem, options);
             this.play();
         },
         play: function() {

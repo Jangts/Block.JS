@@ -76,8 +76,8 @@ tangram.block([
             initEl: function(elem, options, textarea) {
                 var width, height;
                 if (textarea) {
-                    width = textarea.offsetWidth + 2;
-                    height = textarea.offsetHeight + 2;
+                    width = textarea.offsetWidth;
+                    height = textarea.offsetHeight;
                 } else {
                     width = elem.offsetWidth;
                     height = elem.offsetHeight;
@@ -123,7 +123,7 @@ tangram.block([
                 };
             },
             mainarea: function(options, text) {
-                var width = this.cElement.width - 2,
+                var width = this.cElement.width,
                     mainarea = _.dom.create('div', this.cElement.Element, {
                         className: 'tangram simpleeditor',
                         style: {
@@ -138,7 +138,7 @@ tangram.block([
                 return mainarea;
             },
             workspace: function(mainarea, options, isBuildStateBar) {
-                var width = this.cElement.width - 2,
+                var width = this.cElement.width,
                     height = this.cElement.height;
                 this.richareas.push(_.dom.create('div', mainarea, {
                     className: 'tangram se-richarea',
@@ -147,9 +147,9 @@ tangram.block([
                     spellcheck: 'true',
                     talistenex: 1,
                     style: {
-                        'width': width - 12,
+                        'width': width - 10,
                         'min-height': height,
-                        'height': height - 12,
+                        'height': height - 10,
                         'padding': '5px',
                         'outline': 'none'
                     },
