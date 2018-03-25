@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Image Uploads</title>
+    <link href="../../src/form/style.css" type="text/css" rel="stylesheet" />
+    <style>
+        body {
+            background-color: #EEE;
+        }
+        
+        .tangram-form {
+            margin: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <form class="tangram-form" name="myform" method="PUT" action="">
+        <section class="inputs-section">
+            <div class="input-section tangram-inputs"><label class="input-label">列表缩略图</label>
+                <figure class="figure-items">
+                    <div id="mypic" data-subtype="avatar1x1" class="image-uploader"><input class="image-src" hidden="hidden" name="THUMB" value="images/phone.jpg" type="hidden"><input class="image-changer" type="file" value=""><img class="image-displayer" src="images/phone.jpg" data-reset-src="images/phone.jpg">
+                        <i class="image-mask"></i><i class="image-resetter" data-src="images/phone.jpg">使用默认图片</i></div>
+                </figure>
+            </div>
+            <div class="input-section tangram-inputs"><label class="input-label">列表缩略图</label>
+                <figure class="figure-items">
+                    <div data-subtype="image" class="image-uploader"><input class="image-src" hidden="hidden" name="THUMB" value="images/timg.jpg" type="hidden"><input class="image-changer" type="file" value=""><img class="image-displayer" src="images/timg.jpg" data-reset-src="images/timg.jpg">
+                        <i class="image-mask"></i><i class="image-resetter" data-src="images/timg.jpg">使用默认图片</i></div>
+                    <div data-subtype="photo3x2" class="image-uploader"><input class="image-src" hidden="hidden" name="THUMB" value="images/timg.jpg" type="hidden"><input class="image-changer" hidden="hidden" type="file" value=""><img class="image-displayer" src="images/timg.jpg" data-reset-src="images/timg.jpg">
+                        <i class="image-mask"></i><i class="image-resetter" data-src="images/timg.jpg">使用默认图片</i></div>
+                </figure>
+            </div>
+            <div class="input-section tangram-inputs"><label class="input-label">列表缩略图</label>
+                <figure class="figure-items">
+                    <div data-subtype="photo2x3" class="image-uploader"><input class="image-src" hidden="hidden" name="THUMB" value="images/atsuko.jpg" type="hidden"><input class="image-changer" hidden="hidden" type="file" value=""><img class="image-displayer" src="images/atsuko.jpg" data-reset-src="images/atsuko.jpg">
+                        <i class="image-mask"></i><i class="image-resetter" data-src="images/atsuko.jpg">使用默认图片</i></div>
+                    <div data-subtype="photo2x3" class="image-uploader"><input class="image-src" hidden="hidden" name="THUMB" value="images/atsuko.jpg" type="hidden"><input class="image-changer" hidden="hidden" type="file" value=""><img class="image-displayer" src="images/atsuko.jpg" data-reset-src="images/atsuko.jpg">
+                        <i class="image-mask"></i><i class="image-resetter" data-src="images/atsuko.jpg">使用默认图片</i></div>
+                    <div data-subtype="photo2x3" class="image-uploader"><input class="image-src" hidden="hidden" name="THUMB" value="images/atsuko.jpg" type="hidden"><input class="image-changer" hidden="hidden" type="file" value=""><img class="image-displayer" src="images/atsuko.jpg" data-reset-src="images/atsuko.jpg">
+                        <i class="image-mask"></i><i class="image-resetter" data-src="images/atsuko.jpg">使用默认图片</i></div>
+                    <div data-subtype="photo2x3" class="image-uploader"><input class="image-src" hidden="hidden" name="THUMB" value="images/atsuko.jpg" type="hidden"><input class="image-changer" hidden="hidden" type="file" value=""><img class="image-displayer" src="images/atsuko.jpg" data-reset-src="images/atsuko.jpg">
+                        <i class="image-mask"></i><i class="image-resetter" data-src="images/atsuko.jpg">使用默认图片</i></div>
+                </figure>
+            </div>
+        </section>
+    </form>
+    <form class="tangram-form" data-type="pages" name="myform" method="PUT" action="">
+        <section class="inputs-section">
+            <div class="input-section tangram-inputs" data-type="blocks"><label class="input-label">列表缩略图</label>
+                <figure class="figure-items">
+                    <div data-subtype="avatar1x1" class="image-uploader"><input class="image-src" hidden="hidden" name="THUMB" value="images/phone.jpg" type="hidden"><input class="image-changer" type="file" value=""><img class="image-displayer" src="images/phone.jpg" data-reset-src="images/phone.jpg">
+                        <i class="image-mask"></i><i class="image-resetter" data-src="images/phone.jpg">使用默认图片</i></div>
+                </figure>
+            </div>
+            <div class="input-section tangram-inputs" data-type="blocks"><label class="input-label">列表缩略图</label>
+                <figure class="figure-items">
+                    <div data-subtype="image" class="image-uploader"><input class="image-src" hidden="hidden" name="THUMB" value="images/timg.jpg" type="hidden"><input class="image-changer" type="file" value=""><img class="image-displayer" src="images/timg.jpg" data-reset-src="images/timg.jpg">
+                        <i class="image-mask"></i><i class="image-resetter" data-src="images/timg.jpg">使用默认图片</i></div>
+                    <div data-subtype="photo3x2" class="image-uploader"><input class="image-src" hidden="hidden" name="THUMB" value="images/timg.jpg" type="hidden"><input class="image-changer" hidden="hidden" type="file" value=""><img class="image-displayer" src="images/timg.jpg" data-reset-src="images/timg.jpg">
+                        <i class="image-mask"></i><i class="image-resetter" data-src="images/timg.jpg">使用默认图片</i></div>
+                </figure>
+            </div>
+            <div class="input-section tangram-inputs" data-type="blocks"><label class="input-label">列表缩略图</label>
+                <figure class="figure-items">
+                    <div data-subtype="photo2x3" class="image-uploader"><input class="image-src" hidden="hidden" name="THUMB" value="images/atsuko.jpg" type="hidden"><input class="image-changer" hidden="hidden" type="file" value=""><img class="image-displayer" src="images/atsuko.jpg" data-reset-src="images/atsuko.jpg">
+                        <i class="image-mask"></i><i class="image-resetter" data-src="images/atsuko.jpg">使用默认图片</i></div>
+                    <div data-subtype="photo2x3" class="image-uploader"><input class="image-src" hidden="hidden" name="THUMB" value="images/atsuko.jpg" type="hidden"><input class="image-changer" hidden="hidden" type="file" value=""><img class="image-displayer" src="images/atsuko.jpg" data-reset-src="images/atsuko.jpg">
+                        <i class="image-mask"></i><i class="image-resetter" data-src="images/atsuko.jpg">使用默认图片</i></div>
+                    <div data-subtype="photo2x3" class="image-uploader"><input class="image-src" hidden="hidden" name="THUMB" value="images/atsuko.jpg" type="hidden"><input class="image-changer" hidden="hidden" type="file" value=""><img class="image-displayer" src="images/atsuko.jpg" data-reset-src="images/atsuko.jpg">
+                        <i class="image-mask"></i><i class="image-resetter" data-src="images/atsuko.jpg">使用默认图片</i></div>
+                    <div data-subtype="photo2x3" class="image-uploader"><input class="image-src" hidden="hidden" name="THUMB" value="images/atsuko.jpg" type="hidden"><input class="image-changer" hidden="hidden" type="file" value=""><img class="image-displayer" src="images/atsuko.jpg" data-reset-src="images/atsuko.jpg">
+                        <i class="image-mask"></i><i class="image-resetter" data-src="images/atsuko.jpg">使用默认图片</i></div>
+                </figure>
+            </div>
+        </section>
+    </form>
+</body>
+
+</html>

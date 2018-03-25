@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Image Uploads</title>
+    <script src="../../src/tangram.js" data-use-debugmode></script>
+    <link href="../../src/see/see.css" type="text/css" rel="stylesheet" />
+    <link href="../../src/form/style.css" type="text/css" rel="stylesheet" />
+    <style>
+        body {
+            background-color: #EEE;
+        }
+        
+        .tangram-form {
+            margin: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <form class="tangram-form" name="myform" method="PUT" action="">
+        <section class="inputs-section">
+            <div class="input-section tangram-inputs">
+                <label class="input-label">列表缩略图</label>
+                <figure class="figure-items">
+                    <div id="mypic" data-subtype="avatar1x1" data-reset-src="images/phone.jpg" class="image-uploader">
+                        <input class="image-src" hidden="hidden" name="THUMB" value="images/phone.jpg" type="hidden">
+                        <input class="image-changer" type="file" value="">
+                        <img class="image-displayer" src="images/phone.jpg">
+                        <i class="image-mask"></i>
+                        <i class="image-resetter" data-src="images/phone.jpg">使用默认图片</i>
+                    </div>
+                </figure>
+            </div><div class="input-section tangram-inputs">
+                <label class="input-label">相关视频</label>
+                <figure class="figure-items" data-reset-src="images/phone.jpg">
+                    <div id="myvideo" data-subtype="avatar1x1" class="image-uploader">
+                        <input class="image-src" hidden="hidden" name="THUMB" value="images/phone.jpg" type="hidden">
+                        <input class="image-changer" type="file" value="">
+                        <video class="video-displayer" src="movie.ogg" controls="controls"></video>
+                        <img class="image-displayer" src="images/phone.jpg" data-reset-src="images/phone.jpg">
+                        <i class="image-mask"></i>
+                        <i class="image-resetter" data-src="images/phone.jpg">清除</i>
+                    </div>
+                </figure>
+            </div>
+            
+        </section>
+    </form>
+    <script>
+        tangram.auto([
+            '$_/form/PicturesUploader.cls',
+        ], function(_) {
+            var mypic = new _.form.PicturesUploader('mypic', {});
+            console.log(mypic);
+        });
+    </script>
+</body>
+
+</html>

@@ -137,7 +137,14 @@ tangram.block([
                             break;
 
                         case 'video':
-                            var filename = 'video.mp4';
+                        case 'video4x3':
+                            var imgsrc = 'video4x3.jpg',
+                            filename = 'video4x3.mp4';
+                            break;
+
+                        case 'video16x9':
+                            var imgsrc = 'video16x9.jpg',
+                            filename = 'video16x9.mp4';
                             break;
 
                         default:
