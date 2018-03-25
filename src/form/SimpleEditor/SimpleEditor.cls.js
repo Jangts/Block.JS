@@ -7,6 +7,7 @@
  */
 ;
 tangram.block([
+    '$_/see/fa.css',
     '$_/form/SimpleEditor/style.css',
     '$_/util/bool.xtd',
     '$_/dom/HTMLClose.cls',

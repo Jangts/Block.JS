@@ -28,6 +28,7 @@ tangram.block(['$_/util/bool.xtd'], function(pandora, global, undefined) {
         },
 
         fileTransfer = function(url, form, handlers) {
+            var that = this;
             var onBeforeTransferring = handlers.before;
             var onAfterTransferring = handlers.after;
             var onUploadComplete = handlers.done;
@@ -45,7 +46,7 @@ tangram.block(['$_/util/bool.xtd'], function(pandora, global, undefined) {
                         status: uploader.status,
                         responseText: 'Transferring'
                     }
-                    _.util.bool.isFn(onBeforeTransferring) && onBeforeTransferring(response);
+                    _.util.bool.isFn(onBeforeTransferring) && onBeforeTransferring.call(that, response);
                 };
                 var onSendProgress = function(evt) {
                     response = {
@@ -56,7 +57,7 @@ tangram.block(['$_/util/bool.xtd'], function(pandora, global, undefined) {
                         status: uploader.status,
                         responseText: 'Transferring'
                     }
-                    _.util.bool.isFn(onTransferring) && onTransferring(response);
+                    _.util.bool.isFn(onTransferring) && onTransferring.call(that, response);
                 };
                 var onSendComplete = function(evt) {
                     response = {
@@ -64,7 +65,7 @@ tangram.block(['$_/util/bool.xtd'], function(pandora, global, undefined) {
                         status: uploader.status,
                         responseText: 'Transferred'
                     }
-                    _.util.bool.isFn(onAfterTransferring) && onAfterTransferring(response);
+                    _.util.bool.isFn(onAfterTransferring) && onAfterTransferring.call(that, response);
                 };
                 var onFailed = function(evt) {
                     response = {
@@ -72,7 +73,7 @@ tangram.block(['$_/util/bool.xtd'], function(pandora, global, undefined) {
                         status: uploader.status,
                         responseText: 'Transfailed'
                     }
-                    _.util.bool.isFn(onUploadFailed) && onUploadFailed(response);
+                    _.util.bool.isFn(onUploadFailed) && onUploadFailed.call(that, response);
                 };
                 var onTimeout = function(evt) {
                     response = {
@@ -80,7 +81,7 @@ tangram.block(['$_/util/bool.xtd'], function(pandora, global, undefined) {
                         status: uploader.status,
                         responseText: 'Timeout'
                     }
-                    _.util.bool.isFn(onUploadFailed) && onUploadFailed(response);
+                    _.util.bool.isFn(onUploadFailed) && onUploadFailed.call(that, response);
                 }
             };
             var onStateChange = function() {
@@ -93,14 +94,14 @@ tangram.block(['$_/util/bool.xtd'], function(pandora, global, undefined) {
                         status: this.status,
                         responseText: 'Waiting'
                     }
-                    _.util.bool.isFn(onBeforeTransferring) && onBeforeTransferring(response);
+                    _.util.bool.isFn(onBeforeTransferring) && onBeforeTransferring.call(that, response);
                 } else if (this.readyState == 2 || this.readyState == 3) {
                     response = {
                         readyState: this.readyState,
                         status: this.status,
                         responseText: 'Processing'
                     }
-                    _.util.bool.isFn(onAfterTransferring) && onAfterTransferring(response);
+                    _.util.bool.isFn(onAfterTransferring) && onAfterTransferring.call(that, response);
                 } else if (this.readyState == 4) {
                     //console.log(url, data, handlers, this);
                     if (this.status == 200) {
@@ -109,14 +110,14 @@ tangram.block(['$_/util/bool.xtd'], function(pandora, global, undefined) {
                             status: this.status,
                             responseText: this.responseText
                         }
-                        _.util.bool.isFn(onUploadComplete) && onUploadComplete(response);
+                        _.util.bool.isFn(onUploadComplete) && onUploadComplete.call(that, response);
                     } else {
                         response = {
                             readyState: this.readyState,
                             status: this.status,
                             responseText: this.responseText
                         }
-                        _.util.bool.isFn(onUploadFailed) && onUploadFailed(response);
+                        _.util.bool.isFn(onUploadFailed) && onUploadFailed.call(that, response);
                     }
                 }
             }
@@ -129,7 +130,7 @@ tangram.block(['$_/util/bool.xtd'], function(pandora, global, undefined) {
             }
             uploader.onreadystatechange = onStateChange;
             uploader.open('POST', url, true);
-            //console.log(form);
+            // console.log(form);
             uploader.send(form);
         };
 
@@ -211,9 +212,9 @@ tangram.block(['$_/util/bool.xtd'], function(pandora, global, undefined) {
         },
         transfer: function(options, method) {
             if (this.files.length && this.files.length === 1) {
-                _.data.Uploader.transfer(this.files[0], options, method);
+                _.data.Uploader.transfer.call(this, this.files[0], options, method);
             } else {
-                _.data.Uploader.transfer(this.files, options, method);
+                _.data.Uploader.transfer.call(this, this.files, options, method);
             }
 
         }
@@ -264,6 +265,6 @@ tangram.block(['$_/util/bool.xtd'], function(pandora, global, undefined) {
         }
         options.url = options.url || location.href;
         options.handlers = options.handlers || {};
-        fileTransfer(options.url, form, options.handlers);
+        fileTransfer.call(this, options.url, form, options.handlers);
     }
 });

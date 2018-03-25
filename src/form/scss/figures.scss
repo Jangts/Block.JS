@@ -11,6 +11,7 @@
                 position: relative;
                 padding: 19px;
                 border: solid 1px #ddd;
+                border-radius: 3px;
                 text-align: center;
                 overflow: hidden;
                 margin-right: 1%;
@@ -79,35 +80,35 @@
                 }
             }
             .image-uploader,
-            .image-uploader.photo,
-            .image-uploader.photo3x2 {
+            .image-uploader[data-subtype=photo],
+            .image-uploader[data-subtype=photo3x2] {
                 width: 180px !important;
                 height: 120px !important;
             }
-            .image-uploader.photo2x3 {
+            .image-uploader[data-subtype=photo2x3] {
                 width: 80px !important;
                 height: 120px !important;
             }
-            .image-uploader.avatar,
-            .image-uploader.avatar1x1 {
+            .image-uploader[data-subtype=avatar],
+            .image-uploader[data-subtype=avatar1x1] {
                 width: 120px !important;
                 height: 120px !important;
             }
-            .image-uploader.figure,
-            .image-uploader.figure4x3 {
+            .image-uploader[data-subtype=figure],
+            .image-uploader[data-subtype=figure4x3] {
                 width: 160px !important;
                 height: 120px !important;
             }
-            .image-uploader.figure3x4 {
+            .image-uploader[data-subtype=figure3x4] {
                 width: 90px !important;
                 height: 120px !important;
             }
-            .image-uploader.banner {
+            .image-uploader[data-subtype=banner] {
                 box-sizing: border-box;
                 width: 49% !important;
                 height: 160px !important;
             }
-            .image-uploader.banner100 {
+            .image-uploader[data-subtype=banner100] {
                 display: block;
                 width: 100% !important;
                 height: 100px !important;
@@ -122,6 +123,9 @@
         figure,
         .figure-items {
             margin: 0 0 7px;
+            .image-uploader {
+                border-radius: 0;
+            }
         }
     }
 }

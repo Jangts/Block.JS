@@ -1,6 +1,6 @@
-.tangram-form[data-type=pages] {
+.tangram-form {
     .tangram-inputs {
-        .custom-item {
+        .custom-items {
             box-sizing: border-box;
             display: block;
             width: 100%;
@@ -10,6 +10,12 @@
             font-family: inherit;
             font-size: 12px;
             color: #666;
+            textarea.edit-text-area {
+                box-sizing: border-box;
+                width: 100%;
+                height: 140px;
+                resize: vertical;
+            }
             .tangram.simpleeditor {
                 box-sizing: border-box;
                 border: solid 1px #ddd;
@@ -19,10 +25,13 @@
     }
 }
 
-.tangram-form {
+.tangram-form[data-type=pages] {
     .tangram-inputs[data-type=blocks] {
-        .custom-item {
+        .custom-items {
             margin: 0 0 7px;
+            .tangram.simpleeditor {
+                border-radius: 0;
+            }
         }
     }
 }

@@ -36,6 +36,25 @@
             line-height: 24px;
             font-size: 14px;
             text-align: right;
+            overflow: hidden;
+        }
+        >font,
+        >.input-tips {
+            display: block;
+            position: absolute;
+            width: 30%;
+            top: 8px;
+            right: 0;
+            line-height: 24px;
+            font-size: 12px;
+            text-align: right;
+            overflow: hidden;
+        }
+        >.input-tips.quater {
+            width: 25%;
+        }
+        >.input-tips.half {
+            width: 50%;
         }
         >input,
         >select,
@@ -43,6 +62,26 @@
         >.input-area {
             width: 100%;
             margin: 8px 0;
+        }
+        >input.w24,
+        >select.w24 {
+            width: 24%;
+        }
+        >input.w30,
+        >select.w30 {
+            width: 30%;
+        }
+        >input.w48,
+        >select.w48 {
+            width: 48%;
+        }
+        >input.w68,
+        >select.w68 {
+            width: 68%;
+        }
+        >input.w72,
+        >select.w72 {
+            width: 72%;
         }
         input,
         select,
@@ -61,6 +100,12 @@
             display: inline-block;
             height: 24px;
         }
+        input[type=radio],
+        input[type=checkbox] {
+            width: 14px;
+            height: 14px;
+            margin: 5px;
+        }
         input.use-tp.datetime-item,
         input.use-tp.fulldate-item,
         input.use-tp.timeofday-item {
@@ -74,10 +119,10 @@
         }
         input.num-item,
         input[type=number] {
-            width: 270px !important;
+            text-align: right;
         }
         input[type=number] {
-            padding-left: 10px;
+            padding: 0 10px;
         }
         input[type=radio],
         input[type=checkbox] {
@@ -108,7 +153,14 @@
             line-height: 24px;
             font-size: 12px;
             color: #999;
-            margin-right: 5px;
+            margin: 0 24px 0 0;
+            font-style: normal;
+            i {
+                font-style: normal;
+            }
+        }
+        .inline-label:last-child {
+            margin: 0;
         }
         .radio-label,
         .checkbox-label {
@@ -117,9 +169,14 @@
             line-height: 24px;
             font-size: 12px;
             color: #999;
+            font-style: normal;
+            i {
+                font-style: normal;
+            }
             >input {
-                width: 24px;
-                margin: 0;
+                width: 14px;
+                height: 14px;
+                margin: 5px;
             }
         }
         .inputs-line+.inputs-line {
@@ -138,7 +195,19 @@
         input,
         select {
             width: 20%;
-            margin: 8px 24px 8px 0;
+            margin: 8px 5px;
+        }
+        input:first-child,
+        select:first-child {
+            margin-left: 0;
+        }
+        input:last-child,
+        select:last-child {
+            margin-right: 0;
+        }
+        input.num-item,
+        input[type=number] {
+            width: 10%;
         }
     }
     .tangram-inputs[data-type=hidden] {

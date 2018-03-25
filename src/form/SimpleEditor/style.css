@@ -467,7 +467,8 @@
     overflow: auto;
     resize: vertical;
     z-index: 0;
-    line-height: normal; }
+    line-height: normal;
+    font-size: medium; }
     .tangram.simpleeditor .tangram.se-richarea * {
       -webkit-box-sizing: content-box;
       -moz-box-sizing: content-box;

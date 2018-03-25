@@ -972,6 +972,15 @@
                 Identifier: Identifier,
 
                 /**
+                 * 返回文件或目录所在目录的地址
+                 * 
+                 * @return string
+                 */
+                dirname: function(url) {
+                    return url.replace(/[^\\\/]+[\\\/]*$/, '');
+                },
+
+                /**
                  * 返回当前URL
                  * 
                  * @return string
@@ -1394,6 +1403,9 @@
                             storage.blocks.requires[id].status = 'loaded';
                             storage.blocks.requires[id].blocks = storage.blocks.temp;
                             storage.blocks.temp = [];
+                            each(storage.blocks.requires[id].blocks, function(i, block) {
+                                block.url = url;
+                            });
                             that.listene();
                         }, false, filetype);
                     }

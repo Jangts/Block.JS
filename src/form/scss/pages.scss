@@ -5,11 +5,12 @@
         padding: 0 19px;
         border: #DDD 1px solid;
         background-color: #fff;
+        padding-bottom: 19px;
     }
     .tangram-inputs {
         height: auto;
         min-height: 30px; // margin: 0;
-        border-top: 1px #E6E6E6 solid;
+        border-bottom: 1px #E6E6E6 solid;
         >.input-label {
             height: 24px;
             top: 3px; // left: 0px;
@@ -41,10 +42,9 @@
             -webkit-appearance: none;
         }
     }
-    .tangram-inputs:first-child {
-        border-top: 1px #E6E6E6 solid;
-        
-    }
+    // .tangram-inputs:first-child {
+    //     border-top: 1px #E6E6E6 solid;
+    // }
     .tangram-inputs.inline-inputs {
         .inputs-line {
             height: 30px;
@@ -71,14 +71,22 @@
         }
         input,
         select {
-            margin: 0 24px 0 0;
+            margin: 0 5px;
+        }
+        input:first-child,
+        select:first-child {
+            margin-left: 0;
+        }
+        input:last-child,
+        select:last-child {
+            margin-right: 0;
         }
     }
     .tangram-inputs[data-type=primer],
     .tangram-inputs[data-type=title],
     .tangram-inputs[data-type=subtitle] {
         margin-left: 0;
-        border-top: none;
+        border-bottom: none;
         >.input-label {
             display: none;
         }
@@ -122,6 +130,13 @@
             top: 0;
             margin-top: 3px;
             line-height: 27px;
+            overflow: hidden;
+        }
+        >font,
+        >.input-tips {
+            height: 27px;
+            top: 0;
+            line-height: 27px;
         }
         .inputs-line {
             border-top: solid 1px #eee;
@@ -130,6 +145,17 @@
         textarea {
             border: solid 1px #eee;
             margin-bottom: 8px;
+        }
+    }
+    .tangram-inputs[data-type=tags]:last-child {
+        height: 42px;
+        margin: -1px -19px -19px -19px;
+        padding: 0 20px 0 50px;
+        background: url(images/tag-icon.jpg) no-repeat left;
+        border-top: #DDD 1px solid;
+        border-bottom: none;
+        input {
+            margin: 6px 0;
         }
     }
 }
