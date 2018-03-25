@@ -1,168 +1,224 @@
-$table_cell_widths: 140,
-80,
-70,
-60,
-50,
-40;
-$table_cell_maxwidths: 540,
-580,
-670,
-860,
-950,
-1040;
-table.tangram-table,
-table.tangram.tangram-table {
-    margin: 20px auto 10px;
-    border-radius: 5px;
-    cursor: default;
-    font-size: 12px;
-    tr.tangram-header-tr {
-        height: 40px;
-        background-color: transparent !important;
-        border-bottom: solid 5px white;
-        th {
+    $table_cell_widths: 140,
+    80,
+    70,
+    60,
+    50,
+    40;
+    $table_cell_maxwidths: 540,
+    580,
+    670,
+    860,
+    950,
+    1040;
+    table.tangram-table,
+    table.tangram.tangram-table {
+        margin: 20px auto 10px;
+        border-radius: 5px;
+        cursor: default;
+        font-size: 12px;
+        tr.tangram-header-tr {
             height: 40px;
-            line-height: 40px;
+            background-color: transparent !important;
+            border-bottom: solid 5px white;
+            th {
+                height: 40px;
+                line-height: 40px;
+            }
         }
-    }
-    tr {
-        height: 30px;
-        th {
-            height: 40px;
-            line-height: 40px;
-            padding: 0px 10px;
-            font-size: 13px;
-            font-weight: normal;
-            background: #666;
-            color: #FFF;
-        }
-        th.lightpurple {
-            background: #C6C;
-        }
-        th.lightdatered {
-            background: #C66;
-        }
-        th.lightmagenta {
-            background: #F38;
-        }
-        th.lightazure {
-            background: #0CF;
-        }
-        td {
+        tr {
             height: 30px;
-            line-height: 30px;
-            padding: 0px 10px;
-            color: #333;
-            font-weight: normal;
-            font-size: 12px;
-            text-align: center;
-            vertical-align: middle;
-            a {
-                display: inline;
+            th {
+                height: 40px;
+                line-height: 40px;
+                padding: 0px 10px;
+                font-size: 13px;
+                font-weight: normal;
+                background: #666;
+                color: #FFF;
             }
-            a.block {
-                display: block;
-                width: 100%;
-                height: 100%;
+            th.lightpurple {
+                background: #C6C;
             }
-            .tangram-td-click {
-                display: block;
+            th.lightdatered {
+                background: #C66;
             }
-            .on {
-                color: #090;
+            th.lightmagenta {
+                background: #F38;
             }
-            .off {
-                color: #666;
+            th.lightazure {
+                background: #0CF;
+            }
+            td {
+                height: 30px;
+                line-height: 30px;
+                padding: 0px 10px;
+                color: #333;
+                font-weight: normal;
+                font-size: 12px;
+                text-align: center;
+                vertical-align: middle;
+                a {
+                    display: inline;
+                }
+                a.block {
+                    display: block;
+                    width: 100%;
+                    height: 100%;
+                }
+                .tangram-td-click {
+                    display: block;
+                }
+                .on {
+                    color: #090;
+                }
+                .off {
+                    color: #666;
+                }
+            }
+            td.lightpurple .off {
+                color: #969;
+            }
+            td.lightdatered .off {
+                color: #966;
+            }
+            td.lightmagenta .off {
+                color: #936;
+            }
+            td.lightazure .off {
+                color: #369;
+            }
+            @each $width in $table_cell_widths {
+                >.w#{$width} {
+                    width: #{$width}px;
+                }
+            }
+            @each $width in $table_cell_maxwidths {
+                >.m#{$width} {
+                    max-width: #{$width}px;
+                }
+            }
+            @for $i from 1 through 21 {
+                >.w#{$i}in21 {
+                    width: percentage($i/21);
+                }
+            }
+            @for $i from 11 through 21 {
+                >.m#{$i}in21 {
+                    max-width: percentage($i/21);
+                }
             }
         }
-        td.lightpurple .off {
-            color: #969;
-        }
-        td.lightdatered .off {
-            color: #966;
-        }
-        td.lightmagenta .off {
-            color: #936;
-        }
-        td.lightazure .off {
-            color: #369;
-        }
-        @each $width in $table_cell_widths {
-            >.w#{$width} {
-                width: #{$width}px;
-            }
-        }
-        @each $width in $table_cell_maxwidths {
-            >.m#{$width} {
-                max-width: #{$width}px;
-            }
-        }
-        @for $i from 1 through 21 {
-            >.w#{$i}in21 {
-                width: percentage($i/21);
-            }
-        }
-        @for $i from 11 through 21 {
-            >.m#{$i}in21 {
-                max-width: percentage($i/21);
-            }
-        }
-    }
-    tr.tangram-tips {
-        height: 100px;
-        line-height: 100px;
-        text-align: center;
-        background: rgba(204, 204, 204, .3);
-        td {
+        tr.tangram-tips {
             height: 100px;
             line-height: 100px;
-            color: #999;
+            text-align: center;
+            background: rgba(204, 204, 204, .3);
+            td {
+                height: 100px;
+                line-height: 100px;
+                color: #999;
+            }
         }
-    }
-    tr.tangram-tips:hover {
-        background: rgba(204, 204, 204, .3);
-        cursor: text;
-        td {
+        tr.tangram-tips:hover {
+            background: rgba(204, 204, 204, .3);
             cursor: text;
+            td {
+                cursor: text;
+            }
         }
-    }
-    tr.tangram-creator {
-        height: 40px;
-        border-top: solid 5px white;
-        background-color: transparent !important;
-        td {
-            background-color: #6c9;
+        tr.tangram-creator {
             height: 40px;
-            font-size: 14px;
-            line-height: 40px;
-            color: white;
+            border-top: solid 5px white;
+            background-color: transparent !important;
+            td {
+                background-color: #6c9;
+                height: 40px;
+                font-size: 14px;
+                line-height: 40px;
+                color: white;
+            }
+            td:hover {
+                background-color: #3a6;
+            }
         }
-        td:hover {
-            background-color: #3a6;
+        tr:nth-child(odd) {
+            background-color: #ddd;
+            background: rgba(204, 204, 204, .3);
+        }
+        tr:nth-child(even) {
+            background-color: #eee;
+            background: rgba(153, 153, 153, .3);
+        }
+        tr:hover {
+            background: rgba(153, 153, 153, .4);
+            td {
+                // color: #F6F6F6;
+                cursor: pointer;
+            }
+        }
+        td:nth-child(odd) {
+            background: rgba(153, 153, 153, .3);
+        }
+        td:nth-child(even) {
+            background: rgba(204, 204, 204, .3);
         }
     }
-    tr.creator:hover {
-        background-color: #ccc;
-    }
-    tr:nth-child(odd) {
-        background-color: #ddd;
-        background: rgba(204, 204, 204, .3);
-    }
-    tr:nth-child(even) {
-        background-color: #eee;
-        background: rgba(153, 153, 153, .3);
-    }
-    tr:hover {
-        background: rgba(153, 153, 153, .4);
-        color: #F6F6F6;
-        td {
-            cursor: pointer;
+
+    table.tangram-table[stripe],
+    table.tangram.tangram-table[stripe] {
+        td:nth-child(odd) {
+            background: transparent;
+        }
+        td:nth-child(even) {
+            background: transparent;
         }
     }
-    td:nth-child(odd) {
-        background: rgba(153, 153, 153, .3);
+
+    table.tangram-table[border],
+    table.tangram.tangram-table[border],
+    table.tangram-table[border="1"],
+    table.tangram.tangram-table[border="1"] {
+        border-collapse: separate;
+        border: solid 1px #ccc;
+        tr {
+            th {
+                height: 30px;
+                line-height: 30px;
+                font-weight: bold;
+                background: #ccc;
+                color: #222;
+            }
+            td {
+                border-top: solid 1px #ccc;
+                border-left: solid 1px #ccc;
+            }
+            td:first-child {
+                border-left: none;
+            }
+            td:nth-child(odd) {
+                background: transparent;
+            }
+            td:nth-child(even) {
+                background: transparent;
+            }
+        }
+        tr:hover {
+            background: rgba(153, 153, 153, .4);
+            td {
+                color: #222;
+                cursor: pointer;
+            }
+        }
+        tr:first-child {
+            td {
+                border-top: none;
+            }
+        }
+        tr:nth-child(odd) {
+            background: transparent;
+        }
+        tr:nth-child(even) {
+            background-color: #eee;
+            background: transparent;
+        }
     }
-    td:nth-child(even) {
-        background: rgba(204, 204, 204, .3);
-    }
-}

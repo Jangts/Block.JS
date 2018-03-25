@@ -3164,9 +3164,6 @@ table.tangram.tangram-table {
     table.tangram-table tr.tangram-creator td:hover,
     table.tangram.tangram-table tr.tangram-creator td:hover {
       background-color: #3a6; }
-  table.tangram-table tr.creator:hover,
-  table.tangram.tangram-table tr.creator:hover {
-    background-color: #ccc; }
   table.tangram-table tr:nth-child(odd),
   table.tangram.tangram-table tr:nth-child(odd) {
     background-color: #ddd;
@@ -3177,8 +3174,7 @@ table.tangram.tangram-table {
     background: rgba(153, 153, 153, 0.3); }
   table.tangram-table tr:hover,
   table.tangram.tangram-table tr:hover {
-    background: rgba(153, 153, 153, 0.4);
-    color: #F6F6F6; }
+    background: rgba(153, 153, 153, 0.4); }
     table.tangram-table tr:hover td,
     table.tangram.tangram-table tr:hover td {
       cursor: pointer; }
@@ -3188,6 +3184,78 @@ table.tangram.tangram-table {
   table.tangram-table td:nth-child(even),
   table.tangram.tangram-table td:nth-child(even) {
     background: rgba(204, 204, 204, 0.3); }
+
+table.tangram-table[stripe] td:nth-child(odd),
+table.tangram.tangram-table[stripe] td:nth-child(odd) {
+  background: transparent; }
+
+table.tangram-table[stripe] td:nth-child(even),
+table.tangram.tangram-table[stripe] td:nth-child(even) {
+  background: transparent; }
+
+table.tangram-table[border],
+table.tangram.tangram-table[border],
+table.tangram-table[border="1"],
+table.tangram.tangram-table[border="1"] {
+  border-collapse: separate;
+  border: solid 1px #ccc; }
+  table.tangram-table[border] tr th,
+  table.tangram.tangram-table[border] tr th,
+  table.tangram-table[border="1"] tr th,
+  table.tangram.tangram-table[border="1"] tr th {
+    height: 30px;
+    line-height: 30px;
+    font-weight: bold;
+    background: #ccc;
+    color: #222; }
+  table.tangram-table[border] tr td,
+  table.tangram.tangram-table[border] tr td,
+  table.tangram-table[border="1"] tr td,
+  table.tangram.tangram-table[border="1"] tr td {
+    border-top: solid 1px #ccc;
+    border-left: solid 1px #ccc; }
+  table.tangram-table[border] tr td:first-child,
+  table.tangram.tangram-table[border] tr td:first-child,
+  table.tangram-table[border="1"] tr td:first-child,
+  table.tangram.tangram-table[border="1"] tr td:first-child {
+    border-left: none; }
+  table.tangram-table[border] tr td:nth-child(odd),
+  table.tangram.tangram-table[border] tr td:nth-child(odd),
+  table.tangram-table[border="1"] tr td:nth-child(odd),
+  table.tangram.tangram-table[border="1"] tr td:nth-child(odd) {
+    background: transparent; }
+  table.tangram-table[border] tr td:nth-child(even),
+  table.tangram.tangram-table[border] tr td:nth-child(even),
+  table.tangram-table[border="1"] tr td:nth-child(even),
+  table.tangram.tangram-table[border="1"] tr td:nth-child(even) {
+    background: transparent; }
+  table.tangram-table[border] tr:hover,
+  table.tangram.tangram-table[border] tr:hover,
+  table.tangram-table[border="1"] tr:hover,
+  table.tangram.tangram-table[border="1"] tr:hover {
+    background: rgba(153, 153, 153, 0.4); }
+    table.tangram-table[border] tr:hover td,
+    table.tangram.tangram-table[border] tr:hover td,
+    table.tangram-table[border="1"] tr:hover td,
+    table.tangram.tangram-table[border="1"] tr:hover td {
+      color: #222;
+      cursor: pointer; }
+  table.tangram-table[border] tr:first-child td,
+  table.tangram.tangram-table[border] tr:first-child td,
+  table.tangram-table[border="1"] tr:first-child td,
+  table.tangram.tangram-table[border="1"] tr:first-child td {
+    border-top: none; }
+  table.tangram-table[border] tr:nth-child(odd),
+  table.tangram.tangram-table[border] tr:nth-child(odd),
+  table.tangram-table[border="1"] tr:nth-child(odd),
+  table.tangram.tangram-table[border="1"] tr:nth-child(odd) {
+    background: transparent; }
+  table.tangram-table[border] tr:nth-child(even),
+  table.tangram.tangram-table[border] tr:nth-child(even),
+  table.tangram-table[border="1"] tr:nth-child(even),
+  table.tangram.tangram-table[border="1"] tr:nth-child(even) {
+    background-color: #eee;
+    background: transparent; }
 
 /* Widgets **/
 /** Line Tops **/

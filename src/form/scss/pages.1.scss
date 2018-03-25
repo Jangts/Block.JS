@@ -1,0 +1,304 @@
+.tangram-form.simple-style-form {
+    
+    
+    
+    
+    .tangram-inputs {
+        width: 860px;
+        
+        
+        
+        .tangram-form-click[type=pick] {
+            display: block;
+            position: absolute;
+            width: 70px;
+            height: 22px;
+            top: 0px;
+            right: 0px;
+            margin: 4px 0 4px;
+            border-radius: 2px;
+            background: #333333;
+            color: #FFF;
+            line-height: 22px;
+            text-align: center;
+            font-size: 12px;
+            cursor: pointer;
+            opacity: .7;
+        }
+        .tangram-form-click[type=pick]:hover {
+            opacity: 1;
+        }
+    }
+    .tangram-inputs[type=textarea] {
+        width: 860px;
+        height: auto;
+        margin: 0px 20px;
+        line-height: 30px;
+        border-top: 1px #E6E6E6 solid;
+    }
+    .tangram-inputs[type=textarea]>label {
+        display: block;
+        width: 110px;
+        height: 27px;
+        line-height: 24px;
+        background-color: #F6F6F6;
+        color: #282828;
+        top: 3px;
+        font-size: 12px;
+        text-align: center;
+    }
+    .tangram-inputs[type=textarea]>font {
+        display: block;
+        position: absolute;
+        width: 800px;
+        height: 30px;
+        color: #999;
+        top: 0px;
+        right: 0px;
+        font-size: 12px;
+        text-align: right;
+    }
+    .tangram-inputs[type=textarea]>textarea {
+        width: 860px;
+        box-sizing: border-box;
+        min-height: 58px;
+        line-height: 24px;
+        font-size: 12px;
+        resize: none;
+        border: #EEE 1px solid;
+        outline: none;
+        padding: 5px;
+    }
+    .tangram-inputs[type=longtext] {
+        width: 860px;
+        height: auto;
+        margin: 0px 20px;
+        line-height: 30px;
+        border-top: 1px #E6E6E6 solid;
+    }
+    .tangram-inputs[type=longtext]>label {
+        display: block;
+        width: 110px;
+        height: 27px;
+        line-height: 24px;
+        background-color: #F6F6F6;
+        color: #282828;
+        top: 3px;
+        font-size: 12px;
+        text-align: center;
+    }
+    .tangram-inputs[type=longtext]>font {
+        display: block;
+        position: absolute;
+        width: 800px;
+        height: 30px;
+        color: #999;
+        top: 0px;
+        right: 0px;
+        font-size: 12px;
+        text-align: right;
+    }
+    .tangram-inputs[type=longtext]>textarea {
+        box-sizing: border-box;
+        width: 860px;
+        height: auto;
+        min-height: 130px;
+        line-height: 24px;
+        font-size: 12px;
+        resize: vertical;
+        border: #EEE 1px solid;
+        outline: none;
+        padding: 5px;
+    }
+    .tangram-inputs[type=editor] {
+        width: 860px;
+        height: auto;
+        margin: 0px 20px 10px;
+        line-height: 30px;
+        border-top: 1px #E6E6E6 solid;
+    }
+    .tangram-inputs[type=editor]>label {
+        display: block;
+        width: 110px;
+        height: 27px;
+        line-height: 24px;
+        background-color: #F6F6F6;
+        color: #282828;
+        top: 3px;
+        font-size: 12px;
+        text-align: center;
+    }
+    .tangram-inputs[type=editor]>font {
+        display: block;
+        position: absolute;
+        width: 800px;
+        height: 30px;
+        color: #999;
+        top: 0px;
+        right: 0px;
+        font-size: 12px;
+        text-align: right;
+    }
+    .tangram-inputs[type=editor]>textarea {
+        width: 860px;
+        box-sizing: border-box;
+        height: auto;
+        min-height: 390px;
+        line-height: 30px;
+        font-size: 12px;
+    }
+    .tangram-inputs[type=editor]>div[contenteditable][data-edit-for] {
+        width: 860px;
+        height: auto;
+        min-height: 180px;
+    }
+    .tangram-inputs[type=editor]+inputs[type=editor] {
+        border-top: none;
+    }
+    .tangram-inputs[type=tags] {
+        width: 860px;
+        height: 30px;
+        margin: 0px 20px;
+        line-height: 30px;
+        border-top: 1px #E6E6E6 solid;
+        input {
+            width: 835px;
+            height: 30px;
+            line-height: 30px;
+            margin: 0;
+            color: #555;
+            font-size: 12px;
+            resize: none;
+        }
+    }
+    .tangram-inputs[type=tags].seo {
+        width: 900px;
+        border-top: #DDD 1px solid;
+        height: 38px;
+        margin: 20px 0 0;
+        background: url(SEOTagsIcon.jpg) no-repeat left;
+        input {
+            width: 835px;
+            margin: 4px 20px 4px 45px;
+        }
+    }
+    .tangram-inputs[type=text].notopline {
+        border-top: none;
+    }
+    .tangram-inline-inputs {
+        width: 860px;
+        height: auto;
+        margin: 0px 20px;
+        border-top: 1px #E6E6E6 solid;
+        input {
+            outline: none;
+            background-color: transparent;
+        }
+        input {
+            float: left;
+            width: 110px;
+            height: 18px;
+            text-align: center;
+            line-height: 20px;
+            border-bottom: #CCC 1px solid;
+            margin: 7px 0px 4px;
+        }
+        input[long] {
+            width: 250px;
+        }
+        label {
+            float: left;
+            width: 110px;
+            height: 24px;
+            line-height: 24px;
+            background-color: #F6F6F6;
+            top: 3px;
+            left: 0px;
+        }
+        label {
+            color: #282828;
+            font-size: 12px;
+            margin-right: 10px;
+            text-align: center;
+        }
+        select {
+            width: 150px;
+            height: 22px;
+            margin: 4px 0px;
+            line-height: 18px;
+            border: 1px #CCCCCC solid;
+            outline: none;
+            float: left;
+        }
+        span {
+            float: left;
+            width: auto;
+            height: 20px;
+            color: #555;
+            font-size: 12px;
+        }
+        span,
+        span[type],
+        span[type=afterinput] {
+            margin: 7px 45px 3px 5px;
+        }
+        span[type=afterlabel] {
+            margin: 7px 5px 3px 0px;
+        }
+        span[type=beforeinput] {
+            margin: 7px 5px 3px 45px;
+        }
+        font {
+            display: block;
+            width: auto;
+            height: 30px;
+            margin-left: 10px;
+            color: #999;
+            font-size: 12px;
+            line-height: 30px;
+            float: right;
+        }
+        .tangram-form-gap {
+            float: left;
+            width: auto;
+            height: 20px;
+            margin: 5px;
+            color: #555;
+            line-height: 21px;
+            font-size: 12px;
+            text-align: center;
+        }
+        .tangram-form-click[type=pick] {
+            display: block;
+            position: absolute;
+            width: 70px;
+            height: 22px;
+            top: 0px;
+            right: 0px;
+            margin: 4px 0 4px 10px;
+            border-radius: 2px;
+            background: #333333;
+            color: #FFF;
+            line-height: 22px;
+            text-align: center;
+            font-size: 12px;
+            cursor: pointer;
+        }
+    }
+    .tangram-form-line {
+        display: block;
+        width: 860px;
+        height: 1px;
+        margin: 0px 20px;
+        background-color: #EEE;
+    }
+    .tangram-form-paragraph {
+        width: 750px;
+        height: auto;
+        margin: 0px 20px 0px 130px;
+        line-height: 30px;
+        color: #999;
+        font-size: 12px;
+        text-align: justify;
+    }
+}

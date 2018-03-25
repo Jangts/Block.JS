@@ -81,16 +81,6 @@
     .tangram-form .tangram-inputs textarea.high-item {
       height: 390px;
       resize: vertical; }
-    .tangram-form .tangram-inputs .custom-item {
-      box-sizing: border-box;
-      display: block;
-      width: 100%;
-      height: auto;
-      margin: 7px 0;
-      line-height: 24px;
-      font-family: inherit;
-      font-size: 12px;
-      color: #666; }
   .tangram-form .tangram-inputs.inline-inputs .inputs-line {
     display: block;
     width: 100%;
@@ -142,9 +132,6 @@
   border: #DDD 1px solid;
   background-color: #fff; }
 
-.tangram-form[data-type=pages] .inputs-section:last-child {
-  border-bottom: #DDD 1px solid; }
-
 .tangram-form[data-type=pages] .tangram-inputs {
   height: auto;
   min-height: 30px;
@@ -175,6 +162,9 @@
   .tangram-form[data-type=pages] .tangram-inputs select {
     appearance: none;
     -webkit-appearance: none; }
+
+.tangram-form[data-type=pages] .tangram-inputs:first-child {
+  border-top: 1px #E6E6E6 solid; }
 
 .tangram-form[data-type=pages] .tangram-inputs.inline-inputs .inputs-line {
   height: 30px;
@@ -256,13 +246,13 @@
     border: solid 1px #eee;
     margin-bottom: 8px; }
 
-.tangram-form figure,
-.tangram-form .figure-items {
+.tangram-form .tangram-inputs figure,
+.tangram-form .tangram-inputs .figure-items {
   display: block;
   width: 100%;
   margin: 7px 0; }
-  .tangram-form figure .image-uploader,
-  .tangram-form .figure-items .image-uploader {
+  .tangram-form .tangram-inputs figure .image-uploader,
+  .tangram-form .tangram-inputs .figure-items .image-uploader {
     box-sizing: content-box;
     display: inline-block;
     position: relative;
@@ -271,8 +261,8 @@
     text-align: center;
     overflow: hidden;
     margin-right: 1%; }
-    .tangram-form figure .image-uploader img.image-displayer,
-    .tangram-form .figure-items .image-uploader img.image-displayer {
+    .tangram-form .tangram-inputs figure .image-uploader img.image-displayer,
+    .tangram-form .tangram-inputs .figure-items .image-uploader img.image-displayer {
       display: block;
       position: relative;
       width: 100%;
@@ -280,8 +270,8 @@
       max-width: 100%;
       max-height: 100%;
       margin: 0 auto; }
-    .tangram-form figure .image-uploader input[type=file],
-    .tangram-form .figure-items .image-uploader input[type=file] {
+    .tangram-form .tangram-inputs figure .image-uploader input[type=file],
+    .tangram-form .tangram-inputs .figure-items .image-uploader input[type=file] {
       display: none;
       position: absolute;
       width: 0;
@@ -289,29 +279,29 @@
       top: 0;
       left: 0;
       opacity: 0; }
-    .tangram-form figure .image-uploader .image-mask,
-    .tangram-form .figure-items .image-uploader .image-mask {
+    .tangram-form .tangram-inputs figure .image-uploader .image-mask,
+    .tangram-form .tangram-inputs .figure-items .image-uploader .image-mask {
       z-index: 10; }
-    .tangram-form figure .image-uploader .image-mask,
-    .tangram-form figure .image-uploader .image-changer,
-    .tangram-form figure .image-uploader input[type=file].image-changer,
-    .tangram-form .figure-items .image-uploader .image-mask,
-    .tangram-form .figure-items .image-uploader .image-changer,
-    .tangram-form .figure-items .image-uploader input[type=file].image-changer {
+    .tangram-form .tangram-inputs figure .image-uploader .image-mask,
+    .tangram-form .tangram-inputs figure .image-uploader .image-changer,
+    .tangram-form .tangram-inputs figure .image-uploader input[type=file].image-changer,
+    .tangram-form .tangram-inputs .figure-items .image-uploader .image-mask,
+    .tangram-form .tangram-inputs .figure-items .image-uploader .image-changer,
+    .tangram-form .tangram-inputs .figure-items .image-uploader input[type=file].image-changer {
       display: block;
       position: absolute;
       width: 100%;
       height: 100%;
       top: 0;
       left: 0; }
-    .tangram-form figure .image-uploader .image-changer,
-    .tangram-form figure .image-uploader input[type=file].image-changer,
-    .tangram-form .figure-items .image-uploader .image-changer,
-    .tangram-form .figure-items .image-uploader input[type=file].image-changer {
+    .tangram-form .tangram-inputs figure .image-uploader .image-changer,
+    .tangram-form .tangram-inputs figure .image-uploader input[type=file].image-changer,
+    .tangram-form .tangram-inputs .figure-items .image-uploader .image-changer,
+    .tangram-form .tangram-inputs .figure-items .image-uploader input[type=file].image-changer {
       z-index: 20;
       cursor: pointer; }
-    .tangram-form figure .image-uploader .image-resetter,
-    .tangram-form .figure-items .image-uploader .image-resetter {
+    .tangram-form .tangram-inputs figure .image-uploader .image-resetter,
+    .tangram-form .tangram-inputs .figure-items .image-uploader .image-resetter {
       display: block;
       position: absolute;
       width: 100%;
@@ -328,49 +318,71 @@
       z-index: 100;
       cursor: pointer;
       transition: opacity ease-in-out .3s, top ease-in-out .3s; }
-  .tangram-form figure .image-uploader:hover .image-mask,
-  .tangram-form .figure-items .image-uploader:hover .image-mask {
+  .tangram-form .tangram-inputs figure .image-uploader:hover .image-mask,
+  .tangram-form .tangram-inputs .figure-items .image-uploader:hover .image-mask {
     background-color: rgba(0, 0, 0, 0.3); }
-  .tangram-form figure .image-uploader:hover .image-resetter,
-  .tangram-form .figure-items .image-uploader:hover .image-resetter {
+  .tangram-form .tangram-inputs figure .image-uploader:hover .image-resetter,
+  .tangram-form .tangram-inputs .figure-items .image-uploader:hover .image-resetter {
     opacity: 1;
     top: 136px; }
-  .tangram-form figure .image-uploader,
-  .tangram-form figure .image-uploader.photo,
-  .tangram-form figure .image-uploader.photo3x2,
-  .tangram-form .figure-items .image-uploader,
-  .tangram-form .figure-items .image-uploader.photo,
-  .tangram-form .figure-items .image-uploader.photo3x2 {
+  .tangram-form .tangram-inputs figure .image-uploader,
+  .tangram-form .tangram-inputs figure .image-uploader.photo,
+  .tangram-form .tangram-inputs figure .image-uploader.photo3x2,
+  .tangram-form .tangram-inputs .figure-items .image-uploader,
+  .tangram-form .tangram-inputs .figure-items .image-uploader.photo,
+  .tangram-form .tangram-inputs .figure-items .image-uploader.photo3x2 {
     width: 180px !important;
     height: 120px !important; }
-  .tangram-form figure .image-uploader.photo2x3,
-  .tangram-form .figure-items .image-uploader.photo2x3 {
+  .tangram-form .tangram-inputs figure .image-uploader.photo2x3,
+  .tangram-form .tangram-inputs .figure-items .image-uploader.photo2x3 {
     width: 80px !important;
     height: 120px !important; }
-  .tangram-form figure .image-uploader.avatar,
-  .tangram-form figure .image-uploader.avatar1x1,
-  .tangram-form .figure-items .image-uploader.avatar,
-  .tangram-form .figure-items .image-uploader.avatar1x1 {
+  .tangram-form .tangram-inputs figure .image-uploader.avatar,
+  .tangram-form .tangram-inputs figure .image-uploader.avatar1x1,
+  .tangram-form .tangram-inputs .figure-items .image-uploader.avatar,
+  .tangram-form .tangram-inputs .figure-items .image-uploader.avatar1x1 {
     width: 120px !important;
     height: 120px !important; }
-  .tangram-form figure .image-uploader.figure,
-  .tangram-form figure .image-uploader.figure4x3,
-  .tangram-form .figure-items .image-uploader.figure,
-  .tangram-form .figure-items .image-uploader.figure4x3 {
+  .tangram-form .tangram-inputs figure .image-uploader.figure,
+  .tangram-form .tangram-inputs figure .image-uploader.figure4x3,
+  .tangram-form .tangram-inputs .figure-items .image-uploader.figure,
+  .tangram-form .tangram-inputs .figure-items .image-uploader.figure4x3 {
     width: 160px !important;
     height: 120px !important; }
-  .tangram-form figure .image-uploader.figure3x4,
-  .tangram-form .figure-items .image-uploader.figure3x4 {
+  .tangram-form .tangram-inputs figure .image-uploader.figure3x4,
+  .tangram-form .tangram-inputs .figure-items .image-uploader.figure3x4 {
     width: 90px !important;
     height: 120px !important; }
-  .tangram-form figure .image-uploader.banner,
-  .tangram-form .figure-items .image-uploader.banner {
+  .tangram-form .tangram-inputs figure .image-uploader.banner,
+  .tangram-form .tangram-inputs .figure-items .image-uploader.banner {
     box-sizing: border-box;
     width: 49% !important;
     height: 160px !important; }
-  .tangram-form figure .image-uploader.banner100,
-  .tangram-form .figure-items .image-uploader.banner100 {
+  .tangram-form .tangram-inputs figure .image-uploader.banner100,
+  .tangram-form .tangram-inputs .figure-items .image-uploader.banner100 {
     display: block;
     width: 100% !important;
     height: 100px !important;
     margin-right: 0; }
+
+.tangram-form[data-type=pages] .tangram-inputs[data-type=blocks] figure,
+.tangram-form[data-type=pages] .tangram-inputs[data-type=blocks] .figure-items {
+  margin: 0 0 7px; }
+
+.tangram-form[data-type=pages] .tangram-inputs .custom-item {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 7px 0;
+  line-height: 24px;
+  font-family: inherit;
+  font-size: 12px;
+  color: #666; }
+  .tangram-form[data-type=pages] .tangram-inputs .custom-item .tangram.simpleeditor {
+    box-sizing: border-box;
+    border: solid 1px #ddd;
+    border-radius: 3px; }
+
+.tangram-form .tangram-inputs[data-type=blocks] .custom-item {
+  margin: 0 0 7px; }

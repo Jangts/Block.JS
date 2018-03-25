@@ -1,0 +1,9 @@
+.tangram-form[data-type=tabs] {
+    .inputs-section.on {
+        display: block;
+    }
+    .inputs-section,
+    .inputs-section.off {
+        display: none;
+    }
+}

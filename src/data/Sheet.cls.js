@@ -121,7 +121,7 @@ tangram.block([
             return _data;
         };
 
-    declare('data.DbTable', {
+    declare('data.Sheet', {
         _init: function(tablename, fields, primarykey, constraints) {
             if (namingExpr.test(tablename)) {
                 this.tablename = tablename;
@@ -312,7 +312,7 @@ tangram.block([
         }
     });
 
-    _('data.DbTable', {
+    _('data.Sheet', {
         exec: function(str) {
             var matchs = str.match(/^(select|delete|update|insert)([\w\,\*\s]+from\s+|\s+from\s+|\s+into\s+|\s+)([A-Z_]\w*)\s+(.+)/i);
             if (matchs) {
@@ -329,7 +329,7 @@ tangram.block([
                             var sql = 'select * from ' + table + ' ' + matchs[4],
                                 result = jsonsql.query(sql, tables);
                             if (result.length) {
-                                var table = new _.data.DbTable(matchs[3]);
+                                var table = new _.data.Sheet(matchs[3]);
                                 _.each(result, function(i, row) {
                                     table.delete(row[mateinfs.pk]);
                                 });
@@ -345,7 +345,7 @@ tangram.block([
                                         var sql = 'select * from ' + table + ' ' + mas[2],
                                             result = jsonsql.query(sql, tables);
                                         if (result.length) {
-                                            var table = new _.data.DbTable(matchs[3]);
+                                            var table = new _.data.Sheet(matchs[3]);
                                             _.each(result, function(i, row) {
                                                 table.update(row[mateinfs.pk], data);
                                             });
@@ -364,7 +364,7 @@ tangram.block([
                                 try {
                                     eval('var data = [' + mas[1] + ']');
                                     if (typeof(data)) {
-                                        var table = new _.data.DbTable(matchs[3]);
+                                        var table = new _.data.Sheet(matchs[3]);
                                         return table.insert.apply(table, data);
                                     }
                                 } catch (e) {
