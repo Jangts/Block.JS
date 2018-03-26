@@ -45,6 +45,17 @@ tangram.block([
         checks = cache.read(new _.Identifier('EDITOR_CHECKS').toString()),
         events = cache.read(new _.Identifier('EDITOR_EVENTS').toString());
 
+    _.dom.events.add(document, 'mouseup', null, null, function() {
+        _.each(SimpleEditors, function(id, editor) {
+            if (editor.mousedown && editor.mouseout) {
+                editor.mousedown = editor.mouseout = false;
+                editor.selection.saveRange();
+                editor.onchange();
+            }
+
+        });
+    });
+
     //Define NameSpace 'form'
     _('form');
 

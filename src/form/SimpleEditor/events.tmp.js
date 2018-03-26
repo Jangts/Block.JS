@@ -16,29 +16,44 @@ tangram.block([
         console = global.console;
 
     var dialogs = {},
-        wsmsdown = function(event) {
+        resetStateBar = function(editor) {
+            _.each(editor.richareas, function(i, richarea) {
+                _.each(_.dom.query('img[_selected=_selected]', richarea), function(i, elem) {
+                    _.dom.removeAttr(elem, '_selected');
+                });
+            });
+            if (editor.statebar) {
+                _.query('.tangram.se-imagestatus', editor.statebar)[0].style.display = 'none';
+            }
+            if (event.target.tagName === 'IMG') {
+                editor.selectedImage = event.target;
+            } else {
+                editor.selectedImage = undefined;
+            }
+        },
+        downrich = function(event) {
+            // console.log(0);
             event.data.mousedown = true;
         },
-        wshandler = function(event) {
-            // console.log(event);
+        outrich = function(event) {
             var editor = event.data;
-            if (editor.mousedown && (event.eventType === 'mouseup' || event.eventType === 'mouseout')) {
-                editor.mousedown = false;
-                editor.hideExtTools();
-                _.each(editor.richareas, function(i, richarea) {
-                    _.each(_.dom.query('img[_selected=_selected]', richarea), function(i, elem) {
-                        _.dom.removeAttr(elem, '_selected');
-                    });
-                });
-                if (editor.statebar) {
-                    _.query('.tangram.se-imagestatus', editor.statebar)[0].style.display = 'none';
-                }
-                if (event.target.tagName === 'IMG') {
-                    editor.selectedImage = event.target;
-                } else {
-                    editor.selectedImage = undefined;
-                }
+            if (editor.mousedown && (_.util.bool.inArr(event.target, editor.richareas) !== false)) {
+                editor.mouseout = true;
+                resetStateBar(editor);
             }
+        },
+        muprich = function(event) {
+            // console.log(1);
+            var editor = event.data;
+            editor.hideExtTools();
+            editor.mousedown = false;
+            resetStateBar(editor);
+            editor.selection.saveRange();
+            editor.onchange();
+        },
+        kuprich = function(event) {
+            var editor = event.data;
+            resetStateBar(editor);
             editor.selection.saveRange();
             editor.onchange();
         },
@@ -108,7 +123,6 @@ tangram.block([
     events = {
         'toolbar': {
             'mousedown': function(event) {
-                // console.log(event);
                 var editor = event.data;
                 editor.selection.restoreSelection();
                 editor.onchange();
@@ -225,7 +239,9 @@ tangram.block([
             }
         },
         'workspaces': {
-            'mouseup': wsmsdown,
+            'mousedown': {
+                '.tangram.se-richarea': downrich
+            },
             'mouseup': {
                 '.tangram.se-statebar .se-imgfloat': function(e) {
                     var float = _.dom.getAttr(this, 'data-float') || 'none',
@@ -260,14 +276,15 @@ tangram.block([
                     });
                     event.data.selection.restoreSelection();
                 },
-                '.tangram.se-richarea': wshandler
-            },
-            'keyup': {
-                '.tangram.se-richarea': wshandler
+                '.tangram.se-richarea': muprich
             },
             'mouseout': {
-                '.tangram.se-richarea': wshandler
+                '.tangram.se-richarea': outrich
             },
+            'keyup': {
+                '.tangram.se-richarea': kuprich
+            },
+
             'change': {
                 '.tangram.se-statebar input': function(event) {
                     // console.log(event);
@@ -282,4 +299,4 @@ tangram.block([
 
     cache.save(dialogs, 'EDITOR_DIALOGS');
     cache.save(events, 'EDITOR_EVENTS');
-})
+});

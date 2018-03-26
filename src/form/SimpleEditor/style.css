@@ -469,7 +469,7 @@
     resize: vertical;
     z-index: 0;
     line-height: normal;
-    font-size: medium; }
+    font-size: 13px; }
     .tangram.simpleeditor .tangram.se-richarea * {
       -webkit-box-sizing: content-box;
       -moz-box-sizing: content-box;

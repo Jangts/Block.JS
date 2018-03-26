@@ -106,8 +106,15 @@ tangram.block([
                 sele.handler.call(elem, event);
             };
             event.currentTarget = event.currentTarget || event.target || event.relatedTarget || event.srcElement;
+            event.target = event.target || event.currentTarget;
             event.delegateTarget = this.Element;
-            event.target = event.target || event.currentTarget || event.relatedTarget || event.srcElement;
+            if (event.delegateTarget === event.target) {
+                event.path = event.path || [event.target];
+                event.isCurrent = true;
+            } else {
+                event.path = event.path || [event.target, event.delegateTarget];
+                event.isCurrent = (event.path[0] === event.delegateTarget);
+            }
             event.wheelDelta = event.wheelDelta || event.detail * -40;
             event.timeStamp = Date.parse(new Date()) / 1000;
             event.eventType = eventType;
@@ -141,9 +148,11 @@ tangram.block([
             if (this.eventTypes[eventType]) {
                 var originEventType = this.originEventType(eventType);
                 var event = {
+                    path: [this.Element],
                     currentTarget: target,
                     data: data,
                     delegateTarget: this.Element,
+                    isCurrent: false,
                     isTrigger: true,
                     target: target,
                     timeStamp: Date.parse(new Date()) / 1000,
