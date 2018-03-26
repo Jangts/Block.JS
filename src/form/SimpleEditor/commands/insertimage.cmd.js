@@ -49,7 +49,7 @@ tangram.block([
         var html = '<dialog class="tangram se-dialog">';
         html += '<span class="tangram se-title">Insert Pictures</span>';
         html += '<div class="tangram se-url">';
-        html += '<label>Enter URL</label><input type="text" class="tangram se-input" placeholder="Image URL" />';
+        html += '<label><i>Enter URL</i><input type="text" class="tangram se-input" placeholder="Image URL" /></label>';
         html += '</div>';
         html += '<input type="file" class="tangram se-files" value="" hidden="" multiple />';
         html += '<div class="tangram se-show"><span>click to upload</span></div>';

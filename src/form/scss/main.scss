@@ -102,9 +102,10 @@
         }
         input[type=radio],
         input[type=checkbox] {
-            width: 14px;
+            vertical-align: middle;
+            width: 20px;
             height: 14px;
-            margin: 5px;
+            margin: 0 !important;
         }
         input.use-tp.datetime-item,
         input.use-tp.fulldate-item,
@@ -123,11 +124,6 @@
         }
         input[type=number] {
             padding: 0 10px;
-        }
-        input[type=radio],
-        input[type=checkbox] {
-            vertical-align: middle;
-            margin-top: -2px !important;
         }
         textarea,
         textarea.text-area {
@@ -173,10 +169,13 @@
             i {
                 font-style: normal;
             }
-            >input {
-                width: 14px;
+            >input,
+            input[type=radio],
+            input[type=checkbox] {
+                vertical-align: middle;
+                width: 20px;
                 height: 14px;
-                margin: 5px;
+                margin: 0 !important;
             }
         }
         .inputs-line+.inputs-line {

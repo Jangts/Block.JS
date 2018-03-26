@@ -92,13 +92,13 @@ tangram.block([
         html += '<span class="tangram se-title">Insert Video</span>';
         html += '<textarea class="tangram se-code" placeholder="Embedded code"></textarea>';
         html += '<div class="tangram se-url">';
-        html += '<label>Enter URL</label><input type="text" class="tangram se-input" placeholder="Video URL" />';
+        html += '<label><i>Enter URL</i><input type="text" class="tangram se-input" placeholder="Video URL" /></label>';
         html += '</div>';
         html += '<div class="tangram se-attr"><div class="tangram se-attr-left">';
-        html += '<label>Size</label><input type="text" class="tangram se-vidoe-width" placeholder="640">';
+        html += '<label><i>Size</i><input type="text" class="tangram se-vidoe-width" placeholder="640"></label>';
         html += '<span>×</span><input type="text" class="tangram se-vidoe-height" placeholder="480">';
         html += '</div><div class="tangram se-attr-right">';
-        html += '<label>Type</label><select class="tangram se-vidoe-type">';
+        html += '<label><i>Type</i><select class="tangram se-vidoe-type"></label>';
         html += '<option value="swf" selected="selected">swf</option>';
         html += '<option value="webm">webm</option>';
         html += '<option value="mp4">mp4</option>';

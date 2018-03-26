@@ -86,9 +86,10 @@
       height: 24px; }
     .tangram-form .tangram-inputs input[type=radio],
     .tangram-form .tangram-inputs input[type=checkbox] {
-      width: 14px;
+      vertical-align: middle;
+      width: 20px;
       height: 14px;
-      margin: 5px; }
+      margin: 0 !important; }
     .tangram-form .tangram-inputs input.use-tp.datetime-item,
     .tangram-form .tangram-inputs input.use-tp.fulldate-item,
     .tangram-form .tangram-inputs input.use-tp.timeofday-item {
@@ -103,10 +104,6 @@
       text-align: right; }
     .tangram-form .tangram-inputs input[type=number] {
       padding: 0 10px; }
-    .tangram-form .tangram-inputs input[type=radio],
-    .tangram-form .tangram-inputs input[type=checkbox] {
-      vertical-align: middle;
-      margin-top: -2px !important; }
     .tangram-form .tangram-inputs textarea,
     .tangram-form .tangram-inputs textarea.text-area {
       height: 78px;
@@ -143,10 +140,15 @@
     .tangram-form .tangram-inputs.inline-inputs .checkbox-label i {
       font-style: normal; }
     .tangram-form .tangram-inputs.inline-inputs .radio-label > input,
-    .tangram-form .tangram-inputs.inline-inputs .checkbox-label > input {
-      width: 14px;
+    .tangram-form .tangram-inputs.inline-inputs .radio-label input[type=radio],
+    .tangram-form .tangram-inputs.inline-inputs .radio-label input[type=checkbox],
+    .tangram-form .tangram-inputs.inline-inputs .checkbox-label > input,
+    .tangram-form .tangram-inputs.inline-inputs .checkbox-label input[type=radio],
+    .tangram-form .tangram-inputs.inline-inputs .checkbox-label input[type=checkbox] {
+      vertical-align: middle;
+      width: 20px;
       height: 14px;
-      margin: 5px; }
+      margin: 0 !important; }
   .tangram-form .tangram-inputs.inline-inputs .inputs-line + .inputs-line .radio-label,
   .tangram-form .tangram-inputs.inline-inputs .inputs-line + .inputs-line .checkbox-label {
     margin: 0 24px 0 0; }
@@ -599,6 +601,11 @@
     box-sizing: border-box;
     border: solid 1px #ddd;
     border-radius: 3px; }
+    .tangram-form .tangram-inputs .custom-items .tangram.simpleeditor input[type=radio],
+    .tangram-form .tangram-inputs .custom-items .tangram.simpleeditor input[type=checkbox] {
+      width: 20px;
+      height: 14px;
+      margin: 0; }
 
 .tangram-form[data-type=pages] .tangram-inputs[data-type=blocks] .custom-items {
   margin: 0 0 7px; }

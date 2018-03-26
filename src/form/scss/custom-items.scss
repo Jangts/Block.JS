@@ -20,6 +20,12 @@
                 box-sizing: border-box;
                 border: solid 1px #ddd;
                 border-radius: 3px;
+                input[type=radio],
+                input[type=checkbox] {
+                    width: 20px;
+                    height: 14px;
+                    margin: 0;
+                }
             }
         }
     }

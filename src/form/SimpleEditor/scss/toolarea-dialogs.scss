@@ -15,6 +15,10 @@
     color: #555;
     overflow: hidden;
     text-align: left;
+    input {
+        box-sizing: content-box;
+        border-radius: 0;
+    }
     span .tangram.se-title {
         font-family: Arial, Helvetica, sans-serif;
         display: block;
@@ -49,48 +53,50 @@
         width: 340px;
         height: 30px;
         margin-bottom: 10px;
-    }
-    .tangram.se-aaa label,
-    .tangram.se-url label {
-        float: left;
-        width: 78px;
-        height: 30px;
-        line-height: 30px;
-        background-color: #EEE;
-        text-align: center;
-        font-size: 13px;
-        color: #444;
-    }
-    .tangram.se-aaa input,
-    .tangram.se-url input {
-        float: right;
-        width: 250px;
-        height: 28px;
-        padding: 0px 5px;
-        font-size: 12px;
-        border: #EEE 1px solid;
-        line-height: 28px;
+        label {
+            display: block;
+            height: 30px;
+            i {
+                box-sizing: content-box;
+                float: left;
+                width: 78px;
+                height: 30px;
+                line-height: 30px;
+                background-color: #EEE;
+                text-align: center;
+                font-size: 13px;
+                color: #444;
+            }
+            input {
+                float: right;
+                width: 250px;
+                height: 28px;
+                padding: 0px 5px;
+                font-size: 12px;
+                border: #EEE 1px solid;
+                line-height: 28px;
+            }
+        }
     }
     /* --------------- */
     .tangram.se-check {
         width: 340px;
         height: 20px;
         margin-bottom: 10px;
-    }
-    .tangram.se-check label {
-        float: left;
-        width: auto;
-        height: 20px;
-        line-height: 20px;
-        font-size: 12px;
-        color: #999;
-    }
-    .tangram.se-check .tangram.se-checkbox {
-        float: left;
-        width: 14px;
-        height: 14px;
-        margin: 3px;
-        top: 0px;
+        label {
+            display: block;
+            width: auto;
+            height: 20px;
+            line-height: 20px;
+            font-size: 12px;
+            color: #999;
+        }
+        .tangram.se-checkbox {
+            display: inline-block;
+            width: 20px;
+            height: 14px;
+            margin: 0px;
+        }
     }
     /* --------------- */
     .tangram.se-attr {
@@ -100,13 +106,17 @@
         margin-bottom: 10px;
         label {
             float: left;
-            width: auto;
-            height: 24px;
-            line-height: 24px;
-            padding: 0px 5px;
-            background-color: #EEE;
-            text-align: center;
-            color: #444;
+            height: 34px;
+            i {
+                float: left;
+                width: auto;
+                height: 24px;
+                line-height: 24px;
+                padding: 0px 5px;
+                background-color: #EEE;
+                text-align: center;
+                color: #444;
+            }
         }
         span {
             float: left;

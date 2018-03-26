@@ -51,10 +51,10 @@ tangram.block([
         var html = '<dialog class="tangram se-dialog">';
         html += '<span class="tangram se-title">Insert link</span>';
         html += '<div class="tangram se-url">';
-        html += '<label>Enter URL</label><input type="text" class="tangram se-input createlink" placeholder="http://www.yangram.com/tangram.js/" />';
+        html += '<label><i>Enter URL</i><input type="text" class="tangram se-input createlink" placeholder="http://www.yangram.com/tangram.js/" /></label>';
         html += '</div>';
         html += '<div class="tangram se-check">';
-        html += '<input type="checkbox" class="tangram se-checkbox" checked="checked"> <label>Open in new tab</label>';
+        html += '<label><input type="checkbox" class="tangram se-checkbox" checked="checked">Open in new tab</label>';
         html += '</div>';
         html += '<div class="tangram se-btns">';
         html += '<button type="button" data-se-cmd="createlink">OK</button>';
