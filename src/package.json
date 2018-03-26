@@ -1,26 +1,26 @@
 {
-  "author": {
-    "name": "Jangts"
-  },
-  "bugs": {
-    "url": "https://github.com/Jangts/tangram.js/issues"
-  },
-  "bundleDependencies": [],
-  "deprecated": false,
-  "description": "A Web Front-end Development Javascript Framework",
-  "homepage": "https://nidn.yangram.com/tangram.js",
-  "keywords": [
-    "tangram.js"
-  ],
-  "license": "MIT",
-  "main": "./tangram.js",
-  "name": "@jangts/tangram.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Jangts/tangram.js.git"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "version": "2.0.7"
+    "author": {
+        "name": "Jangts"
+    },
+    "bugs": {
+        "url": "https://github.com/Jangts/tangram.js/issues"
+    },
+    "bundleDependencies": [],
+    "deprecated": false,
+    "description": "A Web Front-end Development Javascript Framework",
+    "homepage": "https://nidn.yangram.com/tangram.js",
+    "keywords": [
+        "tangram.js"
+    ],
+    "license": "MIT",
+    "main": "./tangram.js",
+    "name": "@jangts/tangram.js",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Jangts/tangram.js.git"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "version": "2.0.8"
 }

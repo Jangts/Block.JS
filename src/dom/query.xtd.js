@@ -143,12 +143,14 @@ tangram.block(['$_/util/str.xtd', '$_/util/arr.xtd', '$_/util/obj.xtd'], functio
     };
 
     var hasChildNode = function(elem, node) {
-        node = node.parentNode;
-        while (node != undefined && node != null) {
-            if (node === elem) {
-                return true;
-            }
+        if (node && elem) {
             node = node.parentNode;
+            while (node != undefined && node != null) {
+                if (node === elem) {
+                    return true;
+                }
+                node = node.parentNode;
+            }
         }
         return false;
     };

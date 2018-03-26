@@ -19,9 +19,56 @@ tangram.block([
         document = global.document,
         console = global.console;
 
-    var builders = {
-            image: function() {},
-            video: function() {}
+    var values = {},
+        builders = {
+            image: function() {
+                console.log(this);
+                this.changer = _.dom.create('input', this.Element, {
+                    className: 'pic-changer',
+                    type: 'file',
+                    value: ''
+                });
+                _.dom.create('i', this.Element, {
+                    className: 'pic-mask'
+                });
+                this.displayer = _.dom.create('img', this.Element, {
+                    className: 'pic-displayer'
+                });
+                this.displayer.src = this.playsrc;
+                if (this.resetsrc) {
+                    this.resetter = _.dom.create('i', this.Element, {
+                        className: 'pic-resetter',
+                        innerHTML: '重置或清除'
+                    });
+                }
+            },
+            video: function() {
+                console.log(this);
+                this.changer = _.dom.create('input', this.Element, {
+                    className: 'pic-changer',
+                    type: 'file',
+                    value: ''
+                });
+                _.dom.create('i', this.Element, {
+                    className: 'pic-mask'
+                });
+                this.displayer = _.dom.create('video', this.Element, {
+                    className: 'pic-displayer',
+                    autoplay: 'autoplay',
+                    loop: 'loop',
+                    muted: 'muted'
+                });
+                _.dom.create('img', this.displayer, {
+                    className: 'pic-displayer'
+                }).src = this.subtype === 'video16x9' ? _.dirname(block.url) + 'images/video16x9.jpg' : _.dirname(block.url) + 'images/video.jpg';
+                this.displayer.src = this.playsrc;
+                if (this.resetsrc) {
+                    this.resetter = _.dom.create('i', this.Element, {
+                        className: 'pic-resetter',
+                        innerHTML: '重置或清除'
+                    });
+                }
+            }
         },
         callbacks = {
             checkDone: function(files) {
@@ -36,11 +83,9 @@ tangram.block([
                         progress: callbacks.onUploadProgress
                     }
                 });
-                return;
-                previewer.innerHTML = list;
-                previewer.files = files;
             },
             checkFail: function(files) {
+                alert('文件格式错误或文件大小超过指定最大值！');
                 console.log(this, files);
             },
             uploadDone: function(response) {
@@ -50,6 +95,7 @@ tangram.block([
                         this.inputter.value = src;
                     }
                     this.displayer.src = src;
+                    values[this.uid] = src;
                 } else {
                     console.log(response);
                     alert('上传失败');
@@ -90,6 +136,7 @@ tangram.block([
                 this.inputter.value = this.resetsrc;
             }
             this.displayer.src = this.resetsrc;
+            values[this.uid] = this.resetsrc;
         };
 
     declare('form.PicturesUploader', {
@@ -101,23 +148,26 @@ tangram.block([
         displayer: null,
         resetter: null,
         resetsrc: null,
+        playsrc: null,
         posturl: 'http://www.eyutou.ni:8888/applications/uploads/files/?returndetails=json',
         _init: function(elem, options) {
-            // console.log(this.Element, elem);
             this.Element = _.util.bool.isStr(elem) ? _.dom.query.byId(elem) : elem;
+            // console.log(this.Element, elem);
             if (_.util.bool.isEl(this.Element)) {
                 options = options || {};
-                this.type = options.type === 'vodeo' ? 'vodeo' : 'image';
-                this.type = options.subtype || options.type;
-                var inputs = $('.image-src', this.Element);
+                this.uid = new _.Identifier();
+                this.type = options.type === 'video' ? 'video' : 'image';
+                this.subtype = options.subtype || options.type;
+                var inputs = $('.pic-src', this.Element);
                 if (inputs.length) {
                     this.inputter = inputs[0];
-                    this.src = this.resetsrc = inputs.val();
+                    values[this.uid] = this.playsrc = this.resetsrc = inputs.val() || '';
                 } else {
-                    this.src = options.src || $(this.Element).data('defaultSrc') || null;
-                    this.resetsrc = options.resetsrc || this.src;
+                    values[this.uid] = '';
+                    this.playsrc = options.src || $(this.Element).data('defaultSrc') || null;
+                    this.resetsrc = options.resetsrc || this.playsrc || '';
                 }
-                if (!this.src) {
+                if (!this.playsrc) {
                     switch (this.subtype) {
                         case 'photo2x3':
                         case 'figure3x4':
@@ -138,30 +188,28 @@ tangram.block([
 
                         case 'video':
                         case 'video4x3':
-                            var imgsrc = 'video4x3.jpg',
-                            filename = 'video4x3.mp4';
+                            var filename = 'video4x3.mp4';
                             break;
 
                         case 'video16x9':
-                            var imgsrc = 'video16x9.jpg',
-                            filename = 'video16x9.mp4';
+                            var filename = 'video16x9.mp4';
                             break;
 
                         default:
                             var filename = 'photo.jpg';
                     }
-                    this.src = _.dirname(block.url) + 'images/' + filename;
+                    this.playsrc = _.dirname(block.url) + 'images/' + filename;
                 }
-                var changers = $('.image-changer', this.Element);
+                var changers = $('.pic-changer', this.Element);
                 if (changers.length) {
                     this.changer = changers[0];
                     if (this.type === 'image') {
-                        this.displayer = $('img.image-displayer', this.Element).attr('src', this.src).get(0);
+                        this.displayer = $('img.pic-displayer', this.Element).attr('src', this.playsrc).get(0);
                     } else {
 
                     }
                     if (this.resetsrc) {
-                        this.resetter = $('.image-resetter', this.Element).get(0);
+                        this.resetter = $('.pic-resetter', this.Element).get(0);
                     }
                 } else {
                     builders[this.type].call(this);
@@ -182,6 +230,9 @@ tangram.block([
             } else {
                 return null;
             }
+        },
+        getValue: function() {
+            return values[this.uid];
         },
         listenEvents: function() {
             var that = this;

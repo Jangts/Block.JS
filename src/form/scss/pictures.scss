@@ -1,28 +1,27 @@
 .tangram-form {
     .tangram-inputs {
         figure,
-        .figure-items {
+        .figure-items,
+        .video-item {
             display: block;
             width: 100%;
             margin: 7px 0;
-            .image-uploader {
+            .pic-uploader {
                 box-sizing: content-box;
-                display: inline-block;
                 position: relative;
-                padding: 19px;
-                border: solid 1px #ddd;
-                border-radius: 3px;
                 text-align: center;
                 overflow: hidden;
-                margin-right: 1%;
-                img.image-displayer {
-                    display: block;
+                .pic-displayer {
+                    // display: block;
                     position: relative;
-                    width: 100%;
+                    // width: 100%;
                     height: 100%;
                     max-width: 100%;
                     max-height: 100%;
                     margin: 0 auto;
+                }
+                .pic-mask {
+                    z-index: 10;
                 }
                 input[type=file] {
                     display: none;
@@ -33,12 +32,9 @@
                     left: 0;
                     opacity: 0;
                 }
-                .image-mask {
-                    z-index: 10;
-                }
-                .image-mask,
-                .image-changer,
-                input[type=file].image-changer {
+                .pic-mask,
+                .pic-changer,
+                input[type=file].pic-changer {
                     display: block;
                     position: absolute;
                     width: 100%;
@@ -46,17 +42,16 @@
                     top: 0;
                     left: 0;
                 }
-                .image-changer,
-                input[type=file].image-changer {
+                .pic-changer,
+                input[type=file].pic-changer {
                     z-index: 20;
                     cursor: pointer;
                 }
-                .image-resetter {
+                .pic-resetter {
                     display: block;
                     position: absolute;
                     width: 100%;
                     height: 24px;
-                    top: 160px;
                     left: 0;
                     background-color: #498bea;
                     line-height: 24px;
@@ -70,49 +65,92 @@
                     transition: opacity ease-in-out .3s, top ease-in-out .3s;
                 }
             }
-            .image-uploader:hover {
-                .image-mask {
+            .pic-uploader:hover {
+                .pic-mask {
                     background-color: rgba(0, 0, 0, 0.3);
                 }
-                .image-resetter {
+                .pic-resetter {
                     opacity: 1;
+                }
+            }
+        }
+        figure,
+        .figure-items {
+            .pic-uploader {
+                display: inline-block;
+                padding: 19px;
+                border: solid 1px #ddd;
+                border-radius: 3px;
+                margin-right: 1%;
+                .pic-resetter {
+                    top: 160px;
+                }
+            }
+            .pic-uploader:hover {
+                .pic-resetter {
                     top: 136px;
                 }
             }
-            .image-uploader,
-            .image-uploader[data-subtype=photo],
-            .image-uploader[data-subtype=photo3x2] {
+            .pic-uploader,
+            .pic-uploader[data-subtype=photo],
+            .pic-uploader[data-subtype=photo3x2] {
                 width: 180px !important;
                 height: 120px !important;
             }
-            .image-uploader[data-subtype=photo2x3] {
+            .pic-uploader[data-subtype=photo2x3] {
                 width: 80px !important;
                 height: 120px !important;
             }
-            .image-uploader[data-subtype=avatar],
-            .image-uploader[data-subtype=avatar1x1] {
+            .pic-uploader[data-subtype=avatar],
+            .pic-uploader[data-subtype=avatar1x1] {
                 width: 120px !important;
                 height: 120px !important;
             }
-            .image-uploader[data-subtype=figure],
-            .image-uploader[data-subtype=figure4x3] {
+            .pic-uploader[data-subtype=figure],
+            .pic-uploader[data-subtype=figure4x3] {
                 width: 160px !important;
                 height: 120px !important;
             }
-            .image-uploader[data-subtype=figure3x4] {
+            .pic-uploader[data-subtype=figure3x4] {
                 width: 90px !important;
                 height: 120px !important;
             }
-            .image-uploader[data-subtype=banner] {
+            .pic-uploader[data-subtype=banner] {
                 box-sizing: border-box;
                 width: 49% !important;
                 height: 160px !important;
             }
-            .image-uploader[data-subtype=banner100] {
+            .pic-uploader[data-subtype=banner100] {
+                box-sizing: border-box;
                 display: block;
                 width: 100% !important;
-                height: 100px !important;
+                height: 160px !important;
                 margin-right: 0;
+            }
+        }
+        .video-item {
+            .pic-uploader {
+                display: block;
+                padding: 0;
+                border: 0;
+                border-radius: 3px;
+                .pic-resetter {
+                    top: 180px;
+                }
+            }
+            .pic-uploader:hover {
+                .pic-resetter {
+                    top: 156px;
+                }
+            }
+            .pic-uploader,
+            .pic-uploader[data-subtype=video4x3] {
+                width: 240px !important;
+                height: 180px !important;
+            }
+            .pic-uploader[data-subtype=video16x9] {
+                width: 320px !important;
+                height: 180px !important;
             }
         }
     }
@@ -121,9 +159,10 @@
 .tangram-form[data-type=pages] {
     .tangram-inputs[data-type=blocks] {
         figure,
-        .figure-items {
+        .figure-items,
+        .video-item {
             margin: 0 0 7px;
-            .image-uploader {
+            .pic-uploader {
                 border-radius: 0;
             }
         }
