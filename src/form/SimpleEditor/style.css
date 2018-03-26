@@ -30,7 +30,7 @@
     overflow: visible;
     font-size: 0;
     line-height: 0;
-    z-index: 1024;
+    z-index: 2048;
     /*** EDITOR TOOLBAR CHARACTER ***********************/
     /*** EDITOR TOOLBAR ICONS ***************************/
     /* ------------------------- */
@@ -463,6 +463,7 @@
     .tangram.simpleeditor .tangram.se-toolbar .tangram.se-tool.active .tangram.se-dialog {
       display: block; }
   .tangram.simpleeditor .tangram.se-richarea {
+    min-height: 170px;
     background-color: #FFF;
     overflow: auto;
     resize: vertical;

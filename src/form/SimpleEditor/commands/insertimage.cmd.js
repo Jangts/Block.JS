@@ -82,9 +82,13 @@ tangram.block([
                         alert(failed + 'pictures upload failed');
                     }
                     that.execCommand('insertimage', val);
-                    _.dom.toggleClass(that.loadmask, 'on', false);
+                    _.each(that.loadmasks, function(i, loadmask) {
+                        _.dom.toggleClass(loadmask, 'on', true);
+                    });
                 });
-                _.dom.toggleClass(this.loadmask, 'on', true);
+                _.each(that.loadmasks, function(i, loadmask) {
+                    _.dom.toggleClass(loadmask, 'on', true);
+                });
             } else {
                 var url;
                 _.each(files, function(i, file) {

@@ -114,7 +114,7 @@ tangram.block([
                     this.mainareas = [];
                     if (this.textareas.length) {
                         _.each(this.textareas, function(i, textarea) {
-                            console.log(textarea, textarea.getText());
+                            // console.log(textarea, textarea.getText());
                             this.mainareas.push(builders.mainarea.call(this, options, textarea.getText()));
                         }, this);
                     } else {
@@ -186,7 +186,7 @@ tangram.block([
                 return this.selection.getSelectionText();
             },
             inForm: function(formElement) {
-                return _.dom.contain(formElement, this.cElement.Element);
+                return (formElement === this.cElement.Element) || _.dom.contain(formElement, this.cElement.Element);
             },
             hideExtTools: function() {
                 _.each(_.query('.tangram.se-tool[data-se-dialog], .tangram.se-tool[data-se-cmds]', this.toolbar), function(i, el) {
@@ -248,15 +248,13 @@ tangram.block([
         metheds);
 
     _.extend(_.form, true, {
-        careatEditor: function(elems, options) {
-            var editor = new _.form.SimpleEditor(elems, options);
-            return editor;
+        careatEditor: function(elem, options) {
+            return new _.form.SimpleEditor(elem, options);
         },
         careatEditors: function(selector, options) {
             var editors = [];
             _.each(_.query(selector), function(i, el) {
-                var editor = _.form.careatEditor(el, options);
-                editors.push(editor);
+                editors.push(_.form.careatEditor(el, options));
             });
             return editors;
         },

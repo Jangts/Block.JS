@@ -7,24 +7,54 @@
             width: 100%;
             margin: 7px 0;
             .pic-uploader {
-                box-sizing: content-box;
+                box-sizing: border-box;
                 position: relative;
-                text-align: center;
+                display: block;
+                width: 100% !important;
+                height: 70px !important;
+                padding: 19px;
+                border: solid 1px #ddd;
+                border-radius: 3px;
                 overflow: hidden;
+                input {
+                    box-sizing: border-box;
+                    display: block;
+                    width: 100%;
+                    height: 30px;
+                    line-height: 30px;
+                    padding: 0 10px;
+                    border: solid 1px #ddd;
+                    border-radius: 3px;
+                }
+                .pic-displayer,
+                .pic-mask,
+                .pic-bluemask,
+                .pic-changer,
+                input[type=file].pic-changer,
+                .pic-resetter {
+                    display: none;
+                }
+            }
+            .pic-uploader.actived {
+                box-sizing: content-box;
+                text-align: center;
                 .pic-displayer {
-                    // display: block;
+                    display: block;
                     position: relative;
-                    // width: 100%;
-                    height: 100%;
                     max-width: 100%;
                     max-height: 100%;
-                    margin: 0 auto;
+                    margin: auto;
                 }
                 .pic-mask {
                     z-index: 10;
                 }
-                input[type=file] {
+                .pic-bluemask {
+                    z-index: 30;
+                }
+                input {
                     display: none;
+                }
+                input[type=file] {
                     position: absolute;
                     width: 0;
                     height: 0;
@@ -41,6 +71,15 @@
                     height: 100%;
                     top: 0;
                     left: 0;
+                }
+                .pic-bluemask {
+                    display: block;
+                    position: absolute;
+                    width: 100%;
+                    height: 0;
+                    top: 100%;
+                    left: 0;
+                    background-color: #498bea;
                 }
                 .pic-changer,
                 input[type=file].pic-changer {
@@ -65,7 +104,7 @@
                     transition: opacity ease-in-out .3s, top ease-in-out .3s;
                 }
             }
-            .pic-uploader:hover {
+            .pic-uploader.actived:hover {
                 .pic-mask {
                     background-color: rgba(0, 0, 0, 0.3);
                 }
@@ -76,79 +115,106 @@
         }
         figure,
         .figure-items {
-            .pic-uploader {
+            .pic-uploader.actived {
                 display: inline-block;
                 padding: 19px;
                 border: solid 1px #ddd;
                 border-radius: 3px;
                 margin-right: 1%;
+                .pic-displayer {
+                    top: 50%;
+                    right: 0;
+                    bottom: 0;
+                    left: 0;
+                    transform: translateY(-50%);
+                }
                 .pic-resetter {
                     top: 160px;
                 }
             }
-            .pic-uploader:hover {
+            .pic-uploader.actived,
+            .pic-uploader.actived[data-subtype=photo],
+            .pic-uploader.actived[data-subtype=photo3x2] {
+                width: 180px !important;
+                height: 120px !important;
+            }
+            .pic-uploader.actived[data-subtype=photo2x3] {
+                width: 80px !important;
+                height: 120px !important;
+            }
+            .pic-uploader.actived[data-subtype=avatar],
+            .pic-uploader.actived[data-subtype=avatar1x1] {
+                width: 120px !important;
+                height: 120px !important;
+            }
+            .pic-uploader.actived[data-subtype=figure],
+            .pic-uploader.actived[data-subtype=figure4x3] {
+                width: 160px !important;
+                height: 120px !important;
+            }
+            .pic-uploader.actived[data-subtype=figure3x4] {
+                width: 90px !important;
+                height: 120px !important;
+            }
+            .pic-uploader.actived[data-subtype=banner] {
+                box-sizing: border-box;
+                width: 30% !important;
+                height: 90px !important;
+                .pic-resetter {
+                    top: 90px;
+                }
+            }
+            .pic-uploader.actived[data-subtype=banner100] {
+                box-sizing: border-box;
+                display: block;
+                width: 100% !important;
+                height: 120px !important;
+                margin-right: 0;
+                .pic-resetter {
+                    top: 120px;
+                }
+            }
+            .pic-uploader.actived:hover {
                 .pic-resetter {
                     top: 136px;
                 }
             }
-            .pic-uploader,
-            .pic-uploader[data-subtype=photo],
-            .pic-uploader[data-subtype=photo3x2] {
-                width: 180px !important;
-                height: 120px !important;
+            .pic-uploader.actived[data-subtype=banner]:hover {
+                .pic-resetter {
+                    top: 66px;
+                }
             }
-            .pic-uploader[data-subtype=photo2x3] {
-                width: 80px !important;
-                height: 120px !important;
-            }
-            .pic-uploader[data-subtype=avatar],
-            .pic-uploader[data-subtype=avatar1x1] {
-                width: 120px !important;
-                height: 120px !important;
-            }
-            .pic-uploader[data-subtype=figure],
-            .pic-uploader[data-subtype=figure4x3] {
-                width: 160px !important;
-                height: 120px !important;
-            }
-            .pic-uploader[data-subtype=figure3x4] {
-                width: 90px !important;
-                height: 120px !important;
-            }
-            .pic-uploader[data-subtype=banner] {
-                box-sizing: border-box;
-                width: 49% !important;
-                height: 160px !important;
-            }
-            .pic-uploader[data-subtype=banner100] {
-                box-sizing: border-box;
-                display: block;
-                width: 100% !important;
-                height: 160px !important;
-                margin-right: 0;
+            .pic-uploader.actived[data-subtype=banner100]:hover {
+                .pic-resetter {
+                    top: 96px;
+                }
             }
         }
         .video-item {
-            .pic-uploader {
+            .pic-uploader.actived {
                 display: block;
                 padding: 0;
                 border: 0;
                 border-radius: 3px;
+                .pic-displayer {
+                    width: 100%;
+                    height: 100%;
+                }
                 .pic-resetter {
                     top: 180px;
                 }
             }
-            .pic-uploader:hover {
+            .pic-uploader.actived:hover {
                 .pic-resetter {
                     top: 156px;
                 }
             }
-            .pic-uploader,
-            .pic-uploader[data-subtype=video4x3] {
+            .pic-uploader.actived,
+            .pic-uploader.actived[data-subtype=video4x3] {
                 width: 240px !important;
                 height: 180px !important;
             }
-            .pic-uploader[data-subtype=video16x9] {
+            .pic-uploader.actived[data-subtype=video16x9] {
                 width: 320px !important;
                 height: 180px !important;
             }
@@ -162,7 +228,7 @@
         .figure-items,
         .video-item {
             margin: 0 0 7px;
-            .pic-uploader {
+            .pic-uploader.actived {
                 border-radius: 0;
             }
         }

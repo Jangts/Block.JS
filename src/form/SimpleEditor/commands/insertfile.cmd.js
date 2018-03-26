@@ -102,9 +102,13 @@ tangram.block([
                         }
 
                     }
-                    _.dom.toggleClass(that.loadmask, 'on', false);
+                    _.each(that.loadmasks, function(i, loadmask) {
+                        _.dom.toggleClass(loadmask, 'on', true);
+                    });
                 });
-                _.dom.toggleClass(this.loadmask, 'on', true);
+                _.each(that.loadmasks, function(i, loadmask) {
+                    _.dom.toggleClass(loadmask, 'on', true);
+                });
             } else {
                 alert('No Upload Configuration');
             }

@@ -35,12 +35,10 @@ tangram.block([
                     className: 'pic-displayer'
                 });
                 this.displayer.src = this.playsrc;
-                if (this.resetsrc) {
-                    this.resetter = _.dom.create('i', this.Element, {
-                        className: 'pic-resetter',
-                        innerHTML: '重置或清除'
-                    });
-                }
+                this.resetter = _.dom.create('i', this.Element, {
+                    className: 'pic-resetter',
+                    innerHTML: '重置或清除'
+                });
             },
             video: function() {
                 console.log(this);
@@ -62,12 +60,10 @@ tangram.block([
                     className: 'pic-displayer'
                 }).src = this.subtype === 'video16x9' ? _.dirname(block.url) + 'images/video16x9.jpg' : _.dirname(block.url) + 'images/video.jpg';
                 this.displayer.src = this.playsrc;
-                if (this.resetsrc) {
-                    this.resetter = _.dom.create('i', this.Element, {
-                        className: 'pic-resetter',
-                        innerHTML: '重置或清除'
-                    });
-                }
+                this.resetter = _.dom.create('i', this.Element, {
+                    className: 'pic-resetter',
+                    innerHTML: '重置或清除'
+                });
             }
         },
         callbacks = {
@@ -84,22 +80,38 @@ tangram.block([
                     }
                 });
             },
-            checkFail: function(files) {
-                alert('文件格式错误或文件大小超过指定最大值！');
-                console.log(this, files);
+            checkFail: function(file, errtype) {
+                console.log(file, errtype);
+                return;
+                switch (errtype) {
+                    case 0:
+                        alert('Must Select Images!');
+                        break;
+                    case 1:
+                        alert('Filesize OVER!');
+                        break;
+                    case 2:
+                        alert('No Legal File Selected!');
+                        break;
+                };
             },
             uploadDone: function(response) {
-                var src = this.caller.srcFinder(response.responseText);
+                var caller = this.caller,
+                    src = caller.srcFinder(response.responseText);
                 if (src) {
-                    if (this.inputter) {
-                        this.inputter.value = src;
+                    if (caller.inputter) {
+                        caller.inputter.value = src;
                     }
-                    this.displayer.src = src;
-                    values[this.uid] = src;
+                    caller.displayer.src = src;
+                    values[caller.uid] = src;
                 } else {
                     console.log(response);
                     alert('上传失败');
                 }
+                $(caller.bluemask).css({
+                    height: '0',
+                    marginTop: '100%'
+                });
             },
             uploadFail: function(response) {
                 console.log(this);
@@ -113,7 +125,14 @@ tangram.block([
                 // console.log(response);
             },
             onUploadProgress: function(response) {
-                console.log(response);
+                var p, caller = this.caller;
+                if (response.lengthComputable) {
+                    p = Math.round(response.loaded * 100 / response.total);;
+                    $(caller.bluemask).css({
+                        height: p + '%',
+                        marginTop: (1 - p) + '%'
+                    });
+                };
             }
         },
         fileInputOnChange = function(caller) {
@@ -125,7 +144,7 @@ tangram.block([
                 }
                 uploader.caller = caller;
                 uploader.isOnlyFilter = false;
-                console.log('foo');
+                // console.log('foo');
                 uploader.checkType(callbacks.checkDone, callbacks.checkFail);
             } else {
                 _.error('must have a post url.');
@@ -146,14 +165,16 @@ tangram.block([
         inputter: null,
         changer: null,
         displayer: null,
+        bluemask: null,
         resetter: null,
         resetsrc: null,
         playsrc: null,
-        posturl: 'http://www.eyutou.ni:8888/applications/uploads/files/?returndetails=json',
+        posturl: '',
         _init: function(elem, options) {
             this.Element = _.util.bool.isStr(elem) ? _.dom.query.byId(elem) : elem;
             // console.log(this.Element, elem);
             if (_.util.bool.isEl(this.Element)) {
+                _.dom.addClass(this.Element, 'actived');
                 options = options || {};
                 this.uid = new _.Identifier();
                 this.type = options.type === 'video' ? 'video' : 'image';
@@ -162,6 +183,7 @@ tangram.block([
                 if (inputs.length) {
                     this.inputter = inputs[0];
                     values[this.uid] = this.playsrc = this.resetsrc = inputs.val() || '';
+                    inputs.hide();
                 } else {
                     values[this.uid] = '';
                     this.playsrc = options.src || $(this.Element).data('defaultSrc') || null;
@@ -208,11 +230,18 @@ tangram.block([
                     } else {
 
                     }
-                    if (this.resetsrc) {
-                        this.resetter = $('.pic-resetter', this.Element).get(0);
-                    }
+                    this.resetter = $('.pic-resetter', this.Element).get(0);
                 } else {
                     builders[this.type].call(this);
+                }
+                this.bluemask = $('.pic-bluemask', this.Element).get(0) || _.dom.create('i', this.Element, {
+                    className: 'pic-bluemask'
+                });
+                if (options.url) {
+                    this.posturl = options.url;
+                }
+                if (options.finder) {
+                    this.srcFinder = options.finder;
                 }
                 this.listenEvents();
             } else {
@@ -231,20 +260,43 @@ tangram.block([
                 return null;
             }
         },
+        inForm: function(formElement) {
+            return (formElement === this.Element) || _.dom.contain(formElement, this.Element);
+        },
+        resetValue: function() {
+            if (this.resetter) {
+                reset.call(this);
+            }
+        },
         getValue: function() {
             return values[this.uid];
         },
         listenEvents: function() {
             var that = this;
-            this.changer.onchange = function() {
-                fileInputOnChange.call(this, that);
-            }
+            if (this.posturl) {
+                this.changer.onchange = function() {
+                    fileInputOnChange.call(this, that);
+                }
 
+            }
             if (this.resetter) {
                 this.resetter.onclick = function() {
                     reset.call(that);
                 }
             };
+        }
+    });
+
+    _.extend(_.form, true, {
+        careatPicturesUploader: function(elem, options) {
+            return new _.form.PicturesUploader(elem, options);
+        },
+        careatPicturesUploaders: function(selector, options) {
+            var uploaders = [];
+            _.each(_.query(selector), function(i, el) {
+                uploaders.push(_.form.careatPicturesUploader(el, options));
+            });
+            return uploaders;
         }
     });
 });

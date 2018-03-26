@@ -16,10 +16,14 @@ tangram.block([
         console = global.console;
 
     var dialogs = {},
+        wsmsdown = function(event) {
+            event.data.mousedown = true;
+        },
         wshandler = function(event) {
             // console.log(event);
             var editor = event.data;
-            if (event.eventType === 'mouseup') {
+            if (editor.mousedown && (event.eventType === 'mouseup' || event.eventType === 'mouseout')) {
+                editor.mousedown = false;
                 editor.hideExtTools();
                 _.each(editor.richareas, function(i, richarea) {
                     _.each(_.dom.query('img[_selected=_selected]', richarea), function(i, elem) {
@@ -221,6 +225,7 @@ tangram.block([
             }
         },
         'workspaces': {
+            'mouseup': wsmsdown,
             'mouseup': {
                 '.tangram.se-statebar .se-imgfloat': function(e) {
                     var float = _.dom.getAttr(this, 'data-float') || 'none',
@@ -258,6 +263,9 @@ tangram.block([
                 '.tangram.se-richarea': wshandler
             },
             'keyup': {
+                '.tangram.se-richarea': wshandler
+            },
+            'mouseout': {
                 '.tangram.se-richarea': wshandler
             },
             'change': {
