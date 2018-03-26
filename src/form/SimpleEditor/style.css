@@ -465,16 +465,11 @@
   .tangram.simpleeditor .tangram.se-richarea {
     min-height: 170px;
     background-color: #FFF;
-    overflow: auto;
-    resize: vertical;
     z-index: 0;
     line-height: normal;
-    font-size: 13px; }
-    .tangram.simpleeditor .tangram.se-richarea * {
-      -webkit-box-sizing: content-box;
-      -moz-box-sizing: content-box;
-      box-sizing: content-box;
-      overflow: auto; }
+    font-size: 13px;
+    overflow: auto;
+    resize: vertical; }
     .tangram.simpleeditor .tangram.se-richarea i {
       font-style: italic; }
     .tangram.simpleeditor .tangram.se-richarea strong,

@@ -3,17 +3,16 @@
 .tangram.se-richarea {
     min-height: 170px;
     background-color: #FFF;
-    overflow: auto;
-    resize: vertical;
     z-index: 0;
     line-height: normal;
     font-size: 13px;
-    * {
-        -webkit-box-sizing: content-box;
-        -moz-box-sizing: content-box;
-        box-sizing: content-box;
-        overflow: auto;
-    }
+    overflow: auto;
+    resize: vertical;
+    // * {
+    //     -webkit-box-sizing: content-box;
+    //     -moz-box-sizing: content-box;
+    //     box-sizing: content-box;
+    // }
     i {
         font-style: italic;
     }
