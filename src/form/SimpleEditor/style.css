@@ -248,6 +248,8 @@
       .tangram.simpleeditor .tangram.se-toolbar .tangram.se-tool .tangram.se-dialog input {
         box-sizing: content-box;
         border-radius: 0; }
+      .tangram.simpleeditor .tangram.se-toolbar .tangram.se-tool .tangram.se-dialog input[type=number] {
+        text-align: center; }
       .tangram.simpleeditor .tangram.se-toolbar .tangram.se-tool .tangram.se-dialog span .tangram.se-title {
         font-family: Arial, Helvetica, sans-serif;
         display: block;
@@ -382,11 +384,12 @@
           width: 340px; }
         .tangram.simpleeditor .tangram.se-toolbar .tangram.se-tool .tangram.se-dialog .tangram.se-btns input {
           float: left;
-          width: 165px;
+          width: 155px;
           height: 30px;
-          text-align: center;
           background-color: #09C;
+          border: none;
           color: #FFF;
+          text-align: center;
           transition: background-color 1s ease;
           -webkit-transition: background-color 1s ease;
           -o-transition: background-color 1s ease;
@@ -566,9 +569,11 @@
       margin: 5px;
       line-height: 20px; }
     .tangram.simpleeditor .tangram.se-statebar input {
+      box-sizing: content-box;
       display: inline-block;
       max-width: 60px;
       height: 16px;
+      padding: 0;
       line-height: 16px;
       font-size: 12px;
       text-align: center;
@@ -612,7 +617,7 @@
     .tangram.simpleeditor .tangram.se-statebar .tangram.se-rowslen,
     .tangram.simpleeditor .tangram.se-statebar .tangram.se-colslen,
     .tangram.simpleeditor .tangram.se-statebar .tangram.se-border-input {
-      max-width: 30px; }
+      max-width: 40px; }
     .tangram.simpleeditor .tangram.se-statebar .tangram.se-imagestatus {
       z-index: 100; }
   .tangram.simpleeditor .tangram.se-loadmask {

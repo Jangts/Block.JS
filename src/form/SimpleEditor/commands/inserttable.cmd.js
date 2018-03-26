@@ -54,10 +54,10 @@ tangram.block([
         var html = '<dialog class="tangram se-dialog">';
         html += '<span class="tangram se-title">Insert Table</span>';
         html += '<div class="tangram se-attr"><div class="tangram se-attr-left">';
-        html += '<label><i>Size</i><input type="text" class="tangram se-table-rows" placeholder="1"></label>';
-        html += '<span>×</span><input type="text" class="tangram se-table-columns" placeholder="1">';
+        html += '<label><i>Size</i><input type="number" class="tangram se-table-rows" placeholder="1"></label>';
+        html += '<span>×</span><input type="number" class="tangram se-table-columns" placeholder="1">';
         html += '</div><div class="tangram se-attr-right">';
-        html += '<label><i>Width</i><input type="text" class="tangram se-table-width" placeholder="100"></label>';
+        html += '<label><i>Width</i><input type="number" class="tangram se-table-width" placeholder="100"></label>';
         html += '<select class="tangram se-table-unit">';
         html += '<option value="%" selected="selected">%</option>';
         html += '<option value="">px</option>';

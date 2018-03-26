@@ -15,9 +15,11 @@
         line-height: 20px;
     }
     input {
+        box-sizing: content-box;
         display: inline-block;
         max-width: 60px;
         height: 16px;
+        padding: 0;
         line-height: 16px;
         font-size: 12px;
         text-align: center;
@@ -67,7 +69,7 @@
     .tangram.se-rowslen,
     .tangram.se-colslen,
     .tangram.se-border-input {
-        max-width: 30px;
+        max-width: 40px;
     }
     .tangram.se-imagestatus {
         z-index: 100;

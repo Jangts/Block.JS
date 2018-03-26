@@ -95,8 +95,8 @@ tangram.block([
         html += '<label><i>Enter URL</i><input type="text" class="tangram se-input" placeholder="Video URL" /></label>';
         html += '</div>';
         html += '<div class="tangram se-attr"><div class="tangram se-attr-left">';
-        html += '<label><i>Size</i><input type="text" class="tangram se-vidoe-width" placeholder="640"></label>';
-        html += '<span>×</span><input type="text" class="tangram se-vidoe-height" placeholder="480">';
+        html += '<label><i>Size</i><input type="number" class="tangram se-vidoe-width" placeholder="640"></label>';
+        html += '<span>×</span><input type="number" class="tangram se-vidoe-height" placeholder="480">';
         html += '</div><div class="tangram se-attr-right">';
         html += '<label><i>Type</i><select class="tangram se-vidoe-type"></label>';
         html += '<option value="swf" selected="selected">swf</option>';
