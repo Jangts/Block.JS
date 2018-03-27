@@ -41,10 +41,11 @@
             appearance: none;
             -webkit-appearance: none;
         }
+        .radios,
+        .checkboxes {
+            height: 30px;
+        }
     }
-    // .tangram-inputs:first-child {
-    //     border-top: 1px #E6E6E6 solid;
-    // }
     .tangram-inputs.inline-inputs {
         .inputs-line {
             height: 30px;

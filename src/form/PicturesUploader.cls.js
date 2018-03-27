@@ -22,7 +22,7 @@ tangram.block([
     var values = {},
         builders = {
             image: function() {
-                console.log(this);
+                // console.log(this);
                 this.changer = _.dom.create('input', this.Element, {
                     className: 'pic-changer',
                     type: 'file',
@@ -41,7 +41,7 @@ tangram.block([
                 });
             },
             video: function() {
-                console.log(this);
+                // console.log(this);
                 this.changer = _.dom.create('input', this.Element, {
                     className: 'pic-changer',
                     type: 'file',
@@ -81,11 +81,11 @@ tangram.block([
                 });
             },
             checkFail: function(file, errtype) {
-                console.log(file, errtype);
-                return;
+                // console.log(file, errtype);
+                // return;
                 switch (errtype) {
                     case 0:
-                        alert('Must Select Images!');
+                        alert('Format Error!');
                         break;
                     case 1:
                         alert('Filesize OVER!');

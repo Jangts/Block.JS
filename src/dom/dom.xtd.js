@@ -524,13 +524,12 @@ tangram.block([
 
                     case 'string':
                         return _.util.arr.index(_.query(list), elem);
-
-                    case 'boolean':
-                        return _.util.arr.index(_.query(elem.tagName, elem.parentNode), elem);
                 }
             }
-            return _.util.arr.index(elem.parentNode.childNodes, elem);
-
+            if (list===true){
+                return _.util.arr.index(_.query(elem.tagName, elem.parentNode), elem);
+            }
+            return (elem && elem.parentNode && elem.parentNode.childNodes) ? _.util.arr.index(elem.parentNode.childNodes, elem) : -1;
         }
     });
 

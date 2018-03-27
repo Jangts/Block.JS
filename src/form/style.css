@@ -114,9 +114,46 @@
     .tangram-form .tangram-inputs textarea.high-item {
       height: 390px;
       resize: vertical; }
+    .tangram-form .tangram-inputs .radios,
+    .tangram-form .tangram-inputs .checkboxes {
+      display: block;
+      width: 100%;
+      height: 40px; }
+      .tangram-form .tangram-inputs .radios label,
+      .tangram-form .tangram-inputs .radios .radio-label,
+      .tangram-form .tangram-inputs .radios .checkbox-label,
+      .tangram-form .tangram-inputs .checkboxes label,
+      .tangram-form .tangram-inputs .checkboxes .radio-label,
+      .tangram-form .tangram-inputs .checkboxes .checkbox-label {
+        display: inline-block;
+        margin: 8px 24px 0 0;
+        line-height: 24px;
+        font-size: 12px;
+        color: #999;
+        font-style: normal; }
+      .tangram-form .tangram-inputs .radios i,
+      .tangram-form .tangram-inputs .checkboxes i {
+        font-style: normal; }
+      .tangram-form .tangram-inputs .radios input,
+      .tangram-form .tangram-inputs .radios input[type=radio],
+      .tangram-form .tangram-inputs .radios input[type=checkbox],
+      .tangram-form .tangram-inputs .checkboxes input,
+      .tangram-form .tangram-inputs .checkboxes input[type=radio],
+      .tangram-form .tangram-inputs .checkboxes input[type=checkbox] {
+        vertical-align: middle;
+        width: 20px;
+        height: 14px;
+        margin: 0 !important; }
+      .tangram-form .tangram-inputs .radios input:first-child,
+      .tangram-form .tangram-inputs .checkboxes input:first-child {
+        margin-left: 0; }
+      .tangram-form .tangram-inputs .radios input:last-child,
+      .tangram-form .tangram-inputs .checkboxes input:last-child {
+        margin-right: 0; }
   .tangram-form .tangram-inputs.inline-inputs .inputs-line {
     display: block;
     width: 100%;
+    height: 40px;
     border-bottom: solid 1px #eee; }
   .tangram-form .tangram-inputs.inline-inputs .inline-label {
     line-height: 24px;
@@ -139,10 +176,10 @@
     .tangram-form .tangram-inputs.inline-inputs .radio-label i,
     .tangram-form .tangram-inputs.inline-inputs .checkbox-label i {
       font-style: normal; }
-    .tangram-form .tangram-inputs.inline-inputs .radio-label > input,
+    .tangram-form .tangram-inputs.inline-inputs .radio-label input,
     .tangram-form .tangram-inputs.inline-inputs .radio-label input[type=radio],
     .tangram-form .tangram-inputs.inline-inputs .radio-label input[type=checkbox],
-    .tangram-form .tangram-inputs.inline-inputs .checkbox-label > input,
+    .tangram-form .tangram-inputs.inline-inputs .checkbox-label input,
     .tangram-form .tangram-inputs.inline-inputs .checkbox-label input[type=radio],
     .tangram-form .tangram-inputs.inline-inputs .checkbox-label input[type=checkbox] {
       vertical-align: middle;
@@ -220,6 +257,9 @@
   .tangram-form[data-type=pages] .tangram-inputs select {
     appearance: none;
     -webkit-appearance: none; }
+  .tangram-form[data-type=pages] .tangram-inputs .radios,
+  .tangram-form[data-type=pages] .tangram-inputs .checkboxes {
+    height: 30px; }
 
 .tangram-form[data-type=pages] .tangram-inputs.inline-inputs .inputs-line {
   height: 30px;
