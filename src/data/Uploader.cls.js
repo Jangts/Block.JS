@@ -176,7 +176,7 @@ tangram.block(['$_/util/bool.xtd'], function(pandora, global, undefined) {
             var array = [];
             for (var i = 0; i < this.files.length; i++) {
                 if (this.checkSIZE(this.files[i])) {
-                    if (this.checkTYPE(this.files[i]) || this.checkSUFFIX(this.files[i])) {
+                    if (this.checkTYPE(this.files[i]) || this.checkEXTN(this.files[i])) {
                         array.push(this.files[i]);
                     }
                 }
@@ -192,7 +192,7 @@ tangram.block(['$_/util/bool.xtd'], function(pandora, global, undefined) {
         },
         filesChecker: function() {
             for (var i = 0; i < this.files.length; i++) {
-                if (!(this.checkTYPE(this.files[i]) || this.checkSUFFIX(this.files[i]))) {
+                if (!(this.checkTYPE(this.files[i]) || this.checkEXTN(this.files[i]))) {
                     return [false, this.files[i], 0];
                 }
                 if (!this.checkSIZE(this.files[i])) {
@@ -204,7 +204,7 @@ tangram.block(['$_/util/bool.xtd'], function(pandora, global, undefined) {
         checkTYPE: function(file) {
             return this.fileTypeRegExp && this.fileTypeRegExp.test(file.type);
         },
-        checkSUFFIX: function(file) {
+        checkEXTN: function(file) {
             return this.fileNameRegExp && this.fileNameRegExp.test(file.name);
         },
         checkSIZE: function(file) {
