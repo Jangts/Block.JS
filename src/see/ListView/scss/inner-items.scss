@@ -6,7 +6,8 @@
     width: 98%;
     padding: 0 1%;
     line-height: $height;
-    font-size: $size;
+    font-size: #{$size}px;
+    font-size: #{$size/20}rem;
     color: $color;
 }
 
@@ -15,10 +16,10 @@
         color: #181818;
         .list-title {
             height: 30px;
-            @include inner-item-style(30px, 15px, inherit);
+            @include inner-item-style(30px, 15, inherit);
         }
         .list-abstract {
-            @include inner-item-style(21px, 12px, #808080);
+            @include inner-item-style(21px, 12, #808080);
             text-align: justify;
         }
         .list-abstract[data-row="1"] {
@@ -34,7 +35,7 @@
             height: 84px;
         }
         .list-meta {
-            @include inner-item-style(24px, 13px, #515151);
+            @include inner-item-style(24px, 13, #515151);
             >span,
             .list-meta-item {
                 display: inline;
@@ -62,7 +63,7 @@
         >span,
         .list-title>span,
         .list-text {
-            @include inner-item-style(30px, 13px, #c0c0c0);
+            @include inner-item-style(30px, 13, #c0c0c0);
             width: auto;
             padding: 0;
         }
@@ -75,6 +76,7 @@
             background-color: #999;
             line-height: 18px;
             font-size: 12px;
+            font-size: 0.6rem;
             color: #fff;
         }
         >i.hollow,

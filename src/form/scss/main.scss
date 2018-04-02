@@ -1,3 +1,18 @@
+* {
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+html {
+    font-size: 125%; // 现代浏览器（pc端默认为16px，125%即20pc）
+}
+
+body {
+    font-size: 14px; // 传统浏览器（pc端14px，其他端不考虑）
+    font-size: 0.7rem; // 现代浏览器（pc端根字号为20px，70%仍旧是14px）
+}
+
 .tangram-form {
     display: block;
     width: auto;
@@ -35,6 +50,7 @@
             left: 0;
             line-height: 24px;
             font-size: 14px;
+            font-size: 0.7rem;
             text-align: right;
             overflow: hidden;
         }
@@ -47,6 +63,7 @@
             right: 0;
             line-height: 24px;
             font-size: 12px;
+            font-size: 0.6rem;
             text-align: right;
             overflow: hidden;
         }
@@ -93,6 +110,7 @@
             line-height: 24px;
             font-family: inherit;
             font-size: 12px;
+            font-size: 0.6rem;
             color: #666;
         }
         input,
@@ -150,6 +168,7 @@
                 margin: 8px 24px 0 0;
                 line-height: 24px;
                 font-size: 12px;
+                font-size: 0.6rem;
                 color: #999;
                 font-style: normal;
             }
@@ -182,6 +201,7 @@
         .inline-label {
             line-height: 24px;
             font-size: 12px;
+            font-size: 0.6rem;
             color: #999;
             margin: 0 24px 0 0;
             font-style: normal;
@@ -198,6 +218,7 @@
             margin: 8px 24px 0 0;
             line-height: 24px;
             font-size: 12px;
+            font-size: 0.6rem;
             color: #999;
             font-style: normal;
             i {

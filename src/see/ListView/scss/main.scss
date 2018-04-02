@@ -1,11 +1,25 @@
 @charset "utf-8";
-
 /*********************************************
  ******** tangram.js SEE UI framework ********
  **********  class  _.see.ListView  **********
  *********************************************/
 
 $colors: ( "red": #d23, "darkred":#600, "orange": #f52, "yellow": #ed2, "green": #2c4, "darkgreen": #363, "cyan": #09b, "blue": #09f, "darkblue": #036, "purple": #c2a, "black": #000, "lightgray": #ddd, "gray": #999, "dark-gray": #666, "white":#fff);
+* {
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+html {
+    font-size: 125%; // 现代浏览器（pc端默认为16px，125%即20pc）
+}
+
+body {
+    font-size: 14px; // 传统浏览器（pc端14px，其他端不考虑）
+    font-size: 0.7rem; // 现代浏览器（pc端根字号为20px，70%仍旧是14px）
+}
+
 @import "inner-items";
 @import "text-list";
 @import "colums";

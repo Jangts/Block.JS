@@ -5,12 +5,12 @@ dl.a-sets-group dt {
     height: 30px;
     line-height: 30px;
     font-size: 21px;
+    font-size: 1.05rem;
     font-weight: lighter;
     cursor: default;
     margin: 15px 0px 5px;
     color: #000;
 }
-
 
 /* -------------------- */
 
@@ -32,6 +32,7 @@ dl.columns-by-channel dt span.column-channel-name {
     left: 10px;
     line-height: 20px;
     font-size: 18px;
+    font-size: 0.9rem;
     color: #06C;
     text-align: left;
 }
@@ -45,6 +46,7 @@ dl.columns-by-channel dt span.column-channel-lang {
     left: 10px;
     line-height: 20px;
     font-size: 12px;
+    font-size: 0.6rem;
     color: #06C;
     text-align: left;
 }
@@ -58,10 +60,10 @@ dl.columns-by-channel dt span.column-channel-brief {
     left: 270px;
     line-height: 20px;
     font-size: 12px;
+    font-size: 0.6rem;
     color: #FFF;
     text-align: right;
 }
-
 
 /* -------------------- */
 
@@ -70,12 +72,12 @@ dl.routers-list dt {
     height: 30px;
     line-height: 30px;
     font-size: 21px;
+    font-size: 1.05rem;
     font-weight: lighter;
     cursor: default;
     margin-top: 20px;
     color: #000;
 }
-
 
 /* -------------------- */
 
@@ -90,10 +92,10 @@ dl.a-app-suit dt {
 
 dl.a-app-suit dt {
     font-size: 21px;
+    font-size: 1.05rem;
     color: #0CF;
     cursor: default;
 }
-
 
 /*** FORM DD/LIs ***/
 
@@ -107,6 +109,7 @@ dl.a-sets-group dd.display-only span.a-setting-version {
     line-height: 30px;
     color: #0CF;
     font-size: 14px;
+    font-size: 0.7rem;
     font-weight: normal;
 }
 
@@ -114,6 +117,7 @@ dl.a-sets-group dd.display-only span.a-setting-copyright {
     line-height: 30px;
     color: #0CF;
     font-size: 14px;
+    font-size: 0.7rem;
     font-weight: normal;
 }
 
@@ -123,6 +127,7 @@ dl.a-sets-group dd.display-only span.a-setting-key {
     line-height: 25px;
     color: #333;
     font-size: 14px;
+    font-size: 0.7rem;
 }
 
 dl.a-sets-group dd.display-only span.a-setting-val {
@@ -130,13 +135,13 @@ dl.a-sets-group dd.display-only span.a-setting-val {
     line-height: 25px;
     color: #666;
     font-size: 13px;
+    font-size: 0.65rem;
 }
 
 dl.a-sets-group dd.display-only canvas {
     display: block;
     margin-bottom: 20px;
 }
-
 
 /* -------------------- */
 
@@ -147,13 +152,13 @@ dl.a-sets-group dd.display-only span.a-setting-val span {
 dl.a-sets-group dd.display-only span.a-setting-val span.core-detail {
     line-height: 20px;
     font-size: 13px;
+    font-size: 0.65rem;
     color: #0CF;
 }
 
 dl.a-sets-group dd.display-only span.a-setting-val span.core-detail:last-child {
     margin-bottom: 10px;
 }
-
 
 /* -------------------- */
 
@@ -168,6 +173,7 @@ dl.a-sets-group dd.setting-input span.a-setting-key {
     line-height: 24px;
     color: #333;
     font-size: 14px;
+    font-size: 0.7rem;
 }
 
 dl.a-sets-group dd.setting-input span.a-setting-val {

@@ -25,7 +25,6 @@ $color in $colorpairs {
     }
 }
 
-
 /** Font Colour **/
 
 $colors: (fff:#FFFFFF, e6:#E6E6E6, ccc:#CCCCCC, 888:#888888, 999:#999999, 666:#666666, 000:#000000, "red":#FF0000, "violet":#003AA6, "modena":#036);
@@ -60,7 +59,6 @@ $color in $colors {
     color: #36F !important;
 }
 
-
 /** Font Size **/
 
 $sizes: 11,
@@ -82,6 +80,7 @@ $sizes: 11,
 @each $size in $sizes {
     .tangram.f#{$size},
     .tangram.ft-#{$size} {
+        font-size: #{$size}px;
         font-size: #{$size/20}rem;
     }
 }

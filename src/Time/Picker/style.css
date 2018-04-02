@@ -1,133 +1,121 @@
-.tangram.timepicker {
-    display: block;
-    position: relative;
-    width: 1000px;
-    height: 310px;
-    background-color: rgba(255, 255, 255, 0.8);
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-}
+* {
+  margin: 0;
+  padding: 0;
+  border: none; }
+
+html {
+  font-size: 125%; }
+
+body {
+  font-size: 14px;
+  font-size: 0.7rem; }
 
 .tangram.timepicker {
-    transition: top ease .3s;
-}
+  display: block;
+  position: relative;
+  width: 1000px;
+  height: 310px;
+  background-color: rgba(255, 255, 255, 0.8);
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); }
+
+.tangram.timepicker {
+  transition: top ease .3s; }
 
 .tangram.timepicker .displayer {
-    display: block;
-    position: absolute;
-    width: 656px;
-    height: 130px;
-    top: 20px;
-    left: 20px;
-    background-color: rgba(255, 255, 255, 0.5);
-    border-radius: 10px 10px 10px 10px;
-}
+  display: block;
+  position: absolute;
+  width: 656px;
+  height: 130px;
+  top: 20px;
+  left: 20px;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 10px 10px 10px 10px; }
 
 .tangram.timepicker .displayer .display-item {
-    display: none;
-}
+  display: none; }
 
 .tangram.timepicker .displayer .display-item.actived {
-    display: block;
-}
+  display: block; }
 
 .tangram.timepicker .displayer .display-item .display-char {
-    float: left;
-    cursor: pointer;
-}
-
+  float: left;
+  cursor: pointer; }
 
 /**********************************************/
-
 .tangram.timepicker .displayer .display-item {
-    height: 50px;
-    margin: 40px auto;
-}
+  height: 50px;
+  margin: 40px auto; }
 
 .tangram.timepicker .displayer .display-item[data-type=datetime] {
-    width: 620px;
-}
+  width: 620px; }
 
 .tangram.timepicker .displayer .display-item[data-type=fulldate] {
-    width: 330px;
-}
+  width: 330px; }
 
 .tangram.timepicker .displayer .display-item[data-type=dayofyear] {
-    width: 400px;
-}
+  width: 400px; }
 
 .tangram.timepicker .displayer .display-item[data-type=timeofday] {
-    width: 290px;
-}
+  width: 290px; }
 
 .tangram.timepicker .displayer .display-item[data-type=hourminute] {
-    width: 220px;
-}
+  width: 220px; }
 
 .tangram.timepicker .displayer .display-item[data-type=fulldate],
 .tangram.timepicker .displayer .display-item[data-type=dayofyear],
 .tangram.timepicker .displayer .display-item[data-type=timeofday],
 .tangram.timepicker .displayer .display-item[data-type=hourminute] {
-    transform: scale(2, 2);
-}
+  transform: scale(2, 2); }
 
 .tangram.timepicker .displayer .display-item[data-type=dayofweek] {
-    width: 656px;
-    height: 130px;
-    margin: 0;
-}
+  width: 656px;
+  height: 130px;
+  margin: 0; }
 
 .tangram.timepicker .displayer .display-item[data-type=dayofweek]::after {
-    display: block;
-    position: absolute;
-    width: 100%;
-    height: 2px;
-    top: 64px;
-    left: 0;
-    background-color: rgba(201, 201, 201, 0.5);
-    content: "";
-    z-index: -99;
-}
-
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  top: 64px;
+  left: 0;
+  background-color: rgba(201, 201, 201, 0.5);
+  content: "";
+  z-index: -99; }
 
 /**********************************************/
-
 .tangram.timepicker .displayer .display-item .display-char {
-    display: block;
-    position: relative;
-    font-style: normal;
-}
+  display: block;
+  position: relative;
+  font-style: normal; }
 
 .tangram.timepicker .displayer .display-item .display-char[data-char-type=year],
 .tangram.timepicker .displayer .display-item .display-char[data-char-type=month],
 .tangram.timepicker .displayer .display-item .display-char[data-char-type=mon],
 .tangram.timepicker .displayer .display-item .display-char[data-char-type=date] {
-    height: 50px;
-    margin-right: 10px;
-    text-align: center;
-    line-height: 50px;
-    font-size: 36px;
-    background-color: rgba(102, 153, 255, 0.8);
-    color: #fff;
-}
+  height: 50px;
+  margin-right: 10px;
+  text-align: center;
+  line-height: 50px;
+  font-size: 36px;
+  font-size: 1.8rem;
+  background-color: rgba(102, 153, 255, 0.8);
+  color: #fff; }
 
 .tangram.timepicker .displayer .display-item .display-char[data-char-type=year] {
-    width: 110px;
-    margin-left: 50px;
-}
+  width: 110px;
+  margin-left: 50px; }
 
 .tangram.timepicker .displayer .display-item .display-char[data-char-type=month] {
-    width: 240px;
-    margin-left: 50px;
-}
+  width: 240px;
+  margin-left: 50px; }
 
 .tangram.timepicker .displayer .display-item .display-char[data-char-type=mon],
 .tangram.timepicker .displayer .display-item .display-char[data-char-type=date] {
-    width: 50px;
-}
+  width: 50px; }
 
 .tangram.timepicker .displayer .display-item .display-char[data-char-type=date] {
-    margin-right: 50px;
-}
+  margin-right: 50px; }
 
 .tangram.timepicker .displayer .display-item .display-char[data-char-type=year]::after,
 .tangram.timepicker .displayer .display-item .display-char[data-char-type=mon]::after,
@@ -137,299 +125,259 @@
 .tangram.timepicker .displayer .display-item .display-char[data-char-type=minute]::after,
 .tangram.timepicker .displayer .display-item .display-char[data-char-type=first]::after,
 .tangram.timepicker .displayer .display-item .display-char[data-char-type=second]::after {
-    display: block;
-    position: absolute;
-    width: 100%;
-    height: 2px;
-    top: 24px;
-    left: 0;
-    background-color: rgba(255, 255, 255, 0.8);
-    content: "";
-}
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  top: 24px;
+  left: 0;
+  background-color: rgba(255, 255, 255, 0.8);
+  content: ""; }
 
 .tangram.timepicker .displayer .display-item .display-char[data-char-type=hour],
 .tangram.timepicker .displayer .display-item .display-char[data-char-type=minute],
 .tangram.timepicker .displayer .display-item .display-char[data-char-type=first],
 .tangram.timepicker .displayer .display-item .display-char[data-char-type=second] {
-    width: 50px;
-    height: 50px;
-    margin-right: 20px;
-    text-align: center;
-    line-height: 47px;
-    font-size: 36px;
-    background-color: rgba(102, 153, 255, 0.8);
-    color: #fff;
-    overflow: visible;
-}
+  width: 50px;
+  height: 50px;
+  margin-right: 20px;
+  text-align: center;
+  line-height: 47px;
+  font-size: 36px;
+  font-size: 1.8rem;
+  background-color: rgba(102, 153, 255, 0.8);
+  color: #fff;
+  overflow: visible; }
 
 .tangram.timepicker .displayer .display-item .display-char[data-char-type=hour] {
-    margin-left: 50px;
-}
+  margin-left: 50px; }
 
 .tangram.timepicker .displayer .display-item .display-char[data-char-type=minute],
 .tangram.timepicker .displayer .display-item .display-char[data-char-type=second] {
-    margin-right: 50px;
-}
+  margin-right: 50px; }
 
 .tangram.timepicker .displayer .display-item .display-char[data-char-type=hour]::before,
 .tangram.timepicker .displayer .display-item .display-char[data-char-type=first]::before {
-    display: block;
-    position: absolute;
-    width: 20px;
-    height: 50px;
-    top: 0;
-    left: 50px;
-    line-height: 40px;
-    content: ":";
-    z-index: -99;
-}
+  display: block;
+  position: absolute;
+  width: 20px;
+  height: 50px;
+  top: 0;
+  left: 50px;
+  line-height: 40px;
+  content: ":";
+  z-index: -99; }
 
 .tangram.timepicker .displayer .display-item .display-char[data-char-type=day] {
-    width: 600px;
-    height: 80px;
-    margin: 25px 28px;
-    text-align: center;
-    line-height: 71px;
-    font-size: 72px;
-    color: #181818;
-    transform: scale(1.4, 1.4);
-}
+  width: 600px;
+  height: 80px;
+  margin: 25px 28px;
+  text-align: center;
+  line-height: 71px;
+  font-size: 72px;
+  font-size: 3.6rem;
+  color: #181818;
+  transform: scale(1.4, 1.4); }
 
 .tangram.timepicker .buttons {
-    display: block;
-    position: absolute;
-    width: 236px;
-    height: 90px;
-    top: 60px;
-    right: 20px;
-}
+  display: block;
+  position: absolute;
+  width: 236px;
+  height: 90px;
+  top: 60px;
+  right: 20px; }
 
 .tangram.timepicker .buttons span {
-    display: block;
-    position: absolute;
-    width: 116px;
-    height: 40px;
-    line-height: 40px;
-    border-radius: 10px;
-    text-align: center;
-    color: #fff;
-    cursor: pointer;
-}
+  display: block;
+  position: absolute;
+  width: 116px;
+  height: 40px;
+  line-height: 40px;
+  border-radius: 10px;
+  text-align: center;
+  color: #fff;
+  cursor: pointer; }
 
 .tangram.timepicker .buttons span[data-type=reset] {
-    background-color: rgba(153, 153, 153, 0.8);
-    top: 3px;
-    left: 0;
-}
+  background-color: rgba(153, 153, 153, 0.8);
+  top: 3px;
+  left: 0; }
 
 .tangram.timepicker .buttons span[data-type=cancel] {
-    background-color: rgba(102, 204, 153, 0.8);
-    top: 3px;
-    left: 120px;
-}
+  background-color: rgba(102, 204, 153, 0.8);
+  top: 3px;
+  left: 120px; }
 
 .tangram.timepicker .buttons span[data-type=confirm] {
-    width: 236px;
-    background-color: rgba(255, 0, 51, 0.8);
-    top: 47px;
-    left: 0;
-}
+  width: 236px;
+  background-color: rgba(255, 0, 51, 0.8);
+  top: 47px;
+  left: 0; }
 
 .tangram.timepicker .buttons span[data-type=reset]:hover {
-    background-color: #666666;
-}
+  background-color: #666666; }
 
 .tangram.timepicker .buttons span[data-type=cancel]:hover {
-    background-color: #33cc66;
-}
+  background-color: #33cc66; }
 
 .tangram.timepicker .buttons span[data-type=confirm]:hover {
-    background-color: #ff0033;
-}
+  background-color: #ff0033; }
 
 .tangram.timepicker .pickers {
-    display: block;
-    position: absolute;
-    width: 1000px;
-    height: 120px;
-    top: 170px;
-    left: 0;
-}
+  display: block;
+  position: absolute;
+  width: 1000px;
+  height: 120px;
+  top: 170px;
+  left: 0; }
 
 .tangram.timepicker .pickers section {
-    display: block;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 200%;
-    left: 0;
-    opacity: 0;
-    z-index: -99;
-}
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 200%;
+  left: 0;
+  opacity: 0;
+  z-index: -99; }
 
 .tangram.timepicker .pickers section.actived {
-    opacity: 1;
-    top: 0;
-    z-index: 99;
-    transition: opacity ease-in .3s;
-}
+  opacity: 1;
+  top: 0;
+  z-index: 99;
+  transition: opacity ease-in .3s; }
 
 .tangram.timepicker .pickers ul,
 .tangram.timepicker .pickers ul li {
-    display: block;
-}
-
+  display: block; }
 
 /**********************************************/
-
 .tangram.timepicker .pickers section ul li {
-    float: left;
-    height: 26px;
-    margin: 2px;
-    line-height: 26px;
-    background-color: rgba(102, 204, 255, 0.8);
-    text-align: center;
-    color: #fff;
-    font-size: 14px;
-    cursor: pointer;
-}
+  float: left;
+  height: 26px;
+  margin: 2px;
+  line-height: 26px;
+  background-color: rgba(102, 204, 255, 0.8);
+  text-align: center;
+  color: #fff;
+  font-size: 14px;
+  font-size: 0.7rem;
+  cursor: pointer; }
 
 .tangram.timepicker .pickers section ul li.leap,
 .tangram.timepicker .pickers section ul li.autumn,
 .tangram.timepicker .pickers section ul li.weekend,
 .tangram.timepicker .pickers section ul li.am {
-    background-color: rgba(255, 204, 102, 0.8);
-}
+  background-color: rgba(255, 204, 102, 0.8); }
 
 .tangram.timepicker .pickers section ul li.summer,
 .tangram.timepicker .pickers section ul li.int,
 .tangram.timepicker .pickers section ul li.am.int {
-    background-color: rgba(255, 102, 102, 0.8);
-}
+  background-color: rgba(255, 102, 102, 0.8); }
 
 .tangram.timepicker .pickers section ul li.spring {
-    background-color: rgba(102, 255, 102, 0.8);
-}
+  background-color: rgba(102, 255, 102, 0.8); }
 
 .tangram.timepicker .pickers section ul li.winter {
-    background-color: rgba(255, 255, 255, 0.8);
-    color: #666;
-}
+  background-color: rgba(255, 255, 255, 0.8);
+  color: #666; }
 
 .tangram.timepicker .pickers section ul li.pm {
-    background-color: rgba(53, 53, 53, 0.8);
-}
+  background-color: rgba(53, 53, 53, 0.8); }
 
 .tangram.timepicker .pickers section ul li.pm.int {
-    background-color: rgba(153, 53, 53, 0.8);
-}
+  background-color: rgba(153, 53, 53, 0.8); }
 
 .tangram.timepicker .pickers section ul li.selected {
-    background-color: #ff3366 !important;
-    color: #fff !important;
-}
+  background-color: #ff3366 !important;
+  color: #fff !important; }
 
 .tangram.timepicker .pickers section ul li:hover {
-    background-color: rgba(255, 51, 102, 0.8) !important;
-    color: #fff !important;
-}
+  background-color: rgba(255, 51, 102, 0.8) !important;
+  color: #fff !important; }
 
 .tangram.timepicker .pickers section ul li.head,
 .tangram.timepicker .pickers section ul li.head:hover {
-    background-color: transparent !important;
-    color: #666 !important;
-    font-size: 12px !important;
-    cursor: default;
-}
+  background-color: transparent !important;
+  color: #666 !important;
+  font-size: 12px !important;
+  font-size: 0.6rem !important;
+  cursor: default; }
 
 .tangram.timepicker .pickers section ul li.placeholder,
 .tangram.timepicker .pickers section ul li.placeholder:hover {
-    background-color: rgba(153, 153, 153, 0.5) !important;
-    cursor: default;
-}
-
+  background-color: rgba(153, 153, 153, 0.5) !important;
+  cursor: default; }
 
 /**********************************************/
-
 .tangram.timepicker .pickers section ul {
-    display: block;
-    width: 960px;
-    margin: 0 auto;
-}
+  display: block;
+  width: 960px;
+  margin: 0 auto; }
 
 .tangram.timepicker .pickers section[data-type=dates] ul,
 .tangram.timepicker .pickers section[data-type=days] ul {
-    width: 980px;
-    margin: 0 auto;
-}
-
+  width: 980px;
+  margin: 0 auto; }
 
 /**********************************************/
-
 .tangram.timepicker .pickers section[data-type=years] ul li {
-    width: 56px;
-}
+  width: 56px; }
 
 .tangram.timepicker .pickers section[data-type=years] ul li.prev,
 .tangram.timepicker .pickers section[data-type=years] ul li.next {
-    width: 116px;
-    background-color: rgba(153, 153, 153, 0.8);
-}
+  width: 116px;
+  background-color: rgba(153, 153, 153, 0.8); }
 
 .tangram.timepicker .pickers section[data-type=months] ul li {
-    width: 76px;
-    height: 76px;
-    margin: 22px 2px;
-    line-height: 76px;
-    font-size: 30px;
-}
+  width: 76px;
+  height: 76px;
+  margin: 22px 2px;
+  line-height: 76px;
+  font-size: 30px;
+  font-size: 1.5rem; }
 
 .tangram.timepicker .pickers section[data-type=dates] ul li {
-    width: 56px;
-    margin: 2px 7px;
-    font-size: 18px;
-}
+  width: 56px;
+  margin: 2px 7px;
+  font-size: 18px;
+  font-size: 0.9rem; }
 
 .tangram.timepicker .pickers section[data-type=hours] ul li {
-    width: 76px;
-    height: 56px;
-    line-height: 56px;
-    font-size: 30px;
-}
+  width: 76px;
+  height: 56px;
+  line-height: 56px;
+  font-size: 30px;
+  font-size: 1.5rem; }
 
 .tangram.timepicker .pickers section[data-type=minutes] ul li {
-    width: 60px;
-}
+  width: 60px; }
 
 .tangram.timepicker .pickers section[data-type=days] ul li {
-    width: 116px;
-    height: 116px;
-    margin: 2px 12px;
-    line-height: 116px;
-    font-size: 36px;
-}
+  width: 116px;
+  height: 116px;
+  margin: 2px 12px;
+  line-height: 116px;
+  font-size: 36px;
+  font-size: 1.8rem; }
 
 .tangram.timepicker .pickers ul li i.bctag {
-    display: block;
-    position: absolute;
-    top: -5px;
-    right: -8px;
-    width: 32px;
-    height: 20px;
-    background-color: rgba(255, 51, 102, 0.6);
-    transform: scale(0.5, 0.5);
-    opacity: .5;
-}
+  display: block;
+  position: absolute;
+  top: -5px;
+  right: -8px;
+  width: 32px;
+  height: 20px;
+  background-color: rgba(255, 51, 102, 0.6);
+  transform: scale(0.5, 0.5);
+  opacity: .5; }
 
 .tangram.timepicker .pickers ul li i.bctag::before {
-    display: block;
-    width: 36px;
-    height: 20px;
-    text-align: center;
-    line-height: 20px;
-    font-size: 18px;
-    content: 'BC';
-}
-
-
-/*# sourceMappingURL=style.css.map */
+  display: block;
+  width: 36px;
+  height: 20px;
+  text-align: center;
+  line-height: 20px;
+  font-size: 18px;
+  font-size: 0.9rem;
+  content: 'BC'; }

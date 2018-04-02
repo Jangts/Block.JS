@@ -57,7 +57,8 @@ html {
   font-size: 125%; }
 
 body {
-  font-size: 70%; }
+  font-size: 14px;
+  font-size: 0.7rem; }
 
 html,
 body {
@@ -700,66 +701,82 @@ img {
 /** Font Size **/
 .tangram.f11,
 .tangram.ft-11 {
+  font-size: 11px;
   font-size: 0.55rem; }
 
 .tangram.f12,
 .tangram.ft-12 {
+  font-size: 12px;
   font-size: 0.6rem; }
 
 .tangram.f13,
 .tangram.ft-13 {
+  font-size: 13px;
   font-size: 0.65rem; }
 
 .tangram.f14,
 .tangram.ft-14 {
+  font-size: 14px;
   font-size: 0.7rem; }
 
 .tangram.f15,
 .tangram.ft-15 {
+  font-size: 15px;
   font-size: 0.75rem; }
 
 .tangram.f16,
 .tangram.ft-16 {
+  font-size: 16px;
   font-size: 0.8rem; }
 
 .tangram.f17,
 .tangram.ft-17 {
+  font-size: 17px;
   font-size: 0.85rem; }
 
 .tangram.f18,
 .tangram.ft-18 {
+  font-size: 18px;
   font-size: 0.9rem; }
 
 .tangram.f21,
 .tangram.ft-21 {
+  font-size: 21px;
   font-size: 1.05rem; }
 
 .tangram.f24,
 .tangram.ft-24 {
+  font-size: 24px;
   font-size: 1.2rem; }
 
 .tangram.f27,
 .tangram.ft-27 {
+  font-size: 27px;
   font-size: 1.35rem; }
 
 .tangram.f30,
 .tangram.ft-30 {
+  font-size: 30px;
   font-size: 1.5rem; }
 
 .tangram.f36,
 .tangram.ft-36 {
+  font-size: 36px;
   font-size: 1.8rem; }
 
 .tangram.f48,
 .tangram.ft-48 {
+  font-size: 48px;
   font-size: 2.4rem; }
 
 .tangram.f60,
 .tangram.ft-60 {
+  font-size: 60px;
   font-size: 3rem; }
 
 .tangram.f72,
 .tangram.ft-72 {
+  font-size: 72px;
   font-size: 3.6rem; }
 
 .tangram.ft-lighter {
@@ -2926,7 +2943,8 @@ table.tangram.tangram-table {
   margin: 20px auto 10px;
   border-radius: 5px;
   cursor: default;
-  font-size: 12px; }
+  font-size: 12px;
+  font-size: 0.6rem; }
   table.tangram-table tr.tangram-header-tr,
   table.tangram.tangram-table tr.tangram-header-tr {
     height: 40px;
@@ -2945,6 +2963,7 @@ table.tangram.tangram-table {
       line-height: 40px;
       padding: 0px 10px;
       font-size: 13px;
+      font-size: 0.65rem;
       font-weight: normal;
       background: #666;
       color: #FFF; }
@@ -2968,6 +2987,7 @@ table.tangram.tangram-table {
       color: #333;
       font-weight: normal;
       font-size: 12px;
+      font-size: 0.6rem;
       text-align: center;
       vertical-align: middle; }
       table.tangram-table tr td a,
@@ -3159,6 +3179,7 @@ table.tangram.tangram-table {
       background-color: #6c9;
       height: 40px;
       font-size: 14px;
+      font-size: 0.7rem;
       line-height: 40px;
       color: white; }
     table.tangram-table tr.tangram-creator td:hover,
@@ -3271,7 +3292,8 @@ table.tangram.tangram-table[border="aqua"] {
   border: solid 1px aqua; }
   table.tangram-table[border="aqua"] tr th,
   table.tangram.tangram-table[border="aqua"] tr th {
-    background: aqua; }
+    background: aqua;
+    color: initial; }
   table.tangram-table[border="aqua"] tr td,
   table.tangram.tangram-table[border="aqua"] tr td {
     border-top: solid 1px aqua;
@@ -3310,7 +3332,7 @@ table.tangram.tangram-table[border="fuchsia"] {
   table.tangram-table[border="fuchsia"] tr th,
   table.tangram.tangram-table[border="fuchsia"] tr th {
     background: fuchsia;
-    color: inline; }
+    color: initial; }
   table.tangram-table[border="fuchsia"] tr td,
   table.tangram.tangram-table[border="fuchsia"] tr td {
     border-top: solid 1px fuchsia;
@@ -3323,7 +3345,7 @@ table.tangram.tangram-table[border="gray"] {
   table.tangram-table[border="gray"] tr th,
   table.tangram.tangram-table[border="gray"] tr th {
     background: gray;
-    color: inline; }
+    color: initial; }
   table.tangram-table[border="gray"] tr td,
   table.tangram.tangram-table[border="gray"] tr td {
     border-top: solid 1px gray;
@@ -3349,7 +3371,7 @@ table.tangram.tangram-table[border="lime"] {
   table.tangram-table[border="lime"] tr th,
   table.tangram.tangram-table[border="lime"] tr th {
     background: lime;
-    color: inline; }
+    color: initial; }
   table.tangram-table[border="lime"] tr td,
   table.tangram.tangram-table[border="lime"] tr td {
     border-top: solid 1px lime;
@@ -3401,7 +3423,7 @@ table.tangram.tangram-table[border="orange"] {
   table.tangram-table[border="orange"] tr th,
   table.tangram.tangram-table[border="orange"] tr th {
     background: orange;
-    color: inline; }
+    color: initial; }
   table.tangram-table[border="orange"] tr td,
   table.tangram.tangram-table[border="orange"] tr td {
     border-top: solid 1px orange;
@@ -3440,7 +3462,7 @@ table.tangram.tangram-table[border="silver"] {
   table.tangram-table[border="silver"] tr th,
   table.tangram.tangram-table[border="silver"] tr th {
     background: silver;
-    color: inline; }
+    color: initial; }
   table.tangram-table[border="silver"] tr td,
   table.tangram.tangram-table[border="silver"] tr td {
     border-top: solid 1px silver;
@@ -3453,7 +3475,7 @@ table.tangram.tangram-table[border="teal"] {
   table.tangram-table[border="teal"] tr th,
   table.tangram.tangram-table[border="teal"] tr th {
     background: teal;
-    color: inline; }
+    color: initial; }
   table.tangram-table[border="teal"] tr td,
   table.tangram.tangram-table[border="teal"] tr td {
     border-top: solid 1px teal;
@@ -3466,7 +3488,7 @@ table.tangram.tangram-table[border="white"] {
   table.tangram-table[border="white"] tr th,
   table.tangram.tangram-table[border="white"] tr th {
     background: white;
-    color: inline; }
+    color: initial; }
   table.tangram-table[border="white"] tr td,
   table.tangram.tangram-table[border="white"] tr td {
     border-top: solid 1px white;
@@ -3479,7 +3501,7 @@ table.tangram.tangram-table[border="yellow"] {
   table.tangram-table[border="yellow"] tr th,
   table.tangram.tangram-table[border="yellow"] tr th {
     background: yellow;
-    color: inline; }
+    color: initial; }
   table.tangram-table[border="yellow"] tr td,
   table.tangram.tangram-table[border="yellow"] tr td {
     border-top: solid 1px yellow;

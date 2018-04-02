@@ -68,7 +68,7 @@ tangram.block([
         },
         callbacks = {
             checkDone: function(files) {
-                console.log(this, files);
+                // console.log(this, files);
                 _.data.Uploader.transfer.call(this, files[0], {
                     url: this.caller.posturl,
                     handlers: {
@@ -105,12 +105,12 @@ tangram.block([
                     caller.displayer.src = src;
                     values[caller.uid] = src;
                 } else {
-                    console.log(response);
+                    // console.log(response);
                     alert('上传失败');
                 }
                 $(caller.bluemask).css({
                     height: '0',
-                    marginTop: '100%'
+                    top: '100%'
                 });
             },
             uploadFail: function(response) {
@@ -127,12 +127,13 @@ tangram.block([
             onUploadProgress: function(response) {
                 var p, caller = this.caller;
                 if (response.lengthComputable) {
-                    p = Math.round(response.loaded * 100 / response.total);;
+                    p = Math.round(response.loaded * 100 / response.total);
                     $(caller.bluemask).css({
                         height: p + '%',
-                        marginTop: (1 - p) + '%'
+                        top: (100 - p) + '%'
                     });
                 };
+                // console.log(p + '%', (100 - p) + '%');
             }
         },
         fileInputOnChange = function(caller) {

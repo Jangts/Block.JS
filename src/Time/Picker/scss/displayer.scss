@@ -22,7 +22,6 @@
     cursor: pointer;
 }
 
-
 /**********************************************/
 
 .tangram.timepicker .displayer .display-item {
@@ -75,7 +74,6 @@
     z-index: -99;
 }
 
-
 /**********************************************/
 
 .tangram.timepicker .displayer .display-item .display-char {
@@ -93,6 +91,7 @@
     text-align: center;
     line-height: 50px;
     font-size: 36px;
+    font-size: 1.8rem;
     background-color: rgba(102, 153, 255, .8);
     color: #fff;
 }
@@ -144,6 +143,7 @@
     text-align: center;
     line-height: 47px;
     font-size: 36px;
+    font-size: 1.8rem;
     background-color: rgba(102, 153, 255, .8);
     color: #fff;
     overflow: visible;
@@ -178,6 +178,7 @@
     text-align: center;
     line-height: 71px;
     font-size: 72px;
+    font-size: 3.6rem;
     color: #181818;
     transform: scale(1.4, 1.4);
 }

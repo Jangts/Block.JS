@@ -2,210 +2,183 @@
  ******** tangram.js SEE UI framework ********
  **********   class _.see.NavMenu   **********
  *********************************************/
-
-
 /** Submenu Position **/
+.tangram.navmenu > .menu-item.hasson > .submenu,
+.tangram.navmenu .menu-item.hasson > .submenu > .menu-item.hasson > .submenu {
+  display: none;
+  position: absolute; }
 
-.tangram.navmenu>.menu-item.hasson>.submenu,
-.tangram.navmenu .menu-item.hasson>.submenu>.menu-item.hasson>.submenu {
-    display: none;
-    position: absolute;
-}
+.tangram.navmenu > .menu-item.hasson > .submenu,
+.tangram.navmenu > .menu-item.hasson > .submenu.under,
+.tangram.navmenu > .menu-item.hasson > .submenu.under.al-left,
+.tangram.navmenu .menu-item.hasson > .submenu > .menu-item.hasson > .submenu,
+.tangram.navmenu .menu-item.hasson > .submenu > .menu-item.hasson > .submenu.under,
+.tangram.navmenu .menu-item.hasson > .submenu > .menu-item.hasson > .submenu.under.al-left {
+  top: 100%;
+  left: 0; }
 
-.tangram.navmenu>.menu-item.hasson>.submenu,
-.tangram.navmenu>.menu-item.hasson>.submenu.under,
-.tangram.navmenu>.menu-item.hasson>.submenu.under.al-left,
-.tangram.navmenu .menu-item.hasson>.submenu>.menu-item.hasson>.submenu,
-.tangram.navmenu .menu-item.hasson>.submenu>.menu-item.hasson>.submenu.under,
-.tangram.navmenu .menu-item.hasson>.submenu>.menu-item.hasson>.submenu.under.al-left {
-    top: 100%;
-    left: 0;
-}
+.tangram.navmenu > .menu-item.hasson > .submenu.upon,
+.tangram.navmenu > .menu-item.hasson > .submenu.upon.al-left,
+.tangram.navmenu .menu-item.hasson > .submenu > .menu-item.hasson > .submenu.upon,
+.tangram.navmenu .menu-item.hasson > .submenu > .menu-item.hasson > .submenu.upon.al-left {
+  bottom: 100%;
+  left: 0; }
 
-.tangram.navmenu>.menu-item.hasson>.submenu.upon,
-.tangram.navmenu>.menu-item.hasson>.submenu.upon.al-left,
-.tangram.navmenu .menu-item.hasson>.submenu>.menu-item.hasson>.submenu.upon,
-.tangram.navmenu .menu-item.hasson>.submenu>.menu-item.hasson>.submenu.upon.al-left {
-    bottom: 100%;
-    left: 0;
-}
+.tangram.navmenu > .menu-item.hasson > .submenu.al-center,
+.tangram.navmenu > .menu-item.hasson > .submenu.under.al-center,
+.tangram.navmenu > .menu-item.hasson > .submenu.upon.al-center,
+.tangram.navmenu .menu-item.hasson > .submenu > .menu-item.hasson > .submenu.al-center,
+.tangram.navmenu .menu-item.hasson > .submenu > .menu-item.hasson > .submenu.under.al-center,
+.tangram.navmenu .menu-item.hasson > .submenu > .menu-item.hasson > .submenu.upon.al-center {
+  left: 50%; }
 
-.tangram.navmenu>.menu-item.hasson>.submenu.al-center,
-.tangram.navmenu>.menu-item.hasson>.submenu.under.al-center,
-.tangram.navmenu>.menu-item.hasson>.submenu.upon.al-center,
-.tangram.navmenu .menu-item.hasson>.submenu>.menu-item.hasson>.submenu.al-center,
-.tangram.navmenu .menu-item.hasson>.submenu>.menu-item.hasson>.submenu.under.al-center,
-.tangram.navmenu .menu-item.hasson>.submenu>.menu-item.hasson>.submenu.upon.al-center {
-    left: 50%;
-}
+.tangram.navmenu > .menu-item.hasson > .submenu.al-right,
+.tangram.navmenu > .menu-item.hasson > .submenu.under.al-right,
+.tangram.navmenu > .menu-item.hasson > .submenu.upon.al-right,
+.tangram.navmenu .menu-item.hasson > .submenu > .menu-item.hasson > .submenu.al-right,
+.tangram.navmenu .menu-item.hasson > .submenu > .menu-item.hasson > .submenu.under.al-right,
+.tangram.navmenu .menu-item.hasson > .submenu > .menu-item.hasson > .submenu.upon.al-right {
+  left: auto;
+  right: 0; }
 
-.tangram.navmenu>.menu-item.hasson>.submenu.al-right,
-.tangram.navmenu>.menu-item.hasson>.submenu.under.al-right,
-.tangram.navmenu>.menu-item.hasson>.submenu.upon.al-right,
-.tangram.navmenu .menu-item.hasson>.submenu>.menu-item.hasson>.submenu.al-right,
-.tangram.navmenu .menu-item.hasson>.submenu>.menu-item.hasson>.submenu.under.al-right,
-.tangram.navmenu .menu-item.hasson>.submenu>.menu-item.hasson>.submenu.upon.al-right {
-    left: auto;
-    right: 0;
-}
+.tangram.navmenu > .menu-item.hasson > .submenu.rside,
+.tangram.navmenu > .menu-item.hasson > .submenu.rside.al-top,
+.tangram.navmenu .menu-item.hasson > .submenu > .menu-item.hasson > .submenu.rside,
+.tangram.navmenu .menu-item.hasson > .submenu > .menu-item.hasson > .submenu.rside.al-top {
+  top: 0;
+  left: 100%; }
 
-.tangram.navmenu>.menu-item.hasson>.submenu.rside,
-.tangram.navmenu>.menu-item.hasson>.submenu.rside.al-top,
-.tangram.navmenu .menu-item.hasson>.submenu>.menu-item.hasson>.submenu.rside,
-.tangram.navmenu .menu-item.hasson>.submenu>.menu-item.hasson>.submenu.rside.al-top {
-    top: 0;
-    left: 100%;
-}
+.tangram.navmenu > .menu-item.hasson > .submenu.lside,
+.tangram.navmenu > .menu-item.hasson > .submenu.lside.al-top,
+.tangram.navmenu .menu-item.hasson > .submenu > .menu-item.hasson > .submenu.lside,
+.tangram.navmenu .menu-item.hasson > .submenu > .menu-item.hasson > .submenu.lside.al-top {
+  top: 0;
+  right: 100%; }
 
-.tangram.navmenu>.menu-item.hasson>.submenu.lside,
-.tangram.navmenu>.menu-item.hasson>.submenu.lside.al-top,
-.tangram.navmenu .menu-item.hasson>.submenu>.menu-item.hasson>.submenu.lside,
-.tangram.navmenu .menu-item.hasson>.submenu>.menu-item.hasson>.submenu.lside.al-top {
-    top: 0;
-    right: 100%;
-}
+.tangram.navmenu > .menu-item.hasson > .submenu.rside.al-middle,
+.tangram.navmenu > .menu-item.hasson > .submenu.lside.al-middle,
+.tangram.navmenu .menu-item.hasson > .submenu > .menu-item.hasson > .submenu.rside.al-middle,
+.tangram.navmenu .menu-item.hasson > .submenu > .menu-item.hasson > .submenu.lside.al-middle {
+  top: 50%; }
 
-.tangram.navmenu>.menu-item.hasson>.submenu.rside.al-middle,
-.tangram.navmenu>.menu-item.hasson>.submenu.lside.al-middle,
-.tangram.navmenu .menu-item.hasson>.submenu>.menu-item.hasson>.submenu.rside.al-middle,
-.tangram.navmenu .menu-item.hasson>.submenu>.menu-item.hasson>.submenu.lside.al-middle {
-    top: 50%;
-}
+.tangram.navmenu > .menu-item.hasson > .submenu.rside.al-bottom,
+.tangram.navmenu > .menu-item.hasson > .submenu.lside.al-bottom,
+.tangram.navmenu .menu-item.hasson > .submenu > .menu-item.hasson > .submenu.rside.al-bottom,
+.tangram.navmenu .menu-item.hasson > .submenu > .menu-item.hasson > .submenu.lside.al-bottom {
+  top: auto;
+  bottom: 0; }
 
-.tangram.navmenu>.menu-item.hasson>.submenu.rside.al-bottom,
-.tangram.navmenu>.menu-item.hasson>.submenu.lside.al-bottom,
-.tangram.navmenu .menu-item.hasson>.submenu>.menu-item.hasson>.submenu.rside.al-bottom,
-.tangram.navmenu .menu-item.hasson>.submenu>.menu-item.hasson>.submenu.lside.al-bottom {
-    top: auto;
-    bottom: 0;
-}
+.tangram.navmenu > .menu-item.hasson > .submenu.upon.rside,
+.tangram.navmenu .menu-item.hasson > .submenu > .menu-item.hasson > .submenu.upon.rside {
+  bottom: 100%;
+  left: 100%; }
 
-.tangram.navmenu>.menu-item.hasson>.submenu.upon.rside,
-.tangram.navmenu .menu-item.hasson>.submenu>.menu-item.hasson>.submenu.upon.rside {
-    bottom: 100%;
-    left: 100%;
-}
+.tangram.navmenu > .menu-item.hasson > .submenu.under.rside,
+.tangram.navmenu .menu-item.hasson > .submenu > .menu-item.hasson > .submenu.under.rside {
+  top: 100%;
+  left: 100%; }
 
-.tangram.navmenu>.menu-item.hasson>.submenu.under.rside,
-.tangram.navmenu .menu-item.hasson>.submenu>.menu-item.hasson>.submenu.under.rside {
-    top: 100%;
-    left: 100%;
-}
+.tangram.navmenu > .menu-item.hasson > .submenu.top.lside,
+.tangram.navmenu .menu-item.hasson > .submenu > .menu-item.hasson > .submenu.top.lside {
+  top: 100%;
+  right: 100%; }
 
-.tangram.navmenu>.menu-item.hasson>.submenu.top.lside,
-.tangram.navmenu .menu-item.hasson>.submenu>.menu-item.hasson>.submenu.top.lside {
-    top: 100%;
-    right: 100%;
-}
+.tangram.navmenu > .menu-item.hasson > .submenu.under.lside,
+.tangram.navmenu .menu-item.hasson > .submenu > .menu-item.hasson > .submenu.under.lside {
+  right: 100%;
+  bottom: 100%; }
 
-.tangram.navmenu>.menu-item.hasson>.submenu.under.lside,
-.tangram.navmenu .menu-item.hasson>.submenu>.menu-item.hasson>.submenu.under.lside {
-    right: 100%;
-    bottom: 100%;
-}
-
-.tangram.navmenu>.menu-item.hasson:hover,
-.tangram.navmenu .menu-item.hasson>.submenu>.menu-item.hasson:hover {
-    overflow: visible;
-}
-
-.tangram.navmenu>.menu-item.hasson:hover>.submenu,
-.tangram.navmenu .menu-item.hasson>.submenu>.menu-item.hasson:hover>.submenu {
-    display: block;
-}
-
+.tangram.navmenu > .menu-item.hasson:hover,
+.tangram.navmenu .menu-item.hasson > .submenu > .menu-item.hasson:hover {
+  overflow: visible; }
+  .tangram.navmenu > .menu-item.hasson:hover > .submenu,
+  .tangram.navmenu .menu-item.hasson > .submenu > .menu-item.hasson:hover > .submenu {
+    display: block; }
 
 /** Menu Item Align **/
-
 .tangram.navmenu,
-.tangram.navmenu .menu-item.hasson>.submenu,
-.tangram.navmenu .menu-item.hasson>.submenu.blocks,
+.tangram.navmenu .menu-item.hasson > .submenu,
+.tangram.navmenu .menu-item.hasson > .submenu.blocks,
 .tangram.navmenu.rside,
-.tangram.navmenu .menu-item.hasson>.submenu.rside,
-.tangram.navmenu .menu-item.hasson>.submenu.rside.blocks,
+.tangram.navmenu .menu-item.hasson > .submenu.rside,
+.tangram.navmenu .menu-item.hasson > .submenu.rside.blocks,
 .tangram.navmenu.al-left,
-.tangram.navmenu .menu-item.hasson>.submenu.lside.al-left,
-.tangram.navmenu .menu-item.hasson>.submenu.lside.blocks.al-left {
-    text-align: left;
-}
-
-.tangram.navmenu>.menu-item,
-.tangram.navmenu .menu-item.hasson>.submenu>.menu-item,
-.tangram.navmenu .menu-item.hasson>.submenu.blocks>.menu-item,
-.tangram.navmenu.rside>.menu-item,
-.tangram.navmenu .menu-item.hasson>.submenu.rside>.menu-item,
-.tangram.navmenu .menu-item.hasson>.submenu.rside.blocks>.menu-item,
-.tangram.navmenu.al-left>.menu-item,
-.tangram.navmenu .menu-item.hasson>.submenu.lside.al-left>.menu-item,
-.tangram.navmenu .menu-item.hasson>.submenu.lside.blocks.al-left>.menu-item {
+.tangram.navmenu .menu-item.hasson > .submenu.lside.al-left,
+.tangram.navmenu .menu-item.hasson > .submenu.lside.blocks.al-left {
+  text-align: left; }
+  .tangram.navmenu > .menu-item,
+  .tangram.navmenu .menu-item.hasson > .submenu > .menu-item,
+  .tangram.navmenu .menu-item.hasson > .submenu.blocks > .menu-item,
+  .tangram.navmenu.rside > .menu-item,
+  .tangram.navmenu .menu-item.hasson > .submenu.rside > .menu-item,
+  .tangram.navmenu .menu-item.hasson > .submenu.rside.blocks > .menu-item,
+  .tangram.navmenu.al-left > .menu-item,
+  .tangram.navmenu .menu-item.hasson > .submenu.lside.al-left > .menu-item,
+  .tangram.navmenu .menu-item.hasson > .submenu.lside.blocks.al-left > .menu-item {
     text-align: center;
     float: none;
-    display: block;
-}
+    display: block; }
 
 .tangram.navmenu.al-center,
-.tangram.navmenu .menu-item.hasson>.submenu.al-center,
-.tangram.navmenu .menu-item.hasson>.submenu.blocks.al-center {
-    text-align: center;
-}
-
-.tangram.navmenu.al-center>.menu-item,
-.tangram.navmenu .menu-item.hasson>.submenu.al-center>.menu-item,
-.tangram.navmenu .menu-item.hasson>.submenu.blocks.al-center>.menu-item {
+.tangram.navmenu .menu-item.hasson > .submenu.al-center,
+.tangram.navmenu .menu-item.hasson > .submenu.blocks.al-center {
+  text-align: center; }
+  .tangram.navmenu.al-center > .menu-item,
+  .tangram.navmenu .menu-item.hasson > .submenu.al-center > .menu-item,
+  .tangram.navmenu .menu-item.hasson > .submenu.blocks.al-center > .menu-item {
     text-align: center;
     float: none;
-    display: block;
-}
+    display: block; }
 
 .tangram.navmenu.lside,
-.tangram.navmenu .menu-item.hasson>.submenu.lside,
-.tangram.navmenu .menu-item.hasson>.submenu.lside.blocks,
+.tangram.navmenu .menu-item.hasson > .submenu.lside,
+.tangram.navmenu .menu-item.hasson > .submenu.lside.blocks,
 .tangram.navmenu.al-right,
-.tangram.navmenu .menu-item.hasson>.submenu.lside.al-right,
-.tangram.navmenu .menu-item.hasson>.submenu.lside.blocks.al-right {
-    text-align: right;
-}
-
-.tangram.navmenu.lside>.menu-item,
-.tangram.navmenu .menu-item.hasson>.submenu.lside>.menu-item,
-.tangram.navmenu .menu-item.hasson>.submenu.lside.blocks>.menu-item,
-.tangram.navmenu.al-right>.menu-item,
-.tangram.navmenu .menu-item.hasson>.submenu.lside.al-right>.menu-item,
-.tangram.navmenu .menu-item.hasson>.submenu.lside.blocks.al-right>.menu-item {
+.tangram.navmenu .menu-item.hasson > .submenu.lside.al-right,
+.tangram.navmenu .menu-item.hasson > .submenu.lside.blocks.al-right {
+  text-align: right; }
+  .tangram.navmenu.lside > .menu-item,
+  .tangram.navmenu .menu-item.hasson > .submenu.lside > .menu-item,
+  .tangram.navmenu .menu-item.hasson > .submenu.lside.blocks > .menu-item,
+  .tangram.navmenu.al-right > .menu-item,
+  .tangram.navmenu .menu-item.hasson > .submenu.lside.al-right > .menu-item,
+  .tangram.navmenu .menu-item.hasson > .submenu.lside.blocks.al-right > .menu-item {
     text-align: center;
     float: none;
-    display: block;
-}
+    display: block; }
 
-.tangram.navmenu.inline>.menu-item,
-.tangram.navmenu .menu-item.hasson>.submenu.inline>.menu-item,
-.tangram.navmenu .menu-item.hasson>.submenu.rside.inline>.menu-item,
-.tangram.navmenu .menu-item.hasson>.submenu.lside.inline>.menu-item {
-    text-align: center;
-    float: left !important;
-}
-
+.tangram.navmenu.inline > .menu-item,
+.tangram.navmenu .menu-item.hasson > .submenu.inline > .menu-item,
+.tangram.navmenu .menu-item.hasson > .submenu.rside.inline > .menu-item,
+.tangram.navmenu .menu-item.hasson > .submenu.lside.inline > .menu-item {
+  text-align: center;
+  float: left !important; }
 
 /*********************************************
  ******** tangram.js SEE UI framework ********
  **********   class _.see.NavMenu   **********
  *********************************************/
+.tangram.navmenu.gray > .menu-item,
+.tangram.navmenu .gray > .menu-item {
+  background-color: #999;
+  color: #fff; }
 
-.tangram.navmenu.gray>.menu-item,
-.tangram.navmenu .gray>.menu-item {
-    background-color: #999;
-    color: #fff;
-}
+.tangram.navmenu.gray > .menu-item:hover,
+.tangram.navmenu .gray > .menu-item:hover {
+  background-color: #666; }
 
-.tangram.navmenu.gray>.menu-item:hover,
-.tangram.navmenu .gray>.menu-item:hover {
-    background-color: #666;
-}
+* {
+  margin: 0;
+  padding: 0;
+  border: none; }
 
-body.__while-menu-item-get-size-step1 .tangram.navmenu .menu-item.hasson>.submenu {
-    display: block !important;
-    opacity: 0 !important;
-}
+html {
+  font-size: 125%; }
 
+body {
+  font-size: 14px;
+  font-size: 0.7rem; }
 
-/*# sourceMappingURL=style.css.map */
+body.__while-menu-item-get-size-step1 .tangram.navmenu .menu-item.hasson > .submenu {
+  display: block !important;
+  opacity: 0 !important; }

@@ -258,7 +258,7 @@ tangram.block(['$_/util/bool.xtd'], function(pandora, global, undefined) {
                 form.append(i, options.data[i]);
             }
         } else {
-            return _.error('Must Give Transfer A File.');
+            return _.debug('Must Give Transfer A File.');
         }
         if (method) {
             form.append('http_method', method);

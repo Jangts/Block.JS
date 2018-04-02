@@ -30,7 +30,6 @@
     display: block;
 }
 
-
 /**********************************************/
 
 .tangram.timepicker .pickers section ul li {
@@ -42,6 +41,7 @@
     text-align: center;
     color: #fff;
     font-size: 14px;
+    font-size: 0.7rem;
     cursor: pointer;
 }
 
@@ -90,6 +90,7 @@
     background-color: transparent !important;
     color: #666 !important;
     font-size: 12px !important;
+    font-size: 0.6rem !important;
     cursor: default;
 }
 
@@ -98,7 +99,6 @@
     background-color: rgba(153, 153, 153, 0.5) !important;
     cursor: default;
 }
-
 
 /**********************************************/
 
@@ -113,7 +113,6 @@
     width: 980px;
     margin: 0 auto;
 }
-
 
 /**********************************************/
 
@@ -133,12 +132,14 @@
     margin: 22px 2px;
     line-height: 76px;
     font-size: 30px;
+    font-size: 1.5rem;
 }
 
 .tangram.timepicker .pickers section[data-type=dates] ul li {
     width: 56px;
     margin: 2px 7px;
     font-size: 18px;
+    font-size: 0.9rem;
 }
 
 .tangram.timepicker .pickers section[data-type=hours] ul li {
@@ -146,6 +147,7 @@
     height: 56px;
     line-height: 56px;
     font-size: 30px;
+    font-size: 1.5rem;
 }
 
 .tangram.timepicker .pickers section[data-type=minutes] ul li {
@@ -158,6 +160,7 @@
     margin: 2px 12px;
     line-height: 116px;
     font-size: 36px;
+    font-size: 1.8rem;
 }
 
 .tangram.timepicker .pickers ul li i.bctag {
@@ -179,5 +182,6 @@
     text-align: center;
     line-height: 20px;
     font-size: 18px;
+    font-size: 0.9rem;
     content: 'BC';
 }

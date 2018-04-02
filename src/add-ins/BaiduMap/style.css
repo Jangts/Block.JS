@@ -1,3 +1,18 @@
+* {
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+html {
+    font-size: 125%;
+}
+
+body {
+    font-size: 14px;
+    font-size: 0.7rem;
+}
+
 .tangram-addin-map {
     box-sizing: border-box;
     width: 100%;
@@ -24,6 +39,7 @@
 .tangram-addin-map .iw_poi_title {
     color: #CC5522;
     font-size: 14px;
+    font-size: 0.7rem;
     font-weight: bold;
     overflow: hidden;
     padding-right: 13px;

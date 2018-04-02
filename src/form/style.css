@@ -1,3 +1,15 @@
+* {
+  margin: 0;
+  padding: 0;
+  border: none; }
+
+html {
+  font-size: 125%; }
+
+body {
+  font-size: 14px;
+  font-size: 0.7rem; }
+
 .tangram-form {
   display: block;
   width: auto;
@@ -31,6 +43,7 @@
       left: 0;
       line-height: 24px;
       font-size: 14px;
+      font-size: 0.7rem;
       text-align: right;
       overflow: hidden; }
     .tangram-form .tangram-inputs > font,
@@ -42,6 +55,7 @@
       right: 0;
       line-height: 24px;
       font-size: 12px;
+      font-size: 0.6rem;
       text-align: right;
       overflow: hidden; }
     .tangram-form .tangram-inputs > .input-tips.quater {
@@ -79,6 +93,7 @@
       line-height: 24px;
       font-family: inherit;
       font-size: 12px;
+      font-size: 0.6rem;
       color: #666; }
     .tangram-form .tangram-inputs input,
     .tangram-form .tangram-inputs select {
@@ -129,6 +144,7 @@
         margin: 8px 24px 0 0;
         line-height: 24px;
         font-size: 12px;
+        font-size: 0.6rem;
         color: #999;
         font-style: normal; }
       .tangram-form .tangram-inputs .radios i,
@@ -158,6 +174,7 @@
   .tangram-form .tangram-inputs.inline-inputs .inline-label {
     line-height: 24px;
     font-size: 12px;
+    font-size: 0.6rem;
     color: #999;
     margin: 0 24px 0 0;
     font-style: normal; }
@@ -171,6 +188,7 @@
     margin: 8px 24px 0 0;
     line-height: 24px;
     font-size: 12px;
+    font-size: 0.6rem;
     color: #999;
     font-style: normal; }
     .tangram-form .tangram-inputs.inline-inputs .radio-label i,
@@ -238,6 +256,7 @@
     line-height: 24px;
     color: #282828;
     font-size: 14px;
+    font-size: 0.7rem;
     margin-right: 10px;
     text-align: center; }
   .tangram-form[data-type=pages] .tangram-inputs input,
@@ -249,6 +268,7 @@
     line-height: 30px;
     color: #555;
     font-size: 12px;
+    font-size: 0.6rem;
     outline: none; }
   .tangram-form[data-type=pages] .tangram-inputs input,
   .tangram-form[data-type=pages] .tangram-inputs select {
@@ -316,6 +336,7 @@
     width: 100%;
     text-align: left;
     font-size: 18px;
+    font-size: 0.9rem;
     line-height: 25px; }
 
 .tangram-form[data-type=pages] .tangram-inputs[data-type=title] {
@@ -323,6 +344,7 @@
   .tangram-form[data-type=pages] .tangram-inputs[data-type=title] input {
     text-align: center;
     font-size: 24px;
+    font-size: 1.2rem;
     line-height: 35px; }
 
 .tangram-form[data-type=pages] .tangram-inputs[data-type=subtitle] {
@@ -331,6 +353,7 @@
   .tangram-form[data-type=pages] .tangram-inputs[data-type=subtitle] input {
     text-align: right;
     font-size: 18px;
+    font-size: 0.9rem;
     line-height: 25px; }
 
 .tangram-form[data-type=pages] .tangram-inputs[data-type=blocks] {
@@ -494,6 +517,7 @@
       color: #fff;
       font-style: normal;
       font-size: 12px;
+      font-size: 0.6rem;
       opacity: 0;
       z-index: 100;
       cursor: pointer;
@@ -631,6 +655,7 @@
   line-height: 24px;
   font-family: inherit;
   font-size: 12px;
+  font-size: 0.6rem;
   color: #666; }
   .tangram-form .tangram-inputs .custom-items textarea.edit-text-area {
     box-sizing: border-box;

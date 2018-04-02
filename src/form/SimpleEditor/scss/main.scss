@@ -1,10 +1,25 @@
 @charset "UTF-8";
-$headers: (h1, 50px, 30px),
-(h2, 40px, 24px),
-(h3, 30x, 18px),
-(h4, 30px, 16px),
-(h5, 20px, 14px),
-(h6, 20px, 12px);
+$headers: (h1, 50px, 30),
+(h2, 40px, 24),
+(h3, 30x, 18),
+(h4, 30px, 16),
+(h5, 20px, 14),
+(h6, 20px, 12);
+* {
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+html {
+    font-size: 125%; // 现代浏览器（pc端默认为16px，125%即20pc）
+}
+
+body {
+    font-size: 14px; // 传统浏览器（pc端14px，其他端不考虑）
+    font-size: 0.7rem; // 现代浏览器（pc端根字号为20px，70%仍旧是14px）
+}
+
 .tangram.simpleeditor {
     box-sizing: border-box;
     border: 1px solid #CCC;
@@ -13,7 +28,8 @@ $headers: (h1, 50px, 30px),
     $fontsize in $headers {
         #{$header} {
             line-height: $lineheight;
-            font-size: $fontsize;
+            font-size: #{$fontsize}px;
+            font-size: #{$fontsize/20}rem;
         }
     }
     @import "toolarea-main";

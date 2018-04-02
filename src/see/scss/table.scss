@@ -33,6 +33,7 @@ table.tangram.tangram-table {
     border-radius: 5px;
     cursor: default;
     font-size: 12px;
+    font-size: 0.6rem;
     tr.tangram-header-tr {
         height: 40px;
         background-color: transparent !important;
@@ -49,6 +50,7 @@ table.tangram.tangram-table {
             line-height: 40px;
             padding: 0px 10px;
             font-size: 13px;
+            font-size: 0.65rem;
             font-weight: normal;
             background: #666;
             color: #FFF;
@@ -72,6 +74,7 @@ table.tangram.tangram-table {
             color: #333;
             font-weight: normal;
             font-size: 12px;
+            font-size: 0.6rem;
             text-align: center;
             vertical-align: middle;
             a {
@@ -151,6 +154,7 @@ table.tangram.tangram-table {
             background-color: #6c9;
             height: 40px;
             font-size: 14px;
+            font-size: 0.7rem;
             line-height: 40px;
             color: white;
         }

@@ -1,5 +1,4 @@
 @charset "utf-8";
-
 /*
  * Panel Position
  * 面板位置
@@ -62,7 +61,7 @@
     }
     .panel.middle-remote.al-center,
     .panel.middle-remote.al-just {
-        display: none!important;
+        display: none !important;
     }
     /*
  * Buttons Style
@@ -281,6 +280,7 @@
             border-right: rgba(255, 255, 255, .5) solid 1px;
             line-height: 50px;
             font-size: 14px;
+            font-size: 0.7rem;
             transition: background-color ease-in .3s;
             overflow: hidden;
             cursor: pointer;

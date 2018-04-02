@@ -2,6 +2,18 @@
  ******** tangram.js SEE UI framework ********
  **********  Class _.see.ScrollBar  **********
  *********************************************/
+* {
+  margin: 0;
+  padding: 0;
+  border: none; }
+
+html {
+  font-size: 125%; }
+
+body {
+  font-size: 14px;
+  font-size: 0.7rem; }
+
 .scroll-doc-container {
   position: relative;
   overflow: hidden;

@@ -1,8 +1,22 @@
 @charset "utf-8";
-
 /****************
 /*	Common
 /************************************************/
+
+* {
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+html {
+    font-size: 125%; // 现代浏览器（pc端默认为16px，125%即20pc）
+}
+
+body {
+    font-size: 14px; // 传统浏览器（pc端14px，其他端不考虑）
+    font-size: 0.7rem; // 现代浏览器（pc端根字号为20px，70%仍旧是14px）
+}
 
 .tangram.slider {
     .stage {
@@ -11,7 +25,7 @@
         height: 100%;
         margin: auto;
         display: block;
-        > * {
+        >* {
             display: block;
             position: absolute;
         }
@@ -151,6 +165,7 @@
         font-family: FontAwesome;
         line-height: 82px;
         font-size: 72px;
+        font-size: 3.6rem;
         color: rgba(255, 255, 255, 0.8);
     }
     /*---| Previous |---*/
@@ -174,14 +189,17 @@
     }
     .cutter.lt-in-circle::before {
         font-size: 24px;
+        font-size: 1.2rem;
         content: "\f104";
     }
     .cutter.ll-in-circle::before {
         font-size: 30px;
+        font-size: 1.5rem;
         content: "<";
     }
     .cutter.bl-in-circle::before {
         font-size: 21px;
+        font-size: 1.05rem;
         content: "\f053";
     }
     .cutter.lt-in-bigcircle::before,
@@ -191,14 +209,17 @@
     }
     .cutter.lt-in-bigcircle::before {
         font-size: 48px;
+        font-size: 2.4rem;
         content: "\f104";
     }
     .cutter.ll-in-bigcircle::before {
         font-size: 60px;
+        font-size: 3rem;
         content: "<";
     }
     .cutter.bl-in-bigcircle::before {
         font-size: 36px;
+        font-size: 1.8rem;
         content: "\f053";
     }
     .cutter.big-lt {
@@ -222,14 +243,17 @@
     }
     .cutter.gt-in-circle::before {
         font-size: 24px;
+        font-size: 1.2rem;
         content: "\f105";
     }
     .cutter.lg-in-circle::before {
         font-size: 30px;
+        font-size: 1.5rem;
         content: ">";
     }
     .cutter.bg-in-circle::before {
         font-size: 21px;
+        font-size: 1.05rem;
         content: "\f054";
     }
     .cutter.gt-in-bigcircle::before,
@@ -239,14 +263,17 @@
     }
     .cutter.gt-in-bigcircle::before {
         font-size: 48px;
+        font-size: 2.4rem;
         content: "\f105";
     }
     .cutter.lg-in-bigcircle::before {
         font-size: 60px;
+        font-size: 3rem;
         content: ">";
     }
     .cutter.bg-in-bigcircle::before {
         font-size: 36px;
+        font-size: 1.8em;
         content: "\f054";
     }
     .cutter.big-gt {

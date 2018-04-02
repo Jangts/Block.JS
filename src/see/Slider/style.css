@@ -6,7 +6,25 @@
 /****************
 /*	Common
 /************************************************/
+* {
+  margin: 0;
+  padding: 0;
+  border: none; }
 
+html {
+  font-size: 125%; }
+
+body {
+  font-size: 14px;
+  font-size: 0.7rem; }
+
+.tangram.slider {
+  /*	UP-DOWN Turner
+/*----------------------------------------------*/
+  /*---| Three Columns |---*/
+  /*---| Previous And Next |---*/
+  /*---| Previous |---*/
+  /*---| Next |---*/ }
   .tangram.slider .stage {
     position: relative;
     width: 100%;
@@ -131,6 +149,7 @@
     font-family: FontAwesome;
     line-height: 82px;
     font-size: 72px;
+    font-size: 3.6rem;
     color: rgba(255, 255, 255, 0.8); }
   .tangram.slider .cutter.left-circle,
   .tangram.slider .cutter.left-bigcircle,
@@ -150,12 +169,15 @@
     margin-left: -10%; }
   .tangram.slider .cutter.lt-in-circle::before {
     font-size: 24px;
+    font-size: 1.2rem;
     content: "\f104"; }
   .tangram.slider .cutter.ll-in-circle::before {
     font-size: 30px;
+    font-size: 1.5rem;
     content: "<"; }
   .tangram.slider .cutter.bl-in-circle::before {
     font-size: 21px;
+    font-size: 1.05rem;
     content: "\f053"; }
   .tangram.slider .cutter.lt-in-bigcircle::before,
   .tangram.slider .cutter.ll-in-bigcircle::before,
@@ -163,12 +185,15 @@
     line-height: 82px; }
   .tangram.slider .cutter.lt-in-bigcircle::before {
     font-size: 48px;
+    font-size: 2.4rem;
     content: "\f104"; }
   .tangram.slider .cutter.ll-in-bigcircle::before {
     font-size: 60px;
+    font-size: 3rem;
     content: "<"; }
   .tangram.slider .cutter.bl-in-bigcircle::before {
     font-size: 36px;
+    font-size: 1.8rem;
     content: "\f053"; }
   .tangram.slider .cutter.big-lt {
     text-align: left;
@@ -187,12 +212,15 @@
     right: 10px; }
   .tangram.slider .cutter.gt-in-circle::before {
     font-size: 24px;
+    font-size: 1.2rem;
     content: "\f105"; }
   .tangram.slider .cutter.lg-in-circle::before {
     font-size: 30px;
+    font-size: 1.5rem;
     content: ">"; }
   .tangram.slider .cutter.bg-in-circle::before {
     font-size: 21px;
+    font-size: 1.05rem;
     content: "\f054"; }
   .tangram.slider .cutter.gt-in-bigcircle::before,
   .tangram.slider .cutter.lg-in-bigcircle::before,
@@ -200,12 +228,15 @@
     line-height: 82px; }
   .tangram.slider .cutter.gt-in-bigcircle::before {
     font-size: 48px;
+    font-size: 2.4rem;
     content: "\f105"; }
   .tangram.slider .cutter.lg-in-bigcircle::before {
     font-size: 60px;
+    font-size: 3rem;
     content: ">"; }
   .tangram.slider .cutter.bg-in-bigcircle::before {
     font-size: 36px;
+    font-size: 1.8em;
     content: "\f054"; }
   .tangram.slider .cutter.big-gt {
     text-align: right;
@@ -218,7 +249,33 @@
  * Panel Position
  * 面板位置
  */
-
+.tangram.slider {
+  /*
+ * Buttons Position
+ * 按钮位置
+ */
+  /*
+ * Buttons Style
+ * 按钮样式
+ */
+  /*---| 圆/点/圈 |---*/
+  /*- circles -*/
+  /*- points -*/
+  /*- rings -*/
+  /*- small rings -*/
+  /*---| 方形 |---*/
+  /*- square -*/
+  /*- rounded square -*/
+  /*- rectangles -*/
+  /*- round rectangles -*/
+  /*---| 条状 |---*/
+  /*- bars -*/
+  /*- rounded bars -*/
+  /*---| 线形 |---*/
+  /*- lines -*/
+  /*---| 索引 |---*/
+  /*- context -*/
+  /*- thumbs -*/ }
   .tangram.slider .panel {
     position: absolute;
     width: 100%;
@@ -403,7 +460,8 @@
   .tangram.slider .panel.lines.al-right,
   .tangram.slider .panel.lines-wb.al-right {
     padding-right: 10px; }
-
+  .tangram.slider .panel.lines-wb {
+    /*- lines with border -*/ }
     .tangram.slider .panel.lines-wb .slider-anchor {
       border-style: solid;
       border-width: 1px; }
@@ -423,6 +481,7 @@
       border-right: rgba(255, 255, 255, 0.5) solid 1px;
       line-height: 50px;
       font-size: 14px;
+      font-size: 0.7rem;
       transition: background-color ease-in .3s;
       overflow: hidden;
       cursor: pointer; }
@@ -450,7 +509,47 @@
  */
 /**** TYPES ****/
 /* Without Border **/
-
+.tangram.slider {
+  /* Circles */
+  /* With Border */
+  /**** COLOURS ****/
+  /* default:gray */
+  /* red */
+  /* orange */
+  /* brown */
+  /* yellow */
+  /* green */
+  /* darkgreen */
+  /* Circles */
+  /* With Border */
+  /**** COLOURS ****/
+  /* default:gray */
+  /* red */
+  /* orange */
+  /* brown */
+  /* yellow */
+  /* green */
+  /* darkgreen */
+  /* cyan */
+  /* blue */
+  /* darkblue */
+  /* purple */
+  /* magenta */
+  /* pink */
+  /* white */
+  /* dark */
+  /* black */
+  /**** Only Border ****/
+  /* cyan */
+  /* blue */
+  /* darkblue */
+  /* purple */
+  /* magenta */
+  /* pink */
+  /* white */
+  /* dark */
+  /* black */
+  /**** Only Border ****/ }
   .tangram.slider .panel.bars .slider-anchor,
   .tangram.slider .panel.bars-rd .slider-anchor,
   .tangram.slider .panel.rectangles .slider-anchor,

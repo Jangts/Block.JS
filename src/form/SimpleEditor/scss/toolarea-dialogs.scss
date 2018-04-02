@@ -32,6 +32,7 @@
         margin-bottom: 10px;
         padding-left: 3px;
         font-size: 14px;
+        font-size: 0.7rem;
         color: #444;
         font-weight: bold;
     }
@@ -68,6 +69,7 @@
                 background-color: #EEE;
                 text-align: center;
                 font-size: 13px;
+                font-size: 0.65rem;
                 color: #444;
             }
             input {
@@ -76,6 +78,7 @@
                 height: 28px;
                 padding: 0px 5px;
                 font-size: 12px;
+                font-size: 0.6rem;
                 border: #EEE 1px solid;
                 line-height: 28px;
             }
@@ -92,6 +95,7 @@
             height: 20px;
             line-height: 20px;
             font-size: 12px;
+            font-size: 0.6rem;
             color: #999;
         }
         .tangram.se-checkbox {
@@ -106,6 +110,7 @@
         width: 340px;
         height: 24px;
         font-size: 12px;
+        font-size: 0.6rem;
         margin-bottom: 10px;
         label {
             float: left;
@@ -126,6 +131,7 @@
             width: 24px;
             height: 24px;
             font-size: 14px;
+            font-size: 0.7rem;
             line-height: 24px;
             background-color: #EEE;
             text-align: center;
@@ -137,6 +143,7 @@
             height: 24px;
             padding: 0px 5px;
             font-size: 12px;
+            font-size: 0.6rem;
             border: #EEE 1px solid;
             line-height: 24px;
         }
@@ -146,6 +153,7 @@
             height: 24px;
             padding: 0px 5px;
             font-size: 12px;
+            font-size: 0.6rem;
             border: #EEE 1px solid;
             line-height: 24px;
         }
@@ -258,6 +266,7 @@
         padding: 4px;
         line-height: 20px;
         font-size: 12px;
+        font-size: 0.6rem;
         border: #EEE 1px solid;
         resize: none;
         overflow: auto;
@@ -285,7 +294,6 @@
         }
     }
 }
-
 
 /* ------------------------- */
 

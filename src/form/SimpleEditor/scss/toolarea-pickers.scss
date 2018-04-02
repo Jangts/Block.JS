@@ -1,5 +1,5 @@
  /*** EDITOR TOOLBAR PICKS ***************************/
- 
+
  .tangram.se-tool .tangram.se-pick {
      display: none;
      position: absolute;
@@ -14,18 +14,20 @@
      color: #555;
      overflow: auto;
  }
+
  /* ------------------------- */
- 
+
  .tangram.se-tool[data-se-cmds].active {
      overflow: visible;
      z-index: 100;
  }
- 
+
  .tangram.se-tool.active .tangram.se-pick {
      display: block;
  }
+
  /* ------------------------- */
- 
+
  li.tangram.se-font {
      width: auto;
      text-align: left;
@@ -33,64 +35,66 @@
      overflow: hidden;
      white-space: nowrap;
  }
- 
+
  .fontname li.tangram.se-font {
      font-size: 12px;
+     font-size: 0.6rem;
      height: 20px;
      line-height: 20px;
  }
- 
+
  .fontsize li.tangram.se-font {
      height: auto;
  }
- 
+
  li.tangram.se-font:hover {
      background-color: #09C;
      color: #FFF;
  }
- 
+
  li.tangram.se-font.selected {
      background-color: #09C;
      color: #FFF;
  }
+
  /* ------------------------- */
- 
+
  ul.tangram.se-pick {
      white-space: nowrap;
  }
- 
+
  .forecolor ul.tangram.se-pick {
      line-height: 0px;
  }
- 
+
  .backcolor ul.tangram.se-pick {
      line-height: 0px;
  }
- 
+
  li.tangram.se-color {
      display: inline-block;
      width: 18px;
      height: 18px;
      margin: 1px;
  }
- 
+
  li.tangram.se-color i {
      display: block;
      width: 16px;
      height: 16px;
      margin: 1px;
  }
- 
+
  li.tangram.se-color:hover {
      margin: 0px;
      border: #09C 1px solid;
  }
- 
+
  li.tangram.se-color.selected {
      margin: 0px;
      border: #09C 1px solid;
  }
- 
+
  hr.tangram.se-break {
      clear: both;
      height: 0px;
@@ -98,7 +102,7 @@
      margin: 0 !important;
      display: block;
  }
- 
+
  hr.tangram.se-break+hr.tangram.se-break {
      clear: both;
      height: 8px;
