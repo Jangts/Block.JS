@@ -1542,7 +1542,7 @@
     if (storage.core.Element) {
         var config = storage.core.Element.getAttribute('data-config'),
             mains = storage.core.Element.getAttribute('data-mains'),
-            debug = storage.core.Element.getAttribute('data-use-debugmode');
+            debug = storage.core.Element.getAttribute('data-tangram-debug');
         if (config) {
             var url = url + '.js';
             loadURL(url, '$Config');

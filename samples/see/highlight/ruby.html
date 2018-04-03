@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<meta charset=utf-8>
+<meta charset="UTF-8">
 <title>SYNTAX HIGHLIGHTING FOR ruby</title>
 <script src="../../../src/tangram.js"></script>
 
@@ -41,7 +41,7 @@ module Rack
     DIR_PAGE = &lt;&lt;-PAGE
 &lt;html&gt;&lt;head&gt;
   &lt;title&gt;%s&lt;/title&gt;
-  &lt;meta http-equiv=&quot;content-type&quot; content=&quot;text/html; charset=utf-8&quot; /&gt;
+  &lt;meta http-equiv=&quot;content-type&quot; content=&quot;text/html; charset=UTF-8&quot; /&gt;
   &lt;style type=&#39;text/css&#39;&gt;
 table { width:100%%; }
 .name { text-align:left; }
@@ -127,7 +127,7 @@ table { width:100%%; }
         @files &lt;&lt; [ url, basename, size, type, mtime ]
       end
 
-      return [ 200, {&#39;Content-Type&#39;=&gt;&#39;text/html; charset=utf-8&#39;}, self ]
+      return [ 200, {&#39;Content-Type&#39;=&gt;&#39;text/html; charset=UTF-8&#39;}, self ]
     end
 
     def stat(node, max = 10)

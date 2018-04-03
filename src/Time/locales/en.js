@@ -22,8 +22,8 @@ tangram.block(function(pandora, global, undefined) {
 
     _.locales('times', {
         'en': en,
-        'en-gb': en,
-        'en-uk': en,
-        'en-us': en
+        'en-GB': en,
+        'en-UK': en,
+        'en-US': en
     });
 });

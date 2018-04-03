@@ -152,6 +152,12 @@ tangram.block([
                 options.beforeSend(Promise.xmlhttp);
             };
             Promise.progress(options.progress).success(options.success).error(options.fail).complete(options.complete)
+            if (!options.charset) {
+                options.charset = 'UTF-8';
+            }
+            if (!options.mime) {
+                options.mime = 'text/html';
+            }
             if (options.data) {
                 if (typeof options.data == 'object') {
                     if (!_.util.bool.isForm(options.data)) {
@@ -161,13 +167,13 @@ tangram.block([
                         }
                         options.data = formData;
                     }
-                    return Promise.send(options.data);
+                    return Promise.setRequestHeader('Content-Type', options.mime + '; charset = ' + options.charset).send(options.data);
                 }
                 if (typeof options.data == 'string') {
-                    return Promise.setRequestHeader('Content-type', 'application/x-www-form-urlencoded').send(options.data);
+                    return Promise.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded;charset=' + options.charset).send(options.data);
                 }
             } else {
-                Promise.send();
+                Promise.setRequestHeader('Content-Type', options.mime + ';charset=' + options.charset).send();
             }
         },
         json: function(url, doneCallback, failCallback) {
