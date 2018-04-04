@@ -7,7 +7,7 @@ tangram.block(['$_/painter/Charts/Charts.cls'], function(pandora, global, undefi
     var _ = pandora,
         declare = pandora.declareClass,
         cache = pandora.locker,
-        document = global.document,
+        doc = global.document,
         console = global.console;
 
     _.extend(_.painter.Charts.util.defaults, {

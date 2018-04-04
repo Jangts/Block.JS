@@ -9,7 +9,7 @@
 tangram.block('$_/dom/', function(pandora, global, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
-        document = global.document,
+        doc = global.document,
         console = global.console;
 
     // 注册_.medias命名空间到pandora
@@ -27,10 +27,10 @@ tangram.block('$_/dom/', function(pandora, global, undefined) {
         },
         loadSWF: function(src, callback) {
             var flashId = this.movieName || "FlashSoundPlayer";
-            var elem = document.createElement('div');
+            var elem = doc.createElement('div');
             _.dom.setAttr(elem, "id", flashId);
             _.dom.setStyle(elem, { width: '0px', height: '0px', "overflow": 'hidden' });
-            _.dom.append(document.body, elem);
+            _.dom.append(doc.body, elem);
             swfobject.embedSWF(src, flashId, 1, 1, "10.0.0", "", {}, {}, {}, callback);
         },
         loaded: function() {

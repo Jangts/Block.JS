@@ -7,7 +7,7 @@
  */
 ;
 tangram.block('$_/see/highlight/languages/clike.xtd', function(_, global, undefined) {
-    var document = global.document,
+    var doc = global.document,
         location = global.location,
         highlight = _.see.highlight;
     highlight.languages.powershell = {

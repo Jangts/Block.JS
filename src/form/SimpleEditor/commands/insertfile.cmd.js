@@ -14,7 +14,7 @@ tangram.block([
     var _ = pandora,
         declare = pandora.declareClass,
         cache = pandora.locker,
-        document = global.document,
+        doc = global.document,
         console = global.console;
 
     var parameters = cache.read(new _.Identifier('EDITOR_PARAMS').toString()),
@@ -55,8 +55,8 @@ tangram.block([
         html += '</div>';
         html += '<input type="file" class="tangram se-files" value="" hidden="" />';
         html += '<div class="tangram se-btns">';
-        html += '<input type="button" data-se-cmd="insertfile" value="Insert Url"/>';
-        html += '<input type="button" data-se-cmd="uploadfile" value="Or Upload"/>';
+        html += '<input type="button" class="data-se-cmd" data-se-cmd="insertfile" value="Insert Url"/>';
+        html += '<input type="button" class="data-se-cmd" data-se-cmd="uploadfile" value="Or Upload"/>';
         html += '</div>';
         html += '</dialog>';
         return html;

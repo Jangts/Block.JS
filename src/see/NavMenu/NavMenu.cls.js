@@ -13,7 +13,7 @@ tangram.block([
     var _ = pandora,
         declare = pandora.declareClass,
         cache = pandora.locker,
-        document = global.document,
+        doc = global.document,
         location = global.location,
         $ = _.dom.select;
 
@@ -34,15 +34,15 @@ tangram.block([
                 $(this).css('height', parseFloat($(this).data('height')));
             });
             $('.submenu.under.al-center, .submenu.upon.al-center', this.Element).each(function() {
-                $(document.body).addClass('__while-menu-item-get-size');
+                $(doc.body).addClass('__while-menu-item-get-size');
                 width = $(this).width();
-                $(document.body).removeClass('__while-menu-item-get-size');
+                $(doc.body).removeClass('__while-menu-item-get-size');
                 $(this).css('margin-left', '-' + width / 2 + 'px');
             });
             $('.submenu.rside.al-middle, .submenu.lside.al-middle', this.Element).each(function() {
-                $(document.body).addClass('__while-menu-item-get-size');
+                $(doc.body).addClass('__while-menu-item-get-size');
                 height = $(this).height();
-                $(document.body).removeClass('__while-menu-item-get-size');
+                $(doc.body).removeClass('__while-menu-item-get-size');
                 $(this).css('margin-top', '-' + height / 2 + 'px');
             });
         }

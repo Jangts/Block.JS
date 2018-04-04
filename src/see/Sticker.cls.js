@@ -13,20 +13,20 @@ tangram.block([
     var _ = pandora,
         declare = pandora.declareClass,
         cache = pandora.locker,
-        document = global.document,
+        doc = global.document,
         location = global.location,
         infinity = global.Number.POSITIVE_INFINITY,
         $ = _.dom.select;
 
     _('see');
 
-    var initScrollTop = $(document.body).scrollTop(),
+    var initScrollTop = $(doc.body).scrollTop(),
         handlers = {};
 
     declare('see.Sticker', {
         animationDuration: 0,
         _init: function(elem, options) {
-            this.Element = _.util.type.isElement(elem) ? elem : document.getElementById(elem);
+            this.Element = _.util.type.isElement(elem) ? elem : doc.getElementById(elem);
             this.uid = new _.Identifier().toString();
             handlers[this.uid] = {};
             options = options || {};
@@ -80,7 +80,7 @@ tangram.block([
         bindListener: function() {
             var that = this,
                 callback = function() {
-                    var currScrollTop = $(document.body).scrollTop();
+                    var currScrollTop = $(doc.body).scrollTop();
                     if (initScrollTop <= currScrollTop) {
                         //down
                         _.each(handlers[that.uid], function(scrollTop, callbacks) {

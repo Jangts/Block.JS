@@ -295,9 +295,10 @@
     }
 }
 
+
 /* ------------------------- */
 
-.tangram.se-tool[data-se-dialog].active {
+.tangram.se-tool.data-se-dialog.active {
     overflow: visible;
     z-index: 100;
 }

@@ -12,7 +12,7 @@ tangram.block([
 ], function(pandora, global, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
-        document = global.document,
+        doc = global.document,
         console = global.console;
 
     var REPLACE = 0,
@@ -57,7 +57,7 @@ tangram.block([
                         :
                         (typeof move.item === 'object') ?
                         move.item.render() :
-                        document.createTextNode(move.item);
+                        doc.createTextNode(move.item);
                     staticNodeList.splice(index, 0, insertNode);
                     node.insertBefore(insertNode, node.childNodes[index] || null);
                 }
@@ -67,7 +67,7 @@ tangram.block([
             _.each(currentPatches, function(i, currentPatch) {
                 switch (currentPatch.type) {
                     case REPLACE:
-                        var newNode = (typeof currentPatch.node === 'String') ? document.createTextNode(currentPatch.node) : currentPatch.node.render();
+                        var newNode = (typeof currentPatch.node === 'String') ? doc.createTextNode(currentPatch.node) : currentPatch.node.render();
                         node.parentNode.replaceChild(newNode, node);
                         break;
                     case REORDER:

@@ -13,13 +13,13 @@ tangram.block([
     var _ = pandora,
         declare = pandora.declareClass,
         cache = pandora.locker,
-        document = global.document,
+        doc = global.document,
         console = global.console;
 
     // 注册_.data命名空间到pandora
     _('data');
 
-    var document = global.document;
+    var doc = global.document;
 
     /**
      * 一个基于html的剪切板类
@@ -35,7 +35,7 @@ tangram.block([
             if (_.util.bool.isEl(elem) && (elem.tagName == 'INPUTS' || elem.tagName == 'TEXTAREA')) {
                 this.Element = elem;
             } else {
-                this.Element = _.dom.create('textarea', document.getElementsByTagName('body')[0], {
+                this.Element = _.dom.create('textarea', doc.getElementsByTagName('body')[0], {
                     style: {
                         position: 'fixed',
                         top: -2000,
@@ -69,13 +69,13 @@ tangram.block([
                 if (window.getSelection) {
                     var selection = window.getSelection();
                     if (selection.rangeCount > 0) {
-                        document.execCommand('selectall', false, false);
-                        document.execCommand('copy', false, false);
+                        doc.execCommand('selectall', false, false);
+                        doc.execCommand('copy', false, false);
                     } else {
                         alert('Error');
                     }
-                } else if (document.selection) {
-                    var range = document.selection.createRange();
+                } else if (doc.selection) {
+                    var range = doc.selection.createRange();
                     range.execCommand('selectall', false, false);
                     range.execCommand('copy', false, false);
                 } else {

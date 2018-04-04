@@ -13,7 +13,7 @@ tangram.block([
     var _ = pandora,
         declare = pandora.declareClass,
         cache = pandora.locker,
-        document = global.document,
+        doc = global.document,
         console = global.console,
         location = global.location;
 
@@ -24,7 +24,7 @@ tangram.block([
     declare('data.Component', _.util.COM, {
         _init: function(elem) {
             this.id = new _.Identifier().toString();
-            this.Element = _.util.type.isElement(elem) ? elem : document.getElementById(elem) || document;
+            this.Element = _.util.type.isElement(elem) ? elem : doc.getElementById(elem) || document;
             this.Element.setAttribute('id', this.id);
             return this;
         },

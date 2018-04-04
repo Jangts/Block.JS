@@ -9,7 +9,8 @@
 tangram.block(['$_/util/str.xtd', '$_/util/arr.xtd', '$_/util/obj.xtd'], function(pandora, global, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
-        cache = pandora.locker;
+        cache = pandora.locker,
+        doc = global.document;
 
     //选择器正则表达式
     var idExpr = /^([\w-]+)?#([\w-]+)/;
@@ -28,7 +29,7 @@ tangram.block(['$_/util/str.xtd', '$_/util/arr.xtd', '$_/util/obj.xtd'], functio
         var result = [];
         if (onlyIdExpr.test(selector)) {
             selector = selector.replace(/#/, "");
-            var elem = document.getElementById(selector);
+            var elem = doc.getElementById(selector);
             if (elem) {
                 if (context == document || hasChildNode(context, elem)) {
                     return [elem];
@@ -40,7 +41,7 @@ tangram.block(['$_/util/str.xtd', '$_/util/arr.xtd', '$_/util/obj.xtd'], functio
             selector = selector.replace(/@/, "");
             return context.getElementsByName(selector);
         }
-        if (document.querySelectorAll) {
+        if (doc.querySelectorAll) {
             context = context.querySelectorAll ? context : document;
             if (selector.match(/\[[\w-]+=("|')[^\1]*\1[^\]]*\1\]/g)) {
                 return [];
@@ -132,7 +133,7 @@ tangram.block(['$_/util/str.xtd', '$_/util/arr.xtd', '$_/util/obj.xtd'], functio
      */
     var byId = function(id, context, tagName) {
         context = context || document;
-        var elem = document.getElementById(id);
+        var elem = doc.getElementById(id);
         if (tagName && elem && elem.tagName != tagName.toUpperCase()) {
             return undefined;
         };
@@ -157,10 +158,10 @@ tangram.block(['$_/util/str.xtd', '$_/util/arr.xtd', '$_/util/obj.xtd'], functio
 
     var byClass = function(className, context, tagName) {
         context = context || document;
-        if (document.getElementsByClassName && !tagName) {
+        if (doc.getElementsByClassName && !tagName) {
             return context.getElementsByClassName(className);
         };
-        if (document.querySelectorAll) {
+        if (doc.querySelectorAll) {
             return context.querySelectorAll((tagName || "") + "." + className);
         };
         return byAttr("class", className, context, tagName, '~');

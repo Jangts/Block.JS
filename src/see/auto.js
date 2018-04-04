@@ -15,7 +15,7 @@ tangram.auto([
     var _ = pandora,
         declare = pandora.declareClass,
         cache = pandora.locker,
-        document = global.document,
+        doc = global.document,
         location = global.location,
         $ = _.dom.select;
 

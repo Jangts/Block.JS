@@ -48,25 +48,25 @@
 
         /* 备份全局变量的引用，以防止这些变量被其他代码修改 */
         console = global.console = global.console || console,
-        document = global.document,
+        doc = global.document,
         open = global.open,
         location = global.location,
 
         // 获取页面的head元素，如果没有的话，创建之
         head = (function() {
             if (document !== undefined) {
-                if (document.head) {
-                    return document.head;
+                if (doc.head) {
+                    return doc.head;
                 }
 
                 // 兼容一些奇怪的浏览器
-                var head = document.getElementsByTagName('head')[0];
+                var head = doc.getElementsByTagName('head')[0];
                 if (head) {
                     return head;
                 }
                 /* 如果原网页中没有HEAD标签，则创建一个 */
-                head = document.createElement('head'),
-                    documentElement = document.documentElement || document.getElementsByTagName('*')[0];
+                head = doc.createElement('head'),
+                    documentElement = doc.documentElement || doc.getElementsByTagName('*')[0];
                 documentElement.appendChild(head);
                 return head;
             }
@@ -141,7 +141,7 @@
         /* 计算核心运行文件的相关信息 */
         runtime = (function() {
             if (document !== undefined) {
-                var scripts = document.getElementsByTagName('script'),
+                var scripts = doc.getElementsByTagName('script'),
                     preg = /([\w\-\.\/:]+\/)tangram[\w\-\.]*\.js/i,
                     i,
                     src,
@@ -475,7 +475,7 @@
         loadURL = function(url, callback, parent, type) {
             parent = (parent && typeof parent.appendChild === 'function') ? parent : head;
             var loadType = storage.maps.sourceTypes[type] || storage.maps.sourceTypes.js,
-                Element = document.createElement(loadType.tag);
+                Element = doc.createElement(loadType.tag);
             Element[loadType.source] = url;
             var source = Element[loadType.source];
             var callback = typeof callback === 'function' ? callback : function() {
@@ -1064,16 +1064,16 @@
                  */
                 render: function(style, innerHTML, rewritebody) {
                     if (rewritebody) {
-                        document.body.innerHTML = '';
+                        doc.body.innerHTML = '';
                     }
                     style = (typeof style === 'object') ? style : {};
                     innerHTML = (typeof style === 'string') ? style : (innerHTML || '');
-                    var el = document.createElement('div');
+                    var el = doc.createElement('div');
                     each(style, function(p, v) {
                         el.style[p] = v;
                     });
                     el.innerHTML = innerHTML;
-                    document.body.appendChild(el);
+                    doc.body.appendChild(el);
                     return el;
                 },
 
@@ -1466,7 +1466,7 @@
 
             if (options.mainUrl) {
                 var _maindir = maindir,
-                    anchor = document.createElement('a');
+                    anchor = doc.createElement('a');
                 anchor.href = options.mainUrl + '/';
                 maindir = anchor.href;
                 storage.mainUrl = calculateRelativePath(anchor.href, _maindir).replace(/[\/\\]+$/, '/');
@@ -1475,7 +1475,7 @@
             if (options.corePath) {
                 if (document) {
                     if (storage.core.Element === null) {
-                        var anchor = document.createElement('a');
+                        var anchor = doc.createElement('a');
                         anchor.href = (options.corePath + '/').replace(/[\/\\]+$/, '/');
                         console.log(anchor.href);
                         var src = anchor.href;

@@ -16,7 +16,7 @@ tangram.block([
     var _ = pandora,
         declare = pandora.declareClass,
         cache = pandora.locker,
-        document = global.document;
+        doc = global.document;
 
     var $ = _.dom.select;
 
@@ -29,7 +29,7 @@ tangram.block([
         confirmCallback: null,
         cancelCallback: null,
         _init: function(elem) {
-            elem = _.util.type.isElement(elem) ? elem : document.getElementById(elem);
+            elem = _.util.type.isElement(elem) ? elem : doc.getElementById(elem);
             if (elem) {
                 elem.innerHTML = '';
                 _.dom.addClass(elem, 'tangram').addClass(elem, 'timepicker');

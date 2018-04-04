@@ -11,7 +11,7 @@ tangram.block(['$_/util/bool.xtd', '$_/util/str.xtd', '$_/dom/'], function(
     var _ = pandora,
         declare = pandora.declareClass,
         cache = pandora.locker,
-        document = global.document;
+        doc = global.document;
 
     // 注册_.dom命名空间到pandora
     _('dom');
@@ -164,7 +164,7 @@ tangram.block(['$_/util/bool.xtd', '$_/util/str.xtd', '$_/dom/'], function(
         strlen: 0,
         midast: [],
         $ast: [],
-        compile(body) {
+        compile: function(body) {
             this.body = body;
             if (body.indexOf('<') === -1) {
                 this.ast = [body];

@@ -14,7 +14,7 @@ tangram.block([
     var _ = pandora,
         declare = pandora.declareClass,
         cache = pandora.locker,
-        document = global.document,
+        doc = global.document,
         console = global.console,
         location = global.location;
 
@@ -234,7 +234,7 @@ tangram.block([
                 // console.log(data, prop, _.util.obj.hasProp(data, prop));
                 if (_.util.obj.hasProp(data, prop) && check(property, data[prop])) {
                     newdata[prop] = data[prop];
-                } else if (property.default!== undefined) {
+                } else if (property.default !== undefined) {
                     newdata[prop] = property.default;
                 } else {
                     _.error('Must input a correct [' + prop + '] for model [' + alias[this.uid] + ']');
@@ -304,7 +304,7 @@ tangram.block([
                 if (context) {
                     _.dom.append(context, table);
                 } else {
-                    _.dom.append(document.body, table);
+                    _.dom.append(doc.body, table);
                 }
             });
         }

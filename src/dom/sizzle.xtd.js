@@ -9,7 +9,8 @@
 tangram.block(function(pandora, global, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
-        cache = pandora.locker;
+        cache = pandora.locker,
+        doc = global.document;
 
     /*!
      * Sizzle CSS Selector Engine
@@ -960,7 +961,7 @@ tangram.block(function(pandora, global, undefined) {
     // Also verifies that the returned array holds DOM nodes
     // (which is not the case in the Blackberry browser)
     try {
-        Array.prototype.slice.call(document.documentElement.childNodes, 0)[0].nodeType;
+        Array.prototype.slice.call(doc.documentElement.childNodes, 0)[0].nodeType;
 
         // Provide a fallback method if it does not work
     } catch (e) {
@@ -991,7 +992,7 @@ tangram.block(function(pandora, global, undefined) {
     var sortOrder,
         siblingCheck;
 
-    if (document.documentElement.comparedocPosition) {
+    if (doc.documentElement.comparedocPosition) {
         sortOrder = function(a, b) {
             if (a === b) {
                 hasDuplicate = true;
@@ -1088,9 +1089,9 @@ tangram.block(function(pandora, global, undefined) {
     // querying by getElementById (and provide a workaround)
     (function() {
         // We're going to inject a fake input element with a specified name
-        var form = document.createElement("div"),
+        var form = doc.createElement("div"),
             id = "script" + (new Date()).getTime(),
-            root = document.documentElement;
+            root = doc.documentElement;
 
         form.innerHTML = "<a name='" + id + "'/>";
 
@@ -1099,7 +1100,7 @@ tangram.block(function(pandora, global, undefined) {
 
         // The workaround has to do additional checks after a getElementById
         // Which slows things down for other browsers (hence the branching)
-        if (document.getElementById(id)) {
+        if (doc.getElementById(id)) {
             Expr.find.ID = function(match, context, isXML) {
                 if (typeof context.getElementById !== "undefined" && !isXML) {
                     var m = context.getElementById(match[1]);
@@ -1128,8 +1129,8 @@ tangram.block(function(pandora, global, undefined) {
         // when doing getElementsByTagName("*")
 
         // Create a fake element
-        var div = document.createElement("div");
-        div.appendChild(document.createComment(""));
+        var div = doc.createElement("div");
+        div.appendChild(doc.createComment(""));
 
         // Make sure no comments are found
         if (div.getElementsByTagName("*").length > 0) {
@@ -1168,10 +1169,10 @@ tangram.block(function(pandora, global, undefined) {
         div = null;
     })();
 
-    if (document.querySelectorAll) {
+    if (doc.querySelectorAll) {
         (function() {
             var oldSizzle = Sizzle,
-                div = document.createElement("div"),
+                div = doc.createElement("div"),
                 id = "__sizzle__";
 
             div.innerHTML = "<p class='TEST'></p>";
@@ -1276,19 +1277,19 @@ tangram.block(function(pandora, global, undefined) {
     }
 
     (function() {
-        var html = document.documentElement,
+        var html = doc.documentElement,
             matches = html.matchesSelector || html.mozMatchesSelector || html.webkitMatchesSelector || html.msMatchesSelector;
 
         if (matches) {
             // Check to see if it's possible to do matchesSelector
             // on a disconnected node (IE 9 fails this)
-            var disconnectedMatch = !matches.call(document.createElement("div"), "div"),
+            var disconnectedMatch = !matches.call(doc.createElement("div"), "div"),
                 pseudoWorks = false;
 
             try {
                 // This should fail with an exception
                 // Gecko does not error, returns false instead
-                matches.call(document.documentElement, "[test!='']:sizzle");
+                matches.call(doc.documentElement, "[test!='']:sizzle");
 
             } catch (pseudoError) {
                 pseudoWorks = true;
@@ -1320,7 +1321,7 @@ tangram.block(function(pandora, global, undefined) {
     })();
 
     (function() {
-        var div = document.createElement("div");
+        var div = doc.createElement("div");
 
         div.innerHTML = "<div class='test e'></div><div class='test'></div>";
 
@@ -1420,12 +1421,12 @@ tangram.block(function(pandora, global, undefined) {
         }
     }
 
-    if (document.documentElement.contains) {
+    if (doc.documentElement.contains) {
         Sizzle.contains = function(a, b) {
             return a !== b && (a.contains ? a.contains(b) : true);
         };
 
-    } else if (document.documentElement.comparedocPosition) {
+    } else if (doc.documentElement.comparedocPosition) {
         Sizzle.contains = function(a, b) {
             return !!(a.comparedocPosition(b) & 16);
         };

@@ -57,7 +57,7 @@ tangram.block([
         html += '<label><input type="checkbox" class="tangram se-checkbox" checked="checked">Open in new tab</label>';
         html += '</div>';
         html += '<div class="tangram se-btns">';
-        html += '<button type="button" data-se-cmd="createlink">OK</button>';
+        html += '<button type="button" class="data-se-cmd" data-se-cmd="createlink">OK</button>';
         html += '</div>';
         html += '</dialog>';
         return html;

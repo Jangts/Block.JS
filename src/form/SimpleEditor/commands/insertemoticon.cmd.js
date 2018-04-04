@@ -51,7 +51,7 @@ tangram.block([
         var path = parameters.basePath + 'emoticons/' + pack + '/';
         var html = '<dialog class="tangram se-dialog"><ul class="tangram se-emoticons tangram se-emoticons-' + pack + '">';
         for (var i in emtb) {
-            html += '<li class="tangram se-emoticon" data-se-cmd="insertemoticon" data-se-val="' + pack + ', ' + i + '" title="' + i + '"><img src="' + path + emtb[i] + '"></li>';
+            html += '<li class="tangram se-emoticon data-se-cmd" data-se-cmd="insertemoticon" data-se-val="' + pack + ', ' + i + '" title="' + i + '"><img src="' + path + emtb[i] + '"></li>';
         }
         html += '</ul></dialog>';
         return html;

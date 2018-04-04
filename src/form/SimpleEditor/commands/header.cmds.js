@@ -48,7 +48,7 @@ tangram.block([
     regCreater('header', function() {
         var html = '<ul class="tangram se-pick">';
         for (var i = 1; i < 7; i++) {
-            html += '<li class="tangram se-h' + i + '" data-se-cmd="header" data-se-val="h' + i + '"><h' + i + '>Header ' + i + '</h' + i + '></li>';
+            html += '<li class="tangram se-h' + i + ' data-se-cmd" data-se-cmd="header" data-se-val="h' + i + '"><h' + i + '>Header ' + i + '</h' + i + '></li>';
         }
         html += '</ul>';
         return html;

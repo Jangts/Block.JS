@@ -10,7 +10,7 @@ tangram.block(function(pandora, global, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
         cache = pandora.locker,
-        document = global.document,
+        doc = global.document,
         console = global.console;
 
     var deepMerge = function(obj1, obj2) {
@@ -29,7 +29,7 @@ tangram.block(function(pandora, global, undefined) {
     };
 
     _('util.obj', {
-        hasProp: function (obj, property) {
+        hasProp: function(obj, property) {
             return obj && obj.hasOwnProperty && obj.hasOwnProperty(property);
         },
         merge: function() {

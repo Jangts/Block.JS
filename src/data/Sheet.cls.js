@@ -15,7 +15,7 @@ tangram.block([
     var _ = pandora,
         declare = pandora.declareClass,
         cache = pandora.locker,
-        document = global.document,
+        doc = global.document,
         console = global.console,
         location = global.location,
         Storage = _.data.Storage,
@@ -304,7 +304,7 @@ tangram.block([
                     if (context) {
                         _.dom.append(context, html);
                     } else {
-                        _.dom.append(document.body, html);
+                        _.dom.append(doc.body, html);
                     }
                 }
                 return false;

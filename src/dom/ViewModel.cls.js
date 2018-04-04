@@ -14,7 +14,7 @@ tangram.block([
     var _ = pandora,
         declare = pandora.declareClass,
         cache = pandora.locker,
-        document = global.document;
+        doc = global.document;
 
     var vdoms = {},
         isFn = _.util.bool.isFn,
@@ -42,7 +42,7 @@ tangram.block([
                     e.data.input = this.value;
                     //e.data.observer.silently = false;
                 });
-                document.body.appendChild(dom);
+                doc.body.appendChild(dom);
             }
         },
         proxy = function(key) {

@@ -11,13 +11,13 @@ tangram.block(['$_/util/bool.xtd', '$_/util/Color.cls', '$_/dom/'], function(
     var _ = pandora,
         declare = pandora.declareClass,
         cache = pandora.locker,
-        document = global.document;
+        doc = global.document;
 
     // 注册_.dom命名空间到pandora
     _('dom');
 
     var rgba = (function() {
-        var div = document.createElement('div');
+        var div = doc.createElement('div');
         div.style.backgroundColor = "rgb(0,0,0)";
         div.style.backgroundColor = "rgba(0,0,0,0)";
         var backgroundColor = div.style.backgroundColor;

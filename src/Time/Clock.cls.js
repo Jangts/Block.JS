@@ -13,7 +13,7 @@ tangram.block([
     var _ = pandora,
         declare = pandora.declareClass,
         cache = pandora.locker,
-        document = global.document;
+        doc = global.document;
 
     var $ = _.dom.select;
 
@@ -33,7 +33,7 @@ tangram.block([
         m: 0,
         s: 0,
         _init: function(elem) {
-            elem = _.util.type.isElement(elem) ? elem : document.getElementById(elem);
+            elem = _.util.type.isElement(elem) ? elem : doc.getElementById(elem);
             if (elem) {
                 this.Element = elem;
                 _.dom.addClass(elem, 'tangram').addClass(elem, 'clock');

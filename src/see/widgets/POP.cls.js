@@ -10,7 +10,7 @@ tangram.block(['$_/util/COM.cls', '$_/dom/Elements/'], function(pandora, global,
     var _ = pandora,
         declare = pandora.declareClass,
         cache = pandora.locker,
-        document = global.document,
+        doc = global.document,
         console = global.console,
         location = global.location;
     var $ = _.dom.select;
@@ -27,11 +27,11 @@ tangram.block(['$_/util/COM.cls', '$_/dom/Elements/'], function(pandora, global,
         docHeightMax: 0,
         _init: function(elem) {
             this.Element = elem || function() {
-                var div = document.createElement('div');
+                var div = doc.createElement('div');
                 div.className = 'tangram popup';
                 div.style.position = 'fixed';
                 div.innerHTML = '<div class="tangram popup-mask"></div><div class="tangram popup-document"></div>';
-                document.body.appendChild(div);
+                doc.body.appendChild(div);
                 return div;
             }();
             this.mask = $('.tangram.popup-mask', this.Element).get(0);

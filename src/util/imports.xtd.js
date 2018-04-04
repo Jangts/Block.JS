@@ -11,7 +11,7 @@ tangram.block(function(pandora, global, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
         cache = pandora.locker,
-        document = global.document,
+        doc = global.document,
         console = global.console;
 
     /* Define Generic Data Cache Container */
@@ -88,7 +88,7 @@ tangram.block(function(pandora, global, undefined) {
                 } else {
                     url = path;
                 }
-                var anchor = document.createElement('a');
+                var anchor = doc.createElement('a');
                 anchor.href = url;
                 url = _.relativePath(anchor.href + '/default');
                 url = url.replace(/\./g, '\\\.');

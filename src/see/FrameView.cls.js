@@ -13,14 +13,14 @@ tangram.block([
     var _ = pandora,
         declare = pandora.declareClass,
         cache = pandora.locker,
-        document = global.document,
+        doc = global.document,
         location = global.location,
         infinity = global.Number.POSITIVE_INFINITY,
         $ = _.dom.select;
 
     _('see');
 
-    var initScrollTop = $(document.body).scrollTop(),
+    var initScrollTop = $(doc.body).scrollTop(),
         handlers = {};
 
     declare('see.FrameView', {

@@ -13,7 +13,7 @@ tangram.block([
     var _ = pandora,
         declare = pandora.declareClass,
         cache = pandora.locker,
-        document = global.document,
+        doc = global.document,
         Image = global.Image,
         console = global.console;
 
@@ -99,7 +99,7 @@ tangram.block([
             }
         },
         toString: function() {
-            var div = document.createElement('div');
+            var div = doc.createElement('div');
             div.appendChild(this.image);
             var html = div.innerHTML;
             div = null;
@@ -108,7 +108,7 @@ tangram.block([
         },
         toBase: function(callback, mime) {
             var img = this.image,
-                canvas = document.createElement('CANVAS'),
+                canvas = doc.createElement('CANVAS'),
                 ctx = canvas.getctx('2d');
             img.crossOrigin = 'Anonymous';
             img.onload = function() {

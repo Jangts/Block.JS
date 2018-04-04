@@ -15,7 +15,7 @@ tangram.block([
     var _ = pandora,
         declare = pandora.declareClass,
         cache = pandora.locker,
-        document = global.document,
+        doc = global.document,
         console = global.console,
 
         regMethod = cache.read(new _.Identifier('EDITOR_REG_M').toString()),
@@ -54,8 +54,8 @@ tangram.block([
         html += '<input type="file" class="tangram se-files" value="" hidden="" multiple />';
         html += '<div class="tangram se-show"><span>click to upload</span></div>';
         html += '<div class="tangram se-btns">';
-        html += '<input type="button" data-se-cmd="insertimage" value="Insert Web Picture"/>';
-        html += '<input type="button" data-se-cmd="uploadimage" value="Upload And Insert"/>';
+        html += '<input type="button" class="data-se-cmd" data-se-cmd="insertimage" value="Insert Web Picture"/>';
+        html += '<input type="button" class="data-se-cmd" data-se-cmd="uploadimage" value="Upload And Insert"/>';
         html += '</div>';
         html += '</dialog>';
         return html;

@@ -14,7 +14,7 @@ tangram.block([
     var _ = pandora,
         declare = pandora.declareClass,
         cache = pandora.locker,
-        document = global.document,
+        doc = global.document,
         console = global.console;
 
 
@@ -25,7 +25,7 @@ tangram.block([
                 type = 'svg';
             }
             type = type || 'svg';
-            this.Element = document.createElementNS('http://www.w3.org/2000/svg', type);
+            this.Element = doc.createElementNS('http://www.w3.org/2000/svg', type);
             if (_.util.type(data) === 'Object') {
                 _.each(data, function(attr, value) {
                     this.attr(attr, value);

@@ -10,12 +10,12 @@ tangram.block('$_/util/bool.xtd', function(pandora, global, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
         cache = pandora.locker,
-        document = global.document,
+        doc = global.document,
         console = global.console;
 
     var isGetSelection = window.getSelection ? true : false,
         getRangeHtml = function(range) {
-            var div = document.createElement('div')
+            var div = doc.createElement('div')
             div.appendChild(range.cloneContents());
             return div.innerHTML;
         },
@@ -52,7 +52,7 @@ tangram.block('$_/util/bool.xtd', function(pandora, global, undefined) {
             }
         },
         docSelectionRange = function() {
-            this.originRange = document.selection.createRange();
+            this.originRange = doc.selection.createRange();
 
             this.commonNode = this.originRange.parentElement();
             this.startNode = null;
@@ -178,26 +178,26 @@ tangram.block('$_/util/bool.xtd', function(pandora, global, undefined) {
             }
             return this;
         },
-        // 封装 document.queryCommandValue
+        // 封装 doc.queryCommandValue
         queryCommandValue: function(name) {
-            if (document.queryCommandValue) {
-                return document.queryCommandValue(name);
+            if (doc.queryCommandValue) {
+                return doc.queryCommandValue(name);
             }
             return '';
         },
 
-        // 封装 document.queryCommandState
+        // 封装 doc.queryCommandState
         queryCommandState: function(name) {
-            if (document.queryCommandState) {
-                return document.queryCommandState(name);
+            if (doc.queryCommandState) {
+                return doc.queryCommandState(name);
             }
             return false;
         },
 
-        // 封装 document.queryCommandSupported
+        // 封装 doc.queryCommandSupported
         queryCommandSupported: function(name) {
-            if (document.queryCommandSupported) {
-                return document.queryCommandSupported(name);
+            if (doc.queryCommandSupported) {
+                return doc.queryCommandSupported(name);
             }
             return false;
         },
@@ -205,7 +205,7 @@ tangram.block('$_/util/bool.xtd', function(pandora, global, undefined) {
             //console.log(this);
             isDialog = isDialog || false;
             if (isGetSelection) {
-                document.execCommand(cmd, isDialog, val);
+                doc.execCommand(cmd, isDialog, val);
             } else {
                 this.originRange.execCommand(cmd, isDialog, val);
             }

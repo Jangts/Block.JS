@@ -8,7 +8,8 @@
 
 tangram.block(function(pandora, global, undefined) {
     var _ = pandora,
-        declare = pandora.declareClass;
+        declare = pandora.declareClass,
+        doc = global.document;
 
     declare('painter.QRCode.SVGDrawing', {
         _init: function(el, options) {
@@ -25,7 +26,7 @@ tangram.block(function(pandora, global, undefined) {
             this.clear();
 
             function makeSVG(tag, attrs) {
-                var el = document.createElementNS('http://www.w3.org/2000/svg', tag);
+                var el = doc.createElementNS('http://www.w3.org/2000/svg', tag);
                 for (var k in attrs)
                     if (attrs.hasOwnProperty(k)) el.setAttribute(k, attrs[k]);
                 return el;

@@ -13,32 +13,32 @@ tangram.block([
     var _ = pandora,
         declare = pandora.declareClass,
         cache = pandora.locker,
-        document = global.document,
+        doc = global.document,
         console = global.console;
 
     var types = {
-        color: 'string',
-        date: 'fulldate',
-        datetime: 'datetime',     
-        dayofweek: 'int not null',
-        email: 'string',
-        hourminute: 'hourminute',
-        month: 'month',
-        number: 'int not null',
-        password: 'string',
-        range: 'int not null',
-        tel: 'string',
-        text: 'string',
-        time: 'timeofday',
-        url: 'string'
-    },
+            color: 'string',
+            date: 'fulldate',
+            datetime: 'datetime',
+            dayofweek: 'int not null',
+            email: 'string',
+            hourminute: 'hourminute',
+            month: 'month',
+            number: 'int not null',
+            password: 'string',
+            range: 'int not null',
+            tel: 'string',
+            text: 'string',
+            time: 'timeofday',
+            url: 'string'
+        },
         classes = [],
-    models = {},
-        declareModel = function (options, name) {
+        models = {},
+        declareModel = function(options, name) {
             var fields = [],
-            props = {};
-            _.each(options, function (i, option){
-                if (_.util.bool.isArr(option) && option.length > 0){
+                props = {};
+            _.each(options, function(i, option) {
+                if (_.util.bool.isArr(option) && option.length > 0) {
                     if (option.length > 1) {
                         if (option.length > 2) {
                             if (_.util.bool.isNumeric(option[2])) {
@@ -175,29 +175,29 @@ tangram.block([
             this.$ID = this.model.constraint.create({});
             this._parent._init.call(this, elem, textarea);
         },
-        loadJSON: function (string) {
+        loadJSON: function(string) {
             var obj = JSON.parse(string) || {};
             return this.input(obj);
         },
-        input: function (data) {
+        input: function(data) {
             var prop,
                 value,
                 inputs = [],
                 fields = this.model.fields,
                 data = this.model.constraint.update(this.$ID, data);
-            _.each(fields, function (i, field) {
+            _.each(fields, function(i, field) {
                 prop = field.name;
                 value = data[prop];
-                switch(field.type){
+                switch (field.type) {
                     case 'select':
                         inputs.push('<select data-prop-name="' + prop + '">');
-                        _.each(field.options[0], function (i, option){
-                            if (option == value){
+                        _.each(field.options[0], function(i, option) {
+                            if (option == value) {
                                 inputs.push('<option value="' + option + '" selected>' + field.options[1][i] + '</option>');
-                            }else{
+                            } else {
                                 inputs.push('<option value="' + option + '">' + field.options[1][i] + '</option>');
                             }
-                            
+
                         });
                         inputs.push('</select>');
                         break;
@@ -207,10 +207,10 @@ tangram.block([
                     case 'dayofweek':
                     case 'hourminute':
                     case 'time':
-                        inputs.push('<input class="use-tp" data-tp-type="' + types[field.type]+'" data-prop-name="' + prop + '" type="' + field.type + '" value="' + value + '" />');
+                        inputs.push('<input class="use-tp" data-tp-type="' + types[field.type] + '" data-prop-name="' + prop + '" type="' + field.type + '" value="' + value + '" />');
                         break;
 
-                        default:
+                    default:
                         inputs.push('<input data-prop-name="' + prop + '" type="' + field.type + '" value="' + value + '" />');
                 }
             });
@@ -225,9 +225,9 @@ tangram.block([
             }
             return json;
         },
-        output:function(){
+        output: function() {
             var prop, data = {};
-            _.each(_.query('[data-prop-name]', this.Element), function () {
+            _.each(_.query('[data-prop-name]', this.Element), function() {
                 prop = _.dom.getAttr(this, 'data-prop-name');
                 data[prop] = this.value;
             });

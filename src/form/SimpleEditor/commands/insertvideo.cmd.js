@@ -105,7 +105,7 @@ tangram.block([
         html += '<option value="ogg">ogg</option>';
         html += '</select></div></div>';
         html += '<div class="tangram se-btns">';
-        html += '<button type="button" data-se-cmd="insertvideo">OK</button>';
+        html += '<button type="button" class="data-se-cmd" data-se-cmd="insertvideo">OK</button>';
         html += '</div>';
         html += '</dialog>';
         return html;

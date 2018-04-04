@@ -12,7 +12,7 @@ tangram.block([
     var _ = pandora,
         declare = pandora.declareClass,
         cache = pandora.locker,
-        document = global.document,
+        doc = global.document,
         console = global.console;
 
     //Define NameSpace 'form.VisualJOSN'
@@ -58,7 +58,7 @@ tangram.block([
             }
 
         },
-        bindInput: function (textarea){
+        bindInput: function(textarea) {
             if (_.util.bool.isEl(textarea)) {
                 this.textarea = buildTextarea(textarea);
                 this.loadJSON(this.textarea.getText());

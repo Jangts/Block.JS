@@ -4,12 +4,12 @@ tangram.block([
     var _ = pandora,
         declare = pandora.declareClass,
         cache = pandora.locker,
-        document = global.document,
+        doc = global.document,
         console = global.console,
         $ = _.dom.select;
 
     var checkInputValue = {
-        datetime() {
+        datetime: function() {
             this.currentInputValue = this.currentInputValue.trim();
             if (/^\-\d+\s*\-\s*\d{1,2}\s*\-\s*\d{1,2}\s+\d{1,2}\s*:\s*\d{1,2}\s*:\s*\d{1,2}$/.test(this.currentInputValue)) {
                 this.currentValuesList = this.currentInputValue.replace(/^\-/, '').split(/[\-\s\:]+/);
@@ -25,7 +25,7 @@ tangram.block([
             }
             this.currentValuesList[1] = parseInt(this.currentValuesList[1]) - 1;
         },
-        fulldate() {
+        fulldate: function() {
             this.currentInputValue = this.currentInputValue.trim();
             if (/^\-\d+\s*\-\s*\d{1,2}\s*\-\s*\d{1,2}\s+\d{1,2}\s*:\s*\d{1,2}\s*:\s*\d{1,2}$/.test(this.currentInputValue)) {
                 this.currentValuesList = this.currentInputValue.replace(/^\-/, '').split(/[\-\s\:]+/);
@@ -41,10 +41,10 @@ tangram.block([
             }
             this.currentValuesList[1] = parseInt(this.currentValuesList[1]) - 1;
         },
-        localmonth() {},
-        shortmonth() {},
-        numbermonth() {},
-        dayofyear() {
+        localmonth: function() {},
+        shortmonth: function() {},
+        numbermonth: function() {},
+        dayofyear: function() {
             this.currentInputValue = this.currentInputValue.trim();
             if (/^\d{1,2}\s*\-\s*\d{1,2}$/.test(this.currentInputValue) == false) {
                 this.currentInputValue = new _.Time().format('yyyy-MM');
@@ -52,21 +52,21 @@ tangram.block([
             this.currentValuesList = this.currentInputValue.split(/[\-\s]+/);
             this.currentValuesList[1] = parseInt(this.currentValuesList[1]) - 1;
         },
-        timeofday() {
+        timeofday: function() {
             this.currentInputValue = this.currentInputValue.trim();
             if (/^\d{1,2}\s*:\s*\d{1,2}\s*:\s*\d{1,2}$/.test(this.currentInputValue) == false) {
                 this.currentInputValue = new _.Time().format('hh:mm:ss');
             }
             this.currentValuesList = this.currentInputValue.split(/[\:\s]+/);
         },
-        hourminute() {
+        hourminute: function() {
             this.currentInputValue = this.currentInputValue.trim();
             if (/^\d{1,2}\s*:\s*\d{1,2}$/.test(this.currentInputValue) == false) {
                 this.currentInputValue = new _.Time().format('hh:mm');
             }
             this.currentValuesList = this.currentInputValue.split(/[\:\s]+/);
         },
-        dayofweek() {
+        dayofweek: function() {
             this.currentInputValue = parseInt(this.currentInputValue.trim());
             if (this.currentInputValue > 6 || this.currentInputValue < 0) {
                 this.currentInputValue = 0;
@@ -86,18 +86,18 @@ tangram.block([
         _init: function(picker) {
             this.picker = picker;
         },
-        clearDisplay() {
-            _.each(this.picker.display, (i, el) => {
+        clearDisplay: function() {
+            _.each(this.picker.display, function(i, el) {
                 _.dom.removeClass(el, 'actived');
             });
         },
-        clearPickers(type) {
+        clearPickers: function(type) {
             if (this.currentPickerType != type) {
                 $('.pickers section').removeClass('actived');
                 this.currentPickerType = type;
             }
         },
-        datetime() {
+        datetime: function() {
             checkInputValue[this.currentInputType].call(this);
             if (this.currentValuesList[0] > 0) {
                 var quotient = parseInt((parseInt(this.currentValuesList[0]) - 1) / 60);
@@ -110,11 +110,11 @@ tangram.block([
             this.currentdisplayTarget = $('.displayer .display-item[data-type=datetime] .display-char').sub(0);
             this.currentPickerType = 'year';
             _.dom.addClass(this.picker.display.datetime, 'actived');
-            setTimeout(() => {
+            setTimeout(function() {
                 this.picker.builder.yearsListbuild(this.currentFirstYear, parseInt(this.currentValuesList[0]));
             }, 500);
         },
-        fulldate() {
+        fulldate: function() {
             checkInputValue[this.currentInputType].call(this);
             if (this.currentValuesList[0] > 0) {
                 var quotient = parseInt((parseInt(this.currentValuesList[0]) - 1) / 60);
@@ -126,51 +126,51 @@ tangram.block([
             this.currentdisplayTarget = $('.displayer .display-item[data-type=fulldate] .display-char').sub(0);
             this.currentPickerType = 'year';
             _.dom.addClass(this.picker.display.fulldate, 'actived');
-            setTimeout(() => {
+            setTimeout(function() {
                 this.picker.builder.yearsListbuild(this.currentFirstYear, parseInt(this.currentValuesList[0]));
             }, 500);
         },
-        localmonth() {},
-        shortmonth() {},
-        numbermonth() {},
-        dayofyear() {
+        localmonth: function() {},
+        shortmonth: function() {},
+        numbermonth: function() {},
+        dayofyear: function() {
             checkInputValue[this.currentInputType].call(this);
             this.currentValuesList[1] = parseInt(this.currentValuesList[1]) - 1;
             this.picker.builder.dayofyear(parseInt(this.currentValuesList[0]), this.currentValuesList[1]);
             this.currentdisplayTarget = $('.displayer .display-item[data-type=dayofyear] .display-char').sub(0);
             this.currentPickerType = 'month';
             _.dom.addClass(this.picker.display.dayofyear, 'actived');
-            setTimeout(() => {
+            setTimeout(function() {
                 this.picker.builder.monthsListbuild(parseInt(this.currentValuesList[0]) - 1);
             }, 500);
         },
-        timeofday() {
+        timeofday: function() {
             checkInputValue[this.currentInputType].call(this);
             this.picker.builder.timeofday(parseInt(this.currentValuesList[0]), parseInt(this.currentValuesList[1]), parseInt(this.currentValuesList[2]));
             this.currentdisplayTarget = $('.displayer .display-item[data-type=timeofday] .display-char').sub(0);
             this.currentPickerType = 'hour';
             _.dom.addClass(this.picker.display.timeofday, 'actived');
-            setTimeout(() => {
+            setTimeout(function() {
                 this.picker.builder.hoursListbuild(parseInt(this.currentValuesList[0]));
             }, 500);
         },
-        hourminute() {
+        hourminute: function() {
             checkInputValue[this.currentInputType].call(this);
             this.picker.builder.hourminute(parseInt(this.currentValuesList[0]), parseInt(this.currentValuesList[1]));
             this.currentdisplayTarget = $('.displayer .display-item[data-type=hourminute] .display-char').sub(0);
             this.currentPickerType = 'hour';
             _.dom.addClass(this.picker.display.hourminute, 'actived');
-            setTimeout(() => {
+            setTimeout(function() {
                 this.picker.builder.hoursListbuild(parseInt(this.currentValuesList[0]));
             }, 500);
         },
-        dayofweek() {
+        dayofweek: function() {
             checkInputValue[this.currentInputType].call(this);
             this.picker.builder.dayofweek(parseInt(this.currentValuesList[0]));
             this.currentdisplayTarget = $('.displayer .display-item[data-type=dayofweek] .display-char').sub(0);
             this.currentPickerType = 'day';
             _.dom.addClass(this.picker.display.dayofweek, 'actived');
-            setTimeout(() => {
+            setTimeout(function() {
                 this.picker.builder.daysListbuild(parseInt(this.currentValuesList[0]));
             }, 500);
         }

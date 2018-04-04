@@ -15,7 +15,7 @@ tangram.block([
     var _ = pandora,
         declare = pandora.declareClass,
         cache = pandora.locker,
-        document = global.document;
+        doc = global.document;
 
     var patch = _.dom.VElement.patch,
         diff = _.dom.VElement.diff;
@@ -51,7 +51,7 @@ tangram.block([
             this.count = count;
         },
         render: function() {
-            var elem = document.createElement(this.tagName);
+            var elem = doc.createElement(this.tagName);
             var props = this.props;
             for (var propName in props) {
                 var propValue = props[propName];
@@ -60,7 +60,7 @@ tangram.block([
             _.each(this.children, function(i, child) {
                 var childEl = (child instanceof _.dom.VElement) ?
                     child.render() :
-                    document.createTextNode(child);
+                    doc.createTextNode(child);
                 elem.appendChild(childEl);
             })
             return elem;

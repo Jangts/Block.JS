@@ -12,7 +12,7 @@ tangram.block([
     var _ = pandora,
         declare = pandora.declareClass,
         cache = pandora.locker,
-        document = global.document,
+        doc = global.document,
         console = global.console;
 
     var dialogs = {},
@@ -32,10 +32,11 @@ tangram.block([
             }
         },
         downrich = function(event) {
-            // console.log(0);
+            // console.log(event);
             event.data.mousedown = true;
         },
         outrich = function(event) {
+            // console.log(event);
             var editor = event.data;
             if (editor.mousedown && (_.util.bool.inArr(event.target, editor.richareas) !== false)) {
                 editor.mouseout = true;
@@ -43,7 +44,7 @@ tangram.block([
             }
         },
         muprich = function(event) {
-            // console.log(1);
+            // console.log(event);
             var editor = event.data;
             editor.hideExtTools();
             editor.mousedown = false;
@@ -52,6 +53,7 @@ tangram.block([
             editor.onchange();
         },
         kuprich = function(event) {
+            // console.log(event);
             var editor = event.data;
             resetStateBar(editor);
             editor.selection.saveRange();
@@ -123,16 +125,18 @@ tangram.block([
     events = {
         'toolbar': {
             'mousedown': function(event) {
+                // console.log(event);
                 var editor = event.data;
                 editor.selection.restoreSelection();
                 editor.onchange();
             },
             'mouseup': {
-                '[data-se-dialog]': function(event) {
+                '.data-se-dialog': function(event) {
+                    // console.log(event);
                     if (event.target.tagName == 'I') {
                         var editor = event.data,
                             dialog = _.dom.getAttr(this, 'data-se-dialog');
-                        _.each(_.query('.tangram.se-tool[data-se-dialog] input[type=text], .tangram.se-tool[data-se-dialog] textarea, .tangram.se-tool[data-se-dialog] input.tangram.se-files', editor.toolbar), function(i, el) {
+                        _.each(_.query('.tangram.se-tool.data-se-dialog input[type=text], .tangram.se-tool.data-se-dialog textarea, .tangram.se-tool.data-se-dialog input.tangram.se-files', editor.toolbar), function(i, el) {
                             if (_.dom.hasClass(this, 'createlink')) {
                                 // console.log(editor.selection, editor.selection.getRange());
                                 var elem = editor.selection.getRange().commonElem;
@@ -149,12 +153,12 @@ tangram.block([
                             }
                         });
 
-                        _.query('.tangram.se-tool[data-se-dialog] .tangram.se-show', editor.toolbar)[0].innerHTML = '<span>click to upload</span>';
+                        _.query('.tangram.se-tool.data-se-dialog .tangram.se-show', editor.toolbar)[0].innerHTML = '<span>click to upload</span>';
                         editor.showDialog(dialog, this);
                         editor.selection.restoreSelection();
                     };
                 },
-                '[data-se-cmds]': function(event) {
+                '.data-se-cmds': function(event) {
                     // console.log(event);
                     var editor = event.data,
                         cmds = _.dom.getAttr(this, 'data-se-cmds');
@@ -164,7 +168,7 @@ tangram.block([
                     editor.selection.restoreSelection();
                     editor.onchange();
                 },
-                '[data-se-cmd]': function(event) {
+                '.data-se-cmd': function(event) {
                     // console.log(event);
                     var editor = event.data;
                     editor.selection.restoreSelection();
@@ -196,6 +200,7 @@ tangram.block([
                     }
                 },
                 '.tangram.se-show span': function(event) {
+                    // console.log(event);
                     var editor = event.data;
                     var previewer = this.parentNode,
                         dialog = _.dom.closest(this, 'dialog'),
@@ -243,29 +248,33 @@ tangram.block([
                 '.tangram.se-richarea': downrich
             },
             'mouseup': {
-                '.tangram.se-statebar .se-imgfloat': function(e) {
+                '.tangram.se-statebar .se-imgfloat': function(event) {
+                    // console.log(event);
                     var float = _.dom.getAttr(this, 'data-float') || 'none',
                         img = event.data.selectedImage;
                     img.style.float = float;
                     // event.data.selection.restoreSelection();
                     event.data.onchange();
                 },
-                '.tangram.se-statebar .se-imgsize': function(e) {
+                '.tangram.se-statebar .se-imgsize': function(event) {
+                    // console.log(event);
                     var size = _.dom.getAttr(this, 'data-size') || 'none';
                     inputs['imgsize'](event.data, size);
                     // event.data.selection.restoreSelection();
                     event.data.onchange();
                 },
-                '.tangram.se-statebar .se-table-addrow': function(e) {
-                    var editor = e.data,
+                '.tangram.se-statebar .se-table-addrow': function(event) {
+                    // console.log(event);
+                    var editor = event.data,
                         table = editor.selectedTable,
                         row = editor.selectedTableRow,
                         len = row.cells.length;
                     _.dom.after(row, '<tr>' + _.util.str.repeat('<td>&nbsp;</td>', len) + '</tr>');
                     event.data.selection.restoreSelection();
                 },
-                '.tangram.se-statebar .se-table-addcol': function(e) {
-                    var editor = e.data,
+                '.tangram.se-statebar .se-table-addcol': function(event) {
+                    // console.log(event);
+                    var editor = event.data,
                         table = editor.selectedTable,
                         row = editor.selectedTableRow,
                         cell = editor.selectedTableCell,

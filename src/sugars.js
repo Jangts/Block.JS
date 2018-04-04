@@ -7,9 +7,11 @@
  */
 ;
 (function(global, undefined) {
+    var doc = global.document;
+
     // 编译主代码块
     compile = function() {
-        var scripts = shallow(document.getElementsByTagName('script')),
+        var scripts = shallow(doc.getElementsByTagName('script')),
             getIncs = function(text) {
                 if (text) {
                     array = text.replace(/[;\r\n]+/g, ';').replace(/^include\s+/, '"').replace(/\s*;\s*include\s+/g, '", "').replace(/\s*;\s*$/, '') + '"';
@@ -26,7 +28,7 @@
             "\r\nvar _ = pandora," +
             "declare = pandora.declareClass," +
             "cache = pandora.locker," +
-            "document = global.document," +
+            "doc = global.document," +
             "console = global.console;\r\n";
         each(scripts, function(i, script) {
             // 判断是否为InterBlock
@@ -47,5 +49,5 @@
         });
     };
 
-    document.addEventListener ? window.addEventListener('load', compile) : window.attachEvent("onload" + originType, compile);
+    doc.addEventListener ? window.addEventListener('load', compile) : window.attachEvent("onload" + originType, compile);
 }(window));

@@ -11,12 +11,13 @@ tangram.block([
 ], function(pandora, global, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
-        cache = pandora.locker;
+        cache = pandora.locker,
+        doc = global.document;
 
     // 注册_.dom命名空间到pandora
     _('dom');
 
-    var document = global.document,
+    var doc = global.document,
         removeByIndex = function(array, index) {
             var result = [];
             for (var i = 0; i < array.length; i++) {
@@ -46,7 +47,7 @@ tangram.block([
                         Selectors: {},
                         Elements: []
                     };
-                    document.addEventListener ? this.Element.addEventListener(originType, this.eventTypes[eventType].Listener, false) : this.Element.attachEvent("on" + originType, this.eventTypes[eventType].Listener);
+                    doc.addEventListener ? this.Element.addEventListener(originType, this.eventTypes[eventType].Listener, false) : this.Element.attachEvent("on" + originType, this.eventTypes[eventType].Listener);
                 }
             }
             return this;
@@ -108,13 +109,15 @@ tangram.block([
             event.currentTarget = event.currentTarget || event.target || event.relatedTarget || event.srcElement;
             event.target = event.target || event.currentTarget;
             event.delegateTarget = this.Element;
-            if (event.delegateTarget === event.target) {
-                event.path = event.path || [event.target];
-                event.isCurrent = true;
-            } else {
-                event.path = event.path || [event.target, event.delegateTarget];
-                event.isCurrent = (event.path[0] === event.delegateTarget);
-            }
+            event.path = event.path || _.dom.getParentNodes(event.target);
+            event.isCurrent = (event.delegateTarget === event.target);
+            // if (event.delegateTarget === event.target) {
+            //     // event.path = event.path || [event.target];
+            //     event.isCurrent = true;
+            // } else {
+            //     // event.path = event.path || [event.target, event.delegateTarget];
+            //     event.isCurrent = false;
+            // }
             event.wheelDelta = event.wheelDelta || event.detail * -40;
             event.timeStamp = Date.parse(new Date()) / 1000;
             event.eventType = eventType;
@@ -122,11 +125,11 @@ tangram.block([
                 event.keyName = _.util.str.charCode(event.which);
             }
             if (this.checkEventType(event, eventType)) {
-                event.path = event.path || _.dom.getParentNodes(event.target);
                 var EventType = this.eventTypes[eventType];
                 for (var s in EventType['Selectors']) {
                     var selector = EventType['Selectors'][s];
                     var elements = _.dom.query(s, this.Element);
+                    // console.log(elements, s, event.path);
                     for (var i = 0; i < elements.length; i++) {
                         if (_.util.arr.has(event.path, elements[i]) !== false) {
                             for (var n in selector) {
@@ -234,7 +237,7 @@ tangram.block([
         removeType: function(eventType) {
             if (this.eventTypes[eventType]) {
                 var originType = this.originEventType(eventType);
-                document.addEventListener ? this.Element.removeEventListener(originType, this.eventTypes[eventType].Listener, false) : this.Element.detachEvent("on" + originType, this.eventTypes[eventType].Listener);
+                doc.addEventListener ? this.Element.removeEventListener(originType, this.eventTypes[eventType].Listener, false) : this.Element.detachEvent("on" + originType, this.eventTypes[eventType].Listener);
                 delete this.eventTypes[eventType];
             }
             return this;
@@ -242,7 +245,7 @@ tangram.block([
         remove: function() {
             for (var eventType in this.eventTypes) {
                 var originType = this.originEventType(eventType);
-                document.addEventListener ? this.Element.removeEventListener(originType, this.eventTypes[eventType].Listener, false) : this.Element.detachEvent("on" + originType, this.eventTypes[eventType].Listener);
+                doc.addEventListener ? this.Element.removeEventListener(originType, this.eventTypes[eventType].Listener, false) : this.Element.detachEvent("on" + originType, this.eventTypes[eventType].Listener);
                 delete this.eventTypes[eventType];
             }
             delete this.eventTypes;

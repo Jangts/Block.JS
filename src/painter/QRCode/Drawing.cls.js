@@ -12,9 +12,9 @@ tangram.block([
 ], function(pandora, global, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
-        document = global.document;
+        doc = global.document;
 
-    var useSVG = document.documentElement.tagName.toLowerCase() === "svg";
+    var useSVG = doc.documentElement.tagName.toLowerCase() === "svg";
 
     if (useSVG) {
         _.painter.QRCode.Drawing = _.painter.QRCode.SVGDrawing;
@@ -61,7 +61,7 @@ tangram.block([
 
                 // Check it just once
                 if (that.isSupportDataURI === null) {
-                    var el = document.createElement("img");
+                    var el = doc.createElement("img");
                     var error = function() {
                         that.isSupportDataURI = false;
 
@@ -95,14 +95,14 @@ tangram.block([
                     this.isAndroid = _.util.bool.isAndroid();
 
                     this.options = options;
-                    this.ElementCanvas = document.createElement("canvas");
+                    this.ElementCanvas = doc.createElement("canvas");
                     this.ElementCanvas.width = options.width;
                     this.ElementCanvas.height = options.height;
                     elem.appendChild(this.ElementCanvas);
                     this.Element = elem;
                     this.context = this.ElementCanvas.getContext("2d");
                     this.isPainted = false;
-                    this.ElementImage = document.createElement("img");
+                    this.ElementImage = doc.createElement("img");
                     this.ElementImage.alt = "Scan me!";
                     this.ElementImage.style.display = "none";
                     this.Element.appendChild(this.ElementImage);

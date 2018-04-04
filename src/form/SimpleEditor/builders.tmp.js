@@ -58,19 +58,19 @@ tangram.block([
         builders = {
             tools: {
                 optionalitem: function(tool) {
-                    var html = '<div class="tangram se-tool ' + tool + '" data-se-cmds="' + tool + '" title="' + tool + '"><i class="tangram se-icon"></i>';
+                    var html = '<div class="tangram se-tool ' + tool + ' data-se-cmds" data-se-cmds="' + tool + '" title="' + tool + '"><i class="tangram se-icon"></i>';
                     html += creators[tool].call(this);
                     html += '</div>';
                     return html;
                 },
                 dialogitem: function(tool) {
-                    var html = '<div class="tangram se-tool ' + tool + '" data-se-dialog="' + tool + '" title="' + tool + '"><i class="tangram se-icon"></i>';
+                    var html = '<div class="tangram se-tool ' + tool + ' data-se-dialog" data-se-dialog="' + tool + '" title="' + tool + '"><i class="tangram se-icon"></i>';
                     html += creators[tool].call(this);
                     html += '</div>';
                     return html;
                 },
                 defaultitem: function(tool) {
-                    return '<div class="tangram se-tool ' + tool + '" data-se-cmd="' + tool + '" title="' + tool + '"><i class="tangram se-icon"></i></div>';
+                    return '<div class="tangram se-tool ' + tool + ' data-se-cmd" data-se-cmd="' + tool + '" title="' + tool + '"><i class="tangram se-icon"></i></div>';
                 }
             },
             initEl: function(elem, options, textarea) {

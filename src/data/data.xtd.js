@@ -15,7 +15,7 @@ tangram.block([
     var _ = pandora,
         declare = pandora.declareClass,
         cache = pandora.locker,
-        document = global.document,
+        doc = global.document,
         location = global.location,
         console = global.console,
         FormData = global.FormData;;
@@ -24,7 +24,7 @@ tangram.block([
     _('data', {
         load: _.load,
         loadCSS: function(href, callback) {
-            var link = _.dom.query('link[href="' + href + '"]')[0] || _.dom.create('link', document.getElementsByTagName('head')[0], {
+            var link = _.dom.query('link[href="' + href + '"]')[0] || _.dom.create('link', doc.getElementsByTagName('head')[0], {
                 type: 'text/css',
                 rel: 'stylesheet',
                 async: 'async'
@@ -57,7 +57,7 @@ tangram.block([
 
         },
         loadScript: function(src, callback) {
-            var script = _.dom.query('script[src="' + src + '"]')[0] || _.dom.create('script', document.getElementsByTagName('head')[0], {
+            var script = _.dom.query('script[src="' + src + '"]')[0] || _.dom.create('script', doc.getElementsByTagName('head')[0], {
                 type: 'application/javascript',
                 async: 'async'
             });
@@ -235,7 +235,7 @@ tangram.block([
             return url + "?" + _.util.obj.toQueryString(data);
         },
         cookie: function(name, value, prop) {
-            var c = document.cookie,
+            var c = doc.cookie,
                 ret = null;
             if (arguments.length == 1) {
                 if (c && c !== '') {
@@ -277,7 +277,7 @@ tangram.block([
                 var path = prop.path ? '; path=' + (prop.path) : '';
                 var domain = prop.domain ? '; domain=' + (prop.domain) : '';
                 var secure = prop.secure ? '; secure' : '';
-                document.cookie = [name, '=', encodeURIComponent(value), expires, path, domain, secure].join('');
+                doc.cookie = [name, '=', encodeURIComponent(value), expires, path, domain, secure].join('');
             }
             return ret;
         }

@@ -7,7 +7,7 @@ tangram.block('$_/util/bool.xtd', function(pandora, global, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
         cache = pandora.locker,
-        document = global.document,
+        doc = global.document,
         console = global.console,
         location = global.location;
 
@@ -57,7 +57,7 @@ tangram.block('$_/util/bool.xtd', function(pandora, global, undefined) {
             ctx.stroke();
         },
         urlToBase64: function(url, callback, mime) {
-            var canvas = document.createElement('CANVAS'),
+            var canvas = doc.createElement('CANVAS'),
                 ctx = canvas.getctx('2d'),
                 img = new Image;
             img.crossOrigin = 'Anonymous';

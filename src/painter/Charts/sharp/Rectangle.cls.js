@@ -7,7 +7,7 @@ tangram.block(['$_/painter/Charts/Component/Component.cls'], function(pandora, g
     var _ = pandora,
         declare = pandora.declareClass,
         cache = pandora.locker,
-        document = global.document,
+        doc = global.document,
         console = global.console;
 
     declare('painter.Charts.sharp.Rectangle', _.painter.Charts.Component, {

@@ -11,7 +11,8 @@ tangram.block([
     '$_/painter/QRCode/Drawing.cls'
 ], function(pandora, global, undefined) {
     var _ = pandora,
-        declare = pandora.declareClass;
+        declare = pandora.declareClass,
+        doc = global.document;
 
     var QRCode = _.painter.QRCode,
         QRErrorCorrectLevel = QRCode.Model.CorrectLevel,
@@ -122,7 +123,7 @@ tangram.block([
             }
 
             if (typeof el == "string") {
-                el = document.getElementById(el);
+                el = doc.getElementById(el);
             }
 
             if (this.options.useSVG) {

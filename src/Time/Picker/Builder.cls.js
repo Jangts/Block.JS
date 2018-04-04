@@ -14,7 +14,7 @@ tangram.block([
     var _ = pandora,
         declare = pandora.declareClass,
         cache = pandora.locker,
-        document = global.document;
+        doc = global.document;
 
     var $ = _.dom.select;
 
@@ -23,7 +23,7 @@ tangram.block([
         daysofweek = _.locales('times', 'en', 'days'),
         days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 
-    var format = (type, value) => {
+    var format = function(type, value) {
         value = parseInt(value);
         switch (type) {
             case 'month':
@@ -70,7 +70,7 @@ tangram.block([
             this.minuteslist = $('.pickers section[data-type=minutes] ul', picker.Element);
             this.dayslist = $('.pickers section[data-type=days] ul', picker.Element);
         },
-        datetime(year, month, day, hour, minute, second) {
+        datetime: function(year, month, day, hour, minute, second) {
             var html = '<i class="display-char" data-char-type="year" data-value="' + year + '">' + format('year', year) + '</i>';
             html += '<i class="display-char" data-char-type="mon" data-value="' + month + '">' + format('mon', month) + '</i>';
             html += '<i class="display-char" data-char-type="date" data-value="' + day + '">' + format('date', day) + '</i>';
@@ -79,32 +79,32 @@ tangram.block([
             html += '<i class="display-char" data-char-type="second" data-value="' + second + '">' + format('second', second) + '</i>';
             this.picker.display.datetime.innerHTML = html;
         },
-        fulldate(year, month, day) {
+        fulldate: function(year, month, day) {
             var html = '<i class="display-char" data-char-type="year" data-value="' + year + '">' + format('year', year) + '</i>';
             html += '<i class="display-char" data-char-type="mon" data-value="' + month + '">' + format('mon', month) + '</i>';
             html += '<i class="display-char" data-char-type="date" data-value="' + day + '">' + format('date', day) + '</i>';
             this.picker.display.fulldate.innerHTML = html;
         },
-        dayofyear(month, day) {
+        dayofyear: function(month, day) {
             var html = '<i class="display-char" data-char-type="month" data-value="' + month + '">' + format('month', month) + '</i>';
             html += '<i class="display-char" data-char-type="date" data-value="' + day + '">' + format('date', day) + '</i>';
             this.picker.display.dayofyear.innerHTML = html;
         },
-        timeofday(hour, minute, second) {
+        timeofday: function(hour, minute, second) {
             var html = '<i class="display-char" data-char-type="hour" data-value="' + hour + '">' + format('hour', hour) + '</i>';
             html += '<i class="display-char" data-char-type="first" data-value="' + minute + '">' + format('first', minute) + '</i>';
             html += '<i class="display-char" data-char-type="second" data-value="' + second + '">' + format('second', second) + '</i>';
             this.picker.display.timeofday.innerHTML = html;
         },
-        hourminute(hour, minute) {
+        hourminute: function(hour, minute) {
             var html = '<i class="display-char" data-char-type="hour" data-value="' + hour + '">' + format('hour', hour) + '</i>';
             html += '<i class="display-char" data-char-type="minute" data-value="' + minute + '">' + format('minute', minute) + '</i>';
             this.picker.display.hourminute.innerHTML = html;
         },
-        dayofweek(day) {
+        dayofweek: function(day) {
             this.picker.display.dayofweek.innerHTML = '<i class="display-char" data-char-type="day" data-value="' + day + '">' + format('day', day) + '</i>';
         },
-        yearsListbuild(firstYear, selectedYear) {
+        yearsListbuild: function(firstYear, selectedYear) {
             var year = firstYear,
                 lastYear = firstYear + 59;
 
@@ -127,7 +127,7 @@ tangram.block([
             html += '<li class="next">Next Page</li>';
             this.yearslist.html(html).parent().addClass('actived');
         },
-        monthsListbuild(selectedMonth) {
+        monthsListbuild: function(selectedMonth) {
             var html = '';
             for (var month = 0; month < 12; month++) {
                 if (month === selectedMonth) {
@@ -154,7 +154,7 @@ tangram.block([
             }
             this.monthslist.html(html).parent().addClass('actived');
         },
-        datesListbuild(firstDay, count, selectedDate, hideDayOfWeek) {
+        datesListbuild: function(firstDay, count, selectedDate, hideDayOfWeek) {
             var d = day = 0,
                 lastDay = (firstDay + count - 1) % 7;
             var date = 1,
@@ -193,7 +193,7 @@ tangram.block([
             }
             this.dateslist.html(html).parent().addClass('actived');
         },
-        hoursListbuild(selectedHour) {
+        hoursListbuild: function(selectedHour) {
             var html = '';
             for (var hour = 0; hour <= 23; hour++) {
                 if (hour === selectedHour) {
@@ -214,7 +214,7 @@ tangram.block([
             }
             this.hourslist.html(html).parent().addClass('actived');
         },
-        minutesListbuild(selectedMinute) {
+        minutesListbuild: function(selectedMinute) {
             var html = '';
             for (var minute = 0; minute <= 59; minute++) {
                 if (minute === selectedMinute) {
@@ -233,7 +233,7 @@ tangram.block([
             }
             this.minuteslist.html(html).parent().addClass('actived');
         },
-        daysListbuild(selectedDay) {
+        daysListbuild: function(selectedDay) {
             var html = '';
             for (var day = 0; day < 7; day++) {
                 if (day === selectedDay) {

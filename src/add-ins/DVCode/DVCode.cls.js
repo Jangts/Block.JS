@@ -3,9 +3,9 @@ tangram.block([
     '$_/dom/Elements/animation.clsx'
 ], function(_, global, undefined) {
     var $ = _.dom.select,
-        document = global.document,
-        body = document.body || document.getElementsByTagName('body')[0],
-        isSupportWebp = !![].map && document.createElement('canvas').toDataURL('image/webp').indexOf('data:image/webp') == 0;
+        doc = global.document,
+        body = doc.body || doc.getElementsByTagName('body')[0],
+        isSupportWebp = !![].map && doc.createElement('canvas').toDataURL('image/webp').indexOf('data:image/webp') == 0;
 
     var htmlBuilde = function() {
             if ($('#tangram-dvcode-mask').length) {

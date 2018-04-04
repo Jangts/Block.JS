@@ -10,7 +10,7 @@ tangram.block('$_/dom/Events.cls', function(pandora, global, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
         cache = pandora.locker,
-        document = global.document;
+        doc = global.document;
 
     declare('see.BasicScrollBAR', {
         disabled: false,
@@ -110,7 +110,7 @@ tangram.block('$_/dom/Events.cls', function(pandora, global, undefined) {
         },
         bind: function() {
             var that = this;
-            var _mousewheel = document.onmousewheel;
+            var _mousewheel = doc.onmousewheel;
             new _.dom.Events(this.Element)
                 .push('resize', null, null, function() {
                     that.resize;
@@ -118,19 +118,19 @@ tangram.block('$_/dom/Events.cls', function(pandora, global, undefined) {
                 .push('mousewheel', null, null, function(event) {
                     var elem = event.target;
                     if (that.protect) {
-                        document.onmousewheel = function(event) {
+                        doc.onmousewheel = function(event) {
                             return false;
                         };
                     }
                     that.mousewheel.call(that, event);
                 })
                 .push('mouseout', null, null, function() {
-                    document.onmousewheel = _mousewheel;
+                    doc.onmousewheel = _mousewheel;
                 });
             if (this.vertical) {
                 new _.dom.Events(this.verticalDragger)
                     .push('mousedown', null, null, function() {
-                        document.body.onselectstart = document.body.ondrag = function(event) {
+                        doc.body.onselectstart = doc.body.ondrag = function(event) {
                             return false;
                         }
                         that.verticalDraggerActived = true;
@@ -145,7 +145,7 @@ tangram.block('$_/dom/Events.cls', function(pandora, global, undefined) {
             if (this.horizontal) {
                 new _.dom.Events(this.horizontalDragger)
                     .push('mousedown', null, null, function(event) {
-                        document.body.onselectstart = document.body.ondrag = function() {
+                        doc.body.onselectstart = doc.body.ondrag = function() {
                             return false;
                         }
                         that.horizontalDraggerActived = true;
@@ -159,7 +159,7 @@ tangram.block('$_/dom/Events.cls', function(pandora, global, undefined) {
             }
             new _.dom.Events(document)
                 .push('mouseup', null, null, function() {
-                    that.verticalDraggerActived = that.horizontalDraggerActived = document.body.onselectstart = document.body.ondrag = false;
+                    that.verticalDraggerActived = that.horizontalDraggerActived = doc.body.onselectstart = doc.body.ondrag = false;
                 })
                 .push('mousemove', null, null, function(event) {
                     that.mousemove.call(that, event)
@@ -188,7 +188,7 @@ tangram.block('$_/dom/Events.cls', function(pandora, global, undefined) {
                         } else if (parseInt(_.dom.getStyle(this.document, 'top')) > this.TopMin) {
                             this.documentTop = this.style(this.document, 'top', this.TopMin);
                         } else {
-                            //document.onmousewheel = null;
+                            //doc.onmousewheel = null;
                         }
                     }
                     if (event.wheelDelta > 0) {
@@ -201,7 +201,7 @@ tangram.block('$_/dom/Events.cls', function(pandora, global, undefined) {
                         } else if (parseInt(_.dom.getStyle(this.document, 'top')) < 0) {
                             this.documentTop = this.style(this.document, 'top', 0);
                         } else {
-                            //document.onmousewheel = null;
+                            //doc.onmousewheel = null;
                         }
                     }
                     this.DraggerTop = this.style(this.verticalDragger, 'top', Math.abs(this.documentTop / this.DocHeight * this.RailHeight));
@@ -221,7 +221,7 @@ tangram.block('$_/dom/Events.cls', function(pandora, global, undefined) {
                         } else if (parseInt(_.dom.getStyle(this.document, 'left')) > this.LeftMin) {
                             this.documentLeft = this.style(this.document, 'left', this.LeftMin);
                         } else {
-                            //document.onmousewheel = null;
+                            //doc.onmousewheel = null;
                         }
                     }
                     if (event.wheelDelta > 0) {
@@ -234,7 +234,7 @@ tangram.block('$_/dom/Events.cls', function(pandora, global, undefined) {
                         } else if (parseInt(_.dom.getStyle(this.document, 'left')) < 0) {
                             this.documentLeft = this.style(this.document, 'left', 0);
                         } else {
-                            //document.onmousewheel = null;
+                            //doc.onmousewheel = null;
                         }
                     }
                     this.DraggerLeft = this.style(this.horizontalDragger, 'left', Math.abs(this.documentLeft / this.DocWidth * this.RailWidth));

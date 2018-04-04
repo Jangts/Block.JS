@@ -13,13 +13,13 @@ tangram.block([
     var _ = pandora,
         declare = pandora.declareClass,
         cache = pandora.locker,
-        document = global.document,
+        doc = global.document,
         console = global.console;
 
     // 注册_.data命名空间到pandora
     _('data');
 
-    var document = global.document,
+    var doc = global.document,
         location = global.location,
 
         // registered upload clients on page, indexed by id
@@ -38,7 +38,7 @@ tangram.block([
         bingThingy = function(thingy) {
             // simple DOM lookup utility function
             if (_.util.bool.isStr(thingy))
-                thingy = document.getElementById(thingy);
+                thingy = doc.getElementById(thingy);
             if (!thingy.addClass) {
                 // extend element with a few useful methods
                 thingy.hide = function() {
@@ -142,14 +142,14 @@ tangram.block([
             if (_.util.bool.isStr(appendElem)) {
                 appendElem = bingThingy(appendElem);
             } else if (typeof(appendElem) == 'undefined') {
-                appendElem = document.getElementsByTagName('body')[0];
+                appendElem = doc.getElementsByTagName('body')[0];
             }
 
             // find X/Y position of domElement
             var box = getDOMObjectPosition(this.domElement, appendElem);
 
             // create floating DIV above element
-            this.div = document.createElement('div');
+            this.div = doc.createElement('div');
             var style = this.div.style;
             style.position = 'absolute';
             style.left = '' + box.left + 'px';
@@ -204,7 +204,7 @@ tangram.block([
                 this.hide();
                 this.div.innerHTML = '';
 
-                var body = document.getElementsByTagName('body')[0];
+                var body = doc.getElementsByTagName('body')[0];
                 try {
                     body.removeChild(this.div);
                 } catch (e) {;
@@ -270,7 +270,7 @@ tangram.block([
                 case 'load':
                     // movie claims it is ready, but in IE this isn't always the case...
                     // bug fix: Cannot extend EMBED DOM elements in Firefox, must use traditional function
-                    this.movie = document.getElementById(this.movieId);
+                    this.movie = doc.getElementById(this.movieId);
                     if (!this.movie) {
                         var self = this;
                         setTimeout(function() {

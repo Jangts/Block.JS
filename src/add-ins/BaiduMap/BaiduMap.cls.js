@@ -3,7 +3,8 @@ tangram.block([
     'http://api.map.baidu.com/getscript?v=1.1&ak=&services=true&t=20130716024058',
     'http://api.map.baidu.com/res/11/bmap.css'
 ], function(_, global, undefined) {
-    var BMap = global.BMap,
+    var doc = global.document,
+        BMap = global.BMap,
         BMAP_NAVIGATION_CONTROL_LARGE = global.BMAP_NAVIGATION_CONTROL_LARGE,
         BMAP_ANCHOR_BOTTOM_RIGHT = global.BMAP_ANCHOR_BOTTOM_RIGHT,
         BMAP_ANCHOR_BOTTOM_LEFT = global.BMAP_ANCHOR_BOTTOM_LEFT,
@@ -45,7 +46,7 @@ tangram.block([
         map: null,
         _init: function(elem, options) {
             if (options && options.coords) {
-                elem = _.util.type.isElement(elem) ? elem : document.getElementById(elem);
+                elem = _.util.type.isElement(elem) ? elem : doc.getElementById(elem);
                 _.dom.addClass(elem, 'tangram-addin-map');
                 var id = _.dom.getAttr(elem, 'id') || _.dom.setAttr(elem, 'id', (new _.Identifier()).toString());
 
