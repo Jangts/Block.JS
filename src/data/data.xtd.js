@@ -155,25 +155,32 @@ tangram.block([
             if (!options.charset) {
                 options.charset = 'UTF-8';
             }
-            if (!options.mime) {
-                options.mime = 'text/html';
-            }
+
             if (options.data) {
                 if (typeof options.data == 'object') {
+                    if (!options.mime) {
+                        options.mime = 'multipart/form-data';
+                    }
                     if (!_.util.bool.isForm(options.data)) {
+                        if (options.mime === 'application/json') {
+                            return Promise.setRequestHeader('Content-Type', 'application/json; charset=' + options.charset).send(JSON.stringify(options.data));
+                        }
                         var formData = new FormData();
                         for (var i in options.data) {
                             formData.append(i, options.data[i]);
                         }
                         options.data = formData;
                     }
-                    return Promise.setRequestHeader('Content-Type', options.mime + '; charset = ' + options.charset).send(options.data);
+                    return Promise.send(options.data);
                 }
                 if (typeof options.data == 'string') {
-                    return Promise.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded;charset=' + options.charset).send(options.data);
+                    if (!options.mime) {
+                        options.mime = 'application/x-www-form-urlencoded';
+                    }
+                    return Promise.setRequestHeader('Content-Type', options.mime + '; charset=' + options.charset).send(options.data);
                 }
             } else {
-                Promise.setRequestHeader('Content-Type', options.mime + ';charset=' + options.charset).send();
+                Promise.setRequestHeader('Content-Type', 'text/html; charset=' + options.charset).send();
             }
         },
         json: function(url, doneCallback, failCallback) {

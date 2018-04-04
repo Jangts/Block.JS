@@ -1,7 +1,14 @@
 <!DOCTYPE html>
-<meta charset="UTF-8">
-<title>SYNTAX HIGHLIGHTING FOR c</title>
-<script src="../../../src/tangram.js"></script>
+<html lang="en-us">
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tangram.js syntax highlighting for c</title>
+    <script src="../../../src/tangram.js"></script>
+
+</head>
 
 <body style="font-size:0.875em;">
     <pre>
@@ -206,8 +213,10 @@ void sound_delete(sound* s) {
          * 2. 使用load加载coy样式并调用see.highlight.rendertAll；
          * 3. 使用see.highlight.renderAll渲染c代码；
          */
-        tangram.block(['$_/see/highlight/languages/c.xtd'], function(_, global, undefined) {
+        tangram.block(['$_/see/highlight/languages/c.xtd'], function (_, global, undefined) {
             _.load('../../../src/see/highlight/themes/dark.css', _.see.highlight.renderAll, null, 'css');
         }, true);
     </script>
 </body>
+
+</html>

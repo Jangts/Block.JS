@@ -1,10 +1,17 @@
 <!DOCTYPE html>
-<meta charset="UTF-8">
-<title>SYNTAX HIGHLIGHTING FOR coffeescript</title>
-<script src="../../../src/tangram.js"></script>
+<html lang="en-us">
+
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>tangram.js syntax highlighting for coffeescript</title>
+  <script src="../../../src/tangram.js"></script>
+
+</head>
 
 <body style="font-size:0.875em;">
-    <pre><code data-language="coffeescript"># Assignment:
+  <pre><code data-language="coffeescript"># Assignment:
 number   = 42
 opposite = true
 
@@ -32,7 +39,7 @@ alert "I knew it!" if elvis?
 
 # Array comprehensions:
 cubes = (math.cube num for num in list)</code></pre>
-    <pre><code data-language="coffeescript">class Animal
+  <pre><code data-language="coffeescript">class Animal
   constructor: (@name) ->
 
   move: (meters) ->
@@ -53,12 +60,12 @@ tom = new Horse "Tommy the Palomino"
 
 sam.move()
 tom.move()</code></pre>
-    <pre><code data-language="coffeescript">weatherReport = (location) ->
+  <pre><code data-language="coffeescript">weatherReport = (location) ->
   # Make an Ajax request to fetch the weather...
   [location, 72, "Mostly Sunny"]
 
 [city, temp, forecast] = weatherReport "Berkeley, CA"</code></pre>
-    <pre><code data-language="coffeescript">fs = require 'fs'
+  <pre><code data-language="coffeescript">fs = require 'fs'
 
 option '-o', '--output [DIR]', 'directory for compiled code'
 
@@ -68,15 +75,17 @@ task 'build:parser', 'rebuild the Jison parser', (options) ->
   dir  = options.output or 'lib'
   fs.writeFile "#{dir}/parser.js", code</code></pre>
 
-    <script>
-        /* 本测试主要测试如下 */
-        /*
-         * 1. 从语句块的可用性；
-         * 2. 使用load加载coy样式并调用see.highlight.rendertAll；
-         * 3. 使用see.highlight.renderAll渲染coffeescript代码；
-         */
-        tangram.block(['$_/see/highlight/languages/coffeescript.xtd'], function(_, global, undefined) {
-            _.load('../../../src/see/highlight/themes/okaidia.css', _.see.highlight.renderAll, null, 'css');
-        }, true);
-    </script>
+  <script>
+    /* 本测试主要测试如下 */
+    /*
+     * 1. 从语句块的可用性；
+     * 2. 使用load加载coy样式并调用see.highlight.rendertAll；
+     * 3. 使用see.highlight.renderAll渲染coffeescript代码；
+     */
+    tangram.block(['$_/see/highlight/languages/coffeescript.xtd'], function (_, global, undefined) {
+      _.load('../../../src/see/highlight/themes/okaidia.css', _.see.highlight.renderAll, null, 'css');
+    }, true);
+  </script>
 </body>
+
+</html>

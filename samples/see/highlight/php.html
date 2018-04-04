@@ -1,7 +1,14 @@
 <!DOCTYPE html>
-<meta charset="UTF-8">
-<title>SYNTAX HIGHLIGHTING FOR php</title>
-<script src="../../../src/tangram.js"></script>
+<html lang="en-us">
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tangram.js syntax highlighting for php</title>
+    <script src="../../../src/tangram.js"></script>
+
+</head>
 
 <body style="font-size:0.875em;">
     <pre>
@@ -88,8 +95,10 @@ class Util
          * 2. 使用load加载funky样式并调用see.highlight.rendertAll；
          * 3. 使用see.highlight.renderAll渲染php代码；
          */
-        tangram.block(['$_/see/highlight/languages/php.xtd'], function(_, global, undefined) {
+        tangram.block(['$_/see/highlight/languages/php.xtd'], function (_, global, undefined) {
             _.load('../../../src/see/highlight/themes/funky.css', _.see.highlight.renderAll, null, 'css');
         }, true);
     </script>
 </body>
+
+</html>

@@ -1,7 +1,14 @@
 <!DOCTYPE html>
-<meta charset="UTF-8">
-<title>SYNTAX HIGHLIGHTING FOR html</title>
-<script src="../../../src/tangram.js"></script>
+<html lang="en-us">
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tangram.js syntax highlighting for html</title>
+    <script src="../../../src/tangram.js"></script>
+
+</head>
 
 <body style="font-size:0.875em;">
     <pre>
@@ -45,8 +52,10 @@
          * 2. 使用load加载twilight样式并调用see.highlight.rendertAll；
          * 3. 使用see.highlight.renderAll渲染html代码；
          */
-        tangram.block(['$_/see/highlight/languages/html.xtd'], function(_, global, undefined) {
+        tangram.block(['$_/see/highlight/languages/html.xtd'], function (_, global, undefined) {
             _.load('../../../src/see/highlight/themes/twilight.css', _.see.highlight.renderAll, null, 'css');
         }, true);
     </script>
 </body>
+
+</html>
