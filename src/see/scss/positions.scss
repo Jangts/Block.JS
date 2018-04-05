@@ -1,160 +1,137 @@
-/** Position **/
-
+// Position 
 $posis: relative,
 absolute,
 fixed;
 @each $posi in $posis {
-    .tangram.#{$posi} {
+    .#{$posi} {
         position: $posi;
     }
 }
 
-.tangram.hf-screen {
-    width: 50%;
-    height: 50%;
-    bottom: 50%;
-    left: 50%;
-    overflow: visible;
-}
-
-.tangram.hf-top {
-    height: 50%;
-    bottom: 50%;
-    overflow: visible;
-}
-
-.tangram.hf-right {
-    width: 50%;
-    left: 50%;
-    overflow: visible;
-}
-
-.tangram.hf-bottom {
-    height: 50%;
-    top: 50%;
-    overflow: visible;
-}
-
-.tangram.hf-left {
-    width: 50%;
-    right: 50%;
-    overflow: visible;
-}
-
-
-/* Pulls */
-
-.tangram.pl-left {
+// .hf-screen {
+//     width: 50%;
+//     height: 50%;
+//     bottom: 50%;
+//     left: 50%;
+//     overflow: visible;
+// }
+// .hf-top {
+//     height: 50%;
+//     bottom: 50%;
+//     overflow: visible;
+// }
+// .hf-right {
+//     width: 50%;
+//     left: 50%;
+//     overflow: visible;
+// }
+// .hf-bottom {
+//     height: 50%;
+//     top: 50%;
+//     overflow: visible;
+// }
+// .hf-left {
+//     width: 50%;
+//     right: 50%;
+//     overflow: visible;
+// }
+// Pulls 
+.pl-left {
     float: left;
 }
 
-.tangram.pl-right {
+.pl-right {
     float: right;
 }
 
-.tangram.absolute.pl-left {
+.absolute.pl-left {
     float: none;
     left: 0;
     top: 0;
 }
 
-.tangram.absolute.pl-right {
+.absolute.pl-right {
     float: none;
     right: 0;
     top: 0;
 }
 
-.tangram.pl-center {
+.pl-center {
     display: block;
     margin: auto;
 }
 
-.tangram.pl-top {
+.pl-top {
     position: absolute;
     top: 0px;
 }
 
-.tangram.pl-bottom {
+.pl-bottom {
     position: absolute;
     bottom: 0px;
 }
 
-$pds: 2,
-3,
-4,
-5,
-6,
-7,
-8,
-9,
+$pds: 5,
 10,
 15,
 20,
 25;
-
-/*
-/** Paddings **/
-
+// Paddings 
 @each $d in $pds {
     @if($d==5) {
-        .tangram.pa-0#{$d} {
+        .pa-0#{$d} {
             padding: #{$d}px;
         }
-        .tangram.pa-h0#{$d} {
+        .pa-h0#{$d} {
             padding: 0 #{$d}px;
         }
-        .tangram.pa-v0#{$d} {
+        .pa-v0#{$d} {
             padding: #{$d}px 0;
         }
     }
     @else if($d <10) {
-        .tangram.pa-h0#{$d} {
+        .pa-h0#{$d} {
             padding: 0 #{$d}px;
         }
     }
     @else {
-        .tangram.pa-#{$d} {
+        .pa-#{$d} {
             padding: #{$d}px;
         }
-        .tangram.pa-h#{$d} {
+        .pa-h#{$d} {
             padding: 0 #{$d}px;
         }
-        .tangram.pa-v#{$d} {
+        .pa-v#{$d} {
             padding: #{$d}px 0;
         }
     }
 }
 
-.tangram.pa-none-top {
+.pa-t0 {
     padding-top: 0px;
 }
 
-.tangram.pa-none-right {
+.pa-r0 {
     padding-right: 0px;
 }
 
-.tangram.pa-none-bottom {
+.pa-b0 {
     padding-bottom: 0px;
 }
 
-.tangram.pa-none-left {
+.pa-l0 {
     padding-left: 0px;
 }
 
-.tangram.pa-none-vert {
-    padding-top: 0px;
-    padding-bottom: 0px;
-}
-
-.tangram.pa-none-hor {
-    padding-right: 0px;
-    padding-left: 0px;
-}
-
-
-/*
-/** Margins **/
-
+// .pa-v0 {
+//     padding-top: 0px;
+//     padding-bottom: 0px;
+// }
+// .pa-h0 {
+//     padding-right: 0px;
+//     padding-left: 0px;
+// }
+// Margins 
 $mds: 5,
 10,
 15,
@@ -166,55 +143,55 @@ $mds: 5,
 60;
 @each $d in $mds {
     @if($d <10) {
-        .tangram.ma-0#{$d} {
+        .ma-0#{$d} {
             margin: #{$d}px;
         }
-        .tangram.ma-t0#{$d} {
+        .ma-t0#{$d} {
             margin-top: #{$d}px;
         }
-        .tangram.ma-r0#{$d} {
+        .ma-r0#{$d} {
             margin-right: #{$d}px;
         }
-        .tangram.ma-b0#{$d} {
+        .ma-b0#{$d} {
             margin-bottom: #{$d}px;
         }
-        .tangram.ma-l0#{$d} {
+        .ma-l0#{$d} {
             margin-left: #{$d}px;
         }
-        .tangram.ma-v0#{$d} {
+        .ma-v0#{$d} {
             margin: #{$d}px auto;
         }
-        .tangram.ma-h0#{$d} {
+        .ma-h0#{$d} {
             margin: 0 #{$d}px;
         }
-        .tangram.ma-x0#{$d} {
+        .ma-x0#{$d} {
             margin-right: -#{$d/2}px;
             margin-left: -#{$d/2}px;
         }
     }
     @else {
-        .tangram.ma-#{$d} {
+        .ma-#{$d} {
             margin: #{$d}px;
         }
-        .tangram.ma-t#{$d} {
+        .ma-t#{$d} {
             margin-top: #{$d}px;
         }
-        .tangram.ma-r#{$d} {
+        .ma-r#{$d} {
             margin-right: #{$d}px;
         }
-        .tangram.ma-b#{$d} {
+        .ma-b#{$d} {
             margin-bottom: #{$d}px;
         }
-        .tangram.ma-l#{$d} {
+        .ma-l#{$d} {
             margin-left: #{$d}px;
         }
-        .tangram.ma-v#{$d} {
+        .ma-v#{$d} {
             margin: #{$d}px auto;
         }
-        .tangram.ma-h#{$d} {
+        .ma-h#{$d} {
             margin: 0 #{$d}px;
         }
-        .tangram.ma-x#{$d} {
+        .ma-x#{$d} {
             margin-right: -#{$d/2}px;
             margin-left: -#{$d/2}px;
         }

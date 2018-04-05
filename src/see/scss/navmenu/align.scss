@@ -1,47 +1,46 @@
-    /** Menu Item Align **/
-    
-    @mixin menu-item-align($align) {
-        text-align: $align;
-        >.menu-item {
-            text-align: center;
-            float: none;
-            display: block;
-        }
+// Menu Item Align 
+@mixin menu-item-align($align) {
+    text-align: $align;
+    >.menu-item {
+        text-align: center;
+        float: none;
+        display: block;
     }
-    
-    .tangram.navmenu,
-    .tangram.navmenu .menu-item.hasson>.submenu,
-    .tangram.navmenu .menu-item.hasson>.submenu.blocks,
-    .tangram.navmenu.rside,
-    .tangram.navmenu .menu-item.hasson>.submenu.rside,
-    .tangram.navmenu .menu-item.hasson>.submenu.rside.blocks,
-    .tangram.navmenu.al-left,
-    .tangram.navmenu .menu-item.hasson>.submenu.lside.al-left,
-    .tangram.navmenu .menu-item.hasson>.submenu.lside.blocks.al-left {
-        @include menu-item-align(left);
+}
+
+.navmenu,
+.navmenu .menu-item.hasson>.submenu,
+.navmenu .menu-item.hasson>.submenu.blocks,
+.navmenu.rside,
+.navmenu .menu-item.hasson>.submenu.rside,
+.navmenu .menu-item.hasson>.submenu.rside.blocks,
+.navmenu.al-left,
+.navmenu .menu-item.hasson>.submenu.lside.al-left,
+.navmenu .menu-item.hasson>.submenu.lside.blocks.al-left {
+    @include menu-item-align(left);
+}
+
+.navmenu.al-center,
+.navmenu .menu-item.hasson>.submenu.al-center,
+.navmenu .menu-item.hasson>.submenu.blocks.al-center {
+    @include menu-item-align(center);
+}
+
+.navmenu.lside,
+.navmenu .menu-item.hasson>.submenu.lside,
+.navmenu .menu-item.hasson>.submenu.lside.blocks,
+.navmenu.al-right,
+.navmenu .menu-item.hasson>.submenu.lside.al-right,
+.navmenu .menu-item.hasson>.submenu.lside.blocks.al-right {
+    @include menu-item-align(right);
+}
+
+.navmenu.inline,
+.navmenu .menu-item.hasson>.submenu.inline,
+.navmenu .menu-item.hasson>.submenu.rside.inline,
+.navmenu .menu-item.hasson>.submenu.lside.inline {
+    >.menu-item {
+        text-align: center;
+        float: left !important;
     }
-    
-    .tangram.navmenu.al-center,
-    .tangram.navmenu .menu-item.hasson>.submenu.al-center,
-    .tangram.navmenu .menu-item.hasson>.submenu.blocks.al-center {
-        @include menu-item-align(center);
-    }
-    
-    .tangram.navmenu.lside,
-    .tangram.navmenu .menu-item.hasson>.submenu.lside,
-    .tangram.navmenu .menu-item.hasson>.submenu.lside.blocks,
-    .tangram.navmenu.al-right,
-    .tangram.navmenu .menu-item.hasson>.submenu.lside.al-right,
-    .tangram.navmenu .menu-item.hasson>.submenu.lside.blocks.al-right {
-        @include menu-item-align(right);
-    }
-    
-    .tangram.navmenu.inline,
-    .tangram.navmenu .menu-item.hasson>.submenu.inline,
-    .tangram.navmenu .menu-item.hasson>.submenu.rside.inline,
-    .tangram.navmenu .menu-item.hasson>.submenu.lside.inline {
-        >.menu-item {
-            text-align: center;
-            float: left !important;
-        }
-    }
+}

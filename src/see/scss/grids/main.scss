@@ -1,0 +1,88 @@
+.only-wap,
+.only-mp,
+.only-pad,
+.not-pc,
+.only-fhd {
+    display: none;
+}
+
+.not-wap,
+.not-mp,
+.not-pad,
+.only-pc,
+.not-fhd {
+    display: block;
+}
+
+@import "pc";
+@media screen and (min-width: 1200px) {
+    .only-wap,
+    .not-mp,
+    .only-pad,
+    .only-pc,
+    .only-fhd {
+        display: none;
+    }
+    .not-wap,
+    .only-mp,
+    .not-pad,
+    .not-pc,
+    .not-fhd {
+        display: block;
+    }
+    @import "fhd";
+}
+
+@media screen and (max-width: 989px) {
+    .only-wap,
+    .only-mp,
+    .not-pad,
+    .only-pc,
+    .only-fhd {
+        display: none;
+    }
+    .not-wap,
+    .not-mp,
+    .only-pad,
+    .not-pc,
+    .not-fhd {
+        display: block;
+    }
+    @import "pad";
+}
+
+@media screen and (max-width: 767px) {
+    .only-wap,
+    .not-mp,
+    .only-pad,
+    .only-pc,
+    .only-fhd {
+        display: none;
+    }
+    .not-wap,
+    .only-mp,
+    .not-pad,
+    .not-pc,
+    .not-fhd {
+        display: block;
+    }
+    @import "mp";
+}
+
+@media screen and (max-width: 360px) {
+    .not-wap,
+    .only-mp,
+    .only-pad,
+    .only-pc,
+    .only-fhd {
+        display: none;
+    }
+    .only-wap,
+    .not-mp,
+    .not-pad,
+    .not-pc,
+    .not-fhd {
+        display: block;
+    }
+    @import "wap";
+}

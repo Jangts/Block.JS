@@ -1,70 +1,56 @@
-/** Line Tops **/
-
-.tangram.line-top {
-    height: 4px;
-    border-top: 1px solid #EEE;
-}
-
-.tangram.line-bottom {
-    height: 4px;
-    border-bottom: 1px solid #EEE;
-}
-
-.tangram.line-double {
-    height: 3px;
-    border-top: 1px solid #EEE;
-    border-bottom: 1px solid #EEE;
-}
-
-
-/** Blanks **/
-
-$heights: 10,
-20,
-30,
-50,
-70,
-80,
-100;
-@each $height in $heights {
-    .tangram.blank-#{$height} {
-        background-color: transparent;
-        margin: #{$height/2}px auto;
-    }
-}
-
-
-/** Titles **/
-
-$titles: (20, 20, 0),
-(30, 30, 0),
-(50, 30, 10),
-(70, 40, 15),
-(80, 50, 15);
-@each $title,
-$height,
-$padding in $titles {
-    .tangram.tit-#{$title} {
-        line-height: #{$height}px;
-        padding: #{$padding}px 0px;
-    }
-    .tangram.hasbg.tit-#{$title} {
-        line-height: #{$height}px;
-        padding: #{$padding}px #{$padding+10}px;
-    }
-}
-
-
-/** Context **/
-
-.tangram.nav-item.nav-hasson:hover {
-    overflow: visible;
-    .nav-ason {
-        display: block;
-    }
-}
-
-.tangram.nav-item.nav-hasson .nav-ason {
-    display: none;
-    position: absolute;
-}
+// // .line-top {
+// //     height: 4px;
+// //     border-top: 1px solid #EEE;
+// // }
+// // .line-bottom {
+// //     height: 4px;
+// //     border-bottom: 1px solid #EEE;
+// // }
+// // .line-double {
+// //     height: 3px;
+// //     border-top: 1px solid #EEE;
+// //     border-bottom: 1px solid #EEE;
+// // }
+// // Blanks 
+// $heights: 10,
+// 20,
+// 30,
+// 50,
+// 70,
+// 80,
+// 100;
+// @each $height in $heights {
+//     .blank-#{$height} {
+//         background-color: transparent;
+//         margin: #{$height/2}px auto;
+//     }
+// }
+// // Titles 
+// $titles: (20, 20, 0),
+// (30, 30, 0),
+// (50, 30, 10),
+// (70, 40, 15),
+// (80, 50, 15);
+// @each $title,
+// $height,
+// $padding in $titles {
+//     .tit-#{$title} {
+//         line-height: #{$height}px;
+//         padding: #{$padding}px 0px;
+//     }
+//     .hasbg.tit-#{$title} {
+//         line-height: #{$height}px;
+//         padding: #{$padding}px #{$padding+10}px;
+//     }
+// }
+// // Context 
+// .nav-item.nav-hasson:hover {
+//     overflow: visible;
+//     .nav-ason {
+//         display: block;
+//     }
+// }
+// .nav-item.nav-hasson .nav-ason {
+//     display: none;
+//     position: absolute;
+// }

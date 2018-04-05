@@ -1,4 +1,4 @@
-.tangram.listview.media-list {
+.listview.media-list {
     .list-item.top-bottom {
         >img,
         >.list-figure,
@@ -22,12 +22,5 @@
             width: 100%;
             margin: 0;
         }
-    }
-}
-
-.tangram.listview.media-list[data-list-cols="1"] {
-    .list-item.card.cover.top-bottom,
-    .list-item.pane.cover.top-bottom {
-        margin: 20px auto;
     }
 }

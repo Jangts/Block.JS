@@ -137,7 +137,7 @@ switch(name) {
          * 2. 使用load加载solarizedColor样式并调用see.highlight.rendertAll；
          * 3. 使用see.highlight.renderAll渲染d代码；
          */
-        tangram.block(['$_/see/highlight/languages/d.xtd'], function (_, global, undefined) {
+        tangram.block(['$_/see/highlight/languages/d.xtd'], function(_, global, undefined) {
             _.load('../../../src/see/highlight/themes/solarizedColor.css', _.see.highlight.renderAll, null, 'css');
         }, true);
     </script>

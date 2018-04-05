@@ -55,7 +55,7 @@ ORDER BY t.other_col DESC</code></pre>
          * 2. 使用load加载coy样式并调用see.highlight.rendertAll；
          * 3. 使用see.highlight.rendertAll渲染sql代码；
          */
-        tangram.block(['$_/see/highlight/languages/sql.xtd'], function (_, global, undefined) {
+        tangram.block(['$_/see/highlight/languages/sql.xtd'], function(_, global, undefined) {
             _.load('../../../src/see/highlight/themes/coy.css', _.see.highlight.renderAll, null, 'css');
         }, true);
     </script>

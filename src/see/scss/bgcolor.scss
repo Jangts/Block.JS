@@ -1,12 +1,9 @@
-/*
- * Backgound Colors
- */
-
+//Backgound Colors
 $bgcolorpairs: ('white', #333, #FFF, #CCC),
 ('silvery', #222, #EEE, #CCC),
 ('light', #444, #DDD, #CCC),
 ('lightgray', #111, #CCC, #aaa),
-('gray', #000, #888, #666),
+('gray', #FFF, #888, #666),
 ('darkgray', #EEE, #484848, #555),
 ('dark', #CCC, #282828, #181818),
 ('deep', #EEE, #181818, #181818),
@@ -31,11 +28,9 @@ $bgcolorpairs: ('white', #333, #FFF, #CCC),
 $color,
 $bgcolor,
 $bordercolor in $bgcolorpairs {
-    [data-tangram-bgcolor=#{$name}],
-    .tangram.bg-color-#{$name},
-    {
-        color: $color;
+    [data-bgcolor=#{$name}] {
         background-color: $bgcolor;
         border-color: $bordercolor;
+        color: $color;
     }
 }

@@ -2,16 +2,16 @@
 <html lang="en-us">
 
 <head>
-  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>tangram.js syntax highlighting for haskell</title>
-  <script src="../../../src/tangram.js"></script>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tangram.js syntax highlighting for haskell</title>
+    <script src="../../../src/tangram.js"></script>
 
 </head>
 
 <body style="font-size:0.875em;">
-  <pre>
+    <pre>
 <code data-language="haskell">
 {-# LANGUAGE Trustworthy #-}
 {-# LANGUAGE CPP #-}
@@ -110,17 +110,17 @@ exitFailure = exitWith (ExitFailure 1)
 exitSuccess :: IO a
 exitSuccess = exitWith ExitSuccess</code>
 </pre>
-  <script>
-    /* 本测试主要测试如下 */
-    /*
-     * 1. 从语句块的可用性；
-     * 2. 使用load加载twilight样式并调用see.highlight.rendertAll；
-     * 3. 使用see.highlight.renderAll渲染haskell代码；
-     */
-    tangram.block(['$_/see/highlight/languages/haskell.xtd'], function (_, global, undefined) {
-      _.load('../../../src/see/highlight/themes/twilight.css', _.see.highlight.renderAll, null, 'css');
-    }, true);
-  </script>
+    <script>
+        /* 本测试主要测试如下 */
+        /*
+         * 1. 从语句块的可用性；
+         * 2. 使用load加载twilight样式并调用see.highlight.rendertAll；
+         * 3. 使用see.highlight.renderAll渲染haskell代码；
+         */
+        tangram.block(['$_/see/highlight/languages/haskell.xtd'], function(_, global, undefined) {
+            _.load('../../../src/see/highlight/themes/twilight.css', _.see.highlight.renderAll, null, 'css');
+        }, true);
+    </script>
 </body>
 
 </html>

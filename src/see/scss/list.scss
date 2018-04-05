@@ -1,47 +1,35 @@
-/** Normal Screen **/
-
-ul.tangram.v-top,
-ol.tangram.v-top {
+// Normal Screen 
+.v-top {
     >li {
         display: block;
     }
 }
 
-ul.tangram.h-left,
-ol.tangram.h-left {
+.h-left {
     >li {
         float: left;
     }
 }
 
-ul.tangram.h-right,
-ol.tangram.h-right {
+.h-right {
     >li {
         float: right;
     }
 }
 
-ul.tangram.al-left,
-ul.tangram.al-right,
-ul.tangram.al-center,
-ul.tangram.al-just,
-ol.tangram.al-left,
-ol.tangram.al-right,
-ol.tangram.al-center,
-ol.tangram.al-just {
+.al-left,
+.al-right,
+.al-center,
+.al-just {
     >li {
         display: inline;
     }
 }
 
-ul.tangram.al-left.blocks,
-ul.tangram.al-right.blocks,
-ul.tangram.al-center.blocks,
-ul.tangram.al-just.blocks,
-ol.tangram.al-left.blocks,
-ol.tangram.al-right.blocks,
-ol.tangram.al-center.blocks,
-ol.tangram.al-just.blocks {
+.al-left.blocks,
+.al-right.blocks,
+.al-center.blocks,
+.al-just.blocks {
     >li {
         display: inline-block;
     }

@@ -66,7 +66,7 @@ dgnl &lt;- function(x, mu = 0, sigma = 1, alpha = 1, beta = 1, rho = 1,
          * 2. 使用load加载coy样式并调用see.highlight.rendertAll；
          * 3. 使用see.highlight.rendertAll渲染r代码；
          */
-        tangram.block(['$_/see/highlight/languages/r.xtd'], function (_, global, undefined) {
+        tangram.block(['$_/see/highlight/languages/r.xtd'], function(_, global, undefined) {
             _.load('../../../src/see/highlight/themes/coy.css', _.see.highlight.renderAll, null, 'css');
         }, true);
     </script>

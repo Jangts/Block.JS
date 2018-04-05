@@ -10,7 +10,7 @@
 </head>
 
 <body style="font-size:0.875em;">
-  <pre>
+    <pre>
 <code data-language="ruby"># Comments
 not_comment # comment
 
@@ -151,17 +151,17 @@ else
   raise "Epic Fail"
 end
 </code></pre>
-  <script>
-    /* 本测试主要测试如下 */
-    /*
-     * 1. 从语句块的可用性；
-     * 2. 使用load加载coy样式并调用see.highlight.rendertAll；
-     * 3. 使用see.highlight.rendertAll渲染ruby代码；
-     */
-    tangram.block(['$_/see/highlight/languages/ruby.xtd'], function (_, global, undefined) {
-      _.load('../../../src/see/highlight/themes/coy.css', _.see.highlight.renderAll, null, 'css');
-    }, true);
-  </script>
+    <script>
+        /* 本测试主要测试如下 */
+        /*
+         * 1. 从语句块的可用性；
+         * 2. 使用load加载coy样式并调用see.highlight.rendertAll；
+         * 3. 使用see.highlight.rendertAll渲染ruby代码；
+         */
+        tangram.block(['$_/see/highlight/languages/ruby.xtd'], function(_, global, undefined) {
+            _.load('../../../src/see/highlight/themes/coy.css', _.see.highlight.renderAll, null, 'css');
+        }, true);
+    </script>
 </body>
 
 </html>

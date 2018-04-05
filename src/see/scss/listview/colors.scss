@@ -1,12 +1,8 @@
-/****************
-/*	Colors
-/************************************************/
-
-.tangram.listview.text-list,
-.tangram.listview.mtext-list,
-.tangram.listview.media-list {
+.listview.text-list,
+.listview.mtext-list,
+.listview.media-list {
     @each $name,
-    $color in $colors {
+    $color in $listcolors {
         .list-item.topline.#{$name} {
             border-top: 1px solid $color;
         }
@@ -47,22 +43,22 @@
     }
 }
 
-.tangram.listview.boxes.darkpurple .list-item .button-item {
+.listview.boxes.darkpurple .list-item .button-item {
     background: #6D196D;
     box-shadow: 0px 0px 2px #660066;
 }
 
-.tangram.listview.boxes.datered .list-item .button-item {
+.listview.boxes.datered .list-item .button-item {
     background: #b2212f;
     box-shadow: 0px 0px 2px #660000;
 }
 
-.tangram.listview.boxes.magenta .list-item .button-item {
+.listview.boxes.magenta .list-item .button-item {
     background: #df226e;
     box-shadow: 0px 0px 2px #660022;
 }
 
-.tangram.listview.boxes.azure .list-item .button-item {
+.listview.boxes.azure .list-item .button-item {
     background: #1ba6ea;
     box-shadow: 0px 0px 2px #002266;
 }

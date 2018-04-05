@@ -1,7 +1,6 @@
-/** Submenu Position **/
-
-.tangram.navmenu>.menu-item.hasson,
-.tangram.navmenu .menu-item.hasson>.submenu>.menu-item.hasson {
+// Submenu Position 
+.navmenu>.menu-item.hasson,
+.navmenu .menu-item.hasson>.submenu>.menu-item.hasson {
     // Normal
     >.submenu {
         display: none;
@@ -69,8 +68,8 @@
     }
 }
 
-.tangram.navmenu>.menu-item.hasson:hover,
-.tangram.navmenu .menu-item.hasson>.submenu>.menu-item.hasson:hover {
+.navmenu>.menu-item.hasson:hover,
+.navmenu .menu-item.hasson>.submenu>.menu-item.hasson:hover {
     overflow: visible;
     >.submenu {
         display: block;

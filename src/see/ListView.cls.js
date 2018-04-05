@@ -29,7 +29,7 @@ tangram.block([
         render: function() {
             if (_.dom.hasClass(this.Element, 'media-list')) {
                 var itemWidth, mediaWidth, bodyWidth;
-                $('.tangram.listview.media-list>.list-item', this.Element).each(function() {
+                $('.tangram-see .listview.media-list>.list-item', this.Element).each(function() {
                     if (_.dom.hasClass(this, 'top-bottom')) {
                         return this;
                     }
@@ -48,7 +48,7 @@ tangram.block([
     _.extend(_.see.ListView, {
         auto: function() {
             var ListView = this;
-            $('.tangram.listview[data-ic-auto]').each(function() {
+            $('.tangram-see .listview[data-ic-auto]').each(function() {
                 if (($(this).data('icAuto') != 'false') && ($(this).data('icRendered') != 'listview')) {
                     $(this).data('icRendered', 'listview');
                     new ListView(this);

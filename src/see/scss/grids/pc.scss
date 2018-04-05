@@ -1,0 +1,59 @@
+// split to 12 pices | for [1*12, 2*6, 3*4, 4*3, 6*2, 12*1] 
+@for $i from 1 through 12 {
+    .grid-12 {
+        >.pc-#{$i} {
+            width: percentage($i/12);
+            float: left;
+        }
+        >.pc-left#{$i} {
+            margin-left: percentage($i/12);
+        }
+        >.pc-right#{$i} {
+            margin-right: percentage($i/12);
+        }
+    }
+}
+
+// split to 22 pices | for [2*11, 2*10+2, 3*7+1, 4*5+2, 5*4+2, 7*3+1] 
+.grid-21 {
+    >.pc-quarter {
+        width: 1.136363636363636%;
+        float: left;
+    }
+    >.pc-half {
+        width: 2.272727272727273%;
+        float: left;
+    }
+    >.pc-leftquarter {
+        margin-left: 1.136363636363636%;
+    }
+    >.pc-lefthalf {
+        margin-left: 2.272727272727273%;
+    }
+    >.pc-rightquarter {
+        margin-right: 1.136363636363636%;
+    }
+    >.pc-righthalf {
+        margin-right: 2.272727272727273%;
+    }
+    @for $i from 1 through 21 {
+        >.pc-#{$i} {
+            width: percentage($i/21);
+            float: left;
+        }
+        >.pc-left#{$i} {
+            margin-left: percentage($i/21);
+        }
+        >.pc-right#{$i} {
+            margin-right: percentage($i/21);
+        }
+    }
+}
+
+// split to 40 pices | for [2*11, 2*10+2, 3*7+1, 4*5+2, 5*4+2, 7*3+1] 
+@for $i from 1 through 40 {
+    .grid-40>.pc-#{$i} {
+        width: percentage($i/40);
+        float: left;
+    }
+}

@@ -2,16 +2,16 @@
 <html lang="en-us">
 
 <head>
-  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>tangram.js syntax highlighting for powershell</title>
-  <script src="../../../src/tangram.js"></script>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tangram.js syntax highlighting for powershell</title>
+    <script src="../../../src/tangram.js"></script>
 
 </head>
 
 <body style="font-size:0.875em;">
-  <pre>
+    <pre>
 <code data-language="powershell">#!/usr/bin/env bash
 # Copyright (c) 2011 Sam Stephenson
 #
@@ -432,17 +432,17 @@ source &quot;$DEFINITION_PATH&quot;
 rm -fr &quot;$TEMP_PATH&quot;
 trap - ERR
 </code></pre>
-  <script>
-    /* 本测试主要测试如下 */
-    /*
-     * 1. 从语句块的可用性；
-     * 2. 使用load加载coy样式并调用see.highlight.rendertAll；
-     * 3. 使用see.highlight.rendertAll渲染powershell代码；
-     */
-    tangram.block(['$_/see/highlight/languages/powershell.xtd'], function (_, global, undefined) {
-      _.load('../../../src/see/highlight/themes/coy.css', _.see.highlight.renderAll, null, 'css');
-    }, true);
-  </script>
+    <script>
+        /* 本测试主要测试如下 */
+        /*
+         * 1. 从语句块的可用性；
+         * 2. 使用load加载coy样式并调用see.highlight.rendertAll；
+         * 3. 使用see.highlight.rendertAll渲染powershell代码；
+         */
+        tangram.block(['$_/see/highlight/languages/powershell.xtd'], function(_, global, undefined) {
+            _.load('../../../src/see/highlight/themes/coy.css', _.see.highlight.renderAll, null, 'css');
+        }, true);
+    </script>
 </body>
 
 </html>

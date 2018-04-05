@@ -2,16 +2,16 @@
 <html lang="en-us">
 
 <head>
-  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>tangram.js syntax highlighting for ruby</title>
-  <script src="../../../src/tangram.js"></script>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tangram.js syntax highlighting for ruby</title>
+    <script src="../../../src/tangram.js"></script>
 
 </head>
 
 <body style="font-size:0.875em;">
-  <pre>
+    <pre>
 <code data-language="ruby"># Copyright (c) 2007, 2008, 2009, 2010 Christian Neukirchen &lt;purl.org/net/chneukirchen&gt;
 # 
 # Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -193,17 +193,17 @@ table { width:100%%; }
   end
 end
 </code></pre>
-  <script>
-    /* 本测试主要测试如下 */
-    /*
-     * 1. 从语句块的可用性；
-     * 2. 使用load加载coy样式并调用see.highlight.rendertAll；
-     * 3. 使用see.highlight.rendertAll渲染ruby代码；
-     */
-    tangram.block(['$_/see/highlight/languages/ruby.xtd'], function (_, global, undefined) {
-      _.load('../../../src/see/highlight/themes/coy.css', _.see.highlight.renderAll, null, 'css');
-    }, true);
-  </script>
+    <script>
+        /* 本测试主要测试如下 */
+        /*
+         * 1. 从语句块的可用性；
+         * 2. 使用load加载coy样式并调用see.highlight.rendertAll；
+         * 3. 使用see.highlight.rendertAll渲染ruby代码；
+         */
+        tangram.block(['$_/see/highlight/languages/ruby.xtd'], function(_, global, undefined) {
+            _.load('../../../src/see/highlight/themes/coy.css', _.see.highlight.renderAll, null, 'css');
+        }, true);
+    </script>
 </body>
 
 </html>

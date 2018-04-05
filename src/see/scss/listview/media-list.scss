@@ -1,7 +1,3 @@
-/****************
-/*	Media List
-/************************************************/
-
 @mixin inner-body-style($width, $right, $left) {
     .list-title,
     .list-abstract,
@@ -17,7 +13,7 @@ $sizes:(h51, 51px, 51px, 63, 63),
 (h96, 128px, 96px, 140, 108),
 (h117, 156px, 117p, 168, 129),
 (h138, 184px, 138px, 196, 150);
-.tangram.listview.media-list {
+.listview.media-list {
     .list-item {
         padding: 0;
         >* {
@@ -115,7 +111,7 @@ $sizes:(h51, 51px, 51px, 63, 63),
     }
 }
 
-.tangram.listview.media-list[data-list-cols="1"] {
+.listview.media-list[data-list-cols="1"] {
     .list-item.card.cover,
     .list-item.pane.cover {
         margin: 10px auto;

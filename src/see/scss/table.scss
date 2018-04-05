@@ -12,28 +12,20 @@ $table_cell_maxwidths: 540,
 1040;
 $table_border_colors: (aqua, initial),
 (black, white),
-(blue, white),
-(fuchsia, initial),
 (gray, initial),
 (green, white),
 (lime, initial),
-(maroon, white),
-(navy, white),
-(olive, white),
 (orange, initial),
-(purple, white),
-(red, yellow),
 (silver, initial),
 (teal, initial),
-(white, initial),
-(yellow, initial);
-table.tangram-table,
-table.tangram.tangram-table {
+(white, initial);
+.tangram-table {
     margin: 20px auto 10px;
     border-radius: 5px;
     cursor: default;
     font-size: 12px;
     font-size: 0.6rem;
+    thead tr,
     tr.tangram-header-tr {
         height: 40px;
         background-color: transparent !important;
@@ -173,7 +165,6 @@ table.tangram.tangram-table {
     tr:hover {
         background: rgba(153, 153, 153, .4);
         td {
-            // color: #F6F6F6;
             cursor: pointer;
         }
     }
@@ -185,23 +176,17 @@ table.tangram.tangram-table {
     }
 }
 
-table.tangram-table[stripe],
-table.tangram.tangram-table[stripe] {
-    td:nth-child(odd) {
-        background: transparent;
-    }
-    td:nth-child(even) {
+.tangram-table[stripe] {
+    td {
         background: transparent;
     }
 }
 
-table.tangram-table[border],
-table.tangram.tangram-table[border],
-table.tangram-table[border="1"],
-table.tangram.tangram-table[border="1"] {
+.tangram-table[border] {
     border-collapse: separate;
     border: solid 1px #ccc;
     tr {
+        background: transparent;
         th {
             height: 30px;
             line-height: 30px;
@@ -216,15 +201,12 @@ table.tangram.tangram-table[border="1"] {
         td:first-child {
             border-left: none;
         }
-        td:nth-child(odd) {
-            background: transparent;
-        }
-        td:nth-child(even) {
+        td {
             background: transparent;
         }
     }
     tr:hover {
-        background: rgba(153, 153, 153, .4);
+        background: rgba(153, 153, 153, .1);
         td {
             color: #222;
             cursor: pointer;
@@ -235,16 +217,9 @@ table.tangram.tangram-table[border="1"] {
             border-top: none;
         }
     }
-    tr:nth-child(odd) {
-        background: transparent;
-    }
-    tr:nth-child(even) {
-        background: transparent;
-    }
 }
 
-table.tangram-table[border="2"],
-table.tangram.tangram-table[border="2"] {
+.tangram-table[border="2"] {
     border-collapse: separate;
     border: solid 2px #ccc;
     tr {
@@ -257,8 +232,7 @@ table.tangram.tangram-table[border="2"] {
 
 @each $bordercolor,
 $color in $table_border_colors {
-    table.tangram-table[border="#{$bordercolor}"],
-    table.tangram.tangram-table[border="#{$bordercolor}"] {
+    .tangram-table[border="#{$bordercolor}"] {
         border-collapse: separate;
         border: solid 1px $bordercolor;
         tr {
