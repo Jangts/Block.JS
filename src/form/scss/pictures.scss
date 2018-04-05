@@ -7,8 +7,8 @@
             width: 100%;
             margin: 7px 0;
             .pic-uploader {
-                box-sizing: border-box;
-                position: relative;
+                
+                
                 display: block;
                 width: 100% !important;
                 height: 70px !important;
@@ -17,7 +17,7 @@
                 border-radius: 3px;
                 overflow: hidden;
                 input {
-                    box-sizing: border-box;
+                    
                     display: block;
                     width: 100%;
                     height: 30px;
@@ -40,7 +40,7 @@
                 text-align: center;
                 .pic-displayer {
                     display: block;
-                    position: relative;
+                    
                     max-width: 100%;
                     max-height: 100%;
                     margin: auto;
@@ -158,7 +158,7 @@
                 height: 120px !important;
             }
             .pic-uploader.actived[data-subtype=banner] {
-                box-sizing: border-box;
+                
                 width: 30% !important;
                 height: 90px !important;
                 .pic-resetter {
@@ -166,7 +166,7 @@
                 }
             }
             .pic-uploader.actived[data-subtype=banner100] {
-                box-sizing: border-box;
+                
                 display: block;
                 width: 100% !important;
                 height: 120px !important;

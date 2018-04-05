@@ -102,6 +102,7 @@ tangram.block([
                     _.extend(options, _.see.Slider.presets.slide);
                 }
                 _.extend(this, true, options);
+                
                 if (this.Element && this.layout) {
                     var that = this;
                     $(this.Element).addClass(preset);

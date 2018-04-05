@@ -1,6 +1,8 @@
-/*浮层*/
-
 * {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    position: relative;
     margin: 0;
     padding: 0;
     border: none;
@@ -78,7 +80,6 @@ body {
     width: 240px;
     height: 150px;
     text-align: center;
-    box-sizing: border-box;
 }
 
 .dd {

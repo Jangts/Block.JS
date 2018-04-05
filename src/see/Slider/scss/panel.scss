@@ -1,5 +1,4 @@
 @charset "UTF-8";
-
 /*
  * Panel Position
  * 面板位置
@@ -12,7 +11,11 @@
         left: 0;
         z-index: 999;
         font-size: 0px;
-        box-sizing: border-box;
+        .slider-anchor {
+            display: inline-block;
+            overflow: hidden;
+            cursor: pointer;
+        }
     }
     .panel.upon-remote {
         top: 0px;
@@ -73,16 +76,12 @@
     .panel.circles {
         height: 40px;
         .slider-anchor {
-            display: inline-block;
-            box-sizing: border-box;
             width: 20px;
             height: 20px;
             margin: 8px 10px;
             border-style: solid;
             border-width: 2px;
             border-radius: 10px;
-            overflow: hidden;
-            cursor: pointer;
             opacity: .8;
         }
     }
@@ -96,15 +95,11 @@
     .panel.points {
         height: 30px;
         .slider-anchor {
-            display: inline-block;
             opacity: .8;
-            box-sizing: border-box;
             width: 12px;
             height: 12px;
             margin: 9px 5px;
             border-radius: 6px;
-            overflow: hidden;
-            cursor: pointer;
         }
     }
     .panel.points.al-left {
@@ -116,25 +111,13 @@
     /*- rings -*/
     .panel.rings {
         height: 40px;
-    }
-    .panel.rings.al-left,
-    .panel.rings-sm.al-left {
-        padding-left: 10px;
-    }
-    .panel.rings.al-right,
-    .panel.rings-sm.al-right {
-        padding-right: 10px;
         .slider-anchor {
-            display: inline-block;
-            box-sizing: border-box;
             width: 16px;
             height: 16px;
             margin: 10px 5px;
             border-style: solid;
             border-width: 2px;
             border-radius: 8px;
-            overflow: hidden;
-            cursor: pointer;
         }
     }
     /*- small rings -*/
@@ -144,9 +127,18 @@
             width: 10px;
             height: 10px;
             margin: 10px 5px;
+            border-style: solid;
             border-width: 1px;
             border-radius: 5px;
         }
+    }
+    .panel.rings.al-left,
+    .panel.rings-sm.al-left {
+        padding-left: 10px;
+    }
+    .panel.rings.al-right,
+    .panel.rings-sm.al-right {
+        padding-right: 10px;
     }
     /*---| 方形 |---*/
     /*- square -*/
@@ -154,11 +146,8 @@
     .panel.squares-rd {
         height: 30px;
         .slider-anchor {
-            display: inline-block;
             width: 10px;
             height: 10px;
-            overflow: hidden;
-            cursor: pointer;
             margin: 10px 5px;
         }
     }
@@ -185,11 +174,8 @@
     .panel.rectangles-rd {
         height: 30px;
         .slider-anchor {
-            display: inline-block;
             width: 16px;
             height: 10px;
-            overflow: hidden;
-            cursor: pointer;
             margin: 10px 6px;
         }
     }
@@ -211,11 +197,8 @@
     .panel.bars-rd {
         height: 30px;
         .slider-anchor {
-            display: inline-block;
             width: 24px;
             height: 6px;
-            overflow: hidden;
-            cursor: pointer;
             margin: 12px 3px;
         }
     }
@@ -239,11 +222,8 @@
     .panel.lines-wb {
         height: 30px;
         .slider-anchor {
-            display: inline-block;
             width: 50px;
             height: 1px;
-            overflow: hidden;
-            cursor: pointer;
             margin: 12px 5px;
         }
     }
@@ -274,8 +254,6 @@
         width: 100%;
         height: 50px;
         .slider-anchor {
-            display: inline-block;
-            box-sizing: border-box;
             height: 50px;
             border-top: rgba(255, 255, 255, .5) solid 1px;
             border-right: rgba(255, 255, 255, .5) solid 1px;
@@ -283,8 +261,6 @@
             font-size: 14px;
             font-size: 0.7rem;
             transition: background-color ease-in .3s;
-            overflow: hidden;
-            cursor: pointer;
         }
     }
     .panel.thumbs {
@@ -299,9 +275,9 @@
         margin-top: 0;
         box-sizing: content-box;
         .slider-anchor {
+            display: block;
             width: 100%;
             height: auto;
-            display: block;
         }
     }
     .panel.thumbs.middle-remote {

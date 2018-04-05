@@ -109,7 +109,7 @@ tangram.block([
             event.currentTarget = event.currentTarget || event.target || event.relatedTarget || event.srcElement;
             event.target = event.target || event.currentTarget;
             event.delegateTarget = this.Element;
-            event.path = event.path || _.dom.getParentNodes(event.target);
+            event.path = event.path || _.dom.getParentNodes(event.target, true);
             event.isCurrent = (event.delegateTarget === event.target);
             // if (event.delegateTarget === event.target) {
             //     // event.path = event.path || [event.target];
@@ -124,12 +124,19 @@ tangram.block([
             if (_.util.arr.has(['keypress', 'keyup', 'keydown'], event.type) !== false) {
                 event.keyName = _.util.str.charCode(event.which);
             }
+            
             if (this.checkEventType(event, eventType)) {
                 var EventType = this.eventTypes[eventType];
+                // if (eventType==='click'){
+                //     console.log(event, EventType);
+                // }
+                
                 for (var s in EventType['Selectors']) {
                     var selector = EventType['Selectors'][s];
                     var elements = _.dom.query(s, this.Element);
-                    // console.log(elements, s, event.path);
+                    // if (eventType === 'click') {
+                    //     console.log(elements);
+                    // }
                     for (var i = 0; i < elements.length; i++) {
                         if (_.util.arr.has(event.path, elements[i]) !== false) {
                             for (var n in selector) {

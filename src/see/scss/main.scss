@@ -1,41 +1,34 @@
 @charset "UTF-8";
-
 /*********************************************
  ******** tangram.js SEE UI framework ********
  *********************************************/
 
-
 /** Elements Initialization **/
 
 @import "reset";
-
 /** Display **/
 
 @import "views";
-
 /** Gradual **/
-
 
 /** Compositions **/
 
 @import "compositions";
 @import "bgcolor";
 @import "colors_and_fontSizes";
-
 /** Basic Block **/
 
 @import "boxsizes";
 @import "grids";
-
 /** Common Style Classes Initialization **/
 
 @import "positions";
-
 /** List **/
 
 @import "list";
 @import "table";
-
+@import "listview/main";
 /* Widgets **/
 
 @import "widgets";
+@import "navmenu/main";

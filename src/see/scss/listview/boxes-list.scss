@@ -2,12 +2,12 @@
  * OIML Blocks
  */
 
-.tangram.listview.blocks {
+.tangram.listview.boxes {
     max-width: 1080px;
     padding: 50px;
     margin: auto;
     .list-item {
-        position: relative;
+        
         width: 130px;
         height: 150px;
         padding: 30px 25px;
@@ -16,7 +16,7 @@
         overflow: visible;
         .button-item {
             display: block;
-            position: relative;
+            
             width: 100%;
             height: 150px;
             background: #222222;
@@ -99,22 +99,3 @@
     }
 }
 
-.tangram.listview.blocks.darkpurple .list-item .button-item {
-    background: #6D196D;
-    box-shadow: 0px 0px 2px #660066;
-}
-
-.tangram.listview.blocks.datered .list-item .button-item {
-    background: #b2212f;
-    box-shadow: 0px 0px 2px #660000;
-}
-
-.tangram.listview.blocks.magenta .list-item .button-item {
-    background: #df226e;
-    box-shadow: 0px 0px 2px #660022;
-}
-
-.tangram.listview.blocks.azure .list-item .button-item {
-    background: #1ba6ea;
-    box-shadow: 0px 0px 2px #002266;
-}

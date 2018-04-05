@@ -1,11 +1,14 @@
 @charset "UTF-8";
-
 /*********************************************
  ******** tangram.js SEE UI framework ********
  **********  Class _.see.ScrollBar  **********
  *********************************************/
 
 * {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    position: relative;
     margin: 0;
     padding: 0;
     border: none;
@@ -21,7 +24,6 @@ body {
 }
 
 .scroll-doc-container {
-    position: relative;
     overflow: hidden;
     min-width: 100%;
     min-height: 100%;

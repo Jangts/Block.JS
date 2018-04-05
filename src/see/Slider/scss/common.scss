@@ -1,10 +1,13 @@
 @charset "UTF-8";
-
 /****************
 /*	Common
 /************************************************/
 
 * {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    position: relative;
     margin: 0;
     padding: 0;
     border: none;
@@ -21,7 +24,6 @@ body {
 
 .tangram.slider {
     .stage {
-        position: relative;
         width: 100%;
         height: 100%;
         margin: auto;
@@ -39,7 +41,6 @@ body {
         }
         .troupe .actor {
             float: left;
-            position: relative;
             height: 100%;
             top: 0px;
             z-index: 100;

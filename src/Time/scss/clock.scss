@@ -1,0 +1,113 @@
+* {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+html {
+    font-size: 125%; // 现代浏览器（pc端默认为16px，125%即20pc）
+}
+
+body {
+    font-size: 14px; // 传统浏览器（pc端14px，其他端不考虑）
+    font-size: 0.7rem; // 现代浏览器（pc端根字号为20px，70%仍旧是14px）
+}
+
+.tangram.clock {
+    .clock-dial {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        overflow: hidden;
+        .clock-fixer,
+        .clock-hand {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+        }
+        .clock-fixer {
+            width: 10%;
+            height: 10%;
+            margin-top: -5%;
+            margin-left: -5%;
+            background-color: #000;
+            border-radius: 50%;
+            z-index: 30;
+        }
+        .clock-fixer::before {
+            display: block;
+            position: absolute;
+            width: 40%;
+            height: 40%;
+            top: 30%;
+            left: 30%;
+            border-radius: 50%;
+            content: '';
+        }
+        .clock-hand.hour {
+            width: 6%;
+            height: 60%;
+            margin-top: -30%;
+            margin-left: -3%;
+            z-index: 0;
+        }
+        .clock-hand.minute {
+            width: 4%;
+            height: 80%;
+            margin-top: -40%;
+            margin-left: -2%;
+            z-index: 10;
+        }
+        .clock-hand.second {
+            width: 2%;
+            height: 90%;
+            margin-top: -45%;
+            margin-left: -1%;
+            z-index: 20;
+        }
+        .clock-hand::before {
+            display: block;
+            position: absolute;
+            width: 100%;
+            height: 65%;
+            top: 0;
+            left: 0;
+            content: '';
+        }
+        .clock-hand.hour::before {
+            background-color: #000;
+        }
+        .clock-hand.minute::before {
+            background-color: #C60;
+        }
+        .clock-fixer::before,
+        .clock-hand.second::before {
+            background-color: #FC0;
+        }
+    }
+}
+
+$colors: ('red', #800, #F35),
+('orange', #930, #F90),
+('yellow', #C60, #FC0),
+('green', #060, #0C0),
+('cyan', #066, #0DF),
+('blue', #039, #09F),
+('purple', #906, #F0D);
+@each $name,
+$color1,
+$color2 in $colors {
+    .tangram.clock.#{$name} .clock-dial {
+        .clock-hand.minute::before {
+            background-color: $color1;
+        }
+        .clock-fixer::before,
+        .clock-hand.second::before {
+            background-color: $color2;
+        }
+    }
+}

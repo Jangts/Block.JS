@@ -1,14 +1,14 @@
 @charset "UTF-8";
-
 /*********************************************
  ******** tangram.js SEE UI framework ********
- **********   class _.see.NavMenu   **********
+ *********   class  _.Time.widgets   *********
  *********************************************/
 
-@import "postion";
-@import "align";
-@import "colors";
 * {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    position: relative;
     margin: 0;
     padding: 0;
     border: none;
@@ -23,9 +23,6 @@ body {
     font-size: 0.7rem; // 现代浏览器（pc端根字号为20px，70%仍旧是14px）
 }
 
-body.__while-menu-item-get-size-step1 {
-    .tangram.navmenu .menu-item.hasson>.submenu {
-        display: block !important;
-        opacity: 0 !important;
-    }
-}
+@import "clock";
+@import "kalendar";
+@import 'picker-main';

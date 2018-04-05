@@ -1,4 +1,8 @@
 * {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  position: relative;
   margin: 0;
   padding: 0;
   border: none; }
@@ -31,7 +35,6 @@ body {
     border-top: none; }
   .tangram-form .tangram-inputs {
     display: block;
-    position: relative;
     min-height: 40px;
     padding-left: 120px;
     overflow: hidden; }
@@ -86,7 +89,6 @@ body {
     .tangram-form .tangram-inputs input,
     .tangram-form .tangram-inputs select,
     .tangram-form .tangram-inputs textarea {
-      box-sizing: border-box;
       padding: 0 5px;
       border: solid 1px #ddd;
       border-radius: 3px;
@@ -361,7 +363,6 @@ body {
   min-height: 60px;
   padding-left: 0; }
   .tangram-form[data-type=pages] .tangram-inputs[data-type=blocks] > .input-label {
-    position: relative;
     height: 27px;
     top: 0;
     margin-top: 3px;
@@ -398,8 +399,6 @@ body {
   .tangram-form .tangram-inputs figure .pic-uploader,
   .tangram-form .tangram-inputs .figure-items .pic-uploader,
   .tangram-form .tangram-inputs .video-item .pic-uploader {
-    box-sizing: border-box;
-    position: relative;
     display: block;
     width: 100% !important;
     height: 70px !important;
@@ -410,7 +409,6 @@ body {
     .tangram-form .tangram-inputs figure .pic-uploader input,
     .tangram-form .tangram-inputs .figure-items .pic-uploader input,
     .tangram-form .tangram-inputs .video-item .pic-uploader input {
-      box-sizing: border-box;
       display: block;
       width: 100%;
       height: 30px;
@@ -446,7 +444,6 @@ body {
     .tangram-form .tangram-inputs .figure-items .pic-uploader.actived .pic-displayer,
     .tangram-form .tangram-inputs .video-item .pic-uploader.actived .pic-displayer {
       display: block;
-      position: relative;
       max-width: 100%;
       max-height: 100%;
       margin: auto; }
@@ -585,7 +582,6 @@ body {
 
 .tangram-form .tangram-inputs figure .pic-uploader.actived[data-subtype=banner],
 .tangram-form .tangram-inputs .figure-items .pic-uploader.actived[data-subtype=banner] {
-  box-sizing: border-box;
   width: 30% !important;
   height: 90px !important; }
   .tangram-form .tangram-inputs figure .pic-uploader.actived[data-subtype=banner] .pic-resetter,
@@ -594,7 +590,6 @@ body {
 
 .tangram-form .tangram-inputs figure .pic-uploader.actived[data-subtype=banner100],
 .tangram-form .tangram-inputs .figure-items .pic-uploader.actived[data-subtype=banner100] {
-  box-sizing: border-box;
   display: block;
   width: 100% !important;
   height: 120px !important;
@@ -648,7 +643,6 @@ body {
     border-radius: 0; }
 
 .tangram-form .tangram-inputs .custom-items {
-  box-sizing: border-box;
   display: block;
   width: 100%;
   height: auto;
@@ -659,12 +653,10 @@ body {
   font-size: 0.6rem;
   color: #666; }
   .tangram-form .tangram-inputs .custom-items textarea.edit-text-area {
-    box-sizing: border-box;
     width: 100%;
     height: 170px;
     resize: vertical; }
   .tangram-form .tangram-inputs .custom-items .tangram.simpleeditor {
-    box-sizing: border-box;
     border: solid 1px #ddd;
     border-radius: 3px; }
     .tangram-form .tangram-inputs .custom-items .tangram.simpleeditor input[type=radio],

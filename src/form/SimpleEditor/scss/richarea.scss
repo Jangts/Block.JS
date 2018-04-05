@@ -8,11 +8,7 @@
     font-size: 13px;
     font-size: 0.65rem;
     overflow: auto;
-    resize: vertical; // * {
-    //     -webkit-box-sizing: content-box;
-    //     -moz-box-sizing: content-box;
-    //     box-sizing: content-box;
-    // }
+    resize: vertical;
     i {
         font-style: italic;
     }
@@ -41,13 +37,13 @@
         max-width: 100%;
     }
     img:hover {
-        box-sizing: border-box;
+        
         border: dashed 1px #0CF;
         cursor: default;
     }
     img[_selected=_selected],
     img[_selected=_selected]:hover {
-        box-sizing: border-box;
+        
         border: dashed 1px #039;
         cursor: default;
     }
@@ -92,9 +88,7 @@
         empty-cells: show;
         margin-bottom: 10px;
         margin-top: 10px;
-        -webkit-box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        box-sizing: border-box;
+        
     }
     td,
     th {

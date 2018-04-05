@@ -3,6 +3,10 @@
  **********  Class _.see.ScrollBar  **********
  *********************************************/
 * {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  position: relative;
   margin: 0;
   padding: 0;
   border: none; }
@@ -15,7 +19,6 @@ body {
   font-size: 0.7rem; }
 
 .scroll-doc-container {
-  position: relative;
   overflow: hidden;
   min-width: 100%;
   min-height: 100%;

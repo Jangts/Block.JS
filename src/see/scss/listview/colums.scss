@@ -1,0 +1,89 @@
+/****************
+/*	Columns
+/************************************************/
+
+.tangram.listview,
+.tangram.listview[data-list-cols="1"] {
+    font-size: 0;
+    -webkit-text-size-adjust: none;
+    .list-item {
+        width: 100%;
+    }
+    .list-item.content {
+        width: 98%;
+    }
+}
+
+@for $i from 2 through 5 {
+    .tangram.listview {
+        .list-item {
+            .list-abstract[data-row="#{$i}"] {
+                height: #{$i*21}px;
+            }
+        }
+    }
+    .tangram.listview[data-list-cols="#{$i}"],
+    .tangram.listview.mtext-list[data-list-cols="#{$i}"],
+    .tangram.listview.media-list[data-list-cols="#{$i}"],
+    .tangram.listview.text-list[data-list-cols="#{$i}"] {
+        .list-item {
+            display: inline-block;
+            width: percentage((1/$i));
+            .list-title,
+            .list-abstract {
+                padding: 0 percentage($i/100);
+            }
+        }
+        .list-item.card,
+        .list-item.pane {
+            width: percentage((1/$i)-0.02);
+            margin: 10px 1%;
+        }
+        .list-item.content {
+            width: percentage((1/$i)-0.02);
+        }
+        .list-item.cover {
+            .list-title,
+            .list-abstract,
+            .list-meta {
+                padding: 0;
+            }
+        }
+        .list-item.card.cover,
+        .list-item.pane.cover {
+            .list-title,
+            .list-abstract,
+            .list-meta {
+                padding: 0 percentage($i/100);
+            }
+        }
+        .list-item.top-bottom {
+            >img,
+            >.list-figure,
+            >.list-image {
+                width: percentage(1-(0.02*$i));
+                margin: 20px percentage($i/100);
+            }
+            >.list-body.pl-bottom {
+                padding: 0 percentage($i/100);
+            }
+        }
+        .list-item.content.top-bottom {
+            >img,
+            >.list-figure,
+            >.list-image {
+                margin: 10px percentage($i/100) 0;
+            }
+        }
+        .list-item.cover.top-bottom,
+        .list-item.content.cover.top-bottom {
+            >img,
+            >.list-figure,
+            >.list-image,
+            >.list-body {
+                width: 100%;
+                margin: 0;
+            }
+        }
+    }
+}

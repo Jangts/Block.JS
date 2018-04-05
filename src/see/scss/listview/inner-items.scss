@@ -3,7 +3,7 @@
 /************************************************/
 
 @mixin inner-item-style($height, $size, $color) {
-    width: 98%;
+    width: 100%;
     padding: 0 1%;
     line-height: $height;
     font-size: #{$size}px;
@@ -22,18 +22,7 @@
             @include inner-item-style(21px, 12, #808080);
             text-align: justify;
         }
-        .list-abstract[data-row="1"] {
-            height: 21px;
-        }
-        .list-abstract[data-row="2"] {
-            height: 42px;
-        }
-        .list-abstract[data-row="3"] {
-            height: 63px;
-        }
-        .list-abstract[data-row="4"] {
-            height: 84px;
-        }
+        
         .list-meta {
             @include inner-item-style(24px, 13, #515151);
             >span,
@@ -70,7 +59,8 @@
         >i,
         .list-title>i,
         .list-icon {
-            margin: 6px 1px;
+            display: inline-block;
+            margin-left: 2px;
             padding: 0 6px;
             border-radius: 9px;
             background-color: #999;
@@ -151,10 +141,29 @@
             margin: 6px 0 6px 2px;
         }
     }
-    .list-item.pane.rounded,
-    .list-item.card.rounded {
-        border-radius: 5px;
+    .list-item.cover {
+        >i.pl-left,
+        .list-title>i.pl-left,
+        .list-icon.pl-left {
+            margin: 11px 2px 11px 0;
+        }
+        >i.pl-right,
+        .list-title>i.pl-right,
+        .list-icon.pl-right {
+            margin: 11px 0 11px 2px;
+        }
+        .list-meta,
+        .list-title,
+        .list-abstract {
+            padding: 0;
+        }
+    }
+    .list-item.card.cover,
+    .list-item.pane.cover {
+        .list-title,
+        .list-abstract,
+        .list-meta {
+            padding: 0 1%;
+        }
     }
 }
-
-@import "inner-items-cover";

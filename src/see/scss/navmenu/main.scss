@@ -1,0 +1,10 @@
+@import "postion";
+@import "align";
+@import "colors";
+
+body.__while-menu-item-get-size-step1 {
+    .tangram.navmenu .menu-item.hasson>.submenu {
+        display: block !important;
+        opacity: 0 !important;
+    }
+}

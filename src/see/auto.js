@@ -10,7 +10,7 @@ tangram.auto([
     '$_/see/NavMenu/',
     '$_/see/Scrollbar/',
     '$_/see/Tabs/SlideTabs.cls',
-    '$_/see/ListView/'
+    '$_/see/ListView.cls'
 ], function(pandora, global, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,

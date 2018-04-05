@@ -1,0 +1,15 @@
+.tangram.timepicker {
+    display: block;
+    width: 1000px;
+    height: 310px;
+    background-color: rgba(100%, 100%, 100%, .8);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, .5);
+}
+
+.tangram.timepicker {
+    transition: top ease .3s;
+}
+
+@import 'picker-displayer';
+@import 'picker-buttons';
+@import 'picker-pickers';

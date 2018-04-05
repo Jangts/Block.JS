@@ -1,4 +1,8 @@
 * {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    position: relative;
     margin: 0;
     padding: 0;
     border: none;
@@ -38,7 +42,6 @@ body {
     }
     .tangram-inputs {
         display: block;
-        position: relative;
         min-height: 40px; // margin-bottom: 10px;
         padding-left: 120px;
         overflow: hidden;
@@ -103,7 +106,6 @@ body {
         input,
         select,
         textarea {
-            box-sizing: border-box;
             padding: 0 5px;
             border: solid 1px #ddd;
             border-radius: 3px;

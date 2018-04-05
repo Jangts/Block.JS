@@ -6,6 +6,10 @@ $headers: (h1, 50px, 30),
 (h5, 20px, 14),
 (h6, 20px, 12);
 * {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    position: relative;
     margin: 0;
     padding: 0;
     border: none;
@@ -21,7 +25,6 @@ body {
 }
 
 .tangram.simpleeditor {
-    box-sizing: border-box;
     border: 1px solid #CCC;
     @each $header,
     $lineheight,

@@ -5,6 +5,7 @@
     .tangram.grid-9>.nm-#{$i} {
         width: percentage($i/9);
         float: left;
+        
     }
 }
 

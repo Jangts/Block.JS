@@ -14,11 +14,12 @@
     cursor: default;
     .list-item {
         display: inline-table;
-        width: 20px;
-        min-width: 10px;
+        width: auto;
+        min-width: 20px;
         height: 20px;
         margin: 4px;
-        padding: 0px 5px;
+        padding: 0;
+        line-height: 20px;
         font-size: 13px;
         font-size: 0.65rem;
         text-align: center;
@@ -49,14 +50,12 @@
 .tangram.listview.page-list.pills,
 .tangram.listview.page-list.spills {
     .list-item {
+        min-width: 30px;
+        height: 30px;
         border: 1px solid #999;
-        line-height: 18px;
-        padding: 3px;
+        padding: 4px 10px;
         text-align: center;
         color: #333;
-    }
-    .list-item.long {
-        padding: 3px 8px;
     }
     .list-item.actived {
         background-color: #999;
@@ -89,10 +88,11 @@
 
 .tangram.listview.page-list.spills {
     .list-item {
-        min-width: 18px;
+        min-width: 22px;
+        height: 22px;
         margin: 4px 0;
         padding: 0;
-        border-radius: 10px;
+        border-radius: 11px;
     }
     .list-item.long {
         padding: 0 6px;
@@ -102,24 +102,24 @@
 .tangram.listview.page-list.train {
     font-size: 0;
     .list-item {
-        height: 18px;
+        min-width: 30px;
+        height: 30px;
         margin: 0;
         border-top: 1px solid #999;
         border-right: 1px solid #999;
         border-bottom: 1px solid #999;
-        line-height: 18px;
-        padding: 3px 4px;
+        padding: 4px 5px;
         text-align: center;
         color: #333;
     }
     .list-item:first-child {
         border-left: 1px solid #999;
         border-radius: 15px 0 0 15px;
-        padding: 3px 10px;
+        padding: 4px 10px;
     }
     .list-item:last-child {
         border-radius: 0 15px 15px 0;
-        padding: 3px 10px;
+        padding: 4px 10px;
     }
     .list-item.actived {
         background-color: #999;

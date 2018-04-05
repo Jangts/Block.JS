@@ -1,0 +1,64 @@
+$colors: ( "red": #d23, "darkred":#600, "orange": #f52, "yellow": #ed2, "green": #2c4, "darkgreen": #363, "cyan": #09b, "blue": #09f, "darkblue": #036, "purple": #c2a, "black": #000, "lightgray": #ddd, "gray": #999, "dark-gray": #666, "white":#fff);
+* {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+.tangram.listview {
+    .list-item {
+        width: 100%;
+        padding: 5px 0;
+    }
+    .list-item.topline {
+        border-top: 1px solid #cccccc;
+    }
+    .list-item.underline {
+        border-bottom: 1px solid #cccccc;
+    }
+    .list-item.stripe:nth-child(odd) {
+        background-color: #eeeeee;
+    }
+    .list-item.stripe:nth-child(even) {
+        background-color: #f8f8f8;
+    }
+    .list-item.card {
+        background-color: #ffffff;
+    }
+    .list-item.pane {
+        border: 1px solid #cccccc;
+    }
+    .list-item.card,
+    .list-item.pane {
+        margin: 10px 0;
+    }
+    .list-item.content {
+        width: 98%;
+        margin: 0 1%;
+    }
+    .list-item.cover {
+        padding: 0;
+    }
+    .list-item.card.content,
+    .list-item.pane.content {
+        margin: 10px 1%;
+    }
+    .list-item.pane.rounded,
+    .list-item.card.rounded {
+        border-radius: 5px;
+    }
+}
+
+@import "inner-items";
+@import "text-list";
+@import "media-list";
+@import "colums";
+@import "page-list";
+@import "tags-list";
+@import "tags-list";
+@import "boxes-list";
+@import "colors";
