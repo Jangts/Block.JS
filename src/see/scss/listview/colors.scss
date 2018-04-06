@@ -1,64 +1,60 @@
-.listview.text-list,
-.listview.mtext-list,
-.listview.media-list {
-    @each $name,
-    $color in $listcolors {
-        .list-item.topline.#{$name} {
-            border-top: 1px solid $color;
+@each $name,
+$index,
+$alias,
+$color,
+$bgcolor,
+$bgcolor_hover,
+$bordercolor,
+$shadowcolor in $commoncolors {
+    .listview.text-list,
+    .listview.mtext-list,
+    .listview.media-list {
+        @if( $index>0) {
+            .list-item.topline[data-line-color=#{$name}] {
+                border-top: 1px solid $bordercolor;
+            }
+            .list-item.underline[data-line-color=#{$name}] {
+                border-bottom: 1px solid $bordercolor;
+            }
+            .list-item.topline.underline[data-line-color=#{$name}] {
+                border-top: 1px solid $bordercolor;
+                border-bottom: 1px solid $bordercolor;
+            }
+            .list-item.stripe[data-color=#{$name}]:nth-child(odd) {
+                background-color: $bgcolor;
+                color: $color;
+            }
+            .list-item.stripe[data-color=#{$name}]:nth-child(even) {
+                background-color: lighten($bgcolor, 10%);
+                color: $color;
+            }
+            .list-item.card[data-color=#{$name}] {
+                background-color: $bgcolor;
+                color: $color;
+            }
+            .list-item.pane[data-line-color=#{$name}] {
+                border: 1px solid $bordercolor;
+            }
+            .list-item {
+                >i[data-color=#{$name}],
+                .list-title>i[data-color=#{$name}],
+                .list-icon[data-color=#{$name}] {
+                    background-color: $bgcolor;
+                }
+                >i.hollow[data-line-color=#{$name}],
+                .list-title>i.hollow[data-line-color=#{$name}],
+                .list-icon.hollow[data-line-color=#{$name}] {
+                    background-color: transparent;
+                    border: 1px solid $bordercolor;
+                    color: $bgcolor;
+                }
+            }
         }
-        .list-item.underline.#{$name} {
-            border-bottom: 1px solid $color;
-        }
-        .list-item.topline.underline.#{$name} {
-            border-top: 1px solid $color;
-            border-bottom: 1px solid $color;
-        }
-        .list-item.stripe.#{$name}:nth-child(odd) {
-            background-color: $color;
-            color: #ffffff;
-        }
-        .list-item.stripe.#{$name}:nth-child(even) {
-            background-color: lighten($color, 10%);
-            color: #ffffff;
-        }
-        .list-item.card.#{$name} {
-            background-color: $color;
-            color: #ffffff;
-        }
-        .list-item.pane.#{$name} {
-            border: 1px solid $color;
-        }
-        >i.#{$name},
-        .list-title>i.#{$name},
-        .list-icon.#{$name} {
-            background-color: $color;
-        }
-        >i.hollow.#{$name},
-        .list-title>i.hollow.#{$name},
-        .list-icon.hollow.#{$name} {
-            background-color: transparent;
-            border: 1px solid $color;
-            color: $color;
+        .listview.boxes[data-color=#{$name}] {
+            .list-item {
+                background: $bgcolor;
+                box-shadow: 0px 0px 2px $shadowcolor;
+            }
         }
     }
-}
-
-.listview.boxes.darkpurple .list-item .button-item {
-    background: #6D196D;
-    box-shadow: 0px 0px 2px #660066;
-}
-
-.listview.boxes.datered .list-item .button-item {
-    background: #b2212f;
-    box-shadow: 0px 0px 2px #660000;
-}
-
-.listview.boxes.magenta .list-item .button-item {
-    background: #df226e;
-    box-shadow: 0px 0px 2px #660022;
-}
-
-.listview.boxes.azure .list-item .button-item {
-    background: #1ba6ea;
-    box-shadow: 0px 0px 2px #002266;
 }

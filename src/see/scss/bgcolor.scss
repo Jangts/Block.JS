@@ -24,11 +24,24 @@
 // ('purple', #FFF, #9a39b2, #9a39b2),
 // ('darkpurple', #FFF, #6D196D, #6D196D),
 // ('pink', #FFF, #ff668c, #ff668c);
+$commoncolors:('white', 0, '', #444, #FFF, #EEE, #DDD, #BBB),
+('dark', 1, 'readonly', #DDD, #282828, #181818, #181818, #000000),
+('gray', 1, 'default', #FFF, #888, #666, #666, #666),
+('ashy', 1, 'disabled', #444, #DDD, #CCC, #CCC #aaa),
+('red', 2, 'danger', #FFF, #BE1E2D, #e6162d, #e6162d, #c7182d),
+('nacarat', 3, 'warning', #FFF, #EF5125, #ff5c0e, #ff5c0e, #d34c0d),
+('yellow', 4, 'forbidden', #FFF, #FDBB11, #ffc700, #ffc700, #cea617),
+('green', 5, 'ok', #FFF, #7FBA42, #0dad51, #0dad51, #0a8640),
+('azure', 6, 'primary', #FFF, #33A5DD, #27b6ea, #27b6ea, #229cc9),
+('magenta', 7, 'info', #FFF, #D41C53, #df226e, #df226e, #be1d5d);
 @each $name,
+$index,
 $alias,
 $color,
 $bgcolor,
-$bordercolor in $commoncolors {
+$bgcolor_hover,
+$bordercolor,
+$shadowcolor in $commoncolors {
     @if($alias=='') {
         [data-color=#{$name}] {
             background-color: $bgcolor;

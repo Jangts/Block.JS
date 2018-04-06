@@ -48,25 +48,14 @@
     .list-item {
         min-width: 30px;
         height: 30px;
-        border: 1px solid #999;
+        border: 1px solid #888;
         padding: 4px 10px;
         text-align: center;
         color: #333;
     }
     .list-item.actived {
-        background-color: #999;
+        background-color: #888;
         color: #fff;
-    }
-    @each $name,
-    $color in $listcolors {
-        .list-item.#{$name} {
-            border: 1px solid $color;
-            color: $color;
-        }
-        .list-item.#{$name}.actived {
-            background-color: $color;
-            color: #fff;
-        }
     }
 }
 
@@ -101,15 +90,15 @@
         min-width: 30px;
         height: 30px;
         margin: 0;
-        border-top: 1px solid #999;
-        border-right: 1px solid #999;
-        border-bottom: 1px solid #999;
+        border-top: 1px solid #888;
+        border-right: 1px solid #888;
+        border-bottom: 1px solid #888;
         padding: 4px 5px;
         text-align: center;
         color: #333;
     }
     .list-item:first-child {
-        border-left: 1px solid #999;
+        border-left: 1px solid #888;
         border-radius: 15px 0 0 15px;
         padding: 4px 10px;
     }
@@ -118,54 +107,46 @@
         padding: 4px 10px;
     }
     .list-item.actived {
-        background-color: #999;
+        background-color: #888;
         color: #fff;
-    }
-    @each $name,
-    $color in $listcolors {
-        .list-item.#{$name} {
-            border-top: 1px solid $color;
-            border-right: 1px solid $color;
-            border-bottom: 1px solid $color;
-            color: $color;
-        }
-        .list-item.#{$name}:first-child {
-            border-left: 1px solid $color;
-        }
-        .list-item.#{$name}.actived {
-            background-color: $color;
-            color: #fff;
-        }
     }
 }
 
 @each $name,
-$color in $listcolors {
-    .listview.page-list.blocks.#{$name},
-    .listview.page-list.pills.#{$name},
-    .listview.page-list.spills.#{$name} {
-        .list-item {
-            border: 1px solid $color;
+$index,
+$alias,
+$color,
+$bgcolor,
+$bgcolor_hover,
+$bordercolor,
+$shadowcolor in $commoncolors {
+    @if($index>1) {
+        .listview.page-list[data-item-color=#{$name}] .list-item,
+        .listview.page-list .list-item[data-color=#{$name}] {
+            color: $bgcolor;
+        }
+        .listview.page-list.blocks[data-item-color=#{$name}] .list-item,
+        .listview.page-list.pills[data-item-color=#{$name}] .list-item,
+        .listview.page-list.spills[data-item-color=#{$name}] .list-item,
+        .listview.page-list.train[data-item-color=#{$name}] .list-item,
+        .listview.page-list.blocks .list-item[data-color=#{$name}],
+        .listview.page-list.pills .list-item[data-color=#{$name}],
+        .listview.page-list.spills .list-item[data-color=#{$name}],
+        .listview.page-list.train[data-item-color=#{$name}] .list-item {
+            border: 1px solid $bgcolor;
+        }
+        .listview.page-list.train[data-item-color=#{$name}] .list-item,
+        .listview.page-list.train .list-item[data-color=#{$name}] {
+            border-left: none;
+        }
+        .listview.page-list.train[data-item-color=#{$name}] .list-item:first-child,
+        .listview.page-list.train .list-item[data-color=#{$name}]:first-child {
+            border-left: 1px solid $bgcolor;
+        }
+        .listview.page-list[data-item-color=#{$name}] .list-item.actived,
+        .listview.page-list .list-item.actived[data-color=#{$name}] {
+            background-color: $bgcolor;
             color: $color;
-        }
-        .list-item.actived {
-            background-color: $color;
-            color: #fff;
-        }
-    }
-    .listview.page-list.train.#{$name} {
-        .list-item {
-            border-top: 1px solid $color;
-            border-right: 1px solid $color;
-            border-bottom: 1px solid $color;
-            color: $color;
-        }
-        .list-item:first-child {
-            border-left: 1px solid $color;
-        }
-        .list-item.actived {
-            background-color: $color;
-            color: #fff;
         }
     }
 }

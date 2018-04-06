@@ -74,18 +74,26 @@
             color: #999;
         }
         @each $name,
-        $color in $listcolors {
-            >i.#{$name},
-            .list-title>i.#{$name},
-            .list-icon.#{$name} {
-                background-color: $color;
-            }
-            >i.hollow.#{$name},
-            .list-title>i.hollow.#{$name},
-            .list-icon.hollow.#{$name} {
-                background-color: transparent;
-                border: 1px solid $color;
-                color: $color;
+        $index,
+        $alias,
+        $color,
+        $bgcolor,
+        $bgcolor_hover,
+        $bordercolor,
+        $shadowcolor in $commoncolors {
+            @if($index>1) {
+                // >i[data-color=#{$name}],
+                // .list-title>i[data-color=#{$name}],
+                // .list-icon[data-color=#{$name}] {
+                //     background-color: $bgcolor;
+                // }
+                >i.hollow[data-color=#{$name}],
+                .list-title>i.hollow[data-color=#{$name}],
+                .list-icon.hollow[data-color=#{$name}] {
+                    background-color: transparent;
+                    border: 1px solid $bordercolor;
+                    // color: $color;
+                }
             }
         }
         >span.pl-left,

@@ -20,7 +20,7 @@
             margin-left: 3px;
             padding: 0 6px;
             border-radius: 8px;
-            background-color: #999;
+            background-color: #888;
             line-height: 16px;
             font-size: 12px;
             font-size: 0.6rem;
@@ -49,39 +49,18 @@
     .list-item {
         min-width: 30px;
         height: 30px;
-        border: 1px solid #999;
+        border: 1px solid #888;
         padding: 4px 10px;
         text-align: center;
         color: #333;
     }
     .list-item.selected {
-        background-color: #999;
+        background-color: #888;
         color: #fff;
         >i,
         >i.list-tips {
             background-color: #fff;
-            color: #999;
-        }
-    }
-    @each $name,
-    $color in $listcolors {
-        .list-item.#{$name} {
-            border: 1px solid $color;
-            color: $color;
-            >i,
-            >i.list-tips {
-                background-color: $color;
-                color: #fff;
-            }
-        }
-        .list-item.#{$name}.selected {
-            background-color: $color;
-            color: #fff;
-            >i,
-            >i.list-tips {
-                background-color: #fff;
-                color: #0cf;
-            }
+            color: #888;
         }
     }
 }
@@ -102,26 +81,35 @@
 }
 
 @each $name,
-$color in $listcolors {
-    .listview.tags-list.blocks.#{$name},
-    .listview.tags-list.pills.#{$name} {
-        .list-item {
-            border: 1px solid $color;
+$index,
+$alias,
+$color,
+$bgcolor,
+$bgcolor_hover,
+$bordercolor,
+$shadowcolor in $commoncolors {
+    .listview.tags-list.blocks .list-item[data-color=#{$name}],
+    .listview.tags-list.pills .list-item[data-color=#{$name}],
+    .listview.tags-list.blocks[data-item-color=#{$name}] .list-item,
+    .listview.tags-list.pills[data-item-color=#{$name}] .list-item {
+        border: 1px solid $bgcolor;
+        color: $bgcolor;
+        >i,
+        >i.list-tips {
+            background-color: $bgcolor;
             color: $color;
-            >i,
-            >i.list-tips {
-                background-color: $color;
-                color: #fff;
-            }
         }
-        .list-item.selected {
-            background-color: $color;
-            color: #fff;
-            >i,
-            >i.list-tips {
-                background-color: #fff;
-                color: #0cf;
-            }
+    }
+    .listview.tags-list.blocks .list-item[data-color=#{$name}].selected,
+    .listview.tags-list.pills .list-item[data-color=#{$name}].selected,
+    .listview.tags-list.blocks[data-item-color=#{$name}] .list-item.selected,
+    .listview.tags-list.pills[data-item-color=#{$name}] .list-item.selected {
+        background-color: $bgcolor;
+        color: $color;
+        >i,
+        >i.list-tips {
+            background-color: #fff;
+            color: #0cf;
         }
     }
 }

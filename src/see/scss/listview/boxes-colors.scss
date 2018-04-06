@@ -24,45 +24,51 @@ $boxcolorpairs2: ('gray', #FFF, #888, #666),
 ('darkpurple', #FFF, #6D196D, rgb(70, 14, 70)),
 ('pink', #FFF, #ff668c, #e2577a);
 @each $name,
+$index,
+$alias,
 $color,
 $bgcolor,
-$shadowcolor in $boxcolorpairs1 {
-    .listview.boxes-list.#{$name} .list-item,
-    .listview.boxes-list.colors .list-item.#{$name} {
-        background: $bgcolor;
-        box-shadow: 0px 0px 2px $shadowcolor;
-        .titl {
-            border-color: $color;
+$bgcolor_hover,
+$bordercolor,
+$shadowcolor in $commoncolors {
+    @if($color='#444') {
+        .listview.boxes-list[data-item-color=#{$name}] .list-item,
+        .listview.boxes-list.colors .list-item[data-color=#{$name}] {
+            background: $bgcolor;
+            box-shadow: 0px 0px 2px $shadowcolor;
             color: $color;
-        }
-        .name {
-            color: $color;
-            background-color: rgba(0, 0, 0, .1);
-        }
-        .mask {
-            background: $color;
+            .titl {
+                border-color: $color;
+                // color: $color;
+            }
+            .name {
+                // background-color: lighten($color, 90%);
+                background-color: rgba(0, 0, 0, .1);
+                // color: $color;
+            }
+            .mask {
+                background: $color;
+            }
         }
     }
-}
-
-@each $name,
-$color,
-$bgcolor,
-$shadowcolor in $boxcolorpairs2 {
-    .listview.boxes-list.#{$name} .list-item,
-    .listview.boxes-list.colors .list-item.#{$name} {
-        background: $bgcolor;
-        box-shadow: 0px 0px 2px $shadowcolor;
-        .titl {
-            border-color: $color;
+    @else {
+        .listview.boxes-list[data-item-color=#{$name}] .list-item,
+        .listview.boxes-list.colors .list-item[data-color=#{$name}] {
+            background: $bgcolor;
+            box-shadow: 0px 0px 2px $shadowcolor;
             color: $color;
-        }
-        .name {
-            color: $color;
-            background-color: rgba(255, 255, 255, .1);
-        }
-        .mask {
-            background: $color;
+            .titl {
+                border-color: $color;
+                // color: $color;
+            }
+            .name {
+                // background-color: lighten($color, 90%);
+                background-color: rgba(255, 255, 255, .1);
+                // color: $color;
+            }
+            .mask {
+                background: $color;
+            }
         }
     }
 }

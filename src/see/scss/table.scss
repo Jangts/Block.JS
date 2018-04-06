@@ -10,15 +10,15 @@ $table_cell_maxwidths: 540,
 860,
 950,
 1040;
-$table_border_colors: (aqua, initial),
-(black, white),
-(gray, initial),
-(green, white),
-(lime, initial),
-(orange, initial),
-(silver, initial),
-(teal, initial),
-(white, initial);
+// $table_border_colors: (aqua, initial),
+// (black, white),
+// (gray, initial),
+// (green, white),
+// (lime, initial),
+// (orange, initial),
+// (silver, initial),
+// (teal, initial),
+// (white, initial);
 .tangram-table {
     margin: 20px auto 10px;
     border-radius: 5px;
@@ -230,20 +230,52 @@ $table_border_colors: (aqua, initial),
     }
 }
 
-@each $bordercolor,
-$color in $table_border_colors {
-    .tangram-table[border="#{$bordercolor}"] {
-        border-collapse: separate;
-        border: solid 1px $bordercolor;
-        tr {
-            th {
-                background: $bordercolor;
-                color: $color;
+@each $name,
+$index,
+$alias,
+$color,
+$bgcolor,
+$bgcolor_hover,
+$bordercolor,
+$shadowcolor in $commoncolors {
+    @if($index>0) {
+        .tangram-table[border=#{$name}] {
+            border-collapse: separate;
+            border: solid 1px $bordercolor;
+            tr {
+                th {
+                    background: $bgcolor;
+                    color: $color;
+                }
+                td {
+                    border-top: solid 1px $bordercolor;
+                    border-left: solid 1px $bordercolor;
+                }
             }
-            td {
-                border-top: solid 1px $bordercolor;
-                border-left: solid 1px $bordercolor;
+            tr.tangram-tips {
+                background: rgba(204, 204, 204, .3);
+                td {
+                    color: $bgcolor_hover;
+                }
             }
         }
     }
 }
+
+// @each $bordercolor,
+// $color in $table_border_colors {
+//     .tangram-table[data-color=#{$name}] {
+//         border-collapse: separate;
+//         border: solid 1px $bordercolor;
+//         tr {
+//             th {
+//                 background: $bordercolor;
+//                 color: $color;
+//             }
+//             td {
+//                 border-top: solid 1px $bordercolor;
+//                 border-left: solid 1px $bordercolor;
+//             }
+//         }
+//     }
+// }
