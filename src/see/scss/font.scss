@@ -1,20 +1,5 @@
 // Background Colour 
-$colorpairs: (fff, #FFFFFF, #111111),
-(f6, #F6F6F6, #555),
-(999, #999999, #FFFFFF),
-(666, #666666, #FFFFFF),
-(333, #333333, #EEEEEE),
-(222, #222, #EEEEEE),
-(111, #111111, #EEEEEE),
-(000, #000000, #EEEEEE);
-@each $name,
-$bgcolor,
-$color in $colorpairs {
-    .bg-#{$name} {
-        background-color: $bgcolor;
-        color: $color;
-    }
-}
+
 
 // Font Colour 
 $colors: (fff:#FFFFFF, e6:#E6E6E6, ccc:#CCCCCC, 888:#888888, 999:#999999, 666:#666666, 000:#000000, "red":#FF0000, "violet":#003AA6, "modena":#036);

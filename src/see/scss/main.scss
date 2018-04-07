@@ -1,10 +1,20 @@
 @charset "UTF-8";
+$commoncolors:('ashy', 1, 'default', #444, #DDD, #CCC),
+('gray', 1, 'disabled', #FFF, #999, #888),
+('white', 0, '', #444, #FFF, #DDD),
+('dark', 1, '', #DDD, #282828, #181818),
+('red', 2, 'danger', #FFF, #d9334f, #BE1E2D),
+('nacarat', 3, 'warning', #FFF, #ff5c0e, #EF5125),
+('yellow', 4, 'forbidden', #FFF, #FDBB11, #f0ad4e),
+('green', 5, 'ok', #FFF, #7FBA42, #0dad51),
+('azure', 6, 'primary', #FFF, #33A5DD, #398ed8),
+('magenta', 7, 'info', #FFF, #e73a7f, #D41C53);
 @import "reset";
 .tangram-see {
     @import "views";
     @import "compositions";
     @import "bgcolor";
-    @import "colors_and_fontSizes";
+    @import "font";
     @import "boxsizes";
     @import "grids/main";
     @import "positions";
@@ -12,5 +22,6 @@
     @import "table";
     @import "listview/main";
     @import "widgets";
-    @import "navmenu/main";
 }
+
+@import "navmenu/main";

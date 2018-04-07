@@ -78,9 +78,9 @@
         $alias,
         $color,
         $bgcolor,
-        $bgcolor_hover,
-        $bordercolor,
-        $shadowcolor in $commoncolors {
+        
+        $bordercolor 
+        in $commoncolors {
             @if($index>1) {
                 // >i[data-color=#{$name}],
                 // .list-title>i[data-color=#{$name}],

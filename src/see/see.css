@@ -261,6 +261,9 @@ img {
 .tangram-see .inline.block {
   display: inline-block; }
 
+.tangram-see .flex-box {
+  display: flex; }
+
 .tangram-see .hidden {
   display: none; }
 
@@ -362,65 +365,14 @@ img {
 .tangram-see .indent {
   text-indent: 2em; }
 
-.tangram-see [data-color=white] {
-  background-color: #FFF;
-  border-color: #DDD;
-  color: #444; }
+.tangram-see .uppercase {
+  text-transform: uppercase; }
 
-.tangram-see [data-color=dark],
-.tangram-see [data-color=readonly] {
-  background-color: #282828;
-  border-color: #181818;
-  color: #DDD; }
+.tangram-see .capitalize {
+  text-transform: capitalize; }
 
-.tangram-see [data-color],
-.tangram-see [data-color=gray],
-.tangram-see [data-color=default] {
-  background-color: #888;
-  border-color: #666;
-  color: #FFF; }
-
-.tangram-see [data-color=ashy],
-.tangram-see [data-color=disabled] {
-  background-color: #DDD;
-  border-color: #CCC #aaa;
-  color: #444; }
-
-.tangram-see [data-color=red],
-.tangram-see [data-color=danger] {
-  background-color: #BE1E2D;
-  border-color: #e6162d;
-  color: #FFF; }
-
-.tangram-see [data-color=nacarat],
-.tangram-see [data-color=warning] {
-  background-color: #EF5125;
-  border-color: #ff5c0e;
-  color: #FFF; }
-
-.tangram-see [data-color=yellow],
-.tangram-see [data-color=forbidden] {
-  background-color: #FDBB11;
-  border-color: #ffc700;
-  color: #FFF; }
-
-.tangram-see [data-color=green],
-.tangram-see [data-color=ok] {
-  background-color: #7FBA42;
-  border-color: #0dad51;
-  color: #FFF; }
-
-.tangram-see [data-color=azure],
-.tangram-see [data-color=primary] {
-  background-color: #33A5DD;
-  border-color: #27b6ea;
-  color: #FFF; }
-
-.tangram-see [data-color=magenta],
-.tangram-see [data-color=info] {
-  background-color: #D41C53;
-  border-color: #df226e;
-  color: #FFF; }
+.tangram-see .lowercase {
+  text-transform: lowercase; }
 
 .tangram-see .bg-fff {
   background-color: #FFFFFF;
@@ -453,6 +405,89 @@ img {
 .tangram-see .bg-0 {
   background-color: #000000;
   color: #EEEEEE; }
+
+.tangram-see [data-color],
+.tangram-see [data-color=ashy],
+.tangram-see [data-color=default] {
+  background-color: #DDD;
+  border-color: #CCC;
+  color: #444; }
+
+.tangram-see [data-color=default]:hover {
+  background-color: #CCC; }
+
+.tangram-see [data-color=gray],
+.tangram-see [data-color=disabled] {
+  background-color: #999;
+  border-color: #888;
+  color: #FFF; }
+
+.tangram-see [data-color=disabled]:hover {
+  background-color: #888; }
+
+.tangram-see [data-color=white] {
+  background-color: #FFF;
+  border-color: #DDD;
+  color: #444; }
+
+.tangram-see [data-color=dark] {
+  background-color: #282828;
+  border-color: #181818;
+  color: #DDD; }
+
+.tangram-see [data-color=red],
+.tangram-see [data-color=danger] {
+  background-color: #d9334f;
+  border-color: #BE1E2D;
+  color: #FFF; }
+
+.tangram-see [data-color=danger]:hover {
+  background-color: #BE1E2D; }
+
+.tangram-see [data-color=nacarat],
+.tangram-see [data-color=warning] {
+  background-color: #ff5c0e;
+  border-color: #EF5125;
+  color: #FFF; }
+
+.tangram-see [data-color=warning]:hover {
+  background-color: #EF5125; }
+
+.tangram-see [data-color=yellow],
+.tangram-see [data-color=forbidden] {
+  background-color: #FDBB11;
+  border-color: #f0ad4e;
+  color: #FFF; }
+
+.tangram-see [data-color=forbidden]:hover {
+  background-color: #f0ad4e; }
+
+.tangram-see [data-color=green],
+.tangram-see [data-color=ok] {
+  background-color: #7FBA42;
+  border-color: #0dad51;
+  color: #FFF; }
+
+.tangram-see [data-color=ok]:hover {
+  background-color: #0dad51; }
+
+.tangram-see [data-color=azure],
+.tangram-see [data-color=primary] {
+  background-color: #33A5DD;
+  border-color: #398ed8;
+  color: #FFF; }
+
+.tangram-see [data-color=primary]:hover {
+  background-color: #398ed8; }
+
+.tangram-see [data-color=magenta],
+.tangram-see [data-color=info] {
+  background-color: #e73a7f;
+  border-color: #D41C53;
+  color: #FFF; }
+
+.tangram-see [data-color=info]:hover {
+  background-color: #D41C53; }
 
 .tangram-see .ft-fff {
   color: #FFFFFF; }
@@ -3979,12 +4014,7 @@ img {
     .tangram-see .tangram-table[border] tr th {
       height: 30px;
       line-height: 30px;
-      font-weight: bold;
-      background: #ccc;
-      color: #222; }
-    .tangram-see .tangram-table[border] tr td {
-      border-top: solid 1px #ccc;
-      border-left: solid 1px #ccc; }
+      font-weight: bold; }
     .tangram-see .tangram-table[border] tr td:first-child {
       border-left: none; }
     .tangram-see .tangram-table[border] tr td {
@@ -4000,9 +4030,45 @@ img {
 .tangram-see .tangram-table[border="2"] {
   border-collapse: separate;
   border: solid 2px #ccc; }
+  .tangram-see .tangram-table[border="2"] tr th {
+    background: #ddd;
+    color: #444; }
   .tangram-see .tangram-table[border="2"] tr td {
     border-top: solid 2px #ccc;
     border-left: solid 2px #ccc; }
+
+.tangram-see .tangram-table[border],
+.tangram-see .tangram-table[border=ashy] {
+  border-collapse: separate;
+  border: solid 1px #CCC; }
+  .tangram-see .tangram-table[border] tr th,
+  .tangram-see .tangram-table[border=ashy] tr th {
+    background: #DDD;
+    color: #444; }
+  .tangram-see .tangram-table[border] tr td,
+  .tangram-see .tangram-table[border=ashy] tr td {
+    border-top: solid 1px #CCC;
+    border-left: solid 1px #CCC; }
+  .tangram-see .tangram-table[border] tr.tangram-tips,
+  .tangram-see .tangram-table[border=ashy] tr.tangram-tips {
+    background: rgba(204, 204, 204, 0.3); }
+    .tangram-see .tangram-table[border] tr.tangram-tips td,
+    .tangram-see .tangram-table[border=ashy] tr.tangram-tips td {
+      color: #CCC; }
+
+.tangram-see .tangram-table[border=gray] {
+  border-collapse: separate;
+  border: solid 1px #888; }
+  .tangram-see .tangram-table[border=gray] tr th {
+    background: #999;
+    color: #FFF; }
+  .tangram-see .tangram-table[border=gray] tr td {
+    border-top: solid 1px #888;
+    border-left: solid 1px #888; }
+  .tangram-see .tangram-table[border=gray] tr.tangram-tips {
+    background: rgba(204, 204, 204, 0.3); }
+    .tangram-see .tangram-table[border=gray] tr.tangram-tips td {
+      color: #888; }
 
 .tangram-see .tangram-table[border=dark] {
   border-collapse: separate;
@@ -4018,75 +4084,47 @@ img {
     .tangram-see .tangram-table[border=dark] tr.tangram-tips td {
       color: #181818; }
 
-.tangram-see .tangram-table[border=gray] {
-  border-collapse: separate;
-  border: solid 1px #666; }
-  .tangram-see .tangram-table[border=gray] tr th {
-    background: #888;
-    color: #FFF; }
-  .tangram-see .tangram-table[border=gray] tr td {
-    border-top: solid 1px #666;
-    border-left: solid 1px #666; }
-  .tangram-see .tangram-table[border=gray] tr.tangram-tips {
-    background: rgba(204, 204, 204, 0.3); }
-    .tangram-see .tangram-table[border=gray] tr.tangram-tips td {
-      color: #666; }
-
-.tangram-see .tangram-table[border=ashy] {
-  border-collapse: separate;
-  border: solid 1px #CCC #aaa; }
-  .tangram-see .tangram-table[border=ashy] tr th {
-    background: #DDD;
-    color: #444; }
-  .tangram-see .tangram-table[border=ashy] tr td {
-    border-top: solid 1px #CCC #aaa;
-    border-left: solid 1px #CCC #aaa; }
-  .tangram-see .tangram-table[border=ashy] tr.tangram-tips {
-    background: rgba(204, 204, 204, 0.3); }
-    .tangram-see .tangram-table[border=ashy] tr.tangram-tips td {
-      color: #CCC; }
-
 .tangram-see .tangram-table[border=red] {
   border-collapse: separate;
-  border: solid 1px #e6162d; }
+  border: solid 1px #BE1E2D; }
   .tangram-see .tangram-table[border=red] tr th {
-    background: #BE1E2D;
+    background: #d9334f;
     color: #FFF; }
   .tangram-see .tangram-table[border=red] tr td {
-    border-top: solid 1px #e6162d;
-    border-left: solid 1px #e6162d; }
+    border-top: solid 1px #BE1E2D;
+    border-left: solid 1px #BE1E2D; }
   .tangram-see .tangram-table[border=red] tr.tangram-tips {
     background: rgba(204, 204, 204, 0.3); }
     .tangram-see .tangram-table[border=red] tr.tangram-tips td {
-      color: #e6162d; }
+      color: #BE1E2D; }
 
 .tangram-see .tangram-table[border=nacarat] {
   border-collapse: separate;
-  border: solid 1px #ff5c0e; }
+  border: solid 1px #EF5125; }
   .tangram-see .tangram-table[border=nacarat] tr th {
-    background: #EF5125;
+    background: #ff5c0e;
     color: #FFF; }
   .tangram-see .tangram-table[border=nacarat] tr td {
-    border-top: solid 1px #ff5c0e;
-    border-left: solid 1px #ff5c0e; }
+    border-top: solid 1px #EF5125;
+    border-left: solid 1px #EF5125; }
   .tangram-see .tangram-table[border=nacarat] tr.tangram-tips {
     background: rgba(204, 204, 204, 0.3); }
     .tangram-see .tangram-table[border=nacarat] tr.tangram-tips td {
-      color: #ff5c0e; }
+      color: #EF5125; }
 
 .tangram-see .tangram-table[border=yellow] {
   border-collapse: separate;
-  border: solid 1px #ffc700; }
+  border: solid 1px #f0ad4e; }
   .tangram-see .tangram-table[border=yellow] tr th {
     background: #FDBB11;
     color: #FFF; }
   .tangram-see .tangram-table[border=yellow] tr td {
-    border-top: solid 1px #ffc700;
-    border-left: solid 1px #ffc700; }
+    border-top: solid 1px #f0ad4e;
+    border-left: solid 1px #f0ad4e; }
   .tangram-see .tangram-table[border=yellow] tr.tangram-tips {
     background: rgba(204, 204, 204, 0.3); }
     .tangram-see .tangram-table[border=yellow] tr.tangram-tips td {
-      color: #ffc700; }
+      color: #f0ad4e; }
 
 .tangram-see .tangram-table[border=green] {
   border-collapse: separate;
@@ -4104,31 +4142,31 @@ img {
 
 .tangram-see .tangram-table[border=azure] {
   border-collapse: separate;
-  border: solid 1px #27b6ea; }
+  border: solid 1px #398ed8; }
   .tangram-see .tangram-table[border=azure] tr th {
     background: #33A5DD;
     color: #FFF; }
   .tangram-see .tangram-table[border=azure] tr td {
-    border-top: solid 1px #27b6ea;
-    border-left: solid 1px #27b6ea; }
+    border-top: solid 1px #398ed8;
+    border-left: solid 1px #398ed8; }
   .tangram-see .tangram-table[border=azure] tr.tangram-tips {
     background: rgba(204, 204, 204, 0.3); }
     .tangram-see .tangram-table[border=azure] tr.tangram-tips td {
-      color: #27b6ea; }
+      color: #398ed8; }
 
 .tangram-see .tangram-table[border=magenta] {
   border-collapse: separate;
-  border: solid 1px #df226e; }
+  border: solid 1px #D41C53; }
   .tangram-see .tangram-table[border=magenta] tr th {
-    background: #D41C53;
+    background: #e73a7f;
     color: #FFF; }
   .tangram-see .tangram-table[border=magenta] tr td {
-    border-top: solid 1px #df226e;
-    border-left: solid 1px #df226e; }
+    border-top: solid 1px #D41C53;
+    border-left: solid 1px #D41C53; }
   .tangram-see .tangram-table[border=magenta] tr.tangram-tips {
     background: rgba(204, 204, 204, 0.3); }
     .tangram-see .tangram-table[border=magenta] tr.tangram-tips td {
-      color: #df226e; }
+      color: #D41C53; }
 
 .tangram-see .listview .list-item {
   width: 100%;
@@ -4249,17 +4287,17 @@ img {
   .tangram-see .listview .list-item .list-title > i.hollow[data-color=red],
   .tangram-see .listview .list-item .list-icon.hollow[data-color=red] {
     background-color: transparent;
-    border: 1px solid #e6162d; }
+    border: 1px solid #BE1E2D; }
   .tangram-see .listview .list-item > i.hollow[data-color=nacarat],
   .tangram-see .listview .list-item .list-title > i.hollow[data-color=nacarat],
   .tangram-see .listview .list-item .list-icon.hollow[data-color=nacarat] {
     background-color: transparent;
-    border: 1px solid #ff5c0e; }
+    border: 1px solid #EF5125; }
   .tangram-see .listview .list-item > i.hollow[data-color=yellow],
   .tangram-see .listview .list-item .list-title > i.hollow[data-color=yellow],
   .tangram-see .listview .list-item .list-icon.hollow[data-color=yellow] {
     background-color: transparent;
-    border: 1px solid #ffc700; }
+    border: 1px solid #f0ad4e; }
   .tangram-see .listview .list-item > i.hollow[data-color=green],
   .tangram-see .listview .list-item .list-title > i.hollow[data-color=green],
   .tangram-see .listview .list-item .list-icon.hollow[data-color=green] {
@@ -4269,12 +4307,12 @@ img {
   .tangram-see .listview .list-item .list-title > i.hollow[data-color=azure],
   .tangram-see .listview .list-item .list-icon.hollow[data-color=azure] {
     background-color: transparent;
-    border: 1px solid #27b6ea; }
+    border: 1px solid #398ed8; }
   .tangram-see .listview .list-item > i.hollow[data-color=magenta],
   .tangram-see .listview .list-item .list-title > i.hollow[data-color=magenta],
   .tangram-see .listview .list-item .list-icon.hollow[data-color=magenta] {
     background-color: transparent;
-    border: 1px solid #df226e; }
+    border: 1px solid #D41C53; }
   .tangram-see .listview .list-item > span.pl-left,
   .tangram-see .listview .list-item .list-title > span.pl-left,
   .tangram-see .listview .list-item .list-text.pl-left,
@@ -5289,7 +5327,7 @@ img {
 
 .tangram-see .listview.page-list[data-item-color=red] .list-item,
 .tangram-see .listview.page-list .list-item[data-color=red] {
-  color: #BE1E2D; }
+  color: #d9334f; }
 
 .tangram-see .listview.page-list.blocks[data-item-color=red] .list-item,
 .tangram-see .listview.page-list.pills[data-item-color=red] .list-item,
@@ -5299,7 +5337,7 @@ img {
 .tangram-see .listview.page-list.pills .list-item[data-color=red],
 .tangram-see .listview.page-list.spills .list-item[data-color=red],
 .tangram-see .listview.page-list.train[data-item-color=red] .list-item {
-  border: 1px solid #BE1E2D; }
+  border: 1px solid #d9334f; }
 
 .tangram-see .listview.page-list.train[data-item-color=red] .list-item,
 .tangram-see .listview.page-list.train .list-item[data-color=red] {
@@ -5307,16 +5345,16 @@ img {
 
 .tangram-see .listview.page-list.train[data-item-color=red] .list-item:first-child,
 .tangram-see .listview.page-list.train .list-item[data-color=red]:first-child {
-  border-left: 1px solid #BE1E2D; }
+  border-left: 1px solid #d9334f; }
 
 .tangram-see .listview.page-list[data-item-color=red] .list-item.actived,
 .tangram-see .listview.page-list .list-item.actived[data-color=red] {
-  background-color: #BE1E2D;
+  background-color: #d9334f;
   color: #FFF; }
 
 .tangram-see .listview.page-list[data-item-color=nacarat] .list-item,
 .tangram-see .listview.page-list .list-item[data-color=nacarat] {
-  color: #EF5125; }
+  color: #ff5c0e; }
 
 .tangram-see .listview.page-list.blocks[data-item-color=nacarat] .list-item,
 .tangram-see .listview.page-list.pills[data-item-color=nacarat] .list-item,
@@ -5326,7 +5364,7 @@ img {
 .tangram-see .listview.page-list.pills .list-item[data-color=nacarat],
 .tangram-see .listview.page-list.spills .list-item[data-color=nacarat],
 .tangram-see .listview.page-list.train[data-item-color=nacarat] .list-item {
-  border: 1px solid #EF5125; }
+  border: 1px solid #ff5c0e; }
 
 .tangram-see .listview.page-list.train[data-item-color=nacarat] .list-item,
 .tangram-see .listview.page-list.train .list-item[data-color=nacarat] {
@@ -5334,11 +5372,11 @@ img {
 
 .tangram-see .listview.page-list.train[data-item-color=nacarat] .list-item:first-child,
 .tangram-see .listview.page-list.train .list-item[data-color=nacarat]:first-child {
-  border-left: 1px solid #EF5125; }
+  border-left: 1px solid #ff5c0e; }
 
 .tangram-see .listview.page-list[data-item-color=nacarat] .list-item.actived,
 .tangram-see .listview.page-list .list-item.actived[data-color=nacarat] {
-  background-color: #EF5125;
+  background-color: #ff5c0e;
   color: #FFF; }
 
 .tangram-see .listview.page-list[data-item-color=yellow] .list-item,
@@ -5424,7 +5462,7 @@ img {
 
 .tangram-see .listview.page-list[data-item-color=magenta] .list-item,
 .tangram-see .listview.page-list .list-item[data-color=magenta] {
-  color: #D41C53; }
+  color: #e73a7f; }
 
 .tangram-see .listview.page-list.blocks[data-item-color=magenta] .list-item,
 .tangram-see .listview.page-list.pills[data-item-color=magenta] .list-item,
@@ -5434,7 +5472,7 @@ img {
 .tangram-see .listview.page-list.pills .list-item[data-color=magenta],
 .tangram-see .listview.page-list.spills .list-item[data-color=magenta],
 .tangram-see .listview.page-list.train[data-item-color=magenta] .list-item {
-  border: 1px solid #D41C53; }
+  border: 1px solid #e73a7f; }
 
 .tangram-see .listview.page-list.train[data-item-color=magenta] .list-item,
 .tangram-see .listview.page-list.train .list-item[data-color=magenta] {
@@ -5442,11 +5480,11 @@ img {
 
 .tangram-see .listview.page-list.train[data-item-color=magenta] .list-item:first-child,
 .tangram-see .listview.page-list.train .list-item[data-color=magenta]:first-child {
-  border-left: 1px solid #D41C53; }
+  border-left: 1px solid #e73a7f; }
 
 .tangram-see .listview.page-list[data-item-color=magenta] .list-item.actived,
 .tangram-see .listview.page-list .list-item.actived[data-color=magenta] {
-  background-color: #D41C53;
+  background-color: #e73a7f;
   color: #FFF; }
 
 .tangram-see .listview.tags-list {
@@ -5517,6 +5555,74 @@ img {
   padding: 2px 10px;
   border-radius: 13px; }
 
+.tangram-see .listview.tags-list.blocks .list-item[data-color=ashy],
+.tangram-see .listview.tags-list.pills .list-item[data-color=ashy],
+.tangram-see .listview.tags-list.blocks[data-item-color=ashy] .list-item,
+.tangram-see .listview.tags-list.pills[data-item-color=ashy] .list-item {
+  border: 1px solid #DDD;
+  color: #DDD; }
+  .tangram-see .listview.tags-list.blocks .list-item[data-color=ashy] > i,
+  .tangram-see .listview.tags-list.blocks .list-item[data-color=ashy] > i.list-tips,
+  .tangram-see .listview.tags-list.pills .list-item[data-color=ashy] > i,
+  .tangram-see .listview.tags-list.pills .list-item[data-color=ashy] > i.list-tips,
+  .tangram-see .listview.tags-list.blocks[data-item-color=ashy] .list-item > i,
+  .tangram-see .listview.tags-list.blocks[data-item-color=ashy] .list-item > i.list-tips,
+  .tangram-see .listview.tags-list.pills[data-item-color=ashy] .list-item > i,
+  .tangram-see .listview.tags-list.pills[data-item-color=ashy] .list-item > i.list-tips {
+    background-color: #DDD;
+    color: #444; }
+
+.tangram-see .listview.tags-list.blocks .list-item[data-color=ashy].selected,
+.tangram-see .listview.tags-list.pills .list-item[data-color=ashy].selected,
+.tangram-see .listview.tags-list.blocks[data-item-color=ashy] .list-item.selected,
+.tangram-see .listview.tags-list.pills[data-item-color=ashy] .list-item.selected {
+  background-color: #DDD;
+  color: #444; }
+  .tangram-see .listview.tags-list.blocks .list-item[data-color=ashy].selected > i,
+  .tangram-see .listview.tags-list.blocks .list-item[data-color=ashy].selected > i.list-tips,
+  .tangram-see .listview.tags-list.pills .list-item[data-color=ashy].selected > i,
+  .tangram-see .listview.tags-list.pills .list-item[data-color=ashy].selected > i.list-tips,
+  .tangram-see .listview.tags-list.blocks[data-item-color=ashy] .list-item.selected > i,
+  .tangram-see .listview.tags-list.blocks[data-item-color=ashy] .list-item.selected > i.list-tips,
+  .tangram-see .listview.tags-list.pills[data-item-color=ashy] .list-item.selected > i,
+  .tangram-see .listview.tags-list.pills[data-item-color=ashy] .list-item.selected > i.list-tips {
+    background-color: #fff;
+    color: #0cf; }
+
+.tangram-see .listview.tags-list.blocks .list-item[data-color=gray],
+.tangram-see .listview.tags-list.pills .list-item[data-color=gray],
+.tangram-see .listview.tags-list.blocks[data-item-color=gray] .list-item,
+.tangram-see .listview.tags-list.pills[data-item-color=gray] .list-item {
+  border: 1px solid #999;
+  color: #999; }
+  .tangram-see .listview.tags-list.blocks .list-item[data-color=gray] > i,
+  .tangram-see .listview.tags-list.blocks .list-item[data-color=gray] > i.list-tips,
+  .tangram-see .listview.tags-list.pills .list-item[data-color=gray] > i,
+  .tangram-see .listview.tags-list.pills .list-item[data-color=gray] > i.list-tips,
+  .tangram-see .listview.tags-list.blocks[data-item-color=gray] .list-item > i,
+  .tangram-see .listview.tags-list.blocks[data-item-color=gray] .list-item > i.list-tips,
+  .tangram-see .listview.tags-list.pills[data-item-color=gray] .list-item > i,
+  .tangram-see .listview.tags-list.pills[data-item-color=gray] .list-item > i.list-tips {
+    background-color: #999;
+    color: #FFF; }
+
+.tangram-see .listview.tags-list.blocks .list-item[data-color=gray].selected,
+.tangram-see .listview.tags-list.pills .list-item[data-color=gray].selected,
+.tangram-see .listview.tags-list.blocks[data-item-color=gray] .list-item.selected,
+.tangram-see .listview.tags-list.pills[data-item-color=gray] .list-item.selected {
+  background-color: #999;
+  color: #FFF; }
+  .tangram-see .listview.tags-list.blocks .list-item[data-color=gray].selected > i,
+  .tangram-see .listview.tags-list.blocks .list-item[data-color=gray].selected > i.list-tips,
+  .tangram-see .listview.tags-list.pills .list-item[data-color=gray].selected > i,
+  .tangram-see .listview.tags-list.pills .list-item[data-color=gray].selected > i.list-tips,
+  .tangram-see .listview.tags-list.blocks[data-item-color=gray] .list-item.selected > i,
+  .tangram-see .listview.tags-list.blocks[data-item-color=gray] .list-item.selected > i.list-tips,
+  .tangram-see .listview.tags-list.pills[data-item-color=gray] .list-item.selected > i,
+  .tangram-see .listview.tags-list.pills[data-item-color=gray] .list-item.selected > i.list-tips {
+    background-color: #fff;
+    color: #0cf; }
+
 .tangram-see .listview.tags-list.blocks .list-item[data-color=white],
 .tangram-see .listview.tags-list.pills .list-item[data-color=white],
 .tangram-see .listview.tags-list.blocks[data-item-color=white] .list-item,
@@ -5585,80 +5691,12 @@ img {
     background-color: #fff;
     color: #0cf; }
 
-.tangram-see .listview.tags-list.blocks .list-item[data-color=gray],
-.tangram-see .listview.tags-list.pills .list-item[data-color=gray],
-.tangram-see .listview.tags-list.blocks[data-item-color=gray] .list-item,
-.tangram-see .listview.tags-list.pills[data-item-color=gray] .list-item {
-  border: 1px solid #888;
-  color: #888; }
-  .tangram-see .listview.tags-list.blocks .list-item[data-color=gray] > i,
-  .tangram-see .listview.tags-list.blocks .list-item[data-color=gray] > i.list-tips,
-  .tangram-see .listview.tags-list.pills .list-item[data-color=gray] > i,
-  .tangram-see .listview.tags-list.pills .list-item[data-color=gray] > i.list-tips,
-  .tangram-see .listview.tags-list.blocks[data-item-color=gray] .list-item > i,
-  .tangram-see .listview.tags-list.blocks[data-item-color=gray] .list-item > i.list-tips,
-  .tangram-see .listview.tags-list.pills[data-item-color=gray] .list-item > i,
-  .tangram-see .listview.tags-list.pills[data-item-color=gray] .list-item > i.list-tips {
-    background-color: #888;
-    color: #FFF; }
-
-.tangram-see .listview.tags-list.blocks .list-item[data-color=gray].selected,
-.tangram-see .listview.tags-list.pills .list-item[data-color=gray].selected,
-.tangram-see .listview.tags-list.blocks[data-item-color=gray] .list-item.selected,
-.tangram-see .listview.tags-list.pills[data-item-color=gray] .list-item.selected {
-  background-color: #888;
-  color: #FFF; }
-  .tangram-see .listview.tags-list.blocks .list-item[data-color=gray].selected > i,
-  .tangram-see .listview.tags-list.blocks .list-item[data-color=gray].selected > i.list-tips,
-  .tangram-see .listview.tags-list.pills .list-item[data-color=gray].selected > i,
-  .tangram-see .listview.tags-list.pills .list-item[data-color=gray].selected > i.list-tips,
-  .tangram-see .listview.tags-list.blocks[data-item-color=gray] .list-item.selected > i,
-  .tangram-see .listview.tags-list.blocks[data-item-color=gray] .list-item.selected > i.list-tips,
-  .tangram-see .listview.tags-list.pills[data-item-color=gray] .list-item.selected > i,
-  .tangram-see .listview.tags-list.pills[data-item-color=gray] .list-item.selected > i.list-tips {
-    background-color: #fff;
-    color: #0cf; }
-
-.tangram-see .listview.tags-list.blocks .list-item[data-color=ashy],
-.tangram-see .listview.tags-list.pills .list-item[data-color=ashy],
-.tangram-see .listview.tags-list.blocks[data-item-color=ashy] .list-item,
-.tangram-see .listview.tags-list.pills[data-item-color=ashy] .list-item {
-  border: 1px solid #DDD;
-  color: #DDD; }
-  .tangram-see .listview.tags-list.blocks .list-item[data-color=ashy] > i,
-  .tangram-see .listview.tags-list.blocks .list-item[data-color=ashy] > i.list-tips,
-  .tangram-see .listview.tags-list.pills .list-item[data-color=ashy] > i,
-  .tangram-see .listview.tags-list.pills .list-item[data-color=ashy] > i.list-tips,
-  .tangram-see .listview.tags-list.blocks[data-item-color=ashy] .list-item > i,
-  .tangram-see .listview.tags-list.blocks[data-item-color=ashy] .list-item > i.list-tips,
-  .tangram-see .listview.tags-list.pills[data-item-color=ashy] .list-item > i,
-  .tangram-see .listview.tags-list.pills[data-item-color=ashy] .list-item > i.list-tips {
-    background-color: #DDD;
-    color: #444; }
-
-.tangram-see .listview.tags-list.blocks .list-item[data-color=ashy].selected,
-.tangram-see .listview.tags-list.pills .list-item[data-color=ashy].selected,
-.tangram-see .listview.tags-list.blocks[data-item-color=ashy] .list-item.selected,
-.tangram-see .listview.tags-list.pills[data-item-color=ashy] .list-item.selected {
-  background-color: #DDD;
-  color: #444; }
-  .tangram-see .listview.tags-list.blocks .list-item[data-color=ashy].selected > i,
-  .tangram-see .listview.tags-list.blocks .list-item[data-color=ashy].selected > i.list-tips,
-  .tangram-see .listview.tags-list.pills .list-item[data-color=ashy].selected > i,
-  .tangram-see .listview.tags-list.pills .list-item[data-color=ashy].selected > i.list-tips,
-  .tangram-see .listview.tags-list.blocks[data-item-color=ashy] .list-item.selected > i,
-  .tangram-see .listview.tags-list.blocks[data-item-color=ashy] .list-item.selected > i.list-tips,
-  .tangram-see .listview.tags-list.pills[data-item-color=ashy] .list-item.selected > i,
-  .tangram-see .listview.tags-list.pills[data-item-color=ashy] .list-item.selected > i.list-tips {
-    background-color: #fff;
-    color: #0cf; }
-
 .tangram-see .listview.tags-list.blocks .list-item[data-color=red],
 .tangram-see .listview.tags-list.pills .list-item[data-color=red],
 .tangram-see .listview.tags-list.blocks[data-item-color=red] .list-item,
 .tangram-see .listview.tags-list.pills[data-item-color=red] .list-item {
-  border: 1px solid #BE1E2D;
-  color: #BE1E2D; }
+  border: 1px solid #d9334f;
+  color: #d9334f; }
   .tangram-see .listview.tags-list.blocks .list-item[data-color=red] > i,
   .tangram-see .listview.tags-list.blocks .list-item[data-color=red] > i.list-tips,
   .tangram-see .listview.tags-list.pills .list-item[data-color=red] > i,
@@ -5667,14 +5705,14 @@ img {
   .tangram-see .listview.tags-list.blocks[data-item-color=red] .list-item > i.list-tips,
   .tangram-see .listview.tags-list.pills[data-item-color=red] .list-item > i,
   .tangram-see .listview.tags-list.pills[data-item-color=red] .list-item > i.list-tips {
-    background-color: #BE1E2D;
+    background-color: #d9334f;
     color: #FFF; }
 
 .tangram-see .listview.tags-list.blocks .list-item[data-color=red].selected,
 .tangram-see .listview.tags-list.pills .list-item[data-color=red].selected,
 .tangram-see .listview.tags-list.blocks[data-item-color=red] .list-item.selected,
 .tangram-see .listview.tags-list.pills[data-item-color=red] .list-item.selected {
-  background-color: #BE1E2D;
+  background-color: #d9334f;
   color: #FFF; }
   .tangram-see .listview.tags-list.blocks .list-item[data-color=red].selected > i,
   .tangram-see .listview.tags-list.blocks .list-item[data-color=red].selected > i.list-tips,
@@ -5691,8 +5729,8 @@ img {
 .tangram-see .listview.tags-list.pills .list-item[data-color=nacarat],
 .tangram-see .listview.tags-list.blocks[data-item-color=nacarat] .list-item,
 .tangram-see .listview.tags-list.pills[data-item-color=nacarat] .list-item {
-  border: 1px solid #EF5125;
-  color: #EF5125; }
+  border: 1px solid #ff5c0e;
+  color: #ff5c0e; }
   .tangram-see .listview.tags-list.blocks .list-item[data-color=nacarat] > i,
   .tangram-see .listview.tags-list.blocks .list-item[data-color=nacarat] > i.list-tips,
   .tangram-see .listview.tags-list.pills .list-item[data-color=nacarat] > i,
@@ -5701,14 +5739,14 @@ img {
   .tangram-see .listview.tags-list.blocks[data-item-color=nacarat] .list-item > i.list-tips,
   .tangram-see .listview.tags-list.pills[data-item-color=nacarat] .list-item > i,
   .tangram-see .listview.tags-list.pills[data-item-color=nacarat] .list-item > i.list-tips {
-    background-color: #EF5125;
+    background-color: #ff5c0e;
     color: #FFF; }
 
 .tangram-see .listview.tags-list.blocks .list-item[data-color=nacarat].selected,
 .tangram-see .listview.tags-list.pills .list-item[data-color=nacarat].selected,
 .tangram-see .listview.tags-list.blocks[data-item-color=nacarat] .list-item.selected,
 .tangram-see .listview.tags-list.pills[data-item-color=nacarat] .list-item.selected {
-  background-color: #EF5125;
+  background-color: #ff5c0e;
   color: #FFF; }
   .tangram-see .listview.tags-list.blocks .list-item[data-color=nacarat].selected > i,
   .tangram-see .listview.tags-list.blocks .list-item[data-color=nacarat].selected > i.list-tips,
@@ -5827,8 +5865,8 @@ img {
 .tangram-see .listview.tags-list.pills .list-item[data-color=magenta],
 .tangram-see .listview.tags-list.blocks[data-item-color=magenta] .list-item,
 .tangram-see .listview.tags-list.pills[data-item-color=magenta] .list-item {
-  border: 1px solid #D41C53;
-  color: #D41C53; }
+  border: 1px solid #e73a7f;
+  color: #e73a7f; }
   .tangram-see .listview.tags-list.blocks .list-item[data-color=magenta] > i,
   .tangram-see .listview.tags-list.blocks .list-item[data-color=magenta] > i.list-tips,
   .tangram-see .listview.tags-list.pills .list-item[data-color=magenta] > i,
@@ -5837,14 +5875,14 @@ img {
   .tangram-see .listview.tags-list.blocks[data-item-color=magenta] .list-item > i.list-tips,
   .tangram-see .listview.tags-list.pills[data-item-color=magenta] .list-item > i,
   .tangram-see .listview.tags-list.pills[data-item-color=magenta] .list-item > i.list-tips {
-    background-color: #D41C53;
+    background-color: #e73a7f;
     color: #FFF; }
 
 .tangram-see .listview.tags-list.blocks .list-item[data-color=magenta].selected,
 .tangram-see .listview.tags-list.pills .list-item[data-color=magenta].selected,
 .tangram-see .listview.tags-list.blocks[data-item-color=magenta] .list-item.selected,
 .tangram-see .listview.tags-list.pills[data-item-color=magenta] .list-item.selected {
-  background-color: #D41C53;
+  background-color: #e73a7f;
   color: #FFF; }
   .tangram-see .listview.tags-list.blocks .list-item[data-color=magenta].selected > i,
   .tangram-see .listview.tags-list.blocks .list-item[data-color=magenta].selected > i.list-tips,
@@ -5925,6 +5963,74 @@ img {
   padding: 2px 10px;
   border-radius: 13px; }
 
+.tangram-see .listview.tags-list.blocks .list-item[data-color=ashy],
+.tangram-see .listview.tags-list.pills .list-item[data-color=ashy],
+.tangram-see .listview.tags-list.blocks[data-item-color=ashy] .list-item,
+.tangram-see .listview.tags-list.pills[data-item-color=ashy] .list-item {
+  border: 1px solid #DDD;
+  color: #DDD; }
+  .tangram-see .listview.tags-list.blocks .list-item[data-color=ashy] > i,
+  .tangram-see .listview.tags-list.blocks .list-item[data-color=ashy] > i.list-tips,
+  .tangram-see .listview.tags-list.pills .list-item[data-color=ashy] > i,
+  .tangram-see .listview.tags-list.pills .list-item[data-color=ashy] > i.list-tips,
+  .tangram-see .listview.tags-list.blocks[data-item-color=ashy] .list-item > i,
+  .tangram-see .listview.tags-list.blocks[data-item-color=ashy] .list-item > i.list-tips,
+  .tangram-see .listview.tags-list.pills[data-item-color=ashy] .list-item > i,
+  .tangram-see .listview.tags-list.pills[data-item-color=ashy] .list-item > i.list-tips {
+    background-color: #DDD;
+    color: #444; }
+
+.tangram-see .listview.tags-list.blocks .list-item[data-color=ashy].selected,
+.tangram-see .listview.tags-list.pills .list-item[data-color=ashy].selected,
+.tangram-see .listview.tags-list.blocks[data-item-color=ashy] .list-item.selected,
+.tangram-see .listview.tags-list.pills[data-item-color=ashy] .list-item.selected {
+  background-color: #DDD;
+  color: #444; }
+  .tangram-see .listview.tags-list.blocks .list-item[data-color=ashy].selected > i,
+  .tangram-see .listview.tags-list.blocks .list-item[data-color=ashy].selected > i.list-tips,
+  .tangram-see .listview.tags-list.pills .list-item[data-color=ashy].selected > i,
+  .tangram-see .listview.tags-list.pills .list-item[data-color=ashy].selected > i.list-tips,
+  .tangram-see .listview.tags-list.blocks[data-item-color=ashy] .list-item.selected > i,
+  .tangram-see .listview.tags-list.blocks[data-item-color=ashy] .list-item.selected > i.list-tips,
+  .tangram-see .listview.tags-list.pills[data-item-color=ashy] .list-item.selected > i,
+  .tangram-see .listview.tags-list.pills[data-item-color=ashy] .list-item.selected > i.list-tips {
+    background-color: #fff;
+    color: #0cf; }
+
+.tangram-see .listview.tags-list.blocks .list-item[data-color=gray],
+.tangram-see .listview.tags-list.pills .list-item[data-color=gray],
+.tangram-see .listview.tags-list.blocks[data-item-color=gray] .list-item,
+.tangram-see .listview.tags-list.pills[data-item-color=gray] .list-item {
+  border: 1px solid #999;
+  color: #999; }
+  .tangram-see .listview.tags-list.blocks .list-item[data-color=gray] > i,
+  .tangram-see .listview.tags-list.blocks .list-item[data-color=gray] > i.list-tips,
+  .tangram-see .listview.tags-list.pills .list-item[data-color=gray] > i,
+  .tangram-see .listview.tags-list.pills .list-item[data-color=gray] > i.list-tips,
+  .tangram-see .listview.tags-list.blocks[data-item-color=gray] .list-item > i,
+  .tangram-see .listview.tags-list.blocks[data-item-color=gray] .list-item > i.list-tips,
+  .tangram-see .listview.tags-list.pills[data-item-color=gray] .list-item > i,
+  .tangram-see .listview.tags-list.pills[data-item-color=gray] .list-item > i.list-tips {
+    background-color: #999;
+    color: #FFF; }
+
+.tangram-see .listview.tags-list.blocks .list-item[data-color=gray].selected,
+.tangram-see .listview.tags-list.pills .list-item[data-color=gray].selected,
+.tangram-see .listview.tags-list.blocks[data-item-color=gray] .list-item.selected,
+.tangram-see .listview.tags-list.pills[data-item-color=gray] .list-item.selected {
+  background-color: #999;
+  color: #FFF; }
+  .tangram-see .listview.tags-list.blocks .list-item[data-color=gray].selected > i,
+  .tangram-see .listview.tags-list.blocks .list-item[data-color=gray].selected > i.list-tips,
+  .tangram-see .listview.tags-list.pills .list-item[data-color=gray].selected > i,
+  .tangram-see .listview.tags-list.pills .list-item[data-color=gray].selected > i.list-tips,
+  .tangram-see .listview.tags-list.blocks[data-item-color=gray] .list-item.selected > i,
+  .tangram-see .listview.tags-list.blocks[data-item-color=gray] .list-item.selected > i.list-tips,
+  .tangram-see .listview.tags-list.pills[data-item-color=gray] .list-item.selected > i,
+  .tangram-see .listview.tags-list.pills[data-item-color=gray] .list-item.selected > i.list-tips {
+    background-color: #fff;
+    color: #0cf; }
+
 .tangram-see .listview.tags-list.blocks .list-item[data-color=white],
 .tangram-see .listview.tags-list.pills .list-item[data-color=white],
 .tangram-see .listview.tags-list.blocks[data-item-color=white] .list-item,
@@ -5993,80 +6099,12 @@ img {
     background-color: #fff;
     color: #0cf; }
 
-.tangram-see .listview.tags-list.blocks .list-item[data-color=gray],
-.tangram-see .listview.tags-list.pills .list-item[data-color=gray],
-.tangram-see .listview.tags-list.blocks[data-item-color=gray] .list-item,
-.tangram-see .listview.tags-list.pills[data-item-color=gray] .list-item {
-  border: 1px solid #888;
-  color: #888; }
-  .tangram-see .listview.tags-list.blocks .list-item[data-color=gray] > i,
-  .tangram-see .listview.tags-list.blocks .list-item[data-color=gray] > i.list-tips,
-  .tangram-see .listview.tags-list.pills .list-item[data-color=gray] > i,
-  .tangram-see .listview.tags-list.pills .list-item[data-color=gray] > i.list-tips,
-  .tangram-see .listview.tags-list.blocks[data-item-color=gray] .list-item > i,
-  .tangram-see .listview.tags-list.blocks[data-item-color=gray] .list-item > i.list-tips,
-  .tangram-see .listview.tags-list.pills[data-item-color=gray] .list-item > i,
-  .tangram-see .listview.tags-list.pills[data-item-color=gray] .list-item > i.list-tips {
-    background-color: #888;
-    color: #FFF; }
-
-.tangram-see .listview.tags-list.blocks .list-item[data-color=gray].selected,
-.tangram-see .listview.tags-list.pills .list-item[data-color=gray].selected,
-.tangram-see .listview.tags-list.blocks[data-item-color=gray] .list-item.selected,
-.tangram-see .listview.tags-list.pills[data-item-color=gray] .list-item.selected {
-  background-color: #888;
-  color: #FFF; }
-  .tangram-see .listview.tags-list.blocks .list-item[data-color=gray].selected > i,
-  .tangram-see .listview.tags-list.blocks .list-item[data-color=gray].selected > i.list-tips,
-  .tangram-see .listview.tags-list.pills .list-item[data-color=gray].selected > i,
-  .tangram-see .listview.tags-list.pills .list-item[data-color=gray].selected > i.list-tips,
-  .tangram-see .listview.tags-list.blocks[data-item-color=gray] .list-item.selected > i,
-  .tangram-see .listview.tags-list.blocks[data-item-color=gray] .list-item.selected > i.list-tips,
-  .tangram-see .listview.tags-list.pills[data-item-color=gray] .list-item.selected > i,
-  .tangram-see .listview.tags-list.pills[data-item-color=gray] .list-item.selected > i.list-tips {
-    background-color: #fff;
-    color: #0cf; }
-
-.tangram-see .listview.tags-list.blocks .list-item[data-color=ashy],
-.tangram-see .listview.tags-list.pills .list-item[data-color=ashy],
-.tangram-see .listview.tags-list.blocks[data-item-color=ashy] .list-item,
-.tangram-see .listview.tags-list.pills[data-item-color=ashy] .list-item {
-  border: 1px solid #DDD;
-  color: #DDD; }
-  .tangram-see .listview.tags-list.blocks .list-item[data-color=ashy] > i,
-  .tangram-see .listview.tags-list.blocks .list-item[data-color=ashy] > i.list-tips,
-  .tangram-see .listview.tags-list.pills .list-item[data-color=ashy] > i,
-  .tangram-see .listview.tags-list.pills .list-item[data-color=ashy] > i.list-tips,
-  .tangram-see .listview.tags-list.blocks[data-item-color=ashy] .list-item > i,
-  .tangram-see .listview.tags-list.blocks[data-item-color=ashy] .list-item > i.list-tips,
-  .tangram-see .listview.tags-list.pills[data-item-color=ashy] .list-item > i,
-  .tangram-see .listview.tags-list.pills[data-item-color=ashy] .list-item > i.list-tips {
-    background-color: #DDD;
-    color: #444; }
-
-.tangram-see .listview.tags-list.blocks .list-item[data-color=ashy].selected,
-.tangram-see .listview.tags-list.pills .list-item[data-color=ashy].selected,
-.tangram-see .listview.tags-list.blocks[data-item-color=ashy] .list-item.selected,
-.tangram-see .listview.tags-list.pills[data-item-color=ashy] .list-item.selected {
-  background-color: #DDD;
-  color: #444; }
-  .tangram-see .listview.tags-list.blocks .list-item[data-color=ashy].selected > i,
-  .tangram-see .listview.tags-list.blocks .list-item[data-color=ashy].selected > i.list-tips,
-  .tangram-see .listview.tags-list.pills .list-item[data-color=ashy].selected > i,
-  .tangram-see .listview.tags-list.pills .list-item[data-color=ashy].selected > i.list-tips,
-  .tangram-see .listview.tags-list.blocks[data-item-color=ashy] .list-item.selected > i,
-  .tangram-see .listview.tags-list.blocks[data-item-color=ashy] .list-item.selected > i.list-tips,
-  .tangram-see .listview.tags-list.pills[data-item-color=ashy] .list-item.selected > i,
-  .tangram-see .listview.tags-list.pills[data-item-color=ashy] .list-item.selected > i.list-tips {
-    background-color: #fff;
-    color: #0cf; }
-
 .tangram-see .listview.tags-list.blocks .list-item[data-color=red],
 .tangram-see .listview.tags-list.pills .list-item[data-color=red],
 .tangram-see .listview.tags-list.blocks[data-item-color=red] .list-item,
 .tangram-see .listview.tags-list.pills[data-item-color=red] .list-item {
-  border: 1px solid #BE1E2D;
-  color: #BE1E2D; }
+  border: 1px solid #d9334f;
+  color: #d9334f; }
   .tangram-see .listview.tags-list.blocks .list-item[data-color=red] > i,
   .tangram-see .listview.tags-list.blocks .list-item[data-color=red] > i.list-tips,
   .tangram-see .listview.tags-list.pills .list-item[data-color=red] > i,
@@ -6075,14 +6113,14 @@ img {
   .tangram-see .listview.tags-list.blocks[data-item-color=red] .list-item > i.list-tips,
   .tangram-see .listview.tags-list.pills[data-item-color=red] .list-item > i,
   .tangram-see .listview.tags-list.pills[data-item-color=red] .list-item > i.list-tips {
-    background-color: #BE1E2D;
+    background-color: #d9334f;
     color: #FFF; }
 
 .tangram-see .listview.tags-list.blocks .list-item[data-color=red].selected,
 .tangram-see .listview.tags-list.pills .list-item[data-color=red].selected,
 .tangram-see .listview.tags-list.blocks[data-item-color=red] .list-item.selected,
 .tangram-see .listview.tags-list.pills[data-item-color=red] .list-item.selected {
-  background-color: #BE1E2D;
+  background-color: #d9334f;
   color: #FFF; }
   .tangram-see .listview.tags-list.blocks .list-item[data-color=red].selected > i,
   .tangram-see .listview.tags-list.blocks .list-item[data-color=red].selected > i.list-tips,
@@ -6099,8 +6137,8 @@ img {
 .tangram-see .listview.tags-list.pills .list-item[data-color=nacarat],
 .tangram-see .listview.tags-list.blocks[data-item-color=nacarat] .list-item,
 .tangram-see .listview.tags-list.pills[data-item-color=nacarat] .list-item {
-  border: 1px solid #EF5125;
-  color: #EF5125; }
+  border: 1px solid #ff5c0e;
+  color: #ff5c0e; }
   .tangram-see .listview.tags-list.blocks .list-item[data-color=nacarat] > i,
   .tangram-see .listview.tags-list.blocks .list-item[data-color=nacarat] > i.list-tips,
   .tangram-see .listview.tags-list.pills .list-item[data-color=nacarat] > i,
@@ -6109,14 +6147,14 @@ img {
   .tangram-see .listview.tags-list.blocks[data-item-color=nacarat] .list-item > i.list-tips,
   .tangram-see .listview.tags-list.pills[data-item-color=nacarat] .list-item > i,
   .tangram-see .listview.tags-list.pills[data-item-color=nacarat] .list-item > i.list-tips {
-    background-color: #EF5125;
+    background-color: #ff5c0e;
     color: #FFF; }
 
 .tangram-see .listview.tags-list.blocks .list-item[data-color=nacarat].selected,
 .tangram-see .listview.tags-list.pills .list-item[data-color=nacarat].selected,
 .tangram-see .listview.tags-list.blocks[data-item-color=nacarat] .list-item.selected,
 .tangram-see .listview.tags-list.pills[data-item-color=nacarat] .list-item.selected {
-  background-color: #EF5125;
+  background-color: #ff5c0e;
   color: #FFF; }
   .tangram-see .listview.tags-list.blocks .list-item[data-color=nacarat].selected > i,
   .tangram-see .listview.tags-list.blocks .list-item[data-color=nacarat].selected > i.list-tips,
@@ -6235,8 +6273,8 @@ img {
 .tangram-see .listview.tags-list.pills .list-item[data-color=magenta],
 .tangram-see .listview.tags-list.blocks[data-item-color=magenta] .list-item,
 .tangram-see .listview.tags-list.pills[data-item-color=magenta] .list-item {
-  border: 1px solid #D41C53;
-  color: #D41C53; }
+  border: 1px solid #e73a7f;
+  color: #e73a7f; }
   .tangram-see .listview.tags-list.blocks .list-item[data-color=magenta] > i,
   .tangram-see .listview.tags-list.blocks .list-item[data-color=magenta] > i.list-tips,
   .tangram-see .listview.tags-list.pills .list-item[data-color=magenta] > i,
@@ -6245,14 +6283,14 @@ img {
   .tangram-see .listview.tags-list.blocks[data-item-color=magenta] .list-item > i.list-tips,
   .tangram-see .listview.tags-list.pills[data-item-color=magenta] .list-item > i,
   .tangram-see .listview.tags-list.pills[data-item-color=magenta] .list-item > i.list-tips {
-    background-color: #D41C53;
+    background-color: #e73a7f;
     color: #FFF; }
 
 .tangram-see .listview.tags-list.blocks .list-item[data-color=magenta].selected,
 .tangram-see .listview.tags-list.pills .list-item[data-color=magenta].selected,
 .tangram-see .listview.tags-list.blocks[data-item-color=magenta] .list-item.selected,
 .tangram-see .listview.tags-list.pills[data-item-color=magenta] .list-item.selected {
-  background-color: #D41C53;
+  background-color: #e73a7f;
   color: #FFF; }
   .tangram-see .listview.tags-list.blocks .list-item[data-color=magenta].selected > i,
   .tangram-see .listview.tags-list.blocks .list-item[data-color=magenta].selected > i.list-tips,
@@ -6352,10 +6390,37 @@ img {
       top: 0px;
       left: 0px; }
 
+.tangram-see .listview.boxes-list[data-item-color=ashy] .list-item,
+.tangram-see .listview.boxes-list.colors .list-item[data-color=ashy] {
+  background: #DDD;
+  color: #444; }
+  .tangram-see .listview.boxes-list[data-item-color=ashy] .list-item .titl,
+  .tangram-see .listview.boxes-list.colors .list-item[data-color=ashy] .titl {
+    border-color: #444; }
+  .tangram-see .listview.boxes-list[data-item-color=ashy] .list-item .name,
+  .tangram-see .listview.boxes-list.colors .list-item[data-color=ashy] .name {
+    background-color: rgba(0, 0, 0, 0.1); }
+  .tangram-see .listview.boxes-list[data-item-color=ashy] .list-item .mask,
+  .tangram-see .listview.boxes-list.colors .list-item[data-color=ashy] .mask {
+    background: #444; }
+
+.tangram-see .listview.boxes-list[data-item-color=gray] .list-item,
+.tangram-see .listview.boxes-list.colors .list-item[data-color=gray] {
+  background: #999;
+  color: #FFF; }
+  .tangram-see .listview.boxes-list[data-item-color=gray] .list-item .titl,
+  .tangram-see .listview.boxes-list.colors .list-item[data-color=gray] .titl {
+    border-color: #FFF; }
+  .tangram-see .listview.boxes-list[data-item-color=gray] .list-item .name,
+  .tangram-see .listview.boxes-list.colors .list-item[data-color=gray] .name {
+    background-color: rgba(0, 0, 0, 0.1); }
+  .tangram-see .listview.boxes-list[data-item-color=gray] .list-item .mask,
+  .tangram-see .listview.boxes-list.colors .list-item[data-color=gray] .mask {
+    background: #FFF; }
+
 .tangram-see .listview.boxes-list[data-item-color=white] .list-item,
 .tangram-see .listview.boxes-list.colors .list-item[data-color=white] {
   background: #FFF;
-  box-shadow: 0px 0px 2px #BBB;
   color: #444; }
   .tangram-see .listview.boxes-list[data-item-color=white] .list-item .titl,
   .tangram-see .listview.boxes-list.colors .list-item[data-color=white] .titl {
@@ -6370,7 +6435,6 @@ img {
 .tangram-see .listview.boxes-list[data-item-color=dark] .list-item,
 .tangram-see .listview.boxes-list.colors .list-item[data-color=dark] {
   background: #282828;
-  box-shadow: 0px 0px 2px #000000;
   color: #DDD; }
   .tangram-see .listview.boxes-list[data-item-color=dark] .list-item .titl,
   .tangram-see .listview.boxes-list.colors .list-item[data-color=dark] .titl {
@@ -6382,40 +6446,9 @@ img {
   .tangram-see .listview.boxes-list.colors .list-item[data-color=dark] .mask {
     background: #DDD; }
 
-.tangram-see .listview.boxes-list[data-item-color=gray] .list-item,
-.tangram-see .listview.boxes-list.colors .list-item[data-color=gray] {
-  background: #888;
-  box-shadow: 0px 0px 2px #666;
-  color: #FFF; }
-  .tangram-see .listview.boxes-list[data-item-color=gray] .list-item .titl,
-  .tangram-see .listview.boxes-list.colors .list-item[data-color=gray] .titl {
-    border-color: #FFF; }
-  .tangram-see .listview.boxes-list[data-item-color=gray] .list-item .name,
-  .tangram-see .listview.boxes-list.colors .list-item[data-color=gray] .name {
-    background-color: rgba(0, 0, 0, 0.1); }
-  .tangram-see .listview.boxes-list[data-item-color=gray] .list-item .mask,
-  .tangram-see .listview.boxes-list.colors .list-item[data-color=gray] .mask {
-    background: #FFF; }
-
-.tangram-see .listview.boxes-list[data-item-color=ashy] .list-item,
-.tangram-see .listview.boxes-list.colors .list-item[data-color=ashy] {
-  background: #DDD;
-  box-shadow: 0px 0px 2px;
-  color: #444; }
-  .tangram-see .listview.boxes-list[data-item-color=ashy] .list-item .titl,
-  .tangram-see .listview.boxes-list.colors .list-item[data-color=ashy] .titl {
-    border-color: #444; }
-  .tangram-see .listview.boxes-list[data-item-color=ashy] .list-item .name,
-  .tangram-see .listview.boxes-list.colors .list-item[data-color=ashy] .name {
-    background-color: rgba(0, 0, 0, 0.1); }
-  .tangram-see .listview.boxes-list[data-item-color=ashy] .list-item .mask,
-  .tangram-see .listview.boxes-list.colors .list-item[data-color=ashy] .mask {
-    background: #444; }
-
 .tangram-see .listview.boxes-list[data-item-color=red] .list-item,
 .tangram-see .listview.boxes-list.colors .list-item[data-color=red] {
-  background: #BE1E2D;
-  box-shadow: 0px 0px 2px #c7182d;
+  background: #d9334f;
   color: #FFF; }
   .tangram-see .listview.boxes-list[data-item-color=red] .list-item .titl,
   .tangram-see .listview.boxes-list.colors .list-item[data-color=red] .titl {
@@ -6429,8 +6462,7 @@ img {
 
 .tangram-see .listview.boxes-list[data-item-color=nacarat] .list-item,
 .tangram-see .listview.boxes-list.colors .list-item[data-color=nacarat] {
-  background: #EF5125;
-  box-shadow: 0px 0px 2px #d34c0d;
+  background: #ff5c0e;
   color: #FFF; }
   .tangram-see .listview.boxes-list[data-item-color=nacarat] .list-item .titl,
   .tangram-see .listview.boxes-list.colors .list-item[data-color=nacarat] .titl {
@@ -6445,7 +6477,6 @@ img {
 .tangram-see .listview.boxes-list[data-item-color=yellow] .list-item,
 .tangram-see .listview.boxes-list.colors .list-item[data-color=yellow] {
   background: #FDBB11;
-  box-shadow: 0px 0px 2px #cea617;
   color: #FFF; }
   .tangram-see .listview.boxes-list[data-item-color=yellow] .list-item .titl,
   .tangram-see .listview.boxes-list.colors .list-item[data-color=yellow] .titl {
@@ -6460,7 +6491,6 @@ img {
 .tangram-see .listview.boxes-list[data-item-color=green] .list-item,
 .tangram-see .listview.boxes-list.colors .list-item[data-color=green] {
   background: #7FBA42;
-  box-shadow: 0px 0px 2px #0a8640;
   color: #FFF; }
   .tangram-see .listview.boxes-list[data-item-color=green] .list-item .titl,
   .tangram-see .listview.boxes-list.colors .list-item[data-color=green] .titl {
@@ -6475,7 +6505,6 @@ img {
 .tangram-see .listview.boxes-list[data-item-color=azure] .list-item,
 .tangram-see .listview.boxes-list.colors .list-item[data-color=azure] {
   background: #33A5DD;
-  box-shadow: 0px 0px 2px #229cc9;
   color: #FFF; }
   .tangram-see .listview.boxes-list[data-item-color=azure] .list-item .titl,
   .tangram-see .listview.boxes-list.colors .list-item[data-color=azure] .titl {
@@ -6489,8 +6518,7 @@ img {
 
 .tangram-see .listview.boxes-list[data-item-color=magenta] .list-item,
 .tangram-see .listview.boxes-list.colors .list-item[data-color=magenta] {
-  background: #D41C53;
-  box-shadow: 0px 0px 2px #be1d5d;
+  background: #e73a7f;
   color: #FFF; }
   .tangram-see .listview.boxes-list[data-item-color=magenta] .list-item .titl,
   .tangram-see .listview.boxes-list.colors .list-item[data-color=magenta] .titl {
@@ -6502,11 +6530,131 @@ img {
   .tangram-see .listview.boxes-list.colors .list-item[data-color=magenta] .mask {
     background: #FFF; }
 
-.tangram-see .listview.text-list .listview.boxes[data-color=white] .list-item,
-.tangram-see .listview.mtext-list .listview.boxes[data-color=white] .list-item,
-.tangram-see .listview.media-list .listview.boxes[data-color=white] .list-item {
-  background: #FFF;
-  box-shadow: 0px 0px 2px #BBB; }
+.tangram-see .listview.text-list .list-item.topline[data-line-color=ashy],
+.tangram-see .listview.mtext-list .list-item.topline[data-line-color=ashy],
+.tangram-see .listview.media-list .list-item.topline[data-line-color=ashy] {
+  border-top: 1px solid #CCC; }
+
+.tangram-see .listview.text-list .list-item.underline[data-line-color=ashy],
+.tangram-see .listview.mtext-list .list-item.underline[data-line-color=ashy],
+.tangram-see .listview.media-list .list-item.underline[data-line-color=ashy] {
+  border-bottom: 1px solid #CCC; }
+
+.tangram-see .listview.text-list .list-item.topline.underline[data-line-color=ashy],
+.tangram-see .listview.mtext-list .list-item.topline.underline[data-line-color=ashy],
+.tangram-see .listview.media-list .list-item.topline.underline[data-line-color=ashy] {
+  border-top: 1px solid #CCC;
+  border-bottom: 1px solid #CCC; }
+
+.tangram-see .listview.text-list .list-item.stripe[data-color=ashy]:nth-child(odd),
+.tangram-see .listview.mtext-list .list-item.stripe[data-color=ashy]:nth-child(odd),
+.tangram-see .listview.media-list .list-item.stripe[data-color=ashy]:nth-child(odd) {
+  background-color: #DDD;
+  color: #444; }
+
+.tangram-see .listview.text-list .list-item.stripe[data-color=ashy]:nth-child(even),
+.tangram-see .listview.mtext-list .list-item.stripe[data-color=ashy]:nth-child(even),
+.tangram-see .listview.media-list .list-item.stripe[data-color=ashy]:nth-child(even) {
+  background-color: #f7f7f7;
+  color: #444; }
+
+.tangram-see .listview.text-list .list-item.card[data-color=ashy],
+.tangram-see .listview.mtext-list .list-item.card[data-color=ashy],
+.tangram-see .listview.media-list .list-item.card[data-color=ashy] {
+  background-color: #DDD;
+  color: #444; }
+
+.tangram-see .listview.text-list .list-item.pane[data-line-color=ashy],
+.tangram-see .listview.mtext-list .list-item.pane[data-line-color=ashy],
+.tangram-see .listview.media-list .list-item.pane[data-line-color=ashy] {
+  border: 1px solid #CCC; }
+
+.tangram-see .listview.text-list .list-item > i[data-color=ashy],
+.tangram-see .listview.text-list .list-item .list-title > i[data-color=ashy],
+.tangram-see .listview.text-list .list-item .list-icon[data-color=ashy],
+.tangram-see .listview.mtext-list .list-item > i[data-color=ashy],
+.tangram-see .listview.mtext-list .list-item .list-title > i[data-color=ashy],
+.tangram-see .listview.mtext-list .list-item .list-icon[data-color=ashy],
+.tangram-see .listview.media-list .list-item > i[data-color=ashy],
+.tangram-see .listview.media-list .list-item .list-title > i[data-color=ashy],
+.tangram-see .listview.media-list .list-item .list-icon[data-color=ashy] {
+  background-color: #DDD; }
+
+.tangram-see .listview.text-list .list-item > i.hollow[data-line-color=ashy],
+.tangram-see .listview.text-list .list-item .list-title > i.hollow[data-line-color=ashy],
+.tangram-see .listview.text-list .list-item .list-icon.hollow[data-line-color=ashy],
+.tangram-see .listview.mtext-list .list-item > i.hollow[data-line-color=ashy],
+.tangram-see .listview.mtext-list .list-item .list-title > i.hollow[data-line-color=ashy],
+.tangram-see .listview.mtext-list .list-item .list-icon.hollow[data-line-color=ashy],
+.tangram-see .listview.media-list .list-item > i.hollow[data-line-color=ashy],
+.tangram-see .listview.media-list .list-item .list-title > i.hollow[data-line-color=ashy],
+.tangram-see .listview.media-list .list-item .list-icon.hollow[data-line-color=ashy] {
+  background-color: transparent;
+  border: 1px solid #CCC;
+  color: #DDD; }
+
+.tangram-see .listview.text-list .list-item.topline[data-line-color=gray],
+.tangram-see .listview.mtext-list .list-item.topline[data-line-color=gray],
+.tangram-see .listview.media-list .list-item.topline[data-line-color=gray] {
+  border-top: 1px solid #888; }
+
+.tangram-see .listview.text-list .list-item.underline[data-line-color=gray],
+.tangram-see .listview.mtext-list .list-item.underline[data-line-color=gray],
+.tangram-see .listview.media-list .list-item.underline[data-line-color=gray] {
+  border-bottom: 1px solid #888; }
+
+.tangram-see .listview.text-list .list-item.topline.underline[data-line-color=gray],
+.tangram-see .listview.mtext-list .list-item.topline.underline[data-line-color=gray],
+.tangram-see .listview.media-list .list-item.topline.underline[data-line-color=gray] {
+  border-top: 1px solid #888;
+  border-bottom: 1px solid #888; }
+
+.tangram-see .listview.text-list .list-item.stripe[data-color=gray]:nth-child(odd),
+.tangram-see .listview.mtext-list .list-item.stripe[data-color=gray]:nth-child(odd),
+.tangram-see .listview.media-list .list-item.stripe[data-color=gray]:nth-child(odd) {
+  background-color: #999;
+  color: #FFF; }
+
+.tangram-see .listview.text-list .list-item.stripe[data-color=gray]:nth-child(even),
+.tangram-see .listview.mtext-list .list-item.stripe[data-color=gray]:nth-child(even),
+.tangram-see .listview.media-list .list-item.stripe[data-color=gray]:nth-child(even) {
+  background-color: #b3b3b3;
+  color: #FFF; }
+
+.tangram-see .listview.text-list .list-item.card[data-color=gray],
+.tangram-see .listview.mtext-list .list-item.card[data-color=gray],
+.tangram-see .listview.media-list .list-item.card[data-color=gray] {
+  background-color: #999;
+  color: #FFF; }
+
+.tangram-see .listview.text-list .list-item.pane[data-line-color=gray],
+.tangram-see .listview.mtext-list .list-item.pane[data-line-color=gray],
+.tangram-see .listview.media-list .list-item.pane[data-line-color=gray] {
+  border: 1px solid #888; }
+
+.tangram-see .listview.text-list .list-item > i[data-color=gray],
+.tangram-see .listview.text-list .list-item .list-title > i[data-color=gray],
+.tangram-see .listview.text-list .list-item .list-icon[data-color=gray],
+.tangram-see .listview.mtext-list .list-item > i[data-color=gray],
+.tangram-see .listview.mtext-list .list-item .list-title > i[data-color=gray],
+.tangram-see .listview.mtext-list .list-item .list-icon[data-color=gray],
+.tangram-see .listview.media-list .list-item > i[data-color=gray],
+.tangram-see .listview.media-list .list-item .list-title > i[data-color=gray],
+.tangram-see .listview.media-list .list-item .list-icon[data-color=gray] {
+  background-color: #999; }
+
+.tangram-see .listview.text-list .list-item > i.hollow[data-line-color=gray],
+.tangram-see .listview.text-list .list-item .list-title > i.hollow[data-line-color=gray],
+.tangram-see .listview.text-list .list-item .list-icon.hollow[data-line-color=gray],
+.tangram-see .listview.mtext-list .list-item > i.hollow[data-line-color=gray],
+.tangram-see .listview.mtext-list .list-item .list-title > i.hollow[data-line-color=gray],
+.tangram-see .listview.mtext-list .list-item .list-icon.hollow[data-line-color=gray],
+.tangram-see .listview.media-list .list-item > i.hollow[data-line-color=gray],
+.tangram-see .listview.media-list .list-item .list-title > i.hollow[data-line-color=gray],
+.tangram-see .listview.media-list .list-item .list-icon.hollow[data-line-color=gray] {
+  background-color: transparent;
+  border: 1px solid #888;
+  color: #999; }
 
 .tangram-see .listview.text-list .list-item.topline[data-line-color=dark],
 .tangram-see .listview.mtext-list .list-item.topline[data-line-color=dark],
@@ -6571,188 +6719,44 @@ img {
   border: 1px solid #181818;
   color: #282828; }
 
-.tangram-see .listview.text-list .listview.boxes[data-color=dark] .list-item,
-.tangram-see .listview.mtext-list .listview.boxes[data-color=dark] .list-item,
-.tangram-see .listview.media-list .listview.boxes[data-color=dark] .list-item {
-  background: #282828;
-  box-shadow: 0px 0px 2px #000000; }
-
-.tangram-see .listview.text-list .list-item.topline[data-line-color=gray],
-.tangram-see .listview.mtext-list .list-item.topline[data-line-color=gray],
-.tangram-see .listview.media-list .list-item.topline[data-line-color=gray] {
-  border-top: 1px solid #666; }
-
-.tangram-see .listview.text-list .list-item.underline[data-line-color=gray],
-.tangram-see .listview.mtext-list .list-item.underline[data-line-color=gray],
-.tangram-see .listview.media-list .list-item.underline[data-line-color=gray] {
-  border-bottom: 1px solid #666; }
-
-.tangram-see .listview.text-list .list-item.topline.underline[data-line-color=gray],
-.tangram-see .listview.mtext-list .list-item.topline.underline[data-line-color=gray],
-.tangram-see .listview.media-list .list-item.topline.underline[data-line-color=gray] {
-  border-top: 1px solid #666;
-  border-bottom: 1px solid #666; }
-
-.tangram-see .listview.text-list .list-item.stripe[data-color=gray]:nth-child(odd),
-.tangram-see .listview.mtext-list .list-item.stripe[data-color=gray]:nth-child(odd),
-.tangram-see .listview.media-list .list-item.stripe[data-color=gray]:nth-child(odd) {
-  background-color: #888;
-  color: #FFF; }
-
-.tangram-see .listview.text-list .list-item.stripe[data-color=gray]:nth-child(even),
-.tangram-see .listview.mtext-list .list-item.stripe[data-color=gray]:nth-child(even),
-.tangram-see .listview.media-list .list-item.stripe[data-color=gray]:nth-child(even) {
-  background-color: #a2a2a2;
-  color: #FFF; }
-
-.tangram-see .listview.text-list .list-item.card[data-color=gray],
-.tangram-see .listview.mtext-list .list-item.card[data-color=gray],
-.tangram-see .listview.media-list .list-item.card[data-color=gray] {
-  background-color: #888;
-  color: #FFF; }
-
-.tangram-see .listview.text-list .list-item.pane[data-line-color=gray],
-.tangram-see .listview.mtext-list .list-item.pane[data-line-color=gray],
-.tangram-see .listview.media-list .list-item.pane[data-line-color=gray] {
-  border: 1px solid #666; }
-
-.tangram-see .listview.text-list .list-item > i[data-color=gray],
-.tangram-see .listview.text-list .list-item .list-title > i[data-color=gray],
-.tangram-see .listview.text-list .list-item .list-icon[data-color=gray],
-.tangram-see .listview.mtext-list .list-item > i[data-color=gray],
-.tangram-see .listview.mtext-list .list-item .list-title > i[data-color=gray],
-.tangram-see .listview.mtext-list .list-item .list-icon[data-color=gray],
-.tangram-see .listview.media-list .list-item > i[data-color=gray],
-.tangram-see .listview.media-list .list-item .list-title > i[data-color=gray],
-.tangram-see .listview.media-list .list-item .list-icon[data-color=gray] {
-  background-color: #888; }
-
-.tangram-see .listview.text-list .list-item > i.hollow[data-line-color=gray],
-.tangram-see .listview.text-list .list-item .list-title > i.hollow[data-line-color=gray],
-.tangram-see .listview.text-list .list-item .list-icon.hollow[data-line-color=gray],
-.tangram-see .listview.mtext-list .list-item > i.hollow[data-line-color=gray],
-.tangram-see .listview.mtext-list .list-item .list-title > i.hollow[data-line-color=gray],
-.tangram-see .listview.mtext-list .list-item .list-icon.hollow[data-line-color=gray],
-.tangram-see .listview.media-list .list-item > i.hollow[data-line-color=gray],
-.tangram-see .listview.media-list .list-item .list-title > i.hollow[data-line-color=gray],
-.tangram-see .listview.media-list .list-item .list-icon.hollow[data-line-color=gray] {
-  background-color: transparent;
-  border: 1px solid #666;
-  color: #888; }
-
-.tangram-see .listview.text-list .listview.boxes[data-color=gray] .list-item,
-.tangram-see .listview.mtext-list .listview.boxes[data-color=gray] .list-item,
-.tangram-see .listview.media-list .listview.boxes[data-color=gray] .list-item {
-  background: #888;
-  box-shadow: 0px 0px 2px #666; }
-
-.tangram-see .listview.text-list .list-item.topline[data-line-color=ashy],
-.tangram-see .listview.mtext-list .list-item.topline[data-line-color=ashy],
-.tangram-see .listview.media-list .list-item.topline[data-line-color=ashy] {
-  border-top: 1px solid #CCC #aaa; }
-
-.tangram-see .listview.text-list .list-item.underline[data-line-color=ashy],
-.tangram-see .listview.mtext-list .list-item.underline[data-line-color=ashy],
-.tangram-see .listview.media-list .list-item.underline[data-line-color=ashy] {
-  border-bottom: 1px solid #CCC #aaa; }
-
-.tangram-see .listview.text-list .list-item.topline.underline[data-line-color=ashy],
-.tangram-see .listview.mtext-list .list-item.topline.underline[data-line-color=ashy],
-.tangram-see .listview.media-list .list-item.topline.underline[data-line-color=ashy] {
-  border-top: 1px solid #CCC #aaa;
-  border-bottom: 1px solid #CCC #aaa; }
-
-.tangram-see .listview.text-list .list-item.stripe[data-color=ashy]:nth-child(odd),
-.tangram-see .listview.mtext-list .list-item.stripe[data-color=ashy]:nth-child(odd),
-.tangram-see .listview.media-list .list-item.stripe[data-color=ashy]:nth-child(odd) {
-  background-color: #DDD;
-  color: #444; }
-
-.tangram-see .listview.text-list .list-item.stripe[data-color=ashy]:nth-child(even),
-.tangram-see .listview.mtext-list .list-item.stripe[data-color=ashy]:nth-child(even),
-.tangram-see .listview.media-list .list-item.stripe[data-color=ashy]:nth-child(even) {
-  background-color: #f7f7f7;
-  color: #444; }
-
-.tangram-see .listview.text-list .list-item.card[data-color=ashy],
-.tangram-see .listview.mtext-list .list-item.card[data-color=ashy],
-.tangram-see .listview.media-list .list-item.card[data-color=ashy] {
-  background-color: #DDD;
-  color: #444; }
-
-.tangram-see .listview.text-list .list-item.pane[data-line-color=ashy],
-.tangram-see .listview.mtext-list .list-item.pane[data-line-color=ashy],
-.tangram-see .listview.media-list .list-item.pane[data-line-color=ashy] {
-  border: 1px solid #CCC #aaa; }
-
-.tangram-see .listview.text-list .list-item > i[data-color=ashy],
-.tangram-see .listview.text-list .list-item .list-title > i[data-color=ashy],
-.tangram-see .listview.text-list .list-item .list-icon[data-color=ashy],
-.tangram-see .listview.mtext-list .list-item > i[data-color=ashy],
-.tangram-see .listview.mtext-list .list-item .list-title > i[data-color=ashy],
-.tangram-see .listview.mtext-list .list-item .list-icon[data-color=ashy],
-.tangram-see .listview.media-list .list-item > i[data-color=ashy],
-.tangram-see .listview.media-list .list-item .list-title > i[data-color=ashy],
-.tangram-see .listview.media-list .list-item .list-icon[data-color=ashy] {
-  background-color: #DDD; }
-
-.tangram-see .listview.text-list .list-item > i.hollow[data-line-color=ashy],
-.tangram-see .listview.text-list .list-item .list-title > i.hollow[data-line-color=ashy],
-.tangram-see .listview.text-list .list-item .list-icon.hollow[data-line-color=ashy],
-.tangram-see .listview.mtext-list .list-item > i.hollow[data-line-color=ashy],
-.tangram-see .listview.mtext-list .list-item .list-title > i.hollow[data-line-color=ashy],
-.tangram-see .listview.mtext-list .list-item .list-icon.hollow[data-line-color=ashy],
-.tangram-see .listview.media-list .list-item > i.hollow[data-line-color=ashy],
-.tangram-see .listview.media-list .list-item .list-title > i.hollow[data-line-color=ashy],
-.tangram-see .listview.media-list .list-item .list-icon.hollow[data-line-color=ashy] {
-  background-color: transparent;
-  border: 1px solid #CCC #aaa;
-  color: #DDD; }
-
-.tangram-see .listview.text-list .listview.boxes[data-color=ashy] .list-item,
-.tangram-see .listview.mtext-list .listview.boxes[data-color=ashy] .list-item,
-.tangram-see .listview.media-list .listview.boxes[data-color=ashy] .list-item {
-  background: #DDD;
-  box-shadow: 0px 0px 2px; }
-
 .tangram-see .listview.text-list .list-item.topline[data-line-color=red],
 .tangram-see .listview.mtext-list .list-item.topline[data-line-color=red],
 .tangram-see .listview.media-list .list-item.topline[data-line-color=red] {
-  border-top: 1px solid #e6162d; }
+  border-top: 1px solid #BE1E2D; }
 
 .tangram-see .listview.text-list .list-item.underline[data-line-color=red],
 .tangram-see .listview.mtext-list .list-item.underline[data-line-color=red],
 .tangram-see .listview.media-list .list-item.underline[data-line-color=red] {
-  border-bottom: 1px solid #e6162d; }
+  border-bottom: 1px solid #BE1E2D; }
 
 .tangram-see .listview.text-list .list-item.topline.underline[data-line-color=red],
 .tangram-see .listview.mtext-list .list-item.topline.underline[data-line-color=red],
 .tangram-see .listview.media-list .list-item.topline.underline[data-line-color=red] {
-  border-top: 1px solid #e6162d;
-  border-bottom: 1px solid #e6162d; }
+  border-top: 1px solid #BE1E2D;
+  border-bottom: 1px solid #BE1E2D; }
 
 .tangram-see .listview.text-list .list-item.stripe[data-color=red]:nth-child(odd),
 .tangram-see .listview.mtext-list .list-item.stripe[data-color=red]:nth-child(odd),
 .tangram-see .listview.media-list .list-item.stripe[data-color=red]:nth-child(odd) {
-  background-color: #BE1E2D;
+  background-color: #d9334f;
   color: #FFF; }
 
 .tangram-see .listview.text-list .list-item.stripe[data-color=red]:nth-child(even),
 .tangram-see .listview.mtext-list .list-item.stripe[data-color=red]:nth-child(even),
 .tangram-see .listview.media-list .list-item.stripe[data-color=red]:nth-child(even) {
-  background-color: #de3141;
+  background-color: #e15e74;
   color: #FFF; }
 
 .tangram-see .listview.text-list .list-item.card[data-color=red],
 .tangram-see .listview.mtext-list .list-item.card[data-color=red],
 .tangram-see .listview.media-list .list-item.card[data-color=red] {
-  background-color: #BE1E2D;
+  background-color: #d9334f;
   color: #FFF; }
 
 .tangram-see .listview.text-list .list-item.pane[data-line-color=red],
 .tangram-see .listview.mtext-list .list-item.pane[data-line-color=red],
 .tangram-see .listview.media-list .list-item.pane[data-line-color=red] {
-  border: 1px solid #e6162d; }
+  border: 1px solid #BE1E2D; }
 
 .tangram-see .listview.text-list .list-item > i[data-color=red],
 .tangram-see .listview.text-list .list-item .list-title > i[data-color=red],
@@ -6763,7 +6767,7 @@ img {
 .tangram-see .listview.media-list .list-item > i[data-color=red],
 .tangram-see .listview.media-list .list-item .list-title > i[data-color=red],
 .tangram-see .listview.media-list .list-item .list-icon[data-color=red] {
-  background-color: #BE1E2D; }
+  background-color: #d9334f; }
 
 .tangram-see .listview.text-list .list-item > i.hollow[data-line-color=red],
 .tangram-see .listview.text-list .list-item .list-title > i.hollow[data-line-color=red],
@@ -6775,53 +6779,47 @@ img {
 .tangram-see .listview.media-list .list-item .list-title > i.hollow[data-line-color=red],
 .tangram-see .listview.media-list .list-item .list-icon.hollow[data-line-color=red] {
   background-color: transparent;
-  border: 1px solid #e6162d;
-  color: #BE1E2D; }
-
-.tangram-see .listview.text-list .listview.boxes[data-color=red] .list-item,
-.tangram-see .listview.mtext-list .listview.boxes[data-color=red] .list-item,
-.tangram-see .listview.media-list .listview.boxes[data-color=red] .list-item {
-  background: #BE1E2D;
-  box-shadow: 0px 0px 2px #c7182d; }
+  border: 1px solid #BE1E2D;
+  color: #d9334f; }
 
 .tangram-see .listview.text-list .list-item.topline[data-line-color=nacarat],
 .tangram-see .listview.mtext-list .list-item.topline[data-line-color=nacarat],
 .tangram-see .listview.media-list .list-item.topline[data-line-color=nacarat] {
-  border-top: 1px solid #ff5c0e; }
+  border-top: 1px solid #EF5125; }
 
 .tangram-see .listview.text-list .list-item.underline[data-line-color=nacarat],
 .tangram-see .listview.mtext-list .list-item.underline[data-line-color=nacarat],
 .tangram-see .listview.media-list .list-item.underline[data-line-color=nacarat] {
-  border-bottom: 1px solid #ff5c0e; }
+  border-bottom: 1px solid #EF5125; }
 
 .tangram-see .listview.text-list .list-item.topline.underline[data-line-color=nacarat],
 .tangram-see .listview.mtext-list .list-item.topline.underline[data-line-color=nacarat],
 .tangram-see .listview.media-list .list-item.topline.underline[data-line-color=nacarat] {
-  border-top: 1px solid #ff5c0e;
-  border-bottom: 1px solid #ff5c0e; }
+  border-top: 1px solid #EF5125;
+  border-bottom: 1px solid #EF5125; }
 
 .tangram-see .listview.text-list .list-item.stripe[data-color=nacarat]:nth-child(odd),
 .tangram-see .listview.mtext-list .list-item.stripe[data-color=nacarat]:nth-child(odd),
 .tangram-see .listview.media-list .list-item.stripe[data-color=nacarat]:nth-child(odd) {
-  background-color: #EF5125;
+  background-color: #ff5c0e;
   color: #FFF; }
 
 .tangram-see .listview.text-list .list-item.stripe[data-color=nacarat]:nth-child(even),
 .tangram-see .listview.mtext-list .list-item.stripe[data-color=nacarat]:nth-child(even),
 .tangram-see .listview.media-list .list-item.stripe[data-color=nacarat]:nth-child(even) {
-  background-color: #f27755;
+  background-color: #ff7e41;
   color: #FFF; }
 
 .tangram-see .listview.text-list .list-item.card[data-color=nacarat],
 .tangram-see .listview.mtext-list .list-item.card[data-color=nacarat],
 .tangram-see .listview.media-list .list-item.card[data-color=nacarat] {
-  background-color: #EF5125;
+  background-color: #ff5c0e;
   color: #FFF; }
 
 .tangram-see .listview.text-list .list-item.pane[data-line-color=nacarat],
 .tangram-see .listview.mtext-list .list-item.pane[data-line-color=nacarat],
 .tangram-see .listview.media-list .list-item.pane[data-line-color=nacarat] {
-  border: 1px solid #ff5c0e; }
+  border: 1px solid #EF5125; }
 
 .tangram-see .listview.text-list .list-item > i[data-color=nacarat],
 .tangram-see .listview.text-list .list-item .list-title > i[data-color=nacarat],
@@ -6832,7 +6830,7 @@ img {
 .tangram-see .listview.media-list .list-item > i[data-color=nacarat],
 .tangram-see .listview.media-list .list-item .list-title > i[data-color=nacarat],
 .tangram-see .listview.media-list .list-item .list-icon[data-color=nacarat] {
-  background-color: #EF5125; }
+  background-color: #ff5c0e; }
 
 .tangram-see .listview.text-list .list-item > i.hollow[data-line-color=nacarat],
 .tangram-see .listview.text-list .list-item .list-title > i.hollow[data-line-color=nacarat],
@@ -6844,30 +6842,24 @@ img {
 .tangram-see .listview.media-list .list-item .list-title > i.hollow[data-line-color=nacarat],
 .tangram-see .listview.media-list .list-item .list-icon.hollow[data-line-color=nacarat] {
   background-color: transparent;
-  border: 1px solid #ff5c0e;
-  color: #EF5125; }
-
-.tangram-see .listview.text-list .listview.boxes[data-color=nacarat] .list-item,
-.tangram-see .listview.mtext-list .listview.boxes[data-color=nacarat] .list-item,
-.tangram-see .listview.media-list .listview.boxes[data-color=nacarat] .list-item {
-  background: #EF5125;
-  box-shadow: 0px 0px 2px #d34c0d; }
+  border: 1px solid #EF5125;
+  color: #ff5c0e; }
 
 .tangram-see .listview.text-list .list-item.topline[data-line-color=yellow],
 .tangram-see .listview.mtext-list .list-item.topline[data-line-color=yellow],
 .tangram-see .listview.media-list .list-item.topline[data-line-color=yellow] {
-  border-top: 1px solid #ffc700; }
+  border-top: 1px solid #f0ad4e; }
 
 .tangram-see .listview.text-list .list-item.underline[data-line-color=yellow],
 .tangram-see .listview.mtext-list .list-item.underline[data-line-color=yellow],
 .tangram-see .listview.media-list .list-item.underline[data-line-color=yellow] {
-  border-bottom: 1px solid #ffc700; }
+  border-bottom: 1px solid #f0ad4e; }
 
 .tangram-see .listview.text-list .list-item.topline.underline[data-line-color=yellow],
 .tangram-see .listview.mtext-list .list-item.topline.underline[data-line-color=yellow],
 .tangram-see .listview.media-list .list-item.topline.underline[data-line-color=yellow] {
-  border-top: 1px solid #ffc700;
-  border-bottom: 1px solid #ffc700; }
+  border-top: 1px solid #f0ad4e;
+  border-bottom: 1px solid #f0ad4e; }
 
 .tangram-see .listview.text-list .list-item.stripe[data-color=yellow]:nth-child(odd),
 .tangram-see .listview.mtext-list .list-item.stripe[data-color=yellow]:nth-child(odd),
@@ -6890,7 +6882,7 @@ img {
 .tangram-see .listview.text-list .list-item.pane[data-line-color=yellow],
 .tangram-see .listview.mtext-list .list-item.pane[data-line-color=yellow],
 .tangram-see .listview.media-list .list-item.pane[data-line-color=yellow] {
-  border: 1px solid #ffc700; }
+  border: 1px solid #f0ad4e; }
 
 .tangram-see .listview.text-list .list-item > i[data-color=yellow],
 .tangram-see .listview.text-list .list-item .list-title > i[data-color=yellow],
@@ -6913,14 +6905,8 @@ img {
 .tangram-see .listview.media-list .list-item .list-title > i.hollow[data-line-color=yellow],
 .tangram-see .listview.media-list .list-item .list-icon.hollow[data-line-color=yellow] {
   background-color: transparent;
-  border: 1px solid #ffc700;
+  border: 1px solid #f0ad4e;
   color: #FDBB11; }
-
-.tangram-see .listview.text-list .listview.boxes[data-color=yellow] .list-item,
-.tangram-see .listview.mtext-list .listview.boxes[data-color=yellow] .list-item,
-.tangram-see .listview.media-list .listview.boxes[data-color=yellow] .list-item {
-  background: #FDBB11;
-  box-shadow: 0px 0px 2px #cea617; }
 
 .tangram-see .listview.text-list .list-item.topline[data-line-color=green],
 .tangram-see .listview.mtext-list .list-item.topline[data-line-color=green],
@@ -6985,27 +6971,21 @@ img {
   border: 1px solid #0dad51;
   color: #7FBA42; }
 
-.tangram-see .listview.text-list .listview.boxes[data-color=green] .list-item,
-.tangram-see .listview.mtext-list .listview.boxes[data-color=green] .list-item,
-.tangram-see .listview.media-list .listview.boxes[data-color=green] .list-item {
-  background: #7FBA42;
-  box-shadow: 0px 0px 2px #0a8640; }
-
 .tangram-see .listview.text-list .list-item.topline[data-line-color=azure],
 .tangram-see .listview.mtext-list .list-item.topline[data-line-color=azure],
 .tangram-see .listview.media-list .list-item.topline[data-line-color=azure] {
-  border-top: 1px solid #27b6ea; }
+  border-top: 1px solid #398ed8; }
 
 .tangram-see .listview.text-list .list-item.underline[data-line-color=azure],
 .tangram-see .listview.mtext-list .list-item.underline[data-line-color=azure],
 .tangram-see .listview.media-list .list-item.underline[data-line-color=azure] {
-  border-bottom: 1px solid #27b6ea; }
+  border-bottom: 1px solid #398ed8; }
 
 .tangram-see .listview.text-list .list-item.topline.underline[data-line-color=azure],
 .tangram-see .listview.mtext-list .list-item.topline.underline[data-line-color=azure],
 .tangram-see .listview.media-list .list-item.topline.underline[data-line-color=azure] {
-  border-top: 1px solid #27b6ea;
-  border-bottom: 1px solid #27b6ea; }
+  border-top: 1px solid #398ed8;
+  border-bottom: 1px solid #398ed8; }
 
 .tangram-see .listview.text-list .list-item.stripe[data-color=azure]:nth-child(odd),
 .tangram-see .listview.mtext-list .list-item.stripe[data-color=azure]:nth-child(odd),
@@ -7028,7 +7008,7 @@ img {
 .tangram-see .listview.text-list .list-item.pane[data-line-color=azure],
 .tangram-see .listview.mtext-list .list-item.pane[data-line-color=azure],
 .tangram-see .listview.media-list .list-item.pane[data-line-color=azure] {
-  border: 1px solid #27b6ea; }
+  border: 1px solid #398ed8; }
 
 .tangram-see .listview.text-list .list-item > i[data-color=azure],
 .tangram-see .listview.text-list .list-item .list-title > i[data-color=azure],
@@ -7051,53 +7031,47 @@ img {
 .tangram-see .listview.media-list .list-item .list-title > i.hollow[data-line-color=azure],
 .tangram-see .listview.media-list .list-item .list-icon.hollow[data-line-color=azure] {
   background-color: transparent;
-  border: 1px solid #27b6ea;
+  border: 1px solid #398ed8;
   color: #33A5DD; }
-
-.tangram-see .listview.text-list .listview.boxes[data-color=azure] .list-item,
-.tangram-see .listview.mtext-list .listview.boxes[data-color=azure] .list-item,
-.tangram-see .listview.media-list .listview.boxes[data-color=azure] .list-item {
-  background: #33A5DD;
-  box-shadow: 0px 0px 2px #229cc9; }
 
 .tangram-see .listview.text-list .list-item.topline[data-line-color=magenta],
 .tangram-see .listview.mtext-list .list-item.topline[data-line-color=magenta],
 .tangram-see .listview.media-list .list-item.topline[data-line-color=magenta] {
-  border-top: 1px solid #df226e; }
+  border-top: 1px solid #D41C53; }
 
 .tangram-see .listview.text-list .list-item.underline[data-line-color=magenta],
 .tangram-see .listview.mtext-list .list-item.underline[data-line-color=magenta],
 .tangram-see .listview.media-list .list-item.underline[data-line-color=magenta] {
-  border-bottom: 1px solid #df226e; }
+  border-bottom: 1px solid #D41C53; }
 
 .tangram-see .listview.text-list .list-item.topline.underline[data-line-color=magenta],
 .tangram-see .listview.mtext-list .list-item.topline.underline[data-line-color=magenta],
 .tangram-see .listview.media-list .list-item.topline.underline[data-line-color=magenta] {
-  border-top: 1px solid #df226e;
-  border-bottom: 1px solid #df226e; }
+  border-top: 1px solid #D41C53;
+  border-bottom: 1px solid #D41C53; }
 
 .tangram-see .listview.text-list .list-item.stripe[data-color=magenta]:nth-child(odd),
 .tangram-see .listview.mtext-list .list-item.stripe[data-color=magenta]:nth-child(odd),
 .tangram-see .listview.media-list .list-item.stripe[data-color=magenta]:nth-child(odd) {
-  background-color: #D41C53;
+  background-color: #e73a7f;
   color: #FFF; }
 
 .tangram-see .listview.text-list .list-item.stripe[data-color=magenta]:nth-child(even),
 .tangram-see .listview.mtext-list .list-item.stripe[data-color=magenta]:nth-child(even),
 .tangram-see .listview.media-list .list-item.stripe[data-color=magenta]:nth-child(even) {
-  background-color: #e53e70;
+  background-color: #ed679d;
   color: #FFF; }
 
 .tangram-see .listview.text-list .list-item.card[data-color=magenta],
 .tangram-see .listview.mtext-list .list-item.card[data-color=magenta],
 .tangram-see .listview.media-list .list-item.card[data-color=magenta] {
-  background-color: #D41C53;
+  background-color: #e73a7f;
   color: #FFF; }
 
 .tangram-see .listview.text-list .list-item.pane[data-line-color=magenta],
 .tangram-see .listview.mtext-list .list-item.pane[data-line-color=magenta],
 .tangram-see .listview.media-list .list-item.pane[data-line-color=magenta] {
-  border: 1px solid #df226e; }
+  border: 1px solid #D41C53; }
 
 .tangram-see .listview.text-list .list-item > i[data-color=magenta],
 .tangram-see .listview.text-list .list-item .list-title > i[data-color=magenta],
@@ -7108,7 +7082,7 @@ img {
 .tangram-see .listview.media-list .list-item > i[data-color=magenta],
 .tangram-see .listview.media-list .list-item .list-title > i[data-color=magenta],
 .tangram-see .listview.media-list .list-item .list-icon[data-color=magenta] {
-  background-color: #D41C53; }
+  background-color: #e73a7f; }
 
 .tangram-see .listview.text-list .list-item > i.hollow[data-line-color=magenta],
 .tangram-see .listview.text-list .list-item .list-title > i.hollow[data-line-color=magenta],
@@ -7120,14 +7094,8 @@ img {
 .tangram-see .listview.media-list .list-item .list-title > i.hollow[data-line-color=magenta],
 .tangram-see .listview.media-list .list-item .list-icon.hollow[data-line-color=magenta] {
   background-color: transparent;
-  border: 1px solid #df226e;
-  color: #D41C53; }
-
-.tangram-see .listview.text-list .listview.boxes[data-color=magenta] .list-item,
-.tangram-see .listview.mtext-list .listview.boxes[data-color=magenta] .list-item,
-.tangram-see .listview.media-list .listview.boxes[data-color=magenta] .list-item {
-  background: #D41C53;
-  box-shadow: 0px 0px 2px #be1d5d; }
+  border: 1px solid #D41C53;
+  color: #e73a7f; }
 
 .tangram-see .navmenu > .menu-item.hasson > .submenu,
 .tangram-see .navmenu .menu-item.hasson > .submenu > .menu-item.hasson > .submenu {
@@ -7141,14 +7109,16 @@ img {
 .tangram-see .navmenu .menu-item.hasson > .submenu > .menu-item.hasson > .submenu.under,
 .tangram-see .navmenu .menu-item.hasson > .submenu > .menu-item.hasson > .submenu.under.al-left {
   top: 100%;
-  left: -1px; }
+  left: -1px;
+  margin-top: 1px; }
 
 .tangram-see .navmenu > .menu-item.hasson > .submenu.upon,
 .tangram-see .navmenu > .menu-item.hasson > .submenu.upon.al-left,
 .tangram-see .navmenu .menu-item.hasson > .submenu > .menu-item.hasson > .submenu.upon,
 .tangram-see .navmenu .menu-item.hasson > .submenu > .menu-item.hasson > .submenu.upon.al-left {
   bottom: 100%;
-  left: -1px; }
+  left: -1px;
+  margin-bottom: 1px; }
 
 .tangram-see .navmenu > .menu-item.hasson > .submenu.al-center,
 .tangram-see .navmenu > .menu-item.hasson > .submenu.under.al-center,
@@ -7172,14 +7142,16 @@ img {
 .tangram-see .navmenu .menu-item.hasson > .submenu > .menu-item.hasson > .submenu.rside,
 .tangram-see .navmenu .menu-item.hasson > .submenu > .menu-item.hasson > .submenu.rside.al-top {
   top: -1px;
-  left: 100%; }
+  left: 100%;
+  margin-left: 1px; }
 
 .tangram-see .navmenu > .menu-item.hasson > .submenu.lside,
 .tangram-see .navmenu > .menu-item.hasson > .submenu.lside.al-top,
 .tangram-see .navmenu .menu-item.hasson > .submenu > .menu-item.hasson > .submenu.lside,
 .tangram-see .navmenu .menu-item.hasson > .submenu > .menu-item.hasson > .submenu.lside.al-top {
   top: -1px;
-  right: 100%; }
+  right: 100%;
+  margin-right: 1px; }
 
 .tangram-see .navmenu > .menu-item.hasson > .submenu.rside.al-middle,
 .tangram-see .navmenu > .menu-item.hasson > .submenu.lside.al-middle,
@@ -7291,6 +7263,50 @@ img {
 .tangram-see .navmenu .submenu > .menu-item:hover {
   background-color: #666; }
 
+.tangram-see .navmenu[data-color=ashy] > .menu-item,
+.tangram-see .navmenu .submenu[data-color=ashy] > .menu-item {
+  background-color: #DDD;
+  border: solid 1px #CCC;
+  color: #444; }
+
+.tangram-see .navmenu[data-color=ashy] > .menu-item.actived,
+.tangram-see .navmenu[data-color=ashy] > .menu-item:hover,
+.tangram-see .navmenu .submenu[data-color=ashy] > .menu-item.actived,
+.tangram-see .navmenu .submenu[data-color=ashy] > .menu-item:hover {
+  background-color: #CCC; }
+
+.tangram-see .navmenu.borderless[data-color=ashy] > .menu-item,
+.tangram-see .navmenu .submenu.borderless[data-color=ashy] > .menu-item {
+  border: solid 1px #DDD; }
+
+.tangram-see .navmenu.borderless[data-color=ashy] > .menu-item.actived,
+.tangram-see .navmenu.borderless[data-color=ashy] > .menu-item:hover,
+.tangram-see .navmenu .submenu.borderless[data-color=ashy] > .menu-item.actived,
+.tangram-see .navmenu .submenu.borderless[data-color=ashy] > .menu-item:hover {
+  border: solid 1px #CCC; }
+
+.tangram-see .navmenu[data-color=gray] > .menu-item,
+.tangram-see .navmenu .submenu[data-color=gray] > .menu-item {
+  background-color: #999;
+  border: solid 1px #888;
+  color: #FFF; }
+
+.tangram-see .navmenu[data-color=gray] > .menu-item.actived,
+.tangram-see .navmenu[data-color=gray] > .menu-item:hover,
+.tangram-see .navmenu .submenu[data-color=gray] > .menu-item.actived,
+.tangram-see .navmenu .submenu[data-color=gray] > .menu-item:hover {
+  background-color: #888; }
+
+.tangram-see .navmenu.borderless[data-color=gray] > .menu-item,
+.tangram-see .navmenu .submenu.borderless[data-color=gray] > .menu-item {
+  border: solid 1px #999; }
+
+.tangram-see .navmenu.borderless[data-color=gray] > .menu-item.actived,
+.tangram-see .navmenu.borderless[data-color=gray] > .menu-item:hover,
+.tangram-see .navmenu .submenu.borderless[data-color=gray] > .menu-item.actived,
+.tangram-see .navmenu .submenu.borderless[data-color=gray] > .menu-item:hover {
+  border: solid 1px #888; }
+
 .tangram-see .navmenu[data-color=white] > .menu-item,
 .tangram-see .navmenu .submenu[data-color=white] > .menu-item {
   background-color: #FFF;
@@ -7301,7 +7317,17 @@ img {
 .tangram-see .navmenu[data-color=white] > .menu-item:hover,
 .tangram-see .navmenu .submenu[data-color=white] > .menu-item.actived,
 .tangram-see .navmenu .submenu[data-color=white] > .menu-item:hover {
-  background-color: #EEE; }
+  background-color: #DDD; }
+
+.tangram-see .navmenu.borderless[data-color=white] > .menu-item,
+.tangram-see .navmenu .submenu.borderless[data-color=white] > .menu-item {
+  border: solid 1px #FFF; }
+
+.tangram-see .navmenu.borderless[data-color=white] > .menu-item.actived,
+.tangram-see .navmenu.borderless[data-color=white] > .menu-item:hover,
+.tangram-see .navmenu .submenu.borderless[data-color=white] > .menu-item.actived,
+.tangram-see .navmenu .submenu.borderless[data-color=white] > .menu-item:hover {
+  border: solid 1px #DDD; }
 
 .tangram-see .navmenu[data-color=dark] > .menu-item,
 .tangram-see .navmenu .submenu[data-color=dark] > .menu-item {
@@ -7315,65 +7341,81 @@ img {
 .tangram-see .navmenu .submenu[data-color=dark] > .menu-item:hover {
   background-color: #181818; }
 
-.tangram-see .navmenu[data-color=gray] > .menu-item,
-.tangram-see .navmenu .submenu[data-color=gray] > .menu-item {
-  background-color: #888;
-  border: solid 1px #666;
-  color: #FFF; }
+.tangram-see .navmenu.borderless[data-color=dark] > .menu-item,
+.tangram-see .navmenu .submenu.borderless[data-color=dark] > .menu-item {
+  border: solid 1px #282828; }
 
-.tangram-see .navmenu[data-color=gray] > .menu-item.actived,
-.tangram-see .navmenu[data-color=gray] > .menu-item:hover,
-.tangram-see .navmenu .submenu[data-color=gray] > .menu-item.actived,
-.tangram-see .navmenu .submenu[data-color=gray] > .menu-item:hover {
-  background-color: #666; }
-
-.tangram-see .navmenu[data-color=ashy] > .menu-item,
-.tangram-see .navmenu .submenu[data-color=ashy] > .menu-item {
-  background-color: #DDD;
-  border: solid 1px #CCC #aaa;
-  color: #444; }
-
-.tangram-see .navmenu[data-color=ashy] > .menu-item.actived,
-.tangram-see .navmenu[data-color=ashy] > .menu-item:hover,
-.tangram-see .navmenu .submenu[data-color=ashy] > .menu-item.actived,
-.tangram-see .navmenu .submenu[data-color=ashy] > .menu-item:hover {
-  background-color: #CCC; }
+.tangram-see .navmenu.borderless[data-color=dark] > .menu-item.actived,
+.tangram-see .navmenu.borderless[data-color=dark] > .menu-item:hover,
+.tangram-see .navmenu .submenu.borderless[data-color=dark] > .menu-item.actived,
+.tangram-see .navmenu .submenu.borderless[data-color=dark] > .menu-item:hover {
+  border: solid 1px #181818; }
 
 .tangram-see .navmenu[data-color=red] > .menu-item,
 .tangram-see .navmenu .submenu[data-color=red] > .menu-item {
-  background-color: #BE1E2D;
-  border: solid 1px #e6162d;
+  background-color: #d9334f;
+  border: solid 1px #BE1E2D;
   color: #FFF; }
 
 .tangram-see .navmenu[data-color=red] > .menu-item.actived,
 .tangram-see .navmenu[data-color=red] > .menu-item:hover,
 .tangram-see .navmenu .submenu[data-color=red] > .menu-item.actived,
 .tangram-see .navmenu .submenu[data-color=red] > .menu-item:hover {
-  background-color: #e6162d; }
+  background-color: #BE1E2D; }
+
+.tangram-see .navmenu.borderless[data-color=red] > .menu-item,
+.tangram-see .navmenu .submenu.borderless[data-color=red] > .menu-item {
+  border: solid 1px #d9334f; }
+
+.tangram-see .navmenu.borderless[data-color=red] > .menu-item.actived,
+.tangram-see .navmenu.borderless[data-color=red] > .menu-item:hover,
+.tangram-see .navmenu .submenu.borderless[data-color=red] > .menu-item.actived,
+.tangram-see .navmenu .submenu.borderless[data-color=red] > .menu-item:hover {
+  border: solid 1px #BE1E2D; }
 
 .tangram-see .navmenu[data-color=nacarat] > .menu-item,
 .tangram-see .navmenu .submenu[data-color=nacarat] > .menu-item {
-  background-color: #EF5125;
-  border: solid 1px #ff5c0e;
+  background-color: #ff5c0e;
+  border: solid 1px #EF5125;
   color: #FFF; }
 
 .tangram-see .navmenu[data-color=nacarat] > .menu-item.actived,
 .tangram-see .navmenu[data-color=nacarat] > .menu-item:hover,
 .tangram-see .navmenu .submenu[data-color=nacarat] > .menu-item.actived,
 .tangram-see .navmenu .submenu[data-color=nacarat] > .menu-item:hover {
-  background-color: #ff5c0e; }
+  background-color: #EF5125; }
+
+.tangram-see .navmenu.borderless[data-color=nacarat] > .menu-item,
+.tangram-see .navmenu .submenu.borderless[data-color=nacarat] > .menu-item {
+  border: solid 1px #ff5c0e; }
+
+.tangram-see .navmenu.borderless[data-color=nacarat] > .menu-item.actived,
+.tangram-see .navmenu.borderless[data-color=nacarat] > .menu-item:hover,
+.tangram-see .navmenu .submenu.borderless[data-color=nacarat] > .menu-item.actived,
+.tangram-see .navmenu .submenu.borderless[data-color=nacarat] > .menu-item:hover {
+  border: solid 1px #EF5125; }
 
 .tangram-see .navmenu[data-color=yellow] > .menu-item,
 .tangram-see .navmenu .submenu[data-color=yellow] > .menu-item {
   background-color: #FDBB11;
-  border: solid 1px #ffc700;
+  border: solid 1px #f0ad4e;
   color: #FFF; }
 
 .tangram-see .navmenu[data-color=yellow] > .menu-item.actived,
 .tangram-see .navmenu[data-color=yellow] > .menu-item:hover,
 .tangram-see .navmenu .submenu[data-color=yellow] > .menu-item.actived,
 .tangram-see .navmenu .submenu[data-color=yellow] > .menu-item:hover {
-  background-color: #ffc700; }
+  background-color: #f0ad4e; }
+
+.tangram-see .navmenu.borderless[data-color=yellow] > .menu-item,
+.tangram-see .navmenu .submenu.borderless[data-color=yellow] > .menu-item {
+  border: solid 1px #FDBB11; }
+
+.tangram-see .navmenu.borderless[data-color=yellow] > .menu-item.actived,
+.tangram-see .navmenu.borderless[data-color=yellow] > .menu-item:hover,
+.tangram-see .navmenu .submenu.borderless[data-color=yellow] > .menu-item.actived,
+.tangram-see .navmenu .submenu.borderless[data-color=yellow] > .menu-item:hover {
+  border: solid 1px #f0ad4e; }
 
 .tangram-see .navmenu[data-color=green] > .menu-item,
 .tangram-see .navmenu .submenu[data-color=green] > .menu-item {
@@ -7387,30 +7429,60 @@ img {
 .tangram-see .navmenu .submenu[data-color=green] > .menu-item:hover {
   background-color: #0dad51; }
 
+.tangram-see .navmenu.borderless[data-color=green] > .menu-item,
+.tangram-see .navmenu .submenu.borderless[data-color=green] > .menu-item {
+  border: solid 1px #7FBA42; }
+
+.tangram-see .navmenu.borderless[data-color=green] > .menu-item.actived,
+.tangram-see .navmenu.borderless[data-color=green] > .menu-item:hover,
+.tangram-see .navmenu .submenu.borderless[data-color=green] > .menu-item.actived,
+.tangram-see .navmenu .submenu.borderless[data-color=green] > .menu-item:hover {
+  border: solid 1px #0dad51; }
+
 .tangram-see .navmenu[data-color=azure] > .menu-item,
 .tangram-see .navmenu .submenu[data-color=azure] > .menu-item {
   background-color: #33A5DD;
-  border: solid 1px #27b6ea;
+  border: solid 1px #398ed8;
   color: #FFF; }
 
 .tangram-see .navmenu[data-color=azure] > .menu-item.actived,
 .tangram-see .navmenu[data-color=azure] > .menu-item:hover,
 .tangram-see .navmenu .submenu[data-color=azure] > .menu-item.actived,
 .tangram-see .navmenu .submenu[data-color=azure] > .menu-item:hover {
-  background-color: #27b6ea; }
+  background-color: #398ed8; }
+
+.tangram-see .navmenu.borderless[data-color=azure] > .menu-item,
+.tangram-see .navmenu .submenu.borderless[data-color=azure] > .menu-item {
+  border: solid 1px #33A5DD; }
+
+.tangram-see .navmenu.borderless[data-color=azure] > .menu-item.actived,
+.tangram-see .navmenu.borderless[data-color=azure] > .menu-item:hover,
+.tangram-see .navmenu .submenu.borderless[data-color=azure] > .menu-item.actived,
+.tangram-see .navmenu .submenu.borderless[data-color=azure] > .menu-item:hover {
+  border: solid 1px #398ed8; }
 
 .tangram-see .navmenu[data-color=magenta] > .menu-item,
 .tangram-see .navmenu .submenu[data-color=magenta] > .menu-item {
-  background-color: #D41C53;
-  border: solid 1px #df226e;
+  background-color: #e73a7f;
+  border: solid 1px #D41C53;
   color: #FFF; }
 
 .tangram-see .navmenu[data-color=magenta] > .menu-item.actived,
 .tangram-see .navmenu[data-color=magenta] > .menu-item:hover,
 .tangram-see .navmenu .submenu[data-color=magenta] > .menu-item.actived,
 .tangram-see .navmenu .submenu[data-color=magenta] > .menu-item:hover {
-  background-color: #df226e; }
+  background-color: #D41C53; }
 
-.tangram-see body.__while-menu-item-get-size-step1 .navmenu .menu-item.hasson > .submenu {
+.tangram-see .navmenu.borderless[data-color=magenta] > .menu-item,
+.tangram-see .navmenu .submenu.borderless[data-color=magenta] > .menu-item {
+  border: solid 1px #e73a7f; }
+
+.tangram-see .navmenu.borderless[data-color=magenta] > .menu-item.actived,
+.tangram-see .navmenu.borderless[data-color=magenta] > .menu-item:hover,
+.tangram-see .navmenu .submenu.borderless[data-color=magenta] > .menu-item.actived,
+.tangram-see .navmenu .submenu.borderless[data-color=magenta] > .menu-item:hover {
+  border: solid 1px #D41C53; }
+
+.tangram-see.__while-menu-item-get-size-step1__ .navmenu .menu-item.hasson > .submenu {
   display: block !important;
   opacity: 0 !important; }

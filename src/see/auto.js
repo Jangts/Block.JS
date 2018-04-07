@@ -7,10 +7,10 @@
  */
 ;
 tangram.auto([
-    '$_/see/NavMenu/',
     '$_/see/Scrollbar/',
     '$_/see/Tabs/SlideTabs.cls',
-    '$_/see/ListView.cls'
+    '$_/see/ListView.cls',
+    '$_/see/NavMenu.cls'
 ], function(pandora, global, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
@@ -21,7 +21,7 @@ tangram.auto([
 
     _.extend(_.see.Scrollbar, {
         auto: function() {
-            $('.tangram.scrollbar[data-ic-auto]').each(function() {
+            $('.tangram-see.scrollbar[data-ic-auto]').each(function() {
                 if (($(this).data('icAuto') != 'false') && ($(this).data('icRendered') != 'scrollbar')) {
                     $(this).data('icRendered', 'scrollbar');
                     new _.see.Scrollbar(this, {

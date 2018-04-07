@@ -1,47 +1,26 @@
-//Backgound Colors
-// $bgcolorpairs: ('white', #333, #FFF, #CCC),
-// ('silvery', #222, #EEE, #CCC),
-// ('light', #444, #DDD, #CCC),
-// ('lightgray', #111, #CCC, #aaa),
-// ('gray', #FFF, #888, #666),
-// ('darkgray', #EEE, #484848, #555),
-// ('dark', #CCC, #282828, #181818),
-// ('deep', #EEE, #181818, #181818),
-// ('black', #EEE, #000, #111),
-// ('red', #FFF, #e6162d, #e6162d),
-// ('yellow', #FFF, #ffc700, #ffc700),
-// ('green', #FFF, #0dad51, #0dad51),
-// ('cyan', #FFF, #22c1cb, #22c1cb),
-// ('blue', #DEF, #2e3f85, #2e3f85),
-// ('magenta', #FFF, #df226e, #df226e),
-// ('darkred', #FFF, #a50000, #a50000),
-// ('datered', #FFF, #b2212f, #7b1b1b),
-// ('redorange', #FFF, #d64a24, #d64a24),
-// ('orange', #FFF, #ff5c0e, #ff5c0e),
-// ('brown', #FFF, #fc9432, #fc9432),
-// ('darkgreen', #FFF, #306b39, #306b39),
-// ('azure', #FFF, #27b6ea, #27b6ea),
-// ('purple', #FFF, #9a39b2, #9a39b2),
-// ('darkpurple', #FFF, #6D196D, #6D196D),
-// ('pink', #FFF, #ff668c, #ff668c);
-$commoncolors:('white', 0, '', #444, #FFF, #EEE, #DDD, #BBB),
-('dark', 1, 'readonly', #DDD, #282828, #181818, #181818, #000000),
-('gray', 1, 'default', #FFF, #888, #666, #666, #666),
-('ashy', 1, 'disabled', #444, #DDD, #CCC, #CCC #aaa),
-('red', 2, 'danger', #FFF, #BE1E2D, #e6162d, #e6162d, #c7182d),
-('nacarat', 3, 'warning', #FFF, #EF5125, #ff5c0e, #ff5c0e, #d34c0d),
-('yellow', 4, 'forbidden', #FFF, #FDBB11, #ffc700, #ffc700, #cea617),
-('green', 5, 'ok', #FFF, #7FBA42, #0dad51, #0dad51, #0a8640),
-('azure', 6, 'primary', #FFF, #33A5DD, #27b6ea, #27b6ea, #229cc9),
-('magenta', 7, 'info', #FFF, #D41C53, #df226e, #df226e, #be1d5d);
+$colorpairs: (fff, #FFFFFF, #111111),
+(f6, #F6F6F6, #555),
+(999, #999999, #FFFFFF),
+(666, #666666, #FFFFFF),
+(333, #333333, #EEEEEE),
+(222, #222, #EEEEEE),
+(111, #111111, #EEEEEE),
+(000, #000000, #EEEEEE);
+@each $name,
+$bgcolor,
+$color in $colorpairs {
+    .bg-#{$name} {
+        background-color: $bgcolor;
+        color: $color;
+    }
+}
+
 @each $name,
 $index,
 $alias,
 $color,
 $bgcolor,
-$bgcolor_hover,
-$bordercolor,
-$shadowcolor in $commoncolors {
+$bordercolor in $commoncolors {
     @if($alias=='') {
         [data-color=#{$name}] {
             background-color: $bgcolor;
@@ -57,6 +36,9 @@ $shadowcolor in $commoncolors {
             border-color: $bordercolor;
             color: $color;
         }
+        [data-color=#{$alias}]:hover {
+            background-color: $bordercolor;
+        }
     }
     @else {
         [data-color=#{$name}],
@@ -64,6 +46,9 @@ $shadowcolor in $commoncolors {
             background-color: $bgcolor;
             border-color: $bordercolor;
             color: $color;
+        }
+        [data-color=#{$alias}]:hover {
+            background-color: $bordercolor;
         }
     }
 }

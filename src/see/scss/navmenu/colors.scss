@@ -82,28 +82,27 @@ $index,
 $alias,
 $color,
 $bgcolor,
-$bgcolor_hover,
-$bordercolor,
-$shadowcolor in $commoncolors {
+$bordercolor in $commoncolors {
     .navmenu[data-color=#{$name}],
     .navmenu .submenu[data-color=#{$name}] {
-        @if($color='#444') {
-            >.menu-item {
-                background-color: $bgcolor;
-                border: solid 1px $bordercolor;
-                color: $color;
-            }
-        }
-        @else {
-            >.menu-item {
-                background-color: $bgcolor;
-                border: solid 1px $bgcolor;
-                color: $color;
-            }
+        >.menu-item {
+            background-color: $bgcolor;
+            border: solid 1px $bordercolor;
+            color: $color;
         }
         >.menu-item.actived,
         >.menu-item:hover {
-            background-color: $bgcolor_hover;
+            background-color: $bordercolor;
+        }
+    }
+    .navmenu.borderless[data-color=#{$name}],
+    .navmenu .submenu.borderless[data-color=#{$name}] {
+        >.menu-item {
+            border: solid 1px $bgcolor;
+        }
+        >.menu-item.actived,
+        >.menu-item:hover {
+            border: solid 1px $bordercolor;
         }
     }
 }

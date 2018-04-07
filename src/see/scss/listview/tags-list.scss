@@ -85,9 +85,9 @@ $index,
 $alias,
 $color,
 $bgcolor,
-$bgcolor_hover,
-$bordercolor,
-$shadowcolor in $commoncolors {
+
+$bordercolor 
+in $commoncolors {
     .listview.tags-list.blocks .list-item[data-color=#{$name}],
     .listview.tags-list.pills .list-item[data-color=#{$name}],
     .listview.tags-list.blocks[data-item-color=#{$name}] .list-item,

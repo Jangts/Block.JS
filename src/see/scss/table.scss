@@ -191,12 +191,6 @@ $table_cell_maxwidths: 540,
             height: 30px;
             line-height: 30px;
             font-weight: bold;
-            background: #ccc;
-            color: #222;
-        }
-        td {
-            border-top: solid 1px #ccc;
-            border-left: solid 1px #ccc;
         }
         td:first-child {
             border-left: none;
@@ -223,6 +217,10 @@ $table_cell_maxwidths: 540,
     border-collapse: separate;
     border: solid 2px #ccc;
     tr {
+        th {
+            background: #ddd;
+            color: #444;
+        }
         td {
             border-top: solid 2px #ccc;
             border-left: solid 2px #ccc;
@@ -235,47 +233,54 @@ $index,
 $alias,
 $color,
 $bgcolor,
-$bgcolor_hover,
-$bordercolor,
-$shadowcolor in $commoncolors {
+
+$bordercolor 
+in $commoncolors {
     @if($index>0) {
-        .tangram-table[border=#{$name}] {
-            border-collapse: separate;
-            border: solid 1px $bordercolor;
-            tr {
-                th {
-                    background: $bgcolor;
-                    color: $color;
+        @if($alias=='default') {
+            .tangram-table[border],
+            .tangram-table[border=#{$name}] {
+                border-collapse: separate;
+                border: solid 1px $bordercolor;
+                tr {
+                    th {
+                        background: $bgcolor;
+                        color: $color;
+                    }
+                    td {
+                        border-top: solid 1px $bordercolor;
+                        border-left: solid 1px $bordercolor;
+                    }
                 }
-                td {
-                    border-top: solid 1px $bordercolor;
-                    border-left: solid 1px $bordercolor;
+                tr.tangram-tips {
+                    background: rgba(204, 204, 204, .3);
+                    td {
+                        color: $bordercolor;
+                    }
                 }
             }
-            tr.tangram-tips {
-                background: rgba(204, 204, 204, .3);
-                td {
-                    color: $bgcolor_hover;
+        }
+        @else {
+            .tangram-table[border=#{$name}] {
+                border-collapse: separate;
+                border: solid 1px $bordercolor;
+                tr {
+                    th {
+                        background: $bgcolor;
+                        color: $color;
+                    }
+                    td {
+                        border-top: solid 1px $bordercolor;
+                        border-left: solid 1px $bordercolor;
+                    }
+                }
+                tr.tangram-tips {
+                    background: rgba(204, 204, 204, .3);
+                    td {
+                        color: $bordercolor;
+                    }
                 }
             }
         }
     }
 }
-
-// @each $bordercolor,
-// $color in $table_border_colors {
-//     .tangram-table[data-color=#{$name}] {
-//         border-collapse: separate;
-//         border: solid 1px $bordercolor;
-//         tr {
-//             th {
-//                 background: $bordercolor;
-//                 color: $color;
-//             }
-//             td {
-//                 border-top: solid 1px $bordercolor;
-//                 border-left: solid 1px $bordercolor;
-//             }
-//         }
-//     }
-// }

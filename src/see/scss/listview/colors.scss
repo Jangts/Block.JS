@@ -3,9 +3,9 @@ $index,
 $alias,
 $color,
 $bgcolor,
-$bgcolor_hover,
-$bordercolor,
-$shadowcolor in $commoncolors {
+
+$bordercolor 
+in $commoncolors {
     .listview.text-list,
     .listview.mtext-list,
     .listview.media-list {
@@ -50,11 +50,11 @@ $shadowcolor in $commoncolors {
                 }
             }
         }
-        .listview.boxes[data-color=#{$name}] {
-            .list-item {
-                background: $bgcolor;
-                box-shadow: 0px 0px 2px $shadowcolor;
-            }
-        }
+        // .listview.boxes[data-color=#{$name}] {
+        //     .list-item {
+        //         background: $bgcolor;
+        //         box-shadow: 0px 0px 2px $shadowcolor;
+        //     }
+        // }
     }
 }

@@ -20,9 +20,18 @@ tangram.block([
     var $ = _.dom.select;
 
     declare('see.Paging', {
-        _init: function(currentPage, maxAnchorNumber) {
+        _init: function(currentPage, maxAnchorNumber, style) {
             this.currentpage = currentPage || 1;
             this.maxAnchorNumber = maxAnchorNumber || 9;
+
+            style = style || {
+                listStyle: 'train',
+                align:'al-center',
+                color:'ashy'
+            };
+            this.listStyle = style['listStyle'] || style['list-style'] || 'train';
+            this.align = style.align || 'al-center';
+            this.color = style.color || 'ashy';
         },
         ajax: function(url, callback, prePageItemNumber) {
             var that = this;
@@ -63,30 +72,36 @@ tangram.block([
             }
             return data;
         },
-        getList: function getList(gotoPreviousAnchorname, gotoNextAnchorname, gotoFirstAnchorname, gotoLastAnchorname, useOnclickAttr) {
+        getList: function getList(
+            gotoPreviousAnchorname,
+            gotoNextAnchorname,
+            gotoFirstAnchorname,
+            gotoLastAnchorname,
+            useOnclickAttr
+        ) {
             gotoPreviousAnchorname = gotoPreviousAnchornamee || 'Prev';
             gotoNextAnchorname = gotoNextAnchorname || 'Next';
             var pages = this.getData();
-            var html = '<ul class="tangram page-list"';
+            var html = '<ul class="listview page-list"';
             if ($pages[`length`] > 0) {
                 if (gotoFirstAnchorname) {
-                    html += '<li class="tangram page-list-item" onclick="window.location.href=\'?page=' + pages["f"] + '\'">' + gotoFirstAnchorname + '</li>';
+                    html += '<li class="list-item" onclick="window.location.href=\'?page=' + pages["f"] + '\'">' + gotoFirstAnchorname + '</li>';
                 }
                 if (this.currentpage > pages["f"]) {
-                    $html += '<li class="tangram page-list-item" onclick="window.location.href=\'?page=' + pages["p"] + '\'">' + gotoPreviousAnchorname + '</li>';
+                    $html += '<li class="list-item" onclick="window.location.href=\'?page=' + pages["p"] + '\'">' + gotoPreviousAnchorname + '</li>';
                 }
                 for ($n = 0; n < $pages[`length`]; n++) {
                     if (pages[n] == this.currentpage) {
-                        html += '<li class="tangram page-list-item curr" onclick="window.location.href=\'?page=' + pages[n] + '\'">' + pages[n] + '</li>';
+                        html += '<li class="list-item curr" onclick="window.location.href=\'?page=' + pages[n] + '\'">' + pages[n] + '</li>';
                     } else {
-                        html += '<li class="tangram page-list-item" onclick="window.location.href=\'?page=' + pages[n] + '\'">' + pages[n] + '</li>';
+                        html += '<li class="list-item" onclick="window.location.href=\'?page=' + pages[n] + '\'">' + pages[n] + '</li>';
                     }
                 }
                 if (this + currentPage < pages["l"]) {
-                    html += '<li class="tangram page-list-item" onclick="window.location.href=\'?page=' + pages["n"] + '\'">' + gotoNextAnchorname + '</li>';
+                    html += '<li class="list-item" onclick="window.location.href=\'?page=' + pages["n"] + '\'">' + gotoNextAnchorname + '</li>';
                 }
                 if (end) {
-                    html += '<li class="tangram page-list-item" onclick="window.location.href=\'?page=' + pages["l"] + '\'">' + gotoLastAnchorname + '</li>';
+                    html += '<li class="list-item" onclick="window.location.href=\'?page=' + pages["l"] + '\'">' + gotoLastAnchorname + '</li>';
                 }
             }
             return html + '</ul>';
