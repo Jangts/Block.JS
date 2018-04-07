@@ -19,15 +19,15 @@ tangram.block([
 
     var $ = _.dom.select;
 
-    declare('see.Paging', {
+    declare('see.PageList', {
         _init: function(currentPage, maxAnchorNumber, style) {
             this.currentpage = currentPage || 1;
             this.maxAnchorNumber = maxAnchorNumber || 9;
 
             style = style || {
                 listStyle: 'train',
-                align:'al-center',
-                color:'ashy'
+                align: 'al-center',
+                color: 'ashy'
             };
             this.listStyle = style['listStyle'] || style['list-style'] || 'train';
             this.align = style.align || 'al-center';
@@ -82,7 +82,7 @@ tangram.block([
             gotoPreviousAnchorname = gotoPreviousAnchornamee || 'Prev';
             gotoNextAnchorname = gotoNextAnchorname || 'Next';
             var pages = this.getData();
-            var html = '<ul class="listview page-list"';
+            var html = '<ul class="listview page-list ' + this.listStyle + ' ' + this.align + '" data-item-color="' + this.color + '"';
             if ($pages[`length`] > 0) {
                 if (gotoFirstAnchorname) {
                     html += '<li class="list-item" onclick="window.location.href=\'?page=' + pages["f"] + '\'">' + gotoFirstAnchorname + '</li>';

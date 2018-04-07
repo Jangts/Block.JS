@@ -1,18 +1,21 @@
 // Normal Screen 
 .v-top {
-    >li {
+    >li,
+    >.list-item {
         display: block;
     }
 }
 
 .h-left {
-    >li {
+    >li,
+    >.list-item {
         float: left;
     }
 }
 
 .h-right {
-    >li {
+    >li,
+    >.list-item {
         float: right;
     }
 }
@@ -21,7 +24,8 @@
 .al-right,
 .al-center,
 .al-just {
-    >li {
+    >li,
+    >.list-item {
         display: inline;
     }
 }
@@ -30,7 +34,8 @@
 .al-right.blocks,
 .al-center.blocks,
 .al-just.blocks {
-    >li {
+    >li,
+    >.list-item {
         display: inline-block;
     }
 }

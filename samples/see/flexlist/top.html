@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>default style | flex boxes</title>
+    <style>
+        section {
+            box-sizing: border-box;
+            float: left;
+            width: 400px;
+            margin: 10px;
+            padding: 19px;
+            border: dashed 1px #CCC;
+            overflow: hidden;
+        }
+        
+        .flex {
+            display: flex;
+            width: 100%;
+            height: 1040px;
+        }
+        
+        .flex.al-top {
+            flex-direction: column;
+        }
+        
+        .flex>div {
+            width: auto;
+            height: 100px;
+        }
+        
+        .item-width-100 .flex>div {
+            width: 100px;
+        }
+        
+        .item-width-120 .flex>div {
+            width: 120px;
+        }
+        
+        .flex>div div {
+            width: 60px;
+            height: 60px;
+            background-color: lightgray;
+            margin: 20px auto;
+            line-height: 60px;
+            font-size: 24px;
+            text-align: center;
+            color: #fff;
+            border-radius: 30px;
+            cursor: pointer;
+        }
+        
+        .flex.wrap {
+            flex-wrap: wrap;
+            flex: 1;
+        }
+        
+        .flex.wrap-reverse {
+            flex-wrap: wrap-reverse;
+            flex: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <section>
+        <h4>20项，不设宽度</h4>
+        <div class="flex al-top">
+            <div>
+                <div class="content">01</div>
+            </div>
+            <div>
+                <div class="content">02</div>
+            </div>
+            <div>
+                <div class="content">03</div>
+            </div>
+            <div>
+                <div class="content">04</div>
+            </div>
+            <div>
+                <div class="content">05</div>
+            </div>
+            <div>
+                <div class="content">06</div>
+            </div>
+            <div>
+                <div class="content">07</div>
+            </div>
+            <div>
+                <div class="content">08</div>
+            </div>
+            <div>
+                <div class="content">09</div>
+            </div>
+            <div>
+                <div class="content">10</div>
+            </div>
+            <div>
+                <div class="content">11</div>
+            </div>
+            <div>
+                <div class="content">12</div>
+            </div>
+            <div>
+                <div class="content">13</div>
+            </div>
+            <div>
+                <div class="content">14</div>
+            </div>
+            <div>
+                <div class="content">15</div>
+            </div>
+            <div>
+                <div class="content">16</div>
+            </div>
+            <div>
+                <div class="content">17</div>
+            </div>
+            <div>
+                <div class="content">18</div>
+            </div>
+            <div>
+                <div class="content">19</div>
+            </div>
+            <div>
+                <div class="content">20</div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <h4>20项，不设宽度</h4>
+        <div class="flex al-top wrap">
+            <div>
+                <div class="content">01</div>
+            </div>
+            <div>
+                <div class="content">02</div>
+            </div>
+            <div>
+                <div class="content">03</div>
+            </div>
+            <div>
+                <div class="content">04</div>
+            </div>
+            <div>
+                <div class="content">05</div>
+            </div>
+            <div>
+                <div class="content">06</div>
+            </div>
+            <div>
+                <div class="content">07</div>
+            </div>
+            <div>
+                <div class="content">08</div>
+            </div>
+            <div>
+                <div class="content">09</div>
+            </div>
+            <div>
+                <div class="content">10</div>
+            </div>
+            <div>
+                <div class="content">11</div>
+            </div>
+            <div>
+                <div class="content">12</div>
+            </div>
+            <div>
+                <div class="content">13</div>
+            </div>
+            <div>
+                <div class="content">14</div>
+            </div>
+            <div>
+                <div class="content">15</div>
+            </div>
+            <div>
+                <div class="content">16</div>
+            </div>
+            <div>
+                <div class="content">17</div>
+            </div>
+            <div>
+                <div class="content">18</div>
+            </div>
+            <div>
+                <div class="content">19</div>
+            </div>
+            <div>
+                <div class="content">20</div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <h4>20项，不设宽度</h4>
+        <div class="flex al-top wrap-reverse">
+            <div>
+                <div class="content">01</div>
+            </div>
+            <div>
+                <div class="content">02</div>
+            </div>
+            <div>
+                <div class="content">03</div>
+            </div>
+            <div>
+                <div class="content">04</div>
+            </div>
+            <div>
+                <div class="content">05</div>
+            </div>
+            <div>
+                <div class="content">06</div>
+            </div>
+            <div>
+                <div class="content">07</div>
+            </div>
+            <div>
+                <div class="content">08</div>
+            </div>
+            <div>
+                <div class="content">09</div>
+            </div>
+            <div>
+                <div class="content">10</div>
+            </div>
+            <div>
+                <div class="content">11</div>
+            </div>
+            <div>
+                <div class="content">12</div>
+            </div>
+            <div>
+                <div class="content">13</div>
+            </div>
+            <div>
+                <div class="content">14</div>
+            </div>
+            <div>
+                <div class="content">15</div>
+            </div>
+            <div>
+                <div class="content">16</div>
+            </div>
+            <div>
+                <div class="content">17</div>
+            </div>
+            <div>
+                <div class="content">18</div>
+            </div>
+            <div>
+                <div class="content">19</div>
+            </div>
+            <div>
+                <div class="content">20</div>
+            </div>
+        </div>
+    </section>
+    <section class="item-width-100">
+        <h4>15项，宽度100</h4>
+        <div class="flex al-top">
+            <div>
+                <div class="content">01</div>
+            </div>
+            <div>
+                <div class="content">02</div>
+            </div>
+            <div>
+                <div class="content">03</div>
+            </div>
+            <div>
+                <div class="content">04</div>
+            </div>
+            <div>
+                <div class="content">05</div>
+            </div>
+            <div>
+                <div class="content">06</div>
+            </div>
+            <div>
+                <div class="content">07</div>
+            </div>
+            <div>
+                <div class="content">08</div>
+            </div>
+            <div>
+                <div class="content">09</div>
+            </div>
+            <div>
+                <div class="content">10</div>
+            </div>
+            <div>
+                <div class="content">11</div>
+            </div>
+            <div>
+                <div class="content">12</div>
+            </div>
+            <div>
+                <div class="content">13</div>
+            </div>
+            <div>
+                <div class="content">14</div>
+            </div>
+            <div>
+                <div class="content">15</div>
+            </div>
+        </div>
+    </section>
+    <section class="item-width-100">
+        <h4>20项，宽度100</h4>
+        <div class="flex al-top wrap">
+            <div>
+                <div class="content">01</div>
+            </div>
+            <div>
+                <div class="content">02</div>
+            </div>
+            <div>
+                <div class="content">03</div>
+            </div>
+            <div>
+                <div class="content">04</div>
+            </div>
+            <div>
+                <div class="content">05</div>
+            </div>
+            <div>
+                <div class="content">06</div>
+            </div>
+            <div>
+                <div class="content">07</div>
+            </div>
+            <div>
+                <div class="content">08</div>
+            </div>
+            <div>
+                <div class="content">09</div>
+            </div>
+            <div>
+                <div class="content">10</div>
+            </div>
+            <div>
+                <div class="content">11</div>
+            </div>
+            <div>
+                <div class="content">12</div>
+            </div>
+            <div>
+                <div class="content">13</div>
+            </div>
+            <div>
+                <div class="content">14</div>
+            </div>
+            <div>
+                <div class="content">15</div>
+            </div>
+            <div>
+                <div class="content">16</div>
+            </div>
+            <div>
+                <div class="content">17</div>
+            </div>
+            <div>
+                <div class="content">18</div>
+            </div>
+            <div>
+                <div class="content">19</div>
+            </div>
+            <div>
+                <div class="content">20</div>
+            </div>
+        </div>
+    </section>
+    <section class="item-width-100">
+        <h4>20项，宽度100</h4>
+        <div class="flex al-top wrap-reverse">
+            <div>
+                <div class="content">01</div>
+            </div>
+            <div>
+                <div class="content">02</div>
+            </div>
+            <div>
+                <div class="content">03</div>
+            </div>
+            <div>
+                <div class="content">04</div>
+            </div>
+            <div>
+                <div class="content">05</div>
+            </div>
+            <div>
+                <div class="content">06</div>
+            </div>
+            <div>
+                <div class="content">07</div>
+            </div>
+            <div>
+                <div class="content">08</div>
+            </div>
+            <div>
+                <div class="content">09</div>
+            </div>
+            <div>
+                <div class="content">10</div>
+            </div>
+            <div>
+                <div class="content">11</div>
+            </div>
+            <div>
+                <div class="content">12</div>
+            </div>
+            <div>
+                <div class="content">13</div>
+            </div>
+            <div>
+                <div class="content">14</div>
+            </div>
+            <div>
+                <div class="content">15</div>
+            </div>
+            <div>
+                <div class="content">16</div>
+            </div>
+            <div>
+                <div class="content">17</div>
+            </div>
+            <div>
+                <div class="content">18</div>
+            </div>
+            <div>
+                <div class="content">19</div>
+            </div>
+            <div>
+                <div class="content">20</div>
+            </div>
+        </div>
+    </section>
+    <section class="item-width-120">
+        <h4>10项，宽度120</h4>
+        <div class="flex al-top">
+            <div>
+                <div class="content">01</div>
+            </div>
+            <div>
+                <div class="content">02</div>
+            </div>
+            <div>
+                <div class="content">03</div>
+            </div>
+            <div>
+                <div class="content">04</div>
+            </div>
+            <div>
+                <div class="content">05</div>
+            </div>
+            <div>
+                <div class="content">06</div>
+            </div>
+            <div>
+                <div class="content">07</div>
+            </div>
+            <div>
+                <div class="content">08</div>
+            </div>
+            <div>
+                <div class="content">09</div>
+            </div>
+            <div>
+                <div class="content">10</div>
+            </div>
+        </div>
+    </section>
+    <section class="item-width-120">
+        <h4>20项，宽度120</h4>
+        <div class="flex al-top wrap">
+            <div>
+                <div class="content">01</div>
+            </div>
+            <div>
+                <div class="content">02</div>
+            </div>
+            <div>
+                <div class="content">03</div>
+            </div>
+            <div>
+                <div class="content">04</div>
+            </div>
+            <div>
+                <div class="content">05</div>
+            </div>
+            <div>
+                <div class="content">06</div>
+            </div>
+            <div>
+                <div class="content">07</div>
+            </div>
+            <div>
+                <div class="content">08</div>
+            </div>
+            <div>
+                <div class="content">09</div>
+            </div>
+            <div>
+                <div class="content">10</div>
+            </div>
+            <div>
+                <div class="content">11</div>
+            </div>
+            <div>
+                <div class="content">12</div>
+            </div>
+            <div>
+                <div class="content">13</div>
+            </div>
+            <div>
+                <div class="content">14</div>
+            </div>
+            <div>
+                <div class="content">15</div>
+            </div>
+            <div>
+                <div class="content">16</div>
+            </div>
+            <div>
+                <div class="content">17</div>
+            </div>
+            <div>
+                <div class="content">18</div>
+            </div>
+            <div>
+                <div class="content">19</div>
+            </div>
+            <div>
+                <div class="content">20</div>
+            </div>
+        </div>
+    </section>
+    <section class="item-width-120">
+        <h4>20项，宽度120</h4>
+        <div class="flex al-top wrap-reverse">
+            <div>
+                <div class="content">01</div>
+            </div>
+            <div>
+                <div class="content">02</div>
+            </div>
+            <div>
+                <div class="content">03</div>
+            </div>
+            <div>
+                <div class="content">04</div>
+            </div>
+            <div>
+                <div class="content">05</div>
+            </div>
+            <div>
+                <div class="content">06</div>
+            </div>
+            <div>
+                <div class="content">07</div>
+            </div>
+            <div>
+                <div class="content">08</div>
+            </div>
+            <div>
+                <div class="content">09</div>
+            </div>
+            <div>
+                <div class="content">10</div>
+            </div>
+            <div>
+                <div class="content">11</div>
+            </div>
+            <div>
+                <div class="content">12</div>
+            </div>
+            <div>
+                <div class="content">13</div>
+            </div>
+            <div>
+                <div class="content">14</div>
+            </div>
+            <div>
+                <div class="content">15</div>
+            </div>
+            <div>
+                <div class="content">16</div>
+            </div>
+            <div>
+                <div class="content">17</div>
+            </div>
+            <div>
+                <div class="content">18</div>
+            </div>
+            <div>
+                <div class="content">19</div>
+            </div>
+            <div>
+                <div class="content">20</div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>
