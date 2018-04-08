@@ -1,0 +1,37 @@
+.v-top {
+    >li {
+        display: block;
+    }
+}
+
+.h-left {
+    >li {
+        float: left;
+    }
+}
+
+.h-right {
+    >li {
+        float: right;
+    }
+}
+
+.al-left,
+.al-right,
+.al-center,
+.al-just {
+    >li {
+        display: inline;
+    }
+}
+
+.al-left.blocks,
+.al-right.blocks,
+.al-center.blocks,
+.al-just.blocks {
+    >li {
+        display: inline-block;
+    }
+}
+
+@import "flex";

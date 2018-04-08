@@ -1,0 +1,50 @@
+.articlelist {
+    >* {
+        width: 100%;
+        padding: 5px 0;
+    }
+    >.topline {
+        border-top: 1px solid #cccccc;
+    }
+    >.underline {
+        border-bottom: 1px solid #cccccc;
+    }
+    >.stripe:nth-child(odd) {
+        background-color: #eeeeee;
+    }
+    >.stripe:nth-child(even) {
+        background-color: #f8f8f8;
+    }
+    >.card {
+        background-color: #ffffff;
+    }
+    >.pane {
+        border: 1px solid #cccccc;
+    }
+    >.card,
+    >.pane {
+        margin: 10px 0;
+    }
+    >.content {
+        width: 98%;
+        margin: 0 1%;
+        padding: 5px 0;
+    }
+    >.cover {
+        padding: 0;
+    }
+    >.card.content,
+    >.pane.content {
+        margin: 10px 1%;
+    }
+    >.pane.rounded,
+    >.card.rounded {
+        border-radius: 5px;
+    }
+}
+
+@import "text";
+@import "thumb/main";
+@import "colums";
+@import "colors";
+@import "tips";

@@ -1,0 +1,50 @@
+.articlelist.h40 {
+    >* {
+        width: 100%;
+        height: 40px;
+        padding: 5px 1%;
+        font-size: 14px;
+        font-size: 0.7rem;
+        line-height: 30px;
+    }
+    >.topline,
+    >.underline {
+        line-height: 29px;
+    }
+    >.topline.underline,
+    >.pane {
+        line-height: 28px;
+    }
+    >.content {
+        padding: 5px 0;
+    }
+    >.cover {
+        padding: 0;
+        line-height: 40px;
+    }
+    >.card.content,
+    >.pane.content {
+        padding: 5px 1%;
+    }
+    >.card.cover,
+    >.pane.cover {
+        padding: 0 1%;
+    }
+    >.content.cover {
+        padding: 0;
+    }
+    >.content.card.cover,
+    >.content.pane.cover {
+        padding: 0 1%;
+    }
+    >.cover.topline,
+    >.cover.underline {
+        line-height: 39px;
+    }
+    >.cover.topline.underline {
+        line-height: 38px;
+    }
+    >.trueround {
+        border-radius: 20px;
+    }
+}

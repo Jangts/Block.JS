@@ -1,0 +1,111 @@
+.pagelist {
+    width: auto;
+    margin: 10px auto;
+    font-size: 0;
+    text-align: center;
+    white-space: nowrap;
+    font-size: 12px;
+    font-size: 0.6rem;
+    text-align: right;
+    cursor: default;
+    >* {
+        display: inline-table !important;
+        width: auto;
+        min-width: 20px;
+        height: 20px;
+        margin: 4px;
+        padding: 0;
+        line-height: 20px;
+        font-size: 13px;
+        font-size: 0.65rem;
+        text-align: center;
+        cursor: pointer;
+    }
+    >.actived {
+        color: #0cf;
+    }
+}
+
+.pagelist.al-left {
+    text-align: left;
+}
+
+.pagelist.al-center {
+    text-align: center;
+}
+
+.pagelist.al-right {
+    text-align: right;
+}
+
+.pagelist.blocks,
+.pagelist.pills,
+.pagelist.spills {
+    >* {
+        min-width: 30px;
+        height: 30px;
+        border: 1px solid #888;
+        padding: 4px 10px;
+        text-align: center;
+        color: #333;
+    }
+    >.actived {
+        background-color: #888;
+        color: #fff;
+    }
+}
+
+.pagelist.blocks.rounded {
+    >* {
+        border-radius: 3px;
+    }
+}
+
+.pagelist.pills {
+    >* {
+        border-radius: 15px;
+    }
+}
+
+.pagelist.spills {
+    >* {
+        min-width: 22px;
+        height: 22px;
+        margin: 4px 0;
+        padding: 0;
+        border-radius: 11px;
+    }
+    >.long {
+        padding: 0 6px;
+    }
+}
+
+.pagelist.train {
+    font-size: 0;
+    >* {
+        min-width: 30px;
+        height: 30px;
+        margin: 0;
+        border-top: 1px solid #888;
+        border-right: 1px solid #888;
+        border-bottom: 1px solid #888;
+        padding: 4px 5px;
+        text-align: center;
+        color: #333;
+    }
+    >*:first-child {
+        border-left: 1px solid #888;
+        border-radius: 15px 0 0 15px;
+        padding: 4px 10px;
+    }
+    >*:last-child {
+        border-radius: 0 15px 15px 0;
+        padding: 4px 10px;
+    }
+    >.actived {
+        background-color: #888;
+        color: #fff;
+    }
+}
+
+@import 'colors';

@@ -1,0 +1,122 @@
+@mixin inner-body-style($width, $right, $left) {
+    .list-title,
+    .list-abstract,
+    .list-meta {
+        width: $width;
+        padding: 0 $right 0 $left;
+    }
+}
+
+$sizes:(h51, 51px, 51px, 63, 63),
+(h54, 54px, 54px, 66, 66),
+(h75, 100px, 75px, 112, 87),
+(h96, 128px, 96px, 140, 108),
+(h117, 156px, 117p, 168, 129),
+(h138, 184px, 138px, 196, 150);
+.articlelist.withthumb {
+    >* {
+        padding: 0;
+        >* {
+            display: none;
+        }
+        @each $name,
+        $iwidth,
+        $iheight,
+        $owidth,
+        $oheight in $sizes {
+            >.list-figure.#{$name},
+            >.list-image.#{$name} {
+                width: #{$owidth}px;
+                height: #{$oheight}px;
+                padding: 5px;
+                border: 1px solid #ccc;
+                img {
+                    width: $iwidth;
+                    height: $iheight;
+                }
+            }
+            >img.#{$name},
+            >img.list-figure.#{$name},
+            >img.list-image.#{$name} {
+                width: $iwidth;
+                height: $iheight;
+                padding: 0;
+                border: none;
+            }
+        }
+        >img,
+        >.list-figure,
+        >.list-image {
+            float: left;
+            display: block;
+            margin: 10px 0 10px 1%;
+        }
+        >.list-body:first-child,
+        >.list-body:last-child {
+            display: inline-block;
+            margin: 10px 0;
+        }
+    }
+    >.cover,
+    >.card.cover {
+        >img,
+        >.list-figure,
+        >.list-image {
+            margin: 0 1% 0 0;
+        }
+        >.list-body {
+            margin: 0;
+        }
+    }
+    >.pane.cover {
+        >img,
+        >.list-figure,
+        >.list-image {
+            margin: 10px 0 10px 1%;
+        }
+        >.list-body {
+            margin: 10px 0;
+        }
+    }
+    >.content {
+        >img,
+        >.list-figure,
+        >.list-image {
+            margin: 10px 0;
+        }
+        .list-title,
+        .list-abstract,
+        .list-meta {
+            padding: 0 0 0 1%;
+        }
+    }
+    >.card.content.cover {
+        >img,
+        >.list-figure,
+        >.list-image,
+        >.list-body {
+            margin: 0;
+        }
+    }
+    >.cover.topline,
+    >.cover.underline {
+        >img,
+        >.list-figure,
+        >.list-image {
+            margin: 10px 1% 10px 0;
+        }
+        >.list-body {
+            margin: 10px 0;
+        }
+    }
+}
+
+.articlelist.withthumb[data-list-cols="1"] {
+    >.card.cover,
+    >.pane.cover {
+        margin: 10px auto;
+    }
+}
+
+@import "al-right";
+@import "al-top";

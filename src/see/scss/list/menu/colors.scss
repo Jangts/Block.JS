@@ -1,0 +1,41 @@
+.menu,
+.menu .submenu {
+    >* {
+        background-color: #888;
+        border: solid 1px #888;
+        color: #FFF;
+    }
+    >.actived,
+    >*:hover {
+        background-color: #666;
+    }
+}
+@each $name,
+$index,
+$alias,
+$color,
+$bgcolor,
+$bordercolor in $commoncolors {
+    .menu[data-color=#{$name}],
+    .menu .submenu[data-color=#{$name}] {
+        >* {
+            background-color: $bgcolor;
+            border: solid 1px $bordercolor;
+            color: $color;
+        }
+        >.actived,
+        >*:hover {
+            background-color: $bordercolor;
+        }
+    }
+    .menu.borderless[data-color=#{$name}],
+    .menu .submenu.borderless[data-color=#{$name}] {
+        >* {
+            border: solid 1px $bgcolor;
+        }
+        >.actived,
+        >*:hover {
+            border: solid 1px $bordercolor;
+        }
+    }
+}

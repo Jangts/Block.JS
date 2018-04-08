@@ -82,7 +82,7 @@ tangram.block([
             gotoPreviousAnchorname = gotoPreviousAnchornamee || 'Prev';
             gotoNextAnchorname = gotoNextAnchorname || 'Next';
             var pages = this.getData();
-            var html = '<ul class="listview page-list ' + this.listStyle + ' ' + this.align + '" data-item-color="' + this.color + '"';
+            var html = '<ul class="articlelist page-list ' + this.listStyle + ' ' + this.align + '" data-item-color="' + this.color + '"';
             if ($pages[`length`] > 0) {
                 if (gotoFirstAnchorname) {
                     html += '<li class="list-item" onclick="window.location.href=\'?page=' + pages["f"] + '\'">' + gotoFirstAnchorname + '</li>';

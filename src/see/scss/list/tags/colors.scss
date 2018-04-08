@@ -1,0 +1,31 @@
+@each $name,
+$index,
+$alias,
+$color,
+$bgcolor,
+$bordercolor in $commoncolors {
+    .taglist.blocks>*[data-color=#{$name}],
+    .taglist.pills>*[data-color=#{$name}],
+    .taglist.blocks[data-item-color=#{$name}]>*,
+    .taglist.pills[data-item-color=#{$name}]>* {
+        border: 1px solid $bgcolor;
+        color: $bgcolor;
+        >i,
+        >i.list-tips {
+            background-color: $bgcolor;
+            color: $color;
+        }
+    }
+    .taglist.blocks>*[data-color=#{$name}].selected,
+    .taglist.pills>*[data-color=#{$name}].selected,
+    .taglist.blocks[data-item-color=#{$name}]>.selected,
+    .taglist.pills[data-item-color=#{$name}]>.selected {
+        background-color: $bgcolor;
+        color: $color;
+        >i,
+        >i.list-tips {
+            background-color: #fff;
+            color: #0cf;
+        }
+    }
+}

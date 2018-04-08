@@ -1,0 +1,49 @@
+@each $name,
+$index,
+$alias,
+$color,
+$bgcolor,
+
+$bordercolor 
+in $commoncolors {
+    @if($color='#444') {
+        .boxlist[data-item-color=#{$name}] >*,
+        .boxlist.colors >*[data-color=#{$name}] {
+            background: $bgcolor;
+            // box-shadow: 0px 0px 2px $shadowcolor;
+            color: $color;
+            .titl {
+                border-color: $color;
+                // color: $color;
+            }
+            .name {
+                // background-color: lighten($color, 90%);
+                background-color: rgba(0, 0, 0, .1);
+                // color: $color;
+            }
+            .mask {
+                background: $color;
+            }
+        }
+    }
+    @else {
+        .boxlist[data-item-color=#{$name}] >*,
+        .boxlist.colors >*[data-color=#{$name}] {
+            background: $bgcolor;
+            // box-shadow: 0px 0px 2px $shadowcolor;
+            color: $color;
+            .titl {
+                border-color: $color;
+                // color: $color;
+            }
+            .name {
+                // background-color: lighten($color, 90%);
+                background-color: rgba(255, 255, 255, .1);
+                // color: $color;
+            }
+            .mask {
+                background: $color;
+            }
+        }
+    }
+}

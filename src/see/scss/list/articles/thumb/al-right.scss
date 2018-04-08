@@ -1,0 +1,33 @@
+.articlelist.withthumb {
+    >.right-left {
+        >img,
+        >.list-figure,
+        >.list-image {
+            float: right;
+            margin: 10px 1% 10px 0;
+        }
+    }
+    >.cover.right-left,
+    >.card.cover.right-left {
+        >img,
+        >.list-figure,
+        >.list-image {
+            margin: 0 0 0 1%;
+        }
+    }
+    >.pane.cover.right-left {
+        >img,
+        >.list-figure,
+        >.list-image {
+            margin: 10px 1% 10px 0;
+        }
+    }
+    >.cover.topline.right-left,
+    >.cover.underline.right-left {
+        >img,
+        >.list-figure,
+        >.list-image {
+            margin: 10px 0 10px 1%;
+        }
+    }
+}

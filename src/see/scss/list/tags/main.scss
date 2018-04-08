@@ -1,0 +1,83 @@
+.taglist {
+    margin: 10px auto;
+    font-size: 0;
+    text-align: left;
+    >* {
+        display: inline-table !important;
+        width: auto;
+        min-width: 20px;
+        height: 20px;
+        margin: 5px;
+        padding: 0;
+        line-height: 20px;
+        font-size: 13px;
+        font-size: 0.65rem;
+        cursor: pointer;
+        color: #333;
+        >i,
+        >i.list-tips {
+            height: 16px;
+            margin-left: 3px;
+            padding: 0 6px;
+            border-radius: 8px;
+            background-color: #888;
+            line-height: 16px;
+            font-size: 12px;
+            font-size: 0.6rem;
+            color: #fff;
+        }
+    }
+    >.selected {
+        color: #0cf;
+        >i,
+        >i.list-tips {
+            background-color: #0cf;
+        }
+    }
+}
+
+.taglist.al-center {
+    text-align: center;
+}
+
+.taglist.al-right {
+    text-align: right;
+}
+
+.taglist.blocks,
+.taglist.pills {
+    >* {
+        min-width: 30px;
+        height: 30px;
+        border: 1px solid #888;
+        padding: 4px 10px;
+        text-align: center;
+        color: #333;
+    }
+    >.selected {
+        background-color: #888;
+        color: #fff;
+        >i,
+        >i.list-tips {
+            background-color: #fff;
+            color: #888;
+        }
+    }
+}
+
+.taglist.blocks.rounded {
+    >* {
+        border-radius: 3px;
+    }
+}
+
+.taglist.pills {
+    >* {
+        min-width: 26px;
+        height: 26px;
+        padding: 2px 10px;
+        border-radius: 13px;
+    }
+}
+
+@import "colors";

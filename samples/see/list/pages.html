@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiple Columns Text List</title>
+    <script src="../../../src/tangram.js" data-tangram-debug></script>
+    <link rel="stylesheet" type="text/css" href="../../../src/see/see.css" />
+
+    <style>
+        body {
+            background-color: #eeeeee;
+        }
+        
+        body>section>ul {
+            width: 100%;
+            max-width: 1200px;
+            margin: 20px auto;
+        }
+        
+        body>section>ul.ascard {
+            background-color: #ffffff;
+            box-shadow: 0 0 3px #cccccc;
+        }
+        
+        .sample-title {
+            text-align: center;
+            font-size: 24px;
+            line-height: 30px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body class="tangram-see">
+    <section>
+        <p class="sample-title">分页列表 1</p>
+        <ul class="pagelist al-center">
+            <li class="list-item">First</li>
+            <li class="list-item">Previous</li>
+            <li class="list-item">1</li>
+            <li class="list-item">2</li>
+            <li class="list-item">3</li>
+            <li class="list-item actived">4</li>
+            <li class="list-item">5</li>
+            <li class="list-item">6</li>
+            <li class="list-item">7</li>
+            <li class="list-item">8</li>
+            <li class="list-item">Next</li>
+            <li class="list-item">Last</li>
+        </ul>
+    </section>
+
+    <section>
+        <p class="sample-title">分页列表 2</p>
+        <ul class="pagelist blocks al-left">
+            <li class="list-item">First</li>
+            <li class="list-item">Previous</li>
+            <li class="list-item">1</li>
+            <li class="list-item">2</li>
+            <li class="list-item">3</li>
+            <li class="list-item actived">4</li>
+            <li class="list-item">5</li>
+            <li class="list-item">6</li>
+            <li class="list-item">7</li>
+            <li class="list-item">8</li>
+            <li class="list-item">Next</li>
+            <li class="list-item">Last</li>
+        </ul>
+    </section>
+
+    <section>
+        <p class="sample-title">分页列表 3</p>
+        <ul class="pagelist blocks rounded" data-item-color="green">
+            <li class="list-item">First</li>
+            <li class="list-item">Previous</li>
+            <li class="list-item">1</li>
+            <li class="list-item">2</li>
+            <li class="list-item">3</li>
+            <li class="list-item actived">4</li>
+            <li class="list-item">5</li>
+            <li class="list-item">6</li>
+            <li class="list-item">7</li>
+            <li class="list-item">8</li>
+            <li class="list-item">Next</li>
+            <li class="list-item">Last</li>
+        </ul>
+    </section>
+
+    <section>
+        <p class="sample-title">分页列表 4</p>
+        <ul class="pagelist pills al-left">
+            <li class="list-item long">First</li>
+            <li class="list-item long">Previous</li>
+            <li class="list-item">1</li>
+            <li class="list-item">2</li>
+            <li class="list-item">3</li>
+            <li class="list-item actived">4</li>
+            <li class="list-item">5</li>
+            <li class="list-item">6</li>
+            <li class="list-item">7</li>
+            <li class="list-item">8</li>
+            <li class="list-item long">Next</li>
+            <li class="list-item long">Last</li>
+        </ul>
+    </section>
+
+    <section>
+        <p class="sample-title">分页列表 5</p>
+        <ul class="pagelist spills al-right" data-item-color="magenta">
+            <li class="list-item long">First</li>
+            <li class="list-item long">Previous</li>
+            <li class="list-item">1</li>
+            <li class="list-item">2</li>
+            <li class="list-item">3</li>
+            <li class="list-item actived">4</li>
+            <li class="list-item">5</li>
+            <li class="list-item">6</li>
+            <li class="list-item">7</li>
+            <li class="list-item">8</li>
+            <li class="list-item long">Next</li>
+            <li class="list-item long">Last</li>
+        </ul>
+    </section>
+
+    <section>
+        <p class="sample-title">分页列表 6</p>
+        <ul class="pagelist train al-center" data-item-color="azure">
+            <li class="list-item">First</li>
+            <li class="list-item">Previous</li>
+            <li class="list-item">1</li>
+            <li class="list-item">2</li>
+            <li class="list-item">3</li>
+            <li class="list-item actived">4</li>
+            <li class="list-item">5</li>
+            <li class="list-item">6</li>
+            <li class="list-item">7</li>
+            <li class="list-item">8</li>
+            <li class="list-item">Next</li>
+            <li class="list-item">Last</li>
+        </ul>
+    </section>
+
+    <script type="text/javascript">
+        tangram.block('$_/dom/Elements/', function(_, global, undefined) {
+            var $ = _.dom.select;
+            $('.list-item').click(function() {
+                if (parseInt($(this).html())) {
+                    $('.list-item', this.parentNode).removeClass('actived');
+                    $(this).addClass('actived');
+                }
+            });
+        }, true);
+    </script>
+</body>
+
+</html>

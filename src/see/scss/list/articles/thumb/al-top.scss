@@ -1,0 +1,26 @@
+.articlelist.withthumb {
+    >.top-bottom {
+        >img,
+        >.list-figure,
+        >.list-image {
+            float: none;
+            width: 98%;
+            margin: 10px 1% 0;
+        }
+    }
+    >.top-bottom {
+        >.list-body {
+            width: 100%;
+            margin-bottom: 5px;
+        }
+    }
+    >.cover.top-bottom,
+    >.content.cover.top-bottom {
+        >img,
+        >.list-figure,
+        >.list-image {
+            width: 100%;
+            margin: 0;
+        }
+    }
+}

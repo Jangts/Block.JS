@@ -1,0 +1,54 @@
+@each $name,
+$index,
+$alias,
+$color,
+$bgcolor,
+
+$bordercolor 
+in $commoncolors {
+    .articlelist.h40,
+    .articlelist.mh40,
+    .articlelist.withthumb {
+        @if( $index>0) {
+            >.topline[data-line-color=#{$name}] {
+                border-top: 1px solid $bordercolor;
+            }
+            >.underline[data-line-color=#{$name}] {
+                border-bottom: 1px solid $bordercolor;
+            }
+            >.topline.underline[data-line-color=#{$name}] {
+                border-top: 1px solid $bordercolor;
+                border-bottom: 1px solid $bordercolor;
+            }
+            >.stripe[data-color=#{$name}]:nth-child(odd) {
+                background-color: $bgcolor;
+                color: $color;
+            }
+            >.stripe[data-color=#{$name}]:nth-child(even) {
+                background-color: lighten($bgcolor, 10%);
+                color: $color;
+            }
+            >.card[data-color=#{$name}] {
+                background-color: $bgcolor;
+                color: $color;
+            }
+            >.pane[data-line-color=#{$name}] {
+                border: 1px solid $bordercolor;
+            }
+            >* {
+                >i[data-color=#{$name}],
+                .list-title>i[data-color=#{$name}],
+                .list-icon[data-color=#{$name}] {
+                    background-color: $bgcolor;
+                }
+                >i.hollow[data-line-color=#{$name}],
+                .list-title>i.hollow[data-line-color=#{$name}],
+                .list-icon.hollow[data-line-color=#{$name}] {
+                    background-color: transparent;
+                    border: 1px solid $bordercolor;
+                    color: $bgcolor;
+                }
+            }
+        }
+    }
+}

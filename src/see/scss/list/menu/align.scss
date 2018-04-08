@@ -1,0 +1,60 @@
+// Menu Item Align 
+@mixin menu-item-align($align) {
+    text-align: $align;
+    >* {
+        text-align: center;
+        float: none;
+        display: block;
+    }
+}
+
+.menu,
+.menu .hasson>.submenu,
+.menu .hasson>.submenu.blocks,
+.menu.rside,
+.menu .hasson>.submenu.rside,
+.menu .hasson>.submenu.rside.blocks,
+.menu.al-left,
+.menu .hasson>.submenu.lside.al-left,
+.menu .hasson>.submenu.lside.blocks.al-left {
+    @include menu-item-align(left);
+}
+
+.menu.al-center,
+.menu .hasson>.submenu.al-center,
+.menu .hasson>.submenu.blocks.al-center {
+    @include menu-item-align(center);
+}
+
+.menu.lside,
+.menu .hasson>.submenu.lside,
+.menu .hasson>.submenu.lside.blocks,
+.menu.al-right,
+.menu .hasson>.submenu.lside.al-right,
+.menu .hasson>.submenu.lside.blocks.al-right {
+    @include menu-item-align(right);
+}
+
+.menu.inline,
+.menu .hasson>.submenu.inline,
+.menu .hasson>.submenu.rside.inline,
+.menu .hasson>.submenu.lside.inline {
+    >* {
+        text-align: center;
+        float: left !important;
+    }
+}
+
+// .menu.blocks,
+// .menu .hasson>.submenu.blocks {
+//     >* {
+//         border-bottom: none;
+//     }
+// }
+
+// .menu.inline,
+// .menu .hasson>.submenu.inline {
+//     >* {
+//         border-right: none;
+//     }
+// }

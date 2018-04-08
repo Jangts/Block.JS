@@ -1,0 +1,91 @@
+.flex {
+    display: flex;
+}
+
+.flex,
+.flex.rows,
+.flex.al-left,
+.flex.al-right,
+.flex.al-center,
+.flex.al-just {
+    flex-direction: row;
+}
+
+.flex.reverse,
+.flex.rows.reverse,
+.flex.reverse.al-left,
+.flex.reverse.al-right,
+.flex.reverse.al-center,
+.flex.reverse.al-just {
+    flex-direction: row-reverse;
+}
+
+.flex.column,
+.flex.al-top,
+.flex.al-bottom,
+.flex.al-middle,
+.flex.al-between {
+    flex-direction: column;
+}
+
+.flex.rcolumn.reverse,
+.flex.reverse.al-top,
+.flex.reverse.al-bottom,
+.flex.reverse.al-middle,
+.flex.reverse.al-between {
+    flex-direction: column-reverse;
+}
+
+.flex,
+.flex.rows,
+.flex.al-left,
+.flex.rows.al-left,
+.flex.reverse,
+.flex.reverse.al-right,
+.flex.rows.reverse.al-right,
+.flex.al-top,
+.flex.column.al-top,
+.flex.reverse.al-bottom,
+.flex.column.reverse.al-bottom {
+    justify-content: flex-start;
+}
+
+.flex.al-right,
+.flex.rows.al-right,
+.flex.reverse.al-left,
+.flex.rows.reverse.al-left,
+.flex.al-bottom,
+.flex.column.al-bottom,
+.flex.reverse.al-top,
+.flex.column.reverse.al-top {
+    justify-content: flex-end;
+}
+
+.flex.al-center,
+.flex.al-middle {
+    justify-content: center;
+}
+
+.flex.al-just,
+.flex.al-between {
+    justify-content: space-between
+}
+
+.flex.al-around {
+    justify-content: space-around;
+}
+
+$aligns:(start, flex-start),
+(end, flex-end),
+(center, center),
+(baseline, baseline),
+(stretch, stretch);
+@each $name,
+$value in $aligns {
+    .flex.items-al-#{$name} {
+        align-items: $value;
+    }
+    .flex.content-al-#{$name} {
+        align-content: $value;
+    }
+}

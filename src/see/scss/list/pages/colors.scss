@@ -1,0 +1,36 @@
+@each $name,
+$index,
+$alias,
+$color,
+$bgcolor,
+$bordercolor in $commoncolors {
+    @if($index>1) {
+        .pagelist[data-item-color=#{$name}]>*,
+        .pagelist>*[data-color=#{$name}] {
+            color: $bgcolor;
+        }
+        .pagelist.blocks[data-item-color=#{$name}]>*,
+        .pagelist.pills[data-item-color=#{$name}]>*,
+        .pagelist.spills[data-item-color=#{$name}]>*,
+        .pagelist.train[data-item-color=#{$name}]>*,
+        .pagelist.blocks>*[data-color=#{$name}],
+        .pagelist.pills>*[data-color=#{$name}],
+        .pagelist.spills>*[data-color=#{$name}],
+        .pagelist.train[data-item-color=#{$name}]>* {
+            border: 1px solid $bgcolor;
+        }
+        .pagelist.train[data-item-color=#{$name}]>*,
+        .pagelist.train>*[data-color=#{$name}] {
+            border-left: none;
+        }
+        .pagelist.train[data-item-color=#{$name}]>*:first-child,
+        .pagelist.train>*[data-color=#{$name}]:first-child {
+            border-left: 1px solid $bgcolor;
+        }
+        .pagelist[data-item-color=#{$name}]>.actived,
+        .pagelist>.actived[data-color=#{$name}] {
+            background-color: $bgcolor;
+            color: $color;
+        }
+    }
+}
