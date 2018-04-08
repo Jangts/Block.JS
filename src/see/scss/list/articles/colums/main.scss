@@ -1,0 +1,12 @@
+@import "pc";
+@media screen and (max-width: 989px) {
+    @import "pad";
+}
+
+@media screen and (max-width: 767px) {
+    @import "mp";
+}
+
+@media screen and (max-width: 360px) {
+    @import "wap";
+}

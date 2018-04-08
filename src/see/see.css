@@ -2104,18 +2104,18 @@ img {
     .tangram-see .tangram-table[border=magenta] tr.tangram-tips td {
       color: #D41C53; }
 
-.tangram-see .only-wap,
-.tangram-see .only-mp,
-.tangram-see .only-pad,
-.tangram-see .not-pc,
-.tangram-see .only-fhd {
+.tangram-see .wap-only,
+.tangram-see .mp-only,
+.tangram-see .pad-only,
+.tangram-see .pc-hide,
+.tangram-see .fhd-only {
   display: none; }
 
-.tangram-see .not-wap,
-.tangram-see .not-mp,
-.tangram-see .not-pad,
-.tangram-see .only-pc,
-.tangram-see .not-fhd {
+.tangram-see .wap-hide,
+.tangram-see .mp-hide,
+.tangram-see .pad-hide,
+.tangram-see .pc-only,
+.tangram-see .fhd-hide {
   display: block; }
 
 .tangram-see .grid-12 > .pc-1 {
@@ -2629,17 +2629,17 @@ img {
   float: left; }
 
 @media screen and (min-width: 1200px) {
-  .tangram-see .only-wap,
-  .tangram-see .not-mp,
-  .tangram-see .only-pad,
-  .tangram-see .only-pc,
-  .tangram-see .only-fhd {
+  .tangram-see .wap-only,
+  .tangram-see .mp-hide,
+  .tangram-see .pad-only,
+  .tangram-see .pc-only,
+  .tangram-see .fhd-only {
     display: none; }
-  .tangram-see .not-wap,
-  .tangram-see .only-mp,
-  .tangram-see .not-pad,
-  .tangram-see .not-pc,
-  .tangram-see .not-fhd {
+  .tangram-see .wap-hide,
+  .tangram-see .mp-only,
+  .tangram-see .pad-hide,
+  .tangram-see .pc-hide,
+  .tangram-see .fhd-hide {
     display: block; }
   .tangram-see .grid-12 > .fhd-1 {
     width: 8.33333%;
@@ -3008,17 +3008,17 @@ img {
     float: left; } }
 
 @media screen and (max-width: 989px) {
-  .tangram-see .only-wap,
-  .tangram-see .only-mp,
-  .tangram-see .not-pad,
-  .tangram-see .only-pc,
-  .tangram-see .only-fhd {
+  .tangram-see .wap-only,
+  .tangram-see .mp-only,
+  .tangram-see .pad-hide,
+  .tangram-see .pc-only,
+  .tangram-see .fhd-only {
     display: none; }
-  .tangram-see .not-wap,
-  .tangram-see .not-mp,
-  .tangram-see .only-pad,
-  .tangram-see .not-pc,
-  .tangram-see .not-fhd {
+  .tangram-see .wap-hide,
+  .tangram-see .mp-hide,
+  .tangram-see .pad-only,
+  .tangram-see .pc-hide,
+  .tangram-see .fhd-hide {
     display: block; }
   .tangram-see .grid-12 > .pad-1 {
     width: 8.33333%;
@@ -3387,17 +3387,17 @@ img {
     float: left; } }
 
 @media screen and (max-width: 767px) {
-  .tangram-see .only-wap,
-  .tangram-see .not-mp,
-  .tangram-see .only-pad,
-  .tangram-see .only-pc,
-  .tangram-see .only-fhd {
+  .tangram-see .wap-only,
+  .tangram-see .mp-hide,
+  .tangram-see .pad-only,
+  .tangram-see .pc-only,
+  .tangram-see .fhd-only {
     display: none; }
-  .tangram-see .not-wap,
-  .tangram-see .only-mp,
-  .tangram-see .not-pad,
-  .tangram-see .not-pc,
-  .tangram-see .not-fhd {
+  .tangram-see .wap-hide,
+  .tangram-see .mp-only,
+  .tangram-see .pad-hide,
+  .tangram-see .pc-hide,
+  .tangram-see .fhd-hide {
     display: block; }
   .tangram-see .grid-12 > .mp-1 {
     width: 8.33333%;
@@ -3766,17 +3766,17 @@ img {
     float: left; } }
 
 @media screen and (max-width: 360px) {
-  .tangram-see .not-wap,
-  .tangram-see .only-mp,
-  .tangram-see .only-pad,
-  .tangram-see .only-pc,
-  .tangram-see .only-fhd {
+  .tangram-see .wap-hide,
+  .tangram-see .mp-only,
+  .tangram-see .pad-only,
+  .tangram-see .pc-only,
+  .tangram-see .fhd-only {
     display: none; }
-  .tangram-see .only-wap,
-  .tangram-see .not-mp,
-  .tangram-see .not-pad,
-  .tangram-see .not-pc,
-  .tangram-see .not-fhd {
+  .tangram-see .wap-only,
+  .tangram-see .mp-hide,
+  .tangram-see .pad-hide,
+  .tangram-see .pc-hide,
+  .tangram-see .fhd-hide {
     display: block; }
   .tangram-see .grid-12 > .wap-1 {
     width: 8.33333%;
@@ -4307,7 +4307,7 @@ img {
 .tangram-see .articlelist.h40 > * {
   width: 100%;
   height: 40px;
-  padding: 5px 1%;
+  padding: 5px 10px;
   font-size: 14px;
   font-size: 0.7rem;
   line-height: 30px; }
@@ -4329,18 +4329,18 @@ img {
 
 .tangram-see .articlelist.h40 > .card.content,
 .tangram-see .articlelist.h40 > .pane.content {
-  padding: 5px 1%; }
+  padding: 5px 10px; }
 
 .tangram-see .articlelist.h40 > .card.cover,
 .tangram-see .articlelist.h40 > .pane.cover {
-  padding: 0 1%; }
+  padding: 0 10px; }
 
 .tangram-see .articlelist.h40 > .content.cover {
   padding: 0; }
 
 .tangram-see .articlelist.h40 > .content.card.cover,
 .tangram-see .articlelist.h40 > .content.pane.cover {
-  padding: 0 1%; }
+  padding: 0 10px; }
 
 .tangram-see .articlelist.h40 > .cover.topline,
 .tangram-see .articlelist.h40 > .cover.underline {
@@ -4467,7 +4467,7 @@ img {
   .tangram-see .articlelist.withthumb > * > .list-body:first-child,
   .tangram-see .articlelist.withthumb > * > .list-body:last-child {
     display: inline-block;
-    margin: 10px 0; }
+    margin: 0 0 10px; }
 
 .tangram-see .articlelist.withthumb > .cover > img,
 .tangram-see .articlelist.withthumb > .cover > .list-figure,
@@ -4497,7 +4497,7 @@ img {
 .tangram-see .articlelist.withthumb > .content .list-title,
 .tangram-see .articlelist.withthumb > .content .list-abstract,
 .tangram-see .articlelist.withthumb > .content .list-meta {
-  padding: 0 0 0 1%; }
+  padding: 0 0 0 10px; }
 
 .tangram-see .articlelist.withthumb > .card.content.cover > img,
 .tangram-see .articlelist.withthumb > .card.content.cover > .list-figure,
@@ -4596,7 +4596,13 @@ img {
   .tangram-see .articlelist.withthumb[data-list-cols="2"] > * .list-abstract,
   .tangram-see .articlelist.h40[data-list-cols="2"] > * .list-title,
   .tangram-see .articlelist.h40[data-list-cols="2"] > * .list-abstract {
-    padding: 0 2%; }
+    padding: 0 10px; }
+
+.tangram-see .articlelist[data-list-cols="2"] > .content,
+.tangram-see .articlelist.mh40[data-list-cols="2"] > .content,
+.tangram-see .articlelist.withthumb[data-list-cols="2"] > .content,
+.tangram-see .articlelist.h40[data-list-cols="2"] > .content {
+  width: 48%; }
 
 .tangram-see .articlelist[data-list-cols="2"] > .card,
 .tangram-see .articlelist[data-list-cols="2"] > .pane,
@@ -4607,13 +4613,7 @@ img {
 .tangram-see .articlelist.h40[data-list-cols="2"] > .card,
 .tangram-see .articlelist.h40[data-list-cols="2"] > .pane {
   width: 48%;
-  margin: 10px 1%; }
-
-.tangram-see .articlelist[data-list-cols="2"] > .content,
-.tangram-see .articlelist.mh40[data-list-cols="2"] > .content,
-.tangram-see .articlelist.withthumb[data-list-cols="2"] > .content,
-.tangram-see .articlelist.h40[data-list-cols="2"] > .content {
-  width: 48%; }
+  margin: 7px 1%; }
 
 .tangram-see .articlelist[data-list-cols="2"] > .cover .list-title,
 .tangram-see .articlelist[data-list-cols="2"] > .cover .list-abstract,
@@ -4653,7 +4653,7 @@ img {
 .tangram-see .articlelist.h40[data-list-cols="2"] > .pane.cover .list-title,
 .tangram-see .articlelist.h40[data-list-cols="2"] > .pane.cover .list-abstract,
 .tangram-see .articlelist.h40[data-list-cols="2"] > .pane.cover .list-meta {
-  padding: 0 2%; }
+  padding: 0 10px; }
 
 .tangram-see .articlelist[data-list-cols="2"] > .top-bottom > img,
 .tangram-see .articlelist[data-list-cols="2"] > .top-bottom > .list-figure,
@@ -4668,27 +4668,13 @@ img {
 .tangram-see .articlelist.h40[data-list-cols="2"] > .top-bottom > .list-figure,
 .tangram-see .articlelist.h40[data-list-cols="2"] > .top-bottom > .list-image {
   width: 96%;
-  margin: 20px 2%; }
+  margin: 12px 2% 0; }
 
 .tangram-see .articlelist[data-list-cols="2"] > .top-bottom > .list-body.pl-bottom,
 .tangram-see .articlelist.mh40[data-list-cols="2"] > .top-bottom > .list-body.pl-bottom,
 .tangram-see .articlelist.withthumb[data-list-cols="2"] > .top-bottom > .list-body.pl-bottom,
 .tangram-see .articlelist.h40[data-list-cols="2"] > .top-bottom > .list-body.pl-bottom {
-  padding: 0 2%; }
-
-.tangram-see .articlelist[data-list-cols="2"] > .content.top-bottom > img,
-.tangram-see .articlelist[data-list-cols="2"] > .content.top-bottom > .list-figure,
-.tangram-see .articlelist[data-list-cols="2"] > .content.top-bottom > .list-image,
-.tangram-see .articlelist.mh40[data-list-cols="2"] > .content.top-bottom > img,
-.tangram-see .articlelist.mh40[data-list-cols="2"] > .content.top-bottom > .list-figure,
-.tangram-see .articlelist.mh40[data-list-cols="2"] > .content.top-bottom > .list-image,
-.tangram-see .articlelist.withthumb[data-list-cols="2"] > .content.top-bottom > img,
-.tangram-see .articlelist.withthumb[data-list-cols="2"] > .content.top-bottom > .list-figure,
-.tangram-see .articlelist.withthumb[data-list-cols="2"] > .content.top-bottom > .list-image,
-.tangram-see .articlelist.h40[data-list-cols="2"] > .content.top-bottom > img,
-.tangram-see .articlelist.h40[data-list-cols="2"] > .content.top-bottom > .list-figure,
-.tangram-see .articlelist.h40[data-list-cols="2"] > .content.top-bottom > .list-image {
-  margin: 10px 2% 0; }
+  padding: 0 10px; }
 
 .tangram-see .articlelist[data-list-cols="2"] > .cover.top-bottom > img,
 .tangram-see .articlelist[data-list-cols="2"] > .cover.top-bottom > .list-figure,
@@ -4742,7 +4728,13 @@ img {
   .tangram-see .articlelist.withthumb[data-list-cols="3"] > * .list-abstract,
   .tangram-see .articlelist.h40[data-list-cols="3"] > * .list-title,
   .tangram-see .articlelist.h40[data-list-cols="3"] > * .list-abstract {
-    padding: 0 3%; }
+    padding: 0 10px; }
+
+.tangram-see .articlelist[data-list-cols="3"] > .content,
+.tangram-see .articlelist.mh40[data-list-cols="3"] > .content,
+.tangram-see .articlelist.withthumb[data-list-cols="3"] > .content,
+.tangram-see .articlelist.h40[data-list-cols="3"] > .content {
+  width: 31.33333%; }
 
 .tangram-see .articlelist[data-list-cols="3"] > .card,
 .tangram-see .articlelist[data-list-cols="3"] > .pane,
@@ -4753,13 +4745,7 @@ img {
 .tangram-see .articlelist.h40[data-list-cols="3"] > .card,
 .tangram-see .articlelist.h40[data-list-cols="3"] > .pane {
   width: 31.33333%;
-  margin: 10px 1%; }
-
-.tangram-see .articlelist[data-list-cols="3"] > .content,
-.tangram-see .articlelist.mh40[data-list-cols="3"] > .content,
-.tangram-see .articlelist.withthumb[data-list-cols="3"] > .content,
-.tangram-see .articlelist.h40[data-list-cols="3"] > .content {
-  width: 31.33333%; }
+  margin: 7px 1%; }
 
 .tangram-see .articlelist[data-list-cols="3"] > .cover .list-title,
 .tangram-see .articlelist[data-list-cols="3"] > .cover .list-abstract,
@@ -4799,7 +4785,7 @@ img {
 .tangram-see .articlelist.h40[data-list-cols="3"] > .pane.cover .list-title,
 .tangram-see .articlelist.h40[data-list-cols="3"] > .pane.cover .list-abstract,
 .tangram-see .articlelist.h40[data-list-cols="3"] > .pane.cover .list-meta {
-  padding: 0 3%; }
+  padding: 0 10px; }
 
 .tangram-see .articlelist[data-list-cols="3"] > .top-bottom > img,
 .tangram-see .articlelist[data-list-cols="3"] > .top-bottom > .list-figure,
@@ -4814,27 +4800,13 @@ img {
 .tangram-see .articlelist.h40[data-list-cols="3"] > .top-bottom > .list-figure,
 .tangram-see .articlelist.h40[data-list-cols="3"] > .top-bottom > .list-image {
   width: 94%;
-  margin: 20px 3%; }
+  margin: 12px 3% 0; }
 
 .tangram-see .articlelist[data-list-cols="3"] > .top-bottom > .list-body.pl-bottom,
 .tangram-see .articlelist.mh40[data-list-cols="3"] > .top-bottom > .list-body.pl-bottom,
 .tangram-see .articlelist.withthumb[data-list-cols="3"] > .top-bottom > .list-body.pl-bottom,
 .tangram-see .articlelist.h40[data-list-cols="3"] > .top-bottom > .list-body.pl-bottom {
-  padding: 0 3%; }
-
-.tangram-see .articlelist[data-list-cols="3"] > .content.top-bottom > img,
-.tangram-see .articlelist[data-list-cols="3"] > .content.top-bottom > .list-figure,
-.tangram-see .articlelist[data-list-cols="3"] > .content.top-bottom > .list-image,
-.tangram-see .articlelist.mh40[data-list-cols="3"] > .content.top-bottom > img,
-.tangram-see .articlelist.mh40[data-list-cols="3"] > .content.top-bottom > .list-figure,
-.tangram-see .articlelist.mh40[data-list-cols="3"] > .content.top-bottom > .list-image,
-.tangram-see .articlelist.withthumb[data-list-cols="3"] > .content.top-bottom > img,
-.tangram-see .articlelist.withthumb[data-list-cols="3"] > .content.top-bottom > .list-figure,
-.tangram-see .articlelist.withthumb[data-list-cols="3"] > .content.top-bottom > .list-image,
-.tangram-see .articlelist.h40[data-list-cols="3"] > .content.top-bottom > img,
-.tangram-see .articlelist.h40[data-list-cols="3"] > .content.top-bottom > .list-figure,
-.tangram-see .articlelist.h40[data-list-cols="3"] > .content.top-bottom > .list-image {
-  margin: 10px 3% 0; }
+  padding: 0 10px; }
 
 .tangram-see .articlelist[data-list-cols="3"] > .cover.top-bottom > img,
 .tangram-see .articlelist[data-list-cols="3"] > .cover.top-bottom > .list-figure,
@@ -4888,7 +4860,13 @@ img {
   .tangram-see .articlelist.withthumb[data-list-cols="4"] > * .list-abstract,
   .tangram-see .articlelist.h40[data-list-cols="4"] > * .list-title,
   .tangram-see .articlelist.h40[data-list-cols="4"] > * .list-abstract {
-    padding: 0 4%; }
+    padding: 0 10px; }
+
+.tangram-see .articlelist[data-list-cols="4"] > .content,
+.tangram-see .articlelist.mh40[data-list-cols="4"] > .content,
+.tangram-see .articlelist.withthumb[data-list-cols="4"] > .content,
+.tangram-see .articlelist.h40[data-list-cols="4"] > .content {
+  width: 23%; }
 
 .tangram-see .articlelist[data-list-cols="4"] > .card,
 .tangram-see .articlelist[data-list-cols="4"] > .pane,
@@ -4899,13 +4877,7 @@ img {
 .tangram-see .articlelist.h40[data-list-cols="4"] > .card,
 .tangram-see .articlelist.h40[data-list-cols="4"] > .pane {
   width: 23%;
-  margin: 10px 1%; }
-
-.tangram-see .articlelist[data-list-cols="4"] > .content,
-.tangram-see .articlelist.mh40[data-list-cols="4"] > .content,
-.tangram-see .articlelist.withthumb[data-list-cols="4"] > .content,
-.tangram-see .articlelist.h40[data-list-cols="4"] > .content {
-  width: 23%; }
+  margin: 7px 1%; }
 
 .tangram-see .articlelist[data-list-cols="4"] > .cover .list-title,
 .tangram-see .articlelist[data-list-cols="4"] > .cover .list-abstract,
@@ -4945,7 +4917,7 @@ img {
 .tangram-see .articlelist.h40[data-list-cols="4"] > .pane.cover .list-title,
 .tangram-see .articlelist.h40[data-list-cols="4"] > .pane.cover .list-abstract,
 .tangram-see .articlelist.h40[data-list-cols="4"] > .pane.cover .list-meta {
-  padding: 0 4%; }
+  padding: 0 10px; }
 
 .tangram-see .articlelist[data-list-cols="4"] > .top-bottom > img,
 .tangram-see .articlelist[data-list-cols="4"] > .top-bottom > .list-figure,
@@ -4960,27 +4932,13 @@ img {
 .tangram-see .articlelist.h40[data-list-cols="4"] > .top-bottom > .list-figure,
 .tangram-see .articlelist.h40[data-list-cols="4"] > .top-bottom > .list-image {
   width: 92%;
-  margin: 20px 4%; }
+  margin: 12px 4% 0; }
 
 .tangram-see .articlelist[data-list-cols="4"] > .top-bottom > .list-body.pl-bottom,
 .tangram-see .articlelist.mh40[data-list-cols="4"] > .top-bottom > .list-body.pl-bottom,
 .tangram-see .articlelist.withthumb[data-list-cols="4"] > .top-bottom > .list-body.pl-bottom,
 .tangram-see .articlelist.h40[data-list-cols="4"] > .top-bottom > .list-body.pl-bottom {
-  padding: 0 4%; }
-
-.tangram-see .articlelist[data-list-cols="4"] > .content.top-bottom > img,
-.tangram-see .articlelist[data-list-cols="4"] > .content.top-bottom > .list-figure,
-.tangram-see .articlelist[data-list-cols="4"] > .content.top-bottom > .list-image,
-.tangram-see .articlelist.mh40[data-list-cols="4"] > .content.top-bottom > img,
-.tangram-see .articlelist.mh40[data-list-cols="4"] > .content.top-bottom > .list-figure,
-.tangram-see .articlelist.mh40[data-list-cols="4"] > .content.top-bottom > .list-image,
-.tangram-see .articlelist.withthumb[data-list-cols="4"] > .content.top-bottom > img,
-.tangram-see .articlelist.withthumb[data-list-cols="4"] > .content.top-bottom > .list-figure,
-.tangram-see .articlelist.withthumb[data-list-cols="4"] > .content.top-bottom > .list-image,
-.tangram-see .articlelist.h40[data-list-cols="4"] > .content.top-bottom > img,
-.tangram-see .articlelist.h40[data-list-cols="4"] > .content.top-bottom > .list-figure,
-.tangram-see .articlelist.h40[data-list-cols="4"] > .content.top-bottom > .list-image {
-  margin: 10px 4% 0; }
+  padding: 0 10px; }
 
 .tangram-see .articlelist[data-list-cols="4"] > .cover.top-bottom > img,
 .tangram-see .articlelist[data-list-cols="4"] > .cover.top-bottom > .list-figure,
@@ -5034,7 +4992,13 @@ img {
   .tangram-see .articlelist.withthumb[data-list-cols="5"] > * .list-abstract,
   .tangram-see .articlelist.h40[data-list-cols="5"] > * .list-title,
   .tangram-see .articlelist.h40[data-list-cols="5"] > * .list-abstract {
-    padding: 0 5%; }
+    padding: 0 10px; }
+
+.tangram-see .articlelist[data-list-cols="5"] > .content,
+.tangram-see .articlelist.mh40[data-list-cols="5"] > .content,
+.tangram-see .articlelist.withthumb[data-list-cols="5"] > .content,
+.tangram-see .articlelist.h40[data-list-cols="5"] > .content {
+  width: 18%; }
 
 .tangram-see .articlelist[data-list-cols="5"] > .card,
 .tangram-see .articlelist[data-list-cols="5"] > .pane,
@@ -5045,13 +5009,7 @@ img {
 .tangram-see .articlelist.h40[data-list-cols="5"] > .card,
 .tangram-see .articlelist.h40[data-list-cols="5"] > .pane {
   width: 18%;
-  margin: 10px 1%; }
-
-.tangram-see .articlelist[data-list-cols="5"] > .content,
-.tangram-see .articlelist.mh40[data-list-cols="5"] > .content,
-.tangram-see .articlelist.withthumb[data-list-cols="5"] > .content,
-.tangram-see .articlelist.h40[data-list-cols="5"] > .content {
-  width: 18%; }
+  margin: 7px 1%; }
 
 .tangram-see .articlelist[data-list-cols="5"] > .cover .list-title,
 .tangram-see .articlelist[data-list-cols="5"] > .cover .list-abstract,
@@ -5091,7 +5049,7 @@ img {
 .tangram-see .articlelist.h40[data-list-cols="5"] > .pane.cover .list-title,
 .tangram-see .articlelist.h40[data-list-cols="5"] > .pane.cover .list-abstract,
 .tangram-see .articlelist.h40[data-list-cols="5"] > .pane.cover .list-meta {
-  padding: 0 5%; }
+  padding: 0 10px; }
 
 .tangram-see .articlelist[data-list-cols="5"] > .top-bottom > img,
 .tangram-see .articlelist[data-list-cols="5"] > .top-bottom > .list-figure,
@@ -5106,27 +5064,13 @@ img {
 .tangram-see .articlelist.h40[data-list-cols="5"] > .top-bottom > .list-figure,
 .tangram-see .articlelist.h40[data-list-cols="5"] > .top-bottom > .list-image {
   width: 90%;
-  margin: 20px 5%; }
+  margin: 12px 5% 0; }
 
 .tangram-see .articlelist[data-list-cols="5"] > .top-bottom > .list-body.pl-bottom,
 .tangram-see .articlelist.mh40[data-list-cols="5"] > .top-bottom > .list-body.pl-bottom,
 .tangram-see .articlelist.withthumb[data-list-cols="5"] > .top-bottom > .list-body.pl-bottom,
 .tangram-see .articlelist.h40[data-list-cols="5"] > .top-bottom > .list-body.pl-bottom {
-  padding: 0 5%; }
-
-.tangram-see .articlelist[data-list-cols="5"] > .content.top-bottom > img,
-.tangram-see .articlelist[data-list-cols="5"] > .content.top-bottom > .list-figure,
-.tangram-see .articlelist[data-list-cols="5"] > .content.top-bottom > .list-image,
-.tangram-see .articlelist.mh40[data-list-cols="5"] > .content.top-bottom > img,
-.tangram-see .articlelist.mh40[data-list-cols="5"] > .content.top-bottom > .list-figure,
-.tangram-see .articlelist.mh40[data-list-cols="5"] > .content.top-bottom > .list-image,
-.tangram-see .articlelist.withthumb[data-list-cols="5"] > .content.top-bottom > img,
-.tangram-see .articlelist.withthumb[data-list-cols="5"] > .content.top-bottom > .list-figure,
-.tangram-see .articlelist.withthumb[data-list-cols="5"] > .content.top-bottom > .list-image,
-.tangram-see .articlelist.h40[data-list-cols="5"] > .content.top-bottom > img,
-.tangram-see .articlelist.h40[data-list-cols="5"] > .content.top-bottom > .list-figure,
-.tangram-see .articlelist.h40[data-list-cols="5"] > .content.top-bottom > .list-image {
-  margin: 10px 5% 0; }
+  padding: 0 10px; }
 
 .tangram-see .articlelist[data-list-cols="5"] > .cover.top-bottom > img,
 .tangram-see .articlelist[data-list-cols="5"] > .cover.top-bottom > .list-figure,
@@ -5162,6 +5106,636 @@ img {
 .tangram-see .articlelist.h40[data-list-cols="5"] > .content.cover.top-bottom > .list-body {
   width: 100%;
   margin: 0; }
+
+.tangram-see .articlelist > * .list-abstract[data-row="6"] {
+  height: 126px; }
+
+.tangram-see .articlelist[data-list-cols="6"] > *,
+.tangram-see .articlelist.mh40[data-list-cols="6"] > *,
+.tangram-see .articlelist.withthumb[data-list-cols="6"] > *,
+.tangram-see .articlelist.h40[data-list-cols="6"] > * {
+  display: inline-block;
+  width: 16.66667%; }
+  .tangram-see .articlelist[data-list-cols="6"] > * .list-title,
+  .tangram-see .articlelist[data-list-cols="6"] > * .list-abstract,
+  .tangram-see .articlelist.mh40[data-list-cols="6"] > * .list-title,
+  .tangram-see .articlelist.mh40[data-list-cols="6"] > * .list-abstract,
+  .tangram-see .articlelist.withthumb[data-list-cols="6"] > * .list-title,
+  .tangram-see .articlelist.withthumb[data-list-cols="6"] > * .list-abstract,
+  .tangram-see .articlelist.h40[data-list-cols="6"] > * .list-title,
+  .tangram-see .articlelist.h40[data-list-cols="6"] > * .list-abstract {
+    padding: 0 10px; }
+
+.tangram-see .articlelist[data-list-cols="6"] > .content,
+.tangram-see .articlelist.mh40[data-list-cols="6"] > .content,
+.tangram-see .articlelist.withthumb[data-list-cols="6"] > .content,
+.tangram-see .articlelist.h40[data-list-cols="6"] > .content {
+  width: 14.66667%; }
+
+.tangram-see .articlelist[data-list-cols="6"] > .card,
+.tangram-see .articlelist[data-list-cols="6"] > .pane,
+.tangram-see .articlelist.mh40[data-list-cols="6"] > .card,
+.tangram-see .articlelist.mh40[data-list-cols="6"] > .pane,
+.tangram-see .articlelist.withthumb[data-list-cols="6"] > .card,
+.tangram-see .articlelist.withthumb[data-list-cols="6"] > .pane,
+.tangram-see .articlelist.h40[data-list-cols="6"] > .card,
+.tangram-see .articlelist.h40[data-list-cols="6"] > .pane {
+  width: 14.66667%;
+  margin: 7px 1%; }
+
+.tangram-see .articlelist[data-list-cols="6"] > .cover .list-title,
+.tangram-see .articlelist[data-list-cols="6"] > .cover .list-abstract,
+.tangram-see .articlelist[data-list-cols="6"] > .cover .list-meta,
+.tangram-see .articlelist.mh40[data-list-cols="6"] > .cover .list-title,
+.tangram-see .articlelist.mh40[data-list-cols="6"] > .cover .list-abstract,
+.tangram-see .articlelist.mh40[data-list-cols="6"] > .cover .list-meta,
+.tangram-see .articlelist.withthumb[data-list-cols="6"] > .cover .list-title,
+.tangram-see .articlelist.withthumb[data-list-cols="6"] > .cover .list-abstract,
+.tangram-see .articlelist.withthumb[data-list-cols="6"] > .cover .list-meta,
+.tangram-see .articlelist.h40[data-list-cols="6"] > .cover .list-title,
+.tangram-see .articlelist.h40[data-list-cols="6"] > .cover .list-abstract,
+.tangram-see .articlelist.h40[data-list-cols="6"] > .cover .list-meta {
+  padding: 0; }
+
+.tangram-see .articlelist[data-list-cols="6"] > .card.cover .list-title,
+.tangram-see .articlelist[data-list-cols="6"] > .card.cover .list-abstract,
+.tangram-see .articlelist[data-list-cols="6"] > .card.cover .list-meta,
+.tangram-see .articlelist[data-list-cols="6"] > .pane.cover .list-title,
+.tangram-see .articlelist[data-list-cols="6"] > .pane.cover .list-abstract,
+.tangram-see .articlelist[data-list-cols="6"] > .pane.cover .list-meta,
+.tangram-see .articlelist.mh40[data-list-cols="6"] > .card.cover .list-title,
+.tangram-see .articlelist.mh40[data-list-cols="6"] > .card.cover .list-abstract,
+.tangram-see .articlelist.mh40[data-list-cols="6"] > .card.cover .list-meta,
+.tangram-see .articlelist.mh40[data-list-cols="6"] > .pane.cover .list-title,
+.tangram-see .articlelist.mh40[data-list-cols="6"] > .pane.cover .list-abstract,
+.tangram-see .articlelist.mh40[data-list-cols="6"] > .pane.cover .list-meta,
+.tangram-see .articlelist.withthumb[data-list-cols="6"] > .card.cover .list-title,
+.tangram-see .articlelist.withthumb[data-list-cols="6"] > .card.cover .list-abstract,
+.tangram-see .articlelist.withthumb[data-list-cols="6"] > .card.cover .list-meta,
+.tangram-see .articlelist.withthumb[data-list-cols="6"] > .pane.cover .list-title,
+.tangram-see .articlelist.withthumb[data-list-cols="6"] > .pane.cover .list-abstract,
+.tangram-see .articlelist.withthumb[data-list-cols="6"] > .pane.cover .list-meta,
+.tangram-see .articlelist.h40[data-list-cols="6"] > .card.cover .list-title,
+.tangram-see .articlelist.h40[data-list-cols="6"] > .card.cover .list-abstract,
+.tangram-see .articlelist.h40[data-list-cols="6"] > .card.cover .list-meta,
+.tangram-see .articlelist.h40[data-list-cols="6"] > .pane.cover .list-title,
+.tangram-see .articlelist.h40[data-list-cols="6"] > .pane.cover .list-abstract,
+.tangram-see .articlelist.h40[data-list-cols="6"] > .pane.cover .list-meta {
+  padding: 0 10px; }
+
+.tangram-see .articlelist[data-list-cols="6"] > .top-bottom > img,
+.tangram-see .articlelist[data-list-cols="6"] > .top-bottom > .list-figure,
+.tangram-see .articlelist[data-list-cols="6"] > .top-bottom > .list-image,
+.tangram-see .articlelist.mh40[data-list-cols="6"] > .top-bottom > img,
+.tangram-see .articlelist.mh40[data-list-cols="6"] > .top-bottom > .list-figure,
+.tangram-see .articlelist.mh40[data-list-cols="6"] > .top-bottom > .list-image,
+.tangram-see .articlelist.withthumb[data-list-cols="6"] > .top-bottom > img,
+.tangram-see .articlelist.withthumb[data-list-cols="6"] > .top-bottom > .list-figure,
+.tangram-see .articlelist.withthumb[data-list-cols="6"] > .top-bottom > .list-image,
+.tangram-see .articlelist.h40[data-list-cols="6"] > .top-bottom > img,
+.tangram-see .articlelist.h40[data-list-cols="6"] > .top-bottom > .list-figure,
+.tangram-see .articlelist.h40[data-list-cols="6"] > .top-bottom > .list-image {
+  width: 88%;
+  margin: 12px 6% 0; }
+
+.tangram-see .articlelist[data-list-cols="6"] > .top-bottom > .list-body.pl-bottom,
+.tangram-see .articlelist.mh40[data-list-cols="6"] > .top-bottom > .list-body.pl-bottom,
+.tangram-see .articlelist.withthumb[data-list-cols="6"] > .top-bottom > .list-body.pl-bottom,
+.tangram-see .articlelist.h40[data-list-cols="6"] > .top-bottom > .list-body.pl-bottom {
+  padding: 0 10px; }
+
+.tangram-see .articlelist[data-list-cols="6"] > .cover.top-bottom > img,
+.tangram-see .articlelist[data-list-cols="6"] > .cover.top-bottom > .list-figure,
+.tangram-see .articlelist[data-list-cols="6"] > .cover.top-bottom > .list-image,
+.tangram-see .articlelist[data-list-cols="6"] > .cover.top-bottom > .list-body,
+.tangram-see .articlelist[data-list-cols="6"] > .content.cover.top-bottom > img,
+.tangram-see .articlelist[data-list-cols="6"] > .content.cover.top-bottom > .list-figure,
+.tangram-see .articlelist[data-list-cols="6"] > .content.cover.top-bottom > .list-image,
+.tangram-see .articlelist[data-list-cols="6"] > .content.cover.top-bottom > .list-body,
+.tangram-see .articlelist.mh40[data-list-cols="6"] > .cover.top-bottom > img,
+.tangram-see .articlelist.mh40[data-list-cols="6"] > .cover.top-bottom > .list-figure,
+.tangram-see .articlelist.mh40[data-list-cols="6"] > .cover.top-bottom > .list-image,
+.tangram-see .articlelist.mh40[data-list-cols="6"] > .cover.top-bottom > .list-body,
+.tangram-see .articlelist.mh40[data-list-cols="6"] > .content.cover.top-bottom > img,
+.tangram-see .articlelist.mh40[data-list-cols="6"] > .content.cover.top-bottom > .list-figure,
+.tangram-see .articlelist.mh40[data-list-cols="6"] > .content.cover.top-bottom > .list-image,
+.tangram-see .articlelist.mh40[data-list-cols="6"] > .content.cover.top-bottom > .list-body,
+.tangram-see .articlelist.withthumb[data-list-cols="6"] > .cover.top-bottom > img,
+.tangram-see .articlelist.withthumb[data-list-cols="6"] > .cover.top-bottom > .list-figure,
+.tangram-see .articlelist.withthumb[data-list-cols="6"] > .cover.top-bottom > .list-image,
+.tangram-see .articlelist.withthumb[data-list-cols="6"] > .cover.top-bottom > .list-body,
+.tangram-see .articlelist.withthumb[data-list-cols="6"] > .content.cover.top-bottom > img,
+.tangram-see .articlelist.withthumb[data-list-cols="6"] > .content.cover.top-bottom > .list-figure,
+.tangram-see .articlelist.withthumb[data-list-cols="6"] > .content.cover.top-bottom > .list-image,
+.tangram-see .articlelist.withthumb[data-list-cols="6"] > .content.cover.top-bottom > .list-body,
+.tangram-see .articlelist.h40[data-list-cols="6"] > .cover.top-bottom > img,
+.tangram-see .articlelist.h40[data-list-cols="6"] > .cover.top-bottom > .list-figure,
+.tangram-see .articlelist.h40[data-list-cols="6"] > .cover.top-bottom > .list-image,
+.tangram-see .articlelist.h40[data-list-cols="6"] > .cover.top-bottom > .list-body,
+.tangram-see .articlelist.h40[data-list-cols="6"] > .content.cover.top-bottom > img,
+.tangram-see .articlelist.h40[data-list-cols="6"] > .content.cover.top-bottom > .list-figure,
+.tangram-see .articlelist.h40[data-list-cols="6"] > .content.cover.top-bottom > .list-image,
+.tangram-see .articlelist.h40[data-list-cols="6"] > .content.cover.top-bottom > .list-body {
+  width: 100%;
+  margin: 0; }
+
+@media screen and (max-width: 989px) {
+  .tangram-see .articlelist,
+  .tangram-see .articlelist[data-list-cols="1"] {
+    font-size: 0;
+    -webkit-text-size-adjust: none; }
+    .tangram-see .articlelist > *,
+    .tangram-see .articlelist[data-list-cols="1"] > * {
+      width: 100%;
+      margin: 0; }
+    .tangram-see .articlelist > .content,
+    .tangram-see .articlelist[data-list-cols="1"] > .content {
+      width: 98%;
+      margin: 0 1%; }
+    .tangram-see .articlelist > .card,
+    .tangram-see .articlelist > .pane,
+    .tangram-see .articlelist[data-list-cols="1"] > .card,
+    .tangram-see .articlelist[data-list-cols="1"] > .pane {
+      width: 98%;
+      margin: 7px 1%; }
+  .tangram-see .articlelist[data-list-cols="4"] > *,
+  .tangram-see .articlelist.mh40[data-list-cols="4"] > *,
+  .tangram-see .articlelist.withthumb[data-list-cols="4"] > *,
+  .tangram-see .articlelist.h40[data-list-cols="4"] > * {
+    display: inline-block;
+    width: 33.33333%; }
+  .tangram-see .articlelist[data-list-cols="4"] > .card,
+  .tangram-see .articlelist[data-list-cols="4"] > .pane,
+  .tangram-see .articlelist[data-list-cols="4"] > .content,
+  .tangram-see .articlelist.mh40[data-list-cols="4"] > .card,
+  .tangram-see .articlelist.mh40[data-list-cols="4"] > .pane,
+  .tangram-see .articlelist.mh40[data-list-cols="4"] > .content,
+  .tangram-see .articlelist.withthumb[data-list-cols="4"] > .card,
+  .tangram-see .articlelist.withthumb[data-list-cols="4"] > .pane,
+  .tangram-see .articlelist.withthumb[data-list-cols="4"] > .content,
+  .tangram-see .articlelist.h40[data-list-cols="4"] > .card,
+  .tangram-see .articlelist.h40[data-list-cols="4"] > .pane,
+  .tangram-see .articlelist.h40[data-list-cols="4"] > .content {
+    width: 31.33333%; }
+  .tangram-see .articlelist[data-list-cols="4"] > .top-bottom > img,
+  .tangram-see .articlelist[data-list-cols="4"] > .top-bottom > .list-figure,
+  .tangram-see .articlelist[data-list-cols="4"] > .top-bottom > .list-image,
+  .tangram-see .articlelist.mh40[data-list-cols="4"] > .top-bottom > img,
+  .tangram-see .articlelist.mh40[data-list-cols="4"] > .top-bottom > .list-figure,
+  .tangram-see .articlelist.mh40[data-list-cols="4"] > .top-bottom > .list-image,
+  .tangram-see .articlelist.withthumb[data-list-cols="4"] > .top-bottom > img,
+  .tangram-see .articlelist.withthumb[data-list-cols="4"] > .top-bottom > .list-figure,
+  .tangram-see .articlelist.withthumb[data-list-cols="4"] > .top-bottom > .list-image,
+  .tangram-see .articlelist.h40[data-list-cols="4"] > .top-bottom > img,
+  .tangram-see .articlelist.h40[data-list-cols="4"] > .top-bottom > .list-figure,
+  .tangram-see .articlelist.h40[data-list-cols="4"] > .top-bottom > .list-image {
+    width: 90%;
+    margin: 14px 5% 0; }
+  .tangram-see .articlelist[data-list-cols="5"] > *,
+  .tangram-see .articlelist.mh40[data-list-cols="5"] > *,
+  .tangram-see .articlelist.withthumb[data-list-cols="5"] > *,
+  .tangram-see .articlelist.h40[data-list-cols="5"] > * {
+    display: inline-block;
+    width: 33.33333%; }
+  .tangram-see .articlelist[data-list-cols="5"] > .card,
+  .tangram-see .articlelist[data-list-cols="5"] > .pane,
+  .tangram-see .articlelist[data-list-cols="5"] > .content,
+  .tangram-see .articlelist.mh40[data-list-cols="5"] > .card,
+  .tangram-see .articlelist.mh40[data-list-cols="5"] > .pane,
+  .tangram-see .articlelist.mh40[data-list-cols="5"] > .content,
+  .tangram-see .articlelist.withthumb[data-list-cols="5"] > .card,
+  .tangram-see .articlelist.withthumb[data-list-cols="5"] > .pane,
+  .tangram-see .articlelist.withthumb[data-list-cols="5"] > .content,
+  .tangram-see .articlelist.h40[data-list-cols="5"] > .card,
+  .tangram-see .articlelist.h40[data-list-cols="5"] > .pane,
+  .tangram-see .articlelist.h40[data-list-cols="5"] > .content {
+    width: 31.33333%; }
+  .tangram-see .articlelist[data-list-cols="5"] > .top-bottom > img,
+  .tangram-see .articlelist[data-list-cols="5"] > .top-bottom > .list-figure,
+  .tangram-see .articlelist[data-list-cols="5"] > .top-bottom > .list-image,
+  .tangram-see .articlelist.mh40[data-list-cols="5"] > .top-bottom > img,
+  .tangram-see .articlelist.mh40[data-list-cols="5"] > .top-bottom > .list-figure,
+  .tangram-see .articlelist.mh40[data-list-cols="5"] > .top-bottom > .list-image,
+  .tangram-see .articlelist.withthumb[data-list-cols="5"] > .top-bottom > img,
+  .tangram-see .articlelist.withthumb[data-list-cols="5"] > .top-bottom > .list-figure,
+  .tangram-see .articlelist.withthumb[data-list-cols="5"] > .top-bottom > .list-image,
+  .tangram-see .articlelist.h40[data-list-cols="5"] > .top-bottom > img,
+  .tangram-see .articlelist.h40[data-list-cols="5"] > .top-bottom > .list-figure,
+  .tangram-see .articlelist.h40[data-list-cols="5"] > .top-bottom > .list-image {
+    width: 90%;
+    margin: 14px 5% 0; }
+  .tangram-see .articlelist[data-list-cols="6"] > *,
+  .tangram-see .articlelist.mh40[data-list-cols="6"] > *,
+  .tangram-see .articlelist.withthumb[data-list-cols="6"] > *,
+  .tangram-see .articlelist.h40[data-list-cols="6"] > * {
+    display: inline-block;
+    width: 33.33333%; }
+  .tangram-see .articlelist[data-list-cols="6"] > .card,
+  .tangram-see .articlelist[data-list-cols="6"] > .pane,
+  .tangram-see .articlelist[data-list-cols="6"] > .content,
+  .tangram-see .articlelist.mh40[data-list-cols="6"] > .card,
+  .tangram-see .articlelist.mh40[data-list-cols="6"] > .pane,
+  .tangram-see .articlelist.mh40[data-list-cols="6"] > .content,
+  .tangram-see .articlelist.withthumb[data-list-cols="6"] > .card,
+  .tangram-see .articlelist.withthumb[data-list-cols="6"] > .pane,
+  .tangram-see .articlelist.withthumb[data-list-cols="6"] > .content,
+  .tangram-see .articlelist.h40[data-list-cols="6"] > .card,
+  .tangram-see .articlelist.h40[data-list-cols="6"] > .pane,
+  .tangram-see .articlelist.h40[data-list-cols="6"] > .content {
+    width: 31.33333%; }
+  .tangram-see .articlelist[data-list-cols="6"] > .top-bottom > img,
+  .tangram-see .articlelist[data-list-cols="6"] > .top-bottom > .list-figure,
+  .tangram-see .articlelist[data-list-cols="6"] > .top-bottom > .list-image,
+  .tangram-see .articlelist.mh40[data-list-cols="6"] > .top-bottom > img,
+  .tangram-see .articlelist.mh40[data-list-cols="6"] > .top-bottom > .list-figure,
+  .tangram-see .articlelist.mh40[data-list-cols="6"] > .top-bottom > .list-image,
+  .tangram-see .articlelist.withthumb[data-list-cols="6"] > .top-bottom > img,
+  .tangram-see .articlelist.withthumb[data-list-cols="6"] > .top-bottom > .list-figure,
+  .tangram-see .articlelist.withthumb[data-list-cols="6"] > .top-bottom > .list-image,
+  .tangram-see .articlelist.h40[data-list-cols="6"] > .top-bottom > img,
+  .tangram-see .articlelist.h40[data-list-cols="6"] > .top-bottom > .list-figure,
+  .tangram-see .articlelist.h40[data-list-cols="6"] > .top-bottom > .list-image {
+    width: 90%;
+    margin: 14px 5% 0; } }
+
+@media screen and (max-width: 767px) {
+  .tangram-see .articlelist > .content,
+  .tangram-see .articlelist[data-list-cols="1"] > .content {
+    width: 96%;
+    margin: 0 2%; }
+  .tangram-see .articlelist > .card,
+  .tangram-see .articlelist > .pane,
+  .tangram-see .articlelist[data-list-cols="1"] > .card,
+  .tangram-see .articlelist[data-list-cols="1"] > .pane {
+    width: 96%;
+    margin: 7px 2%; }
+  .tangram-see .articlelist[data-list-cols="2"] > *,
+  .tangram-see .articlelist.mh40[data-list-cols="2"] > *,
+  .tangram-see .articlelist.withthumb[data-list-cols="2"] > *,
+  .tangram-see .articlelist.h40[data-list-cols="2"] > * {
+    width: 50%; }
+  .tangram-see .articlelist[data-list-cols="2"] > .content,
+  .tangram-see .articlelist.mh40[data-list-cols="2"] > .content,
+  .tangram-see .articlelist.withthumb[data-list-cols="2"] > .content,
+  .tangram-see .articlelist.h40[data-list-cols="2"] > .content {
+    width: 46%;
+    margin: 0 2%; }
+  .tangram-see .articlelist[data-list-cols="2"] > .card,
+  .tangram-see .articlelist[data-list-cols="2"] > .pane,
+  .tangram-see .articlelist.mh40[data-list-cols="2"] > .card,
+  .tangram-see .articlelist.mh40[data-list-cols="2"] > .pane,
+  .tangram-see .articlelist.withthumb[data-list-cols="2"] > .card,
+  .tangram-see .articlelist.withthumb[data-list-cols="2"] > .pane,
+  .tangram-see .articlelist.h40[data-list-cols="2"] > .card,
+  .tangram-see .articlelist.h40[data-list-cols="2"] > .pane {
+    width: 46%;
+    margin: 7px 2%; }
+  .tangram-see .articlelist[data-list-cols="2"] > .top-bottom > img,
+  .tangram-see .articlelist[data-list-cols="2"] > .top-bottom > .list-figure,
+  .tangram-see .articlelist[data-list-cols="2"] > .top-bottom > .list-image,
+  .tangram-see .articlelist.mh40[data-list-cols="2"] > .top-bottom > img,
+  .tangram-see .articlelist.mh40[data-list-cols="2"] > .top-bottom > .list-figure,
+  .tangram-see .articlelist.mh40[data-list-cols="2"] > .top-bottom > .list-image,
+  .tangram-see .articlelist.withthumb[data-list-cols="2"] > .top-bottom > img,
+  .tangram-see .articlelist.withthumb[data-list-cols="2"] > .top-bottom > .list-figure,
+  .tangram-see .articlelist.withthumb[data-list-cols="2"] > .top-bottom > .list-image,
+  .tangram-see .articlelist.h40[data-list-cols="2"] > .top-bottom > img,
+  .tangram-see .articlelist.h40[data-list-cols="2"] > .top-bottom > .list-figure,
+  .tangram-see .articlelist.h40[data-list-cols="2"] > .top-bottom > .list-image {
+    width: 92%;
+    margin: 7px 4% 0; }
+  .tangram-see .articlelist[data-list-cols="3"] > *,
+  .tangram-see .articlelist.mh40[data-list-cols="3"] > *,
+  .tangram-see .articlelist.withthumb[data-list-cols="3"] > *,
+  .tangram-see .articlelist.h40[data-list-cols="3"] > * {
+    width: 50%; }
+  .tangram-see .articlelist[data-list-cols="3"] > .content,
+  .tangram-see .articlelist.mh40[data-list-cols="3"] > .content,
+  .tangram-see .articlelist.withthumb[data-list-cols="3"] > .content,
+  .tangram-see .articlelist.h40[data-list-cols="3"] > .content {
+    width: 46%;
+    margin: 0 2%; }
+  .tangram-see .articlelist[data-list-cols="3"] > .card,
+  .tangram-see .articlelist[data-list-cols="3"] > .pane,
+  .tangram-see .articlelist.mh40[data-list-cols="3"] > .card,
+  .tangram-see .articlelist.mh40[data-list-cols="3"] > .pane,
+  .tangram-see .articlelist.withthumb[data-list-cols="3"] > .card,
+  .tangram-see .articlelist.withthumb[data-list-cols="3"] > .pane,
+  .tangram-see .articlelist.h40[data-list-cols="3"] > .card,
+  .tangram-see .articlelist.h40[data-list-cols="3"] > .pane {
+    width: 46%;
+    margin: 7px 2%; }
+  .tangram-see .articlelist[data-list-cols="3"] > .top-bottom > img,
+  .tangram-see .articlelist[data-list-cols="3"] > .top-bottom > .list-figure,
+  .tangram-see .articlelist[data-list-cols="3"] > .top-bottom > .list-image,
+  .tangram-see .articlelist.mh40[data-list-cols="3"] > .top-bottom > img,
+  .tangram-see .articlelist.mh40[data-list-cols="3"] > .top-bottom > .list-figure,
+  .tangram-see .articlelist.mh40[data-list-cols="3"] > .top-bottom > .list-image,
+  .tangram-see .articlelist.withthumb[data-list-cols="3"] > .top-bottom > img,
+  .tangram-see .articlelist.withthumb[data-list-cols="3"] > .top-bottom > .list-figure,
+  .tangram-see .articlelist.withthumb[data-list-cols="3"] > .top-bottom > .list-image,
+  .tangram-see .articlelist.h40[data-list-cols="3"] > .top-bottom > img,
+  .tangram-see .articlelist.h40[data-list-cols="3"] > .top-bottom > .list-figure,
+  .tangram-see .articlelist.h40[data-list-cols="3"] > .top-bottom > .list-image {
+    width: 92%;
+    margin: 7px 4% 0; }
+  .tangram-see .articlelist[data-list-cols="4"] > *,
+  .tangram-see .articlelist.mh40[data-list-cols="4"] > *,
+  .tangram-see .articlelist.withthumb[data-list-cols="4"] > *,
+  .tangram-see .articlelist.h40[data-list-cols="4"] > * {
+    width: 50%; }
+  .tangram-see .articlelist[data-list-cols="4"] > .content,
+  .tangram-see .articlelist.mh40[data-list-cols="4"] > .content,
+  .tangram-see .articlelist.withthumb[data-list-cols="4"] > .content,
+  .tangram-see .articlelist.h40[data-list-cols="4"] > .content {
+    width: 46%;
+    margin: 0 2%; }
+  .tangram-see .articlelist[data-list-cols="4"] > .card,
+  .tangram-see .articlelist[data-list-cols="4"] > .pane,
+  .tangram-see .articlelist.mh40[data-list-cols="4"] > .card,
+  .tangram-see .articlelist.mh40[data-list-cols="4"] > .pane,
+  .tangram-see .articlelist.withthumb[data-list-cols="4"] > .card,
+  .tangram-see .articlelist.withthumb[data-list-cols="4"] > .pane,
+  .tangram-see .articlelist.h40[data-list-cols="4"] > .card,
+  .tangram-see .articlelist.h40[data-list-cols="4"] > .pane {
+    width: 46%;
+    margin: 7px 2%; }
+  .tangram-see .articlelist[data-list-cols="4"] > .top-bottom > img,
+  .tangram-see .articlelist[data-list-cols="4"] > .top-bottom > .list-figure,
+  .tangram-see .articlelist[data-list-cols="4"] > .top-bottom > .list-image,
+  .tangram-see .articlelist.mh40[data-list-cols="4"] > .top-bottom > img,
+  .tangram-see .articlelist.mh40[data-list-cols="4"] > .top-bottom > .list-figure,
+  .tangram-see .articlelist.mh40[data-list-cols="4"] > .top-bottom > .list-image,
+  .tangram-see .articlelist.withthumb[data-list-cols="4"] > .top-bottom > img,
+  .tangram-see .articlelist.withthumb[data-list-cols="4"] > .top-bottom > .list-figure,
+  .tangram-see .articlelist.withthumb[data-list-cols="4"] > .top-bottom > .list-image,
+  .tangram-see .articlelist.h40[data-list-cols="4"] > .top-bottom > img,
+  .tangram-see .articlelist.h40[data-list-cols="4"] > .top-bottom > .list-figure,
+  .tangram-see .articlelist.h40[data-list-cols="4"] > .top-bottom > .list-image {
+    width: 92%;
+    margin: 7px 4% 0; }
+  .tangram-see .articlelist[data-list-cols="5"] > *,
+  .tangram-see .articlelist.mh40[data-list-cols="5"] > *,
+  .tangram-see .articlelist.withthumb[data-list-cols="5"] > *,
+  .tangram-see .articlelist.h40[data-list-cols="5"] > * {
+    width: 50%; }
+  .tangram-see .articlelist[data-list-cols="5"] > .content,
+  .tangram-see .articlelist.mh40[data-list-cols="5"] > .content,
+  .tangram-see .articlelist.withthumb[data-list-cols="5"] > .content,
+  .tangram-see .articlelist.h40[data-list-cols="5"] > .content {
+    width: 46%;
+    margin: 0 2%; }
+  .tangram-see .articlelist[data-list-cols="5"] > .card,
+  .tangram-see .articlelist[data-list-cols="5"] > .pane,
+  .tangram-see .articlelist.mh40[data-list-cols="5"] > .card,
+  .tangram-see .articlelist.mh40[data-list-cols="5"] > .pane,
+  .tangram-see .articlelist.withthumb[data-list-cols="5"] > .card,
+  .tangram-see .articlelist.withthumb[data-list-cols="5"] > .pane,
+  .tangram-see .articlelist.h40[data-list-cols="5"] > .card,
+  .tangram-see .articlelist.h40[data-list-cols="5"] > .pane {
+    width: 46%;
+    margin: 7px 2%; }
+  .tangram-see .articlelist[data-list-cols="5"] > .top-bottom > img,
+  .tangram-see .articlelist[data-list-cols="5"] > .top-bottom > .list-figure,
+  .tangram-see .articlelist[data-list-cols="5"] > .top-bottom > .list-image,
+  .tangram-see .articlelist.mh40[data-list-cols="5"] > .top-bottom > img,
+  .tangram-see .articlelist.mh40[data-list-cols="5"] > .top-bottom > .list-figure,
+  .tangram-see .articlelist.mh40[data-list-cols="5"] > .top-bottom > .list-image,
+  .tangram-see .articlelist.withthumb[data-list-cols="5"] > .top-bottom > img,
+  .tangram-see .articlelist.withthumb[data-list-cols="5"] > .top-bottom > .list-figure,
+  .tangram-see .articlelist.withthumb[data-list-cols="5"] > .top-bottom > .list-image,
+  .tangram-see .articlelist.h40[data-list-cols="5"] > .top-bottom > img,
+  .tangram-see .articlelist.h40[data-list-cols="5"] > .top-bottom > .list-figure,
+  .tangram-see .articlelist.h40[data-list-cols="5"] > .top-bottom > .list-image {
+    width: 92%;
+    margin: 7px 4% 0; }
+  .tangram-see .articlelist[data-list-cols="6"] > *,
+  .tangram-see .articlelist.mh40[data-list-cols="6"] > *,
+  .tangram-see .articlelist.withthumb[data-list-cols="6"] > *,
+  .tangram-see .articlelist.h40[data-list-cols="6"] > * {
+    width: 50%; }
+  .tangram-see .articlelist[data-list-cols="6"] > .content,
+  .tangram-see .articlelist.mh40[data-list-cols="6"] > .content,
+  .tangram-see .articlelist.withthumb[data-list-cols="6"] > .content,
+  .tangram-see .articlelist.h40[data-list-cols="6"] > .content {
+    width: 46%;
+    margin: 0 2%; }
+  .tangram-see .articlelist[data-list-cols="6"] > .card,
+  .tangram-see .articlelist[data-list-cols="6"] > .pane,
+  .tangram-see .articlelist.mh40[data-list-cols="6"] > .card,
+  .tangram-see .articlelist.mh40[data-list-cols="6"] > .pane,
+  .tangram-see .articlelist.withthumb[data-list-cols="6"] > .card,
+  .tangram-see .articlelist.withthumb[data-list-cols="6"] > .pane,
+  .tangram-see .articlelist.h40[data-list-cols="6"] > .card,
+  .tangram-see .articlelist.h40[data-list-cols="6"] > .pane {
+    width: 46%;
+    margin: 7px 2%; }
+  .tangram-see .articlelist[data-list-cols="6"] > .top-bottom > img,
+  .tangram-see .articlelist[data-list-cols="6"] > .top-bottom > .list-figure,
+  .tangram-see .articlelist[data-list-cols="6"] > .top-bottom > .list-image,
+  .tangram-see .articlelist.mh40[data-list-cols="6"] > .top-bottom > img,
+  .tangram-see .articlelist.mh40[data-list-cols="6"] > .top-bottom > .list-figure,
+  .tangram-see .articlelist.mh40[data-list-cols="6"] > .top-bottom > .list-image,
+  .tangram-see .articlelist.withthumb[data-list-cols="6"] > .top-bottom > img,
+  .tangram-see .articlelist.withthumb[data-list-cols="6"] > .top-bottom > .list-figure,
+  .tangram-see .articlelist.withthumb[data-list-cols="6"] > .top-bottom > .list-image,
+  .tangram-see .articlelist.h40[data-list-cols="6"] > .top-bottom > img,
+  .tangram-see .articlelist.h40[data-list-cols="6"] > .top-bottom > .list-figure,
+  .tangram-see .articlelist.h40[data-list-cols="6"] > .top-bottom > .list-image {
+    width: 92%;
+    margin: 7px 4% 0; } }
+
+@media screen and (max-width: 360px) {
+  .tangram-see .articlelist > .content,
+  .tangram-see .articlelist[data-list-cols="1"] > .content {
+    width: 94%;
+    margin: 0 3%; }
+  .tangram-see .articlelist > .card,
+  .tangram-see .articlelist > .pane,
+  .tangram-see .articlelist[data-list-cols="1"] > .card,
+  .tangram-see .articlelist[data-list-cols="1"] > .pane {
+    width: 94%;
+    margin: 5px 3%; }
+  .tangram-see .articlelist[data-list-cols="2"] > *,
+  .tangram-see .articlelist.mh40[data-list-cols="2"] > *,
+  .tangram-see .articlelist.withthumb[data-list-cols="2"] > *,
+  .tangram-see .articlelist.h40[data-list-cols="2"] > * {
+    width: 94%;
+    margin: 0 3%; }
+  .tangram-see .articlelist[data-list-cols="2"] > .content,
+  .tangram-see .articlelist.mh40[data-list-cols="2"] > .content,
+  .tangram-see .articlelist.withthumb[data-list-cols="2"] > .content,
+  .tangram-see .articlelist.h40[data-list-cols="2"] > .content {
+    width: 94%;
+    margin: 0 3%; }
+  .tangram-see .articlelist[data-list-cols="2"] > .card,
+  .tangram-see .articlelist[data-list-cols="2"] > .pane,
+  .tangram-see .articlelist.mh40[data-list-cols="2"] > .card,
+  .tangram-see .articlelist.mh40[data-list-cols="2"] > .pane,
+  .tangram-see .articlelist.withthumb[data-list-cols="2"] > .card,
+  .tangram-see .articlelist.withthumb[data-list-cols="2"] > .pane,
+  .tangram-see .articlelist.h40[data-list-cols="2"] > .card,
+  .tangram-see .articlelist.h40[data-list-cols="2"] > .pane {
+    width: 94%;
+    margin: 5px 3%; }
+  .tangram-see .articlelist[data-list-cols="2"] > .top-bottom > img,
+  .tangram-see .articlelist[data-list-cols="2"] > .top-bottom > .list-figure,
+  .tangram-see .articlelist[data-list-cols="2"] > .top-bottom > .list-image,
+  .tangram-see .articlelist.mh40[data-list-cols="2"] > .top-bottom > img,
+  .tangram-see .articlelist.mh40[data-list-cols="2"] > .top-bottom > .list-figure,
+  .tangram-see .articlelist.mh40[data-list-cols="2"] > .top-bottom > .list-image,
+  .tangram-see .articlelist.withthumb[data-list-cols="2"] > .top-bottom > img,
+  .tangram-see .articlelist.withthumb[data-list-cols="2"] > .top-bottom > .list-figure,
+  .tangram-see .articlelist.withthumb[data-list-cols="2"] > .top-bottom > .list-image,
+  .tangram-see .articlelist.h40[data-list-cols="2"] > .top-bottom > img,
+  .tangram-see .articlelist.h40[data-list-cols="2"] > .top-bottom > .list-figure,
+  .tangram-see .articlelist.h40[data-list-cols="2"] > .top-bottom > .list-image {
+    width: 94%;
+    margin: 10px 3% 0; }
+  .tangram-see .articlelist[data-list-cols="3"] > *,
+  .tangram-see .articlelist.mh40[data-list-cols="3"] > *,
+  .tangram-see .articlelist.withthumb[data-list-cols="3"] > *,
+  .tangram-see .articlelist.h40[data-list-cols="3"] > * {
+    width: 94%;
+    margin: 0 3%; }
+  .tangram-see .articlelist[data-list-cols="3"] > .content,
+  .tangram-see .articlelist.mh40[data-list-cols="3"] > .content,
+  .tangram-see .articlelist.withthumb[data-list-cols="3"] > .content,
+  .tangram-see .articlelist.h40[data-list-cols="3"] > .content {
+    width: 94%;
+    margin: 0 3%; }
+  .tangram-see .articlelist[data-list-cols="3"] > .card,
+  .tangram-see .articlelist[data-list-cols="3"] > .pane,
+  .tangram-see .articlelist.mh40[data-list-cols="3"] > .card,
+  .tangram-see .articlelist.mh40[data-list-cols="3"] > .pane,
+  .tangram-see .articlelist.withthumb[data-list-cols="3"] > .card,
+  .tangram-see .articlelist.withthumb[data-list-cols="3"] > .pane,
+  .tangram-see .articlelist.h40[data-list-cols="3"] > .card,
+  .tangram-see .articlelist.h40[data-list-cols="3"] > .pane {
+    width: 94%;
+    margin: 5px 3%; }
+  .tangram-see .articlelist[data-list-cols="3"] > .top-bottom > img,
+  .tangram-see .articlelist[data-list-cols="3"] > .top-bottom > .list-figure,
+  .tangram-see .articlelist[data-list-cols="3"] > .top-bottom > .list-image,
+  .tangram-see .articlelist.mh40[data-list-cols="3"] > .top-bottom > img,
+  .tangram-see .articlelist.mh40[data-list-cols="3"] > .top-bottom > .list-figure,
+  .tangram-see .articlelist.mh40[data-list-cols="3"] > .top-bottom > .list-image,
+  .tangram-see .articlelist.withthumb[data-list-cols="3"] > .top-bottom > img,
+  .tangram-see .articlelist.withthumb[data-list-cols="3"] > .top-bottom > .list-figure,
+  .tangram-see .articlelist.withthumb[data-list-cols="3"] > .top-bottom > .list-image,
+  .tangram-see .articlelist.h40[data-list-cols="3"] > .top-bottom > img,
+  .tangram-see .articlelist.h40[data-list-cols="3"] > .top-bottom > .list-figure,
+  .tangram-see .articlelist.h40[data-list-cols="3"] > .top-bottom > .list-image {
+    width: 94%;
+    margin: 10px 3% 0; }
+  .tangram-see .articlelist[data-list-cols="4"] > *,
+  .tangram-see .articlelist.mh40[data-list-cols="4"] > *,
+  .tangram-see .articlelist.withthumb[data-list-cols="4"] > *,
+  .tangram-see .articlelist.h40[data-list-cols="4"] > * {
+    width: 94%;
+    margin: 0 3%; }
+  .tangram-see .articlelist[data-list-cols="4"] > .content,
+  .tangram-see .articlelist.mh40[data-list-cols="4"] > .content,
+  .tangram-see .articlelist.withthumb[data-list-cols="4"] > .content,
+  .tangram-see .articlelist.h40[data-list-cols="4"] > .content {
+    width: 94%;
+    margin: 0 3%; }
+  .tangram-see .articlelist[data-list-cols="4"] > .card,
+  .tangram-see .articlelist[data-list-cols="4"] > .pane,
+  .tangram-see .articlelist.mh40[data-list-cols="4"] > .card,
+  .tangram-see .articlelist.mh40[data-list-cols="4"] > .pane,
+  .tangram-see .articlelist.withthumb[data-list-cols="4"] > .card,
+  .tangram-see .articlelist.withthumb[data-list-cols="4"] > .pane,
+  .tangram-see .articlelist.h40[data-list-cols="4"] > .card,
+  .tangram-see .articlelist.h40[data-list-cols="4"] > .pane {
+    width: 94%;
+    margin: 5px 3%; }
+  .tangram-see .articlelist[data-list-cols="4"] > .top-bottom > img,
+  .tangram-see .articlelist[data-list-cols="4"] > .top-bottom > .list-figure,
+  .tangram-see .articlelist[data-list-cols="4"] > .top-bottom > .list-image,
+  .tangram-see .articlelist.mh40[data-list-cols="4"] > .top-bottom > img,
+  .tangram-see .articlelist.mh40[data-list-cols="4"] > .top-bottom > .list-figure,
+  .tangram-see .articlelist.mh40[data-list-cols="4"] > .top-bottom > .list-image,
+  .tangram-see .articlelist.withthumb[data-list-cols="4"] > .top-bottom > img,
+  .tangram-see .articlelist.withthumb[data-list-cols="4"] > .top-bottom > .list-figure,
+  .tangram-see .articlelist.withthumb[data-list-cols="4"] > .top-bottom > .list-image,
+  .tangram-see .articlelist.h40[data-list-cols="4"] > .top-bottom > img,
+  .tangram-see .articlelist.h40[data-list-cols="4"] > .top-bottom > .list-figure,
+  .tangram-see .articlelist.h40[data-list-cols="4"] > .top-bottom > .list-image {
+    width: 94%;
+    margin: 10px 3% 0; }
+  .tangram-see .articlelist[data-list-cols="5"] > *,
+  .tangram-see .articlelist.mh40[data-list-cols="5"] > *,
+  .tangram-see .articlelist.withthumb[data-list-cols="5"] > *,
+  .tangram-see .articlelist.h40[data-list-cols="5"] > * {
+    width: 94%;
+    margin: 0 3%; }
+  .tangram-see .articlelist[data-list-cols="5"] > .content,
+  .tangram-see .articlelist.mh40[data-list-cols="5"] > .content,
+  .tangram-see .articlelist.withthumb[data-list-cols="5"] > .content,
+  .tangram-see .articlelist.h40[data-list-cols="5"] > .content {
+    width: 94%;
+    margin: 0 3%; }
+  .tangram-see .articlelist[data-list-cols="5"] > .card,
+  .tangram-see .articlelist[data-list-cols="5"] > .pane,
+  .tangram-see .articlelist.mh40[data-list-cols="5"] > .card,
+  .tangram-see .articlelist.mh40[data-list-cols="5"] > .pane,
+  .tangram-see .articlelist.withthumb[data-list-cols="5"] > .card,
+  .tangram-see .articlelist.withthumb[data-list-cols="5"] > .pane,
+  .tangram-see .articlelist.h40[data-list-cols="5"] > .card,
+  .tangram-see .articlelist.h40[data-list-cols="5"] > .pane {
+    width: 94%;
+    margin: 5px 3%; }
+  .tangram-see .articlelist[data-list-cols="5"] > .top-bottom > img,
+  .tangram-see .articlelist[data-list-cols="5"] > .top-bottom > .list-figure,
+  .tangram-see .articlelist[data-list-cols="5"] > .top-bottom > .list-image,
+  .tangram-see .articlelist.mh40[data-list-cols="5"] > .top-bottom > img,
+  .tangram-see .articlelist.mh40[data-list-cols="5"] > .top-bottom > .list-figure,
+  .tangram-see .articlelist.mh40[data-list-cols="5"] > .top-bottom > .list-image,
+  .tangram-see .articlelist.withthumb[data-list-cols="5"] > .top-bottom > img,
+  .tangram-see .articlelist.withthumb[data-list-cols="5"] > .top-bottom > .list-figure,
+  .tangram-see .articlelist.withthumb[data-list-cols="5"] > .top-bottom > .list-image,
+  .tangram-see .articlelist.h40[data-list-cols="5"] > .top-bottom > img,
+  .tangram-see .articlelist.h40[data-list-cols="5"] > .top-bottom > .list-figure,
+  .tangram-see .articlelist.h40[data-list-cols="5"] > .top-bottom > .list-image {
+    width: 94%;
+    margin: 10px 3% 0; }
+  .tangram-see .articlelist[data-list-cols="6"] > *,
+  .tangram-see .articlelist.mh40[data-list-cols="6"] > *,
+  .tangram-see .articlelist.withthumb[data-list-cols="6"] > *,
+  .tangram-see .articlelist.h40[data-list-cols="6"] > * {
+    width: 94%;
+    margin: 0 3%; }
+  .tangram-see .articlelist[data-list-cols="6"] > .content,
+  .tangram-see .articlelist.mh40[data-list-cols="6"] > .content,
+  .tangram-see .articlelist.withthumb[data-list-cols="6"] > .content,
+  .tangram-see .articlelist.h40[data-list-cols="6"] > .content {
+    width: 94%;
+    margin: 0 3%; }
+  .tangram-see .articlelist[data-list-cols="6"] > .card,
+  .tangram-see .articlelist[data-list-cols="6"] > .pane,
+  .tangram-see .articlelist.mh40[data-list-cols="6"] > .card,
+  .tangram-see .articlelist.mh40[data-list-cols="6"] > .pane,
+  .tangram-see .articlelist.withthumb[data-list-cols="6"] > .card,
+  .tangram-see .articlelist.withthumb[data-list-cols="6"] > .pane,
+  .tangram-see .articlelist.h40[data-list-cols="6"] > .card,
+  .tangram-see .articlelist.h40[data-list-cols="6"] > .pane {
+    width: 94%;
+    margin: 5px 3%; }
+  .tangram-see .articlelist[data-list-cols="6"] > .top-bottom > img,
+  .tangram-see .articlelist[data-list-cols="6"] > .top-bottom > .list-figure,
+  .tangram-see .articlelist[data-list-cols="6"] > .top-bottom > .list-image,
+  .tangram-see .articlelist.mh40[data-list-cols="6"] > .top-bottom > img,
+  .tangram-see .articlelist.mh40[data-list-cols="6"] > .top-bottom > .list-figure,
+  .tangram-see .articlelist.mh40[data-list-cols="6"] > .top-bottom > .list-image,
+  .tangram-see .articlelist.withthumb[data-list-cols="6"] > .top-bottom > img,
+  .tangram-see .articlelist.withthumb[data-list-cols="6"] > .top-bottom > .list-figure,
+  .tangram-see .articlelist.withthumb[data-list-cols="6"] > .top-bottom > .list-image,
+  .tangram-see .articlelist.h40[data-list-cols="6"] > .top-bottom > img,
+  .tangram-see .articlelist.h40[data-list-cols="6"] > .top-bottom > .list-figure,
+  .tangram-see .articlelist.h40[data-list-cols="6"] > .top-bottom > .list-image {
+    width: 94%;
+    margin: 10px 3% 0; } }
 
 .tangram-see .articlelist.h40 > .topline[data-line-color=ashy],
 .tangram-see .articlelist.mh40 > .topline[data-line-color=ashy],
@@ -5735,14 +6309,14 @@ img {
   .tangram-see .articlelist > * .list-title {
     height: 30px;
     width: 100%;
-    padding: 0 1%;
+    padding: 0 10px;
     line-height: 30px;
     font-size: 15px;
     font-size: 0.75rem;
     color: inherit; }
   .tangram-see .articlelist > * .list-abstract {
     width: 100%;
-    padding: 0 1%;
+    padding: 0 10px;
     line-height: 21px;
     font-size: 12px;
     font-size: 0.6rem;
@@ -5750,7 +6324,7 @@ img {
     text-align: justify; }
   .tangram-see .articlelist > * .list-meta {
     width: 100%;
-    padding: 0 1%;
+    padding: 0 10px;
     line-height: 24px;
     font-size: 13px;
     font-size: 0.65rem;
@@ -5776,7 +6350,7 @@ img {
   .tangram-see .articlelist > * .list-title > span,
   .tangram-see .articlelist > * .list-text {
     width: 100%;
-    padding: 0 1%;
+    padding: 0 10px;
     line-height: 30px;
     font-size: 13px;
     font-size: 0.65rem;
@@ -5892,7 +6466,7 @@ img {
 .tangram-see .articlelist > .pane.cover .list-title,
 .tangram-see .articlelist > .pane.cover .list-abstract,
 .tangram-see .articlelist > .pane.cover .list-meta {
-  padding: 0 1%; }
+  padding: 0 10px; }
 
 .tangram-see .boxlist {
   max-width: 1080px;

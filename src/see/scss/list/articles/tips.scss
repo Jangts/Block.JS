@@ -1,6 +1,6 @@
 @mixin inner-item-style($height, $size, $color) {
     width: 100%;
-    padding: 0 1%;
+    padding: 0 10px;
     line-height: $height;
     font-size: #{$size}px;
     font-size: #{$size/20}rem;
@@ -78,9 +78,7 @@
         $alias,
         $color,
         $bgcolor,
-        
-        $bordercolor 
-        in $commoncolors {
+        $bordercolor in $commoncolors {
             @if($index>1) {
                 >i.hollow[data-color=#{$name}],
                 .list-title>i.hollow[data-color=#{$name}],
@@ -161,7 +159,7 @@
         .list-title,
         .list-abstract,
         .list-meta {
-            padding: 0 1%;
+            padding: 0 10px;
         }
     }
 }

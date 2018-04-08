@@ -1,0 +1,60 @@
+.articlelist,
+.articlelist[data-list-cols="1"] {
+    // >* {
+    //     width: 100%;
+    //     margin: 0;
+    // }
+    >.content {
+        width: 94%;
+        margin: 0 3%;
+    }
+    >.card,
+    >.pane {
+        width: 94%;
+        margin: 5px 3%;
+    }
+}
+
+@for $i from 2 through 6 {
+    .articlelist[data-list-cols="#{$i}"],
+    .articlelist.mh40[data-list-cols="#{$i}"],
+    .articlelist.withthumb[data-list-cols="#{$i}"],
+    .articlelist.h40[data-list-cols="#{$i}"] {
+        >* {
+            width: 94%;
+            margin: 0 3%;
+            // .list-title,
+            // .list-abstract {
+            //    padding: 0 10px;
+            // }
+        }
+        >.content {
+            width: 94%;
+            margin: 0 3%;
+        }
+        >.card,
+        >.pane {
+            width: 94%;
+            margin: 5px 3%;
+        }
+        // >.card.cover,
+        // >.pane.cover {
+        //     .list-title,
+        //     .list-abstract,
+        //     .list-meta {
+        //        padding: 0 10px;
+        //     }
+        // }
+        >.top-bottom {
+            >img,
+            >.list-figure,
+            >.list-image {
+                width: 94%;
+                margin: 10px 3% 0;
+            }
+            // >.list-body.pl-bottom {
+            //    padding: 0 10px;
+            // }
+        }
+    }
+}

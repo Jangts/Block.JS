@@ -54,7 +54,7 @@ $sizes:(h51, 51px, 51px, 63, 63),
         >.list-body:first-child,
         >.list-body:last-child {
             display: inline-block;
-            margin: 10px 0;
+            margin: 0 0 10px;
         }
     }
     >.cover,
@@ -87,7 +87,7 @@ $sizes:(h51, 51px, 51px, 63, 63),
         .list-title,
         .list-abstract,
         .list-meta {
-            padding: 0 0 0 1%;
+            padding: 0 0 0 10px;
         }
     }
     >.card.content.cover {

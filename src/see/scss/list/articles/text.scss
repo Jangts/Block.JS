@@ -2,7 +2,7 @@
     >* {
         width: 100%;
         height: 40px;
-        padding: 5px 1%;
+        padding: 5px 10px;
         font-size: 14px;
         font-size: 0.7rem;
         line-height: 30px;
@@ -24,18 +24,18 @@
     }
     >.card.content,
     >.pane.content {
-        padding: 5px 1%;
+        padding: 5px 10px;
     }
     >.card.cover,
     >.pane.cover {
-        padding: 0 1%;
+        padding: 0 10px;
     }
     >.content.cover {
         padding: 0;
     }
     >.content.card.cover,
     >.content.pane.cover {
-        padding: 0 1%;
+        padding: 0 10px;
     }
     >.cover.topline,
     >.cover.underline {
