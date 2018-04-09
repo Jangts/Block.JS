@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>default style | flex boxes</title>
+    <link rel="stylesheet" type="text/css" href="../../../../src/see/see.css" />
     <style>
         section {
             box-sizing: border-box;
@@ -17,7 +18,7 @@
         }
         
         .flex {
-            display: flex;
+            /* display: flex; */
             width: 100%;
             height: 400px;
         }
@@ -35,7 +36,7 @@
             width: 120px;
         }
         
-        .flex>div div {
+        .content {
             width: 60px;
             height: 60px;
             background-color: lightgray;
@@ -46,19 +47,19 @@
             color: #fff;
             border-radius: 30px;
             cursor: pointer;
-        }
+        } 
         
-        .flex.wrap {
+        /* .flex.wrap {
             flex-wrap: wrap;
         }
         
         .flex.wrap-reverse {
             flex-wrap: wrap-reverse;
-        }
+        } */
     </style>
 </head>
 
-<body>
+<body class="tangram-see">
     <section>
         <h4>20项，不设宽度</h4>
         <div class="flex">

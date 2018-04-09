@@ -11,7 +11,7 @@ $sizes:(h51, 51px, 51px, 63, 63),
 (h54, 54px, 54px, 66, 66),
 (h75, 100px, 75px, 112, 87),
 (h96, 128px, 96px, 140, 108),
-(h117, 156px, 117p, 168, 129),
+(h117, 156px, 117px, 168, 129),
 (h138, 184px, 138px, 196, 150);
 .articlelist.withthumb {
     >* {
@@ -49,7 +49,7 @@ $sizes:(h51, 51px, 51px, 63, 63),
         >.list-image {
             float: left;
             display: block;
-            margin: 10px 0 10px 1%;
+            margin: 10px 0 10px 10px;
         }
         >.list-body:first-child,
         >.list-body:last-child {
@@ -62,7 +62,7 @@ $sizes:(h51, 51px, 51px, 63, 63),
         >img,
         >.list-figure,
         >.list-image {
-            margin: 0 1% 0 0;
+            margin: 0 10px 0 0;
         }
         >.list-body {
             margin: 0;
@@ -72,7 +72,7 @@ $sizes:(h51, 51px, 51px, 63, 63),
         >img,
         >.list-figure,
         >.list-image {
-            margin: 10px 0 10px 1%;
+            margin: 10px 0 10px 10px;
         }
         >.list-body {
             margin: 10px 0;
@@ -103,7 +103,7 @@ $sizes:(h51, 51px, 51px, 63, 63),
         >img,
         >.list-figure,
         >.list-image {
-            margin: 10px 1% 10px 0;
+            margin: 10px 10px 10px 0;
         }
         >.list-body {
             margin: 10px 0;
@@ -118,5 +118,5 @@ $sizes:(h51, 51px, 51px, 63, 63),
     }
 }
 
-@import "al-right";
-@import "al-top";
+@import "right-left";
+@import "top-bottom";

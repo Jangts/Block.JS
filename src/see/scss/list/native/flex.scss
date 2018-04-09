@@ -75,6 +75,14 @@
     justify-content: space-around;
 }
 
+.flex.wrap {
+    flex-wrap: wrap;
+}
+
+.wrap-reverse {
+    flex-wrap: wrap-reverse;
+}
+
 $aligns:(start, flex-start),
 (end, flex-end),
 (center, center),

@@ -19,13 +19,11 @@
 
 @for $i from 4 through 6 {
     .articlelist[data-list-cols="#{$i}"],
-    .articlelist.mh40[data-list-cols="#{$i}"],
-    .articlelist.withthumb[data-list-cols="#{$i}"],
+    .articlelist.mh40[data-list-cols="#{$i}"], // .articlelist.withthumb[data-list-cols="#{$i}"],
     .articlelist.h40[data-list-cols="#{$i}"] {
         >* {
             display: inline-block;
-            width: 33.33333%;
-            // .list-title,
+            width: 33.33333%; // .list-title,
             // .list-abstract {
             //     padding: 0 5%;
             // }
@@ -34,8 +32,7 @@
         >.pane,
         >.content {
             width: 31.33333%;
-        }
-        // >.card.cover,
+        } // >.card.cover,
         // >.pane.cover {
         //     .list-title,
         //     .list-abstract,
@@ -43,16 +40,26 @@
         //         padding: 0 5%;
         //     }
         // }
+        // >.top-bottom {
+        //     >img,
+        //     >.list-figure,
+        //     >.list-image {
+        //         width: 90%;
+        //         margin: 14px 5% 0;
+        //     }
+        //     // >.list-body.pl-bottom {
+        //     //     padding: 0 5%;
+        //     // }
+        // }
+    }
+    .articlelist.withthumb {
         >.top-bottom {
             >img,
             >.list-figure,
             >.list-image {
-                width: 90%;
-                margin: 14px 5% 0;
+                width: 96%;
+                margin: 14px 2% 0;
             }
-            // >.list-body.pl-bottom {
-            //     padding: 0 5%;
-            // }
         }
     }
 }
