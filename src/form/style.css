@@ -586,7 +586,7 @@ body {
   height: 90px !important; }
   .tangram-form .tangram-inputs figure .pic-uploader.actived[data-subtype=banner] .pic-resetter,
   .tangram-form .tangram-inputs .figure-items .pic-uploader.actived[data-subtype=banner] .pic-resetter {
-    top: 90px; }
+    top: 130px; }
 
 .tangram-form .tangram-inputs figure .pic-uploader.actived[data-subtype=banner100],
 .tangram-form .tangram-inputs .figure-items .pic-uploader.actived[data-subtype=banner100] {
@@ -594,9 +594,6 @@ body {
   width: 100% !important;
   height: 120px !important;
   margin-right: 0; }
-  .tangram-form .tangram-inputs figure .pic-uploader.actived[data-subtype=banner100] .pic-resetter,
-  .tangram-form .tangram-inputs .figure-items .pic-uploader.actived[data-subtype=banner100] .pic-resetter {
-    top: 120px; }
 
 .tangram-form .tangram-inputs figure .pic-uploader.actived:hover .pic-resetter,
 .tangram-form .tangram-inputs .figure-items .pic-uploader.actived:hover .pic-resetter {
@@ -604,11 +601,7 @@ body {
 
 .tangram-form .tangram-inputs figure .pic-uploader.actived[data-subtype=banner]:hover .pic-resetter,
 .tangram-form .tangram-inputs .figure-items .pic-uploader.actived[data-subtype=banner]:hover .pic-resetter {
-  top: 66px; }
-
-.tangram-form .tangram-inputs figure .pic-uploader.actived[data-subtype=banner100]:hover .pic-resetter,
-.tangram-form .tangram-inputs .figure-items .pic-uploader.actived[data-subtype=banner100]:hover .pic-resetter {
-  top: 96px; }
+  top: 106px; }
 
 .tangram-form .tangram-inputs .video-item .pic-uploader.actived {
   display: block;

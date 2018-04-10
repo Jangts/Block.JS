@@ -7,8 +7,6 @@
             width: 100%;
             margin: 7px 0;
             .pic-uploader {
-                
-                
                 display: block;
                 width: 100% !important;
                 height: 70px !important;
@@ -17,7 +15,6 @@
                 border-radius: 3px;
                 overflow: hidden;
                 input {
-                    
                     display: block;
                     width: 100%;
                     height: 30px;
@@ -40,7 +37,6 @@
                 text-align: center;
                 .pic-displayer {
                     display: block;
-                    
                     max-width: 100%;
                     max-height: 100%;
                     margin: auto;
@@ -158,22 +154,20 @@
                 height: 120px !important;
             }
             .pic-uploader.actived[data-subtype=banner] {
-                
                 width: 30% !important;
                 height: 90px !important;
                 .pic-resetter {
-                    top: 90px;
+                    top: 130px;
                 }
             }
             .pic-uploader.actived[data-subtype=banner100] {
-                
                 display: block;
                 width: 100% !important;
                 height: 120px !important;
                 margin-right: 0;
-                .pic-resetter {
-                    top: 120px;
-                }
+                // .pic-resetter {
+                //     top: 160px;
+                // }
             }
             .pic-uploader.actived:hover {
                 .pic-resetter {
@@ -182,14 +176,14 @@
             }
             .pic-uploader.actived[data-subtype=banner]:hover {
                 .pic-resetter {
-                    top: 66px;
+                    top: 106px;
                 }
             }
-            .pic-uploader.actived[data-subtype=banner100]:hover {
-                .pic-resetter {
-                    top: 96px;
-                }
-            }
+            // .pic-uploader.actived[data-subtype=banner100]:hover {
+            //     .pic-resetter {
+            //         top: 136px;
+            //     }
+            // }
         }
         .video-item {
             .pic-uploader.actived {
