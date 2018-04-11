@@ -1,7 +1,6 @@
 .tangram-form {
     .tangram-inputs {
         .custom-items {
-            
             display: block;
             width: 100%;
             height: auto;
@@ -12,13 +11,11 @@
             font-size: 0.6rem;
             color: #666;
             textarea.edit-text-area {
-                
                 width: 100%;
                 height: 170px;
                 resize: vertical;
             }
-            .tangram.simpleeditor {
-                
+            .tangram-simpleeditor {
                 border: solid 1px #ddd;
                 border-radius: 3px;
                 input[type=radio],
@@ -36,7 +33,7 @@
     .tangram-inputs[data-type=blocks] {
         .custom-items {
             margin: 0 0 7px;
-            .tangram.simpleeditor {
+            .tangram-simpleeditor {
                 border-radius: 0;
             }
         }

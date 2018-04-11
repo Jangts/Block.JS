@@ -15,9 +15,9 @@
             getIncs = function(text) {
                 if (text) {
                     array = text.replace(/[;\r\n]+/g, ';').replace(/^include\s+/, '"').replace(/\s*;\s*include\s+/g, '", "').replace(/\s*;\s*$/, '') + '"';
-                    return "tangram.tangram.block([" + array + "], " + stings;
+                    return "tangram.block([" + array + "], " + stings;
                 } else {
-                    return "tangram.tangram.block(" + stings;
+                    return "tangram.block(" + stings;
                 }
             },
             getBlock = function(text) {

@@ -1,4 +1,4 @@
-.tangram.kalendar {
+.tangram-kalendar {
     display: block;
     width: 380px;
     height: 450px;
@@ -59,12 +59,12 @@
             color: #999;
             cursor: pointer;
             border-radius: 2px;
-        }
-        .day-of-week:hover {
-            background: #191919;
-        }
-        .day-of-week.today {
-            background: #191919;
+            &:hover {
+                background: #191919;
+            }
+            &.today {
+                background: #191919;
+            }
         }
     }
     .days {
@@ -86,29 +86,29 @@
             text-align: center;
             float: left;
             cursor: pointer;
-        }
-        .day.events {
-            background: #522;
-        }
-        .day.today {
-            background: #663300;
-        }
-        .day.actived,
-        .day:hover {
-            border: #ab3f45 1px solid;
-        }
-        .day.actived {
-            margin: 0;
-        }
-        .day:hover {
-            margin: 0;
-        }
-        .day.disabled {
-            color: #666;
-            background: #282828;
-        }
-        .day.disabled:hover {
-            border: #282828 1px solid;
+            &.events {
+                background: #522;
+            }
+            &.today {
+                background: #663300;
+            }
+            &.actived,
+            .day:hover {
+                border: #ab3f45 1px solid;
+            }
+            &.actived {
+                margin: 0;
+            }
+            .day:hover {
+                margin: 0;
+            }
+            &.disabled {
+                color: #666;
+                background: #282828;
+            }
+            &.disabled:hover {
+                border: #282828 1px solid;
+            }
         }
     }
 }

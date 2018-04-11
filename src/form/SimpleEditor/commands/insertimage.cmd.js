@@ -46,14 +46,14 @@ tangram.block([
     });
 
     regCreater('insertimage', function() {
-        var html = '<dialog class="tangram se-dialog">';
-        html += '<span class="tangram se-title">Insert Pictures</span>';
-        html += '<div class="tangram se-url">';
-        html += '<label><i>Enter URL</i><input type="text" class="tangram se-input" placeholder="Image URL" /></label>';
+        var html = '<dialog class="se-dialog">';
+        // html += '<span class="se-title">Insert Pictures</span>';
+        html += '<div class="se-url">';
+        html += '<label><i>Enter URL</i><input type="text" class="se-input" placeholder="Image URL" /></label>';
         html += '</div>';
-        html += '<input type="file" class="tangram se-files" value="" hidden="" multiple />';
-        html += '<div class="tangram se-show"><span>click to upload</span></div>';
-        html += '<div class="tangram se-btns">';
+        html += '<input type="file" class="se-files" value="" hidden="" multiple />';
+        html += '<div class="se-show"><span>click to upload</span></div>';
+        html += '<div class="se-btns">';
         html += '<input type="button" class="data-se-cmd" data-se-cmd="insertimage" value="Insert Web Picture"/>';
         html += '<input type="button" class="data-se-cmd" data-se-cmd="uploadimage" value="Upload And Insert"/>';
         html += '</div>';
@@ -63,7 +63,7 @@ tangram.block([
 
     regDialog('insertimage', function(btn) {
         var dialog = _.dom.closest(btn, 'dialog');
-        var input = _.query('.tangram.se-url .tangram.se-input', dialog)[0];
+        var input = _.query('.se-url .se-input', dialog)[0];
         if (input && input.value) {
             return [input.value];
         }
@@ -72,7 +72,7 @@ tangram.block([
 
     regDialog('uploadimage', function(btn) {
         var dialog = _.dom.closest(btn, 'dialog');
-        var images = _.query('.tangram.se-show', dialog)[0];
+        var images = _.query('.se-show', dialog)[0];
         var files = images.files;
         if (files && files.length > 0) {
             var that = this;
@@ -83,7 +83,7 @@ tangram.block([
                     }
                     that.execCommand('insertimage', val);
                     _.each(that.loadmasks, function(i, loadmask) {
-                        _.dom.toggleClass(loadmask, 'on', true);
+                        _.dom.toggleClass(loadmask, 'on', false);
                     });
                 });
                 _.each(that.loadmasks, function(i, loadmask) {

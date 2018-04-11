@@ -9,7 +9,7 @@
     <script src="../../src/tangram.js" data-tangram-debug></script>
 </head>
 
-<body>
+<body class="tangram-see">
     <script>
         tangram.auto([
             '$_/data/Model.cls'
@@ -90,12 +90,14 @@
                     age: 27,
                 });
 
-                $ID = model2.create(data1); model2.create(data2); model2.create(data3);
-                model2.delete($ID);
-                
-                console.log(model1, model2, results, $ID, data1, data2, data3, model1.read());
+            $ID = model2.create(data1);
+            model2.create(data2);
+            model2.create(data3);
+            model2.delete($ID);
 
-                model2.render();
+            console.log(model1, model2, results, $ID, data1, data2, data3, model1.read());
+
+            model2.render();
         });
     </script>
 </body>

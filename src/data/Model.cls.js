@@ -283,8 +283,8 @@ tangram.block([
                 '$_/dom/'
             ], function() {
                 var list = that.read(),
-                    table = '<table class="tangram tangram-table">';
-                table += '<tr class="tangram-header-tr"><th></th>';
+                    table = '<table class="table">';
+                table += '<tr class="head-row"><th></th>';
                 _.each(models[that.uid], function(prop) {
                     table += '<th>' + prop.toUpperCase() + '</th>';
                 });
@@ -302,6 +302,7 @@ tangram.block([
                 });
                 table += '</table>';
                 if (context) {
+                    _.dom.addClass(context, 'tangram-see');
                     _.dom.append(context, table);
                 } else {
                     _.dom.append(doc.body, table);

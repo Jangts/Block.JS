@@ -124,13 +124,13 @@ tangram.block([
             if (_.util.arr.has(['keypress', 'keyup', 'keydown'], event.type) !== false) {
                 event.keyName = _.util.str.charCode(event.which);
             }
-            
+
             if (this.checkEventType(event, eventType)) {
                 var EventType = this.eventTypes[eventType];
                 // if (eventType==='click'){
                 //     console.log(event, EventType);
                 // }
-                
+
                 for (var s in EventType['Selectors']) {
                     var selector = EventType['Selectors'][s];
                     var elements = _.dom.query(s, this.Element);

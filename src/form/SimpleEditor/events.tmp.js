@@ -23,7 +23,7 @@ tangram.block([
                 });
             });
             if (editor.statebar) {
-                _.query('.tangram.se-imagestatus', editor.statebar)[0].style.display = 'none';
+                _.query('.se-imagestatus', editor.statebar)[0].style.display = 'none';
             }
             if (event.target.tagName === 'IMG') {
                 editor.selectedImage = event.target;
@@ -136,7 +136,7 @@ tangram.block([
                     if (event.target.tagName == 'I') {
                         var editor = event.data,
                             dialog = _.dom.getAttr(this, 'data-se-dialog');
-                        _.each(_.query('.tangram.se-tool.data-se-dialog input[type=text], .tangram.se-tool.data-se-dialog textarea, .tangram.se-tool.data-se-dialog input.tangram.se-files', editor.toolbar), function(i, el) {
+                        _.each(_.query('.se-tool.data-se-dialog input[type=text], .se-tool.data-se-dialog textarea, .se-tool.data-se-dialog input.se-files', editor.toolbar), function(i, el) {
                             if (_.dom.hasClass(this, 'createlink')) {
                                 // console.log(editor.selection, editor.selection.getRange());
                                 var elem = editor.selection.getRange().commonElem;
@@ -153,7 +153,7 @@ tangram.block([
                             }
                         });
 
-                        _.query('.tangram.se-tool.data-se-dialog .tangram.se-show', editor.toolbar)[0].innerHTML = '<span>click to upload</span>';
+                        _.query('.se-tool.data-se-dialog .se-show', editor.toolbar)[0].innerHTML = '<span>click to upload</span>';
                         editor.showDialog(dialog, this);
                         editor.selection.restoreSelection();
                     };
@@ -199,12 +199,12 @@ tangram.block([
                         editor.onchange();
                     }
                 },
-                '.tangram.se-show span': function(event) {
+                '.se-show span': function(event) {
                     // console.log(event);
                     var editor = event.data;
                     var previewer = this.parentNode,
                         dialog = _.dom.closest(this, 'dialog'),
-                        input = _.query('.tangram.se-files', dialog)[0];
+                        input = _.query('.se-files', dialog)[0];
                     input.onchange = function() {
                         var doneCallback = function(files) {
                             if (files.length < 6) {
@@ -245,10 +245,10 @@ tangram.block([
         },
         'workspaces': {
             'mousedown': {
-                '.tangram.se-richarea': downrich
+                '.se-richarea': downrich
             },
             'mouseup': {
-                '.tangram.se-statebar .se-imgfloat': function(event) {
+                '.se-statebar .se-imgfloat': function(event) {
                     // console.log(event);
                     var float = _.dom.getAttr(this, 'data-float') || 'none',
                         img = event.data.selectedImage;
@@ -256,14 +256,14 @@ tangram.block([
                     // event.data.selection.restoreSelection();
                     event.data.onchange();
                 },
-                '.tangram.se-statebar .se-imgsize': function(event) {
+                '.se-statebar .se-imgsize': function(event) {
                     // console.log(event);
                     var size = _.dom.getAttr(this, 'data-size') || 'none';
                     inputs['imgsize'](event.data, size);
                     // event.data.selection.restoreSelection();
                     event.data.onchange();
                 },
-                '.tangram.se-statebar .se-table-addrow': function(event) {
+                '.se-statebar .se-table-addrow': function(event) {
                     // console.log(event);
                     var editor = event.data,
                         table = editor.selectedTable,
@@ -271,8 +271,9 @@ tangram.block([
                         len = row.cells.length;
                     _.dom.after(row, '<tr>' + _.util.str.repeat('<td>&nbsp;</td>', len) + '</tr>');
                     event.data.selection.restoreSelection();
+                    event.data.onchange();
                 },
-                '.tangram.se-statebar .se-table-addcol': function(event) {
+                '.se-statebar .se-table-addcol': function(event) {
                     // console.log(event);
                     var editor = event.data,
                         table = editor.selectedTable,
@@ -284,18 +285,19 @@ tangram.block([
                         _.dom.after(row.cells[index], '<td>&nbsp;</td>');
                     });
                     event.data.selection.restoreSelection();
+                    event.data.onchange();
                 },
-                '.tangram.se-richarea': muprich
+                '.se-richarea': muprich
             },
             'mouseout': {
-                '.tangram.se-richarea': outrich
+                '.se-richarea': outrich
             },
             'keyup': {
-                '.tangram.se-richarea': kuprich
+                '.se-richarea': kuprich
             },
 
             'change': {
-                '.tangram.se-statebar input': function(event) {
+                '.se-statebar input': function(event) {
                     // console.log(event);
                     var name = _.dom.getAttr(this, 'data-name');
                     if (_.util.bool.isFn(inputs[name])) {

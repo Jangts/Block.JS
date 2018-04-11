@@ -29,10 +29,10 @@ tangram.block([
     regCreater('insertfragments', function() {
         var fragments = this.options.fragments || [];
         if (fragments.length) {
-            var html = '<ul class="tangram se-pick">';
+            var html = '<ul class="se-pick">';
             _.each(fragments, function(i, fragment) {
                 codesFragments.push(fragment.code);
-                html += '<li class="tangram se-font data-se-cmd" data-se-cmd="insertfragments" data-se-val="' + i + '">' + fragment.name + '</li>';
+                html += '<li class="se-font data-se-cmd" data-se-cmd="insertfragments" data-se-val="' + i + '">' + fragment.name + '</li>';
             });
             html += '</ul>';
             return html;

@@ -10,23 +10,14 @@ $table_cell_maxwidths: 540,
 860,
 950,
 1040;
-// $table_border_colors: (aqua, initial),
-// (black, white),
-// (gray, initial),
-// (green, white),
-// (lime, initial),
-// (orange, initial),
-// (silver, initial),
-// (teal, initial),
-// (white, initial);
-.tangram-table {
+.table {
     margin: 20px auto 10px;
     border-radius: 5px;
     cursor: default;
     font-size: 12px;
     font-size: 0.6rem;
     thead tr,
-    tr.tangram-header-tr {
+    tr.head-row {
         height: 40px;
         background-color: transparent !important;
         border-bottom: solid 5px white;
@@ -176,13 +167,13 @@ $table_cell_maxwidths: 540,
     }
 }
 
-.tangram-table[stripe] {
+.table[stripe] {
     td {
         background: transparent;
     }
 }
 
-.tangram-table[border] {
+.table[border] {
     border-collapse: separate;
     border: solid 1px #ccc;
     tr {
@@ -213,7 +204,7 @@ $table_cell_maxwidths: 540,
     }
 }
 
-.tangram-table[border="2"] {
+.table[border="2"] {
     border-collapse: separate;
     border: solid 2px #ccc;
     tr {
@@ -233,13 +224,11 @@ $index,
 $alias,
 $color,
 $bgcolor,
-
-$bordercolor 
-in $commoncolors {
+$bordercolor in $commoncolors {
     @if($index>0) {
         @if($alias=='default') {
-            .tangram-table[border],
-            .tangram-table[border=#{$name}] {
+            .table[border],
+            .table[border=#{$name}] {
                 border-collapse: separate;
                 border: solid 1px $bordercolor;
                 tr {
@@ -261,7 +250,7 @@ in $commoncolors {
             }
         }
         @else {
-            .tangram-table[border=#{$name}] {
+            .table[border=#{$name}] {
                 border-collapse: separate;
                 border: solid 1px $bordercolor;
                 tr {

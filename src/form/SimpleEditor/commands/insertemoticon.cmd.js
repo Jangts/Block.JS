@@ -36,7 +36,7 @@ tangram.block([
                     this.execCommand('insert', code);
                 } else {
                     var src = parameters.basePath + 'emoticons/' + val.pack + '/' + emoticons[val.pack][val.name];
-                    var html = '<img src="' + src + '" class="tangram se-emoticon" />';
+                    var html = '<img src="' + src + '" class="se-emoticon" />';
                     this.execCommand('insert', html);
                 }
                 this.collapse();
@@ -49,9 +49,9 @@ tangram.block([
         var pack = this.options.emoticonsTable && emoticons[this.options.emoticonsTable] ? this.options.emoticonsTable : parameters.emoticonsTable;
         var emtb = emoticons[pack];
         var path = parameters.basePath + 'emoticons/' + pack + '/';
-        var html = '<dialog class="tangram se-dialog"><ul class="tangram se-emoticons tangram se-emoticons-' + pack + '">';
+        var html = '<dialog class="se-dialog"><ul class="se-emoticons tangram se-emoticons-' + pack + '">';
         for (var i in emtb) {
-            html += '<li class="tangram se-emoticon data-se-cmd" data-se-cmd="insertemoticon" data-se-val="' + pack + ', ' + i + '" title="' + i + '"><img src="' + path + emtb[i] + '"></li>';
+            html += '<li class="se-emoticon data-se-cmd" data-se-cmd="insertemoticon" data-se-val="' + pack + ', ' + i + '" title="' + i + '"><img src="' + path + emtb[i] + '"></li>';
         }
         html += '</ul></dialog>';
         return html;

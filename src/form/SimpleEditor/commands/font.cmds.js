@@ -69,41 +69,41 @@ tangram.block([
 
         creators = {
             'fontsize': function() {
-                var html = '<ul class="tangram se-pick">';
+                var html = '<ul class="se-pick">';
                 var fontSizeTable = this.options.fontSizeTable || defaults.fontSizeTable;
                 for (var i in fontSizeTable) {
                     var height = parseInt(fontSizeTable[i]) + 12;
                     height = height > 24 ? height : 24;
-                    html += '<li class="tangram se-font data-se-cmd" data-se-cmd="fontsize" data-se-val="' + i + '" style="height: ' + height + 'px; line-height: ' + height + 'px;"><font style="font-size: ' + fontSizeTable[i] + ';" title="' + fontSizeTable[i] + '">' + fontSizeTable[i] + '</font></li>';
+                    html += '<li class="se-font data-se-cmd" data-se-cmd="fontsize" data-se-val="' + i + '" style="height: ' + height + 'px; line-height: ' + height + 'px;"><font style="font-size: ' + fontSizeTable[i] + ';" title="' + fontSizeTable[i] + '">' + fontSizeTable[i] + '</font></li>';
                 }
                 html += '</ul>';
                 return html;
             },
             'forecolor': function() {
-                var html = '<ul class="tangram se-pick">';
+                var html = '<ul class="se-pick">';
                 var colorTable = this.options.colorTable || defaults.colorTable;
                 for (var n = 0; n < colorTable.length; n++) {
                     var colorTableRow = colorTable[n];
                     if (n > 0) {
-                        html += '<hr class="tangram se-break">';
+                        html += '<hr class="se-break">';
                     }
                     for (var i = 0; i < colorTableRow.length; i++) {
-                        html += '<li class="tangram se-color data-se-cmd" data-se-cmd="forecolor" data-se-val="' + colorTableRow[i] + '"><i style="background-color: ' + colorTableRow[i] + ';" title="' + colorTableRow[i] + '"></i></li>';
+                        html += '<li class="se-color data-se-cmd" data-se-cmd="forecolor" data-se-val="' + colorTableRow[i] + '"><i style="background-color: ' + colorTableRow[i] + ';" title="' + colorTableRow[i] + '"></i></li>';
                     }
                 }
                 html += '</ul>';
                 return html;
             },
             'backcolor': function() {
-                var html = '<ul class="tangram se-pick">';
+                var html = '<ul class="se-pick">';
                 var colorTable = this.options.colorTable || defaults.colorTable;
                 for (var n = 0; n < colorTable.length; n++) {
                     var colorTableRow = colorTable[n];
                     if (n > 0) {
-                        html += '<hr class="tangram se-break">';
+                        html += '<hr class="se-break">';
                     }
                     for (var i = 0; i < colorTableRow.length; i++) {
-                        html += '<li class="tangram se-color data-se-cmd" data-se-cmd="backcolor" data-se-val="' + colorTableRow[i] + '"><i style="background-color: ' + colorTableRow[i] + ';"></i></li>';
+                        html += '<li class="se-color data-se-cmd" data-se-cmd="backcolor" data-se-val="' + colorTableRow[i] + '"><i style="background-color: ' + colorTableRow[i] + ';"></i></li>';
                     }
                 }
                 html += '</ul>';

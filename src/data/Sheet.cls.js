@@ -286,7 +286,7 @@ tangram.block([
                         _border = '';
                     }
                     var rows = tables[that.tablename],
-                        html = '<table class="tangram tangram-table" ' + _width + _border + '><tbody><tr class="tangram-header-tr"><th>' + mateinfs.pk + '</th>';
+                        html = '<table class="table" ' + _width + _border + '><tbody><tr class="head-row"><th>' + mateinfs.pk + '</th>';
                     _.each(mateinfs.fields, function(fieldname) {
                         if (fieldname != mateinfs.pk) {
                             html += '<th>' + fieldname + '</th>';
@@ -302,6 +302,7 @@ tangram.block([
                     });
                     html += '</tr></tbody></table>';
                     if (context) {
+                        _.dom.addClass(context, 'tangram-see');
                         _.dom.append(context, html);
                     } else {
                         _.dom.append(doc.body, html);

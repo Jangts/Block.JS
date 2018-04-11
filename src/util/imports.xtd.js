@@ -367,7 +367,7 @@ tangram.block(function(pandora, global, undefined) {
         options = options || {};
 
         if (options.mainUrl) {
-            global.tangram.config({
+            global.config({
                 mainUrl: options.mainUrl
             });
         }

@@ -24,7 +24,9 @@ body {
     font-size: 0.7rem; // 现代浏览器（pc端根字号为20px，70%仍旧是14px）
 }
 
-.tangram.simpleeditor {
+.tangram-simpleeditor,
+.tangram-form .simpleeditor {
+    min-width: 730px;
     border: 1px solid #CCC;
     @each $header,
     $lineheight,

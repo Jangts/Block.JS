@@ -30,12 +30,12 @@ tangram.block(['$_/util/COM.cls', '$_/dom/Elements/'], function(pandora, global,
                 var div = doc.createElement('div');
                 div.className = 'tangram popup';
                 div.style.position = 'fixed';
-                div.innerHTML = '<div class="tangram popup-mask"></div><div class="tangram popup-document"></div>';
+                div.innerHTML = '<div class="popup-mask"></div><div class="popup-document"></div>';
                 doc.body.appendChild(div);
                 return div;
             }();
-            this.mask = $('.tangram.popup-mask', this.Element).get(0);
-            this.document = $('.tangram.popup-document', this.Element).get(0);
+            this.mask = $('.popup-mask', this.Element).get(0);
+            this.document = $('.popup-document', this.Element).get(0);
         },
         builder: function() {
             _.dom.setStyle(this.Element, 'display', 'none');

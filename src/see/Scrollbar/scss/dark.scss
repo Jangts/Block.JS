@@ -6,23 +6,23 @@
  **********       theme   dark      **********
  *********************************************/
 
-.tangram.scrollbar.dark .scroll-bar-vertical {
+.scrollbar.dark .scroll-bar-vertical {
     width: 6px;
 }
 
-.tangram.scrollbar.dark .scroll-bar-vertical .scroll-bar {
+.scrollbar.dark .scroll-bar-vertical .scroll-bar {
     width: 6px;
     cursor: default;
 }
 
-.tangram.scrollbar.dark .scroll-bar-vertical .scroll-bar .scroll-rail {
+.scrollbar.dark .scroll-bar-vertical .scroll-bar .scroll-rail {
     width: 6px;
     margin: 0;
     background: #666;
     z-index: 100;
 }
 
-.tangram.scrollbar.dark .scroll-bar-vertical .scroll-bar .scroll-dragger {
+.scrollbar.dark .scroll-bar-vertical .scroll-bar .scroll-dragger {
     width: 6px;
     margin: 0;
     background: #484848;
@@ -31,35 +31,35 @@
     cursor: pointer;
 }
 
-.tangram.scrollbar.dark .scroll-bar-vertical .scroll-bar .scroll-dragger:hover {
+.scrollbar.dark .scroll-bar-vertical .scroll-bar .scroll-dragger:hover {
     background: #282828;
 }
 
-.tangram.scrollbar.dark .scroll-bar-vertical .scroll-button-prev {
+.scrollbar.dark .scroll-bar-vertical .scroll-button-prev {
     display: none;
     width: 0px;
     height: 0px
 }
 
-.tangram.scrollbar.dark .scroll-bar-vertical .scroll-button-next {
+.scrollbar.dark .scroll-bar-vertical .scroll-button-next {
     display: none;
     width: 0px;
     height: 0px
 }
 
-.tangram.scrollbar.dark .scroll-bar-horizontal .scroll-bar {
+.scrollbar.dark .scroll-bar-horizontal .scroll-bar {
     height: 6px;
     cursor: default;
 }
 
-.tangram.scrollbar.dark .scroll-bar-horizontal .scroll-bar .scroll-rail {
+.scrollbar.dark .scroll-bar-horizontal .scroll-bar .scroll-rail {
     height: 6px;
     margin: 0;
     background: #666;
     z-index: 100;
 }
 
-.tangram.scrollbar.dark .scroll-bar-horizontal .scroll-bar .scroll-dragger {
+.scrollbar.dark .scroll-bar-horizontal .scroll-bar .scroll-dragger {
     height: 6px;
     margin: 0;
     background: #484848;
@@ -68,17 +68,17 @@
     cursor: pointer;
 }
 
-.tangram.scrollbar.dark .scroll-bar-horizontal .scroll-bar .scroll-dragger:hover {
+.scrollbar.dark .scroll-bar-horizontal .scroll-bar .scroll-dragger:hover {
     background: #282828;
 }
 
-.tangram.scrollbar.dark .scroll-bar-horizontal .scroll-button-prev {
+.scrollbar.dark .scroll-bar-horizontal .scroll-button-prev {
     display: none;
     width: 0px;
     height: 0px
 }
 
-.tangram.scrollbar.dark .scroll-bar-horizontal .scroll-button-next {
+.scrollbar.dark .scroll-bar-horizontal .scroll-button-next {
     display: none;
     width: 0px;
     height: 0px

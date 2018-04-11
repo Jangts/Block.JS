@@ -172,7 +172,7 @@ tangram.block(['$_/util/str.xtd'], function(pandora, global, undefined) {
             options = options || {};
 
             if (options.mainUrl) {
-                global.tangram.config({
+                global.config({
                     mainUrl: options.mainUrl
                 });
             }

@@ -33,9 +33,9 @@ tangram.block([
         if (_.util.bool.isStr(val)) {
             name = name || this.options.aaa;
             if (_.util.bool.isStr(name)) {
-                var html = '<a href="' + val + '" target="_blank" title="click to download" class="tangram se-attachment">' + name + '</a><br />';
+                var html = '<a href="' + val + '" target="_blank" title="click to download" class="se-attachment">' + name + '</a><br />';
             } else {
-                var html = 'Attachment : <a href="' + val + '" target="_blank" title="click to download" class="tangram se-attachment">' + val + '</a><br />';
+                var html = 'Attachment : <a href="' + val + '" target="_blank" title="click to download" class="se-attachment">' + val + '</a><br />';
             }
             this.execCommand('insert', html);
             this.collapse();
@@ -45,16 +45,16 @@ tangram.block([
     });
 
     regCreater('insertfile', function() {
-        var html = '<dialog class="tangram se-dialog">';
-        html += '<span class="tangram se-title">Insert Files</span>';
-        html += '<div class="tangram se-aaa">';
-        html += '<label><i>Alias</i><input type="text" class="tangram se-input" placeholder="Enter Attachment Anchor Alias" /></label>';
+        var html = '<dialog class="se-dialog">';
+        // html += '<span class="se-title">Insert Files</span>';
+        html += '<div class="se-aaa">';
+        html += '<label><i>Alias</i><input type="text" class="se-input" placeholder="Enter Attachment Anchor Alias" /></label>';
         html += '</div>';
-        html += '<div class="tangram se-url">';
-        html += '<label><i>File URL</i><input type="text" class="tangram se-input" placeholder="Enter URL" /></label>';
+        html += '<div class="se-url">';
+        html += '<label><i>File URL</i><input type="text" class="se-input" placeholder="Enter URL" /></label>';
         html += '</div>';
-        html += '<input type="file" class="tangram se-files" value="" hidden="" />';
-        html += '<div class="tangram se-btns">';
+        html += '<input type="file" class="se-files" value="" hidden="" />';
+        html += '<div class="se-btns">';
         html += '<input type="button" class="data-se-cmd" data-se-cmd="insertfile" value="Insert Url"/>';
         html += '<input type="button" class="data-se-cmd" data-se-cmd="uploadfile" value="Or Upload"/>';
         html += '</div>';
@@ -64,8 +64,8 @@ tangram.block([
 
     regDialog('insertfile', function(btn) {
         var dialog = _.dom.closest(btn, 'dialog');
-        var n_input = _.query('.tangram.se-aaa .tangram.se-input', dialog)[0],
-            v_input = _.query('.tangram.se-url .tangram.se-input', dialog)[0];
+        var n_input = _.query('.se-aaa .se-input', dialog)[0],
+            v_input = _.query('.se-url .se-input', dialog)[0];
         if (v_input && v_input.value) {
             return [n_input && n_input.value, v_input.value];
         }
@@ -74,7 +74,7 @@ tangram.block([
 
     regDialog('uploadfile', function(btn) {
         var dialog = _.dom.closest(btn, 'dialog');
-        var input = _.query('.tangram.se-files', dialog)[0];
+        var input = _.query('.se-files', dialog)[0];
         var that = this;
         input.onchange = function() {
             var file = this.files[0];
@@ -94,7 +94,7 @@ tangram.block([
                     if (failed) {
                         alert('attachment upload failed');
                     } else {
-                        var n_input = _.query('.tangram.se-aaa .tangram.se-input', dialog)[0];
+                        var n_input = _.query('.se-aaa .se-input', dialog)[0];
                         if (n_input && n_input.value) {
                             that.insertFile(val[0], n_input.value);
                         } else {
@@ -103,7 +103,7 @@ tangram.block([
 
                     }
                     _.each(that.loadmasks, function(i, loadmask) {
-                        _.dom.toggleClass(loadmask, 'on', true);
+                        _.dom.toggleClass(loadmask, 'on', false);
                     });
                 });
                 _.each(that.loadmasks, function(i, loadmask) {

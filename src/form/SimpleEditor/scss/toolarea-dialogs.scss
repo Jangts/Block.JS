@@ -1,15 +1,13 @@
-/*** EDITOR TOOLBAR DIALOGS ***************************/
-
-.tangram.se-tool .tangram.se-dialog {
+.se-tool .se-dialog {
     display: none;
     position: absolute;
     width: auto;
-    min-width: 340px;
+    min-width: 371px;
     height: auto;
     top: 30px;
     left: 0px;
     margin-left: -165px;
-    padding: 10px;
+    padding: 9px;
     background-color: #FDFDFE;
     border: 1px solid #DDD;
     color: #555;
@@ -17,25 +15,31 @@
     text-align: left;
     input {
         box-sizing: content-box;
+        height: 28px;
+        border: #EEE 1px solid;
+        line-height: 28px;
         border-radius: 0;
+        font-size: 12px;
+        font-size: 0.6rem;
+        &[type=number] {
+            text-align: center;
+            padding: 0;
+        }
     }
-    input[type=number] {
-        text-align: center;
-    }
-    span .tangram.se-title {
-        font-family: Arial, Helvetica, sans-serif;
-        display: block;
-        height: 20px;
-        text-align: left;
-        line-height: 20px;
-        border-left: #444 3px solid;
-        margin-bottom: 10px;
-        padding-left: 3px;
-        font-size: 14px;
-        font-size: 0.7rem;
-        color: #444;
-        font-weight: bold;
-    }
+    // span .se-title {
+    //     font-family: Arial, Helvetica, sans-serif;
+    //     display: block;
+    //     height: 20px;
+    //     text-align: left;
+    //     line-height: 20px;
+    //     border-left: #444 3px solid;
+    //     margin-bottom: 10px;
+    //     padding-left: 3px;
+    //     font-size: 14px;
+    //     font-size: 0.7rem;
+    //     color: #444;
+    //     font-weight: bold;
+    // }
     button {
         height: 30px;
         text-align: center;
@@ -47,14 +51,13 @@
         -ms-transition: background-color 1s ease;
         -moz-transition: background-color 1s ease;
         cursor: pointer;
+        &:hover {
+            background-color: #036;
+        }
     }
-    button:hover {
-        background-color: #036;
-    }
-    /* --------------- */
-    .tangram.se-aaa,
-    .tangram.se-url {
-        width: 340px;
+    .se-aaa,
+    .se-url {
+        width: 350px;
         height: 30px;
         margin-bottom: 10px;
         label {
@@ -74,19 +77,18 @@
             }
             input {
                 float: right;
-                width: 250px;
-                height: 28px;
+                width: 260px;
+                // height: 28px;
                 padding: 0px 5px;
-                font-size: 12px;
-                font-size: 0.6rem;
-                border: #EEE 1px solid;
-                line-height: 28px;
+                // font-size: 12px;
+                // font-size: 0.6rem;
+                // border: #EEE 1px solid;
+                // line-height: 28px;
             }
         }
     }
-    /* --------------- */
-    .tangram.se-check {
-        width: 340px;
+    .se-check {
+        width: 350px;
         height: 20px;
         margin-bottom: 10px;
         label {
@@ -98,17 +100,16 @@
             font-size: 0.6rem;
             color: #999;
         }
-        .tangram.se-checkbox {
+        .se-checkbox {
             display: inline-block;
             width: 20px;
             height: 14px;
             margin: 0px;
         }
     }
-    /* --------------- */
-    .tangram.se-attr {
-        width: 340px;
-        height: 24px;
+    .se-attr {
+        width: 350px;
+        height: 30px;
         font-size: 12px;
         font-size: 0.6rem;
         margin-bottom: 10px;
@@ -118,8 +119,8 @@
             i {
                 float: left;
                 width: auto;
-                height: 24px;
-                line-height: 24px;
+                height: 30px;
+                line-height: 30px;
                 padding: 0px 5px;
                 background-color: #EEE;
                 text-align: center;
@@ -129,15 +130,16 @@
         span {
             float: left;
             width: 24px;
-            height: 24px;
+            height: 30px;
+            line-height: 30px;
             font-size: 14px;
             font-size: 0.7rem;
-            line-height: 24px;
+            // line-height: 24px;
             background-color: #EEE;
             text-align: center;
             color: #444;
         }
-        .tangram.se-table-unit {
+        .se-table-unit {
             float: left;
             width: 53px;
             height: 24px;
@@ -147,7 +149,7 @@
             border: #EEE 1px solid;
             line-height: 24px;
         }
-        .tangram.se-vidoe-type {
+        .se-vidoe-type {
             float: left;
             width: 83px;
             height: 24px;
@@ -158,18 +160,18 @@
             line-height: 24px;
         }
     }
-    .tangram.se-attr-left {
+    .se-attr-left {
         float: left;
     }
-    .tangram.se-attr-right {
+    .se-attr-right {
         float: right;
     }
     .tangram {
-        .tangram.se-table-rows,
-        .tangram.se-table-columns,
-        .tangram.se-table-width,
-        .tangram.se-vidoe-width,
-        .tangram.se-vidoe-height {
+        .se-table-rows,
+        .se-table-columns,
+        .se-table-width,
+        .se-vidoe-width,
+        .se-vidoe-height {
             float: left;
             width: 43px;
             height: 22px;
@@ -178,16 +180,15 @@
             line-height: 22px;
         }
     }
-    /* --------------- */
-    .tangram.se-btns {
-        width: 340px;
+    .se-btns {
+        width: 350px;
         height: 30px;
         button {
-            width: 340px;
+            width: 350px;
         }
         input {
             float: left;
-            width: 155px;
+            width: 160px;
             height: 30px;
             background-color: #09C;
             border: none;
@@ -199,24 +200,23 @@
             -ms-transition: background-color 1s ease;
             -moz-transition: background-color 1s ease;
             cursor: pointer;
-        }
-        input:hover {
-            background-color: #036;
-        }
-        input:first-child {
-            margin-right: 10px;
+            &:hover {
+                background-color: #036;
+            }
+            &:first-child {
+                margin-right: 10px;
+            }
         }
     }
-    /* --------------- */
-    .tangram.se-show {
-        width: 330px;
-        height: 72px;
+    .se-show {
+        width: 350px;
+        height: 80px;
         padding: 3px 4px;
         border: #EEE 1px solid;
         margin-bottom: 10px;
         span {
             display: block;
-            width: 330px;
+            width: 350px;
             height: 72px;
             text-align: center;
             line-height: 72px;
@@ -240,18 +240,18 @@
                 margin: auto;
             }
         }
-        ul.tangram.se-list-56 li {
-            width: 56px;
-            height: 56px;
+        ul.se-list-56 li {
+            width: 60px;
+            height: 60px;
             margin: 6px 3px;
             img {
                 max-width: 56px;
                 max-height: 56px;
             }
         }
-        ul.tangram.se-list-28 li {
-            width: 28px;
-            height: 28px;
+        ul.se-list-28 li {
+            width: 32px;
+            height: 32px;
             margin: 2px;
             img {
                 max-width: 28px;
@@ -259,10 +259,9 @@
             }
         }
     }
-    /* --------------- */
-    textarea.tangram.se-code {
-        width: 330px;
-        height: 40px;
+    textarea.se-code {
+        width: 350px;
+        height: 50px;
         padding: 4px;
         line-height: 20px;
         font-size: 12px;
@@ -271,17 +270,17 @@
         resize: none;
         overflow: auto;
     }
-    ul.tangram.se-emoticons {
-        width: 340px;
+    ul.se-emoticons {
+        width: 351px;
         height: auto;
         border-top: #CCC 1px solid;
         border-left: #CCC 1px solid;
     }
-    ul.tangram.se-emoticons-default li {
+    ul.se-emoticons-default li {
         float: left;
         display: table-cell;
-        width: 33px;
-        height: 33px;
+        width: 35px;
+        height: 35px;
         border-right: #CCC 1px solid;
         border-bottom: #CCC 1px solid;
         img {
@@ -298,11 +297,11 @@
 
 /* ------------------------- */
 
-.tangram.se-tool.data-se-dialog.active {
+.se-tool.data-se-dialog.active {
     overflow: visible;
     z-index: 100;
 }
 
-.tangram.se-tool.active .tangram.se-dialog {
+.se-tool.active .se-dialog {
     display: block;
 }

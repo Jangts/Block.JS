@@ -63,7 +63,7 @@ tangram.block([
 
     _.extend(_.see.Tabs.SlideTabs, {
         auto: function() {
-            $('.tangram.stabs[data-ic-auto]').each(function() {
+            $('.stabs[data-ic-auto]').each(function() {
                 if ($(this).data('icAuto') != 'false') {
                     new _.see.Tabs.SlideTabs(this, {
                         trigger: $(this).data('tabsTrigger') || 'mouseover',

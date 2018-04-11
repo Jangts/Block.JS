@@ -9,6 +9,6 @@
 tangram.block([
     '$_/dom/Elements/animation.clsx',
     '$_/dom/Elements/form.clsx'
-], function (pandora, global, undefined) {
+], function(pandora, global, undefined) {
     global.$ = pandora.$ = pandora.dom.select;
 });

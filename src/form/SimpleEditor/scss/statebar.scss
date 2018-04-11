@@ -1,6 +1,4 @@
-/*** EDITOR STAUSEBAR ***/
-
-.tangram.se-statebar {
+.se-statebar {
     width: 100%;
     height: 30px;
     background-color: #FDFDFE;
@@ -25,6 +23,10 @@
         font-size: 0.6rem;
         text-align: center;
         border-bottom: solid 1px #DDD;
+        &[type=number] {
+            text-align: center;
+            padding: 0;
+        }
     }
     i {
         display: inline-block;
@@ -39,41 +41,41 @@
         color: #fff;
         cursor: pointer;
         border-radius: 2px;
+        &.active {
+            background-color: #09C;
+            border-bottom: solid 1px #09A;
+        }
+        &:last-child {
+            margin-right: 0;
+        }
     }
-    i.active {
-        background-color: #09C;
-        border-bottom: solid 1px #09A;
-    }
-    i:last-child {
-        margin-right: 0;
-    }
-    .tangram.se-fontstatus {
+    .se-fontstatus {
         position: absolute;
         top: 0;
         left: 0;
-        width: 14%;
+        width: 15%;
         height: 30px;
         background-color: #FDFDFE;
         z-index: 0;
     }
-    .tangram.se-tablestatus,
-    .tangram.se-imagestatus {
+    .se-tablestatus,
+    .se-imagestatus {
         display: none;
         position: absolute;
         top: 0;
         right: 0;
-        width: 86%;
+        width: 85%;
         height: 30px;
         background-color: #FDFDFE;
         z-index: 50;
         text-align: right;
     }
-    .tangram.se-rowslen,
-    .tangram.se-colslen,
-    .tangram.se-border-input {
+    .se-rowslen,
+    .se-colslen,
+    .se-border-input {
         max-width: 40px;
     }
-    .tangram.se-imagestatus {
+    .se-imagestatus {
         z-index: 100;
     }
 }

@@ -1,4 +1,4 @@
-.tangram.timepicker .displayer {
+.displayer {
     display: block;
     position: absolute;
     width: 656px;
@@ -7,178 +7,147 @@
     left: 20px;
     background-color: rgba(255, 255, 255, 0.5);
     border-radius: 10px 10px 10px 10px;
-}
-
-.tangram.timepicker .displayer .display-item {
-    display: none;
-}
-
-.tangram.timepicker .displayer .display-item.actived {
-    display: block;
-}
-
-.tangram.timepicker .displayer .display-item .display-char {
-    float: left;
-    cursor: pointer;
-}
-
-/**********************************************/
-
-.tangram.timepicker .displayer .display-item {
-    height: 50px;
-    margin: 40px auto;
-}
-
-.tangram.timepicker .displayer .display-item[data-type=datetime] {
-    width: 620px;
-}
-
-.tangram.timepicker .displayer .display-item[data-type=fulldate] {
-    width: 330px;
-}
-
-.tangram.timepicker .displayer .display-item[data-type=dayofyear] {
-    width: 400px;
-}
-
-.tangram.timepicker .displayer .display-item[data-type=timeofday] {
-    width: 290px;
-}
-
-.tangram.timepicker .displayer .display-item[data-type=hourminute] {
-    width: 220px;
-}
-
-.tangram.timepicker .displayer .display-item[data-type=fulldate],
-.tangram.timepicker .displayer .display-item[data-type=dayofyear],
-.tangram.timepicker .displayer .display-item[data-type=timeofday],
-.tangram.timepicker .displayer .display-item[data-type=hourminute] {
-    transform: scale(2, 2);
-}
-
-.tangram.timepicker .displayer .display-item[data-type=dayofweek] {
-    width: 656px;
-    height: 130px;
-    margin: 0;
-}
-
-.tangram.timepicker .displayer .display-item[data-type=dayofweek]::after {
-    display: block;
-    position: absolute;
-    width: 100%;
-    height: 2px;
-    top: 64px;
-    left: 0;
-    background-color: rgba(201, 201, 201, .5);
-    content: "";
-    z-index: -99;
-}
-
-/**********************************************/
-
-.tangram.timepicker .displayer .display-item .display-char {
-    display: block;
-    
-    font-style: normal;
-}
-
-.tangram.timepicker .displayer .display-item .display-char[data-char-type=year],
-.tangram.timepicker .displayer .display-item .display-char[data-char-type=month],
-.tangram.timepicker .displayer .display-item .display-char[data-char-type=mon],
-.tangram.timepicker .displayer .display-item .display-char[data-char-type=date] {
-    height: 50px;
-    margin-right: 10px;
-    text-align: center;
-    line-height: 50px;
-    font-size: 36px;
-    font-size: 1.8rem;
-    background-color: rgba(102, 153, 255, .8);
-    color: #fff;
-}
-
-.tangram.timepicker .displayer .display-item .display-char[data-char-type=year] {
-    width: 110px;
-    margin-left: 50px;
-}
-
-.tangram.timepicker .displayer .display-item .display-char[data-char-type=month] {
-    width: 240px;
-    margin-left: 50px;
-}
-
-.tangram.timepicker .displayer .display-item .display-char[data-char-type=mon],
-.tangram.timepicker .displayer .display-item .display-char[data-char-type=date] {
-    width: 50px;
-}
-
-.tangram.timepicker .displayer .display-item .display-char[data-char-type=date] {
-    margin-right: 50px;
-}
-
-.tangram.timepicker .displayer .display-item .display-char[data-char-type=year]::after,
-.tangram.timepicker .displayer .display-item .display-char[data-char-type=mon]::after,
-.tangram.timepicker .displayer .display-item .display-char[data-char-type=month]::after,
-.tangram.timepicker .displayer .display-item .display-char[data-char-type=date]::after,
-.tangram.timepicker .displayer .display-item .display-char[data-char-type=hour]::after,
-.tangram.timepicker .displayer .display-item .display-char[data-char-type=minute]::after,
-.tangram.timepicker .displayer .display-item .display-char[data-char-type=first]::after,
-.tangram.timepicker .displayer .display-item .display-char[data-char-type=second]::after {
-    display: block;
-    position: absolute;
-    width: 100%;
-    height: 2px;
-    top: 24px;
-    left: 0;
-    background-color: rgba(255, 255, 255, .8);
-    content: "";
-}
-
-.tangram.timepicker .displayer .display-item .display-char[data-char-type=hour],
-.tangram.timepicker .displayer .display-item .display-char[data-char-type=minute],
-.tangram.timepicker .displayer .display-item .display-char[data-char-type=first],
-.tangram.timepicker .displayer .display-item .display-char[data-char-type=second] {
-    width: 50px;
-    height: 50px;
-    margin-right: 20px;
-    text-align: center;
-    line-height: 47px;
-    font-size: 36px;
-    font-size: 1.8rem;
-    background-color: rgba(102, 153, 255, .8);
-    color: #fff;
-    overflow: visible;
-}
-
-.tangram.timepicker .displayer .display-item .display-char[data-char-type=hour] {
-    margin-left: 50px;
-}
-
-.tangram.timepicker .displayer .display-item .display-char[data-char-type=minute],
-.tangram.timepicker .displayer .display-item .display-char[data-char-type=second] {
-    margin-right: 50px;
-}
-
-.tangram.timepicker .displayer .display-item .display-char[data-char-type=hour]::before,
-.tangram.timepicker .displayer .display-item .display-char[data-char-type=first]::before {
-    display: block;
-    position: absolute;
-    width: 20px;
-    height: 50px;
-    top: 0;
-    left: 50px;
-    line-height: 40px;
-    content: ":";
-    z-index: -99;
-}
-
-.tangram.timepicker .displayer .display-item .display-char[data-char-type=day] {
-    width: 600px;
-    height: 80px;
-    margin: 25px 28px;
-    text-align: center;
-    line-height: 71px;
-    font-size: 72px;
-    font-size: 3.6rem;
-    color: #181818;
-    transform: scale(1.4, 1.4);
+    .display-item {
+        display: none;
+        height: 50px;
+        margin: 40px auto;
+        &.actived {
+            display: block;
+        }
+        .display-char {
+            float: left;
+            cursor: pointer;
+        }
+        .display-char {
+            display: block;
+            font-style: normal;
+        }
+        .display-char[data-char-type=year],
+        .display-char[data-char-type=month],
+        .display-char[data-char-type=mon],
+        .display-char[data-char-type=date] {
+            height: 50px;
+            margin-right: 10px;
+            text-align: center;
+            line-height: 50px;
+            font-size: 36px;
+            font-size: 1.8rem;
+            background-color: rgba(102, 153, 255, .8);
+            color: #fff;
+        }
+        .display-char[data-char-type=year] {
+            width: 110px;
+            margin-left: 50px;
+        }
+        .display-char[data-char-type=month] {
+            width: 240px;
+            margin-left: 50px;
+        }
+        .display-char[data-char-type=mon],
+        .display-char[data-char-type=date] {
+            width: 50px;
+        }
+        .display-char[data-char-type=date] {
+            margin-right: 50px;
+        }
+        .display-char[data-char-type=year]::after,
+        .display-char[data-char-type=mon]::after,
+        .display-char[data-char-type=month]::after,
+        .display-char[data-char-type=date]::after,
+        .display-char[data-char-type=hour]::after,
+        .display-char[data-char-type=minute]::after,
+        .display-char[data-char-type=first]::after,
+        .display-char[data-char-type=second]::after {
+            display: block;
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            top: 24px;
+            left: 0;
+            background-color: rgba(255, 255, 255, .8);
+            content: "";
+        }
+        .display-char[data-char-type=hour],
+        .display-char[data-char-type=minute],
+        .display-char[data-char-type=first],
+        .display-char[data-char-type=second] {
+            width: 50px;
+            height: 50px;
+            margin-right: 20px;
+            text-align: center;
+            line-height: 47px;
+            font-size: 36px;
+            font-size: 1.8rem;
+            background-color: rgba(102, 153, 255, .8);
+            color: #fff;
+            overflow: visible;
+        }
+        .display-char[data-char-type=hour] {
+            margin-left: 50px;
+        }
+        .display-char[data-char-type=minute],
+        .display-char[data-char-type=second] {
+            margin-right: 50px;
+        }
+        .display-char[data-char-type=hour]::before,
+        .display-char[data-char-type=first]::before {
+            display: block;
+            position: absolute;
+            width: 20px;
+            height: 50px;
+            top: 0;
+            left: 50px;
+            line-height: 40px;
+            content: ":";
+            z-index: -99;
+        }
+        .display-char[data-char-type=day] {
+            width: 600px;
+            height: 80px;
+            margin: 25px 28px;
+            text-align: center;
+            line-height: 71px;
+            font-size: 72px;
+            font-size: 3.6rem;
+            color: #181818;
+            transform: scale(1.4, 1.4);
+        }
+    }
+    .display-item[data-type=datetime] {
+        width: 620px;
+    }
+    .display-item[data-type=fulldate] {
+        width: 330px;
+    }
+    .display-item[data-type=dayofyear] {
+        width: 400px;
+    }
+    .display-item[data-type=timeofday] {
+        width: 290px;
+    }
+    .display-item[data-type=hourminute] {
+        width: 220px;
+    }
+    .display-item[data-type=fulldate],
+    .display-item[data-type=dayofyear],
+    .display-item[data-type=timeofday],
+    .display-item[data-type=hourminute] {
+        transform: scale(2, 2);
+    }
+    .display-item[data-type=dayofweek] {
+        width: 656px;
+        height: 130px;
+        margin: 0;
+        &::after {
+            display: block;
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            top: 64px;
+            left: 0;
+            background-color: rgba(201, 201, 201, .5);
+            content: "";
+            z-index: -99;
+        }
+    }
 }

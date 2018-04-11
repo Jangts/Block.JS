@@ -200,7 +200,7 @@ tangram.block([
                 return (formElement === this.cElement.Element) || _.dom.contain(formElement, this.cElement.Element);
             },
             hideExtTools: function() {
-                _.each(_.query('.tangram.se-tool.data-se-dialog, .tangram.se-tool.data-se-cmds', this.toolbar), function(i, el) {
+                _.each(_.query('.se-tool.data-se-dialog, .se-tool.data-se-cmds', this.toolbar), function(i, el) {
                     _.dom.toggleClass(this, 'active', false);
                 });
                 return this;
@@ -208,7 +208,7 @@ tangram.block([
             showDialog: function(dialog) {
                 this.hideExtTools();
                 if (dialog) {
-                    var button = arguments[1] || _.query('.tangram.se-tool[data-se-dialog=' + dialog + ']', this.toolbar)[0];
+                    var button = arguments[1] || _.query('.se-tool[data-se-dialog=' + dialog + ']', this.toolbar)[0];
                     _.dom.toggleClass(button, 'active');
                 };
                 return this;
@@ -216,12 +216,12 @@ tangram.block([
             showPick: function(cmds) {
                 this.hideExtTools();
                 if (cmds) {
-                    var button = arguments[1] || _.query('.tangram.se-tool[data-se-cmds=' + cmds + ']', this.toolbar)[0];
-                    _.dom.toggleClass(button, 'active');
+                    var button = arguments[1] || _.query('.se-tool[data-se-cmds=' + cmds + ']', this.toolbar)[0],
+                        list = _.query('.se-pick', button)[0]
 
-                    if (_.dom.contain(this.mainareas[0], this.toolbar)) {
-                        var list = _.query('.tangram.se-pick', button)[0],
-                            height = _.dom.getHeight(this.richareas[0], 'box');
+                    if (_.dom.contain(this.mainareas[0], this.toolbar) && list) {
+                        var height = _.dom.getHeight(this.richareas[0], 'box');
+                        _.dom.toggleClass(button, 'active');
                         _.dom.setStyle(list, 'max-height', height - 15);
                     }
                 };

@@ -48,15 +48,15 @@ tangram.block([
     });
 
     regCreater('createlink', function() {
-        var html = '<dialog class="tangram se-dialog">';
-        html += '<span class="tangram se-title">Insert link</span>';
-        html += '<div class="tangram se-url">';
-        html += '<label><i>Enter URL</i><input type="text" class="tangram se-input createlink" placeholder="http://www.yangram.com/tangram.js/" /></label>';
+        var html = '<dialog class="se-dialog">';
+        // html += '<span class="se-title">Insert link</span>';
+        html += '<div class="se-url">';
+        html += '<label><i>Enter URL</i><input type="text" class="se-input createlink" placeholder="http://www.yangram.com/tangram.js/" /></label>';
         html += '</div>';
-        html += '<div class="tangram se-check">';
-        html += '<label><input type="checkbox" class="tangram se-checkbox" checked="checked">Open in new tab</label>';
+        html += '<div class="se-check">';
+        html += '<label><input type="checkbox" class="se-checkbox" checked="checked">Open in new tab</label>';
         html += '</div>';
-        html += '<div class="tangram se-btns">';
+        html += '<div class="se-btns">';
         html += '<button type="button" class="data-se-cmd" data-se-cmd="createlink">OK</button>';
         html += '</div>';
         html += '</dialog>';
@@ -65,8 +65,8 @@ tangram.block([
 
     regDialog('createlink', function(btn) {
         var dialog = _.dom.closest(btn, 'dialog');
-        var input = _.query('.tangram.se-url .tangram.se-input', dialog)[0];
-        var checkbox = _.query('.tangram.se-check .tangram.se-checkbox', dialog)[0]
+        var input = _.query('.se-url .se-input', dialog)[0];
+        var checkbox = _.query('.se-check .se-checkbox', dialog)[0]
         if (input && input.value != '') {
             return {
                 url: input.value,

@@ -1,4 +1,4 @@
-.tangram.popup {
+.popup {
     position: fixed;
     display: none;
     width: 100%;
@@ -7,7 +7,7 @@
     left: 0;
 }
 
-.tangram.popup-mask {
+.popup-mask {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -17,7 +17,7 @@
     opacity: 0;
 }
 
-.tangram.popup-closer-trbcw {
+.popup-closer-trbcw {
     /* Top Right Black Circle White*/
     display: block;
     position: absolute;
@@ -32,7 +32,7 @@
     color: #FFF;
 }
 
-.tangram.popup-closer-trbcw::before {
+.popup-closer-trbcw::before {
     display: block;
     position: absolute;
     width: 100%;
@@ -44,7 +44,7 @@
     content: '×'
 }
 
-.tangram.popup-document {
+.popup-document {
     display: block;
     position: absolute;
     left: 50%;

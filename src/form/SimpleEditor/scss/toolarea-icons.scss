@@ -1,137 +1,111 @@
-/*** EDITOR TOOLBAR ICONS ***************************/
-
-.tangram.se-tool .tangram.se-icon {
+.se-tool .se-icon {
     display: block;
 }
 
-.tangram.se-icon:before {
+.se-icon:before {
     font-family: 'FontAwesome';
     font-style: normal;
     content: '\f042';
 }
 
-
-/* ------------------------- */
-
-.bold .tangram.se-icon:before {
+.bold .se-icon:before {
     content: '\f032';
 }
 
-.italic .tangram.se-icon:before {
+.italic .se-icon:before {
     content: '\f033';
 }
 
-.underline .tangram.se-icon:before {
+.underline .se-icon:before {
     content: '\f0cd';
 }
 
-.strikethrough .tangram.se-icon:before {
+.strikethrough .se-icon:before {
     content: '\f0cc';
 }
 
-
-/* --------------- */
-
-.fontsize .tangram.se-icon:before {
+.fontsize .se-icon:before {
     content: '\f034';
 }
 
-.forecolor .tangram.se-icon:before {
+.forecolor .se-icon:before {
     content: '\f040';
 }
 
-.backcolor .tangram.se-icon:before {
+.backcolor .se-icon:before {
     content: '\f14b';
 }
 
-
-/* --------------- */
-
-.justifyleft .tangram.se-icon:before {
+.justifyleft .se-icon:before {
     content: '\f036';
 }
 
-.justifycenter .tangram.se-icon:before {
+.justifycenter .se-icon:before {
     content: '\f037';
 }
 
-.justifyright .tangram.se-icon:before {
+.justifyright .se-icon:before {
     content: '\f038';
 }
 
-.justifyfull .tangram.se-icon:before {
+.justifyfull .se-icon:before {
     content: '\f039';
 }
 
-
-/* --------------- */
-
-.insertunorderedlist .tangram.se-icon:before {
+.insertunorderedlist .se-icon:before {
     content: '\f0ca';
 }
 
-.insertorderedlist .tangram.se-icon:before {
+.insertorderedlist .se-icon:before {
     content: '\f0cb';
 }
 
-
-/* --------------- */
-
-.header .tangram.se-icon:before,
-.h1 .tangram.se-icon:before,
-.h2 .tangram.se-icon:before,
-.h3 .tangram.se-icon:before,
-.h4 .tangram.se-icon:before,
-.h5 .tangram.se-icon:before,
-.h6 .tangram.se-icon:before {
+.header .se-icon:before,
+.h1 .se-icon:before,
+.h2 .se-icon:before,
+.h3 .se-icon:before,
+.h4 .se-icon:before,
+.h5 .se-icon:before,
+.h6 .se-icon:before {
     content: '\f1dc';
 }
 
-.blockquote .tangram.se-icon:before {
+.blockquote .se-icon:before {
     content: '\f10d';
 }
 
-.removeformat .tangram.se-icon:before {
+.removeformat .se-icon:before {
     content: '\f12d';
 }
 
-
-/* --------------- */
-
-.createlink .tangram.se-icon:before {
+.createlink .se-icon:before {
     content: '\f0c1';
 }
 
-.unlink .tangram.se-icon:before {
+.unlink .se-icon:before {
     content: '\f127';
 }
 
-.inserttable .tangram.se-icon:before {
+.inserttable .se-icon:before {
     content: '\f0ce';
 }
 
-
-/* --------------- */
-
-.insertfile .tangram.se-icon:before {
+.insertfile .se-icon:before {
     content: '\f0c6';
 }
 
-.insertemoticon .tangram.se-icon:before {
+.insertemoticon .se-icon:before {
     content: '\f118';
 }
 
-.insertvideo .tangram.se-icon:before {
+.insertvideo .se-icon:before {
     content: '\f03d';
 }
 
-.insertimage .tangram.se-icon:before {
+.insertimage .se-icon:before {
     content: '\f03e';
 }
 
-
-/* --------------- */
-
-.insertfragments .tangram.se-icon:before {
+.insertfragments .se-icon:before {
     content: '\f12e';
 }

@@ -460,11 +460,11 @@ tangram.block([
                     break;
             };
             this.each(function() {
-                if (_.util.bool.isArr(eventType)){
-                    _.each(eventType, function(i, et){
+                if (_.util.bool.isArr(eventType)) {
+                    _.each(eventType, function(i, et) {
                         _.dom.events.add(this, et, selector, data, handler);
                     }, this);
-                }else{
+                } else {
                     _.dom.events.add(this, eventType, selector, data, handler);
                 }
             });
@@ -473,7 +473,7 @@ tangram.block([
         off: function(eventType, selector, handler) {
             this.each(function() {
                 if (_.util.bool.isArr(eventType)) {
-                    _.each(eventType, function (i, et) {
+                    _.each(eventType, function(i, et) {
                         _.dom.events.remove(this, et, selector, handler);
                     }, this);
                 } else {

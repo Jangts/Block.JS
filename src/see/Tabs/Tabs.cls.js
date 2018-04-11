@@ -142,7 +142,7 @@ tangram.block([
 
     _.extend(_.see.Tabs, {
         auto: function() {
-            $('.tangram.tabs[data-ic-auto]').each(function() {
+            $('.tabs[data-ic-auto]').each(function() {
                 if (($(this).data('icAuto') != 'false') && ($(this).data('icRendered') != 'tabs')) {
                     $(this).data('icRendered', 'tabs');
                     new _.see.Tabs(this, {

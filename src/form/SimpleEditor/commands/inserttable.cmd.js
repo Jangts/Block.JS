@@ -51,18 +51,18 @@ tangram.block([
     });
 
     regCreater('inserttable', function() {
-        var html = '<dialog class="tangram se-dialog">';
-        html += '<span class="tangram se-title">Insert Table</span>';
-        html += '<div class="tangram se-attr"><div class="tangram se-attr-left">';
-        html += '<label><i>Size</i><input type="number" class="tangram se-table-rows" placeholder="1"></label>';
-        html += '<span>×</span><input type="number" class="tangram se-table-columns" placeholder="1">';
-        html += '</div><div class="tangram se-attr-right">';
-        html += '<label><i>Width</i><input type="number" class="tangram se-table-width" placeholder="100"></label>';
-        html += '<select class="tangram se-table-unit">';
+        var html = '<dialog class="se-dialog">';
+        // html += '<span class="se-title">Insert Table</span>';
+        html += '<div class="se-attr"><div class="se-attr-left">';
+        html += '<label><i>Size</i><input type="number" class="se-table-rows" placeholder="1"></label>';
+        html += '<span>×</span><input type="number" class="se-table-columns" placeholder="1">';
+        html += '</div><div class="se-attr-right">';
+        html += '<label><i>Width</i><input type="number" class="se-table-width" placeholder="100"></label>';
+        html += '<select class="se-table-unit">';
         html += '<option value="%" selected="selected">%</option>';
         html += '<option value="">px</option>';
         html += '</select></div></div>';
-        html += '<div class="tangram se-btns">';
+        html += '<div class="se-btns">';
         html += '<button type="button" class="data-se-cmd" data-se-cmd="inserttable">OK</button>';
         html += '</div>';
         html += '</dialog>';
@@ -71,10 +71,10 @@ tangram.block([
 
     regDialog('inserttable', function(btn) {
         var dialog = _.dom.closest(btn, 'dialog');
-        var rowsInput = _.query('.tangram.se-attr .tangram.se-table-rows', dialog)[0];
-        var columnsInput = _.query('.tangram.se-attr .tangram.se-table-columns', dialog)[0];
-        var widthInput = _.query('.tangram.se-attr .tangram.se-table-width', dialog)[0];
-        var unitInput = _.query('.tangram.se-attr .tangram.se-table-unit', dialog)[0];
+        var rowsInput = _.query('.se-attr .se-table-rows', dialog)[0];
+        var columnsInput = _.query('.se-attr .se-table-columns', dialog)[0];
+        var widthInput = _.query('.se-attr .se-table-width', dialog)[0];
+        var unitInput = _.query('.se-attr .se-table-unit', dialog)[0];
         if (rowsInput && columnsInput) {
             return {
                 rows: rowsInput.value == '' ? 1 : rowsInput.value,
