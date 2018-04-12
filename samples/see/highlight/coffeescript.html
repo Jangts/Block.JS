@@ -82,7 +82,7 @@ task 'build:parser', 'rebuild the Jison parser', (options) ->
          * 2. 使用load加载coy样式并调用see.highlight.rendertAll；
          * 3. 使用see.highlight.renderAll渲染coffeescript代码；
          */
-        tangram.block(['$_/see/highlight/languages/coffeescript.xtd'], function(_, global, undefined) {
+        tangram.block(['$_/see/highlight/languages/coffeescript'], function(_, global, undefined) {
             _.load('../../../src/see/highlight/themes/okaidia.css', _.see.highlight.renderAll, null, 'css');
         }, true);
     </script>

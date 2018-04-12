@@ -6,9 +6,7 @@
  * Date: 2015-09-04
  */
 ;
-tangram.block([
-    '$_/form/SimpleEditor/',
-], function(pandora, global, undefined) {
+tangram.block([], function(pandora, global, undefined) {
     var _ = pandora,
         cache = pandora.locker,
         console = global.console,

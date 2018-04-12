@@ -13,6 +13,7 @@ tangram.block([
     var _ = pandora,
         cache = pandora.locker,
         console = global.console,
+        query = _.dom.sizzle || _.dom.query,
 
         regMethod = cache.read(new _.Identifier('EDITOR_REG_M').toString()),
         regCommand = cache.read(new _.Identifier('EDITOR_REG_CMD').toString()),
@@ -95,7 +96,7 @@ tangram.block([
         html += '<label><i>Enter URL</i><input type="text" class="se-input" placeholder="Video URL" /></label>';
         html += '</div>';
         html += '<div class="se-attr"><div class="se-attr-left">';
-        html += '<label><i>Size</i><input type="number" class="se-vidoe-width" placeholder="640"></label>';
+        html += '<label><i class="size">Size</i><input type="number" class="se-vidoe-width" placeholder="640"></label>';
         html += '<span>×</span><input type="number" class="se-vidoe-height" placeholder="480">';
         html += '</div><div class="se-attr-right">';
         html += '<label><i>Type</i><select class="se-vidoe-type"></label>';
@@ -113,16 +114,16 @@ tangram.block([
 
     regDialog('insertvideo', function(btn) {
         var dialog = _.dom.closest(btn, 'dialog');
-        var textarea = _.query('.se-code', dialog)[0];
+        var textarea = query('.se-code', dialog)[0];
         if (textarea && textarea.value != '') {
             return {
                 code: textarea.value
             }
         }
-        var input = _.query('.se-url .se-input', dialog)[0];
-        var widthInput = _.query('.se-attr .se-vidoe-width', dialog)[0];
-        var heightInput = _.query('.se-attr .se-vidoe-height', dialog)[0];
-        var typeInput = _.query('.se-attr .se-vidoe-type', dialog)[0];
+        var input = query('.se-url .se-input', dialog)[0];
+        var widthInput = query('.se-attr .se-vidoe-width', dialog)[0];
+        var heightInput = query('.se-attr .se-vidoe-height', dialog)[0];
+        var typeInput = query('.se-attr .se-vidoe-type', dialog)[0];
         if (input && input.value != '') {
             return {
                 url: input.value,

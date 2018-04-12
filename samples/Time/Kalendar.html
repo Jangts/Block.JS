@@ -20,7 +20,7 @@
     <kalendar id="mykld"></kalendar>
 
     <script>
-        tangram.block(['$_/Time/', '$_/Time/Kalendar.cls'], (_) => {
+        tangram.block(['$_/Time/', '$_/Time/Kalendar'], (_) => {
             var $ = _.dom.select,
                 kalendar = new _.Time.Kalendar('mykld');
             kalendar.drawEvents([false, true, true, false, false, false, false, true, false, false, false, false, false, false, true, false, true, true, false, false, false, false, true, false, false, false, false, false, false, true]);

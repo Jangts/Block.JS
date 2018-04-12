@@ -43,11 +43,6 @@
             text-align: right;
             /* color: #FFFFFF; */
         }
-        
-        .mainnav li.actived,
-        .mainnav li:hover {
-            /* background-color: #660000; */
-        }
     </style>
 </head>
 
@@ -171,7 +166,7 @@
         </ul>
     </nav>
     <script type="text/javascript">
-        tangram.block('$_/see/Menu.cls', function(_, global, undefined) {
+        tangram.block('$_/see/Menu', function(_, global, undefined) {
             new _.see.Menu('mainnav');
         }, true);
     </script>

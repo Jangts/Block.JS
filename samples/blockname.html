@@ -36,7 +36,7 @@
                 type: 'monkey',
                 age: 3
             }]);
-        }, '$_/animals.xtd');
+        }, '$_/animals');
 
         tangram.block(function(pandora, global, undefined) {
             var _ = pandora,
@@ -53,9 +53,9 @@
                 }
             });
 
-        }, '$_/Animal.cls');
+        }, '$_/Animal');
 
-        tangram.block(['$_/animals.xtd', '$_/Animal.cls'], function(_, global, undefined) {
+        tangram.block(['$_/animals', '$_/Animal'], function(_, global, undefined) {
             var it;
             _.each(_.animals, function(i, animal) {
                 it = _.Animal(this);

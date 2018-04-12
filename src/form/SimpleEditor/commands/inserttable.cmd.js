@@ -13,6 +13,7 @@ tangram.block([
     var _ = pandora,
         cache = pandora.locker,
         console = global.console,
+        query = _.dom.sizzle || _.dom.query,
 
         regMethod = cache.read(new _.Identifier('EDITOR_REG_M').toString()),
         regCommand = cache.read(new _.Identifier('EDITOR_REG_CMD').toString()),
@@ -41,9 +42,9 @@ tangram.block([
             }
             html += '</tbody></table>';
             this.execCommand('insert', html);
-            var table = _.query('table[data-se-temp]')[0];
+            var table = query('table[data-se-temp]')[0];
             _.dom.removeAttr(table, 'data-se-temp');
-            window.getSelection && window.getSelection().selectAllChildren(_.query('td', table)[0]);
+            window.getSelection && window.getSelection().selectAllChildren(query('td', table)[0]);
             this.selection.saveRange().collapse(true);
             this.onchange();
         }
@@ -54,7 +55,7 @@ tangram.block([
         var html = '<dialog class="se-dialog">';
         // html += '<span class="se-title">Insert Table</span>';
         html += '<div class="se-attr"><div class="se-attr-left">';
-        html += '<label><i>Size</i><input type="number" class="se-table-rows" placeholder="1"></label>';
+        html += '<label><i class="size">Size</i><input type="number" class="se-table-rows" placeholder="1"></label>';
         html += '<span>×</span><input type="number" class="se-table-columns" placeholder="1">';
         html += '</div><div class="se-attr-right">';
         html += '<label><i>Width</i><input type="number" class="se-table-width" placeholder="100"></label>';
@@ -71,10 +72,10 @@ tangram.block([
 
     regDialog('inserttable', function(btn) {
         var dialog = _.dom.closest(btn, 'dialog');
-        var rowsInput = _.query('.se-attr .se-table-rows', dialog)[0];
-        var columnsInput = _.query('.se-attr .se-table-columns', dialog)[0];
-        var widthInput = _.query('.se-attr .se-table-width', dialog)[0];
-        var unitInput = _.query('.se-attr .se-table-unit', dialog)[0];
+        var rowsInput = query('.se-attr .se-table-rows', dialog)[0];
+        var columnsInput = query('.se-attr .se-table-columns', dialog)[0];
+        var widthInput = query('.se-attr .se-table-width', dialog)[0];
+        var unitInput = query('.se-attr .se-table-unit', dialog)[0];
         if (rowsInput && columnsInput) {
             return {
                 rows: rowsInput.value == '' ? 1 : rowsInput.value,

@@ -622,7 +622,7 @@ namespace NerdDinner.Models
          * 2. 使用load加载coy样式并调用see.highlight.rendertAll；
          * 3. 使用see.highlight.renderAll渲染csharp代码；
          */
-        tangram.block(['$_/see/highlight/languages/csharp.xtd'], function(_, global, undefined) {
+        tangram.block(['$_/see/highlight/languages/csharp'], function(_, global, undefined) {
             _.load('../../../src/see/highlight/themes/coy.css', _.see.highlight.renderAll, null, 'css');
         }, true);
     </script>

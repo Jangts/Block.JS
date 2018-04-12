@@ -368,7 +368,7 @@
             classesSharedSpace: {},
             locales: {},
             core: runtime,
-            addinUrl: runtime.Pathname + 'add-ins/',
+            addinUrl: runtime.Pathname + 'add-in/',
             blocks: {
                 /* 临时代码块缓存 */
                 temp: [],
@@ -838,7 +838,7 @@
                      * 
                      * @return string
                      */
-                    dir: function() {
+                    url: function() {
                         return storage.core.Pathname;
                     },
                 },
@@ -1381,7 +1381,7 @@
                     url = url + '.js';
                     filetype = 'js';
                 }
-                url = url.replace(/([A-Z][\w\$]+)\/.js$/, '$1/$1.cls.js').replace(/([a-z][\w\$]+)\/.js$/, '$1/$1.xtd.js');
+                url = url.replace(/([\w\$]+)\/.js$/, '$1/$1.js');
 
                 if (this.requires[this.onload]) {
                     var id = this.requires[this.onload].toLowerCase();

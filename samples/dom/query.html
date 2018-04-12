@@ -20,9 +20,9 @@
     <div class="changeText">Original Text</div>
     <div class="changeText">Original Text</div>
     <script>
-        tangram.block(['$_/dom/query.xtd'], function(_, global, undefined) {
+        tangram.block(['$_/dom/query/'], function(_, global, undefined) {
 
-            var iterator = new _.Iterator(_.dom.query('.changeText')),
+            var iterator = new _.Iterator(_.query('.changeText')),
                 render = function(elem) {
                     if (elem) {
                         setTimeout(function() {
@@ -44,7 +44,7 @@
                 render(iterator.next());
             }, 200);
 
-            console.log(typeof _.dom.query('.changeText'));
+            console.log(typeof _.query('.changeText'));
         }, true);
     </script>
 </body>

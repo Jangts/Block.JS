@@ -225,6 +225,12 @@ body {
       border: 1px solid #DDD;
       color: #555;
       overflow: auto; }
+      .tangram-simpleeditor .se-toolbar .se-tool .se-pick [data-se-cmd=header],
+      .tangram-form .simpleeditor .se-toolbar .se-tool .se-pick [data-se-cmd=header] {
+        padding: 2px 5px; }
+        .tangram-simpleeditor .se-toolbar .se-tool .se-pick [data-se-cmd=header]:hover,
+        .tangram-form .simpleeditor .se-toolbar .se-tool .se-pick [data-se-cmd=header]:hover {
+          background-color: #eee; }
     .tangram-simpleeditor .se-toolbar .se-tool.data-se-cmds.active,
     .tangram-form .simpleeditor .se-toolbar .se-tool.data-se-cmds.active {
       overflow: visible;
@@ -278,11 +284,11 @@ body {
       height: 16px;
       margin: 1px; }
     .tangram-simpleeditor .se-toolbar li.se-color:hover,
-    .tangram-form .simpleeditor .se-toolbar li.se-color:hover {
-      margin: 0px;
-      border: #09C 1px solid; }
     .tangram-simpleeditor .se-toolbar li.se-color.selected,
+    .tangram-form .simpleeditor .se-toolbar li.se-color:hover,
     .tangram-form .simpleeditor .se-toolbar li.se-color.selected {
+      width: 20px;
+      height: 20px;
       margin: 0px;
       border: #09C 1px solid; }
     .tangram-simpleeditor .se-toolbar hr.se-break,
@@ -325,8 +331,9 @@ body {
         font-size: 0.6rem; }
         .tangram-simpleeditor .se-toolbar .se-tool .se-dialog input[type=number],
         .tangram-form .simpleeditor .se-toolbar .se-tool .se-dialog input[type=number] {
-          text-align: center;
-          padding: 0; }
+          width: 128px;
+          padding: 0;
+          text-align: center; }
       .tangram-simpleeditor .se-toolbar .se-tool .se-dialog button,
       .tangram-form .simpleeditor .se-toolbar .se-tool .se-dialog button {
         height: 30px;
@@ -417,10 +424,13 @@ body {
             background-color: #EEE;
             text-align: center;
             color: #444; }
+            .tangram-simpleeditor .se-toolbar .se-tool .se-dialog .se-attr label i.size,
+            .tangram-form .simpleeditor .se-toolbar .se-tool .se-dialog .se-attr label i.size {
+              width: 60px; }
         .tangram-simpleeditor .se-toolbar .se-tool .se-dialog .se-attr span,
         .tangram-form .simpleeditor .se-toolbar .se-tool .se-dialog .se-attr span {
           float: left;
-          width: 24px;
+          width: 30px;
           height: 30px;
           line-height: 30px;
           font-size: 14px;
@@ -480,7 +490,7 @@ body {
         .tangram-simpleeditor .se-toolbar .se-tool .se-dialog .se-btns input,
         .tangram-form .simpleeditor .se-toolbar .se-tool .se-dialog .se-btns input {
           float: left;
-          width: 160px;
+          width: 170px;
           height: 30px;
           background-color: #09C;
           border: none;

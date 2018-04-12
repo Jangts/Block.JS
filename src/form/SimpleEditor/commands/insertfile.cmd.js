@@ -7,7 +7,7 @@
  */
 ;
 tangram.block([
-    '$_/util/bool.xtd',
+    '$_/util/bool',
     '$_/dom/',
     '$_/form/SimpleEditor/commands/insert.cmds'
 ], function(pandora, global, undefined) {
@@ -15,7 +15,8 @@ tangram.block([
         declare = pandora.declareClass,
         cache = pandora.locker,
         doc = global.document,
-        console = global.console;
+        console = global.console,
+        query = _.dom.sizzle || _.dom.query;
 
     var parameters = cache.read(new _.Identifier('EDITOR_PARAMS').toString()),
         regMethod = cache.read(new _.Identifier('EDITOR_REG_M').toString()),
@@ -64,8 +65,8 @@ tangram.block([
 
     regDialog('insertfile', function(btn) {
         var dialog = _.dom.closest(btn, 'dialog');
-        var n_input = _.query('.se-aaa .se-input', dialog)[0],
-            v_input = _.query('.se-url .se-input', dialog)[0];
+        var n_input = query('.se-aaa .se-input', dialog)[0],
+            v_input = query('.se-url .se-input', dialog)[0];
         if (v_input && v_input.value) {
             return [n_input && n_input.value, v_input.value];
         }
@@ -74,7 +75,7 @@ tangram.block([
 
     regDialog('uploadfile', function(btn) {
         var dialog = _.dom.closest(btn, 'dialog');
-        var input = _.query('.se-files', dialog)[0];
+        var input = query('.se-files', dialog)[0];
         var that = this;
         input.onchange = function() {
             var file = this.files[0];
@@ -94,7 +95,7 @@ tangram.block([
                     if (failed) {
                         alert('attachment upload failed');
                     } else {
-                        var n_input = _.query('.se-aaa .se-input', dialog)[0];
+                        var n_input = query('.se-aaa .se-input', dialog)[0];
                         if (n_input && n_input.value) {
                             that.insertFile(val[0], n_input.value);
                         } else {

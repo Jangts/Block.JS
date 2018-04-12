@@ -363,6 +363,7 @@ body {
   min-height: 60px;
   padding-left: 0; }
   .tangram-form[data-type=pages] .tangram-inputs[data-type=blocks] > .input-label {
+    position: relative;
     height: 27px;
     top: 0;
     margin-top: 3px;

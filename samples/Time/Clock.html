@@ -29,7 +29,7 @@
     <div id="myclock"></div>
 
     <script>
-        tangram.block(['$_/Time/', '$_/Time/Clock.cls'], (_) => {
+        tangram.block(['$_/Time/', '$_/Time/Clock'], (_) => {
             var $ = _.dom.select,
                 time = new _.Time(),
                 times = time.now(),

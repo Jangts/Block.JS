@@ -7,13 +7,13 @@
  */
 ;
 tangram.block([
-    '$_/util/bool.xtd',
-    '$_/dom/',
-    '$_/form/SimpleEditor/'
+    '$_/util/bool',
+    '$_/dom/'
 ], function(pandora, global, undefined) {
     var _ = pandora,
         cache = pandora.locker,
         console = global.console,
+        query = _.dom.sizzle || _.dom.query,
 
         regMethod = cache.read(new _.Identifier('EDITOR_REG_M').toString()),
         regCommand = cache.read(new _.Identifier('EDITOR_REG_CMD').toString()),
@@ -34,7 +34,7 @@ tangram.block([
             }
             this.selection.getRange().execCommand('createlink', url);
             this.selection.collapseRange();
-            var a = _.query('a[href="' + url + '"]');
+            var a = query('a[href="' + url + '"]');
             _.each(a, function() {
                 this.href = val.url;
                 if (val.isNew) {
@@ -65,8 +65,8 @@ tangram.block([
 
     regDialog('createlink', function(btn) {
         var dialog = _.dom.closest(btn, 'dialog');
-        var input = _.query('.se-url .se-input', dialog)[0];
-        var checkbox = _.query('.se-check .se-checkbox', dialog)[0]
+        var input = query('.se-url .se-input', dialog)[0];
+        var checkbox = query('.se-check .se-checkbox', dialog)[0]
         if (input && input.value != '') {
             return {
                 url: input.value,

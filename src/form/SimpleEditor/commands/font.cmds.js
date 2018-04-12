@@ -7,8 +7,7 @@
  */
 ;
 tangram.block([
-    '$_/dom/',
-    '$_/form/SimpleEditor/',
+    '$_/dom/'
 ], function(pandora, global, undefined) {
     var _ = pandora,
         cache = pandora.locker,

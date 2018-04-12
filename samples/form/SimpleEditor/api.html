@@ -52,7 +52,7 @@
     </div>
     <script>
         tangram.block([
-            '$_/dom/Elements/form.clsx',
+            '$_/dom/Elements',
             '$_/form/SimpleEditor/'
         ], function(pandora, global, undefined) {
             var _ = pandora,
@@ -79,8 +79,8 @@
 
         function setContent(isAppendTo) {
             var arr = [];
-            arr.push("使用editor.setContent('欢迎使用ueditor')方法可以设置编辑器的内容");
-            editor.setValue('欢迎使用ueditor', isAppendTo);
+            arr.push("使用editor.setContent('欢迎使用tangtam.js simple editor')方法可以设置编辑器的内容");
+            editor.setValue('欢迎使用tangtam.js simple editor', isAppendTo);
             alert(arr.join("\n"));
         }
 

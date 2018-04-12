@@ -7,9 +7,9 @@
  */
 ;
 tangram.block([
-    '$_/util/bool.xtd',
+    '$_/util/bool',
     '$_/dom/',
-    '$_/painter/canvas.xtd',
+    '$_/painter/canvas',
     '$_/form/SimpleEditor/commands/insert.cmds'
 ], function(pandora, global, undefined) {
     var _ = pandora,
@@ -17,6 +17,7 @@ tangram.block([
         cache = pandora.locker,
         doc = global.document,
         console = global.console,
+        query = _.dom.sizzle || _.dom.query,
 
         regMethod = cache.read(new _.Identifier('EDITOR_REG_M').toString()),
         regCommand = cache.read(new _.Identifier('EDITOR_REG_CMD').toString()),
@@ -63,7 +64,7 @@ tangram.block([
 
     regDialog('insertimage', function(btn) {
         var dialog = _.dom.closest(btn, 'dialog');
-        var input = _.query('.se-url .se-input', dialog)[0];
+        var input = query('.se-url .se-input', dialog)[0];
         if (input && input.value) {
             return [input.value];
         }
@@ -72,7 +73,7 @@ tangram.block([
 
     regDialog('uploadimage', function(btn) {
         var dialog = _.dom.closest(btn, 'dialog');
-        var images = _.query('.se-show', dialog)[0];
+        var images = query('.se-show', dialog)[0];
         var files = images.files;
         if (files && files.length > 0) {
             var that = this;

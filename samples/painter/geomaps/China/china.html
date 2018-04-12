@@ -13,8 +13,8 @@
     <script>
         var includes = [
             '$_/data/',
-            '$_/dom/Elements/',
-            '$_/painter/SVG.cls'
+            '$_/dom/Elements',
+            '$_/painter/SVG'
         ];
         tangram.block(includes, function(_, global, undefined) {
             var document = global.document;
@@ -28,9 +28,9 @@
                 rb: [135.0879, 18.1055]
             };
 
-            var url = _.core.dir() + '../data/geomaps/China/china.json';
+            var url = _.core.url() + '../data/geomaps/China/china.json';
 
-            _.data.json(url, function(data) {
+            _.async.json(url, function(data) {
                 var map = _.painter.geo(document.body, width, height, data["features"], range, function(index, path, type, properties) {
                     var coordinate = this.coordinateSwitch(properties["cp"]);
                     path.attr('fill', 'rgba(128,124,139,0.61)')

@@ -77,10 +77,10 @@
     <div id="chartjs-tooltip"></div>
     <script>
         tangram.block([
-            '$_/dom/Elements/',
-            '$_/painter/Charts/animation.clsx',
-            '$_/painter/Charts/tooltip.clsx',
-            '$_/painter/Charts/type/Pie.cls'
+            '$_/dom/Elements',
+            '$_/painter/Charts/modules/animation',
+            '$_/painter/Charts/modules/tooltip',
+            '$_/painter/Charts/types/Pie'
         ], function(_, global, undefined) {
             var document = global.document;
             var location = global.location;

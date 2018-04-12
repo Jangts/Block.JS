@@ -8,9 +8,9 @@
 ;
 tangram.auto([
     '$_/see/Scrollbar/',
-    '$_/see/Tabs/SlideTabs.cls',
-    '$_/see/ListView.cls',
-    '$_/see/NavMenu.cls'
+    '$_/see/Tabs/SlideTabs',
+    '$_/see/ListView',
+    '$_/see/NavMenu'
 ], function(pandora, global, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,

@@ -12,6 +12,12 @@
         border: 1px solid #DDD;
         color: #555;
         overflow: auto;
+        [data-se-cmd=header] {
+            padding: 2px 5px;
+            &:hover {
+                background-color: #eee;
+            }
+        }
     }
     &.data-se-cmds.active {
         overflow: visible;
@@ -77,12 +83,10 @@ li.se-color i {
     margin: 1px;
 }
 
-li.se-color:hover {
-    margin: 0px;
-    border: #09C 1px solid;
-}
-
+li.se-color:hover,
 li.se-color.selected {
+    width: 20px;
+    height: 20px;
     margin: 0px;
     border: #09C 1px solid;
 }

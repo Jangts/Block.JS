@@ -21,13 +21,13 @@
     <div class="changeText">Original Text</div>
     <script>
         tangram.block([
-            '$_/dom/sizzle.xtd'
+            '$_/dom/query/sizzle'
         ], function(pandora, global, undefined) {
             var _ = pandora,
                 document = global.document,
                 console = global.console;
 
-            var iterator = new _.Iterator(_.dom.sizzle('.changeText')),
+            var iterator = new _.Iterator(_.query('.changeText')),
                 render = function(elem) {
                     if (elem) {
                         setTimeout(function() {
@@ -48,7 +48,7 @@
                 render(iterator.next());
             }, 200);
 
-            console.log(typeof _.dom.sizzle('.changeText'));
+            console.log(typeof _.query('.changeText'));
         }, true);
     </script>
 </body>

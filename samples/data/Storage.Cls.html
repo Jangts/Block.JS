@@ -19,7 +19,7 @@
         </tbody>
     </table>
     <script>
-        tangram.block(['$_/data/Storage.cls'], function(_, global, undefined) {
+        tangram.block(['$_/data/Storage'], function(_, global, undefined) {
             var db = new _.data.Storage('mydatabase');
             if (db.length == 0) {
                 db.set('tangram.js', {

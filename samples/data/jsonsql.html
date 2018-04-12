@@ -12,14 +12,14 @@
 <body>
     <p><b>运行示例：</b></p>
     <hr/>
-    <p>语句1： _.data.jsonsql.query("select * from json.channel.items order by title desc",json);</p>
+    <p>语句1： _.data.queryJSON("select * from json.channel.items order by title desc",json);</p>
     <button name="btn1" id="btn1" onclick="getAll();">获取全部数据</button>
     <hr/>
-    <p>语句2： _.data.jsonsql.query("select title,url from json.channel.items where (category=='javascript' || category=='vista') order by title,category asc limit 3",json);
+    <p>语句2： _.data.queryJSON("select title,url from json.channel.items where (category=='javascript' || category=='vista') order by title,category asc limit 3",json);
     </p>
     <button name="btn2" id="btn2" onclick="getFiltered();">获取过滤数据</button>
     <hr/>
-    <p>语句3：_.data.jsonsql.query("select url from json.channel.items where (category=='javascript' && author=='trent') order by url asc limit 1,2",json);
+    <p>语句3：_.data.queryJSON("select url from json.channel.items where (category=='javascript' && author=='trent') order by url asc limit 1,2",json);
     </p>
     <button name="btn3" id="btn3" onclick="getLimit();">获取限定数量的数据</button>
     <hr/>
@@ -27,24 +27,25 @@
     <p>只支持 Select 查询语句，“JSON”：“json.channel.items”指向一个对象数组, 排序接受参数：asc,desc,ascnum,descnum， limit：接受1，或2个参数，指定要获取数据数量个数。
     </P>
     <script type="text/javascript">
-        tangram.block(['$_/data/',
-            '$_/data/jsonsql.xtd'
+        tangram.block([
+            '$_/data/',
+            '$_/async/'
         ], function(_, global, undefined) {
             function getAll() {
-                _.data.json("jsonsql.test.json", function(json) {
-                    console.log(json, _.data.jsonsql.query("select * from json.channel", json));
+                _.async.json("jsonsql.test.json", function(json) {
+                    console.log(json, _.data.queryJSON("select * from json.channel", json));
                 });
             }
 
             function getFiltered() {
-                _.data.json("jsonsql.test.json", function(json) {
-                    console.log(json, _.data.jsonsql.query("select title,url,author,category from json.channel.items where (category=='javascript' || author=='trent') order by title,category asc limit 3", json));
+                _.async.json("jsonsql.test.json", function(json) {
+                    console.log(json, _.data.queryJSON("select title,url,author,category from json.channel.items where (category=='javascript' || author=='trent') order by title,category asc limit 3", json));
                 });
             }
 
             function getLimit() {
-                _.data.json("jsonsql.test.json", function(json) {
-                    console.log(_.data.jsonsql.query("select url from json.channel.items where (category=='javascript' && author=='trent') order by url asc limit 1,2", json));
+                _.async.json("jsonsql.test.json", function(json) {
+                    console.log(_.data.queryJSON("select url from json.channel.items where (category=='javascript' && author=='trent') order by url asc limit 1,2", json));
                 });
             }
             global.getAll = getAll;
