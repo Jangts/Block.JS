@@ -18,7 +18,7 @@ tangram.block([
         location = global.location,
         query = _.dom.sizzle || _.dom.query;
 
-    declare('see.widgets.Alerter', _.util.COM, {
+    declare('see.popup.Alerter', _.util.COM, {
         current: 0,
         _init: function(elem) {
             if (elem) {

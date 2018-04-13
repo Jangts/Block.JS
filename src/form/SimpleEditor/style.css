@@ -331,6 +331,7 @@ body {
         font-size: 0.6rem; }
         .tangram-simpleeditor .se-toolbar .se-tool .se-dialog input[type=number],
         .tangram-form .simpleeditor .se-toolbar .se-tool .se-dialog input[type=number] {
+          float: left;
           width: 128px;
           padding: 0;
           text-align: center; }
@@ -413,7 +414,7 @@ body {
         .tangram-simpleeditor .se-toolbar .se-tool .se-dialog .se-attr label,
         .tangram-form .simpleeditor .se-toolbar .se-tool .se-dialog .se-attr label {
           float: left;
-          height: 34px; }
+          height: 30px; }
           .tangram-simpleeditor .se-toolbar .se-tool .se-dialog .se-attr label i,
           .tangram-form .simpleeditor .se-toolbar .se-tool .se-dialog .se-attr label i {
             float: left;

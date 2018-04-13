@@ -11,7 +11,7 @@ tangram.block([
     '$_/form/SimpleEditor/style.css',
     '$_/util/bool',
     '$_/dom/Events',
-    // '$_/data/',
+    // '$_/data/','$_/async/',
     '$_/form/SimpleEditor/Selection',
     '$_/form/SimpleEditor/util/parameters',
     '$_/form/SimpleEditor/util/builders',

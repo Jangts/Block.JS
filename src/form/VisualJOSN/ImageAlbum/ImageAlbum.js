@@ -11,7 +11,7 @@ tangram.block([
     '$_/util/bool',
     '$_/dom/HTMLCloser',
     '$_/dom/Events',
-    '$_/data/',
+    '$_/data/', '$_/async/',
     '$_/form/VisualJOSN/Selection',
     '$_/form/VisualJOSN/parameters.tmp',
     '$_/form/VisualJOSN/builders.tmp',

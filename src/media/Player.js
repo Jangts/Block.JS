@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework source code
  *
- * class medias.Player
+ * class media.Player
  *
  * Date 2017-04-06
  */
@@ -17,7 +17,7 @@ tangram.block('$_/dom/Events', function(pandora, global, undefined) {
     _('media');
 
     declare('media.Player', {
-        type : 'AUDIO',
+        type: 'AUDIO',
         protectTime: 100,
         lastActionTime: Date.now(),
         _init: function(elem, sheet) {

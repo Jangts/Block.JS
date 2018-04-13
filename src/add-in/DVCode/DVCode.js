@@ -1,5 +1,5 @@
 tangram.block([
-    '$_/data/',
+    '$_/data/', '$_/async/',
     '$_/dom/Elements'
 ], function(_, global, undefined) {
     var $ = _.dom.select,

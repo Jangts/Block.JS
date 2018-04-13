@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework source code
  *
- * class see.BasicScrollBAR
+ * class see.Scrollbar.Abstract
  *
  * Date 2017-04-06
  */
@@ -12,7 +12,7 @@ tangram.block('$_/dom/Events', function(pandora, global, undefined) {
         cache = pandora.locker,
         doc = global.document;
 
-    declare('see.BasicScrollBAR', {
+    declare('see.Scrollbar.Abstract', {
         disabled: false,
         protect: true,
         Element: undefined,

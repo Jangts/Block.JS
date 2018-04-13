@@ -22,6 +22,7 @@
         font-size: 12px;
         font-size: 0.6rem;
         &[type=number] {
+            float: left;
             width: 128px;
             padding: 0;
             text-align: center;
@@ -113,7 +114,7 @@
         margin-bottom: 10px;
         label {
             float: left;
-            height: 34px;
+            height: 30px;
             i {
                 float: left;
                 width: auto;
@@ -293,6 +294,7 @@
         }
     }
 }
+
 
 /* ------------------------- */
 

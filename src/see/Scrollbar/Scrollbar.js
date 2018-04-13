@@ -8,14 +8,15 @@
 
 tangram.block([
     '$_/util/bool',
-    '$_/see/BasicScrollBAR'
+    '$_/see/Scrollbar/Abstract'
 ], function(pandora, global, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
         cache = pandora.locker,
         doc = global.document,
         console = global.console,
-        location = global.location;
+        location = global.location,
+        Abstract = _.see.Scrollbar.Abstract;
 
     var scrollbar = '';
     scrollbar += '<a href="javascript:void(0);" class="scroll-button-prev" oncontextmenu="return false;"></a>';
@@ -24,7 +25,7 @@ tangram.block([
     scrollbar += '<div class="scroll-rail"></div></div>';
     scrollbar += '<a href="javascript:void(0);" class="scroll-button-next" oncontextmenu="return false;"></a>';
 
-    declare('see.Scrollbar', _.see.BasicScrollBAR, {
+    declare('see.Scrollbar', Abstract, {
         _init: function(elem, options) {
             options = _.extend(options || {}, false, {
                 theme: 'default-dark',
@@ -90,4 +91,6 @@ tangram.block([
             this.verticalDragger = _.byCn('scroll-dragger', this.vertical)[0];
         }
     });
+
+    _.see.Scrollbar.Abstract = Abstract;
 });

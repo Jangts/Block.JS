@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework source code
  *
- * class widgets.POP
+ * class popup.Dialog
  *
  * Date 2017-04-06
  */
@@ -15,7 +15,7 @@ tangram.block(['$_/util/COM', '$_/dom/Elements'], function(pandora, global, unde
         location = global.location;
     var $ = _.dom.select;
 
-    declare('see.widgets.POP', _.util.COM, {
+    declare('see.popup.Dialog', _.util.COM, {
         mask: undefined,
         maskBgColor: 'transparent',
         maskOpacity: 0,
