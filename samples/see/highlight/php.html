@@ -95,7 +95,7 @@ class Util
          * 2. 使用load加载funky样式并调用see.highlight.rendertAll；
          * 3. 使用see.highlight.renderAll渲染php代码；
          */
-        tangram.block(['$_/see/highlight/languages/php'], function(_, global, undefined) {
+        tangram.block(['$_/see/highlight/languages/php'], function(_, global, imports, undefined) {
             _.load('../../../src/see/highlight/themes/funky.css', _.see.highlight.renderAll, null, 'css');
         }, true);
     </script>

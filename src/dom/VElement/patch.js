@@ -9,7 +9,7 @@
 tangram.block([
     '$_/obj/',
     '$_/dom/'
-], function(pandora, global, undefined) {
+], function(pandora, global, imports, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
         doc = global.document,

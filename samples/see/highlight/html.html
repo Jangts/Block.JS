@@ -52,7 +52,7 @@
          * 2. 使用load加载twilight样式并调用see.highlight.rendertAll；
          * 3. 使用see.highlight.renderAll渲染html代码；
          */
-        tangram.block(['$_/see/highlight/languages/html'], function(_, global, undefined) {
+        tangram.block(['$_/see/highlight/languages/html'], function(_, global, imports, undefined) {
             _.load('../../../src/see/highlight/themes/twilight.css', _.see.highlight.renderAll, null, 'css');
         }, true);
     </script>

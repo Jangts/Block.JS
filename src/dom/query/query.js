@@ -6,10 +6,10 @@
  * Date 2017-04-06
  */
 ;
-tangram.block(['$_/str/', '$_/arr/', '$_/obj/'], function(pandora, global, undefined) {
+tangram.block(['$_/str/', '$_/arr/', '$_/obj/'], function(pandora, global, imports, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
-        cache = pandora.locker,
+        
         doc = global.document;
 
     //选择器正则表达式

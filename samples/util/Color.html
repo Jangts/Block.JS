@@ -11,7 +11,7 @@
 
 <body>
     <script>
-        tangram.block(['$_/util/Color'], function(_, global, undefined) {
+        tangram.block(['$_/util/Color'], function(_, global, imports, undefined) {
             var list = ['BurlyWood', '#C03', '#00ddcc', '#789abcde', 'rgb(123, 254, 179)', 'rgb(123, 179, 254, 1.0)', 'gainsboro', 'my color', '', 'G', {}];
             _.util.Color.regColor('my color', '#009900');
             _.each(list, function(i, color) {

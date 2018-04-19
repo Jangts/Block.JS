@@ -6,10 +6,10 @@
  * Date: 2017-04-06
  */
 ;
-tangram.block('$_/util/bool', function(pandora, global, undefined) {
+tangram.block('$_/util/bool', function(pandora, global, imports, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
-        cache = pandora.locker,
+        
         doc = global.document,
         console = global.console;
 

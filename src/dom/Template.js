@@ -8,10 +8,10 @@
  * Contact xiaodpro@gmail.com
  */
 ;
-tangram.block(['$_/str/'], function(pandora, global, undefined) {
+tangram.block(['$_/str/'], function(pandora, global, imports, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
-        cache = pandora.locker,
+        
         doc = global.document;
 
     var esc = _.str.escape,

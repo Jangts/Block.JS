@@ -1,0 +1,86 @@
+"await";
+/*!
+ * tangram.js framework source code
+ *
+ * class arr.Tree
+ *
+ * Date 2017-04-06
+ */
+
+var _ = pandora;
+
+var getParents (index) {
+    var parents = [];
+    each(this.data as i, leaf) {
+        if (leaf[this.indexkey] == index) {
+            leaf[this.parentskey] = getParents.call(this, leaf[this.parentindexkey]);
+            parents.push(leaf);
+        }
+    }
+    return parents;
+}
+
+var getChildren (parent) {
+    var children = [];
+    each(this.data as i, leaf) {
+        if (leaf[this.parentindexkey] == parent) {
+            leaf[this.childrenkey] = getChildren.call(this, leaf[this.indexkey]);
+            children.push(_.copy(leaf));
+        }
+    }
+    return children;
+}
+
+/**
+ * 一个数据树类型，提供4种排序方式
+ * 
+ * @param   {Array}     array           原始数据，数组
+ * @param   {String}    index           索引键的键名
+ * @param   {String}    parent          父级元素外键键名
+ * @param   {Object}    otherkeys       其他辅助键键名集
+ * 
+ */
+class .arr.Tree {
+    _init(array, index, parent, otherkeys = {}) {
+        this.result = [];
+        this.data = array;
+        this.indexkey = index || 'id';
+        this.parentindexkey = parent || 'parent';
+        this.levelkey = otherkeys.levelkey || 'level';
+        this.childrenkey = otherkeys.childrenkey || 'children';
+        this.parentskey = otherkeys.parentskey || 'parents';
+    }
+    getAllOrderByRoot(rootId=0, level=1) {
+        each(this.data as i, leaf) {
+            if (leaf[this.parentindexkey] == rootId) {
+                leaf[this.levelkey] = level;
+                this.result.push(leaf);
+                this.getAllOrderByRoot(leaf[this.indexkey], level + 1);
+            }
+        }
+        return this;
+    }
+    getRootsWithChildren(rootId=0) {
+        each(this.data as i, leaf) {
+            if (leaf[this.parentindexkey] == rootId) {
+                leaf[this.childrenkey] = getChildren.call(this, leaf[this.indexkey]);
+                this.result.push(leaf);
+            }
+        }
+        return this;
+    }
+    getAllWithChildren(rootId=0) {
+        each(this.data as i, leaf) {
+            leaf[this.childrenkey] = getChildren.call(this, leaf[this.indexkey]);
+            this.result.push(leaf);
+        }
+        return this;
+    }
+    getAllWithParents(rootId=0) {
+        each(this.data as i, leaf) {
+            leaf[this.parentskey] = getParents.call(this, leaf[this.parentindexkey]);
+            this.result.push(leaf);
+        }
+        return this;
+    }
+}

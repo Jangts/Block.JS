@@ -28,7 +28,7 @@
         2. 使用str.hash加密包中的md5和sha1方面加密一段文本；
         */
 
-        tangram.block(['$_/str/hash'], function(_, global, undefined) {
+        tangram.block(['$_/str/hash'], function(_, global, imports, undefined) {
             var document = global.document,
                 input = document.getElementById('input'),
                 md5 = document.getElementById('md5'),

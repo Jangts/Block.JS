@@ -11,10 +11,10 @@ tangram.block([
     '$_/arr/',
     '$_/math/easing',
     '$_/dom/Animation'
-], function(pandora, global, undefined) {
+], function(pandora, global, imports, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
-        cache = pandora.locker,
+        
         query = _.dom.sizzle || _.dom.query;
 
     var insert = function(content, handler) {

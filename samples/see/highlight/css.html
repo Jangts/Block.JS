@@ -73,7 +73,7 @@ pre .support {
          * 2. 使用load加载coy样式并调用see.highlight.rendertAll；
          * 3. 使用see.highlight.renderAll渲染css代码；
          */
-        tangram.block(['$_/see/highlight/languages/css'], function(_, global, undefined) {
+        tangram.block(['$_/see/highlight/languages/css'], function(_, global, imports, undefined) {
             _.load('../../../src/see/highlight/themes/default.css', _.see.highlight.renderAll, null, 'css');
         }, true);
     </script>

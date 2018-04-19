@@ -30,7 +30,7 @@
         tangram.block([
             '$_/data/',
             '$_/async/'
-        ], function(_, global, undefined) {
+        ], function(_, global, imports, undefined) {
             function getAll() {
                 _.async.json("jsonsql.test.json", function(json) {
                     console.log(json, _.data.queryJSON("select * from json.channel", json));

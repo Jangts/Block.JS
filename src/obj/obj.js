@@ -6,10 +6,10 @@
  * Date 2017-04-06
  */
 ;
-tangram.block(function(pandora, global, undefined) {
+tangram.block(function(pandora, global, imports, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
-        cache = pandora.locker,
+        
         doc = global.document,
         console = global.console;
 
@@ -128,7 +128,7 @@ tangram.block(function(pandora, global, undefined) {
             return _.obj.toQueryString(data)
         },
         decodeQueryString: function (str) {
-            str = str.replace(/^#/, '');
+            str = str.replace(/^(#|\?)/, '');
             var data = {};
             var fields = str.split('&');
             var i = 0,

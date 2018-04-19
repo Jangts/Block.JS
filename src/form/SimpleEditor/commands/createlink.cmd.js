@@ -9,9 +9,9 @@
 tangram.block([
     '$_/util/bool',
     '$_/dom/'
-], function(pandora, global, undefined) {
+], function(pandora, global, imports, undefined) {
     var _ = pandora,
-        cache = pandora.locker,
+        
         console = global.console,
         query = _.dom.sizzle || _.dom.query,
 

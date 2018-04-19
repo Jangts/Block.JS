@@ -10,10 +10,10 @@ tangram.block([
     '$_/arr/',
     '$_/dom/query/',
     '$_/dom/Events'
-], function(pandora, global, undefined) {
+], function(pandora, global, imports, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
-        cache = pandora.locker,
+        
         doc = global.document,
         query = _.dom.sizzle || _.dom.query;
 

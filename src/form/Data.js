@@ -9,11 +9,11 @@
 tangram.block([
     '$_/util/bool',
     '$_/dom/',
-    '$_/data/'
-], function(pandora, global, undefined) {
+    '$_/data/', '$_/async/'
+], function(pandora, global, imports, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
-        cache = pandora.locker,
+        
         doc = global.document,
         console = global.console,
         location = global.location,
@@ -67,12 +67,14 @@ tangram.block([
      */
     declare('form.Data', {
         useMultipartFormData: false,
+        mime: undefined,
         action: undefined,
         _init: function(form, multipart) {
             this.forms = [];
             this.data = {};
             if (multipart === true) {
                 this.useMultipartFormData = true;
+                this.mime = 'multipart/form-data';
             }
             switch (typeof form) {
                 case 'string':
@@ -237,6 +239,7 @@ tangram.block([
                     url: url,
                     data: data,
                     method: method,
+                    mime: options.mime || this.mime || undefined,
                     ready: options.ready,
                     success: options.success,
                     fail: options.fail,

@@ -60,6 +60,24 @@ $table_cell_maxwidths: 540,
             font-size: 0.6rem;
             text-align: center;
             vertical-align: middle;
+            &.al-left {
+                text-align: left;
+            }
+            &.al-right {
+                text-align: right;
+            }
+            &.al-just {
+                text-align: justify;
+            }
+            &.al-top {
+                vertical-align: top;
+            }
+            &.al-bottom {
+                vertical-align: bottom;
+            }
+            &.al-base {
+                vertical-align: baseline;
+            }
             a {
                 display: inline;
             }

@@ -15,7 +15,7 @@
 <body>
     <div id="test"></div>
     <script>
-        tangram.block(['$_/dom/Elements', '$_/data/Sheet'], function(_, global, undefined) {
+        tangram.block(['$_/dom/Elements', '$_/data/Sheet'], function(_, global, imports, undefined) {
             var $ = _.dom.select,
                 db = new _.data.Sheet('mytable');
             // db.drop();

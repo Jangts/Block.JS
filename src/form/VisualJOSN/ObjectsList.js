@@ -17,10 +17,10 @@ tangram.block([
     '$_/form/VisualJOSN/builders.tmp',
     '$_/form/VisualJOSN/events.tmp',
     '$_/form/VisualJOSN/checks.tmp'
-], function(pandora, global, undefined) {
+], function(pandora, global, imports, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
-        cache = pandora.locker,
+        
         doc = global.document,
         console = global.console;
 

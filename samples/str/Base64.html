@@ -28,7 +28,7 @@
          * 2. 使用data.Base64类对文本进行编码和解码；
          */
 
-        tangram.block(['$_/str/'], function(_, global, undefined) {
+        tangram.block(['$_/str/'], function(_, global, imports, undefined) {
             var document = global.document,
                 input = document.getElementById('input'),
                 encode = document.getElementById('encode'),

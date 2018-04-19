@@ -9,6 +9,9 @@
     "deprecated": false,
     "description": "A Web Front-end Development Framework",
     "homepage": "https://tangram.js.cn",
+    "bin": {
+        "node-sugar": "./node-sugar.js"
+    },
     "keywords": [
         "tangram.js"
     ],
@@ -22,5 +25,5 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
     },
-    "version": "2.9.1"
+    "version": "2.9.2"
 }

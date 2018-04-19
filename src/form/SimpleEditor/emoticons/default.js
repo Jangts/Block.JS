@@ -4,9 +4,9 @@
  * Date: 2015-09-04
  */
 ;
-tangram.block('$_/form/SimpleEditor/commands/insertemoticon.cmd', function(pandora, global, undefined) {
+tangram.block('$_/form/SimpleEditor/commands/insertemoticon.cmd', function(pandora, global, imports, undefined) {
     var _ = pandora,
-        cache = pandora.locker,
+        
         regEmoticon = cache.read(new _.Identifier('EDITOR_REG_EMT').toString());
 
     regEmoticon('default', {

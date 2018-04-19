@@ -27,7 +27,7 @@
          * 2. 使用form.Clipboard类对文本进行编码和解码；
          */
         // form.Clipboard会自己加载util.bool和dom操作
-        tangram.block(['$_/form/Clipboard'], function(_, global, undefined) {
+        tangram.block(['$_/form/Clipboard'], function(_, global, imports, undefined) {
             var input = _.dom.query.byId('input'),
                 copy = _.dom.query.byId('copy'),
                 clipboard = new _.form.Clipboard();

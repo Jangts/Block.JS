@@ -10,7 +10,7 @@ tangram.block(['$_/util/bool', '$_/str/', '$_/dom/'], function(
     pandora, global, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
-        cache = pandora.locker,
+        
         doc = global.document;
 
     // 注册_.dom命名空间到pandora

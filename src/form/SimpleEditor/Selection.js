@@ -9,10 +9,10 @@
 tangram.block([
     '$_/util/bool',
     '$_/form/SimpleEditor/Range'
-], function(pandora, global, undefined) {
+], function(pandora, global, imports, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
-        cache = pandora.locker,
+        
         doc = global.document,
         console = global.console;
 

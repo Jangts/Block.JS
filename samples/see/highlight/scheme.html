@@ -38,7 +38,7 @@
          * 2. 使用load加载coy样式并调用see.highlight.rendertAll；
          * 3. 使用see.highlight.rendertAll渲染scheme代码；
          */
-        tangram.block(['$_/see/highlight/languages/scheme'], function(_, global, undefined) {
+        tangram.block(['$_/see/highlight/languages/scheme'], function(_, global, imports, undefined) {
             _.load('../../../src/see/highlight/themes/coy.css', _.see.highlight.renderAll, null, 'css');
         }, true);
     </script>

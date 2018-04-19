@@ -6,9 +6,9 @@
  * Date: 2015-09-04
  */
 ;
-tangram.block([], function(pandora, global, undefined) {
+tangram.block([], function(pandora, global, imports, undefined) {
     var _ = pandora,
-        cache = pandora.locker,
+        
         console = global.console,
 
         regCommand = cache.read(new _.Identifier('EDITOR_REG_CMD').toString()),

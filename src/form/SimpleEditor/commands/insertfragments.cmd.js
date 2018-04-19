@@ -6,9 +6,9 @@
  * Date: 2015-09-04
  */
 ;
-tangram.block(['$_/form/SimpleEditor/commands/insert.cmds'], function(pandora, global, undefined) {
+tangram.block(['$_/form/SimpleEditor/commands/insert.cmds'], function(pandora, global, imports, undefined) {
     var _ = pandora,
-        cache = pandora.locker,
+        
         console = global.console;
 
     var regCommand = cache.read(new _.Identifier('EDITOR_REG_CMD').toString()),

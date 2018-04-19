@@ -94,7 +94,7 @@ function _attr(el, attr) {
          * 2. 使用load加载okaidia样式并调用see.highlight.rendertAll；
          * 3. 使用see.highlight.renderAll渲染javascript代码；
          */
-        tangram.block(['$_/see/highlight/languages/javascript'], function(_, global, undefined) {
+        tangram.block(['$_/see/highlight/languages/javascript'], function(_, global, imports, undefined) {
             _.load('../../../src/see/highlight/themes/okaidia.css', _.see.highlight.renderAll, null, 'css');
         }, true);
     </script>

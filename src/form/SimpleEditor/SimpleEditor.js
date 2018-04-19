@@ -27,10 +27,10 @@ tangram.block([
     '$_/form/SimpleEditor/commands/insertemoticon.cmd',
     '$_/form/SimpleEditor/commands/insertfragments.cmd',
     '$_/form/SimpleEditor/emoticons/default'
-], function(pandora, global, undefined) {
+], function(pandora, global, imports, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
-        cache = pandora.locker,
+        
         doc = global.document,
         console = global.console,
         query = _.dom.sizzle || _.dom.query;

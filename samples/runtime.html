@@ -11,12 +11,24 @@
 
 <body>
     <script>
-        tangram.block([], function(pandora, global, undefined) {
+        tangram.block([
+            '$_/arr/',
+            '$_/util/bool',
+            '$_/util/type as type1',
+            '$_/util/../util/type as type2',
+            '$_/util/../util/type as type3'
+        ], function(pandora, global, imports, undefined) {
+            
             var _ = pandora,
                 declare = pandora.declareClass,
-                cache = pandora.locker,
+                
                 document = global.document,
                 console = global.console;
+
+            console.log(imports);
+            console.log(type1);
+            console.log(type2);
+            console.log(type3);
 
             var div = _.render({
                     margin: "100px auto 0",
@@ -47,7 +59,13 @@
             setTimeout(function() {
                 render(iterator.next());
             }, 200);
+
+            return {div};
         }, true);
+
+        setTimeout(function () {
+            console.log(div);
+        }, 1000)
     </script>
 </body>
 

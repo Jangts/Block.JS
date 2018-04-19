@@ -9,7 +9,7 @@
 tangram.block([
     '$_/obj/Observer/Subscriber',
     '$_/obj/Observer/Listener'
-], function(pandora, global, undefined) {
+], function(pandora, global, imports, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
         console = global.console;

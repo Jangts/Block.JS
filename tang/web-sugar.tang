@@ -1,0 +1,15 @@
+use $_/sugar
+
+var sugars = [], scripts = document.getElementsByTagName('script');
+    
+for (var index = 0; index < scripts.length; index++) {
+    var script = scripts[index];
+    if (script.type === "text/tangram.js-sugar") {
+        sugars.push(tangram.sugar(script.innerHTML).compile());
+    }
+}
+    
+for (var index = 0; index < sugars.length; index++) {
+    var sugar = sugars[index];
+    sugar.run();
+}
