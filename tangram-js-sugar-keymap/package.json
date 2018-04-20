@@ -1,0 +1,21 @@
+{
+    "name": "tangram-js-sugar-keymap",
+    "displayName": "tangram.js sugar keymap",
+    "description": "tangram.js sugar keymap",
+    "version": "0.0.1",
+    "publisher": "tangram-js-sugar",
+    "engines": {
+        "vscode": "^1.22.0"
+    },
+    "categories": [
+        "Keymaps"
+    ],
+    "contributes": {
+        "keybindings": [
+            {
+                "key": "ctrl+.",
+                "command": "workbench.action.showCommands"
+            }
+        ]
+    }
+}

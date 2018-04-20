@@ -10,7 +10,7 @@
 tangram.block(function(pandora, global, imports, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
-        
+
         doc = global.document,
         console = global.console;
 
@@ -300,7 +300,7 @@ tangram.block(function(pandora, global, imports, undefined) {
             }
         });
 
-    _('util.require', function(requires, callback) {
+    _('async.require', function(requires, callback) {
         if (typeof requires === 'object' && requires instanceof Array && typeof callback === 'function') {
             return new Import(requires).then(callback);
         }

@@ -1,0 +1,41 @@
+{
+    "name": "tangram-js-sugar",
+    "displayName": "tangram.js sugar",
+    "description": "tangram.js syntactic sugar",
+    "version": "0.0.1",
+    "publisher": "tangram-js-sugar",
+    "engines": {
+        "vscode": "^1.22.0"
+    },
+    "categories": [
+        "Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "tang",
+            "aliases": [
+                "Tang",
+                "tang",
+                "Sugar",
+                "sugar"
+            ],
+            "extensions": [
+                ".tang",
+                ".tf"
+            ],
+            "mimetypes": [
+                "text/tangram.js-sugar"
+            ],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "tang",
+            "scopeName": "source.tang",
+            "path": "./syntaxes/tang.tmLanguage.json"
+        }],
+        "snippets": [{
+            "language": "tang",
+            "path": "./snippets/tang.snippets.json"
+        }]
+    }
+}

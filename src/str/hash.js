@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Fri, 20 Apr 2018 00:33:07 GMT
+ * Datetime: Fri, 20 Apr 2018 01:35:23 GMT
  */
 ;
 tangram.block([], function (pandora, global, imports, undefined) {var _ = pandora,
@@ -339,8 +339,7 @@ tangram.block([], function (pandora, global, imports, undefined) {var _ = pandor
 		return HASH; 
 	}; 
 	var Utf8Encode = function(string){
-		string = string.replace(/\r\n/
-		g,"\n"); 
+		string = string.replace(/\r\n/g,"\n"); 
 		var utftext = ""; 
 		for(var n = 0; n < string.length; n++){ 
 			var c = string.charCodeAt(n); 

@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Fri, 20 Apr 2018 00:33:07 GMT
+ * Datetime: Fri, 20 Apr 2018 01:35:23 GMT
  */
 ;
 tangram.block([], function (pandora, global, imports, undefined) {var _ = pandora,
@@ -320,8 +320,7 @@ tangram.block([], function (pandora, global, imports, undefined) {var _ = pandor
 			return arr; 
 		}
 		if(/^rgb\([0-9,\.\s]+\)$/.test(value)){ 
-			var arr = value.replace(/(rgb\(|\))/
-			gi,"").split(/,\s*/); 
+			var arr = value.replace(/(rgb\(|\))/gi,"").split(/,\s*/); 
 			arr[0] = parseInt(arr[0]); 
 			arr[1] = parseInt(arr[1]); 
 			arr[2] = parseInt(arr[2]); 
@@ -329,8 +328,7 @@ tangram.block([], function (pandora, global, imports, undefined) {var _ = pandor
 			return arr; 
 		}
 		if(/^rgba\([0-9,\.\s]+\)$/.test(value)){ 
-			var arr = value.replace(/(rgb\(|\))/
-			gi,"").split(/,\s*/); 
+			var arr = value.replace(/(rgb\(|\))/gi,"").split(/,\s*/); 
 			arr[0] = parseInt(arr[0]); 
 			arr[1] = parseInt(arr[1]); 
 			arr[2] = parseInt(arr[2]); 

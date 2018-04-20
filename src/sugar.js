@@ -6,26 +6,24 @@
  * Date 2017-04-06
  */
 ;
-(function (global, factory) {
+(function(global, factory) {
     if (typeof exports === 'object') {
         exports = factory(global);
         if (typeof module === 'object') {
             module.exports = exports;
         }
-    }
-    else if (typeof define === 'function' && define.amd) {
+    } else if (typeof define === 'function' && define.amd) {
         // AMD
-        define('tangram_js_sugar', [], function () {
+        define('tangram_js_sugar', [], function() {
             return factory(global);
         });
-    }
-    else {
+    } else {
         global.tangram_js_sugar = factory(global);
     }
-}(this, function (global) {
+}(this, function(global) {
     var _this = this;
     if (Array.prototype['includes'] == undefined) {
-        Array.prototype['includes'] = function (searchElement, fromIndex) {
+        Array.prototype['includes'] = function(searchElement, fromIndex) {
             fromIndex = parseInt(fromIndex) || 0;
             for (fromIndex; fromIndex < _this.length; fromIndex++) {
                 if (_this[fromIndex] === searchElement) {
@@ -35,36 +33,42 @@
             return false;
         };
     }
-    var zero2z = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split(''), namingExpr = /^[A-Z_\$][\w\$]*(\.[A-Z_\$][\w\$]*)*$/i, reservedWords = ['if', 'for', 'while', 'switch', 'with', 'catch'], replaceExpr = {
-        use: /\s*use\s+.[\$\w\.\s\/\\]+?[;\r\n]+/g,
-        import: /^\s*use\s+/g,
-        return: /[\s;\r\n]+$/g,
-        include: /\s*@include\s+.[\$\w\.\s\/\\]+?[;\r\n]+/g,
-        class: /class\s+((pandora)?\.)?([\$\w\.]+\s+)?(extends\s+([\$\w\.]+)\s*)?\{([^\{\}]*?)\}/g,
-        defind: /(reg|extends)\s+([\$\w\.]+)\s*\{([^\{\}]*?)\}/g,
-        function: /(var\s+)?([\$\w]*)\s*\(([^\(\)]*)\)[\s\t]*\{([^\{\}]*?)\}/g,
-        array: /\[[^\[\]]*?\]/g,
-        closure: /([\$\w]+|\))?([\s\t]*\{[^\{\}]*?\})/g
-    }, matchExpr = {
-        index: /(\d+)_as_([a-z]+)/,
-        index3: /^_(\d+)_as_([a-z]+)___([\s\S]*)$/,
-        class: /class\s+((pandora)?\.)?([\$\w\.]+\s+)?(extends\s+([\$\w\.]+)\s*)?\{([^\{\}]*?)\}/,
-        classelement: /^\s*((static)\s+)?([\$\w]*)\s*(\=*)([\s\S]*)$/,
-        objectattr: /^\s*((([\$\w]+)))\s*(\:*)([\s\S]*)$/,
-        defind: /(reg|extends)\s+([\$\w\.]+)\s*\{([^\{\}]*?)\}/,
-        function: /(var\s+)?([\$\w]*)\s*\(([^\(\)]*)\)[\s\t]*\{([^\{\}]*?)\}/
-    }, boundaryMaker = function () {
-        var radix = 36;
-        var uid = new Array(36);
-        for (var i = 0; i < 36; i++) {
-            uid[i] = zero2z[Math.floor(Math.random() * radix)];
-        }
-        uid[8] = uid[13] = uid[18] = uid[23] = '_';
-        return uid.join('');
-    }, stringRepeat = function (string, number) {
-        return new Array(number + 1).join(string);
-    };
-    var Sugar = /** @class */ (function () {
+    var zero2z = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split(''),
+        namingExpr = /^[A-Z_\$][\w\$]*(\.[A-Z_\$][\w\$]*)*$/i,
+        reservedWords = ['if', 'for', 'while', 'switch', 'with', 'catch'],
+        replaceExpr = {
+            use: /\s*use\s+.[\$\w\.\s\/\\]+?[;\r\n]+/g,
+            import: /^\s*use\s+/g,
+            return: /[\s;\r\n]+$/g,
+            include: /\s*@include\s+.[\$\w\.\s\/\\]+?[;\r\n]+/g,
+            class: /class\s+((pandora)?\.)?([\$\w\.]+\s+)?(extends\s+([\$\w\.]+)\s*)?\{([^\{\}]*?)\}/g,
+            defind: /(reg|extends)\s+([\$\w\.]+)\s*\{([^\{\}]*?)\}/g,
+            function: /(var\s+)?([\$\w]*)\s*\(([^\(\)]*)\)[\s\t]*\{([^\{\}]*?)\}/g,
+            array: /\[[^\[\]]*?\]/g,
+            closure: /([\$\w]+|\))?([\s\t]*\{[^\{\}]*?\})/g
+        },
+        matchExpr = {
+            index: /(\d+)_as_([a-z]+)/,
+            index3: /^_(\d+)_as_([a-z]+)___([\s\S]*)$/,
+            class: /class\s+((pandora)?\.)?([\$\w\.]+\s+)?(extends\s+([\$\w\.]+)\s*)?\{([^\{\}]*?)\}/,
+            classelement: /^\s*((static)\s+)?([\$\w]*)\s*(\=*)([\s\S]*)$/,
+            objectattr: /^\s*((([\$\w]+)))\s*(\:*)([\s\S]*)$/,
+            defind: /(reg|extends)\s+([\$\w\.]+)\s*\{([^\{\}]*?)\}/,
+            function: /(var\s+)?([\$\w]*)\s*\(([^\(\)]*)\)[\s\t]*\{([^\{\}]*?)\}/
+        },
+        boundaryMaker = function() {
+            var radix = 36;
+            var uid = new Array(36);
+            for (var i = 0; i < 36; i++) {
+                uid[i] = zero2z[Math.floor(Math.random() * radix)];
+            }
+            uid[8] = uid[13] = uid[18] = uid[23] = '_';
+            return uid.join('');
+        },
+        stringRepeat = function(string, number) {
+            return new Array(number + 1).join(string);
+        };
+    var Sugar = /** @class */ (function() {
         function Sugar(input, run) {
             this.isMainBlock = true;
             this.stringReplaceTimes = 65536;
@@ -81,16 +85,16 @@
                 this.run();
             }
         }
-        Sugar.prototype.compile = function () {
+        Sugar.prototype.compile = function() {
             // console.log(this.input);
             this.buildAST(this.buildMiddleAST(this.encode()));
             this.generate();
             // console.log(this.replacements);
             return this;
         };
-        Sugar.prototype.encode = function () {
+        Sugar.prototype.encode = function() {
             var _this = this;
-            var string = this.input.replace(/^\s*"await"\s*/, function (match) {
+            var string = this.input.replace(/^\s*"await"\s*/, function(match) {
                 _this.isMainBlock = false;
                 // console.log('This is not a main block.');
                 return '';
@@ -113,17 +117,17 @@
             // console.log(string);
             return string;
         };
-        Sugar.prototype.replaceImports = function (string) {
+        Sugar.prototype.replaceImports = function(string) {
             var _this = this;
-            return string.replace(replaceExpr.use, function (match) {
+            return string.replace(replaceExpr.use, function(match) {
                 var index = _this.replacements.length;
                 _this.replacements.push(match);
                 return '___boundary_' + _this.uid + '_' + index + '_as_import___';
             });
         };
-        Sugar.prototype.replaceStrings = function (string) {
+        Sugar.prototype.replaceStrings = function(string) {
             var _this = this;
-            string = this.replaceOperators1(string.replace(/\\(\/|\\*[^\/\r\n])/g, function (match) {
+            string = this.replaceOperators1(string.replace(/\\(\/|\\*[^\/\r\n])/g, function(match) {
                 var index = _this.replacements.length;
                 _this.replacements.push(match);
                 return '___boundary_' + index + '_as_mark___';
@@ -139,27 +143,21 @@
                     if (matches2 && matches2.index < matches1.index) {
                         if (matches3 && matches3.index < matches2.index) {
                             tag = matches3[1];
-                        }
-                        else {
+                        } else {
                             tag = '`';
                         }
-                    }
-                    else if (matches3 && matches3.index < matches1.index) {
+                    } else if (matches3 && matches3.index < matches1.index) {
                         tag = matches3[1];
-                    }
-                    else {
+                    } else {
                         tag = '/*';
                     }
-                }
-                else if (matches2) {
+                } else if (matches2) {
                     if (matches3 && matches3.index < matches2.index) {
                         tag = matches3[1];
-                    }
-                    else {
+                    } else {
                         tag = '`';
                     }
-                }
-                else {
+                } else {
                     tag = matches3[1];
                 }
                 // console.log(tag);
@@ -173,11 +171,10 @@
                         string = string.replace(matches2[0], '___boundary_' + this.uid + '_' + index + '_as_template___');
                         break;
                     case '/':
-                        console.log(matches3[0]);
+                        // console.log(matches3[0]);
                         if (matches3[0] === '//') {
                             string = string.replace(/\s*\/\/.+/, '');
-                        }
-                        else {
+                        } else {
                             this.replacements.push(matches3[0]);
                             string = string.replace(matches3[0], '___boundary_' + this.uid + '_' + index + '_as_pattern___');
                         }
@@ -187,7 +184,7 @@
                         string = string.replace(matches3[0], '___boundary_' + this.uid + '_' + index + '_as_string___');
                         break;
                 }
-                matches3 = string.match(/('|"|\/).*?\1/);
+                matches3 = string.match(/('|"|\/).*?\1[img]*/);
                 matches2 = string.match(/`[^`]*`/);
                 matches1 = string.match(/\/\*[\s\S]*?\*\//);
                 count++;
@@ -195,17 +192,17 @@
             // console.log(string);
             return this.replaceOperators2(string);
         };
-        Sugar.prototype.replaceIncludes = function (string) {
+        Sugar.prototype.replaceIncludes = function(string) {
             var _this = this;
-            string = string.replace(replaceExpr.include, function (match) {
+            string = string.replace(replaceExpr.include, function(match) {
                 return _this.onReadFile(match);
             });
             return this.replaceStrings(this.input);
         };
-        Sugar.prototype.onReadFile = function (match) {
+        Sugar.prototype.onReadFile = function(match) {
             return '';
         };
-        Sugar.prototype.replaceOperators1 = function (string) {
+        Sugar.prototype.replaceOperators1 = function(string) {
             var _this = this;
             // '++ ', '-- ',
             // ' !', ' ~', ' +', ' -', ' ++', ' --',
@@ -215,43 +212,43 @@
             // ' == ', ' != ', ' === ', ' !== ',
             // ' & ', ' ^ ', ' | ', ' && ', ' || ',
             // ' = ', ' += ', ' -= ', ' *= ', ' /= ', ' %= ', ' <<= ', ' >>= ', ' >>>= ', ' &= ', ' ^= ', ' |= '
-            return string.replace(/\s*(\=\=|\!\=|\=|\!|\+|\-|\*|\/|\%|<<|>>|>>>|\&|\^|\||<|>)=\s*/g, function (match, op) {
+            return string.replace(/\s*(\=\=|\!\=|\=|\!|\+|\-|\*|\/|\%|<<|>>|>>>|\&|\^|\||<|>)=\s*/g, function(match, op) {
                 var index = _this.replacements.length;
                 _this.replacements.push(' ' + op + '= ');
                 return '___boundary_' + index + '_as_operator___';
             });
         };
-        Sugar.prototype.replaceOperators2 = function (string) {
+        Sugar.prototype.replaceOperators2 = function(string) {
             var _this = this;
-            return string.replace(/\s*(\&\&|\|\||\*\*|\<\<|\>\>\>|\>\>)\s*/g, function (match, op) {
+            return string.replace(/\s*(\&\&|\|\||\*\*|\<\<|\>\>\>|\>\>)\s*/g, function(match, op) {
                 var index = _this.replacements.length;
                 _this.replacements.push(' ' + op + ' ');
                 return '___boundary_' + index + '_as_operator___';
-            }).replace(/(\s*)(\+\+|\-\-|\+|\-)([\$\w\[\(])/g, function (match, gap, op, n) {
+            }).replace(/(\s*)(\+\+|\-\-|\+|\-)([\$\w\[\(])/g, function(match, gap, op, n) {
                 var index = _this.replacements.length;
                 _this.replacements.push(' ' + op);
                 return '___boundary_' + index + '_as_preoperator___' + n;
-            }).replace(/\s+(\+|\-)\s+/g, function (match, op) {
+            }).replace(/\s+(\+|\-)\s+/g, function(match, op) {
                 var index = _this.replacements.length;
                 _this.replacements.push(' ' + op + ' ');
                 return '___boundary_' + index + '_as_operator___';
-            }).replace(/\s*(\+\+|\-\-)\s*[;\r\n]+/g, function (match, op) {
+            }).replace(/\s*(\+\+|\-\-)\s*[;\r\n]+/g, function(match, op) {
                 var index = _this.replacements.length;
                 _this.replacements.push(op + ";\r\n");
                 return '___boundary_' + index + '_as_aftoperator___';
-            }).replace(/([\$\w\]\)])(\+\+|\-\-)\s*/g, function (match, p, op) {
+            }).replace(/([\$\w\]\)])(\+\+|\-\-)\s*/g, function(match, p, op) {
                 var index = _this.replacements.length;
                 _this.replacements.push(op);
                 return p + '___boundary_' + index + '_as_aftoperator___';
-            }).replace(/(\s*)(\+\+|\-\-|\!|\~)\s*/g, function (match, gap, op) {
+            }).replace(/(\s*)(\+\+|\-\-|\!|\~)\s*/g, function(match, gap, op) {
                 var index = _this.replacements.length;
                 _this.replacements.push(gap + op);
                 return '___boundary_' + index + '_as_preoperator___';
             });
         };
-        Sugar.prototype.replaceArray = function (string) {
+        Sugar.prototype.replaceArray = function(string) {
             var _this = this;
-            return string.replace(replaceExpr.array, function (match) {
+            return string.replace(replaceExpr.array, function(match) {
                 while ((match.indexOf('{') >= 0) || (match.indexOf('}') >= 0)) {
                     match = _this.replaceCodeSegments(match);
                 }
@@ -260,30 +257,30 @@
                 return '___boundary_' + _this.uid + '_' + index + '_as_array___';
             });
         };
-        Sugar.prototype.replaceCodeSegments = function (string) {
+        Sugar.prototype.replaceCodeSegments = function(string) {
             var _this = this;
             if (string.match(matchExpr.class)) {
-                return string.replace(replaceExpr.class, function (match) {
+                return string.replace(replaceExpr.class, function(match) {
                     var index = _this.replacements.length;
                     _this.replacements.push(match);
                     return '___boundary_' + _this.uid + '_' + index + '_as_class___';
                 });
             }
             if (string.match(matchExpr.defind)) {
-                return string.replace(replaceExpr.defind, function (match) {
+                return string.replace(replaceExpr.defind, function(match) {
                     var index = _this.replacements.length;
                     _this.replacements.push(match);
                     return '___boundary_' + _this.uid + '_' + index + '_as_defind___';
                 });
             }
             if (string.match(matchExpr.function)) {
-                return string.replace(replaceExpr.function, function (match) {
+                return string.replace(replaceExpr.function, function(match) {
                     var index = _this.replacements.length;
                     _this.replacements.push(match);
                     return '___boundary_' + _this.uid + '_' + index + '_as_function___';
                 });
             }
-            return string.replace(replaceExpr.closure, function (match, word, closure) {
+            return string.replace(replaceExpr.closure, function(match, word, closure) {
                 // console.log(match);
                 if (!word && match.match(/\{\s*\}/)) {
                     return '___boundary_0_as_mark___';
@@ -301,8 +298,11 @@
                 return '___boundary_' + _this.uid + '_' + index + '_as_object___';
             });
         };
-        Sugar.prototype.buildMiddleAST = function (string) {
-            var imports = [], import_alias = {}, midast = [], array = string.split('___boundary_' + this.uid);
+        Sugar.prototype.buildMiddleAST = function(string) {
+            var imports = [],
+                import_alias = {},
+                midast = [],
+                array = string.split('___boundary_' + this.uid);
             // console.log(array)
             for (var index = 0; index < array.length; index++) {
                 var element = array[index].trim();
@@ -316,8 +316,7 @@
                             if (srcArr[1] && srcArr[1].trim()) {
                                 import_alias[srcArr[1].trim()] = srcArr[0].trim();
                             }
-                        }
-                        else {
+                        } else {
                             midast.push({
                                 posi: matches[1],
                                 type: matches[2]
@@ -330,8 +329,7 @@
                                 value: m3
                             });
                         }
-                    }
-                    else {
+                    } else {
                         midast.push({
                             type: 'code',
                             value: element
@@ -343,7 +341,7 @@
             this.import_alias = import_alias;
             return midast;
         };
-        Sugar.prototype.buildAST = function (midast) {
+        Sugar.prototype.buildAST = function(midast) {
             var ast = {
                 type: 'codes',
                 body: new Array
@@ -352,8 +350,7 @@
                 var element = midast[index];
                 if (element.type === 'code') {
                     this.pushCodeElements(ast.body, element.value);
-                }
-                else {
+                } else {
                     ast.body.push(this.walk(element));
                 }
             }
@@ -361,7 +358,7 @@
             this.ast = ast;
             return this;
         };
-        Sugar.prototype.walk = function (element) {
+        Sugar.prototype.walk = function(element) {
             switch (element.type) {
                 case 'string':
                 case 'pattern':
@@ -369,7 +366,7 @@
                     var that_1 = this;
                     return {
                         'type': 'code-inline',
-                        'value': this.replacements[element.posi].replace(this.markPattern, function () {
+                        'value': this.replacements[element.posi].replace(this.markPattern, function() {
                             return that_1.replacements[arguments[1]];
                         })
                     };
@@ -392,7 +389,7 @@
                     };
             }
         };
-        Sugar.prototype.walkClass = function (posi) {
+        Sugar.prototype.walkClass = function(posi) {
             // console.log(this.replacements[posi]);
             var matches = this.replacements[posi].match(matchExpr.class);
             // console.log(matches);
@@ -403,15 +400,14 @@
                 body: this.checkClassBody(matches[6] || '')
             };
         };
-        Sugar.prototype.walkDefine = function (posi) {
+        Sugar.prototype.walkDefine = function(posi) {
             // console.log(this.replacements[posi]);
             var matches = this.replacements[posi].match(matchExpr.defind);
             var subtype = 'ext';
             var objname = matches[2];
             if (matches[1] === 'reg') {
                 subtype = 'reg';
-            }
-            else {
+            } else {
                 var m2 = matches[2].match(/^(pandora)?.([\$a-zA-Z_][\$\w\.]+$)/);
                 if (m2) {
                     subtype = 'reg';
@@ -426,7 +422,7 @@
                 body: this.checkProp(matches[3])
             };
         };
-        Sugar.prototype.walkFuntion = function (posi, type) {
+        Sugar.prototype.walkFuntion = function(posi, type) {
             // console.log(this.replacements[posi]);
             var matches = this.replacements[posi].match(matchExpr.function);
             // if (!matches){
@@ -446,7 +442,8 @@
                     var m3 = matches[3].match(/^([\$a-zA-Z_][\$\w\.-]+)\s+as\s+([\$\w]+)(\s*,\s*([\$\w]*))?/);
                     // console.log(matches, m3);
                     if (m3) {
-                        var iterator = [], array = m3[1].split('___boundary_' + this.uid);
+                        var iterator = [],
+                            array = m3[1].split('___boundary_' + this.uid);
                         for (var index = 0; index < array.length; index++) {
                             this.pushReplacements(iterator, array[index], true);
                         }
@@ -454,12 +451,10 @@
                         if (m3[3]) {
                             if (m3[4]) {
                                 agrs = [m3[2], m3[4]];
-                            }
-                            else {
+                            } else {
                                 agrs = [m3[2]];
                             }
-                        }
-                        else {
+                        } else {
                             agrs = ['_index', m3[2]];
                         }
                         return {
@@ -489,8 +484,9 @@
             };
             // console.log(matches);
         };
-        Sugar.prototype.walkArray = function (posi) {
-            var body = [], array = this.replacements[posi].replace(/([\[\s\]])/g, '').split(',');
+        Sugar.prototype.walkArray = function(posi) {
+            var body = [],
+                array = this.replacements[posi].replace(/([\[\s\]])/g, '').split(',');
             for (var index = 0; index < array.length; index++) {
                 var eleArr = array[index].split('___boundary_' + this.uid);
                 var eleBody = [];
@@ -507,13 +503,13 @@
                 body: body
             };
         };
-        Sugar.prototype.walkObject = function (posi) {
+        Sugar.prototype.walkObject = function(posi) {
             return {
                 type: 'object',
                 body: this.checkProp(this.replacements[posi])
             };
         };
-        Sugar.prototype.walkClosure = function (posi) {
+        Sugar.prototype.walkClosure = function(posi) {
             var array = this.replacements[posi].split(/\s*(\{|\})\s*/);
             var body = this.checkBody(array[2]);
             if (array[0].trim() === ')') {
@@ -521,8 +517,7 @@
                     type: 'code-inline',
                     value: ') {'
                 });
-            }
-            else {
+            } else {
                 body.unshift({
                     type: 'code-break',
                     value: array[0] + ' {'
@@ -537,7 +532,7 @@
                 body: body
             };
         };
-        Sugar.prototype.walkProp = function (type, attr, array) {
+        Sugar.prototype.walkProp = function(type, attr, array) {
             // console.log(array);
             if (array.length > 1) {
                 var body = [];
@@ -561,8 +556,7 @@
                                 value: matches[3]
                             });
                         }
-                    }
-                    else {
+                    } else {
                         body.push({
                             type: 'code-inline',
                             value: element
@@ -578,24 +572,24 @@
             return {
                 type: type,
                 pname: attr[3] || 'myAttribute',
-                body: [
-                    {
-                        type: 'code-inline',
-                        value: attr[5]
-                    }
-                ]
+                body: [{
+                    type: 'code-inline',
+                    value: attr[5]
+                }]
             };
         };
-        Sugar.prototype.checkBody = function (code, codeInline) {
+        Sugar.prototype.checkBody = function(code, codeInline) {
             if (codeInline === void 0) { codeInline = false; }
-            var body = [], array = code.split('___boundary_' + this.uid);
+            var body = [],
+                array = code.split('___boundary_' + this.uid);
             for (var index = 0; index < array.length; index++) {
                 this.pushReplacements(body, array[index], codeInline);
             }
             return body;
         };
-        Sugar.prototype.checkClassBody = function (code) {
-            var body = [], array = code.split(/[;\r\n]+/);
+        Sugar.prototype.checkClassBody = function(code) {
+            var body = [],
+                array = code.split(/[;\r\n]+/);
             for (var index = 0; index < array.length; index++) {
                 var element = array[index].trim();
                 var type = 'method';
@@ -609,29 +603,25 @@
                             if (m0[3].trim()) {
                                 if (m0[1]) {
                                     type = 'staticProp';
-                                }
-                                else {
+                                } else {
                                     type = 'prop';
                                 }
                                 if (m0[4] != '=') {
                                     if ((elArr.length === 1)) {
                                         m0[5] = 'undefined';
-                                    }
-                                    else {
+                                    } else {
                                         continue;
                                     }
                                 }
                                 body.push(this.walkProp(type, m0, elArr));
                                 continue;
-                            }
-                            else {
+                            } else {
                                 if (m0[1]) {
                                     m0[3] = 'static';
                                     if (m0[4] === '=') {
                                         body.push(this.walkProp('prop', m0, elArr));
                                         continue;
-                                    }
-                                    else {
+                                    } else {
                                         if ((elArr.length === 1)) {
                                             m0[5] = 'undefined';
                                             body.push(this.walkProp('prop', m0, elArr));
@@ -653,8 +643,12 @@
             }
             return body;
         };
-        Sugar.prototype.checkProp = function (code) {
-            var that = this, body = [], bodyIndex = -1, lastIndex = 0, array = code.split(/\s*[\{,\}]\s*/);
+        Sugar.prototype.checkProp = function(code) {
+            var that = this,
+                body = [],
+                bodyIndex = -1,
+                lastIndex = 0,
+                array = code.split(/\s*[\{,\}]\s*/);
             // console.log(code, array);
             for (var index = 0; index < array.length; index++) {
                 var element = array[index].trim();
@@ -666,8 +660,7 @@
                             if (m0[4] != ':') {
                                 if ((elArr.length === 1)) {
                                     m0[5] = m0[3];
-                                }
-                                else {
+                                } else {
                                     // console.log(elArr);
                                     continue;
                                 }
@@ -676,12 +669,10 @@
                             body.push(this.walkProp('objProp', m0, elArr));
                             bodyIndex++;
                             continue;
-                        }
-                        else {
+                        } else {
                             // console.log(elArr);
                         }
-                    }
-                    else {
+                    } else {
                         // console.log(elArr);
                         for (var i = 1; i < elArr.length; i++) {
                             var m = elArr[i].trim().match(matchExpr.index3);
@@ -691,7 +682,7 @@
                                 case 'tamplate':
                                     body[bodyIndex].body.push({
                                         'type': 'code-inline',
-                                        'value': ',' + this.replacements[parseInt(m[1])].replace(this.markPattern, function () {
+                                        'value': ',' + this.replacements[parseInt(m[1])].replace(this.markPattern, function() {
                                             return that.replacements[arguments[1]];
                                         })
                                     });
@@ -715,8 +706,9 @@
             }
             return body;
         };
-        Sugar.prototype.checkFnBody = function (args, code) {
-            var body = [], array = code.split('___boundary_' + this.uid);
+        Sugar.prototype.checkFnBody = function(args, code) {
+            var body = [],
+                array = code.split('___boundary_' + this.uid);
             for (var index = 0; index < args.vals.length; index++) {
                 if (args.vals[index] !== undefined) {
                     var valArr = args.vals[index].split('___boundary_' + this.uid);
@@ -730,8 +722,7 @@
                             type: 'code-inline',
                             value: '; }'
                         });
-                    }
-                    else {
+                    } else {
                         body.push({
                             type: 'code',
                             value: 'if (' + args.keys[index] + ' === void 0) { ' + args.keys[index] + ' = ' + valArr[0] + '; }'
@@ -745,8 +736,10 @@
             }
             return body;
         };
-        Sugar.prototype.checkArgs = function (code) {
-            var args = code.split(/\s*,\s*/), keys = [], vals = [];
+        Sugar.prototype.checkArgs = function(code) {
+            var args = code.split(/\s*,\s*/),
+                keys = [],
+                vals = [];
             for (var index = 0; index < args.length; index++) {
                 var array = args[index].split(/\s*=\s*/);
                 if (array[0].match(namingExpr)) {
@@ -759,7 +752,7 @@
                 vals: vals
             };
         };
-        Sugar.prototype.pushReplacements = function (body, code, codeInline) {
+        Sugar.prototype.pushReplacements = function(body, code, codeInline) {
             if (codeInline === void 0) { codeInline = false; }
             code = code.trim();
             if (code) {
@@ -776,14 +769,13 @@
                     // if (matches[1]==94) {
                     // console.log(body);
                     // }
-                }
-                else {
+                } else {
                     this.pushCodeElements(body, code, codeInline);
                 }
             }
             return body;
         };
-        Sugar.prototype.pushCodeElements = function (body, code, codeInline) {
+        Sugar.prototype.pushCodeElements = function(body, code, codeInline) {
             if (codeInline === void 0) { codeInline = false; }
             var array = code.split(/([;\r\n]+)/);
             // console.log(array);
@@ -798,7 +790,7 @@
             }
             return body;
         };
-        Sugar.prototype.generate = function () {
+        Sugar.prototype.generate = function() {
             // console.log(this.replacements);
             // console.log(this.ast);
             var head = [];
@@ -812,7 +804,7 @@
             // console.log(this.output);
             return this;
         };
-        Sugar.prototype.pushHeader = function (codes, array) {
+        Sugar.prototype.pushHeader = function(codes, array) {
             codes.push('/*!');
             codes.push("\r\n" + ' * tangram.js framework sugar compiled code');
             codes.push("\r\n" + ' *');
@@ -826,7 +818,7 @@
             codes.push('], function (pandora, global, imports, undefined) {');
             return codes;
         };
-        Sugar.prototype.pushAlias = function (codes, alias) {
+        Sugar.prototype.pushAlias = function(codes, alias) {
             for (var key in alias) {
                 codes.push("\r\n\tvar " + key);
                 codes.push("=imports['" + alias[key]);
@@ -835,7 +827,7 @@
             }
             return codes;
         };
-        Sugar.prototype.pushCodes = function (codes, array, layer, asAttr) {
+        Sugar.prototype.pushCodes = function(codes, array, layer, asAttr) {
             if (asAttr === void 0) { asAttr = false; }
             var indent = "\r\n" + stringRepeat("\t", layer);
             // console.log(codes, array);
@@ -884,7 +876,7 @@
             }
             return codes;
         };
-        Sugar.prototype.pushClassCodes = function (codes, element, layer) {
+        Sugar.prototype.pushClassCodes = function(codes, element, layer) {
             var indent1 = "\r\n" + stringRepeat("\t", layer);
             var indent2 = "\r\n" + stringRepeat("\t", layer + 1);
             var elements = [];
@@ -893,18 +885,15 @@
             if (element.type === 'stdClass') {
                 cname = 'pandora.' + element.cname.trim();
                 codes.push(indent1 + 'pandora.declareClass(\'' + element.cname.trim() + '\', ');
-            }
-            else {
+            } else {
                 if (element.cname && element.cname.trim()) {
                     cname = element.cname.trim();
                     if (cname.match(/^[\$\w]+$/)) {
                         codes.push(indent1 + 'var ' + cname + ' = pandora.declareClass(, ');
-                    }
-                    else {
+                    } else {
                         codes.push(indent1 + cname + ' = pandora.declareClass(, ');
                     }
-                }
-                else {
+                } else {
                     codes.push('pandora.declareClass(');
                 }
             }
@@ -947,14 +936,13 @@
                     codes.push(';' + indent1 + 'pandora.extend(' + cname + ', {');
                     codes.push(static_elements.join(','));
                     codes.push('});');
-                }
-                else {
+                } else {
                     codes.push(';');
                 }
             }
             return codes;
         };
-        Sugar.prototype.pushArrayCodes = function (codes, element, layer, asAttr) {
+        Sugar.prototype.pushArrayCodes = function(codes, element, layer, asAttr) {
             var elements = [];
             codes.push('[');
             for (var index = 0; index < element.body.length; index++) {
@@ -966,13 +954,12 @@
             codes.push(elements.join(', '));
             if (asAttr) {
                 codes.push(']');
-            }
-            else {
+            } else {
                 codes.push('];');
             }
             return codes;
         };
-        Sugar.prototype.pushTravelCodes = function (codes, element, layer) {
+        Sugar.prototype.pushTravelCodes = function(codes, element, layer) {
             var indent = "\r\n" + stringRepeat("\t", layer);
             // console.log(element);
             codes.push(indent + 'pandora.each(');
@@ -982,17 +969,15 @@
             codes.push(indent + ', this);');
             return codes;
         };
-        Sugar.prototype.pushFunctionCodes = function (codes, element, layer) {
+        Sugar.prototype.pushFunctionCodes = function(codes, element, layer) {
             var indent = "\r\n" + stringRepeat("\t", layer);
             if (element.type === 'def' && element.fname) {
                 if (element.stype === 'var') {
                     codes.push(indent + 'var ' + element.fname + ' = function (');
-                }
-                else {
+                } else {
                     codes.push(indent + 'function ' + element.fname + ' (');
                 }
-            }
-            else {
+            } else {
                 codes.push('function (');
             }
             if (element.args.length) {
@@ -1003,16 +988,14 @@
             this.pushCodes(codes, element.body, layer + 1);
             if (element.type === 'def' && !element.fname) {
                 codes.push(indent + '};');
-            }
-            else if (element.stype === 'var') {
+            } else if (element.stype === 'var') {
                 codes.push(indent + '};');
-            }
-            else {
+            } else {
                 codes.push(indent + '}');
             }
             return codes;
         };
-        Sugar.prototype.pushExpressionCodes = function (codes, element, layer) {
+        Sugar.prototype.pushExpressionCodes = function(codes, element, layer) {
             var indent = "\r\n" + stringRepeat("\t", layer);
             codes.push(indent + element.expression + ' (');
             // console.log(element.head);
@@ -1023,19 +1006,18 @@
             codes.push(indent + '}');
             return codes;
         };
-        Sugar.prototype.pushDefineCodes = function (codes, element, layer) {
+        Sugar.prototype.pushDefineCodes = function(codes, element, layer) {
             var indent = "\r\n" + stringRepeat("\t", layer);
             if (element.stype === 'reg') {
                 codes.push(indent + 'pandora(\'' + element.oname.trim() + '\', ');
-            }
-            else {
+            } else {
                 codes.push(indent + 'pandora.extend(' + element.oname + ', ');
             }
             this.pushObjCodes(codes, element, layer);
             codes.push(');');
             return codes;
         };
-        Sugar.prototype.pushObjCodes = function (codes, element, layer) {
+        Sugar.prototype.pushObjCodes = function(codes, element, layer) {
             var indent1 = "\r\n" + stringRepeat("\t", layer);
             var indent2 = "\r\n" + stringRepeat("\t", layer + 1);
             var elements = [];
@@ -1063,16 +1045,15 @@
             codes.push(indent1 + '}');
             return codes;
         };
-        Sugar.prototype.pushFooter = function (codes) {
+        Sugar.prototype.pushFooter = function(codes) {
             if (this.isMainBlock) {
                 codes.push("\r\n" + '}, true);');
-            }
-            else {
+            } else {
                 codes.push("\r\n" + '});');
             }
             return codes;
         };
-        Sugar.prototype.trim = function (string) {
+        Sugar.prototype.trim = function(string) {
             // 此处的replace在整理完成后，将进行分析归纳，最后改写为callback形式的
             string = this.replaceStrings(string);
             string = this.replaceOperators1(string);
@@ -1115,16 +1096,16 @@
             string = this.restoreStrings(string);
             return string;
         };
-        Sugar.prototype.restoreStrings = function (string) {
+        Sugar.prototype.restoreStrings = function(string) {
             var that = this;
-            return string.replace(this.lastPattern, function () {
+            return string.replace(this.lastPattern, function() {
                 // console.log(arguments[1]);
                 return that.replacements[arguments[2] || arguments[4]];
-            }).replace(this.markPattern, function () {
+            }).replace(this.markPattern, function() {
                 return that.replacements[arguments[1]];
             });
         };
-        Sugar.prototype.run = function () {
+        Sugar.prototype.run = function() {
             if (!this.output) {
                 this.compile();
             }
@@ -1132,7 +1113,7 @@
         };
         return Sugar;
     }());
-    return function (input, run) {
+    return function(input, run) {
         return new Sugar(input, run);
     };
 }));

@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Fri, 20 Apr 2018 00:33:07 GMT
+ * Datetime: Fri, 20 Apr 2018 01:35:23 GMT
  */
 ;
 tangram.block([
@@ -104,8 +104,7 @@ tangram.block([
 			}
 		},
 		queryJSON: function(sql, json){ 
-			var returnfields = sql.match(/^(select)\s+([a-z0-9_\,\.\s\*]+)\s+from\s+([a-z0-9_\.]+)(?: where\s+\((.+)\))?\s*(?:order\sby\s+([a-z0-9_\,]+))?\s*(asc|desc|ascnum|descnum)?\s*(?:limit\s+([0-9_\,]+))?/
-			i); 
+			var returnfields = sql.match(/^(select)\s+([a-z0-9_\,\.\s\*]+)\s+from\s+([a-z0-9_\.]+)(?: where\s+\((.+)\))?\s*(?:order\sby\s+([a-z0-9_\,]+))?\s*(asc|desc|ascnum|descnum)?\s*(?:limit\s+([0-9_\,]+))?/i); 
 			var ops ={
 				fields:  returnfields[2].replace(' ','').split(','),
 				from:  returnfields[3].replace(' ',''),

@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Fri, 20 Apr 2018 00:33:07 GMT
+ * Datetime: Fri, 20 Apr 2018 01:35:24 GMT
  */
 ;
 tangram.block([], function (pandora, global, imports, undefined) {var _ = pandora,
@@ -13,15 +13,11 @@ tangram.block([], function (pandora, global, imports, undefined) {var _ = pandor
 	var patterns =[[/^\d+$/, function(time){ 
 				return parseInt(time); 
 			}],[/^[A-z]+\s+\d{1,2},\d{3,4}(\s+\d{1,2}:\d{1,2}:\d{1,2}){0,1}$/, function(time){ 
-				return Date.parse(time.replace(/\s+/
-				g,' ')); 
+				return Date.parse(time.replace(/\s+/g,' ')); 
 			}],[/^\d{1,2}\/\d{1,2}\/\d{3,4}(\s+\d{1,2}:\d{1,2}:\d{1,2}){0,1}$/, function(time){ 
-				return Date.parse(time.replace(/\s+/
-				g,' ')); 
+				return Date.parse(time.replace(/\s+/g,' ')); 
 			}],[/^\d{1,2}-\d{1,2}-\d{3,4}(\s+\d{1,2}:\d{1,2}:\d{1,2}){0,1}$/, function(time){ 
-				return Date.parse(time.replace(/-/
-				g,"/").replace(/\s+/
-				g,' ')); 
+				return Date.parse(time.replace(/-/g,"/").replace(/\s+/g,' ')); 
 			}],[/^\d{3,4}\/\d{1,2}\/\d{1,2}(\s+\d{1,2}:\d{1,2}:\d{1,2}){0,1}$/, function(time){ 
 				var tempStrs = time.split(/\s+/); 
 				var dateStrs = tempStrs[0].split('/'); 

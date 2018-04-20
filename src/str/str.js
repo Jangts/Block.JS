@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Fri, 20 Apr 2018 00:33:07 GMT
+ * Datetime: Fri, 20 Apr 2018 01:35:23 GMT
  */
 ;
 tangram.block([], function (pandora, global, imports, undefined) {var _ = pandora,
@@ -10,8 +10,7 @@ tangram.block([], function (pandora, global, imports, undefined) {var _ = pandor
 	location = global.location; 
 	var _keyStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+ /= ",
 	_utf8_encode = function(string){
-		string = string.replace(/\r\n/
-		g,"\n"); 
+		string = string.replace(/\r\n/g,"\n"); 
 		var utftext = ""; 
 		for(var n = 0; n < string.length; n++){ 
 			var c = string.charCodeAt(n); 
@@ -60,10 +59,7 @@ tangram.block([], function (pandora, global, imports, undefined) {var _ = pandor
 			return String.fromCharCode(code); 
 		},
 		escape: function(str){
-			return"echo(\"" + str.replace(/"/
-			g,'\\"').replace(/\n/
-			g,'\\n').replace(/\r/
-			g,'\\r') + "\");"; 
+			return"echo(\"" + str.replace(/"/g,'\\"').replace(/\n/g,'\\n').replace(/\r/g,'\\r') + "\");"; 
 		},
 		repeat: function(target, n){ 
 			var s = target,
@@ -110,8 +106,7 @@ tangram.block([], function (pandora, global, imports, undefined) {var _ = pandor
 			var chr1, chr2, chr3; 
 			var enc1, enc2, enc3, enc4; 
 			var i = 0; 
-			input = input.replace(/[^A-Za-z0-9\+\/\=]/
-			g,""); 
+			input = input.replace(/[^A-Za-z0-9\+\/\=]/g,""); 
 			while(i < input.length){
 				enc1 = _keyStr.indexOf(input.charAt(i++)); 
 				enc2 = _keyStr.indexOf(input.charAt(i++)); 

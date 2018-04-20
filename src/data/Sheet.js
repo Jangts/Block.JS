@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Fri, 20 Apr 2018 00:33:07 GMT
+ * Datetime: Fri, 20 Apr 2018 01:35:23 GMT
  */
 ;
 tangram.block([
@@ -17,8 +17,7 @@ tangram.block([
 	var infs = {},
 	tables = {},
 	metable = new Storage('pandora.data.Table'),
-	namingExpr = /^[A-Z_]\w*$/
-	i,
+	namingExpr = /^[A-Z_]\w*$/i,
 	create = function(tablename, fields, primarykey, constraints){ 
 		var defaultStorageName = 'pandora.data.Table.' + tablename; 
 		return{
@@ -309,8 +308,7 @@ tangram.block([
 	}); 
 	pandora.extend(pandora.data.Sheet,{
 		exec: function(str){ 
-			var matchs = str.match(/^(select|delete|update|insert)([\w\,\*\s]+from\s+|\s+from\s+|\s+into\s+|\s+)([A-Z_]\w*)\s+(.+)/
-			i); 
+			var matchs = str.match(/^(select|delete|update|insert)([\w\,\*\s]+from\s+|\s+from\s+|\s+into\s+|\s+)([A-Z_]\w*)\s+(.+)/i); 
 			if(matchs){ 
 				var mateinfs = infs[matchs[3]]; 
 				if(mateinfs){ 
@@ -331,8 +329,7 @@ tangram.block([
 						}; 
 						return result.length
 						case 'update': 
-						var mas = matchs[4].match(/^set\s+(\{.+\})\s+(where\s+\(.+\))$/
-						i); 
+						var mas = matchs[4].match(/^set\s+(\{.+\})\s+(where\s+\(.+\))$/i); 
 						if(mas){
 							try{
 								eval('var data = ' + mas[1]); 
@@ -354,8 +351,7 @@ tangram.block([
 						}; 
 						return 0; 
 						case 'insert': 
-						var mas = matchs[4].match(/^values\s+(\{.+\})\s*$/
-						i); 
+						var mas = matchs[4].match(/^values\s+(\{.+\})\s*$/i); 
 						if(mas){
 							try{
 								eval('var data = [' + mas[1] + ']'); 

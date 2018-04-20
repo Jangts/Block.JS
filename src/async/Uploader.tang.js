@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Fri, 20 Apr 2018 00:42:54 GMT
+ * Datetime: Fri, 20 Apr 2018 01:35:23 GMT
  */
 ;
 tangram.block([
@@ -14,8 +14,7 @@ tangram.block([
 	FormData = global.FormData,
 	toRegExp = function(array){ 
 		var str = array.join('|'); 
-		str = str.replace(/(\/|\+|\.)/
-		g,'\\$1'); 
+		str = str.replace(/(\/|\+|\.)/g,'\\$1'); 
 		return new RegExp("^(" + str + ")$"); 
 	},
 	fileTransfer = function(url, form, handlers){ 

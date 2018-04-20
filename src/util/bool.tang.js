@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Fri, 20 Apr 2018 00:33:07 GMT
+ * Datetime: Fri, 20 Apr 2018 01:35:23 GMT
  */
 ;
 tangram.block([
@@ -130,8 +130,7 @@ tangram.block([
 			return typeof CanvasRenderingContext2D != "undefined"; 
 		},
 		isWebkit: function(){
-			const reg = /webkit/
-			i; 
+			const reg = /webkit/i; 
 			return reg.test(this._ua)
 		},
 		isIE: function(){
@@ -141,11 +140,9 @@ tangram.block([
 		isAndroid: function(){ 
 			var android = false; 
 			var sAgent = navigator.userAgent; 
-			if(/android/
-			i.test(sAgent)){
+			if(/android/i.test(sAgent)){
 				android = true; 
-				var aMat = sAgent.toString().match(/android ([0-9]\.[0-9])/
-				i); 
+				var aMat = sAgent.toString().match(/android ([0-9]\.[0-9])/i); 
 				if(aMat && aMat[1]){
 					android = parseFloat(aMat[1]); 
 				}

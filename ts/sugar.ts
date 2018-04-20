@@ -141,8 +141,12 @@
                 this.replacements.push(match);
                 return '___boundary_' + index + '_as_mark___';
             }));
+            
 
             let count: number = 0;
+            let matches = string.match(/(\/|#|`|"|'|<)/);
+            console.log(matches);
+
             let matches3: any = string.match(/('|"|\/).*?\1[img]*/);
             let matches2: any = string.match(/`[^`]*`/);
             let matches1: any = string.match(/\/\*{1,2}[\s\S]*?\*\//);
@@ -182,7 +186,7 @@
                         string = string.replace(matches2[0], '___boundary_' + this.uid + '_' + index + '_as_template___');
                         break;
                     case '/':
-                        console.log(matches3[0]);
+                        // console.log(matches3[0]);
                         if (matches3[0] === '//') {
                             string = string.replace(/\s*\/\/.+/, '');
                         } else {
@@ -195,7 +199,7 @@
                         string = string.replace(matches3[0], '___boundary_' + this.uid + '_' + index + '_as_string___');
                         break;
                 }
-                matches3 = string.match(/('|"|\/).*?\1/);
+            matches3 = string.match(/('|"|\/).*?\1[img]*/);
                 matches2 = string.match(/`[^`]*`/);
                 matches1 = string.match(/\/\*[\s\S]*?\*\//);
                 count++;

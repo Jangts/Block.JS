@@ -1,6 +1,16 @@
-/*!
- * tangram.js framework sugar compiled code
+/*
  *
+ * 
+ * 
+ *  
+ * 
+ * 
+ * 
+ * tangram.js framework sugar compiled code
+ * 
+ *
+ * 
+ * 
  * Datetime: Thu, 19 Apr 2018 06:46:36 GMT
  */
 ;
@@ -10,7 +20,7 @@ tangram.block([
     '$_/util/type as type1',
     '$_/util/../util/type as type2',
     '$_/util/../util/type as type3'
-], function (pandora, global, imports, undefined) {
+], function(pandora, global, imports, undefined) {
     var type1 = imports['$_/util/type'] && imports['$_/util/type'][0];
     var type2 = imports['$_/util/../util/type'] && imports['$_/util/../util/type'][0];
     var type3 = imports['$_/util/../util/type'] && imports['$_/util/../util/type'][0];
@@ -21,19 +31,20 @@ tangram.block([
     console.log([_]);
     console.log(_.arr);
     console.log(_.util);
-    var myArray = [0, function f(a) { }];
-    pandora.each(myArray, function (i, el) {
+    var myArray = [0, function f(a) {}];
+    pandora.each(myArray, function(i, el) {
         console.log(this);
         console.log(i, el);
     }, this);
-    pandora.each(myArray, function (i) {
+    pandora.each(myArray, function(i) {
         console.log(this);
         console.log(i);
     }, this);
-    pandora.each(myArray, function (_index, el) {
+    pandora.each(myArray, function(_index, el) {
         console.log(this);
         console.log(_index, el);
     }, this);
+
     function each(i, el) {
         console.log(i, el);
     }
@@ -42,11 +53,11 @@ tangram.block([
     console.log(type2);
     console.log(type3);
     pandora('see.Scrollbar', {
-        auto: function () {
-            $('.tangram-see.scrollbar[data-ic-auto]').each(function () {
+        auto: function() {
+            $('.tangram-see.scrollbar[data-ic-auto]').each(function() {
                 if (($(this).data('icAuto') != 'false') && ($(this).data('icRendered') != 'scrollbar') && [1, '2', {
-                    c: 3
-                }].includes(1)) {
+                        c: 3
+                    }].includes(1)) {
                     $(this).data('icRendered', 'scrollbar');
                     new _.see.Scrollbar(this, {
                         theme: $(this).data('scbarTheme') || 'default-light'
@@ -56,11 +67,11 @@ tangram.block([
         }
     });
     pandora('see.Scrollbar', {
-        auto: function () {
-            $('.tangram-see.scrollbar[data-ic-auto]').each(function () {
+        auto: function() {
+            $('.tangram-see.scrollbar[data-ic-auto]').each(function() {
                 if (($(this).data('icAuto') != 'false') && ($(this).data('icRendered') != 'scrollbar') && [1, '2', {
-                    c: 3
-                }].includes(1)) {
+                        c: 3
+                    }].includes(1)) {
                     $(this).data('icRendered', 'scrollbar');
                     new _.see.Scrollbar(this, {
                         theme: $(this).data('scbarTheme') || 'default-light'
@@ -70,11 +81,11 @@ tangram.block([
         }
     });
     pandora.extend(_.see.Scrollbar, {
-        'auto': function () {
-            $('.tangram-see.scrollbar[data-ic-auto]').each(function () {
+        'auto': function() {
+            $('.tangram-see.scrollbar[data-ic-auto]').each(function() {
                 if (($(this).data('icAuto') != 'false') && ($(this).data('icRendered') != 'scrollbar') && [1, '2', {
-                    c: 3
-                }].includes(1)) {
+                        c: 3
+                    }].includes(1)) {
                     $(this).data('icRendered', 'scrollbar');
                     new _.see.Scrollbar(this, {
                         theme: $(this).data('scbarTheme') || 'default-light'
@@ -87,7 +98,7 @@ tangram.block([
         num: 1,
         str: 'test class',
         prop: undefined,
-        _init: function (arg1) {
+        _init: function(arg1) {
             if (arg1 === void 0) { arg1 = 'hello'; }
             console.log(arg1);
         }
@@ -95,18 +106,18 @@ tangram.block([
     pandora.extend(pandora.Test, {
         'num': 2,
         str: 'static string',
-        arr: [0, 'b', function (arg1) {
+        arr: [0, 'b', function(arg1) {
             console.log(arg1);
         }],
         prop: {
             times: 5,
             type: 'static',
-            method: function (arg1) {
+            method: function(arg1) {
                 if (arg1 === void 0) { arg1 = 'method'; }
                 console.log(rg1);
             }
         },
-        method11: function (arg11) {
+        method11: function(arg11) {
             console.log(arg11);
         }
     });
@@ -125,42 +136,43 @@ tangram.block([
     });
     var AnonClass = pandora.declareClass({
         desc: 'this is an anonymous class',
-        _init: function () { }
+        _init: function() {}
     });
     var AnonClass2 = pandora.declareClass(_.Test2, {
         desc: 'this is an anonymous class',
-        _init: function () { }
+        _init: function() {}
     })
+
     function myFn1(arg1) {
         console.log(arg1);
     }
-    function myFn2() { };
-    var myFn3 = function (arg1) {
+
+    function myFn2() {};
+    var myFn3 = function(arg1) {
         if (arg1 === void 0) { arg1 = flase; }
         console.log(arg1);
     };
-    var myFn4 = function (arg1) {
+    var myFn4 = function(arg1) {
         if (arg1 === void 0) { arg1 = flase; }
         console.log(arg1);
     };
     var div = _.render({
-        margin: "100px auto 0",
-        textAlign: "center",
-        fontSize: "72px"
-    }),
+            margin: "100px auto 0",
+            textAlign: "center",
+            fontSize: "72px"
+        }),
         uid = new _.Identifier(),
         strings = 'Hello, I\'m tangram.js.'
-            .split(''),
+        .split(''),
         iterator = new _.Iterator(strings),
-        render = function (letter) {
+        render = function(letter) {
             if (letter) {
-                setTimeout(function () {
+                setTimeout(function() {
                     div.innerHTML += letter;
                     render(iterator.next());
                 }, 150);
-            }
-            else {
-                setTimeout(function () {
+            } else {
+                setTimeout(function() {
                     _.render({
                         'margin': "10px auto",
                         textAlign: "center",
@@ -171,7 +183,7 @@ tangram.block([
             }
         };
     console.log(uid, iterator);
-    setTimeout(function () {
+    setTimeout(function() {
         render(iterator.next());
     }, 200);
     return {
