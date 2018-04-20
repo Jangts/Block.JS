@@ -11,202 +11,287 @@
 
 <body>
     <script type="text/tangram.js-sugar">
-        use $_/arr/
-        use $_/util/bool;
-        use $_/util/type as type1;
-        use $_/util/../util/type as type2; use $_/util/../util/type as type3;
+        "await"
+/*!
+ * tangram.js framework source code
+ *
+ * class .async.Uploader
+ *
+ * Date 2017-04-06
+ */
 
-        // return;
+use $_/util/bool;
+var _ = pandora,
+doc = global.document,
+console = global.console;
 
-        var _ = pandora,
-        declare = pandora.declareClass,
-        document = global.document,
-        console = global.console;
+var XMLHttpRequest = global.XMLHttpRequest,
+    ActiveXObject = global.ActiveXObject,
+    FormData = global.FormData,
 
-        console.log([_]);
-        console.log(_.arr);
-        console.log(_.util);
+    //Define Private Method 'toRegExp',  'fileTransfer'
+    toRegExp = (array) {
+        var str = array.join('|');
+        str = str.replace(/(\/|\+|\.)/g, '\\$1');
+        return new RegExp("^(" + str + ")$");
+    },
 
-        var myArray = [0, f(a){}];
-
-        each(myArray as i, el){
-            console.log(this);
-            console.log(i, el);
-        }
-
-        each(myArray as el){
-            console.log(this);
-            console.log(_index, el);
-        }
-
-        each(i, el){
-            console.log(i, el);
-        }
-
-        console.log(imports)
-        console.log(type1);
-        console.log(type2)
-        console.log(type3);
-
-        reg see.Scrollbar {
-            auto () {
-                $('.tangram-see.scrollbar[data-ic-auto]').each(() {
-                    if (($(this).data('icAuto') != 'false') && ($(this).data('icRendered') != 'scrollbar') && [1,'2',{c:3}].includes(1)) {
-                        $(this).data('icRendered', 'scrollbar');
-                        new _.see.Scrollbar(this, {
-                            theme: $(this).data('scbarTheme') || 'default-light',
-                        });
-                    }
-                });
-            }
-        };
-
-        extends .see.Scrollbar {
-            auto () {
-                $('.tangram-see.scrollbar[data-ic-auto]').each(() {
-                    if (($(this).data('icAuto') != 'false') && ($(this).data('icRendered') != 'scrollbar') && [1,'2',{c:3}].includes(1)) {
-                        $(this).data('icRendered', 'scrollbar');
-                        new _.see.Scrollbar(this, {
-                            theme: $(this).data('scbarTheme') || 'default-light',
-                        });
-                    }
-                });
-            }
-        };
-
-        extends _.see.Scrollbar {
-            auto () {
-                $('.tangram-see.scrollbar[data-ic-auto]').each(() {
-                    if (($(this).data('icAuto') != 'false') && ($(this).data('icRendered') != 'scrollbar') && [1,'2',{c:3}].includes(1)) {
-                        $(this).data('icRendered', 'scrollbar');
-                        new _.see.Scrollbar(this, {
-                            theme: $(this).data('scbarTheme') || 'default-light',
-                        });
-                    }
-                });
-            }
-        };
-
-        class .Test {
-            num = 1;
-            str = 'test class'
-            static num = 2
-            static str = 'static string';static arr = [
-                0,
-                'b',
-                (arg1){
-                    console.log(arg1);
+    fileTransfer = (url, form, handlers) {
+        var that = this;
+        var onBeforeTransferring = handlers.before;
+        var onAfterTransferring = handlers.after;
+        var onUploadComplete = handlers.done;
+        var onUploadFailed = handlers.fail;
+        var uploader = XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
+        var response;
+        if (uploader.upload) {
+            var onTransferring = handlers.progress;
+            var onSendStart (evt) {
+                response = {
+                    lengthComputable: evt.lengthComputable,
+                    loaded: evt.loaded,
+                    total: evt.total,
+                    readyState: uploader.readyState,
+                    status: uploader.status,
+                    responseText: 'Transferring'
                 }
-            ];
-            prop = 'teststring';
-
-            _init(arg1='hello'){
-                console.log(arg1);
-            }
-
-            static prop = {
-                times: 5,
-                type: 'static',
-                method (arg1='method') {
-                    console.log(rg1);
-                }
+                _.util.bool.isFn(onBeforeTransferring) && onBeforeTransferring.call(that, response);
             };
-
-            static method(arg1){
-                console.log(arg);
-            }
-        }
-
-        class pandora.Test2 extends _.Test{
-            num = 2;
-            str = 'test2 class'
-            static = [1,2,3];
-            method = anon(elem = null){
-                this.elem = elem;
-            }
-            
-            method bar(){
-                
-            }
-            static method foo(){
-                
-            }
-        }
-
-        class myClass extends _.Test {}
-
-
-        var AnonClass = class {
-            desc = 'this is an anonymous class'
-            _init(){
-
-            }
-        }
-
-        var AnonClass2 = class extends _.Test2 {
-            desc = 'this is an anonymous class'
-            _init(){
-
-            }
-        }
-
-        myFn1 (arg1){
-            console.log(arg1);
-        }
-
-        function myFn2 (){
-            
-        }
-
-        var myFn3 = (arg1=flase){
-            console.log(arg1);
-
-        }
-
-        var myFn4 (arg1=flase){
-            console.log(arg1);
-
-        }
-
-        var div = _.render({
-            margin: "100px auto 0",
-            textAlign: "center",
-            fontSize: "72px"
-        }),
-        uid = new _.Identifier(), // 生成标识符
-        strings = 'Hello, I\'m tangram.js.'.split(''), // 字符数组化
-        iterator = new _.Iterator(strings), // 生成迭代器
-        render = function(letter) {
-            if (letter) {
-                setTimeout(function() {
-                    div.innerHTML += letter;
-                    render(iterator.next());
-                }, 150);
-            } else {
-                setTimeout(function() {
-                    _.render({
-                        margin: "10px auto",
-                        textAlign: "center",
-                        fontSize: "13px",
-                        color: "#666"
-                    }, 'TestUID : ' + uid.toString());
-                }, 200);
+            var onSendProgress (evt) {
+                response = {
+                    lengthComputable: evt.lengthComputable,
+                    loaded: evt.loaded,
+                    total: evt.total,
+                    readyState: uploader.readyState,
+                    status: uploader.status,
+                    responseText: 'Transferring'
+                }
+                _.util.bool.isFn(onTransferring) && onTransferring.call(that, response);
+            };
+            var onSendComplete (evt) {
+                response = {
+                    readyState: uploader.readyState,
+                    status: uploader.status,
+                    responseText: 'Transferred'
+                }
+                _.util.bool.isFn(onAfterTransferring) && onAfterTransferring.call(that, response);
+            };
+            var onFailed (evt) {
+                response = {
+                    readyState: uploader.readyState,
+                    status: uploader.status,
+                    responseText: 'Transfailed'
+                }
+                _.util.bool.isFn(onUploadFailed) && onUploadFailed.call(that, response);
+            };
+            var onTimeout (evt) {
+                response = {
+                    readyState: uploader.readyState,
+                    status: uploader.status,
+                    responseText: 'Timeout'
+                }
+                _.util.bool.isFn(onUploadFailed) && onUploadFailed.call(that, response);
             }
         };
+        var onStateChange  () {
+            if (this.readyState == 1) {
+                response = {
+                    lengthComputable: false,
+                    loaded: 0,
+                    total: 0,
+                    readyState: this.readyState,
+                    status: this.status,
+                    responseText: 'Waiting'
+                }
+                _.util.bool.isFn(onBeforeTransferring) && onBeforeTransferring.call(that, response);
+            } else if (this.readyState == 2 || this.readyState == 3) {
+                response = {
+                    readyState: this.readyState,
+                    status: this.status,
+                    responseText: 'Processing'
+                }
+                _.util.bool.isFn(onAfterTransferring) && onAfterTransferring.call(that, response);
+            } else if (this.readyState == 4) {
+                //console.log(url, data, handlers, this);
+                if (this.status == 200) {
+                    response = {
+                        readyState: this.readyState,
+                        status: this.status,
+                        responseText: this.responseText
+                    }
+                    _.util.bool.isFn(onUploadComplete) && onUploadComplete.call(that, response);
+                } else {
+                    response = {
+                        readyState: this.readyState,
+                        status: this.status,
+                        responseText: this.responseText
+                    }
+                    _.util.bool.isFn(onUploadFailed) && onUploadFailed.call(that, response);
+                }
+            }
+        }
+        if (uploader.upload && typeof uploader.onprogress != 'undefined') {
+            uploader.upload.onloadstart = onSendStart;
+            uploader.upload.onprogress = onSendProgress;
+            uploader.upload.onloadend = onSendComplete;
+            uploader.upload.onerror = onFailed;
+            uploader.upload.ontimeout = onTimeout;
+        }
+        uploader.onreadystatechange = onStateChange;
+        uploader.open('POST', url, true);
+        // console.log(form);
+        uploader.send(form);
+    };
 
-        console.log(uid, iterator);
+/**
+ * 一个数据树类型，提供4种排序方式
+ * 
+ * @param   {Array}     files           要上传的文件序列，一般有input获取
+ * @param   {Array}     types           支持的文件格式，用于检查
+ * @param   {Array}     suffixs         支持的文件后缀名，用于检查
+ * @param   {Number}    maxSize         最大可上传文件大小，用于检查
+ * 
+ */
+class .async.Uploader {
+    Element = null;
+    fileTypeRegExp = null;
+    fileNameRegExp = null;
+    isOnlyFilter = true;
+    _init(files, types, suffixs, maxSize) {
+        this.files = files;
+        if (_.util.bool.isArr(types)) {
+            this.fileTypeRegExp = toRegExp(types);
+        }
+        if (_.util.bool.isArr(suffixs) && suffixs.length) {
+            this.fileNameRegExp = new RegExp(".(" + suffixs.join('|') + ")$");
+        }
+        this.fileMaxSize = typeof maxSize == 'number' ? maxSize : 1024 * 1024 * 200;
+    }
 
-        setTimeout(() {
-            render(iterator.next());
-        }, 200);
+    checkType(doneCallback, failCallback) {
+        var result = this.filesChecker(this.files);
+        if (this.isOnlyFilter) {
+            var result = this.filesFilter();
+        } else {
+            var result = this.filesChecker();
+        }
+        //console.log(result);
+        if (result[0]) {
+            _.util.bool.isFn(doneCallback) && doneCallback.call(this, result[1], result[2]);
+        } else {
+            _.util.bool.isFn(failCallback) && failCallback.call(this, result[1], result[2]);
+        }
+    }
 
-        return {div};
+    filesFilter() {
+        var array = [];
+        for (var i = 0; i < this.files.length; i++) {
+            if (this.checkSIZE(this.files[i])) {
+                if (this.checkTYPE(this.files[i]) || this.checkEXTN(this.files[i])) {
+                    array.push(this.files[i]);
+                }
+            }
+        }
+        if (array.length > 0) {
+            if (this.files.length > array.length) {
+                return [true, array, 0];
+            }
+            return [true, array, 1];
+        } else {
+            return [false, 0, 2];
+        }
+    }
+
+    filesChecker() {
+        for (var i = 0; i < this.files.length; i++) {
+            if (!(this.checkTYPE(this.files[i]) || this.checkEXTN(this.files[i]))) {
+                return [false, this.files[i], 0];
+            }
+            if (!this.checkSIZE(this.files[i])) {
+                return [false, this.files[i], 1];
+            }
+        }
+        return [true, this.files, 1];
+    }
+
+    checkTYPE(file) {
+        return this.fileTypeRegExp && this.fileTypeRegExp.test(file.type);
+    }
+
+    checkEXTN(file) {
+        return this.fileNameRegExp && this.fileNameRegExp.test(file.name);
+    }
+
+    checkSIZE(file) {
+        return file.size < this.fileMaxSize;
+    }
+
+    transfer(options, method) {
+        if (this.files.length && this.files.length === 1) {
+            _.async.Uploader.transfer.call(this, this.files[0], options, method);
+        } else {
+            _.async.Uploader.transfer.call(this, this.files, options, method);
+        }
+
+    }
+    
+    static transfer (file, options, method) {
+        if (_.util.bool.isFile(file)) {
+            options = options || {};
+            options.url = options.url || location.href;
+            options.data = options.data || {};
+            var form = new FormData();
+            for (var i in options.data) {
+                form.append(i, options.data[i]);
+            }
+            if (typeof options.filefield == 'string') {
+                form.append(options.filefield, file);
+            } else {
+                form.append('myfile', file);
+            }
+            form.append('enctype', 'multipart/form-data');
+        } else if (_.util.bool.isFiles(file)) {
+            options = options || {};
+            options.data = options.data || {};
+            var form = new FormData();
+            for (var i in options.data) {
+                form.append(i, options.data[i]);
+            }
+            if (typeof options.filefield == 'string') {
+                filefield = options.filefield + '[]';
+            } else {
+                filefield = 'myfile[]';
+            }
+            for (var i = 0; i < file.length; i++) {
+                form.append(filefield, file[i]);
+            }
+            form.append('enctype', 'multipart/form-data');
+        } else if (_.util.bool.isForm(file)) {
+            options = options || {};
+            var form = file;
+            for (var i in options.data) {
+                form.append(i, options.data[i]);
+            }
+        } else {
+            return _.debug('Must Give Transfer A File.');
+        }
+        if (method) {
+            form.append('http_method', method);
+        }
+        options.url = options.url || location.href;
+        options.handlers = options.handlers || {};
+        fileTransfer.call(this, options.url, form, options.handlers);
+    }
+}
+
+return _.async.Uploader;
+
     </script>
     <script src="../src/web-sugar.js"></script>
     <script>
         setTimeout(function () {
             console.log(div);
-        }, 5000)
+        }, 5000);
     </script>
 </body>
 

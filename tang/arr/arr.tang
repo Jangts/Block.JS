@@ -1,4 +1,4 @@
-"await";
+"await"
 /*!
  * tangram.js framework source code
  *
@@ -6,7 +6,7 @@
  *
  * Date 2017-04-06
  */
-;
+
 use $_/util/type;
 
 var _ = pandora;

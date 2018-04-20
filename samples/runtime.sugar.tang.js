@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Wed, 18 Apr 2018 01:43:40 GMT
+ * Datetime: Thu, 19 Apr 2018 06:46:36 GMT
  */
 ;
 tangram.block([
@@ -18,11 +18,17 @@ tangram.block([
         declare = pandora.declareClass,
         document = global.document,
         console = global.console;
-    var myArray = [0, function f(a) {
-    }];
+    console.log([_]);
+    console.log(_.arr);
+    console.log(_.util);
+    var myArray = [0, function f(a) { }];
     pandora.each(myArray, function (i, el) {
         console.log(this);
         console.log(i, el);
+    }, this);
+    pandora.each(myArray, function (i) {
+        console.log(this);
+        console.log(i);
     }, this);
     pandora.each(myArray, function (_index, el) {
         console.log(this);
@@ -45,7 +51,7 @@ tangram.block([
                     new _.see.Scrollbar(this, {
                         theme: $(this).data('scbarTheme') || 'default-light'
                     });
-                };
+                }
             });
         }
     });
@@ -59,12 +65,12 @@ tangram.block([
                     new _.see.Scrollbar(this, {
                         theme: $(this).data('scbarTheme') || 'default-light'
                     });
-                };
+                }
             });
         }
     });
     pandora.extend(_.see.Scrollbar, {
-        auto: function () {
+        'auto': function () {
             $('.tangram-see.scrollbar[data-ic-auto]').each(function () {
                 if (($(this).data('icAuto') != 'false') && ($(this).data('icRendered') != 'scrollbar') && [1, '2', {
                     c: 3
@@ -73,21 +79,21 @@ tangram.block([
                     new _.see.Scrollbar(this, {
                         theme: $(this).data('scbarTheme') || 'default-light'
                     });
-                };
+                }
             });
         }
     });
     pandora.declareClass('Test', {
         num: 1,
         str: 'test class',
-        prop: 'teststring',
+        prop: undefined,
         _init: function (arg1) {
-            arg1 = arg1 || 'hello';
+            if (arg1 === void 0) { arg1 = 'hello'; }
             console.log(arg1);
         }
     });
     pandora.extend(pandora.Test, {
-        num: 2,
+        'num': 2,
         str: 'static string',
         arr: [0, 'b', function (arg1) {
             console.log(arg1);
@@ -96,41 +102,45 @@ tangram.block([
             times: 5,
             type: 'static',
             method: function (arg1) {
-                arg1 = arg1 || 'method';
+                if (arg1 === void 0) { arg1 = 'method'; }
                 console.log(rg1);
             }
         },
-        method: function (arg1) {
-            console.log(arg);
+        method11: function (arg11) {
+            console.log(arg11);
         }
     });
     pandora.declareClass('Test2', _.Test, {
-        num: 2,
-        str: 'test2 class'
+        num: undefined,
+        str: 'test2 class',
+        static: [1, 2, 3],
+        method: function anon(elem) {
+            if (elem === void 0) { elem = null; }
+            this.elem = elem;
+        }
     });
-    var myClass = pandora.declareClass(_.Test, {
+    var myClass = pandora.declareClass(_.Test, {});
+    pandora.extend(myClass, {
+        prop: undefined
     });
     var AnonClass = pandora.declareClass({
         desc: 'this is an anonymous class',
-        _init: function () {
-        }
-    })
+        _init: function () { }
+    });
     var AnonClass2 = pandora.declareClass(_.Test2, {
         desc: 'this is an anonymous class',
-        _init: function () {
-        }
+        _init: function () { }
     })
     function myFn1(arg1) {
         console.log(arg1);
     }
-    function myFn2() {
-    }
+    function myFn2() { };
     var myFn3 = function (arg1) {
-        arg1 = arg1 || flase;
+        if (arg1 === void 0) { arg1 = flase; }
         console.log(arg1);
     };
     var myFn4 = function (arg1) {
-        arg1 = arg1 || flase;
+        if (arg1 === void 0) { arg1 = flase; }
         console.log(arg1);
     };
     var div = _.render({
@@ -139,7 +149,8 @@ tangram.block([
         fontSize: "72px"
     }),
         uid = new _.Identifier(),
-        strings = 'Hello, I\'m tangram.js.'.split(''),
+        strings = 'Hello, I\'m tangram.js.'
+            .split(''),
         iterator = new _.Iterator(strings),
         render = function (letter) {
             if (letter) {
@@ -147,16 +158,17 @@ tangram.block([
                     div.innerHTML += letter;
                     render(iterator.next());
                 }, 150);
-            } else {
+            }
+            else {
                 setTimeout(function () {
                     _.render({
-                        margin: "10px auto",
+                        'margin': "10px auto",
                         textAlign: "center",
                         fontSize: "13px",
                         color: "#666"
                     }, 'TestUID : ' + uid.toString());
                 }, 200);
-            };
+            }
         };
     console.log(uid, iterator);
     setTimeout(function () {

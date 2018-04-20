@@ -3,16 +3,27 @@ use $_/util/bool;
 use $_/util/type as type1;
 use $_/util/../util/type as type2; use $_/util/../util/type as type3;
 
+// return;
+
 var _ = pandora,
 declare = pandora.declareClass,
 document = global.document,
 console = global.console;
+
+console.log([_]);
+console.log(_.arr);
+console.log(_.util);
 
 var myArray = [0, f(a){}];
 
 each(myArray as i, el){
     console.log(this);
     console.log(i, el);
+}
+
+each(myArray as i,){
+    console.log(this);
+    console.log(i);
 }
 
 each(myArray as el){
@@ -56,7 +67,7 @@ extends .see.Scrollbar {
 };
 
 extends _.see.Scrollbar {
-    auto () {
+    'auto' () {
         $('.tangram-see.scrollbar[data-ic-auto]').each(() {
             if (($(this).data('icAuto') != 'false') && ($(this).data('icRendered') != 'scrollbar') && [1,'2',{c:3}].includes(1)) {
                 $(this).data('icRendered', 'scrollbar');
@@ -71,7 +82,7 @@ extends _.see.Scrollbar {
 class .Test {
     num = 1;
     str = 'test class'
-    static num = 2
+    static 'num' = 2
     static str = 'static string';static arr = [
         0,
         'b',
@@ -79,7 +90,7 @@ class .Test {
             console.log(arg1);
         }
     ];
-    prop = 'teststring';
+    prop;
 
     _init(arg1='hello'){
         console.log(arg1);
@@ -91,19 +102,32 @@ class .Test {
         method (arg1='method') {
             console.log(rg1);
         }
-    };
+    }
 
-    static method(arg1){
-        console.log(arg);
+    static method11(arg11){
+        console.log(arg11);
     }
 }
 
 class pandora.Test2 extends _.Test{
-    num = 2;
+    num
     str = 'test2 class'
+    static = [1,2,3];
+    method = anon(elem = null){
+        this.elem = elem;
+    }
+    
+    method bar(){
+        
+    }
+    static method foo(){
+        
+    }
 }
 
-class myClass extends _.Test {}
+class myClass extends _.Test {
+    static prop
+}
 
 
 var AnonClass = class {
@@ -155,7 +179,7 @@ render = function(letter) {
     } else {
         setTimeout(function() {
             _.render({
-                margin: "10px auto",
+                'margin': "10px auto",
                 textAlign: "center",
                 fontSize: "13px",
                 color: "#666"
