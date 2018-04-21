@@ -3,7 +3,7 @@
     "displayName": "tangram.js sugar",
     "description": "tangram.js syntactic sugar",
     "version": "0.0.1",
-    "publisher": "tangram-js-sugar",
+    "publisher": "jangts",
     "engines": {
         "vscode": "^1.22.0"
     },
@@ -37,5 +37,6 @@
             "language": "tang",
             "path": "./snippets/tang.snippets.json"
         }]
-    }
+    },
+    "repository":"https://microivan.visualstudio.com/_git/tangram.js%20sugar"
 }

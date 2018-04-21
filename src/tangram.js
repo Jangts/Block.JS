@@ -1,10 +1,8 @@
 /*!
  * tangram.js framework source code
- * 互联代码块框架源码
+ * 
  * A Web Front-end Development Framework
- * 一个互联网前端框架
  * Mainly Use For DOM Operation, Data Operation, Graphic Processing, Front-end UI, And Some Basic Calculations.
- * 主要用于DOM操作，数据操作，图形相关，前端视觉，和一些基础计算。
  *
  * Written and Designed By Jang Ts
  * http://tangram.js.cn
@@ -12,7 +10,7 @@
  * Date 2017-04-06
  */
 ;
-(function (global, factory) {
+void function (global, factory) {
     if (typeof exports === 'object') {
         global.console = console;
         exports = factory(global);
@@ -1477,4 +1475,4 @@
         console.log('[' + startTime.toLocaleString() + ']tangram.js framework Start Working!');
     }
     return tangram;
-}));
+});

@@ -1,5 +1,5 @@
 "await"
-/*!
+/*
  * tangram.js framework source code
  *
  * class arr.Tree
@@ -9,7 +9,7 @@
 
 var _ = pandora;
 
-var getParents (index) {
+var getParents (index) {  
     var parents = [];
     each(this.data as i, leaf) {
         if (leaf[this.indexkey] == index) {
@@ -30,6 +30,8 @@ var getChildren (parent) {
     }
     return children;
 }
+
+
 
 /**
  * 一个数据树类型，提供4种排序方式

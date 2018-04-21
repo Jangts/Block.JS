@@ -1,9 +1,9 @@
 /*!
- * tangram.js framework source code
+ * tangram.js framework syntactic sugar
+ * Core Code
  *
- * syntactic sugars for tangram.js
- *
- * Date 2017-04-06
+ * Written and Designed By Jang Ts
+ * http://tangram.js.cn
  */
 ;
 (function (global, factory) {
@@ -13,9 +13,9 @@
             module.exports = exports;
         }
     }
-    else if (typeof define === 'function' && define.amd) {
+    else if (typeof global.define === 'function' && global.define.amd) {
         // AMD
-        define('tangram_js_sugar', [], function () {
+        global.define('tangram_js_sugar', [], function () {
             return factory(global);
         });
     }
@@ -23,67 +23,67 @@
         global.tangram_js_sugar = factory(global);
     }
 }(this, function (global) {
+    var _this = this;
     if (Array.prototype['includes'] == undefined) {
-        Array.prototype['includes'] = (searchElement: any, fromIndex: any): boolean => {
+        Array.prototype['includes'] = function (searchElement, fromIndex) {
             fromIndex = parseInt(fromIndex) || 0;
-            for (fromIndex; fromIndex < this.length; fromIndex++) {
-                if (this[fromIndex] === searchElement) {
+            for (fromIndex; fromIndex < _this.length; fromIndex++) {
+                if (_this[fromIndex] === searchElement) {
                     return true;
                 }
             }
             return false;
-        }
-    }
-
-    const zero2z: string[] = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split(''),
-        namingExpr: RegExp = /^[A-Z_\$][\w\$]*(\.[A-Z_\$][\w\$]*)*$/i,
-        reservedWords = ['if', 'for', 'while', 'switch', 'with', 'catch'],
-        replaceExpr = {
-            use: /\s*use\s+.[\$\w\.\s\/\\]+?[;\r\n]+/g,
-            import: /^\s*use\s+/g,
-            return: /[\s;\r\n]+$/g,
-            include: /\s*@include\s+.[\$\w\.\s\/\\]+?[;\r\n]+/g,
-            class: /class\s+((pandora)?\.)?([\$\w\.]+\s+)?(extends\s+([\$\w\.]+)\s*)?\{([^\{\}]*?)\}/g,
-            defind: /(reg|extends)\s+([\$\w\.]+)\s*\{([^\{\}]*?)\}/g,
-            function: /(var\s+)?([\$\w]*)\s*\(([^\(\)]*)\)[\s\t]*\{([^\{\}]*?)\}/g,
-            array: /\[[^\[\]]*?\]/g,
-            closure: /([\$\w]+|\))?([\s\t]*\{[^\{\}]*?\})/g
-        },
-        matchExpr = {
-            index: /(\d+)_as_([a-z]+)/,
-            index3: /^_(\d+)_as_([a-z]+)___([\s\S]*)$/,
-            class: /class\s+((pandora)?\.)?([\$\w\.]+\s+)?(extends\s+([\$\w\.]+)\s*)?\{([^\{\}]*?)\}/,
-            classelement: /^\s*((static)\s+)?([\$\w]*)\s*(\=*)([\s\S]*)$/,
-            objectattr: /^\s*((([\$\w]+)))\s*(\:*)([\s\S]*)$/,
-            defind: /(reg|extends)\s+([\$\w\.]+)\s*\{([^\{\}]*?)\}/,
-            function: /(var\s+)?([\$\w]*)\s*\(([^\(\)]*)\)[\s\t]*\{([^\{\}]*?)\}/
-        },
-        boundaryMaker = (): string => {
-            let radix = 36;
-            let uid = new Array(36);
-            for (let i = 0; i < 36; i++) {
-                uid[i] = zero2z[Math.floor(Math.random() * radix)];
-            }
-            uid[8] = uid[13] = uid[18] = uid[23] = '_';
-            return uid.join('');
-        },
-        stringRepeat = (string: string, number: number): string => {
-            return new Array(number + 1).join(string);
         };
-
-    class Sugar {
-        uid: string
-        input: string
-        isMainBlock: boolean = true
-        markPattern: RegExp;
-        lastPattern: RegExp;
-        stringReplaceTimes: number = 65536;
-        replacements: string[] = ['{}']
-        imports: string[] = []
-        import_alias: object = {}
-        ast: any = {}
-        output: string | undefined
-        constructor(input: string, run: boolean) {
+    }
+    var zero2z = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split(''), namingExpr = /^[A-Z_\$][\w\$]*(\.[A-Z_\$][\w\$]*)*$/i, reservedWords = ['if', 'for', 'while', 'switch', 'with', 'catch'], replaceExpr = {
+        use: /\s*use\s+.[\$\w\.\s\/\\]+?[;\r\n]+/g,
+        import: /^\s*use\s+/g,
+        return: /[\s;\r\n]+$/g,
+        include: /\s*@include\s+.[\$\w\.\s\/\\]+?[;\r\n]+/g,
+        class: /class\s+((pandora)?\.)?([\$\w\.]+\s+)?(extends\s+([\$\w\.]+)\s*)?\{([^\{\}]*?)\}/g,
+        define: /(reg|extends)\s+([\$\w\.]+)\s*\{([^\{\}]*?)\}/g,
+        function: /(var\s+)?([\$\w]*)\s*\(([^\(\)]*)\)[\s\t]*\{([^\{\}]*?)\}/g,
+        array: /\[[^\[\]]*?\]/g,
+        closure: /([\$\w]+|\))?([\s\t]*\{[^\{\}]*?\})/g
+    }, matchExpr = {
+        string: /(\/|\#|`|"|')([\*\/\=])?/,
+        strings: {
+            '/': /(\/.+?\/[img]*)\s*(.|$)/,
+            '`': /(`[^`]*`)\s*(.|$)/,
+            '"': /(".*?")\s*(.|$)/,
+            "'": /('.*?')\s*(.|$)/
+        },
+        index: /(\d+)_as_([a-z]+)/,
+        index3: /^_(\d+)_as_([a-z]+)___([\s\S]*)$/,
+        class: /class\s+((pandora)?\.)?([\$\w\.]+\s+)?(extends\s+([\$\w\.]+)\s*)?\{([^\{\}]*?)\}/,
+        classelement: /^\s*((static)\s+)?([\$\w]*)\s*(\=*)([\s\S]*)$/,
+        objectattr: /^\s*((([\$\w]+)))\s*(\:*)([\s\S]*)$/,
+        define: /(reg|extends)\s+([\$\w\.]+)\s*\{([^\{\}]*?)\}/,
+        function: /(var\s+)?([\$\w]*)\s*\(([^\(\)]*)\)[\s\t]*\{([^\{\}]*?)\}/
+    }, stringas = {
+        '/': '_as_pattern___',
+        '`': '_as_template___',
+        '"': '_as_string___',
+        "'": '_as_string___'
+    }, boundaryMaker = function () {
+        var radix = 36;
+        var uid = new Array(36);
+        for (var i = 0; i < 36; i++) {
+            uid[i] = zero2z[Math.floor(Math.random() * radix)];
+        }
+        uid[8] = uid[13] = uid[18] = uid[23] = '_';
+        return uid.join('');
+    }, stringRepeat = function (string, number) {
+        return new Array(number + 1).join(string);
+    };
+    var Sugar = /** @class */ (function () {
+        function Sugar(input, run) {
+            this.isMainBlock = true;
+            this.stringReplaceTimes = 65536;
+            this.replacements = ['{}', '/=', '/'];
+            this.imports = [];
+            this.import_alias = {};
+            this.ast = {};
             this.uid = boundaryMaker();
             this.markPattern = new RegExp('___boundary_(\\\d+)_as_(mark|preoperator|operator|aftoperator)___', 'g');
             this.lastPattern = new RegExp('(___boundary_' + this.uid + '_(\\\d+)_as_(string|pattern|template)___|___boundary_(\\\d+)_as_(propname|preoperator|operator|aftoperator)___)', 'g');
@@ -93,130 +93,137 @@
                 this.run();
             }
         }
-        compile(): Sugar {
+        Sugar.prototype.compile = function () {
             // console.log(this.input);
             this.buildAST(this.buildMiddleAST(this.encode()));
             this.generate();
             // console.log(this.replacements);
             return this;
-        }
-        encode(): string {
-            let string = this.input.replace(/^\s*"await"\s*/, (match: string) => {
-                this.isMainBlock = false;
+        };
+        Sugar.prototype.encode = function () {
+            var _this = this;
+            var string = this.input.replace(/^\s*"await"\s*/, function (match) {
+                _this.isMainBlock = false;
                 // console.log('This is not a main block.');
                 return '';
             });
             string = this.replaceImports(string);
             string = this.replaceStrings(string);
-
             while (string.indexOf('@include') >= 0) {
                 string = this.replaceIncludes(string);
             }
-
             string = string.replace(/___boundary_\w+_(\d+)_as_string___\s*(\:|\(|\=)/g, '___boundary_$1_as_propname___$2');
             // console.log(string);
             // console.log(this.replacements);
-
-            while ((string.indexOf('[') >= 0) && (string.indexOf(']') >= 0)) {
-                string = this.replaceArray(string);
+            var left = string.indexOf('[');
+            var right = string.indexOf(']');
+            while ((left >= 0) || (right >= 0)) {
+                console.log('[]');
+                if ((left >= 0) && (left < right)) {
+                    string = this.replaceArray(string);
+                    left = string.indexOf('[');
+                    right = string.indexOf(']');
+                }
+                else {
+                    throw 'tangram.js sugar Error: Unexpected "[" or "]"';
+                }
             }
             // console.log(string);
-
-            while ((string.indexOf('{') >= 0) && (string.indexOf('}') >= 0)) {
-                string = this.replaceCodeSegments(string);
+            left = string.indexOf('{');
+            right = string.indexOf('}');
+            while ((left >= 0) || (right >= 0)) {
+                console.log('{}');
+                if ((left >= 0) && (left < right)) {
+                    string = this.replaceCodeSegments(string);
+                    left = string.indexOf('{');
+                    right = string.indexOf('}');
+                }
+                else {
+                    throw 'tangram.js sugar Error: Unexpected "{" or "}"';
+                }
             }
             // console.log(string);
             return string;
-        }
-        replaceImports(string: string): string {
-            return string.replace(replaceExpr.use, (match: string) => {
-                let index = this.replacements.length;
-                this.replacements.push(match);
-                return '___boundary_' + this.uid + '_' + index + '_as_import___';
+        };
+        Sugar.prototype.replaceImports = function (string) {
+            var _this = this;
+            return string.replace(replaceExpr.use, function (match) {
+                var index = _this.replacements.length;
+                _this.replacements.push(match);
+                return '___boundary_' + _this.uid + '_' + index + '_as_import___';
             });
-        }
-        replaceStrings(string: string): string {
-            string = this.replaceOperators1(string.replace(/\\(\/|\\*[^\/\r\n])/g, (match: string) => {
-                let index = this.replacements.length;
-                this.replacements.push(match);
+        };
+        Sugar.prototype.replaceStrings = function (string) {
+            var _this = this;
+            string = string.replace(/\\+(`|")/g, function (match) {
+                var index = _this.replacements.length;
+                _this.replacements.push(match);
                 return '___boundary_' + index + '_as_mark___';
-            }));
-            
-
-            let count: number = 0;
-            let matches = string.match(/(\/|#|`|"|'|<)/);
-            console.log(matches);
-
-            let matches3: any = string.match(/('|"|\/).*?\1[img]*/);
-            let matches2: any = string.match(/`[^`]*`/);
-            let matches1: any = string.match(/\/\*{1,2}[\s\S]*?\*\//);
-            while ((count < this.stringReplaceTimes) && (matches1 || matches2 || matches3)) {
-                let tag: string;
-
-                if (matches1) {
-                    // console.log(matches1[0]);
-                    if (matches2 && matches2.index < matches1.index) {
-                        if (matches3 && matches3.index < matches2.index) {
-                            tag = matches3[1];
-                        } else {
-                            tag = '`';
-                        }
-                    } else if (matches3 && matches3.index < matches1.index) {
-                        tag = matches3[1];
-                    } else {
-                        tag = '/*';
-                    }
-                } else if (matches2) {
-                    if (matches3 && matches3.index < matches2.index) {
-                        tag = matches3[1];
-                    } else {
-                        tag = '`';
-                    }
-                } else {
-                    tag = matches3[1];
-                }
-                // console.log(tag);
-                let index = this.replacements.length;
-                switch (tag) {
-                    case '/*':
-                        string = string.replace(matches1[0], '');
-                        break;
-                    case '`':
-                        this.replacements.push(matches2[0]);
-                        string = string.replace(matches2[0], '___boundary_' + this.uid + '_' + index + '_as_template___');
-                        break;
-                    case '/':
-                        // console.log(matches3[0]);
-                        if (matches3[0] === '//') {
-                            string = string.replace(/\s*\/\/.+/, '');
-                        } else {
-                            this.replacements.push(matches3[0]);
-                            string = string.replace(matches3[0], '___boundary_' + this.uid + '_' + index + '_as_pattern___');
-                        }
-                        break;
-                    default:
-                        this.replacements.push(matches3[0]);
-                        string = string.replace(matches3[0], '___boundary_' + this.uid + '_' + index + '_as_string___');
-                        break;
-                }
-            matches3 = string.match(/('|"|\/).*?\1[img]*/);
-                matches2 = string.match(/`[^`]*`/);
-                matches1 = string.match(/\/\*[\s\S]*?\*\//);
+            }).replace(/\\[^\r\n]/g, function (match) {
+                var index = _this.replacements.length;
+                _this.replacements.push(match);
+                return '___boundary_' + index + '_as_mark___';
+            });
+            var count = 0;
+            var matches = string.match(matchExpr.string);
+            while ((count < this.stringReplaceTimes) && matches) {
                 count++;
+                // console.log(count);
+                // console.log(matches);
+                var index_1 = this.replacements.length;
+                switch (matches[1]) {
+                    case '#':
+                        string = string.replace(/(\S*)\s*\#.+/, "$1");
+                        matches = string.match(matchExpr.string);
+                        continue;
+                    case '/':
+                        switch (matches[2]) {
+                            case '*':
+                                string = string.replace(/\/\*{1,2}[\s\S]*?(\*\/|$)/, "");
+                                matches = string.match(matchExpr.string);
+                                continue;
+                            case '/':
+                                string = string.replace(/(\S*)\s*\/\/.+/, "$1");
+                                matches = string.match(matchExpr.string);
+                                continue;
+                            case '=':
+                                string = string.replace(matches[0], '___boundary_1_as_operator___');
+                                matches = string.match(matchExpr.string);
+                                continue;
+                        }
+                        break;
+                }
+                var match = string.match(matchExpr.strings[matches[1]]);
+                if (match && (matches.index === match.index) && (!match[2].match(/[\$\w\(\{]/))) {
+                    // console.log(matches, match);
+                    this.replacements.push(match[1]);
+                    string = string.replace(match[1], '___boundary_' + this.uid + '_' + index_1 + stringas[matches[1]]);
+                }
+                else if (matches[0] === '/') {
+                    string = string.replace(matches[0], '___boundary_2_as_operator___');
+                }
+                else {
+                    console.log(string);
+                    throw 'tangram.js sugar Error: Unexpected "' + matches[1] + '"';
+                }
+                matches = string.match(matchExpr.string);
             }
             // console.log(string);
-            return this.replaceOperators2(string);
-        }
-        replaceIncludes(string: string): string {
-            string = string.replace(replaceExpr.include, (match: string) => {
-                return this.onReadFile(match);
+            // console.log(this.replacements);
+            return this.replaceOperators(string);
+        };
+        Sugar.prototype.replaceIncludes = function (string) {
+            var _this = this;
+            string = string.replace(replaceExpr.include, function (match) {
+                return _this.onReadFile(match);
             });
             return this.replaceStrings(this.input);
-        }
-        onReadFile(match: string): string {
+        };
+        Sugar.prototype.onReadFile = function (match) {
             return '';
-        }
-        replaceOperators1(string: string): string {
+        };
+        Sugar.prototype.replaceOperators = function (string) {
+            var _this = this;
             // '++ ', '-- ',
             // ' !', ' ~', ' +', ' -', ' ++', ' --',
             // ' ** ', ' * ', ' / ', ' % ', ' + ', ' - ',
@@ -225,125 +232,176 @@
             // ' == ', ' != ', ' === ', ' !== ',
             // ' & ', ' ^ ', ' | ', ' && ', ' || ',
             // ' = ', ' += ', ' -= ', ' *= ', ' /= ', ' %= ', ' <<= ', ' >>= ', ' >>>= ', ' &= ', ' ^= ', ' |= '
-            return string.replace(/\s*(\=\=|\!\=|\=|\!|\+|\-|\*|\/|\%|<<|>>|>>>|\&|\^|\||<|>)=\s*/g, (match: string, op: string) => {
-                let index = this.replacements.length;
-                this.replacements.push(' ' + op + '= ');
-                return '___boundary_' + index + '_as_operator___';
+            var operators = {
+                mixed: /([\$\w\)\}\]])\s*(\=\=|\!\=|\=|\!|\+|\-|\*|\/|\%|<<|>>|>>>|\&|\^|\||<|>)=\s*([\$\w\(\{\[])/g,
+                bool: /([\$\w\)\}\]])\s*(\&\&|\|\||\<|\<\<|\>\>\>|\>\>|\>)\s*([\$\w\(\{\[])/g,
+                op: /([\$\w\)\}\]])\s*(\+|\-|\*\*|\*|\/|\%)\s*([\$\w\(\{\[])/g,
+                sign: /\s*(\+|\-)(\.*\d)/g,
+                before: /(\+\+|\-\-|\!|\~)\s*([\$\w\(\{\[])/g,
+                after: /([\$\w\)\]])\s*(\+\+|\-\-)/g,
+                error: /(.*)(\+\+|\-\-|\+|\-)(.*)/g
+            };
+            var on = true;
+            while (on) {
+                on = false;
+                string = string.replace(operators.mixed, function (match, left, op, right) {
+                    // console.log(match);
+                    on = true;
+                    var index = _this.replacements.length;
+                    _this.replacements.push(' ' + op + '= ');
+                    return left + '___boundary_' + index + '_as_operator___' + right;
+                });
+            }
+            on = true;
+            while (on) {
+                on = false;
+                string = string.replace(operators.bool, function (match, left, op, right) {
+                    // console.log(match);
+                    on = true;
+                    var index = _this.replacements.length;
+                    _this.replacements.push(' ' + op + ' ');
+                    return left + '___boundary_' + index + '_as_operator___' + right;
+                });
+            }
+            on = true;
+            while (on) {
+                on = false;
+                string = string.replace(operators.op, function (match, left, op, right) {
+                    // console.log(match);
+                    on = true;
+                    var index = _this.replacements.length;
+                    _this.replacements.push(' ' + op + ' ');
+                    return left + '___boundary_' + index + '_as_operator___' + right;
+                });
+            }
+            on = true;
+            while (on) {
+                on = false;
+                string = string.replace(operators.sign, function (match, sign, number) {
+                    on = true;
+                    var index = _this.replacements.length;
+                    _this.replacements.push(' ' + sign);
+                    return '___boundary_' + index + '_as_preoperator___' + number;
+                });
+            }
+            on = true;
+            while (on) {
+                on = false;
+                string = string.replace(operators.before, function (match, op, number) {
+                    on = true;
+                    var index = _this.replacements.length;
+                    _this.replacements.push(op);
+                    return '___boundary_' + index + '_as_preoperator___' + number;
+                });
+            }
+            on = true;
+            while (on) {
+                on = false;
+                string = string.replace(operators.after, function (match, number, op) {
+                    on = true;
+                    var index = _this.replacements.length;
+                    _this.replacements.push(op);
+                    return number + '___boundary_' + index + '_as_aftoperator___';
+                });
+            }
+            return string.replace(operators.error, function (match, before, op, after) {
+                // console.log(this.replacements);
+                throw 'tangram.js sugar Error: Unexpected "' + op + '" in "' + match + '"';
             });
-        }
-        replaceOperators2(string: string): string {
-            return string.replace(/\s*(\&\&|\|\||\*\*|\<\<|\>\>\>|\>\>)\s*/g, (match: string, op: string) => {
-                let index = this.replacements.length;
-                this.replacements.push(' ' + op + ' ');
-                return '___boundary_' + index + '_as_operator___';
-            }).replace(/(\s*)(\+\+|\-\-|\+|\-)([\$\w\[\(])/g, (match: string, gap: string, op: string, n: string) => {
-                let index = this.replacements.length;
-                this.replacements.push(' ' + op);
-                return '___boundary_' + index + '_as_preoperator___' + n;
-            }).replace(/\s+(\+|\-)\s+/g, (match: string, op: string) => {
-                let index = this.replacements.length;
-                this.replacements.push(' ' + op + ' ');
-                return '___boundary_' + index + '_as_operator___';
-            }).replace(/\s*(\+\+|\-\-)\s*[;\r\n]+/g, (match: string, op: string) => {
-                let index = this.replacements.length;
-                this.replacements.push(op + ";\r\n");
-                return '___boundary_' + index + '_as_aftoperator___';
-            }).replace(/([\$\w\]\)])(\+\+|\-\-)\s*/g, (match: string, p: string, op: string) => {
-                let index = this.replacements.length;
-                this.replacements.push(op);
-                return p + '___boundary_' + index + '_as_aftoperator___';
-            }).replace(/(\s*)(\+\+|\-\-|\!|\~)\s*/g, (match: string, gap: string, op: string) => {
-                let index = this.replacements.length;
-                this.replacements.push(gap + op);
-                return '___boundary_' + index + '_as_preoperator___';
-            });
-        }
-        replaceArray(string: string): string {
-            return string.replace(replaceExpr.array, (match: string) => {
-                while ((match.indexOf('{') >= 0) || (match.indexOf('}') >= 0)) {
-                    match = this.replaceCodeSegments(match);
+        };
+        Sugar.prototype.replaceArray = function (string) {
+            var _this = this;
+            return string.replace(replaceExpr.array, function (match) {
+                var left = match.indexOf('{');
+                var right = match.indexOf('}');
+                while ((left >= 0) || (right >= 0)) {
+                    // console.log('{}');
+                    if ((left >= 0) && (left < right)) {
+                        match = _this.replaceCodeSegments(match);
+                        left = match.indexOf('{');
+                        right = match.indexOf('}');
+                    }
+                    else {
+                        throw 'tangram.js sugar Error: Unexpected "{" or "}"';
+                    }
                 }
-                let index = this.replacements.length;
-                this.replacements.push(match);
-                return '___boundary_' + this.uid + '_' + index + '_as_array___';
+                var index = _this.replacements.length;
+                _this.replacements.push(match);
+                return '___boundary_' + _this.uid + '_' + index + '_as_array___';
             });
-        }
-        replaceCodeSegments(string: string): string {
+        };
+        Sugar.prototype.replaceCodeSegments = function (string) {
+            var _this = this;
             if (string.match(matchExpr.class)) {
-                return string.replace(replaceExpr.class, (match: string) => {
-                    let index = this.replacements.length;
-                    this.replacements.push(match);
-                    return '___boundary_' + this.uid + '_' + index + '_as_class___';
+                return string.replace(replaceExpr.class, function (match) {
+                    var index = _this.replacements.length;
+                    _this.replacements.push(match);
+                    return '___boundary_' + _this.uid + '_' + index + '_as_class___';
                 });
             }
-
-            if (string.match(matchExpr.defind)) {
-                return string.replace(replaceExpr.defind, (match: string) => {
-                    var index = this.replacements.length;
-                    this.replacements.push(match);
-                    return '___boundary_' + this.uid + '_' + index + '_as_defind___';
+            if (string.match(matchExpr.define)) {
+                return string.replace(replaceExpr.define, function (match) {
+                    var index = _this.replacements.length;
+                    _this.replacements.push(match);
+                    return '___boundary_' + _this.uid + '_' + index + '_as_define___';
                 });
             }
-
             if (string.match(matchExpr.function)) {
-                return string.replace(replaceExpr.function, (match: string) => {
-                    let index = this.replacements.length;
-                    this.replacements.push(match);
-                    return '___boundary_' + this.uid + '_' + index + '_as_function___';
+                return string.replace(replaceExpr.function, function (match) {
+                    var index = _this.replacements.length;
+                    _this.replacements.push(match);
+                    return '___boundary_' + _this.uid + '_' + index + '_as_function___';
                 });
             }
-
-            return string.replace(replaceExpr.closure, (match: string, word: string, closure: string) => {
+            return string.replace(replaceExpr.closure, function (match, word, closure) {
                 // console.log(match);
-
                 if (!word && match.match(/\{\s*\}/)) {
                     return '___boundary_0_as_mark___';
                 }
-                let index = this.replacements.length;
+                var index = _this.replacements.length;
                 if (word === 'return') {
-                    this.replacements.push(match.replace(/^return[\s\t]*/, ''));
-                    return 'return ' + '___boundary_' + this.uid + '_' + index + '_as_object___';
+                    _this.replacements.push(match.replace(/^return[\s\t]*/, ''));
+                    return 'return ' + '___boundary_' + _this.uid + '_' + index + '_as_object___';
                 }
                 if ((match.indexOf(';') >= 0) || (word && (word != 'return'))) {
-                    this.replacements.push(closure);
-                    return (word || '') + '___boundary_' + this.uid + '_' + index + '_as_closure___';
+                    _this.replacements.push(closure);
+                    return (word || '') + '___boundary_' + _this.uid + '_' + index + '_as_closure___';
                 }
-                this.replacements.push(match);
-                return '___boundary_' + this.uid + '_' + index + '_as_object___';
+                _this.replacements.push(match);
+                return '___boundary_' + _this.uid + '_' + index + '_as_object___';
             });
-        }
-        buildMiddleAST(string: string): object[] {
-            let imports: string[] = [],
-                import_alias: any = {},
-                midast: object[] = [],
-                array: string[] = string.split('___boundary_' + this.uid);
+        };
+        Sugar.prototype.buildMiddleAST = function (string) {
+            var imports = [], import_alias = {}, midast = [], array = string.split('___boundary_' + this.uid);
             // console.log(array)
-            for (let index = 0; index < array.length; index++) {
-                let element = array[index].trim();
+            for (var index_2 = 0; index_2 < array.length; index_2++) {
+                var element = array[index_2].trim();
                 if (element) {
-                    let matches: any = element.match(matchExpr.index3);
+                    var matches = element.match(matchExpr.index3);
                     if (matches) {
                         if (matches[2] === 'import') {
-                            let src = this.replacements[matches[1]].replace(replaceExpr.import, '').replace(replaceExpr.return, '');
+                            var src = this.replacements[matches[1]].replace(replaceExpr.import, '').replace(replaceExpr.return, '');
                             imports.push(src);
-                            let srcArr = src.split(/\s+as\s+/);
+                            var srcArr = src.split(/\s+as\s+/);
                             if (srcArr[1] && srcArr[1].trim()) {
                                 import_alias[srcArr[1].trim()] = srcArr[0].trim();
                             }
-                        } else {
+                        }
+                        else {
                             midast.push({
                                 posi: matches[1],
                                 type: matches[2]
                             });
                         }
-                        let m3: string = matches[3].trim()
+                        var m3 = matches[3].trim();
                         if (m3) {
                             midast.push({
                                 type: 'code',
                                 value: m3
                             });
                         }
-                    } else {
+                    }
+                    else {
                         midast.push({
                             type: 'code',
                             value: element
@@ -354,83 +412,77 @@
             this.imports = imports;
             this.import_alias = import_alias;
             return midast;
-        }
-        buildAST(midast: object[]): Sugar {
-            let ast = {
+        };
+        Sugar.prototype.buildAST = function (midast) {
+            var ast = {
                 type: 'codes',
                 body: new Array
             };
-            for (let index = 0; index < midast.length; index++) {
-                let element: any = midast[index];
+            for (var index_3 = 0; index_3 < midast.length; index_3++) {
+                var element = midast[index_3];
                 if (element.type === 'code') {
                     this.pushCodeElements(ast.body, element.value);
-                } else {
+                }
+                else {
                     ast.body.push(this.walk(element));
                 }
             }
             // console.log(ast, this.replacements);
             this.ast = ast;
             return this;
-        }
-        walk(element: any): object {
+        };
+        Sugar.prototype.walk = function (element) {
             switch (element.type) {
                 case 'string':
                 case 'pattern':
                 case 'template':
-                    let that = this;
+                    var that_1 = this;
                     return {
                         'type': 'code-inline',
                         'value': this.replacements[element.posi].replace(this.markPattern, function () {
-                            return that.replacements[arguments[1]];
+                            return that_1.replacements[arguments[1]];
                         })
-                    }
-
+                    };
                 case 'class':
                     return this.walkClass(element.posi);
-
-                case 'defind':
+                case 'define':
                     return this.walkDefine(element.posi);
-
                 case 'function':
                     return this.walkFuntion(element.posi, 'def');
-
                 case 'array':
                     return this.walkArray(element.posi);
-
                 case 'object':
                     return this.walkObject(element.posi);
-
                 case 'closure':
                     return this.walkClosure(element.posi);
-
                 default:
                     return {
                         'type': 'code',
                         'value': ''
-                    }
+                    };
             }
-        }
-        walkClass(posi: number) {
+        };
+        Sugar.prototype.walkClass = function (posi) {
             // console.log(this.replacements[posi]);
-            let matches: any = this.replacements[posi].match(matchExpr.class);
+            var matches = this.replacements[posi].match(matchExpr.class);
             // console.log(matches);
             return {
                 type: matches[1] ? 'stdClass' : 'anonClass',
                 cname: matches[3],
                 base: matches[5],
                 body: this.checkClassBody(matches[6] || '')
-            }
-        }
-        walkDefine(posi: number) {
+            };
+        };
+        Sugar.prototype.walkDefine = function (posi) {
             // console.log(this.replacements[posi]);
-            let matches: any = this.replacements[posi].match(matchExpr.defind);
-            let subtype: string = 'ext';
-            let objname: string = matches[2];
-
+            var matches = this.replacements[posi].match(matchExpr.define);
+            var subtype = 'ext';
+            var objname = matches[2];
             if (matches[1] === 'reg') {
                 subtype = 'reg';
-            } else {
-                let m2 = matches[2].match(/^(pandora)?.([\$a-zA-Z_][\$\w\.]+$)/);
+            }
+            else {
+                var m2 = matches[2].match(/^(pandora)?.([\$a-zA-Z_][\$\w\.]+$)/);
                 if (m2) {
                     subtype = 'reg';
                     objname = m2[2];
@@ -438,15 +490,15 @@
             }
             // console.log(matches);
             return {
-                type: 'defind',
+                type: 'define',
                 stype: subtype,
                 oname: objname,
                 body: this.checkProp(matches[3])
-            }
-        }
-        walkFuntion(posi: number, type: string) {
+            };
+        };
+        Sugar.prototype.walkFuntion = function (posi, type) {
             // console.log(this.replacements[posi]);
-            let matches: any = this.replacements[posi].match(matchExpr.function);
+            var matches = this.replacements[posi].match(matchExpr.function);
             // if (!matches){
             //     console.log(posi, this.replacements);
             // }
@@ -461,21 +513,23 @@
                     };
                 }
                 if (matches[2] === 'each') {
-                    let m3 = matches[3].match(/^([\$a-zA-Z_][\$\w\.-]+)\s+as\s+([\$\w]+)(\s*,\s*([\$\w]*))?/);
+                    var m3 = matches[3].match(/^([\$a-zA-Z_][\$\w\.-]+)\s+as\s+([\$\w]+)(\s*,\s*([\$\w]*))?/);
                     // console.log(matches, m3);
                     if (m3) {
-                        let iterator = [], array = m3[1].split('___boundary_' + this.uid);
-                        for (let index = 0; index < array.length; index++) {
-                            this.pushReplacements(iterator, array[index], true);
+                        var iterator = [], array = m3[1].split('___boundary_' + this.uid);
+                        for (var index_4 = 0; index_4 < array.length; index_4++) {
+                            this.pushReplacements(iterator, array[index_4], true);
                         }
-                        let agrs: string[] = [];
+                        var agrs = [];
                         if (m3[3]) {
                             if (m3[4]) {
                                 agrs = [m3[2], m3[4]];
-                            } else {
+                            }
+                            else {
                                 agrs = [m3[2]];
                             }
-                        } else {
+                        }
+                        else {
                             agrs = ['_index', m3[2]];
                         }
                         return {
@@ -487,12 +541,12 @@
                                 args: agrs,
                                 body: this.checkBody(matches[4])
                             }
-                        }
+                        };
                     }
                 }
             }
             // console.log(this.replacements[posi], type, matches);
-            let args: any = this.checkArgs(matches[3]);
+            var args = this.checkArgs(matches[3]);
             // if (posi == 98) {
             // console.log(matches[4]);
             // }
@@ -502,16 +556,15 @@
                 fname: matches[2] !== 'function' ? matches[2] : '',
                 args: args.keys,
                 body: this.checkFnBody(args, matches[4])
-            }
+            };
             // console.log(matches);
-        }
-        walkArray(posi: number): object {
-            let body = [],
-                array = this.replacements[posi].replace(/([\[\s\]])/g, '').split(',');
-            for (let index = 0; index < array.length; index++) {
-                let eleArr = array[index].split('___boundary_' + this.uid);
-                let eleBody: object[] = [];
-                for (let i = 0; i < eleArr.length; i++) {
+        };
+        Sugar.prototype.walkArray = function (posi) {
+            var body = [], array = this.replacements[posi].replace(/([\[\s\]])/g, '').split(',');
+            for (var index_5 = 0; index_5 < array.length; index_5++) {
+                var eleArr = array[index_5].split('___boundary_' + this.uid);
+                var eleBody = [];
+                for (var i = 0; i < eleArr.length; i++) {
                     this.pushReplacements(eleBody, eleArr[i]);
                 }
                 body.push({
@@ -523,22 +576,23 @@
                 type: 'array',
                 body: body
             };
-        }
-        walkObject(posi: number) {
+        };
+        Sugar.prototype.walkObject = function (posi) {
             return {
                 type: 'object',
                 body: this.checkProp(this.replacements[posi])
             };
-        }
-        walkClosure(posi: number) {
-            let array = this.replacements[posi].split(/\s*(\{|\})\s*/);
-            let body = this.checkBody(array[2]);
+        };
+        Sugar.prototype.walkClosure = function (posi) {
+            var array = this.replacements[posi].split(/\s*(\{|\})\s*/);
+            var body = this.checkBody(array[2]);
             if (array[0].trim() === ')') {
                 body.unshift({
                     type: 'code-inline',
                     value: ') {'
                 });
-            } else {
+            }
+            else {
                 body.unshift({
                     type: 'code-break',
                     value: array[0] + ' {'
@@ -548,25 +602,24 @@
                 type: 'code-closer',
                 value: '}'
             });
-
             return {
                 type: 'codes',
                 body: body
-            }
-        }
-        walkProp(type: string, attr: string[], array: string[]): object {
+            };
+        };
+        Sugar.prototype.walkProp = function (type, attr, array) {
             // console.log(array);
             if (array.length > 1) {
-                let body = [];
+                var body = [];
                 if (attr[5]) {
                     body.push({
                         type: 'code-inline',
                         value: attr[5]
                     });
                 }
-                for (let index = 1; index < array.length; index++) {
-                    const element = array[index];
-                    const matches: any = element.trim().match(matchExpr.index3);
+                for (var index_6 = 1; index_6 < array.length; index_6++) {
+                    var element = array[index_6];
+                    var matches = element.trim().match(matchExpr.index3);
                     if (matches) {
                         body.push(this.walk({
                             posi: matches[1],
@@ -578,7 +631,8 @@
                                 value: matches[3]
                             });
                         }
-                    } else {
+                    }
+                    else {
                         body.push({
                             type: 'code-inline',
                             value: element
@@ -601,51 +655,53 @@
                     }
                 ]
             };
-        }
-        checkBody(code: string, codeInline: boolean = false): object[] {
-            let body: object[] = [],
-                array = code.split('___boundary_' + this.uid);
-            for (let index = 0; index < array.length; index++) {
-                this.pushReplacements(body, array[index], codeInline);
+        };
+        Sugar.prototype.checkBody = function (code, codeInline) {
+            if (codeInline === void 0) { codeInline = false; }
+            var body = [], array = code.split('___boundary_' + this.uid);
+            for (var index_7 = 0; index_7 < array.length; index_7++) {
+                this.pushReplacements(body, array[index_7], codeInline);
             }
             return body;
-        }
-        checkClassBody(code: string): object[] {
-            let body = [],
-                array = code.split(/[;\r\n]+/);
-            for (let index = 0; index < array.length; index++) {
-                let element = array[index].trim();
-                let type: string = 'method';
+        };
+        Sugar.prototype.checkClassBody = function (code) {
+            var body = [], array = code.split(/[;\r\n]+/);
+            for (var index_8 = 0; index_8 < array.length; index_8++) {
+                var element = array[index_8].trim();
+                var type = 'method';
                 // console.log(element);
                 if (element) {
-                    let elArr = element.split('___boundary_' + this.uid);
-
+                    var elArr = element.split('___boundary_' + this.uid);
                     if (elArr[0] && elArr[0].trim()) {
-                        let m0 = elArr[0].match(matchExpr.classelement);
+                        var m0 = elArr[0].match(matchExpr.classelement);
                         if (m0) {
                             // console.log(m0);
                             if (m0[3].trim()) {
                                 if (m0[1]) {
                                     type = 'staticProp';
-                                } else {
+                                }
+                                else {
                                     type = 'prop';
                                 }
                                 if (m0[4] != '=') {
                                     if ((elArr.length === 1)) {
                                         m0[5] = 'undefined';
-                                    } else {
+                                    }
+                                    else {
                                         continue;
                                     }
                                 }
                                 body.push(this.walkProp(type, m0, elArr));
                                 continue;
-                            } else {
+                            }
+                            else {
                                 if (m0[1]) {
                                     m0[3] = 'static';
                                     if (m0[4] === '=') {
                                         body.push(this.walkProp('prop', m0, elArr));
                                         continue;
-                                    } else {
+                                    }
+                                    else {
                                         if ((elArr.length === 1)) {
                                             m0[5] = 'undefined';
                                             body.push(this.walkProp('prop', m0, elArr));
@@ -658,7 +714,7 @@
                         }
                     }
                     if (elArr[1] && elArr[1].trim()) {
-                        let m1: any = elArr[1].trim().match(matchExpr.index);
+                        var m1 = elArr[1].trim().match(matchExpr.index);
                         if (m1[2] === 'function') {
                             body.push(this.walkFuntion(parseInt(m1[1]), type));
                         }
@@ -666,15 +722,12 @@
                 }
             }
             return body;
-        }
-        checkProp(code: string): object[] {
-            let that = this, body = [],
-                bodyIndex = -1,
-                lastIndex: number = 0,
-                array = code.split(/\s*[\{,\}]\s*/);
+        };
+        Sugar.prototype.checkProp = function (code) {
+            var that = this, body = [], bodyIndex = -1, lastIndex = 0, array = code.split(/\s*[\{,\}]\s*/);
             // console.log(code, array);
-            for (let index = 0; index < array.length; index++) {
-                let element = array[index].trim();
+            for (var index_9 = 0; index_9 < array.length; index_9++) {
+                var element = array[index_9].trim();
                 if (element) {
                     var elArr = element.split('___boundary_' + this.uid);
                     if (elArr[0] && elArr[0].trim()) {
@@ -693,13 +746,15 @@
                             body.push(this.walkProp('objProp', m0, elArr));
                             bodyIndex++;
                             continue;
-                        } else {
+                        }
+                        else {
                             // console.log(elArr);
                         }
-                    } else {
+                    }
+                    else {
                         // console.log(elArr);
-                        for (let i = 1; i < elArr.length; i++) {
-                            const m = elArr[i].trim().match(matchExpr.index3);
+                        for (var i = 1; i < elArr.length; i++) {
+                            var m = elArr[i].trim().match(matchExpr.index3);
                             switch (m[2]) {
                                 case 'string':
                                 case 'pattern':
@@ -717,7 +772,6 @@
                                         });
                                     }
                                     break;
-
                                 case 'function':
                                     if (elArr.length === 2) {
                                         body.push(this.walkFuntion(parseInt(m[1]), 'method'));
@@ -730,44 +784,41 @@
                 }
             }
             return body;
-        }
-        checkFnBody(args: any, code: string): object[] {
-            let body = [],
-                array = code.split('___boundary_' + this.uid);
-            for (let index = 0; index < args.vals.length; index++) {
-                if (args.vals[index] !== undefined) {
-                    let valArr = args.vals[index].split('___boundary_' + this.uid);
+        };
+        Sugar.prototype.checkFnBody = function (args, code) {
+            var body = [], array = code.split('___boundary_' + this.uid);
+            for (var index_10 = 0; index_10 < args.vals.length; index_10++) {
+                if (args.vals[index_10] !== undefined) {
+                    var valArr = args.vals[index_10].split('___boundary_' + this.uid);
                     if (valArr[1]) {
                         body.push({
                             type: 'code',
-                            value: 'if (' + args.keys[index] + ' === void 0) { ' + args.keys[index] + ' = ' + valArr[0]
+                            value: 'if (' + args.keys[index_10] + ' === void 0) { ' + args.keys[index_10] + ' = ' + valArr[0]
                         });
                         this.pushReplacements(body, valArr[1]);
                         body.push({
                             type: 'code-inline',
                             value: '; }'
                         });
-                    } else {
+                    }
+                    else {
                         body.push({
                             type: 'code',
-                            value: 'if (' + args.keys[index] + ' === void 0) { ' + args.keys[index] + ' = ' + valArr[0] + '; }'
+                            value: 'if (' + args.keys[index_10] + ' === void 0) { ' + args.keys[index_10] + ' = ' + valArr[0] + '; }'
                         });
                     }
                 }
             }
-
-            for (let index = 0; index < array.length; index++) {
+            for (var index_11 = 0; index_11 < array.length; index_11++) {
                 // console.log(array[index]);
-                this.pushReplacements(body, array[index]);
+                this.pushReplacements(body, array[index_11]);
             }
             return body;
-        }
-        checkArgs(code: string): object {
-            let args = code.split(/\s*,\s*/),
-                keys = [],
-                vals = [];
-            for (let index = 0; index < args.length; index++) {
-                let array = args[index].split(/\s*=\s*/);
+        };
+        Sugar.prototype.checkArgs = function (code) {
+            var args = code.split(/\s*,\s*/), keys = [], vals = [];
+            for (var index_12 = 0; index_12 < args.length; index_12++) {
+                var array = args[index_12].split(/\s*=\s*/);
                 if (array[0].match(namingExpr)) {
                     keys.push(array[0]);
                     vals.push(array[1]);
@@ -776,35 +827,38 @@
             return {
                 keys: keys,
                 vals: vals
-            }
-        }
-        pushReplacements(body: object[], code: string, codeInline: boolean = false): object[] {
+            };
+        };
+        Sugar.prototype.pushReplacements = function (body, code, codeInline) {
+            if (codeInline === void 0) { codeInline = false; }
             code = code.trim();
             if (code) {
-                let matches: any = code.match(matchExpr.index3);
+                var matches = code.match(matchExpr.index3);
                 if (matches) {
                     body.push(this.walk({
                         posi: matches[1],
                         type: matches[2]
                     }));
-                    let m3 = matches[3].trim();
+                    var m3 = matches[3].trim();
                     if (m3) {
                         this.pushCodeElements(body, m3, codeInline);
                     }
                     // if (matches[1]==94) {
                     // console.log(body);
                     // }
-                } else {
+                }
+                else {
                     this.pushCodeElements(body, code, codeInline);
                 }
             }
             return body;
-        }
-        pushCodeElements(body: object[], code: string, codeInline: boolean = false): object[] {
-            let array = code.split(/([;\r\n]+)/);
+        };
+        Sugar.prototype.pushCodeElements = function (body, code, codeInline) {
+            if (codeInline === void 0) { codeInline = false; }
+            var array = code.split(/([;\r\n]+)/);
             // console.log(array);
-            for (let index = 0; index < array.length; index++) {
-                let element = array[index].trim();
+            for (var index_13 = 0; index_13 < array.length; index_13++) {
+                var element = array[index_13].trim();
                 if (element) {
                     body.push({
                         type: codeInline ? 'code-inline' : (element === ';' ? 'code-inline' : 'code'),
@@ -813,13 +867,13 @@
                 }
             }
             return body;
-        }
-        generate(): Sugar {
+        };
+        Sugar.prototype.generate = function () {
             // console.log(this.replacements);
             // console.log(this.ast);
-            let head: string[] = [];
-            let body: string[] = [];
-            let foot: string[] = [];
+            var head = [];
+            var body = [];
+            var foot = [];
             this.pushHeader(head, this.imports);
             this.pushAlias(body, this.import_alias);
             this.pushCodes(body, this.ast.body, 1);
@@ -827,8 +881,8 @@
             this.output = head.join('') + this.trim(body.join('')) + foot.join('');
             // console.log(this.output);
             return this;
-        }
-        pushHeader(codes: string[], array: any[]): string[] {
+        };
+        Sugar.prototype.pushHeader = function (codes, array) {
             codes.push('/*!');
             codes.push("\r\n" + ' * tangram.js framework sugar compiled code');
             codes.push("\r\n" + ' *');
@@ -841,21 +895,22 @@
             }
             codes.push('], function (pandora, global, imports, undefined) {');
             return codes;
-        }
-        pushAlias(codes: string[], alias: any): string[] {
-            for (const key in alias) {
+        };
+        Sugar.prototype.pushAlias = function (codes, alias) {
+            for (var key in alias) {
                 codes.push("\r\n\tvar " + key);
                 codes.push("=imports['" + alias[key]);
                 codes.push("']&&imports['" + alias[key]);
                 codes.push("'][0];");
             }
             return codes;
-        }
-        pushCodes(codes: string[], array: any[], layer: number, asAttr: boolean = false): string[] {
-            let indent = "\r\n" + stringRepeat("\t", layer);
+        };
+        Sugar.prototype.pushCodes = function (codes, array, layer, asAttr) {
+            if (asAttr === void 0) { asAttr = false; }
+            var indent = "\r\n" + stringRepeat("\t", layer);
             // console.log(codes, array);
-            for (let index = 0; index < array.length; index++) {
-                const element = array[index];
+            for (var index_14 = 0; index_14 < array.length; index_14++) {
+                var element = array[index_14];
                 // console.log(element);
                 switch (element.type) {
                     case 'code':
@@ -882,7 +937,7 @@
                     case 'def':
                         this.pushFunctionCodes(codes, element, layer);
                         break;
-                    case 'defind':
+                    case 'define':
                         this.pushDefineCodes(codes, element, layer);
                         break;
                     case 'exp':
@@ -898,25 +953,28 @@
                 }
             }
             return codes;
-        }
-        pushClassCodes(codes: string[], element: any, layer: number): string[] {
-            let indent1 = "\r\n" + stringRepeat("\t", layer);
-            let indent2 = "\r\n" + stringRepeat("\t", layer + 1);
-            let elements: string[] = [];
-            let static_elements: string[] = [];
-            let cname: string = '';
+        };
+        Sugar.prototype.pushClassCodes = function (codes, element, layer) {
+            var indent1 = "\r\n" + stringRepeat("\t", layer);
+            var indent2 = "\r\n" + stringRepeat("\t", layer + 1);
+            var elements = [];
+            var static_elements = [];
+            var cname = '';
             if (element.type === 'stdClass') {
                 cname = 'pandora.' + element.cname.trim();
                 codes.push(indent1 + 'pandora.declareClass(\'' + element.cname.trim() + '\', ');
-            } else {
+            }
+            else {
                 if (element.cname && element.cname.trim()) {
                     cname = element.cname.trim();
                     if (cname.match(/^[\$\w]+$/)) {
                         codes.push(indent1 + 'var ' + cname + ' = pandora.declareClass(, ');
-                    } else {
+                    }
+                    else {
                         codes.push(indent1 + cname + ' = pandora.declareClass(, ');
                     }
-                } else {
+                }
+                else {
                     codes.push('pandora.declareClass(');
                 }
             }
@@ -925,9 +983,9 @@
             }
             codes.push('{');
             // console.log(element);
-            for (let index = 0; index < element.body.length; index++) {
-                const member = element.body[index];
-                let elem: string[] = [];
+            for (var index_15 = 0; index_15 < element.body.length; index_15++) {
+                var member = element.body[index_15];
+                var elem = [];
                 // console.log(member);
                 switch (member.type) {
                     case 'method':
@@ -935,26 +993,22 @@
                         this.pushFunctionCodes(elem, member, layer + 1);
                         elements.push(elem.join(''));
                         break;
-
                     case 'prop':
                         elem.push(indent2 + member.pname + ': ');
                         this.pushCodes(elem, member.body, layer + 1, true);
                         elements.push(elem.join(''));
                         break;
-
                     case 'staticMethod':
                         elem.push(indent2 + member.fname + ': ');
                         this.pushFunctionCodes(elem, member, layer + 1);
                         static_elements.push(elem.join(''));
                         break;
-
                     case 'staticProp':
                         elem.push(indent2 + member.pname + ': ');
                         this.pushCodes(elem, member.body, layer + 1, true);
                         static_elements.push(elem.join(''));
                         break;
                 }
-
             }
             codes.push(elements.join(','));
             codes.push(indent1 + '})');
@@ -963,31 +1017,33 @@
                     codes.push(';' + indent1 + 'pandora.extend(' + cname + ', {');
                     codes.push(static_elements.join(','));
                     codes.push('});');
-                } else {
+                }
+                else {
                     codes.push(';');
                 }
             }
             return codes;
-        }
-        pushArrayCodes(codes: string[], element: any, layer: number, asAttr: boolean): string[] {
-            let elements: string[] = [];
+        };
+        Sugar.prototype.pushArrayCodes = function (codes, element, layer, asAttr) {
+            var elements = [];
             codes.push('[');
-            for (let index = 0; index < element.body.length; index++) {
-                const body = element.body[index].body;
-                let elemCodes: string[] = this.pushCodes([], body, layer + 1, true);
+            for (var index_16 = 0; index_16 < element.body.length; index_16++) {
+                var body = element.body[index_16].body;
+                var elemCodes = this.pushCodes([], body, layer + 1, true);
                 // let elem:string[] = this.pushCodes([], body, layer + 1);
                 elements.push(elemCodes.join('').trim());
             }
             codes.push(elements.join(', '));
             if (asAttr) {
                 codes.push(']');
-            } else {
+            }
+            else {
                 codes.push('];');
             }
             return codes;
-        }
-        pushTravelCodes(codes: string[], element: any, layer: number): string[] {
-            let indent = "\r\n" + stringRepeat("\t", layer);
+        };
+        Sugar.prototype.pushTravelCodes = function (codes, element, layer) {
+            var indent = "\r\n" + stringRepeat("\t", layer);
             // console.log(element);
             codes.push(indent + 'pandora.each(');
             this.pushCodes(codes, element.iterator, layer);
@@ -995,38 +1051,39 @@
             this.pushFunctionCodes(codes, element.callback, layer);
             codes.push(indent + ', this);');
             return codes;
-        }
-        pushFunctionCodes(codes: string[], element: any, layer: number): string[] {
-            let indent = "\r\n" + stringRepeat("\t", layer);
+        };
+        Sugar.prototype.pushFunctionCodes = function (codes, element, layer) {
+            var indent = "\r\n" + stringRepeat("\t", layer);
             if (element.type === 'def' && element.fname) {
                 if (element.stype === 'var') {
                     codes.push(indent + 'var ' + element.fname + ' = function (');
-                } else {
+                }
+                else {
                     codes.push(indent + 'function ' + element.fname + ' (');
                 }
-            } else {
+            }
+            else {
                 codes.push('function (');
             }
-
             if (element.args.length) {
                 codes.push(element.args.join(', '));
             }
-
             codes.push(') {');
             // console.log(element.body);
             this.pushCodes(codes, element.body, layer + 1);
-
             if (element.type === 'def' && !element.fname) {
                 codes.push(indent + '};');
-            } else if (element.stype === 'var') {
+            }
+            else if (element.stype === 'var') {
                 codes.push(indent + '};');
-            } else {
+            }
+            else {
                 codes.push(indent + '}');
             }
             return codes;
-        }
-        pushExpressionCodes(codes: string[], element: any, layer: number): string[] {
-            let indent = "\r\n" + stringRepeat("\t", layer);
+        };
+        Sugar.prototype.pushExpressionCodes = function (codes, element, layer) {
+            var indent = "\r\n" + stringRepeat("\t", layer);
             codes.push(indent + element.expression + ' (');
             // console.log(element.head);
             this.pushCodes(codes, element.head, layer);
@@ -1035,34 +1092,34 @@
             this.pushCodes(codes, element.body, layer + 1);
             codes.push(indent + '}');
             return codes;
-        }
-        pushDefineCodes(codes: string[], element: any, layer: number): string[] {
-            let indent = "\r\n" + stringRepeat("\t", layer);
+        };
+        Sugar.prototype.pushDefineCodes = function (codes, element, layer) {
+            var indent = "\r\n" + stringRepeat("\t", layer);
             if (element.stype === 'reg') {
                 codes.push(indent + 'pandora(\'' + element.oname.trim() + '\', ');
-            } else {
+            }
+            else {
                 codes.push(indent + 'pandora.extend(' + element.oname + ', ');
             }
             this.pushObjCodes(codes, element, layer);
             codes.push(');');
             return codes;
-        }
-        pushObjCodes(codes: string[], element: any, layer: number) {
-            let indent1 = "\r\n" + stringRepeat("\t", layer);
-            let indent2 = "\r\n" + stringRepeat("\t", layer + 1);
-            let elements: string[] = [];
+        };
+        Sugar.prototype.pushObjCodes = function (codes, element, layer) {
+            var indent1 = "\r\n" + stringRepeat("\t", layer);
+            var indent2 = "\r\n" + stringRepeat("\t", layer + 1);
+            var elements = [];
             codes.push('{');
             // console.log(element);
-            for (let index = 0; index < element.body.length; index++) {
-                const member = element.body[index];
-                let elem: string[] = [];
+            for (var index_17 = 0; index_17 < element.body.length; index_17++) {
+                var member = element.body[index_17];
+                var elem = [];
                 // console.log(member);
                 switch (member.type) {
                     case 'method':
                         elem.push(indent2 + member.fname + ': ');
                         this.pushFunctionCodes(elem, member, layer + 1);
                         break;
-
                     case 'objProp':
                         elem.push(indent2 + member.pname + ': ');
                         this.pushCodes(elem, member.body, layer + 1, true);
@@ -1075,21 +1132,21 @@
             codes.push(elements.join(','));
             codes.push(indent1 + '}');
             return codes;
-        }
-        pushFooter(codes: string[]): string[] {
+        };
+        Sugar.prototype.pushFooter = function (codes) {
             if (this.isMainBlock) {
                 codes.push("\r\n" + '}, true);');
-            } else {
+            }
+            else {
                 codes.push("\r\n" + '});');
             }
             return codes;
-        }
-        trim(string: string): string {
+        };
+        Sugar.prototype.trim = function (string) {
+            return string;
             // 此处的replace在整理完成后，将进行分析归纳，最后改写为callback形式的
             string = this.replaceStrings(string);
-            string = this.replaceOperators1(string);
-            string = this.replaceOperators2(string);
-
+            console.log(string);
             // 关键字处理
             string = string.replace(/function\s+function\s+/g, 'function ');
             // string = string.replace(/[;\r\n]+?(\s*)if\s*\(([\s\S]+?)\)/g, ";\r\n$1if ($2) ");
@@ -1097,23 +1154,18 @@
             string = string.replace(/;+\s*(instanceof)\s+/g, " $1 ");
             string = string.replace(/(var|else|delete)(;|\s)+[;\s]*/g, "$1 ");
             string = string.replace(/[;\r\n]+(\s*)(var|delete|return)\s+/g, ";\r\n$1$2 ");
-
             //前置运算符处理
             string = string.replace(/[,\s]*(___boundary_\d+_as_preoperator___)[,;\s]*/g, "$1");
             string = string.replace(/((\<|\!|\>)\=*)\s+(\+|\-)\s+(\d)/g, '$1 $3$4');
-
-
             // 中置运算符前后不能结非标量
             string = string.replace(/[,;\s]*(___boundary_\d+_as_operator___)[,;\s]*/g, "$1");
             string = string.replace(/[,;\s]*(\=|\!|\+|\-|\*|\/|\%|\&|\^|\||<|>)[,;\s]*/g, " $1 ");
             // string = string.replace(/\s*;+\s*(<+|\+|\-|\*|\/|>+)\s+/g, " $1 ");
             // string = string.replace(/\s+(<+|\+|\-|\*|\/|>+)\s*;+\s*/g, " $1 ");
             string = string.replace(/[,;\s]*(\?)[,;\s]*/g, " $1 ");
-
             // 后置运算符前面必须有内容
             string = string.replace(/[,;\s]*(___boundary_\d+_as_aftoperator___)/g, "$1");
             string = string.replace(/[,;\s]*(\(|\))/g, "$1");
-
             //去除多余符号
             string = string.replace(/\s*;+/g, "; ");
             string = string.replace(/[,;\s]*,[,;]*/g, ',');
@@ -1121,41 +1173,37 @@
             string = string.replace(/\s*,+\s*(\.|\:|\)|\]|\})/g, "$1");
             string = string.replace(/(\{|\[|\(|\.|\:)\s*,+(\s*)/g, "$1$2");
             string = string.replace(/[;\s]+(\{|\[|\(|\.|\:|\)|\])/g, "$1");
-
             // 删除多余换行
             string = string.replace(/(,|;)[\r\n]+/g, "$1\r\n");
-
             // 删除多余空白
             string = string.replace(/\{\s+\}/g, '{}');
             string = string.replace(/\[\s+\]/g, '[]');
             string = string.replace(/\(\s+\)/g, '()');
-
             // 删除多余头部
             string = string.replace(/^[,;\s]+/g, "");
-
             string = string.replace(/[\r\n]+(\s+)\}\s*([\$\w+]+)/g, "\r\n$1}\r\n$1$2");
             string = this.restoreStrings(string);
             return string;
-        }
-        restoreStrings(string: string): string {
-            let that = this;
+        };
+        Sugar.prototype.restoreStrings = function (string) {
+            var that = this;
             return string.replace(this.lastPattern, function () {
                 // console.log(arguments[1]);
                 return that.replacements[arguments[2] || arguments[4]];
             }).replace(this.markPattern, function () {
                 return that.replacements[arguments[1]];
             });
-        }
-        run() {
+        };
+        Sugar.prototype.run = function () {
             if (!this.output) {
                 this.compile();
             }
             eval(this.output);
-        }
-    }
-
+        };
+        return Sugar;
+    }());
     return function (input, run) {
         return new Sugar(input, run);
     };
-
 }));
+//# sourceMappingURL=sugar.js.map

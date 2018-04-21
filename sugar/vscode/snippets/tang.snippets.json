@@ -1,0 +1,275 @@
+{
+    "use …": {
+        "prefix": "use",
+        "body": [
+            "use ${1:\\$_/};$0"
+        ],
+        "description": "Require Block"
+    },
+    "use … as …": {
+        "prefix": "useas",
+        "body": [
+            "use ${1:\\$_/} ${2:as ${3:var}};$0"
+        ],
+        "description": "Require Block AS"
+    },
+    "class …": {
+        "prefix": "class",
+        "body": [
+            "class ${1:.ClassName} {",
+            "\t${2: prop} ${3:= ${4:undfined}};",
+            "\t_init() {}",
+            "}",
+            ""
+        ],
+        "description": "Class definition"
+    },
+    "class … extends …": {
+        "prefix": "class",
+        "body": [
+            "class ${1:.ClassName} ${2:extends ${3:AnotherClass}} {",
+            "\t$0",
+            "}",
+            ""
+        ],
+        "description": "Class Extends From Another Class"
+    },
+    ".declareClass(…, …, …)": {
+        "prefix": ".class",
+        "body": [
+            "pandora.declareClass('$1' ${2:, ${3:AnotherClass}}, {",
+            "\t$0",
+            "});",
+            ""
+        ],
+        "description": "Declare Class By Facatory"
+    },
+    "construct _init": {
+        "prefix": "init(",
+        "body": [
+            "_init(${1: options}  ${2:= ${3:{}}}) {",
+            "\tthis.${4:prop} = ${5:options.prop};",
+            "\t# code...$0",
+            "}"
+        ],
+        "description": "Define Construct Function"
+    },
+    "reg …": {
+        "prefix": "reg",
+        "body": [
+            "reg ${1:objName} {",
+            "\t$0",
+            "}",
+            ""
+        ],
+        "description": "Register Elements To Pandora"
+    },
+    "extends …": {
+        "prefix": "extend",
+        "body": [
+            "extends ${1:pandora.} {",
+            "\t$0",
+            "}",
+            ""
+        ],
+        "description": "Extends Elements To Object"
+    },
+    "pandora(…, …)": {
+        "prefix": "reg(",
+        "body": [
+            "pandora('$1', ${2:value});$0"
+        ],
+        "description": "Register Element Or Elements To Pandora"
+    },
+    ".extends(…, …)": {
+        "prefix": "ext(",
+        "body": [
+            "pandora.extend(${1: pandora.}, ${2:objName});$0"
+        ],
+        "description": "Definition Or Extends Elements"
+    },
+    "do … while …": {
+        "prefix": "do",
+        "body": [
+            "do {",
+            "\t${0:# code...}",
+            "} while (${1:${2:a} <= ${3:10}});"
+        ],
+        "description": "Do-While loop"
+    },
+    "while …": {
+        "prefix": "while",
+        "body": [
+            "while (${1:${2:a} <= ${3:10}}) {",
+            "\t${0:# code...}",
+            "}"
+        ],
+        "description": "While-loop"
+    },
+    "if …": {
+        "prefix": "if",
+        "body": [
+            "if (${1:condition}) {",
+            "\t${0:# code...}",
+            "}"
+        ],
+        "description": "If block"
+    },
+    "if … else …": {
+        "prefix": "ifelse",
+        "body": [
+            "if (${1:condition}) {",
+            "\t${2:# code...}",
+            "} else {",
+            "\t${3:# code...}",
+            "}",
+            "$0"
+        ],
+        "description": "If Else block"
+    },
+    "$… = ( … ) ? … : …": {
+        "prefix": "if?",
+        "body": "${1:retVal} = (${2:condition}) ? ${3:a} : ${4:b} ;",
+        "description": "Ternary conditional assignment"
+    },
+    "else …": {
+        "prefix": "else",
+        "body": [
+            "else {",
+            "\t${0:# code...}",
+            "}"
+        ],
+        "description": "Else block"
+    },
+    "elseif …": {
+        "prefix": "elseif",
+        "body": [
+            "elseif (${1:condition}) {",
+            "\t${0:# code...}",
+            "}"
+        ],
+        "description": "Elseif block"
+    },
+    "for …": {
+        "prefix": "for",
+        "body": [
+            "for (${1:i}=${2:0}; ${1:i} < $3; ${1:i}++) { ",
+            "\t${0:# code...}",
+            "}"
+        ],
+        "description": "For-loop"
+    },
+    "each …": {
+        "prefix": "each",
+        "body": [
+            "each (${1:variable} as ${2:index} ${3:, ${4:item}}) {",
+            "\t${0:# code...}",
+            "}"
+        ],
+        "description": "Foreach loop"
+    },
+    "switch …": {
+        "prefix": "switch",
+        "body": [
+            "switch (\\${1:variable}) {",
+            "\tcase '${2:value}':",
+            "\t\t${3:# code...}",
+            "\t\tbreak;",
+            "\t$0",
+            "\tdefault:",
+            "\t\t${4:# code...}",
+            "\t\tbreak;",
+            "}"
+        ],
+        "description": "Switch block"
+    },
+    "case …": {
+        "prefix": "case",
+        "body": [
+            "case '${1:value}':",
+            "\t${0:# code...}",
+            "\tbreak;"
+        ],
+        "description": "Case Block"
+    },
+    "pandora …": {
+        "prefix": ".",
+        "body": ".$0",
+        "description": "Call Member From Pandora"
+    },
+    "pandora app …": {
+        "prefix": ".app",
+        "body": "pandora.app.$0",
+        "description": "Call Member From Pandora"
+    },
+    "pandora arr …": {
+        "prefix": ".arr",
+        "body": "pandora.arr.$0",
+        "description": "Call Member From Pandora"
+    },
+    "pandora async …": {
+        "prefix": ".async",
+        "body": "pandora.async.$0",
+        "description": "Call Member From Pandora"
+    },
+    "pandora data …": {
+        "prefix": ".data",
+        "body": "pandora.data.$0",
+        "description": "Call Member From Pandora"
+    },
+    "pandora dom …": {
+        "prefix": ".dom",
+        "body": "pandora.dom.$0",
+        "description": "Call Member From Pandora"
+    },
+    "pandora draw …": {
+        "prefix": ".draw",
+        "body": "pandora.draw.$0",
+        "description": "Call Member From Pandora"
+    },
+    "pandora form …": {
+        "prefix": ".form",
+        "body": "pandora.form.$0",
+        "description": "Call Member From Pandora"
+    },
+    "pandora math …": {
+        "prefix": ".math",
+        "body": "pandora.math.$0",
+        "description": "Call Member From Pandora"
+    },
+    "pandora media …": {
+        "prefix": ".media",
+        "body": "pandora.media.$0",
+        "description": "Call Member From Pandora"
+    },
+    "pandora obj …": {
+        "prefix": ".obj",
+        "body": "pandora.obj.$0",
+        "description": "Call Member From Pandora"
+    },
+    "pandora see …": {
+        "prefix": ".see",
+        "body": "pandora.see.$0",
+        "description": "Call Member From Pandora"
+    },
+    "pandora str …": {
+        "prefix": ".str",
+        "body": "pandora.str.$0",
+        "description": "Call Member From Pandora"
+    },
+    "pandora util …": {
+        "prefix": ".util",
+        "body": "pandora.util.$0",
+        "description": "Call Member From Pandora"
+    },
+    "pandora util.bool …": {
+        "prefix": ".bool",
+        "body": "pandora.util.bool$0",
+        "description": "Call Member From Pandora"
+    },
+    ".view …": {
+        "prefix": ".view",
+        "body": "pandora.view.$0",
+        "description": "Call Member From Pandora"
+    }
+}

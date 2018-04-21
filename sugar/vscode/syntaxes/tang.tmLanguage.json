@@ -1,7 +1,8 @@
 {
     "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
     "name": "Tang",
-    "patterns": [{
+    "patterns": [
+        {
             "match": "(new)\\s+(?:(?:(class)\\s+(\\w+(?:\\.\\w*)*)?)|(\\w+(?:\\.\\w*)*))",
             "name": "meta.class.instance.constructor.tang",
             "captures": {
@@ -33,15 +34,17 @@
                 }
             },
             "name": "string.quoted.single.heredoc.tang",
-            "patterns": [{
-                "captures": {
-                    "1": {
-                        "name": "punctuation.definition.escape.backslash.tang"
-                    }
-                },
-                "match": "(\\\\).",
-                "name": "constant.character.escape.backslash.tang"
-            }]
+            "patterns": [
+                {
+                    "captures": {
+                        "1": {
+                            "name": "punctuation.definition.escape.backslash.tang"
+                        }
+                    },
+                    "match": "(\\\\).",
+                    "name": "constant.character.escape.backslash.tang"
+                }
+            ]
         },
         {
             "begin": "\"\"\"",
@@ -57,7 +60,8 @@
                 }
             },
             "name": "string.quoted.double.heredoc.tang",
-            "patterns": [{
+            "patterns": [
+                {
                     "captures": {
                         "1": {
                             "name": "punctuation.definition.escape.backslash.tang"
@@ -80,9 +84,11 @@
                 },
                 "2": {
                     "name": "source.js.embedded.tang",
-                    "patterns": [{
-                        "include": "source.js"
-                    }]
+                    "patterns": [
+                        {
+                            "include": "source.js"
+                        }
+                    ]
                 },
                 "3": {
                     "name": "punctuation.definition.string.end.tang"
@@ -103,10 +109,12 @@
                 }
             },
             "name": "comment.block.tang",
-            "patterns": [{
-                "match": "(?<=^|\\s)@\\w*(?=\\s)",
-                "name": "storage.type.annotation.tang"
-            }]
+            "patterns": [
+                {
+                    "match": "(?<=^|\\s)@\\w*(?=\\s)",
+                    "name": "storage.type.annotation.tang"
+                }
+            ]
         },
         {
             "begin": "(^\\s+)?(?=//)",
@@ -142,9 +150,11 @@
                     "name": "punctuation.definition.string.end.tang"
                 }
             },
-            "patterns": [{
-                "include": "#heregexp"
-            }]
+            "patterns": [
+                {
+                    "include": "#heregexp"
+                }
+            ]
         },
         {
             "begin": "(?<![\\w$])(/)(?=(?![/*+?])(.+)(/)[gimuy]*(?!\\s*[\\w$/(]))",
@@ -160,9 +170,11 @@
                 }
             },
             "name": "string.regexp.tang",
-            "patterns": [{
-                "include": "source.js.regexp"
-            }]
+            "patterns": [
+                {
+                    "include": "source.js.regexp"
+                }
+            ]
         },
         {
             "match": "\\b(?<![\\.\\$])(break|by|catch|continue|else|finally|for|in|of|if|return|switch|then|throw|try|unless|when|while|until|loop|do|export|import|default|from|as|yield|async|await|use|each|reg|(?<=for)\\s+own)(?!\\s*:)\\b",
@@ -177,83 +189,7 @@
             "name": "keyword.reserved.tang"
         },
         {
-            "begin": "(?x)\n(?<=\\s|^)((@)?[a-zA-Z_$][\\w$]*)\n\\s*([:=])\\s*\n(?=(\\([^\\(\\)]*\\)\\s*)?[=-]>)",
-            "beginCaptures": {
-                "1": {
-                    "name": "entity.name.function.tang"
-                },
-                "2": {
-                    "name": "variable.other.readwrite.instance.tang"
-                },
-                "3": {
-                    "name": "keyword.operator.assignment.tang"
-                }
-            },
-            "end": "[=-]>",
-            "endCaptures": {
-                "0": {
-                    "name": "storage.type.function.tang"
-                }
-            },
-            "name": "meta.function.tang",
-            "patterns": [{
-                "include": "#function_params"
-            }]
-        },
-        {
-            "begin": "(?x)\n(?<=\\s|^)(?:((')([^']*?)('))|((\")([^\"]*?)(\")))\n\\s*([:=])\\s*\n(?=(\\([^\\(\\)]*\\)\\s*)?[=-]>)",
-            "beginCaptures": {
-                "1": {
-                    "name": "string.quoted.single.tang"
-                },
-                "2": {
-                    "name": "punctuation.definition.string.begin.tang"
-                },
-                "3": {
-                    "name": "entity.name.function.tang"
-                },
-                "4": {
-                    "name": "punctuation.definition.string.end.tang"
-                },
-                "5": {
-                    "name": "string.quoted.double.tang"
-                },
-                "6": {
-                    "name": "punctuation.definition.string.begin.tang"
-                },
-                "7": {
-                    "name": "entity.name.function.tang"
-                },
-                "8": {
-                    "name": "punctuation.definition.string.end.tang"
-                },
-                "9": {
-                    "name": "keyword.operator.assignment.tang"
-                }
-            },
-            "end": "[=-]>",
-            "endCaptures": {
-                "0": {
-                    "name": "storage.type.function.tang"
-                }
-            },
-            "name": "meta.function.tang",
-            "patterns": [{
-                "include": "#function_params"
-            }]
-        },
-        {
-            "begin": "(?=(\\([^\\(\\)]*\\)\\s*)?[=-]>)",
-            "end": "[=-]>",
-            "endCaptures": {
-                "0": {
-                    "name": "storage.type.function.tang"
-                }
-            },
-            "name": "meta.function.inline.tang",
-            "patterns": [{
-                "include": "#function_params"
-            }]
+            "include": "#function_params"
         },
         {
             "begin": "(?<=\\s|^)({)(?=[^'\"#]+?}[\\s\\]}]*=)",
@@ -269,7 +205,8 @@
                 }
             },
             "name": "meta.variable.assignment.destructured.object.tang",
-            "patterns": [{
+            "patterns": [
+                {
                     "include": "$self"
                 },
                 {
@@ -292,7 +229,8 @@
                 }
             },
             "name": "meta.variable.assignment.destructured.array.tang",
-            "patterns": [{
+            "patterns": [
+                {
                     "include": "$self"
                 },
                 {
@@ -445,9 +383,11 @@
                     "name": "meta.brace.curly.tang"
                 }
             },
-            "patterns": [{
-                "include": "$self"
-            }]
+            "patterns": [
+                {
+                    "include": "$self"
+                }
+            ]
         },
         {
             "begin": "\\[",
@@ -462,7 +402,8 @@
                     "name": "punctuation.definition.array.end.bracket.square.tang"
                 }
             },
-            "patterns": [{
+            "patterns": [
+                {
                     "match": "(?<!\\.)\\.{3}",
                     "name": "keyword.operator.slice.exclusive.tang"
                 },
@@ -488,9 +429,11 @@
                     "name": "meta.brace.round.tang"
                 }
             },
-            "patterns": [{
-                "include": "$self"
-            }]
+            "patterns": [
+                {
+                    "include": "$self"
+                }
+            ]
         },
         {
             "include": "#instance_variable"
@@ -504,7 +447,8 @@
     ],
     "repository": {
         "arguments": {
-            "patterns": [{
+            "patterns": [
+                {
                     "begin": "\\(",
                     "beginCaptures": {
                         "0": {
@@ -518,68 +462,80 @@
                         }
                     },
                     "name": "meta.arguments.tang",
-                    "patterns": [{
-                        "include": "$self"
-                    }]
+                    "patterns": [
+                        {
+                            "include": "$self"
+                        }
+                    ]
                 },
                 {
                     "begin": "(?=(@|@?[\\w$]+|[=-]>|\\-\\d|\\[|{|\"|'))",
                     "end": "(?=\\s*(?<![\\w$])(of|in|then|is|isnt|and|or|for|else|when|if|unless|by|instanceof|as)(?![\\w$]))|(?=\\s*(}|\\]|\\)|#|$))",
                     "name": "meta.arguments.tang",
-                    "patterns": [{
-                        "include": "$self"
-                    }]
+                    "patterns": [
+                        {
+                            "include": "$self"
+                        }
+                    ]
                 }
             ]
         },
         "double_quoted_string": {
-            "patterns": [{
-                "begin": "\"",
-                "beginCaptures": {
-                    "0": {
-                        "name": "punctuation.definition.string.begin.tang"
-                    }
-                },
-                "end": "\"",
-                "endCaptures": {
-                    "0": {
-                        "name": "punctuation.definition.string.end.tang"
-                    }
-                },
-                "name": "string.quoted.double.tang",
-                "patterns": [{
-                        "captures": {
-                            "1": {
-                                "name": "punctuation.definition.escape.backslash.tang"
-                            }
-                        },
-                        "match": "(\\\\)(x[0-9A-Fa-f]{2}|[0-2][0-7]{0,2}|3[0-6][0-7]|37[0-7]?|[4-7][0-7]?|.)",
-                        "name": "constant.character.escape.backslash.tang"
+            "patterns": [
+                {
+                    "begin": "\"",
+                    "beginCaptures": {
+                        "0": {
+                            "name": "punctuation.definition.string.begin.tang"
+                        }
                     },
-                    {
-                        "include": "#interpolated_tang"
-                    }
-                ]
-            }]
+                    "end": "\"",
+                    "endCaptures": {
+                        "0": {
+                            "name": "punctuation.definition.string.end.tang"
+                        }
+                    },
+                    "name": "string.quoted.double.tang",
+                    "patterns": [
+                        {
+                            "captures": {
+                                "1": {
+                                    "name": "punctuation.definition.escape.backslash.tang"
+                                }
+                            },
+                            "match": "(\\\\)(x[0-9A-Fa-f]{2}|[0-2][0-7]{0,2}|3[0-6][0-7]|37[0-7]?|[4-7][0-7]?|.)",
+                            "name": "constant.character.escape.backslash.tang"
+                        },
+                        {
+                            "include": "#interpolated_tang"
+                        }
+                    ]
+                }
+            ]
         },
         "function_calls": {
-            "patterns": [{
-                    "begin": "(@)?([\\w$]+)(?=\\()",
+            "patterns": [
+                {
+                    "begin": "(@)?([\\w$]+)\\s*(?=\\()",
                     "beginCaptures": {
                         "1": {
                             "name": "variable.other.readwrite.instance.tang"
                         },
                         "2": {
-                            "patterns": [{
-                                "include": "#function_names"
-                            }]
+                            "patterns": [
+                                {
+                                    "include": "#function_names"
+                                }
+                            ]
                         }
                     },
                     "end": "(?<=\\))",
                     "name": "meta.function-call.tang",
-                    "patterns": [{
-                        "include": "#arguments"
-                    }]
+                    "patterns": [
+                        {
+                            "include": "#arguments"
+                        }
+                    ]
                 },
                 {
                     "begin": "(?x)\n(@)?([\\w$]+)\n\\s*\n(?=\\s+(?!(?<![\\w$])(of|in|then|is|isnt|and|or|for|else|when|if|unless|by|instanceof|as)(?![\\w$]))(?=(@?[\\w$]+|[=-]>|\\-\\d|\\[|{|\"|')))",
@@ -588,21 +544,26 @@
                             "name": "variable.other.readwrite.instance.tang"
                         },
                         "2": {
-                            "patterns": [{
-                                "include": "#function_names"
-                            }]
+                            "patterns": [
+                                {
+                                    "include": "#function_names"
+                                }
+                            ]
                         }
                     },
                     "end": "(?=\\s*(?<![\\w$])(of|in|then|is|isnt|and|or|for|else|when|if|unless|by|instanceof|as)(?![\\w$]))|(?=\\s*(}|\\]|\\)|#|$))",
                     "name": "meta.function-call.tang",
-                    "patterns": [{
-                        "include": "#arguments"
-                    }]
+                    "patterns": [
+                        {
+                            "include": "#arguments"
+                        }
+                    ]
                 }
             ]
         },
         "function_names": {
-            "patterns": [{
+            "patterns": [
+                {
                     "match": "(?x)\n\\b(isNaN|isFinite|eval|uneval|parseInt|parseFloat|decodeURI|\ndecodeURIComponent|encodeURI|encodeURIComponent|escape|unescape|\nrequire|set(Interval|Timeout)|clear(Interval|Timeout))\\b",
                     "name": "support.function.tang"
                 },
@@ -616,83 +577,49 @@
                 }
             ]
         },
-        "function_params": {
-            "patterns": [{
-                "begin": "\\(",
-                "beginCaptures": {
-                    "0": {
-                        "name": "punctuation.definition.parameters.begin.bracket.round.tang"
-                    }
-                },
-                "end": "\\)",
-                "endCaptures": {
-                    "0": {
-                        "name": "punctuation.definition.parameters.end.bracket.round.tang"
-                    }
-                },
-                "name": "meta.parameters.tang",
-                "patterns": [{
-                        "match": "([a-zA-Z_$][\\w$]*)(\\.\\.\\.)?",
-                        "captures": {
-                            "1": {
-                                "name": "variable.parameter.function.tang"
-                            },
-                            "2": {
-                                "name": "keyword.operator.splat.tang"
-                            }
-                        }
-                    },
-                    {
-                        "match": "(@(?:[a-zA-Z_$][\\w$]*)?)(\\.\\.\\.)?",
-                        "captures": {
-                            "1": {
-                                "name": "variable.parameter.function.readwrite.instance.tang"
-                            },
-                            "2": {
-                                "name": "keyword.operator.splat.tang"
-                            }
-                        }
-                    },
-                    {
-                        "include": "$self"
-                    }
-                ]
-            }]
-        },
         "embedded_comment": {
-            "patterns": [{
-                "captures": {
-                    "1": {
-                        "name": "punctuation.definition.comment.tang"
-                    }
-                },
-                "match": "(?<!\\\\)(#).*$\\n?",
-                "name": "comment.line.number-sign.tang"
-            }]
+            "patterns": [
+                {
+                    "captures": {
+                        "1": {
+                            "name": "punctuation.definition.comment.tang"
+                        }
+                    },
+                    "match": "(?<!\\\\)(#).*$\\n?",
+                    "name": "comment.line.number-sign.tang"
+                }
+            ]
         },
         "instance_variable": {
-            "patterns": [{
-                "match": "(@)([a-zA-Z_\\$]\\w*)?",
-                "name": "variable.other.readwrite.instance.tang"
-            }]
+            "patterns": [
+                {
+                    "match": "(@)([a-zA-Z_\\$]\\w*)?",
+                    "name": "variable.other.readwrite.instance.tang"
+                }
+            ]
         },
         "interpolated_tang": {
-            "patterns": [{
-                "begin": "\\#\\{",
-                "captures": {
-                    "0": {
-                        "name": "punctuation.section.embedded.tang"
-                    }
-                },
-                "end": "\\}",
-                "name": "source.tang.embedded.source",
-                "patterns": [{
-                    "include": "$self"
-                }]
-            }]
+            "patterns": [
+                {
+                    "begin": "\\#\\{",
+                    "captures": {
+                        "0": {
+                            "name": "punctuation.section.embedded.tang"
+                        }
+                    },
+                    "end": "\\}",
+                    "name": "source.tang.embedded.source",
+                    "patterns": [
+                        {
+                            "include": "$self"
+                        }
+                    ]
+                }
+            ]
         },
         "method_calls": {
-            "patterns": [{
+            "patterns": [
+                {
                     "begin": "(?:(\\.)|(::))\\s*([\\w$]+)\\s*(?=\\()",
                     "beginCaptures": {
                         "1": {
@@ -702,16 +629,20 @@
                             "name": "keyword.operator.prototype.tang"
                         },
                         "3": {
-                            "patterns": [{
-                                "include": "#method_names"
-                            }]
+                            "patterns": [
+                                {
+                                    "include": "#method_names"
+                                }
+                            ]
                         }
                     },
                     "end": "(?<=\\))",
                     "name": "meta.method-call.tang",
-                    "patterns": [{
-                        "include": "#arguments"
-                    }]
+                    "patterns": [
+                        {
+                            "include": "#arguments"
+                        }
+                    ]
                 },
                 {
                     "begin": "(?:(\\.)|(::))\\s*([\\w$]+)\\s*(?=\\s+(?!(?<![\\w$])(of|in|then|is|isnt|and|or|for|else|when|if|unless|by|instanceof|as)(?![\\w$]))(?=(@|@?[\\w$]+|[=-]>|\\-\\d|\\[|{|\"|')))",
@@ -723,21 +654,26 @@
                             "name": "keyword.operator.prototype.tang"
                         },
                         "3": {
-                            "patterns": [{
-                                "include": "#method_names"
-                            }]
+                            "patterns": [
+                                {
+                                    "include": "#method_names"
+                                }
+                            ]
                         }
                     },
                     "end": "(?=\\s*(?<![\\w$])(of|in|then|is|isnt|and|or|for|else|when|if|unless|by|instanceof|as)(?![\\w$]))|(?=\\s*(}|\\]|\\)|#|$))",
                     "name": "meta.method-call.tang",
-                    "patterns": [{
-                        "include": "#arguments"
-                    }]
+                    "patterns": [
+                        {
+                            "include": "#arguments"
+                        }
+                    ]
                 }
             ]
         },
         "method_names": {
-            "patterns": [{
+            "patterns": [
+                {
                     "match": "(?x)\n\\bon(Rowsinserted|Rowsdelete|Rowenter|Rowexit|Resize|Resizestart|Resizeend|Reset|\nReadystatechange|Mouseout|Mouseover|Mousedown|Mouseup|Mousemove|\nBefore(cut|deactivate|unload|update|paste|print|editfocus|activate)|\nBlur|Scrolltop|Submit|Select|Selectstart|Selectionchange|Hover|Help|\nChange|Contextmenu|Controlselect|Cut|Cellchange|Clock|Close|Deactivate|\nDatasetchanged|Datasetcomplete|Dataavailable|Drop|Drag|Dragstart|Dragover|\nDragdrop|Dragenter|Dragend|Dragleave|Dblclick|Unload|Paste|Propertychange|Error|\nErrorupdate|Keydown|Keyup|Keypress|Focus|Load|Activate|Afterupdate|Afterprint|Abort)\\b",
                     "name": "support.function.event-handler.tang"
                 },
@@ -760,7 +696,8 @@
             ]
         },
         "numbers": {
-            "patterns": [{
+            "patterns": [
+                {
                     "match": "\\b(?<!\\$)0(x|X)[0-9a-fA-F]+\\b(?!\\$)",
                     "name": "constant.numeric.hex.tang"
                 },
@@ -801,7 +738,8 @@
             ]
         },
         "objects": {
-            "patterns": [{
+            "patterns": [
+                {
                     "match": "[A-Z][A-Z0-9_$]*(?=\\s*\\??(\\.\\s*[a-zA-Z_$]\\w*|::))",
                     "name": "constant.other.object.tang"
                 },
@@ -812,7 +750,8 @@
             ]
         },
         "operators": {
-            "patterns": [{
+            "patterns": [
+                {
                     "match": "(?:([a-zA-Z$_][\\w$]*)?\\s+|(?<![\\w$]))(and=|or=)",
                     "captures": {
                         "1": {
@@ -906,7 +845,8 @@
             ]
         },
         "properties": {
-            "patterns": [{
+            "patterns": [
+                {
                     "match": "(?:(\\.)|(::))\\s*([A-Z][A-Z0-9_$]*\\b\\$*)(?=\\s*\\??(\\.\\s*[a-zA-Z_$]\\w*|::))",
                     "captures": {
                         "1": {
@@ -979,33 +919,38 @@
             ]
         },
         "single_quoted_string": {
-            "patterns": [{
-                "begin": "'",
-                "beginCaptures": {
-                    "0": {
-                        "name": "punctuation.definition.string.begin.tang"
-                    }
-                },
-                "end": "'",
-                "endCaptures": {
-                    "0": {
-                        "name": "punctuation.definition.string.end.tang"
-                    }
-                },
-                "name": "string.quoted.single.tang",
-                "patterns": [{
-                    "captures": {
-                        "1": {
-                            "name": "punctuation.definition.escape.backslash.tang"
+            "patterns": [
+                {
+                    "begin": "'",
+                    "beginCaptures": {
+                        "0": {
+                            "name": "punctuation.definition.string.begin.tang"
                         }
                     },
-                    "match": "(\\\\)(x[0-9A-Fa-f]{2}|[0-2][0-7]{0,2}|3[0-6][0-7]?|37[0-7]?|[4-7][0-7]?|.)",
-                    "name": "constant.character.escape.backslash.tang"
-                }]
-            }]
+                    "end": "'",
+                    "endCaptures": {
+                        "0": {
+                            "name": "punctuation.definition.string.end.tang"
+                        }
+                    },
+                    "name": "string.quoted.single.tang",
+                    "patterns": [
+                        {
+                            "captures": {
+                                "1": {
+                                    "name": "punctuation.definition.escape.backslash.tang"
+                                }
+                            },
+                            "match": "(\\\\)(x[0-9A-Fa-f]{2}|[0-2][0-7]{0,2}|3[0-6][0-7]?|37[0-7]?|[4-7][0-7]?|.)",
+                            "name": "constant.character.escape.backslash.tang"
+                        }
+                    ]
+                }
+            ]
         },
         "regex-character-class": {
-            "patterns": [{
+            "patterns": [
+                {
                     "match": "\\\\[wWsSdD]|\\.",
                     "name": "constant.character.character-class.regexp"
                 },
@@ -1024,7 +969,8 @@
             ]
         },
         "heregexp": {
-            "patterns": [{
+            "patterns": [
+                {
                     "match": "\\\\[bB]|\\^|\\$",
                     "name": "keyword.control.anchor.regexp"
                 },
@@ -1060,9 +1006,11 @@
                         }
                     },
                     "name": "meta.group.assertion.regexp",
-                    "patterns": [{
-                        "include": "#heregexp"
-                    }]
+                    "patterns": [
+                        {
+                            "include": "#heregexp"
+                        }
+                    ]
                 },
                 {
                     "begin": "\\((\\?:)?",
@@ -1078,9 +1026,11 @@
                         }
                     },
                     "name": "meta.group.regexp",
-                    "patterns": [{
-                        "include": "#heregexp"
-                    }]
+                    "patterns": [
+                        {
+                            "include": "#heregexp"
+                        }
+                    ]
                 },
                 {
                     "begin": "(\\[)(\\^)?",
@@ -1099,7 +1049,8 @@
                         }
                     },
                     "name": "constant.other.character-class.set.regexp",
-                    "patterns": [{
+                    "patterns": [
+                        {
                             "captures": {
                                 "1": {
                                     "name": "constant.character.numeric.regexp"

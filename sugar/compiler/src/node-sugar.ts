@@ -1,12 +1,27 @@
 #!/usr/bin/env node
 
-// const tangram = require('/Users/ivan/Documents/GitHub/Block.JS/src/tangram.js');
+/*!
+ * tangram.js framework syntactic sugar
+ * Node.JS Entrance
+ *
+ * Written and Designed By Jang Ts
+ * http://tangram.js.cn
+ */
+;
+
 const tangram_js_sugar = require('./sugar.js');
 const fs = require('fs');
 const path = require('path');
 const commands = ['compile', 'cdir', 'build', 'help', 'version'];
 
-const handlers = {
+let options = {
+    command: 'compile',
+    inputDir: '',
+    outputDir: '',
+    containSubDir: false
+}
+
+let handlers = {
     compile(i, o) {
         o = o || i + '.js';
         var script = fs.readFileSync(i, 'utf-8');
@@ -16,7 +31,7 @@ const handlers = {
         console.log('tang file ' + i + ' compiled completed!');
     },
     cdir() {
-        let indir = path.resolve(opition.inputDir)
+        let indir = path.resolve(options.inputDir)
         console.log(indir);
     },
     build() {
@@ -30,13 +45,7 @@ const handlers = {
     }
 }
 
-let options = {
-    command: 'compile',
-    inputDir: '',
-    outputDir: '',
-    containSubDir: false
-}
-if (commands.includes(process.argv[2])) {
+if (commands['includes'](process.argv[2])) {
     options.command = process.argv[2];
     var index = 3;
 } else {
@@ -49,7 +58,7 @@ process.argv.slice(index).forEach(function (item) {
             options.containSubDir = true;
             break;
         case "-v":
-            config.command = 'version';
+            options.command = 'version';
             break;
         default:
             if (options.inputDir) {
