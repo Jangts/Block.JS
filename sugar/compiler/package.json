@@ -1,0 +1,31 @@
+{
+    "name": "node-sugar",
+    "version": "1.0.0",
+    "description": "tangram.js syntactic sugar",
+    "main": "./lib/node-sugar.js",
+    "dependencies": {
+        "@types/node": "^9.6.6"
+    },
+    "devDependencies": {},
+    "scripts": {
+        "test": "node-sugar help"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Jangts/tangram.js.git"
+    },
+    "keywords": [
+        "tangram.js",
+        "syntactic",
+        "sugar"
+    ],
+    "bin": {
+        "node-sugar": "./lib/node-sugar.js"
+    },
+    "author": "Jangts",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/Jangts/tangram.js/issues"
+    },
+    "homepage": "https://tangram.js.cn/sugar/"
+}

@@ -1,29 +1,31 @@
 {
-    "author": {
-        "name": "Jangts"
-    },
-    "bugs": {
-        "url": "https://github.com/Jangts/tangram.js/issues"
-    },
-    "bundleDependencies": [],
-    "deprecated": false,
-    "description": "A Web Front-end Development Framework",
-    "homepage": "https://tangram.js.cn",
-    "bin": {
-        "node-sugar": "./node-sugar.js"
-    },
-    "keywords": [
-        "tangram.js"
-    ],
-    "license": "MIT",
-    "main": "./tangram.js",
     "name": "@jangts/tangram.js",
+    "version": "2.9.4",
+    "description": "A Web Front-end Development Framework",
+    "main": "./tangram.js",
+    "deprecated": false,
+    "dependencies": {},
+    "bundleDependencies": [],
+    "devDependencies": {},
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/Jangts/tangram.js.git"
     },
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+    "keywords": [
+        "tangram.js"
+    ],
+    "bin": {
+        "node-sugar": "./lib/node-sugar.js"
     },
-    "version": "2.9.2"
+    "author": {
+        "name": "Jangts"
+    },
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/Jangts/tangram.js/issues"
+    },
+    "homepage": "https://tangram.js.cn"
 }

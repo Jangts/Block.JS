@@ -2,7 +2,7 @@
     "name": "tangram-js-sugar",
     "displayName": "tangram.js sugar",
     "description": "tangram.js syntactic sugar",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "publisher": "jangts",
     "engines": {
         "vscode": "^1.22.0"
@@ -26,17 +26,47 @@
             "mimetypes": [
                 "text/tangram.js-sugar"
             ],
-            "configuration": "./language-configuration.json"
+            "configuration": "./configs/tang-language-configuration.json"
+        }, {
+            "id": "tang-html",
+            "aliases": [
+                "TANGRAM-HTML",
+                "tang-html",
+                "sugar-html"
+            ],
+            "extensions": [
+                ".tang.htm",
+                ".tang.html",
+                ".sugar.htm",
+                ".sugar.tang.html"
+            ],
+            "mimetypes": [
+                "text/html"
+            ],
+            "configuration": "./configs/html-language-configuration.json"
         }],
         "grammars": [{
             "language": "tang",
             "scopeName": "source.tang",
             "path": "./syntaxes/tang.tmLanguage.json"
+        }, {
+            "language": "tang-html",
+            "scopeName": "text.html.basic",
+            "path": "./syntaxes/html.tmLanguage.json",
+            "embeddedLanguages": {
+                "text.html": "html",
+                "source.css": "css",
+                "source.js": "javascript",
+                "source.tang": "tang"
+            }
         }],
         "snippets": [{
             "language": "tang",
             "path": "./snippets/tang.snippets.json"
+        }, {
+            "language": "tang-html",
+            "path": "./snippets/html.snippets.json"
         }]
     },
-    "repository":"https://microivan.visualstudio.com/_git/tangram.js%20sugar"
+    "repository": "https://microivan.visualstudio.com/_git/tangram.js%20sugar"
 }

@@ -109,7 +109,8 @@
         compile(): Sugar {
             // console.log(this.input);
             this.buildAST(this.buildMiddleAST(this.encode()));
-            this.generate();
+            this.output = 'console.log("Hello, world!");';
+            // this.generate();
             // console.log(this.replacements);
             return this;
         }
@@ -133,7 +134,7 @@
             let left = string.indexOf('[');
             let right = string.indexOf(']');
             while ((left >= 0) || (right >= 0)) {
-                console.log('[]');
+                // console.log('[]');
                 if ((left >= 0) && (left < right)) {
                     string = this.replaceArray(string);
                     left = string.indexOf('[');
@@ -146,7 +147,7 @@
             left = string.indexOf('{');
             right = string.indexOf('}');
             while ((left >= 0) || (right >= 0)) {
-                console.log('{}');
+                // console.log('{}');
                 if ((left >= 0) && (left < right)) {
                     string = this.replaceCodeSegments(string);
                     left = string.indexOf('{');
@@ -443,7 +444,7 @@
                     ast.body.push(this.walk(element));
                 }
             }
-            // console.log(ast, this.replacements);
+            console.log(ast, this.replacements);
             this.ast = ast;
             return this;
         }
@@ -454,10 +455,14 @@
                 case 'template':
                     let that = this;
                     return {
-                        'type': 'code-inline',
-                        'value': this.replacements[element.posi].replace(this.markPattern, function () {
-                            return that.replacements[arguments[1]];
-                        })
+                        type: 'codes',
+                        body: {
+                            type: 'code',
+                            stype: 'inline',
+                            value: this.replacements[element.posi].replace(this.markPattern, function () {
+                                return that.replacements[arguments[1]];
+                            })
+                        }
                     }
 
                 case 'class':
@@ -610,17 +615,20 @@
             let body = this.checkBody(array[2]);
             if (array[0].trim() === ')') {
                 body.unshift({
-                    type: 'code-inline',
+                    type: 'code',
+                    stype: 'inline',
                     value: ') {'
                 });
             } else {
                 body.unshift({
-                    type: 'code-break',
+                    type: 'code',
+                    stype: 'break',
                     value: array[0] + ' {'
                 });
             }
             body.push({
-                type: 'code-closer',
+                type: 'code',
+                stype: 'closer',
                 value: '}'
             });
 
@@ -635,7 +643,8 @@
                 let body = [];
                 if (attr[5]) {
                     body.push({
-                        type: 'code-inline',
+                        type: 'code',
+                        stype: 'inline',
                         value: attr[5]
                     });
                 }
@@ -649,13 +658,15 @@
                         }));
                         if (matches[3]) {
                             body.push({
-                                type: 'code-inline',
+                                type: 'code',
+                                stype: 'inline',
                                 value: matches[3]
                             });
                         }
                     } else {
                         body.push({
-                            type: 'code-inline',
+                            type: 'code',
+                            stype: 'inline',
                             value: element
                         });
                     }
@@ -671,7 +682,8 @@
                 pname: attr[3] || 'myAttribute',
                 body: [
                     {
-                        type: 'code-inline',
+                        type: 'code',
+                        stype: 'inline',
                         value: attr[5]
                     }
                 ]
@@ -780,15 +792,17 @@
                                 case 'pattern':
                                 case 'tamplate':
                                     body[bodyIndex].body.push({
-                                        'type': 'code-inline',
-                                        'value': ',' + this.replacements[parseInt(m[1])].replace(this.markPattern, function () {
+                                        type: 'code',
+                                        stype:'inline',
+                                        value: ',' + this.replacements[parseInt(m[1])].replace(this.markPattern, function () {
                                             return that.replacements[arguments[1]];
                                         })
                                     });
                                     if (m[3]) {
                                         body[bodyIndex].body.push({
-                                            'type': 'code-inline',
-                                            'value': m[3]
+                                            type: 'code',
+                                            stype:'inline',
+                                            value: m[3]
                                         });
                                     }
                                     break;
@@ -819,7 +833,8 @@
                         });
                         this.pushReplacements(body, valArr[1]);
                         body.push({
-                            type: 'code-inline',
+                            type: 'code',
+                            stype: 'inline',
                             value: '; }'
                         });
                     } else {
@@ -1160,6 +1175,7 @@
             return codes;
         }
         trim(string: string): string {
+            string = this.restoreStrings(string);
             return string;
             // 此处的replace在整理完成后，将进行分析归纳，最后改写为callback形式的
             string = this.replaceStrings(string);
