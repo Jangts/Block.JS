@@ -23,8 +23,8 @@
         global.tangram_js_sugar = factory(global);
     }
 }(this, function (global) {
-    if (Array.prototype['includes']== undefined) {
-        Array.prototype['includes']= (searchElement: any, fromIndex: any): boolean => {
+    if (Array.prototype['includes'] == undefined) {
+        Array.prototype['includes'] = (searchElement: any, fromIndex: any): boolean => {
             fromIndex = parseInt(fromIndex) || 0;
             for (fromIndex; fromIndex < this.length; fromIndex++) {
                 if (this[fromIndex] === searchElement) {
@@ -47,15 +47,16 @@
             define: /(reg|extends)\s+([\$\w\.]+)\s*\{([^\{\}]*?)\}/g,
             function: /(var\s+)?([\$\w]*)\s*\(([^\(\)]*)\)[\s\t]*\{([^\{\}]*?)\}/g,
             array: /\[[^\[\]]*?\]/g,
+            call: /([\$\w]+)([\s\t]*\([^\(\)]*?\))\s*([^\$\w\s\{]|[\r\n].)/g,
             closure: /([\$\w]+|\))?([\s\t]*\{[^\{\}]*?\})/g
         },
         matchExpr = {
             string: /(\/|\#|`|"|')([\*\/\=])?/,
-            strings:{
-                '/': /(\/.+?\/[img]*)\s*(.|$)/,
-                '`': /(`[^`]*`)\s*(.|$)/,
-                '"': /(".*?")\s*(.|$)/,
-                "'": /('.*?')\s*(.|$)/
+            strings: {
+                '/': /(\/.+?\/[img]*)\s*?([\r\n]|.|$)/,
+                '`': /(`[^`]*`)\s*?([\r\n]|.|$)/,
+                '"': /(".*?")\s*?([\r\n]|.|$)/,
+                "'": /('.*?')\s*?([\r\n]|.|$)/
             },
             index: /(\d+)_as_([a-z]+)/,
             index3: /^_(\d+)_as_([a-z]+)___([\s\S]*)$/,
@@ -63,7 +64,8 @@
             classelement: /^\s*((static)\s+)?([\$\w]*)\s*(\=*)([\s\S]*)$/,
             objectattr: /^\s*((([\$\w]+)))\s*(\:*)([\s\S]*)$/,
             define: /(reg|extends)\s+([\$\w\.]+)\s*\{([^\{\}]*?)\}/,
-            function: /(var\s+)?([\$\w]*)\s*\(([^\(\)]*)\)[\s\t]*\{([^\{\}]*?)\}/
+            function: /(var\s+)?([\$\w]*)\s*\(([^\(\)]*)\)[\s\t]*\{([^\{\}]*?)\}/,
+            call: /([\$\w]+|\])([\s\t]*\([^\(\)]*?\))\s*([^\$\w\s\{]|[\r\n].)/g
         },
         stringas: any = {
             '/': '_as_pattern___',
@@ -108,14 +110,17 @@
         }
         compile(): Sugar {
             // console.log(this.input);
-            this.buildAST(this.buildMiddleAST(this.encode()));
+            this.buildAST(this.getReplacePosis(this.getSentences(this.encode(this.input))));
             this.output = 'console.log("Hello, world!");';
             // this.generate();
             // console.log(this.replacements);
             return this;
         }
-        encode(): string {
-            let string = this.input.replace(/^\s*"await"\s*/, (match: string) => {
+        decode(string: string): string {
+            return string;
+        }
+        encode(string: string): string {
+            string = string.replace(/^\s*"await"\s*/, (match: string) => {
                 this.isMainBlock = false;
                 // console.log('This is not a main block.');
                 return '';
@@ -140,7 +145,7 @@
                     left = string.indexOf('[');
                     right = string.indexOf(']');
                 } else {
-                    throw 'tangram.js sugar Error: Unexpected "[" or "]"';
+                    throw 'tangram.js sugar Error: Unexpected `{` or `}`';
                 }
             }
             // console.log(string);
@@ -153,8 +158,12 @@
                     left = string.indexOf('{');
                     right = string.indexOf('}');
                 } else {
-                    throw 'tangram.js sugar Error: Unexpected "{" or "}"';
+                    throw 'tangram.js sugar Error: Unexpected `{` or `}`';
                 }
+            }
+
+            while (string.match(matchExpr.call)) {
+                string = this.replaceCalls(string);
             }
             // console.log(string);
             return string;
@@ -179,13 +188,13 @@
 
             let count: number = 0;
             let matches: any = string.match(matchExpr.string);
-            
-            while ((count < this.stringReplaceTimes) && matches){
+
+            while ((count < this.stringReplaceTimes) && matches) {
                 count++;
                 // console.log(count);
                 // console.log(matches);
                 const index = this.replacements.length;
-                switch (matches[1]){
+                switch (matches[1]) {
                     case '#':
                         string = string.replace(/(\S*)\s*\#.+/, "$1");
                         matches = string.match(matchExpr.string);
@@ -209,15 +218,21 @@
                         break;
                 }
                 let match: any = string.match(matchExpr.strings[matches[1]]);
-                if (match && (matches.index === match.index) && (!match[2].match(/[\$\w\(\{]/))) {
+                if (match && (matches.index === match.index) && (!match[2].match(/[\$\w\{]/))) {
                     // console.log(matches, match);
                     this.replacements.push(match[1]);
                     string = string.replace(match[1], '___boundary_' + this.uid + '_' + index + stringas[matches[1]]);
-                } else if (matches[0]==='/') {
+                } else if (matches[0] === '/') {
                     string = string.replace(matches[0], '___boundary_2_as_operator___');
                 } else {
-                    console.log(string);
-                    throw 'tangram.js sugar Error: Unexpected "' + matches[1] + '"';
+                    let index;
+                    if (matches.index > 128) {
+                        index = matches.index - 128;
+                    } else {
+                        index = 0;
+                    }
+                    // console.log(matches.index, string);
+                    throw 'tangram.js sugar Error: Unexpected `' + matches[1] + '` in `' + string.substr(index, 256) + '`';
                 }
                 matches = string.match(matchExpr.string);
             }
@@ -243,7 +258,7 @@
             // ' == ', ' != ', ' === ', ' !== ',
             // ' & ', ' ^ ', ' | ', ' && ', ' || ',
             // ' = ', ' += ', ' -= ', ' *= ', ' /= ', ' %= ', ' <<= ', ' >>= ', ' >>>= ', ' &= ', ' ^= ', ' |= '
-            const operators:any = {
+            const operators: any = {
                 mixed: /([\$\w\)\}\]])\s*(\=\=|\!\=|\=|\!|\+|\-|\*|\/|\%|<<|>>|>>>|\&|\^|\||<|>)=\s*([\$\w\(\{\[])/g,
                 bool: /([\$\w\)\}\]])\s*(\&\&|\|\||\<|\<\<|\>\>\>|\>\>|\>)\s*([\$\w\(\{\[])/g,
                 op: /([\$\w\)\}\]])\s*(\+|\-|\*\*|\*|\/|\%)\s*([\$\w\(\{\[])/g,
@@ -322,7 +337,7 @@
             }
             return string.replace(operators.error, (match: string, before: string, op: string, after: string) => {
                 // console.log(this.replacements);
-                throw 'tangram.js sugar Error: Unexpected "' + op + '" in "' + match + '"';
+                throw 'tangram.js sugar Error: Unexpected `' + op + '` in `' + match + '`';
             });
         }
         replaceArray(string: string): string {
@@ -336,7 +351,7 @@
                         left = match.indexOf('{');
                         right = match.indexOf('}');
                     } else {
-                        throw 'tangram.js sugar Error: Unexpected "{" or "}"';
+                        throw 'tangram.js sugar Error: Unexpected `{` or `}`';
                     }
                 }
                 let index = this.replacements.length;
@@ -363,6 +378,9 @@
 
             if (string.match(matchExpr.function)) {
                 return string.replace(replaceExpr.function, (match: string) => {
+                    while (match.match(matchExpr.call)) {
+                        match = this.replaceCalls(match);
+                    }
                     let index = this.replacements.length;
                     this.replacements.push(match);
                     return '___boundary_' + this.uid + '_' + index + '_as_function___';
@@ -388,47 +406,150 @@
                 return '___boundary_' + this.uid + '_' + index + '_as_object___';
             });
         }
-        buildMiddleAST(string: string): object[] {
-            let imports: string[] = [],
-                import_alias: any = {},
-                midast: object[] = [],
-                array: string[] = string.split('___boundary_' + this.uid);
-            // console.log(array)
+        replaceCalls(string: string): string {
+            return string.replace(replaceExpr.call, (match: string, callname, args, after) => {
+                // console.log(match);
+                let index = this.replacements.length;
+                this.replacements.push(callname + args);
+                return '___boundary_' + this.uid + '_' + index + '_as_call___' + after;
+            });
+        }
+        getSentences(string: string, isFnBody:boolean=false): object[] {
+            const array: string[] = string.split(/\s*;+\s*/);
+            let lines: object[] = [];
             for (let index = 0; index < array.length; index++) {
-                let element = array[index].trim();
-                if (element) {
-                    let matches: any = element.match(matchExpr.index3);
-                    if (matches) {
-                        if (matches[2] === 'import') {
-                            let src = this.replacements[matches[1]].replace(replaceExpr.import, '').replace(replaceExpr.return, '');
-                            imports.push(src);
-                            let srcArr = src.split(/\s+as\s+/);
-                            if (srcArr[1] && srcArr[1].trim()) {
-                                import_alias[srcArr[1].trim()] = srcArr[0].trim();
-                            }
+                const sentence = array[index].trim();
+                if (sentence) {
+                    const sublines = sentence.split(/(^|[^,\s][\r\n])\s*(var)\s+/);
+                    // console.log(sublines);
+                    for (let i = 0; i < sublines.length; i++) {
+                        const element = sublines[i];
+                        // console.log(element);
+                        if (element === 'var') {
+                            this.pushVariables(lines, sublines[++i] + (sublines[++i] || ''), isFnBody);
                         } else {
-                            midast.push({
-                                posi: matches[1],
-                                type: matches[2]
-                            });
+                            // console.log(element);
+                            this.pushLines(lines, element + (sublines[++i] || ''));
                         }
-                        let m3: string = matches[3].trim()
-                        if (m3) {
-                            midast.push({
-                                type: 'code',
-                                value: m3
-                            });
+                    }
+                }
+            }
+            // console.log(lines);
+            return lines;
+        }
+        pushVariables(lines, string: string, isFnBody: boolean = false) {
+            // console.log(string);
+            const array: string[] = string.split(/\s*,\s*/);
+            // console.log(array);
+            for (let index = 0; index < array.length; index++) {
+                const element = array[index].trim();;
+                if (element) {
+                    let array: string[] = element.split(/\s*[\r\n]+\s*/);
+                    if (array.length) {
+                        for (let index = 0; index < array.length; index++) {
+                            const line = array[index];
+                            if (index) {
+                                lines.push({
+                                    type: 'line',
+                                    value: line + ';'
+                                });
+                            } else {
+                                if (line.match(/^[\$\w]+\s*(=|$)/)) {
+                                    lines.push({
+                                        type: 'line',
+                                        value: 'var ' + line + ';'
+                                    });
+                                } else {
+                                    throw 'tangram.js sugar Error: Unexpected Variable definition `var ' + this.decode(line) + '`' + (isFnBody ? ' in `'+ string +'`':'');
+                                }
+                            }
                         }
                     } else {
-                        midast.push({
-                            type: 'code',
-                            value: element
-                        });
+                        if (element.match(/^[\$\w]\s*(=.+|\s*)$/)) {
+                            lines.push({
+                                type: 'line',
+                                value: 'var ' + element + ';'
+                            });
+                        } else {
+                            throw 'tangram.js sugar Error: Unexpected Variable definition `var ' + this.decode(element) + '`' + '`' + (isFnBody ? ' in `' + string + '`' : '');
+                        }
                     }
+                }
+            }
+        }
+        pushLines(lines, string: string) {
+            const array: string[] = string.split(/\s*[\r\n]+\s*/);
+            for (let index = 0; index < array.length; index++) {
+                const element = array[index];
+                // console.log(element);
+                if (element.match(/g/)) {
+                    lines.push({
+                        type: 'line',
+                        value: element
+                    });
+                } else if (element.match(/___boundary_[A-Z0-9_]{36}_\d+_as_function___/)) {
+                    lines.push({
+                        type: 'line',
+                        value: element
+                    });
+                } else if (element){
+                    lines.push({
+                        type: 'line',
+                        value: element + ';'
+                    });
+                }
+            }
+        }
+        getReplacePosis(lines: any[]): object[] {
+            let imports: string[] = [],
+                import_alias: any = {},
+                midast: object[] = [];
+
+            for (let index = 0; index < lines.length; index++) {
+                const line = lines[index].value.trim();
+                if (line) {
+                    let inline = [];
+                    const array: string[] = line.split('___boundary_' + this.uid);
+                    // console.log(array)
+                    for (let index = 0; index < array.length; index++) {
+                        let element = array[index].trim();
+                        if (element) {
+                            let matches: any = element.match(matchExpr.index3);
+                            if (matches) {
+                                if (matches[2] === 'import') {
+                                    let src = this.replacements[matches[1]].replace(replaceExpr.import, '').replace(replaceExpr.return, '');
+                                    imports.push(src);
+                                    let srcArr = src.split(/\s+as\s+/);
+                                    if (srcArr[1] && srcArr[1].trim()) {
+                                        import_alias[srcArr[1].trim()] = srcArr[0].trim();
+                                    }
+                                } else {
+                                    inline.push({
+                                        posi: matches[1],
+                                        type: matches[2]
+                                    });
+                                }
+                                let m3: string = matches[3].trim()
+                                if (m3) {
+                                    inline.push({
+                                        type: 'code',
+                                        value: m3
+                                    });
+                                }
+                            } else {
+                                inline.push({
+                                    type: 'code',
+                                    value: element
+                                });
+                            }
+                        }
+                    }
+                    midast.push(inline);
                 }
             }
             this.imports = imports;
             this.import_alias = import_alias;
+            console.log(imports, midast);
             return midast;
         }
         buildAST(midast: object[]): Sugar {
@@ -437,14 +558,46 @@
                 body: new Array
             };
             for (let index = 0; index < midast.length; index++) {
-                let element: any = midast[index];
-                if (element.type === 'code') {
-                    this.pushCodeElements(ast.body, element.value);
-                } else {
-                    ast.body.push(this.walk(element));
+                let block: any = midast[index];
+                if (block.length===1){
+                    const element = block[0];
+                    if (element.type === 'code') {
+                        // this.pushCodeElements(ast.body, element.value);
+                        ast.body.push({
+                            type: 'code',
+                            value: element
+                        });
+                    } else {
+                        console.log(element);
+                        ast.body.push(this.walk(element));
+                    }
+                }else{
+                    let codes = {
+                        type: 'codes',
+                        body: new Array
+                    };
+                    for (let index = 0; index < block.length; index++) {
+                        const element = block[index];
+                        if (element.type === 'code') {
+                            codes.body.push({
+                                type: 'code',
+                                stype: 'inline',
+                                value: element
+                            });
+                        } else {
+                            codes.body.push(this.walk(element));
+                        }
+                    }
+                    ast.body.push(codes);
                 }
             }
-            console.log(ast, this.replacements);
+            console.log(ast);
+            this.ast = {
+                type: 'codes',
+                body: new Array
+            };
+            return this;
+            // console.log(ast, this.replacements);
             this.ast = ast;
             return this;
         }
@@ -793,7 +946,7 @@
                                 case 'tamplate':
                                     body[bodyIndex].body.push({
                                         type: 'code',
-                                        stype:'inline',
+                                        stype: 'inline',
                                         value: ',' + this.replacements[parseInt(m[1])].replace(this.markPattern, function () {
                                             return that.replacements[arguments[1]];
                                         })
@@ -801,7 +954,7 @@
                                     if (m[3]) {
                                         body[bodyIndex].body.push({
                                             type: 'code',
-                                            stype:'inline',
+                                            stype: 'inline',
                                             value: m[3]
                                         });
                                     }
@@ -821,21 +974,33 @@
             return body;
         }
         checkFnBody(args: any, code: string): object[] {
+            console.log(code);
             let body = [],
+                lines:any = this.getSentences(code, true),
                 array = code.split('___boundary_' + this.uid);
+            // console.log(args, lines);
             for (let index = 0; index < args.vals.length; index++) {
                 if (args.vals[index] !== undefined) {
                     let valArr = args.vals[index].split('___boundary_' + this.uid);
                     if (valArr[1]) {
-                        body.push({
+                        let codes = {
+                            type: 'codes',
+                            body: new Array
+                        };
+                        codes.body.push({
                             type: 'code',
+                            stype: 'inline',
                             value: 'if (' + args.keys[index] + ' === void 0) { ' + args.keys[index] + ' = ' + valArr[0]
                         });
-                        this.pushReplacements(body, valArr[1]);
-                        body.push({
+                        this.pushReplacements(codes.body, valArr[1], true);
+                        codes.body.push({
                             type: 'code',
                             stype: 'inline',
                             value: '; }'
+                        });
+                        body.push({
+                            type: 'codes',
+                            value: codes
                         });
                     } else {
                         body.push({
@@ -845,10 +1010,21 @@
                     }
                 }
             }
-
-            for (let index = 0; index < array.length; index++) {
-                // console.log(array[index]);
-                this.pushReplacements(body, array[index]);
+            // for (let index = 0; index < array.length; index++) {
+            //     // console.log(array[index]);
+            //     this.pushReplacements(body, array[index]);
+            // }
+            for (let index = 0; index < lines.length; index++) {
+                const line = lines[index].value.trim();
+                if (line) {
+                    let inline = [];
+                    const array: string[] = line.split('___boundary_' + this.uid);
+                    // console.log(array)
+                    for (let index = 0; index < array.length; index++) {
+                        this.pushReplacements(inline, array[index]);
+                    }
+                    body.push(inline);
+                }
             }
             return body;
         }
@@ -1229,7 +1405,7 @@
             return string;
         }
         restoreStrings(string: string): string {
-            
+
             let that = this;
             return string.replace(this.lastPattern, function () {
                 // console.log(arguments[1]);
