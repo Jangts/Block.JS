@@ -45,7 +45,7 @@
             include: /\s*@include\s+.[\$\w\.\s\/\\]+?[;\r\n]+/g,
             class: /class\s+((pandora)?\.)?([\$\w\.]+\s+)?(extends\s+([\$\w\.]+)\s*)?\{([^\{\}]*?)\}/g,
             define: /(reg|extends)\s+([\$\w\.]+)\s*\{([^\{\}]*?)\}/g,
-            function: /(var\s+)?([\$\w]*)\s*\(([^\(\)]*)\)[\s\t]*\{([^\{\}]*?)\}/g,
+            function: /((var|let|function|def)\s+)?([\$\w]*)\s*\(([^\(\)]*)\)[\s\t]*\{([^\{\}]*?)\}/g,
             array: /\[[^\[\]]*?\]/g,
             call: /([\$\w]+)([\s\t]*\([^\(\)]*?\))\s*([^\$\w\s\{]|[\r\n].)/g,
             closure: /([\$\w]+|\))?([\s\t]*\{[^\{\}]*?\})/g
@@ -61,10 +61,10 @@
             index: /(\d+)_as_([a-z]+)/,
             index3: /^_(\d+)_as_([a-z]+)___([\s\S]*)$/,
             class: /class\s+((pandora)?\.)?([\$\w\.]+\s+)?(extends\s+([\$\w\.]+)\s*)?\{([^\{\}]*?)\}/,
-            classelement: /^\s*((static)\s+)?([\$\w]*)\s*(\=*)([\s\S]*)$/,
+            classelement: /^\s*((public|static)\s+)?([\$\w]*)\s*(\=*)([\s\S]*)$/,
             objectattr: /^\s*((([\$\w]+)))\s*(\:*)([\s\S]*)$/,
             define: /(reg|extends)\s+([\$\w\.]+)\s*\{([^\{\}]*?)\}/,
-            function: /(var\s+)?([\$\w]*)\s*\(([^\(\)]*)\)[\s\t]*\{([^\{\}]*?)\}/,
+            function: /((var|let|function|def)\s+)?([\$\w]*)\s*\(([^\(\)]*)\)[\s\t]*\{([^\{\}]*?)\}/,
             call: /([\$\w]+|\])([\s\t]*\([^\(\)]*?\))\s*([^\$\w\s\{]|[\r\n].)/g
         },
         stringas: any = {
@@ -111,12 +111,19 @@
         compile(): Sugar {
             // console.log(this.input);
             this.buildAST(this.getReplacePosis(this.getSentences(this.encode(this.input))));
-            this.output = 'console.log("Hello, world!");';
-            // this.generate();
+            // this.output = 'console.log("Hello, world!");';
+            this.generate();
             // console.log(this.replacements);
             return this;
         }
         decode(string: string): string {
+            let matches = string.match(/___boundary_([A-Z0-9_]{37})?(\d+)_as_[a-z]+___/);
+            while (matches) {
+                // console.log(matches, this.replacements[matches[2]]);
+                string = string.replace(matches[0], this.replacements[matches[2]]);
+                matches = string.match(/___boundary_([A-Z0-9_]{37})?(\d+)_as_[a-z]+___/);
+            } 
+            // console.log(string);
             return string;
         }
         encode(string: string): string {
@@ -166,6 +173,7 @@
                 string = this.replaceCalls(string);
             }
             // console.log(string);
+            // console.log(this.replacements);
             return string;
         }
         replaceImports(string: string): string {
@@ -231,8 +239,8 @@
                     } else {
                         index = 0;
                     }
-                    // console.log(matches.index, string);
-                    throw 'tangram.js sugar Error: Unexpected `' + matches[1] + '` in `' + string.substr(index, 256) + '`';
+                    // console.log(matches.index, match);
+                    throw 'tangram.js sugar Error: Unexpected `' + matches[1] + '` in `' + this.decode(string.substr(index, 256)) + '`';
                 }
                 matches = string.match(matchExpr.string);
             }
@@ -399,6 +407,10 @@
                     return 'return ' + '___boundary_' + this.uid + '_' + index + '_as_object___';
                 }
                 if ((match.indexOf(';') >= 0) || (word && (word != 'return'))) {
+                    while (closure.match(matchExpr.call)) {
+                        closure = this.replaceCalls(closure);
+                    }
+                    let index = this.replacements.length;
                     this.replacements.push(closure);
                     return (word || '') + '___boundary_' + this.uid + '_' + index + '_as_closure___';
                 }
@@ -414,13 +426,21 @@
                 return '___boundary_' + this.uid + '_' + index + '_as_call___' + after;
             });
         }
-        getSentences(string: string, isFnBody:boolean=false): object[] {
+        getSentences(string: string, isFnBody: boolean = false): object[] {
             const array: string[] = string.split(/\s*;+\s*/);
             let lines: object[] = [];
+            // console.log(array);
             for (let index = 0; index < array.length; index++) {
                 const sentence = array[index].trim();
                 if (sentence) {
-                    const sublines = sentence.split(/(^|[^,\s][\r\n])\s*(var)\s+/);
+                    if(index){
+                        lines.push({
+                            type: 'line',
+                            stype: 'newline',
+                            value: ''
+                        });
+                    }
+                    const sublines = sentence.split(/(^|[^,\s][\r\n]|[^,]\s+[\r\n])\s*(var|let)\s+/);
                     // console.log(sublines);
                     for (let i = 0; i < sublines.length; i++) {
                         const element = sublines[i];
@@ -428,8 +448,12 @@
                         if (element === 'var') {
                             this.pushVariables(lines, sublines[++i] + (sublines[++i] || ''), isFnBody);
                         } else {
-                            // console.log(element);
-                            this.pushLines(lines, element + (sublines[++i] || ''));
+                            if (element.match(/(|[^,\s][\r\n])\s*(var)\s+/)){                        
+                                throw 'tangram.js sugar Error: Unexpected Variable definition `' + this.decode(element) + '`' + (isFnBody ? ' in `' + this.decode(string) + '`' : '');   
+                            }else{
+                                // console.log(element);
+                                this.pushLines(lines, element + (sublines[++i] || ''));
+                            }
                         }
                     }
                 }
@@ -460,7 +484,8 @@
                                         value: 'var ' + line + ';'
                                     });
                                 } else {
-                                    throw 'tangram.js sugar Error: Unexpected Variable definition `var ' + this.decode(line) + '`' + (isFnBody ? ' in `'+ string +'`':'');
+                                    console.log(array);
+                                    throw 'tangram.js sugar Error: Unexpected Variable definition `var ' + this.decode(line) + '`' + (isFnBody ? ' in `' + this.decode(string) + '`' : '');
                                 }
                             }
                         }
@@ -471,7 +496,7 @@
                                 value: 'var ' + element + ';'
                             });
                         } else {
-                            throw 'tangram.js sugar Error: Unexpected Variable definition `var ' + this.decode(element) + '`' + '`' + (isFnBody ? ' in `' + string + '`' : '');
+                            throw 'tangram.js sugar Error: Unexpected Variable definition `var ' + this.decode(element) + '`' + '`' + (isFnBody ? ' in `' + this.decode(string) + '`' : '');
                         }
                     }
                 }
@@ -492,7 +517,7 @@
                         type: 'line',
                         value: element
                     });
-                } else if (element){
+                } else if (element) {
                     lines.push({
                         type: 'line',
                         value: element + ';'
@@ -506,6 +531,7 @@
                 midast: object[] = [];
 
             for (let index = 0; index < lines.length; index++) {
+                // console.log(lines[index]);
                 const line = lines[index].value.trim();
                 if (line) {
                     let inline = [];
@@ -529,11 +555,11 @@
                                         type: matches[2]
                                     });
                                 }
-                                let m3: string = matches[3].trim()
-                                if (m3) {
+                                let match_3: string = matches[3].trim()
+                                if (match_3) {
                                     inline.push({
                                         type: 'code',
-                                        value: m3
+                                        value: match_3
                                     });
                                 }
                             } else {
@@ -545,11 +571,19 @@
                         }
                     }
                     midast.push(inline);
+                }else{
+                    // console.log(lines[index].stype);
+                    if (lines[index].stype==='newline'){
+                        midast.push([{
+                            type: 'code',
+                            stype: 'newline'
+                        }]);
+                    }
                 }
             }
             this.imports = imports;
             this.import_alias = import_alias;
-            console.log(imports, midast);
+            // console.log(imports, midast);
             return midast;
         }
         buildAST(midast: object[]): Sugar {
@@ -559,19 +593,16 @@
             };
             for (let index = 0; index < midast.length; index++) {
                 let block: any = midast[index];
-                if (block.length===1){
+                if (block.length === 1) {
                     const element = block[0];
                     if (element.type === 'code') {
                         // this.pushCodeElements(ast.body, element.value);
-                        ast.body.push({
-                            type: 'code',
-                            value: element
-                        });
+                        ast.body.push(element);
                     } else {
-                        console.log(element);
-                        ast.body.push(this.walk(element));
+                        // console.log(element);
+                        ast.body.push(this.walk(element, false));
                     }
-                }else{
+                } else {
                     let codes = {
                         type: 'codes',
                         body: new Array
@@ -579,82 +610,75 @@
                     for (let index = 0; index < block.length; index++) {
                         const element = block[index];
                         if (element.type === 'code') {
-                            codes.body.push({
-                                type: 'code',
-                                stype: 'inline',
-                                value: element
-                            });
+                            element.stype = index ? 'inline' : 'block';
+                            codes.body.push(element);
                         } else {
-                            codes.body.push(this.walk(element));
+                            codes.body.push(this.walk(element, !!index));
                         }
                     }
                     ast.body.push(codes);
                 }
             }
-            console.log(ast);
-            this.ast = {
-                type: 'codes',
-                body: new Array
-            };
-            return this;
             // console.log(ast, this.replacements);
             this.ast = ast;
             return this;
         }
-        walk(element: any): object {
+        walk(element: any, codeInline: boolean): object {
             switch (element.type) {
                 case 'string':
                 case 'pattern':
                 case 'template':
                     let that = this;
                     return {
-                        type: 'codes',
-                        body: {
-                            type: 'code',
-                            stype: 'inline',
-                            value: this.replacements[element.posi].replace(this.markPattern, function () {
-                                return that.replacements[arguments[1]];
-                            })
-                        }
+                        type: 'code',
+                        stype: codeInline ? 'inline' : 'block',
+                        value: this.replacements[element.posi].replace(this.markPattern, function () {
+                            return that.replacements[arguments[1]];
+                        })
                     }
 
                 case 'class':
-                    return this.walkClass(element.posi);
+                    return this.walkClass(element.posi, codeInline);
 
                 case 'define':
-                    return this.walkDefine(element.posi);
+                    return this.walkDefine(element.posi, codeInline);
 
                 case 'function':
-                    return this.walkFuntion(element.posi, 'def');
+                    return this.walkFuntion(element.posi, 'def', codeInline);
+
+                case 'call':
+                    return this.walkCall(element.posi, codeInline);
 
                 case 'array':
-                    return this.walkArray(element.posi);
+                    return this.walkArray(element.posi, codeInline);
 
                 case 'object':
-                    return this.walkObject(element.posi);
+                    return this.walkObject(element.posi, codeInline);
 
                 case 'closure':
                     return this.walkClosure(element.posi);
 
                 default:
                     return {
-                        'type': 'code',
-                        'value': ''
+                        type: 'code',
+                        stype: codeInline ? 'inline' : 'block',
+                        value: '// Unidentified Code'
                     }
             }
         }
-        walkClass(posi: number) {
+        walkClass(posi: number, codeInline: boolean = true) {
             // console.log(this.replacements[posi]);
             let matches: any = this.replacements[posi].match(matchExpr.class);
             // console.log(matches);
             return {
                 type: matches[1] ? 'stdClass' : 'anonClass',
+                stype: codeInline ? 'inline' : 'block',
                 cname: matches[3],
                 base: matches[5],
                 body: this.checkClassBody(matches[6] || '')
             }
         }
-        walkDefine(posi: number) {
+        walkDefine(posi: number, codeInline: boolean) {
             // console.log(this.replacements[posi]);
             let matches: any = this.replacements[posi].match(matchExpr.define);
             let subtype: string = 'ext';
@@ -663,122 +687,178 @@
             if (matches[1] === 'reg') {
                 subtype = 'reg';
             } else {
-                let m2 = matches[2].match(/^(pandora)?.([\$a-zA-Z_][\$\w\.]+$)/);
-                if (m2) {
+                let match_2 = matches[2].match(/^(pandora)?.([\$a-zA-Z_][\$\w\.]+$)/);
+                // console.log(matches[2], match_2);
+                if (match_2) {
                     subtype = 'reg';
-                    objname = m2[2];
+                    objname = match_2[2];
                 }
             }
             // console.log(matches);
             return {
                 type: 'define',
-                stype: subtype,
+                stype: codeInline ? 'inline' : 'block',
+                subtype: subtype,
                 oname: objname,
                 body: this.checkProp(matches[3])
             }
         }
-        walkFuntion(posi: number, type: string) {
+        walkFuntion(posi: number, type: string, codeInline: boolean) {
             // console.log(this.replacements[posi]);
             let matches: any = this.replacements[posi].match(matchExpr.function);
-            // if (!matches){
+            // if (!matches) {
             //     console.log(posi, this.replacements);
+            // } else {
+            //     console.log((matches);
             // }
+
             if (matches[1] == null && type === 'def') {
-                if (reservedWords['includes'](matches[2])) {
+                if (reservedWords['includes'](matches[3])) {
                     // console.log(matches);
                     return {
                         type: 'exp',
-                        expression: matches[2],
-                        head: this.checkBody(matches[3], true),
-                        body: this.checkBody(matches[4])
+                        expression: matches[3],
+                        head: this.pushLineToBody([], matches[4], true),
+                        body: this.pushToBody([], matches[5])
                     };
                 }
-                if (matches[2] === 'each') {
-                    let m3 = matches[3].match(/^([\$a-zA-Z_][\$\w\.-]+)\s+as\s+([\$\w]+)(\s*,\s*([\$\w]*))?/);
-                    // console.log(matches, m3);
-                    if (m3) {
-                        let iterator = [], array = m3[1].split('___boundary_' + this.uid);
+                if (matches[3] === 'each') {
+                    let match_4 = matches[4].match(/^([\$a-zA-Z_][\$\w\.-]+)\s+as\s+([\$\w]+)(\s*,\s*([\$\w]*))?/);
+                    // console.log(matches, match_3);
+                    if (match_4) {
+                        let iterator = [], array = match_4[1].split('___boundary_' + this.uid);
                         for (let index = 0; index < array.length; index++) {
                             this.pushReplacements(iterator, array[index], true);
                         }
                         let agrs: string[] = [];
-                        if (m3[3]) {
-                            if (m3[4]) {
-                                agrs = [m3[2], m3[4]];
+                        if (match_4[3]) {
+                            if (match_4[4]) {
+                                agrs = [match_4[2], match_4[4]];
                             } else {
-                                agrs = [m3[2]];
+                                agrs = [match_4[2]];
                             }
                         } else {
-                            agrs = ['_index', m3[2]];
+                            agrs = ['_index', match_4[2]];
                         }
                         return {
                             type: 'travel',
                             iterator: iterator,
                             callback: {
                                 type: 'def',
+                                stype: 'inline',
                                 fname: '',
                                 args: agrs,
-                                body: this.checkBody(matches[4])
+                                body: this.pushToBody([], matches[5])
                             }
                         }
                     }
                 }
             }
             // console.log(this.replacements[posi], type, matches);
-            let args: any = this.checkArgs(matches[3]);
+            let args: any = this.checkArgs(matches[4]);
             // if (posi == 98) {
             // console.log(matches[4]);
             // }
             return {
                 type: type,
-                stype: matches[1] ? 'var' : 'fn',
-                fname: matches[2] !== 'function' ? matches[2] : '',
+                stype: codeInline ? 'inline' : 'block',
+                subtype: (matches[2] && ((matches[2] === 'var') || (matches[2] === 'let') )&&!codeInline) ? 'var' : 'fn',
+                fname: matches[3] !== 'function' ? matches[3] : '',
                 args: args.keys,
-                body: this.checkFnBody(args, matches[4])
+                defaults: args.vals,
+                body: this.checkFnBody(args, matches[5])
             }
             // console.log(matches);
         }
-        walkArray(posi: number): object {
+        walkCall(posi: number, codeInline: boolean): object {
+            let name = [],
+                params = [],
+                array = this.replacements[posi].split(/([\(\r\n,\)])/);
+                // console.log(array);
+            let last:string = '';
+            for (let index = 0; index < array.length; index++) {
+                const element = array[index].trim();
+                let line: string[] = element.split('___boundary_' + this.uid);
+                if (index) {
+                    if (element && element != '(' && element != ')' && element != ',') {
+                        let inline: object[] = [];
+                        for (let i = 0; i < line.length; i++) {
+                            this.pushReplacements(inline, line[i], true);
+                        }
+                        // console.log(last, last === "\r", last === "\n");
+                        params.push({
+                            type: 'parameter',
+                            stype: (last === "\n" || last === "\r") ? 'block' : 'inline',
+                            body: inline
+                        });
+                    }
+                } else {
+                    let inline: object[] = [];
+                    for (let i = 0; i < line.length; i++) {
+                        const element = line[i].trim();
+                        if (element) {
+                            this.pushReplacements(name, line[i], true);
+                        }
+                    }
+                }
+                last = array[index];
+            }
+            return {
+                type: 'call',
+                stype: codeInline ? 'inline' : 'block',
+                name: name,
+                params: params
+            };
+        }
+        walkArray(posi: number, codeInline: boolean): object {
             let body = [],
                 array = this.replacements[posi].replace(/([\[\s\]])/g, '').split(',');
             for (let index = 0; index < array.length; index++) {
-                let eleArr = array[index].split('___boundary_' + this.uid);
-                let eleBody: object[] = [];
-                for (let i = 0; i < eleArr.length; i++) {
-                    this.pushReplacements(eleBody, eleArr[i]);
+                let line = array[index].split('___boundary_' + this.uid);
+                let inline: object[] = [];
+                for (let i = 0; i < line.length; i++) {
+                    this.pushReplacements(inline, line[i], true);
                 }
                 body.push({
                     type: 'element',
-                    body: eleBody
+                    body: inline
                 });
             }
             return {
                 type: 'array',
+                stype: codeInline ? 'inline' : 'block',
                 body: body
             };
         }
-        walkObject(posi: number) {
+        walkObject(posi: number, codeInline: boolean = true) {
             return {
                 type: 'object',
                 body: this.checkProp(this.replacements[posi])
             };
         }
         walkClosure(posi: number) {
+            // console.log(this.replacements[posi]);
             let array = this.replacements[posi].split(/\s*(\{|\})\s*/);
-            let body = this.checkBody(array[2]);
-            if (array[0].trim() === ')') {
-                body.unshift({
-                    type: 'code',
-                    stype: 'inline',
-                    value: ') {'
-                });
-            } else {
-                body.unshift({
-                    type: 'code',
-                    stype: 'break',
-                    value: array[0] + ' {'
-                });
-            }
+            let body = this.pushToBody([], array[2]);
+            // console.log(array);
+            body.unshift({
+                type: 'code',
+                stype: 'inline',
+                value: array[0] + ' {'
+            });
+            // if (array[0].trim() === ')') {
+            //     body.unshift({
+            //         type: 'code',
+            //         stype: 'inline',
+            //         value: ') {'
+            //     });
+            // } else {
+            //     body.unshift({
+            //         type: 'code',
+            //         stype: 'break',
+            //         value: array[0] + ' {'
+            //     });
+            // }
             body.push({
                 type: 'code',
                 stype: 'closer',
@@ -787,6 +867,7 @@
 
             return {
                 type: 'codes',
+                stype: 'local',
                 body: body
             }
         }
@@ -808,7 +889,7 @@
                         body.push(this.walk({
                             posi: matches[1],
                             type: matches[2]
-                        }));
+                        }, true));
                         if (matches[3]) {
                             body.push({
                                 type: 'code',
@@ -842,17 +923,9 @@
                 ]
             };
         }
-        checkBody(code: string, codeInline: boolean = false): object[] {
-            let body: object[] = [],
-                array = code.split('___boundary_' + this.uid);
-            for (let index = 0; index < array.length; index++) {
-                this.pushReplacements(body, array[index], codeInline);
-            }
-            return body;
-        }
         checkClassBody(code: string): object[] {
             let body = [],
-                array = code.split(/[;\r\n]+/);
+                array = code.split(/[;,\r\n]+/);
             for (let index = 0; index < array.length; index++) {
                 let element = array[index].trim();
                 let type: string = 'method';
@@ -900,7 +973,7 @@
                     if (elArr[1] && elArr[1].trim()) {
                         let m1: any = elArr[1].trim().match(matchExpr.index);
                         if (m1[2] === 'function') {
-                            body.push(this.walkFuntion(parseInt(m1[1]), type));
+                            body.push(this.walkFuntion(parseInt(m1[1]), type, true));
                         }
                     }
                 }
@@ -962,7 +1035,7 @@
 
                                 case 'function':
                                     if (elArr.length === 2) {
-                                        body.push(this.walkFuntion(parseInt(m[1]), 'method'));
+                                        body.push(this.walkFuntion(parseInt(m[1]), 'method', true));
                                         bodyIndex++;
                                     }
                                     break;
@@ -974,33 +1047,24 @@
             return body;
         }
         checkFnBody(args: any, code: string): object[] {
-            console.log(code);
-            let body = [],
-                lines:any = this.getSentences(code, true),
-                array = code.split('___boundary_' + this.uid);
+            code = code.trim()
+            // console.log(code);
+            let body = [];
             // console.log(args, lines);
             for (let index = 0; index < args.vals.length; index++) {
                 if (args.vals[index] !== undefined) {
                     let valArr = args.vals[index].split('___boundary_' + this.uid);
                     if (valArr[1]) {
-                        let codes = {
-                            type: 'codes',
-                            body: new Array
-                        };
-                        codes.body.push({
+                        body.push({
                             type: 'code',
-                            stype: 'inline',
+                            stype: 'block',
                             value: 'if (' + args.keys[index] + ' === void 0) { ' + args.keys[index] + ' = ' + valArr[0]
                         });
-                        this.pushReplacements(codes.body, valArr[1], true);
-                        codes.body.push({
+                        this.pushReplacements(body, valArr[1], true);
+                        body.push({
                             type: 'code',
                             stype: 'inline',
                             value: '; }'
-                        });
-                        body.push({
-                            type: 'codes',
-                            value: codes
                         });
                     } else {
                         body.push({
@@ -1010,21 +1074,40 @@
                     }
                 }
             }
-            // for (let index = 0; index < array.length; index++) {
-            //     // console.log(array[index]);
-            //     this.pushReplacements(body, array[index]);
-            // }
+            // console.log(code);
+            this.pushToBody(body, code);
+            return body;
+        }
+        pushToBody(body: object[] = [], code: string): object[] {
+            let lines: any = code ? this.getSentences(code, true) : [];
+            // console.log(lines);
             for (let index = 0; index < lines.length; index++) {
                 const line = lines[index].value.trim();
-                if (line) {
-                    let inline = [];
-                    const array: string[] = line.split('___boundary_' + this.uid);
-                    // console.log(array)
-                    for (let index = 0; index < array.length; index++) {
-                        this.pushReplacements(inline, array[index]);
-                    }
-                    body.push(inline);
+                this.pushLineToBody(body, line, [',',';']['includes'](line))
+            }
+            return body;
+        }
+        pushLineToBody(body: object[] = [], line: string, lineInLine:boolean): object[] {
+            if (line) {
+                let inline = [];
+                const array: string[] = line.split('___boundary_' + this.uid);
+                // console.log(array);
+                if (!array[0].trim()){
+                    array.shift();
                 }
+                for (let index = 0; index < array.length; index++) {
+                    // console.log(index, array[index]);
+                    this.pushReplacements(inline, array[index], !!index||lineInLine);
+                }
+                if (inline.length === 1) {
+                    body.push(inline[0]);
+                } else {
+                    body.push({
+                        type: 'codes',
+                        body: inline
+                    });
+                }
+
             }
             return body;
         }
@@ -1044,7 +1127,8 @@
                 vals: vals
             }
         }
-        pushReplacements(body: object[], code: string, codeInline: boolean = false): object[] {
+        pushReplacements(body: object[], code: string, codeInline: boolean): object[] {
+            // console.log(code, codeInline);
             code = code.trim();
             if (code) {
                 let matches: any = code.match(matchExpr.index3);
@@ -1052,28 +1136,30 @@
                     body.push(this.walk({
                         posi: matches[1],
                         type: matches[2]
-                    }));
-                    let m3 = matches[3].trim();
-                    if (m3) {
-                        this.pushCodeElements(body, m3, codeInline);
+                    }, codeInline));
+                    let match_3 = matches[3].trim();
+                    if (match_3) {
+                        this.pushCodeElements(body, match_3, true);
                     }
                     // if (matches[1]==94) {
                     // console.log(body);
                     // }
                 } else {
+                    // console.log(code, codeInline);
                     this.pushCodeElements(body, code, codeInline);
                 }
             }
             return body;
         }
-        pushCodeElements(body: object[], code: string, codeInline: boolean = false): object[] {
-            let array = code.split(/([;\r\n]+)/);
+        pushCodeElements(body: object[], code: string, codeInline: boolean): object[] {
+            let array = code.split(/(\s*[;\r\n]+)\s*/);
             // console.log(array);
             for (let index = 0; index < array.length; index++) {
                 let element = array[index].trim();
                 if (element) {
                     body.push({
-                        type: codeInline ? 'code-inline' : (element === ';' ? 'code-inline' : 'code'),
+                        type: 'code',
+                        stype: (codeInline && !index) ? 'inline' : (element === ';' ? 'inline' : 'block'),
                         value: element
                     });
                 }
@@ -1082,7 +1168,7 @@
         }
         generate(): Sugar {
             // console.log(this.replacements);
-            // console.log(this.ast);
+            console.log(this.ast.body);
             let head: string[] = [];
             let body: string[] = [];
             let foot: string[] = [];
@@ -1091,7 +1177,7 @@
             this.pushCodes(body, this.ast.body, 1);
             this.pushFooter(foot);
             this.output = head.join('') + this.trim(body.join('')) + foot.join('');
-            // console.log(this.output);
+            console.log(this.output);
             return this;
         }
         pushHeader(codes: string[], array: any[]): string[] {
@@ -1120,30 +1206,44 @@
         pushCodes(codes: string[], array: any[], layer: number, asAttr: boolean = false): string[] {
             let indent = "\r\n" + stringRepeat("\t", layer);
             // console.log(codes, array);
+            // console.log(array);
+            // console.log(layer, array);
             for (let index = 0; index < array.length; index++) {
                 const element = array[index];
                 // console.log(element);
                 switch (element.type) {
-                    case 'code':
-                        codes.push(indent + element.value);
-                        break;
-                    case 'code-break':
-                    case 'code-closer':
-                        codes.push(indent.replace("\t", '') + element.value);
-                        break;
-                    case 'code-inline':
-                        codes.push(element.value);
+                    case 'code': 
+                    // console.log(element);
+                        switch (element.stype){
+                            case 'break':
+                            case 'closer':
+                                codes.push(indent.replace("\t", '') + element.value);
+                                break;
+                            case 'inline':
+                                codes.push(element.value);
+                                break;
+                            case 'newline':
+                                codes.push(indent);
+                                break;
+                            default:
+                                codes.push(indent + element.value);
+                                break;
+                        }
                         break;
                     case 'anonClass':
                     case 'stdClass':
                         this.pushClassCodes(codes, element, layer);
+                        break;
+                    case 'call':
+                        // console.log(layer);
+                        this.pushCallCodes(codes, element, layer);
                         break;
                     case 'array':
                         this.pushArrayCodes(codes, element, layer, asAttr);
                         break;
                     case 'codes':
                         // console.log(element);
-                        this.pushCodes(codes, element.body, layer + 1);
+                        this.pushCodes(codes, element.body, layer + ((element.stype === 'local') ? 1 : 0));
                         break;
                     case 'def':
                         this.pushFunctionCodes(codes, element, layer);
@@ -1178,9 +1278,9 @@
                 if (element.cname && element.cname.trim()) {
                     cname = element.cname.trim();
                     if (cname.match(/^[\$\w]+$/)) {
-                        codes.push(indent1 + 'var ' + cname + ' = pandora.declareClass(, ');
+                        codes.push(indent1 + 'var ' + cname + ' = pandora.declareClass(');
                     } else {
-                        codes.push(indent1 + cname + ' = pandora.declareClass(, ');
+                        codes.push(indent1 + cname + ' = pandora.declareClass(');
                     }
                 } else {
                     codes.push('pandora.declareClass(');
@@ -1222,34 +1322,97 @@
                 }
 
             }
+            // console.log(elements, static_elements);
             codes.push(elements.join(','));
             codes.push(indent1 + '})');
             if (cname) {
                 if (static_elements.length) {
                     codes.push(';' + indent1 + 'pandora.extend(' + cname + ', {');
                     codes.push(static_elements.join(','));
-                    codes.push('});');
+                    codes.push(indent1 + '});');
                 } else {
                     codes.push(';');
                 }
             }
             return codes;
         }
+        pushCallCodes(codes: string[], element: any, layer: number): string[] {
+            let naming: string[] = this.pushCodes([], element.name, layer, true);
+            // console.log(naming);
+            // console.log(element);
+            if (element.stype === 'block') {
+                // console.log(naming.join(''), layer);
+                let indent = "\r\n" + stringRepeat("\t", layer);
+                codes.push(indent);
+            }
+            codes.push(naming.join(''));
+            codes.push('(');
+
+            let parameters: string[] = [];
+            if (element.params.length){
+                let _layer = layer;
+                let indent2;
+                let _break = false;
+                // console.log(element.params[0]);
+                if (element.params[0].stype=="block"){
+                    _layer++;
+                    indent2 = "\r\n" + stringRepeat("\t", _layer);
+                    codes.push(indent2);
+                    _break = true;
+                }
+                for (let index = 0; index < element.params.length; index++) {
+                    const param = element.params[index].body;
+                    let paramCodes: string[] = this.pushCodes([], param, _layer, true);
+                    if (paramCodes.length) {
+                        parameters.push(paramCodes.join('').trim());
+                    }
+                }
+                // console.log(parameters);
+                if (_break){
+                    codes.push(parameters.join(',' + indent2));
+                }else{
+                    codes.push(parameters.join(', '));
+                }
+            }
+            codes.push(')');
+            // console.log(codes);
+            return codes;
+        }
         pushArrayCodes(codes: string[], element: any, layer: number, asAttr: boolean): string[] {
             let elements: string[] = [];
             codes.push('[');
-            for (let index = 0; index < element.body.length; index++) {
-                const body = element.body[index].body;
-                let elemCodes: string[] = this.pushCodes([], body, layer + 1, true);
-                // let elem:string[] = this.pushCodes([], body, layer + 1);
-                elements.push(elemCodes.join('').trim());
+            if (element.body.length) {
+                let _layer = layer;
+                let indent2;
+                let _break = false;
+                // console.log(element.params[0]);
+                if (element.body[0].stype == "block") {
+                    _layer++;
+                    indent2 = "\r\n" + stringRepeat("\t", _layer);
+                    codes.push(indent2);
+                    _break = true;
+                }
+                for (let index = 0; index < element.body.length; index++) {
+                    const body = element.body[index].body;
+                    let elemCodes: string[] = this.pushCodes([], body, _layer, true);
+                    // let elem:string[] = this.pushCodes([], body, layer + 1);
+                    if (elemCodes.length){
+                        elements.push(elemCodes.join('').trim());
+                    }
+                    
+                }
+                if (_break) {
+                    codes.push(elements.join(',' + indent2));
+                } else {
+                    codes.push(elements.join(', '));
+                }
             }
-            codes.push(elements.join(', '));
-            if (asAttr) {
-                codes.push(']');
-            } else {
-                codes.push('];');
-            }
+            codes.push(']');
+            // if (asAttr) {
+            //     codes.push(']');
+            // } else {
+            //     codes.push('];');
+            // }
             return codes;
         }
         pushTravelCodes(codes: string[], element: any, layer: number): string[] {
@@ -1259,13 +1422,14 @@
             this.pushCodes(codes, element.iterator, layer);
             codes.push(', ');
             this.pushFunctionCodes(codes, element.callback, layer);
-            codes.push(indent + ', this);');
+            codes.push(', this);');
+            codes.push(indent);
             return codes;
         }
         pushFunctionCodes(codes: string[], element: any, layer: number): string[] {
             let indent = "\r\n" + stringRepeat("\t", layer);
             if (element.type === 'def' && element.fname) {
-                if (element.stype === 'var') {
+                if (element.subtype === 'var') {
                     codes.push(indent + 'var ' + element.fname + ' = function (');
                 } else {
                     codes.push(indent + 'function ' + element.fname + ' (');
@@ -1280,15 +1444,20 @@
 
             codes.push(') {');
             // console.log(element.body);
-            this.pushCodes(codes, element.body, layer + 1);
-
-            if (element.type === 'def' && !element.fname) {
-                codes.push(indent + '};');
-            } else if (element.stype === 'var') {
-                codes.push(indent + '};');
-            } else {
-                codes.push(indent + '}');
+            if (element.body.length){
+                this.pushCodes(codes, element.body, layer + 1);
+            }else{
+                indent = '';
             }
+            codes.push(indent + '}');
+
+            // if (element.type === 'def' && !element.fname) {
+            //     codes.push(indent + '};');
+            // } else if (element.stype === 'var') {
+            //     codes.push(indent + '};');
+            // } else {
+                
+            // }
             return codes;
         }
         pushExpressionCodes(codes: string[], element: any, layer: number): string[] {
@@ -1304,7 +1473,7 @@
         }
         pushDefineCodes(codes: string[], element: any, layer: number): string[] {
             let indent = "\r\n" + stringRepeat("\t", layer);
-            if (element.stype === 'reg') {
+            if (element.subtype === 'reg') {
                 codes.push(indent + 'pandora(\'' + element.oname.trim() + '\', ');
             } else {
                 codes.push(indent + 'pandora.extend(' + element.oname + ', ');
@@ -1351,14 +1520,24 @@
             return codes;
         }
         trim(string: string): string {
+            // 此处的replace在整理完成后，将进行分析归纳，最后改写为callback形式的
+            // console.log(string);
+            string = this.restoreStrings(string);
+            this.replacements = ['{}', '/=', '/'];
+            string = this.replaceStrings(string);
+            // console.log(string);
+            // return '';
+            // // 关键字处理
+            // string = string.replace(/function\s+function\s+/g, 'function ');
+
+            //去除多余符号
+            string = string.replace(/\s*;+/g, "; ");
+
+            // 删除多余换行
+            string = string.replace(/(,|;)[\r\n]+/g, "$1\r\n");
             string = this.restoreStrings(string);
             return string;
-            // 此处的replace在整理完成后，将进行分析归纳，最后改写为callback形式的
-            string = this.replaceStrings(string);
-            console.log(string);
-
-            // 关键字处理
-            string = string.replace(/function\s+function\s+/g, 'function ');
+            
             // string = string.replace(/[;\r\n]+?(\s*)if\s*\(([\s\S]+?)\)/g, ";\r\n$1if ($2) ");
             // string = string.replace(/if\s*\(([\s\S]+?)\)[\s,;]*{/g, "if ($1) {");
             string = string.replace(/;+\s*(instanceof)\s+/g, " $1 ");

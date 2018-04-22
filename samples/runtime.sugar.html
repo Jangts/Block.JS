@@ -11,7 +11,8 @@
 
 <body>
 
-    <script type="text/tangram.js-sugar">a var bbb
+    <script type="text/tangram.js-sugar">a 
+    var bbb
 /*!
  * tangram.js framework source code
  *
@@ -50,7 +51,21 @@
         # var console = global.console
         console = global.console
 
+        pandora('foo', {
+            foo:'foo',
+            bar(){}
+        });
 
+        pandora (
+            'bar',
+            {
+                foo:'foo',
+                bar(){}
+            }
+        );
+
+        # pandora
+        # ();
 
         console.log([_]);
         console.log(_.arr);
@@ -77,7 +92,7 @@
             console.log(i, el);
         }
 
-        var each(p, q, t) {
+        var each(p, q, t = 0) {
             if (t < 0) t += 1;
             if (t > 1) t -= 1;
             if (t < 1 / 6) return p + (q - p) * 6 * t;
@@ -91,20 +106,9 @@
         console.log(type2)
         console.log(type3);
 
-        reg see.Scrollbar {
-            auto () {
-                $('.tangram-see.scrollbar[data-ic-auto]').each(() {
-                    if (($(this).data('icAuto') != 'false') && ($(this).data('icRendered') != 'scrollbar') && [1,'2',{c:3}].includes(1)) {
-                        $(this).data('icRendered', 'scrollbar');
-                        new _.see.Scrollbar(this, {
-                            theme: $(this).data('scbarTheme') || 'default-light',
-                        });
-                    }
-                });
-            }
-        };
+       
 
-        _.see.Scrollbar['auto'](123, {});
+        # _.see.Scrollbar['auto'](123, {});
 
         extends .see.Scrollbar {
             auto () {
