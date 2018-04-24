@@ -384,9 +384,12 @@ void function (global, factory) {
                 Element[loadType.source] = url;
                 source = Element[loadType.source];
 
+                // console.log(url, source, storage.maps.linkTags[source]);
+
                 if (storage.maps.linkTags[source]) {
                     Element = storage.maps.linkTags[source];
-                    if (Element.isLoaded) {
+                    // console.log(url, Element.alreadyLoaded);
+                    if (Element.alreadyLoaded) {
                         // console.log(url, Element);
                         // return;
                         setTimeout(function () {
@@ -407,16 +410,25 @@ void function (global, factory) {
                 }
                 if (typeof (Element.onreadystatechange) === 'object') {
                     Element.attachEvent('onreadystatechange', function () {
+                        // console.log(url, Element.alreadyLoaded);
                         if (Element.readyState === 'loaded' || Element.readyState === 'complete') {
-                            Element.isLoaded = true;
-                            callback(Element);
+                            if (Element.alreadyLoaded) {
+                                callback(Element, true);
+                            } else {
+                                Element.alreadyLoaded = true;
+                                callback(Element, false);
+                            }
                         }
                     });
                 }
                 else if (typeof (Element.onload) === 'object') {
                     Element.addEventListener('load', function () {
-                        Element.isLoaded = true;
-                        callback(Element);
+                        if (Element.alreadyLoaded){
+                            callback(Element, true);
+                        }else{
+                            Element.alreadyLoaded = true;
+                            callback(Element, false);
+                        }
                     });
                 }
             } else {
@@ -443,7 +455,7 @@ void function (global, factory) {
      */
     /* 为标识符构造器绑定原型 */
     storage.classes.Identifier = Identifier.prototype = {
-        _p: storage.classesSharedSpace,
+        _protected: storage.classesSharedSpace,
         /**
          * 标识符构造函数
          *
@@ -487,7 +499,7 @@ void function (global, factory) {
          * @param bool      strict
          * @return Identifier
          */
-        _x: function (members, strict) {
+        _extends: function (members, strict) {
             if (strict) {
                 update(this, members);
             }
@@ -501,7 +513,7 @@ void function (global, factory) {
          *
          * @return object
          */
-        _c: function () {
+        _clone: function () {
             return deep(this);
         }
     };
@@ -509,7 +521,7 @@ void function (global, factory) {
     storage.classes.Iterator = Iterator.prototype = new Array;
     /* 拓展迭代器的原型 */
     extend(Iterator.prototype, true, {
-        _p: storage.classesSharedSpace,
+        _protected: storage.classesSharedSpace,
         /**
          * 迭代器构造函数
          *
@@ -643,8 +655,8 @@ void function (global, factory) {
             ;
             return this;
         },
-        _x: Identifier.prototype._x,
-        _c: Identifier.prototype._c
+        _extends: Identifier.prototype._extends,
+        _clone: Identifier.prototype._clone
     });
     /**
      * ------------------------------------------------------------------
@@ -1041,10 +1053,10 @@ void function (global, factory) {
          */
         /* 祖先类 */
         blockClass = {
-            _p: storage.classesSharedSpace,
+            _public: storage.classesSharedSpace,
             _init: function () { },
-            _x: Identifier.prototype._x,
-            _c: Identifier.prototype._c
+            _extends: Identifier.prototype._extends,
+            _clone: Identifier.prototype._clone
         },
         /* 准备类的成员 */
         prepareClassMembers = function (target, data, start) {
@@ -1058,9 +1070,11 @@ void function (global, factory) {
             }
             return target;
         }, template = 'if(this instanceof constructor){' +
+            'this._private = {};' +
             'this._init.apply(this, arguments);' +
             '}else{' +
             'var instance=new constructor();' +
+            'instance._private = {};' +
             'instance._init.apply(instance, arguments);' +
             'return instance;}',
         /* 定义类的方法 */
@@ -1081,10 +1095,12 @@ void function (global, factory) {
             else {
                 constructor = function () {
                     if (this instanceof constructor) {
+                        this._private = {};
                         return this._init.apply(this, arguments);
                     }
                     else {
                         var instance = new constructor();
+                        instance._private = {};
                         instance._init.apply(instance, arguments);
                         return instance;
                     }
@@ -1093,6 +1109,45 @@ void function (global, factory) {
             }
             ;
             members._parent = superclass;
+            if (members._getters) {
+                (function () {
+                    each(members._getters, function (prop, get) {
+                        if (typeof get === 'function') {
+                            if (members._setters && (typeof members._setters[prop] === 'function')) {
+                                Object.defineProperty(constructor.prototype, prop, {
+                                    get: get,
+                                    set: members._setters[prop],
+                                    enumerable: true,
+                                    configurable: true
+                                });
+                                delete members._setters[prop];
+                            } else {
+                                Object.defineProperty(constructor.prototype, prop, {
+                                    get: get,
+                                    enumerable: true,
+                                    configurable: true
+                                });
+                            }
+                        }
+                    });
+                }());
+                delete members._getters;
+            }
+            if (members._setters) {
+                (function () {
+                    each(members._setters, function (prop, set) {
+                        // if (members.hasOwnProperty(prop))
+                        if (typeof set === 'function') {
+                            Object.defineProperty(constructor.prototype, prop, {
+                                set: set,
+                                enumerable: true,
+                                configurable: true
+                            });
+                        }
+                    });
+                    delete members._setters;
+                }());
+            }
             extend(constructor.prototype, true, members);
             return constructor;
         },
@@ -1155,12 +1210,12 @@ void function (global, factory) {
         /* 运行从代码块 */
         fireblock = function (block) {
             if (block.uid){
-                return;
+                // console.log(block);
+                return block.exports;
             }
             // console.log(block);
             each(block.imports, function (id, blocks) {
-                var isAlisa = (typeof blocks === 'string');
-                // console.log(id, isAlisa, blocks);
+                var isAlisa = (typeof blocks === 'string');  
                 if (isAlisa) {
                     var require = storage.blocks.requires[blocks];
                 }
@@ -1169,10 +1224,13 @@ void function (global, factory) {
                 }
                 if (require.status === 'loaded') {
                     require.status = 'fired';
+                    // console.log(id, require.blocks);
                     each(require.blocks, function (i, block) {
                         require.exports.push(fireblock(block));
-                    });
+                    });   
                 }
+                // console.log(id, isAlisa, blocks);
+                // console.log(block);
                 block.imports[id] = require.exports;
                 if (isAlisa && block.imports[id].length) {
                     global[id] = block.imports[id][0];
@@ -1180,7 +1238,8 @@ void function (global, factory) {
             });
     
             block.uid = new Identifier().toString();
-            return block.callback(storage.pandora, global, block.imports);
+            block.exports = block.callback(storage.pandora, global, block.imports);
+            return block.exports;
         },
         /**
          * @class Iterator
@@ -1228,6 +1287,7 @@ void function (global, factory) {
                         // this.core['type'] = 'caller';
                         setTimeout(function(){
                             that.mainid = storage.blocks.mains.push(that.core) - 1;
+                            that.listene();
                         }, 0);
                     }
                     else if (typeof (blockname) === 'string') {
@@ -1293,10 +1353,11 @@ void function (global, factory) {
                             status: 'loading',
                             blocks: []
                         };
-                        loadURL(url, function (script, isLoaded) {
+                        loadURL(url, function (script, alreadyLoaded) {
                             that.loaded++;
                             loadedCount++;
-                            if (isLoaded) {
+                            // console.log(id, alreadyLoaded);
+                            if (alreadyLoaded) {
                                 var sid = script.getAttribute('data-tangram-id');
                                 storage.blocks.requires[id] = storage.blocks.requires[sid];
                             }
@@ -1332,14 +1393,14 @@ void function (global, factory) {
                 // console.log(this.loaded, this.requires.length, loadedCount, requireCount);
                 if (this.loaded === this.requires.length) {
                     this.result.status = 0;
+                    // console.log(loadedCount, requireCount, loadedCount === requireCount, mainPointer, storage.blocks.mains.length);
                     if (loadedCount === requireCount) {
                         // console.log(mainPointer, storage.blocks.mains.length);
                         var mainCount = storage.blocks.mains.length;;
                         for (mainPointer; mainPointer < mainCount;) {
                             // console.log('call main block');
-                            var returnObject = fireblock(storage.blocks.mains[mainPointer++]);
                             // 将主block的返值对象合并到全局变量window，以便在控制台调试
-                            each(returnObject, function (index, value) {
+                            each(fireblock(storage.blocks.mains[mainPointer++]), function (index, value) {
                                 global[index] = value;
                             });
                             if (mainPointer === storage.blocks.mains.length) {

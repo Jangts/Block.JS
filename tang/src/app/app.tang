@@ -1,0 +1,7 @@
+use $_/app/Application;
+
+let _ = pandora;
+
+pandora('app ', (elem){
+    return new _.app.Application(elem);
+});

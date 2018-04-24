@@ -6,20 +6,32 @@
  * http://tangram.js.cn
  */
 ;
-this.tangram.auto(['$_/../sugar/compiler/lib/sugar'], function () {
+this.tangram.auto([
+    '$_/async/',
+    '$_/../sugar/compiler/lib/sugar'
+], function (_) {
     var sugars = [], scripts = document.getElementsByTagName('script');
-    for (var index_1 = 0; index_1 < scripts.length; index_1++) {
-        var script = scripts[index_1];
+    for (var index = 0; index < scripts.length; index++) {
+        var script = scripts[index];
         if (script.type === "text/tangram.js-sugar") {
-            // console.log(script.innerHTML);
-            sugars.push(tangram_js_sugar(script.innerHTML).compile());
+            if (script.src) {
+                // console.log(script.src);
+                _.async.ajax(script.src, function (data) {
+                    tangram_js_sugar(data).compile().run(function (content) {
+                        console.log(content);
+                    }, function () {
+                        console.log(this.ast, this.replacements);
+                    });
+                });
+                // ;
+            }
+            else {
+                tangram_js_sugar(script.innerHTML).compile().run(function (content) {
+                    console.log(content);
+                }, function () {
+                });
+            }
         }
-    }
-    for (var index_2 = 0; index_2 < sugars.length; index_2++) {
-        var sugar = sugars[index_2];
-        // console.log(sugar.ast, sugar.replacements);
-        console.log(sugar.output);
-        sugar.run();
     }
 });
 //# sourceMappingURL=web-sugar.js.map

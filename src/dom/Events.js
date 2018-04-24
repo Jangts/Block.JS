@@ -32,7 +32,7 @@ tangram.block([
             this.Element = elem;
             this.eventTypes = {};
         },
-        _p: {
+        _protected: {
             types: {},
             keys: []
         },
@@ -83,8 +83,8 @@ tangram.block([
                 if (typeof elem['on' + eventType] != 'undefined') {
                     return eventType;
                 }
-                if (this._p.types[eventType]) {
-                    return this._p.types[eventType].type;
+                if (this._protected.types[eventType]) {
+                    return this._protected.types[eventType].type;
                 }
                 return eventType;
             }
@@ -93,9 +93,9 @@ tangram.block([
         checkEventType: function(event, eventType) {
             if (eventType === event.type) {
                 return true;
-            } else if (this._p.types[eventType]) {
-                for (var i in this._p.types[eventType]) {
-                    if (this._p.types[eventType][i] != event[i]) {
+            } else if (this._protected.types[eventType]) {
+                for (var i in this._protected.types[eventType]) {
+                    if (this._protected.types[eventType][i] != event[i]) {
                         return false;
                     }
                 }
@@ -266,7 +266,7 @@ tangram.block([
         setType: function(types) {
             var noEvents = new _.dom.Events();
             for (var i in types) {
-                noEvents._p.types[i] = types[i];
+                noEvents._protected.types[i] = types[i];
             }
         }
     });

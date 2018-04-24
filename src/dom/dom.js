@@ -562,7 +562,7 @@ tangram.block([
                         var Events = eleCache.Events;
                     } else {
                         var Events = new _.dom.Events(elem);
-                        Events._p.keys.push(_.dom.cache(elem));
+                        Events._protected.keys.push(_.dom.cache(elem));
                         eleCache.Events = Events;
                     }
                     Events.push(eventType, selector, data, handler);
@@ -592,8 +592,8 @@ tangram.block([
             },
             trigger: function(elem, evenType, data) {
                 var noEvents = new _.dom.Events();
-                for (var k in noEvents._p.keys) {
-                    cache.read(noEvents._p.keys[k]).Events.trigger(evenType, elem, data);
+                for (var k in noEvents._protected.keys) {
+                    cache.read(noEvents._protected.keys[k]).Events.trigger(evenType, elem, data);
                 }
                 typeof elem[evenType] == 'function' && elem[evenType]();
                 return this;

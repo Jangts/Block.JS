@@ -54,15 +54,15 @@
         ],
         "description": "Define Construct Function"
     },
-    "reg …": {
-        "prefix": "reg",
+    "namespace …": {
+        "prefix": "ns",
         "body": [
-            "reg ${1:objName} {",
+            "namespace ${1:spacename} {",
             "\t$0",
             "}",
             ""
         ],
-        "description": "Register Elements To Pandora"
+        "description": "Register Namespace To Pandora"
     },
     "extends …": {
         "prefix": "extend",
@@ -75,7 +75,7 @@
         "description": "Extends Elements To Object"
     },
     "pandora(…, …)": {
-        "prefix": "reg(",
+        "prefix": "pandora(",
         "body": [
             "pandora('$1', ${2:value});$0"
         ],

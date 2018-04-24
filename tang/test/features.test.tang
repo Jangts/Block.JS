@@ -1,0 +1,278 @@
+/*!
+* tangram.js framework source code
+*
+* static util.imports
+* init UMD
+*
+* Date 2017-04-06
+*/
+
+@config {
+    addinUrl : './../'
+}
+
+use $_/arr/
+use $_/util/bool;
+use $_/util/type as type1;
+use $_/util/../util/type as types[];
+use $_/util/../util/type as type2, type3;
+
+var _ = pandora,
+declare = pandora.declareClass,
+document = global.document,
+console = global.console;
+
+
+// for (let index = 0, length = 5; index < 5; index++) {
+//     global.console.log(index);
+// }
+
+// function foo(bar, ...args){
+//     console.log(bar, args);
+// }
+// foo(1,2,3,4,5,6,7);
+
+// # return;
+// # 静好格式的注释将被编译为js注释
+
+// // 斜杠形式的注释将被删除
+
+// console.log([_]);
+// console.log(_.arr);
+// console.log(_.util);
+
+// let myArray = [0, f(a){}];
+
+// each(myArray as i, el){
+//     console.log(this);
+//     console.log(i, el);
+// }
+
+// each(myArray as i,){
+//     console.log(this);
+//     console.log(i);
+// }
+
+// each(myArray as el){
+//     console.log(this);
+//     console.log(_index, el);
+// }
+
+// each(i, el){
+//     console.log(i, el);
+// }
+
+// console.log(imports)
+// console.log(type1);
+// console.log(type2)
+// console.log(types);
+
+// namespace see.Scrollbar {
+//     auto () {
+//         $('.tangram-see.scrollbar[data-ic-auto]').each(() {
+//             if (($(this).data('icAuto') != 'false') && ($(this).data('icRendered') != 'scrollbar') && [1,'2',{c:3}].includes(1)) {
+//                 $(this).data('icRendered', 'scrollbar');
+//                 new _.see.Scrollbar(this, {
+//                     theme: $(this).data('scbarTheme') || 'default-light',
+//                 });
+//             }
+//         });
+//     }
+// };
+
+// extends .see.Scrollbar {
+//     auto () {
+//         $('.tangram-see.scrollbar[data-ic-auto]').each(() {
+//             if (($(this).data('icAuto') != 'false') && ($(this).data('icRendered') != 'scrollbar') && [1,'2',{c:3}].includes(1)) {
+//                 $(this).data('icRendered', 'scrollbar');
+//                 new _.see.Scrollbar(this, {
+//                     theme: $(this).data('scbarTheme') || 'default-light',
+//                 });
+//             }
+//         });
+//     }
+// };
+
+// extends _.see.Scrollbar {
+//     'auto' () {
+//         $('.tangram-see.scrollbar[data-ic-auto]').each(() {
+//             if (($(this).data('icAuto') != 'false') && ($(this).data('icRendered') != 'scrollbar') && [1,'2',{c:3}].includes(1)) {
+//                 $(this).data('icRendered', 'scrollbar');
+//                 new _.see.Scrollbar(this, {
+//                     theme: $(this).data('scbarTheme') || 'default-light',
+//                 });
+//             }
+//         });
+//     }
+// };
+
+class .Test {
+    num = 1;
+    str = 'test class'
+    static 'num' = 2
+    static str = 'static string';static arr = [
+        0,
+        'b',
+        (arg1){
+            console.log(arg1);
+        }
+    ];
+    prop;
+
+    _init(arg1='hello'){
+        console.log(arg1);
+    }
+
+    static prop = {
+        times: 5,
+        type: 'static',
+        method (arg1='method') {
+            console.log(rg1);
+        }
+    }
+
+    static method11(arg11){
+        console.log(arg11);
+    }
+
+    get name(){
+        return 'Hello, ' + this._private.name + '.';
+    }
+
+    set name(name){
+        this._private.name = 'Mr. '+name;
+    }
+
+    om buy(){
+        console.log('what are you want to buy?');
+    }
+
+    om buy(goods){
+        console.log('how many '+goods+' you want to buy?');
+    }
+
+    om buy(goods, num){
+        let price = 1.0;
+        let amount = price * num;
+        console.log('you bought '+ num + ' ' + goods+', you need pay $' + amount);
+    }
+}
+
+expands .Test {
+    om method(){
+        console.log(0);
+    }
+
+    om method(foo, bar, blabla){
+        console.log(foo, bar, blabla);
+    }
+
+    om method(foo){
+        console.log(foo);
+    }
+
+    om method(foo, bar){
+        console.log(foo, bar);
+    }
+}
+
+
+let test = new _.Test();
+test.method(0);
+test.method(1);
+test.method(1, 2);
+test.method(1, 2, 3);
+test.method(1, 2, 3, 4);
+
+test.buy();
+test.buy('meat', 5);
+
+test.name = 'John';
+console.log(test.name);
+
+// class pandora.Test2 extends _.Test{
+//     num
+//     str = 'test2 class'
+//     static = [1,2,3];
+//     method = anon(elem = null){
+//         this.elem = elem;
+//     }
+    
+//     method bar(){
+        
+//     }
+//     static method foo(){
+        
+//     }
+// }
+
+// class myClass extends _.Test {
+//     static prop
+// }
+
+
+// var AnonClass = class {
+//     desc = 'this is an anonymous class'
+//     _init(){
+
+//     }
+// }
+
+// let AnonClass2 = class extends _.Test2 {
+//     desc = 'this is an anonymous class'
+//     _init(){
+
+//     }
+// }
+
+// myFn1 (arg1){
+//     console.log(arg1);
+// }
+
+// function myFn2 (){
+    
+// }
+
+// var myFn3 = (arg1=flase){
+//     console.log(arg1);
+
+// }
+
+// var myFn4 (arg1=flase){
+//     console.log(arg1);
+
+// }
+
+// var div = _.render({
+//     margin: "100px auto 0",
+//     textAlign: "center",
+//     fontSize: "72px"
+// }),
+// uid = new _.Identifier(), // 生成标识符
+// strings = 'Hello, I\'m tangram.js.'.split(''), // 字符数组化
+// iterator = new _.Iterator(strings), // 生成迭代器
+// render = function(letter) {
+//     if (letter) {
+//         setTimeout(function() {
+//             div.innerHTML += letter;
+//             render(iterator.next());
+//         }, 150);
+//     } else {
+//         setTimeout(function() {
+//             _.render({
+//                 'margin': "10px auto",
+//                 textAlign: "center",
+//                 fontSize: "13px",
+//                 color: "#666"
+//             }, 'TestUID : ' + uid.toString());
+//         }, 200);
+//     }
+// };
+
+// console.log(uid, iterator);
+
+// setTimeout(() {
+//     render(iterator.next());
+// }, 200);
+
+// return {div};

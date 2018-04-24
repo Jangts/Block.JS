@@ -115,7 +115,7 @@
                 }
             },
             "end": "$",
-            "name": "comment.line.number-sign.tang"
+            "name": "comment.line.double-slash.tang"
         },
         {
             "begin": "#",
@@ -125,7 +125,7 @@
                 }
             },
             "end": "$",
-            "name": "comment.line.number-sign.tang"
+            "name": "comment.line.sharp.tang"
         },
         {
             "begin": "///",
@@ -164,7 +164,7 @@
             }]
         },
         {
-            "match": "\\b(?<![\\.\\$])(break|by|catch|continue|else|finally|for|in|of|if|return|switch|then|throw|try|unless|when|while|until|loop|do|export|import|default|from|as|yield|async|await|use|each|reg|(?<=for)\\s+own)(?!\\s*:)\\b",
+            "match": "\\b(?<![\\.\\$])(break|by|catch|continue|else|finally|for|in|of|if|return|switch|then|throw|try|unless|when|while|until|loop|do|export|import|default|from|as|yield|async|await(?<=for)\\s+own|@config|@include|use|each|namespace|ns|def|dec|expands)(?!\\s*:)\\b",
             "name": "keyword.control.tang"
         },
         {
@@ -172,7 +172,7 @@
             "name": "keyword.operator.$1.tang"
         },
         {
-            "match": "\\b(?<![\\.\\$])(case|function|var|void|with|const|let|enum|native|__hasProp|__extends|__slice|__bind|__indexOf|implements|interface|package|private|protected|public|static)(?!\\s*:)\\b",
+            "match": "\\b(?<![\\.\\$])(case|function|var|void|with|const|let|enum|native|__hasProp|__extends|__slice|__bind|__indexOf|implements|interface|package|private|protected|public|static|om|get|set)(?!\\s*:)\\b",
             "name": "keyword.reserved.tang"
         },
         {
@@ -282,7 +282,7 @@
             "name": "keyword.other.tang"
         },
         {
-            "match": "\\b(Array|ArrayBuffer|Blob|Boolean|Date|document|Function|Int(8|16|32|64)Array|Math|Map|Number|Object|Proxy|RegExp|Set|String|WeakMap|window|Uint(8|16|32|64)Array|XMLHttpRequest|tangram)\\b",
+            "match": "\\b(Array|ArrayBuffer|Blob|Boolean|Date|document|Function|Int(8|16|32|64)Array|Math|Map|Number|Object|Proxy|RegExp|Set|String|WeakMap|window|Uint(8|16|32|64)Array|XMLHttpRequest|tangram|declare|global|imports)\\b",
             "name": "support.class.tang"
         },
         {
@@ -547,7 +547,7 @@
                     }
                 },
                 "match": "(?<!\\\\)(#).*$\\n?",
-                "name": "comment.line.number-sign.tang"
+                "name": "comment.line.double-slash.tang"
             }]
         },
         "instance_variable": {

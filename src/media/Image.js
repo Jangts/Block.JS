@@ -1,122 +1,121 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Fri, 20 Apr 2018 01:35:23 GMT
+ * Datetime: Tue, 24 Apr 2018 15:55:03 GMT
  */
 ;
+// tangram.config({});
 tangram.block([
 	'$_/util/bool',
 	'$_/async/Request'
-], function (pandora, global, imports, undefined) {var _ = pandora,
-	doc = global.document,
-	Image = global.Image,
-	console = global.console; 
-	var isStr = _.util.bool.isStr,
-	isObj = _.util.bool.isObj,
-	isFn = _.util.bool.isFn,
-	isEl = _.util.bool.isEl,
-	load = function(img, src, doneCallback, failCallback){
-		img.src = src; 
-		img.onload = doneCallback; 
-		img.onerror = failCallback; 
-	}; 
-	pandora.declareClass('media.Image',{
-		_init: function(option){ 
-			var that = this; 
-			if(isStr(option)){ 
-				var callback = function(){
-					if(isEl(that.context)){
-						that.context.appendChild(that.image); 
-					}
-				}; 
-				this.src = option; 
-				this.preview = null; 
-				this.onload = callback; 
-				this.onerror = callback; 
+], function (pandora, global, imports, undefined) {
+	var _ = pandora;
+	var doc = global.document;
+	var Image = global.Image;
+	var console = global.console;
+	var isStr = _.util.bool.isStr;
+	var isObj = _.util.bool.isObj;
+	var isFn = _.util.bool.isFn;
+	var isEl = _.util.bool.isEl;
+	var load = function (img, src, doneCallback, failCallback) {
+		img.src = src;
+		img.onload = doneCallback;
+		img.onerror = failCallback;
+	};
+	pandora.declareClass('media.Image', {
+		_init: function (option) {
+			var that = this;
+			if(isStr(option)) {
+				var callback = function () {
+					if(isEl(that.context)) {
+						that.context.appendChild(that.image);
+					};
+				};
+				this.src = option;
+				this.preview = null;
+				this.onload = callback;
+				this.onerror = callback;
+			}else if(isObj(option)) {
+				this.src = option.src;
+				this.previewsrc = option.preview;
+				var doneCallback = function () {
+					if(isEl(that.context)) {
+						that.context.appendChild(that.image);
+						isFn(option.onload) && option.onload.call(this, that);
+					};
+				};
+				var failCallback = function () {
+					if(isEl(that.context)) {
+						that.context.appendChild(that.image);
+						isFn(option.onerror) && option.onerror.call(this, that);
+					};
+				};
+				this.onload = doneCallback;
+				this.onerror = failCallback;
+			}else {
+				return;
 			}
-			else if(isObj(option)){
-				this.src = option.src; 
-				this.previewsrc = option.preview; 
-				var doneCallback = function(){
-					if(isEl(that.context)){
-						that.context.appendChild(that.image); 
-						isFn(option.onload) && option.onload.call(this, that)
-					}
-				},
-				failCallback = function(){
-					if(isEl(that.context)){
-						that.context.appendChild(that.image); 
-						isFn(option.onerror) && option.onerror.call(this, that)
-					}
-				}; 
-				this.onload = doneCallback; 
-				this.onerror = failCallback; 
+			this.image = new Image();
+			if (option.width) {
+				this.image.width = option.width;
 			}
-			else{
-				return; 
+			if (option.height) {
+				this.image.height = option.height;
 			}
-			this.image = new Image(); 
-			if(option.width){
-				this.image.width = option.width; 
-			}
-			if(option.height){
-				this.image.height = option.height; 
-			}
-			if(option.context){
-				this.appendTo(option.context); 
-			}
+			if (option.context) {
+				this.appendTo(option.context);
+			};
 		},
-		preview: function(){ 
-			var that = this,
-			onload = function(){
-				that.context.appendChild(that.image); 
-				load(that.image, that.src,function(){
-					that.previewsrc = null; 
-					that.onload.call(this); 
-				},function(){
-					that.image.src = that.previewsrc; 
-					that.onerror.call(this); 
-				}); 
-			},
-			onerror = function(){
-				load(that.image, that.src, that.onload, that.onerror); 
-			}; 
-			load(this.image, this.previewsrc, onload, onerror); 
+		preview: function () {
+			var that = this;
+			var onload = function () {
+				that.context.appendChild(that.image);
+				load(that.image, that.src, function () {
+					that.previewsrc = null;
+					that.onload.call(this);
+				}, function () {
+					that.image.src = that.previewsrc;
+					that.onerror.call(this);
+				});
+			};
+			var onerror = function () {
+				load(that.image, that.src, that.onload, that.onerror);
+			};
+			load(this.image, this.previewsrc, onload, onerror);
 		},
-		appendTo: function(context){
-			if(isEl(context)){
-				this.context = context; 
-				if(this.previewsrc){
-					this.preview(); 
-				}
-				else{
-					load(this.image, this.src, this.onload, this.onerror); 
-				}
+		appendTo: function (context) {
+			if(isEl(context)) {
+				this.context = context;
+				if (this.previewsrc) {
+					this.preview();
+				}else {
+					load(this.image, this.src, this.onload, this.onerror);
+				};
+			};
+		},
+		toString: function () {
+			var div = doc.createElement('div');
+			div.appendChild(this.image);
+			var html = div.innerHTML;
+			div = null;
+			delete div;
+			return html;
+		},
+		toBase: function (callback, mime) {
+			var img = this.image;
+			var canvas = doc.createElement('CANVAS');
+			var ctx = canvas.getctx('2d');
+			img.crossOrigin = 'Anonymous';
+			img.onload = function () {
+				canvas.height = img.height;
+				canvas.width = img.width;
+				ctx.drawImage(img, 0, 0);
+				var dataURL = canvas.toDataURL(mime || 'image/png');
+				callback.call(this, dataURL);
+				canvas = null;
 			}
-		},
-		toString: function(){ 
-			var div = doc.createElement('div'); 
-			div.appendChild(this.image); 
-			var html = div.innerHTML; 
-			div = null; 
-			delete div; 
-			return html; 
-		},
-		toBase: function(callback, mime){ 
-			var img = this.image,
-			canvas = doc.createElement('CANVAS'),
-			ctx = canvas.getctx('2d'); 
-			img.crossOrigin = 'Anonymous'; 
-			img.onload = function(){
-				canvas.height = img.height; 
-				canvas.width = img.width; 
-				ctx.drawImage(img, 0, 0); 
-				var dataURL = canvas.toDataURL(mime || 'image/png'); 
-				callback.call(this, dataURL); 
-				canvas = null; 
-			}; 
-			img.src = this.src; 
+			img.src = this.src;
 		}
-	}); 
-	return _.media.Image; 
+	});
+	return _.media.Image;
 });
