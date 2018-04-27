@@ -78,8 +78,9 @@
             extends: /(@\d+L\d+P\d+O*\d*::)?((ns|namespace|stroe|extends)\s+[\$\w\.]+\s*\{[^\{\}]*?\})/g,
             class: /(@\d+L\d+P\d+O*\d*::)?((class|expands)\s+([\$\w\.]+\s+)?(extends\s+[\$\w\.]+\s*)?\{[^\{\}]*?\})/g,
             fnlike: /(@\d+L\d+P\d+O*\d*::)?(^|(var|public|let|function|def)\s+)?([\$\w]*\s*\([^\(\)]*\))\s*\{([^\{\}]*?)\}/g,
-            arraylike: /(\s*@\d+L\d+P\d+O*\d*::)?\[(\s*[^\[\]]*?)\s*\]/g,
-            call: /(@\d+L\d+P\d+O*\d*::)?((new)\s+([\$\w\.]+)|\.*[\$\w]+)\s*(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)\s*([^\$\w\s\{]|[\r\n].|\s*___boundary_[A-Z0-9_]{36}_\d+_as_array___|\s*___boundary_\d+_as_operator___|$)/g,
+            parentheses: /(@\d+L\d+P\d+O*\d*::)?\(\s*([^\(\)]*?)\s*\)/g,
+            arraylike: /(@\d+L\d+P\d+O*\d*::)?\[(\s*[^\[\]]*?)\s*\]/g,
+            call: /(@\d+L\d+P\d+O*\d*::)?((new)\s+([\$\w\.]+)|(\.)?([\$\w]+))\s*(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)\s*([^\$\w\s\{]|[\r\n].|\s*___boundary_[A-Z0-9_]{36}_\d+_as_array___|\s*___boundary_\d+_as_operator___|$)/g,
             arrowfn: /(@\d+L\d+P\d+O*\d*::)?(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)\s*(@\d+L\d+P\d+O*\d*::)?(->|=>)\s*([^,;\r\n]+)\s*(,|;|\r|\n|$)/g,
             closure: /((@\d+L\d+P\d+O*\d*::)?@*[\$\w]+|\)(@\d+L\d+P\d+O*\d*::)?)?\s*\{(\s*[^\{\}]*?)\s*\}/g            
         },
@@ -87,10 +88,10 @@
             string: /(\/|\#|`|"|')([\*\/\=])?/,
             strings: {
                 // 位置是在replace usings 和 strings 之后才tidy的，所以还存在后接空格
-                '/': /(\s*@\d+L\d+P\d+O?\d*::\s*)?(\/.+?\/[img]*)\s*?(\sin|[\r\n\.,;\)\]\}]|\/\/|$)/,
-                '`': /(\s*@\d+L\d+P\d+O*\d*::\s*)?(`[^`]*`)\s*?(\sin|[\r\n]|[^\$\w\s\*\/]|\/\/|$)/,
-                '"': /(\s*@\d+L\d+P\d+O*\d*::\s*)?(".*?")\s*?(\sin|[\r\n]|[^\$\w\s\*\/]|\/\/|$)/,
-                "'": /(\s*@\d+L\d+P\d+O*\d*::\s*)?('.*?')\s*?(\sin|[\r\n]|[^\$\w\s\*\/]|\/\/|$)/
+                '/': /(\s*@\d+L\d+P\d+O?\d*::\s*)?(\/[^\/\r\n]+\/[img]*)\s*(\sin\s|___boundary_\d+_as_(propname|preoperator|operator|aftoperator|comments)___|([\$\w])|[^\$\w]|$)/,
+                '`': /(\s*@\d+L\d+P\d+O*\d*::\s*)?(`[^`]*`)\s*(\sin\s|___boundary_\d+_as_(propname|preoperator|operator|aftoperator|comments)___|([\$\w])|[^\$\w]|$|$)/,
+                '"': /(\s*@\d+L\d+P\d+O*\d*::\s*)?("[^\"\r\n]*")\s*(\sin\s|___boundary_\d+_as_(propname|preoperator|operator|aftoperator|comments)___|([\$\w])|[^\$\w]|$)/,
+                "'": /(\s*@\d+L\d+P\d+O*\d*::\s*)?('[^\'\r\n]*')\s*(\sin\s|___boundary_\d+_as_(propname|preoperator|operator|aftoperator|comments)___|([\$\w])|[^\$\w]|$)/
             },
             index: /(\d+)_as_([a-z]+)/,
             index3: /^_(\d+)_as_([a-z]+)___([\s\S]*)$/,
@@ -98,7 +99,7 @@
             extends: /(ns|namespace|store|extends)\s+(\.)?([\$\w\.]+)\s*\{([^\{\}]*?)\}/,
             class: /(class|dec|expands)\s+(\.)?([\$\w\.]+\s+)?(extends\s+([\$\w\.]+)\s*)?\{([^\{\}]*?)\}/,
             fnlike: /(^|(var|public|let|function|def)\s+)?([\$\w]*)\s*\(([^\(\)]*)\)\s*\{([^\{\}]*?)\}/,
-            call: /([\$\w\.]+)\s*___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___/,
+            call: /([\$\w][\$\w\.]*)\s*___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___/,
             arrowfn: /(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)\s*(->|=>)\s*([^,;\r\n]+)/,
 
             objectattr: /^\s*((([\$\w]+)))\s*(\:*)([\s\S]*)$/,
@@ -171,7 +172,8 @@
                 fix_map: {},
                 type: 'block'
             };
-            let lines = this.input.split(/[\r\n]/);
+            let lines = this.input.split(/\r{0,1}\n/);
+            // console.log(lines);
             let positions = [];
             for (let line = 0; line < lines.length; line++) {
                 const elements = lines[line].split(/(,|;|\{|\(|\)|\})/);
@@ -387,7 +389,7 @@
                 }
                 let match: any = string.match(matchExpr.strings[matches[1]]);
                 // if (match && (matches.index === match.index) && ((match[2] === 'i') || !match[2].match(/[\$\w\{]/))) {
-                if (match && (matches.index >= match.index) && ((match[3] === ' in') || !match[3].match(/[\$\w\{]/))) {
+                if (match && (matches.index >= match.index) && !match[5]) {
                     // console.log(matches, match);
                     if (match[1]){
                         this.replacements.push([match[2].replace(/@\d+L\d+P\d+O?\d*::/g, ''), match[1].trim()]);
@@ -577,13 +579,13 @@
                 count++;
                 // console.log(left, right);
                 if (left < right) {
-                    string = string.replace(/\s*\(\s*([^\(\)]*?)\s*\)/g, (match, paramslike: string) => {
+                    string = string.replace(replaceExpr.parentheses, (match, posi, paramslike: string) => {
                         // console.log(match, '=>', paramslike);
                         paramslike = this.replaceCalls(paramslike);
                         paramslike = this.replaceOperators(paramslike, false);
                         paramslike = this.replaceArrowFunctions(paramslike);
                         let index = this.replacements.length;
-                        this.replacements.push(['(' + paramslike + ')']);
+                        this.replacements.push(['(' + paramslike + ')', posi && posi.trim()]);
                         return '___boundary_' + this.uid + '_' + index + '_as_parentheses___';
                     });
                     // console.log(string);
@@ -609,15 +611,18 @@
             return string;
         }
         replaceCalls(string: string): string {
-            return string.replace(replaceExpr.call, (match: string, posi, fullname: string, constructor: string, callname, args: string, argindex: string, after: string) => {
-                // console.log(match, string)
+            // console.log(string);
+            return string.replace(replaceExpr.call, (match: string, posi, fullname: string, constructor: string, methodname: string, dot, callname, args: string, argindex: string, after: string) => {
+                if (fullname.match(replaceExpr.call)){
+                    fullname = this.replaceCalls(fullname);
+                }
                 let index = this.replacements.length;
                 if (constructor) {
-                    this.replacements.push([callname + args, posi && posi.trim()]);
+                    this.replacements.push([fullname + args, posi && posi.trim()]);
                     return '___boundary_' + this.uid + '_' + index + '_as_construct___' + after;
                 }else{
-                    this.replacements.push([fullname + args, posi && posi.trim()]);
-                    return '___boundary_' + this.uid + '_' + index + '_as_call___' + after;
+                    this.replacements.push([callname + args, posi && posi.trim()]);
+                    return (dot ? dot : '') + '___boundary_' + this.uid + '_' + index + '_as_call___' + after;
                 }
             });
         }
@@ -866,27 +871,35 @@
         }
         pushSentencesToLines(lines: any[], string: string) {
             if (string) {
-                let match = string.match(/^___boundary_[A-Z0-9_]{36}_(\d+)_as_(\w+)___/);
+                let match = string.trim().match(/^___boundary_[A-Z0-9_]{36}_(\d+)_as_([a-z]+)___$/);
                 var value = string + ';';
                 if (match) {
-                    // console.log(match);
-                    // console.log(this.replacements[match[1]]);
-                    var position = this.getPosition(this.replacements[match[1]][1]);
-                    if (match[2] === 'function' || match[2] === 'closure') {
-                        var value = string;
-                    }
+                    lines.push({
+                        type: 'line',
+                        subtype: match[2],
+                        index: match[1],
+                        value: value
+                    });
                 } else {
-                    var position = this.getPosition(string);
-                    // console.log(position, string)
-                    if (position) {
-                        var value = string.replace(position.match, '') + ';';
+                    let strings = string.split(',');
+                    for (let index = 0; index < strings.length; index++) {
+                        let element = strings[index];
+                        let position = this.getPosition(string);
+                        // console.log(position, string)
+                        if (position) {
+                            position.head = true;
+                            var value = element.replace(position.match, '') + ';';
+                        }
+                        lines.push({
+                            type: 'line',
+                            subtype: 'sentence',
+                            posi: position,
+                            value: value
+                        });
                     }
+                    
                 }
-                lines.push({
-                    type: 'line',
-                    posi: position,
-                    value: value
-                });
+               
             }
         }
         pushVariablesToLine(lines: any, vars: any, posi: string, line: string, symbol: string) {
@@ -913,11 +926,29 @@
                         } else if (vars.self[element] === 'let' || symbol === 'let') {
                             throw 'tangram.js sugar Error:  Variable `' + element + '` has already been declared at char ' + position.col + ' on line ' + position.line + '.';
                         }
-                        lines.push({
-                            type: 'line',
-                            posi: position,
-                            value: _symbol + ' ' + element + ' = ' + value + ';'
-                        });
+                        position.head = true;
+                        if(index){
+                            lines.push({
+                                type: 'line',
+                                subtype: 'variable',
+                                posi: position,
+                                value: _symbol + ' ' + element + ' = ' + value + ';'
+                            });
+                        }else{
+                            lines.push({
+                                type: 'line',
+                                subtype: 'variable',
+                                posi: position,
+                                value: _symbol + ' ' + element + ' = ';
+                            });
+                            lines.push({
+                                type: 'line',
+                                subtype: 'sentence',
+                                posi: void 0,
+                                value: value + ';'
+                            });
+                        }
+                        value = element;
                     } else {
                         console.log(element);
                         throw 'tangram.js sugar Error: Unexpected Definition `' + symbol + ' at char ' + position.col + ' on line ' + position.line + '.';
@@ -928,114 +959,148 @@
         pickReplacePosis(lines: any[], vars: any): object[] {
             let imports: any[] = [],
                 using_as: any = {},
-                midast: object[] = [];
+                preast: object[] = [];
 
             for (let index = 0; index < lines.length; index++) {
                 // console.log(lines[index]);
-                const line = lines[index].value.trim();
-                if (line) {
-                    let inline = [];
-                    const array: string[] = line.split('___boundary_' + this.uid);
-                    // console.log(array)
-                    for (let index = 0; index < array.length; index++) {
-                        let element = array[index].trim();
-                        if (element) {
-                            let matches: any = element.match(matchExpr.index3);
-                            if (matches) {
-                                if (matches[2] === 'using') {
-                                    let src = this.replacements[matches[1]][0].replace(replaceExpr.using, '').replace(replaceExpr.return, '');
-                                    let posi = this.replacements[matches[1]][1];
-                                    let srcArr = src.split(/\s+as\s+/);
-                                    // console.log(srcArr);
-                                    if (srcArr[1] && srcArr[1].trim()) {
-                                        src = srcArr[0].trim();
-                                        if (!imports['includes'](src)) {
-                                            imports.push(src);
-                                            imports.push(posi);
-                                        }
-                                        const array = srcArr[1].split(',');
-                                        // console.log(array);
-                                        for (let index = 0; index < array.length; index++) {
-                                            const element = array[index].trim();
-                                            if (element) {
-                                                if (element.match(/^[\$\w]+\[\]$/)) {
-                                                    let alias = element.replace('[]', '');
-                                                    using_as[alias] = [src];
-                                                    var varname = alias;
-                                                    break;
-                                                } else {
-                                                    using_as[element] = [src, index];
-                                                    var varname = element;
-                                                }
-                                                if (vars.self[varname] === void 0) {
-                                                    vars.self[varname] = 'var';
-                                                } else if (vars.self[varname] === 'let') {
-                                                    throw 'tangram.js sugar Error:  Variable `' + varname + '` has already been declared.';
-                                                }
-                                            }
-                                        }
-                                    } else {
-                                        imports.push(src);
-                                        imports.push(posi);
-                                    }
-                                } else {
-                                    inline.push({
+                switch (lines[index].subtype) {
+                    case 'sentence':
+                        const line = lines[index].value.trim();
+                        if (line) {
+                            let inline = [];
+                            const array: string[] = line.split('___boundary_' + this.uid);
+                            while (!array[0].trim()) {
+                                array.shift();
+                            }
+                            console.log(array)
+                            for (let i = 0; i < array.length; i++) {
+                                let element = array[i].trim();
+                                let matches: any;
+                                let match_3: string;
+                                let max = array.length - 1;
+                                if (element && (matches = element.match(matchExpr.index3))) {
+                                    // console.log(matches);
+                                     inline.push({
                                         posi: matches[1],
                                         type: matches[2]
                                     });
+                                    if (match_3 = matches[3].trim()) {
+                                        if(i===max){
+                                            var display = 'block';
+                                        }else{
+                                            var display = 'inline';
+                                        }
+                                        var position = void 0;
+                                        var value = match_3;
+                                    } else {
+                                        continue;
+                                    }
+                                } else {
+                                    var display = 'inline';
+                                    var position = lines[index].posi;
+                                    var value = array[i];
                                 }
-                                let match_3: string = matches[3].trim()
-                                if (match_3) {
-                                    inline.push({
-                                        type: 'code',
-                                        vars: vars,
-                                        value: match_3
-                                    });
-                                }
-                            } else {
                                 inline.push({
                                     type: 'code',
+                                    posi: position,
+                                    display: display,
                                     vars: vars,
-                                    value: element
+                                    value: value
                                 });
                             }
-                        } else {
-                            inline.push({
-                                type: 'code',
-                                vars: vars,
-                                value: array[index]
-                            });
+                            preast.push(inline);
                         }
-                    }
-                    midast.push(inline);
-                } else {
-                    // console.log(lines[index].stype);
-                    if (lines[index].stype === 'newline') {
-                        midast.push([{
+                        break;
+
+                    case 'variable':
+                        preast.push([{
                             type: 'code',
+                            posi: lines[index].posi,
+                            display: 'block',
                             vars: vars,
-                            stype: 'newline'
+                            value: lines[index].value.trim()
                         }]);
-                    }
+                        break;
+                    case 'using':
+                        // console.log(lines[index]);
+                        let src = this.replacements[lines[index].index][0].replace(replaceExpr.using, '').replace(replaceExpr.return, '');
+                        let posi = this.replacements[lines[index].index][1];
+                        let srcArr = src.split(/\s+as\s+/);
+                        // console.log(srcArr);
+                        if (srcArr[1] && srcArr[1].trim()) {
+                            src = srcArr[0].trim();
+                            if (!imports['includes'](src)) {
+                                imports.push(src);
+                                imports.push(posi);
+                            }
+                            const array = srcArr[1].split(',');
+                            // console.log(array);
+                            for (let index = 0; index < array.length; index++) {
+                                const element = array[index].trim();
+                                if (element) {
+                                    if (element.match(/^[\$\w]+\[\]$/)) {
+                                        let alias = element.replace('[]', '');
+                                        using_as[alias] = [src];
+                                        var varname = alias;
+                                        break;
+                                    } else {
+                                        using_as[element] = [src, index];
+                                        var varname = element;
+                                    }
+                                    if (vars.self[varname] === void 0) {
+                                        vars.self[varname] = 'var';
+                                    } else if (vars.self[varname] === 'let') {
+                                        throw 'tangram.js sugar Error:  Variable `' + varname + '` has already been declared.';
+                                    }
+                                }
+                            }
+                        } else {
+                            imports.push(src);
+                            imports.push(posi);
+                        }
+                    break;
+                    case 'function':
+                    case 'closure':
+                        let inline = [{
+                            posi: lines[index].index,
+                            type: lines[index].subtype
+                        }];
+                        inline.push();
+                        preast.push(inline);
+                        break;
+                    default:
+                        preast.push([{
+                            posi: lines[index].index,
+                            type: lines[index].subtype
+                        }, {
+                            type: 'code',
+                            posi: lines[index].index,
+                            display: 'block',
+                            vars: vars,
+                            value: ';'
+                        }]);
+                        break;
                 }
             }
             this.imports = imports;
             this.using_as = using_as;
-            // console.log(imports, midast);
-            return midast;
+            // console.log(imports, preast);
+            return preast;
         }
-        buildAST(midast: object[], vars: any): Sugar {
+        buildAST(preast: object[], vars: any): Sugar {
+            console.log(preast);
             let ast = {
                 type: 'codes',
                 vars: vars,
                 body: []
             };
-            for (let index = 0; index < midast.length; index++) {
-                let block: any = midast[index];
+            for (let index = 0; index < preast.length; index++) {
+                let block: any = preast[index];
                 if (block.length === 1) {
                     const element = block[0];
                     if (element.type === 'code') {
                         // this.pushCodesToAST(ast.body, element.value);
+                        // console.log(element);
                         ast.body.push(element);
                     } else {
                         // console.log(element);
@@ -1069,7 +1134,8 @@
                     return this.walkArray(element.posi, vars/*, codeInline*/);
                 case 'arrowfn':
                     return this.walkArrowFn(element.posi, vars, codeInline);
-                case 'call': case 'construct':
+                case 'call':
+                case 'construct':
                     return this.walkCall(element.posi, vars, element.type, codeInline);
                 case 'class':
                     return this.walkClass(element.posi, vars, codeInline);
@@ -1087,9 +1153,11 @@
                 case 'string':
                 case 'template':
                     let that = this;
+                    let position = this.getPosition(this.replacements[element.posi][1]);
                     return {
                         type: 'code',
-                        stype: codeInline ? 'inline' : 'block',
+                        stype: (position && position.head) ? 'block' : 'inline',
+                        posi: position,
                         vars: vars,
                         value: this.replacements[element.posi][0].replace(this.markPattern, function () {
                             return that.replacements[arguments[1]][0];
@@ -1133,7 +1201,6 @@
         walkArrowFn(posi: number, vars: any, codeInline: boolean) {
             let matches: any = this.replacements[posi][0].match(matchExpr.arrowfn);
             // console.log(this.replacements[posi], matches);
-
             let subtype = 'fn';
             let selfvas = {
                 this: 'var',
@@ -1164,12 +1231,54 @@
                 body: this.checkFnBody(localvars, args, matches[4])
             }
         }
+        walkCall(posi: number, vars: any, type: string, codeInline: boolean): object {
+            let name = [],
+                params = [],
+                matches: any = this.replacements[posi][0].match(matchExpr.call),
+                nameArr: string[] = matches[1].split('___boundary_' + this.uid),
+                paramArr = this.replacements[matches[2]][0].split(/([\(\r\n,\)])/),
+                last: string = '';
+            // console.log(this.replacements[posi], matches);
+            for (let i = 0; i < nameArr.length; i++) {
+                const element = nameArr[i];
+                if (element) {
+                    this.pushReplacementsToAST(name, vars, nameArr[i], true);
+                }
+            }
+            for (let index = 0; index < paramArr.length; index++) {
+                const element = paramArr[index].trim();
+                let line: string[] = element.split('___boundary_' + this.uid);
+                if (element && element != '(' && element != ')' && element != ',') {
+                    let inline: object[] = [];
+                    for (let i = 0; i < line.length; i++) {
+                        this.pushReplacementsToAST(inline, vars, line[i], true);
+                    }
+                    // console.log(last, last === "\r", last === "\n");
+                    params.push({
+                        type: 'parameter',
+                        vars: vars,
+                        stype: (last === "\n" || last === "\r") ? 'block' : 'inline',
+                        body: inline
+                    });
+                }
+                last = paramArr[index];
+            }
+            // console.log(this.replacements[posi]);
+            return {
+                type: type,
+                posi: this.getPosition(this.replacements[posi][1]),
+                // stype: codeInline ? 'inline' : 'block',
+                name: name,
+                vars: vars,
+                params: params
+            };
+        }
         walkClass(posi: number, vars: any, codeInline: boolean = true) {
             // console.log(this.replacements[posi]);
             let matches: any = this.replacements[posi][0].match(matchExpr.class);
             // console.log(matches);
             var type = matches[1];
-            let stype = 'block';
+            // let stype = 'block';
             if (matches[2]){
                 var subtype = 'stdClass';
             }else{
@@ -1189,19 +1298,15 @@
                             throw 'tangram.js sugar Error:  Variable `' + cname + '` has already been declared.';
                         }
                         // vars.self.push('var ' + cname);
-                    }else{
-                        if (codeInline) {
-                            stype = 'inline';
-                        }
                     }
-                }else{
-                    // 标准类必须是块元素，否则无地方拓展静态属性和方法
                 }
+                // 标准类必须是块元素，否则无地方拓展静态属性和方法
             }
             
             return {
                 type: type,
-                stype: stype,
+                posi: this.getPosition(this.replacements[posi][1]),
+                // stype: stype,
                 subtype: subtype,
                 cname: cname,
                 base: matches[5],
@@ -1393,92 +1498,15 @@
             return {
                 type: type,
                 vars: localvars,
-                stype: stype,
+                posi: this.getPosition(this.replacements[posi][1]),
+                // stype: stype,
                 subtype: subtype,
                 fname: fname,
                 args: args.keys,
                 defaults: args.vals,
                 body: this.checkFnBody(localvars, args, matches[5])
             }
-        }
-        
-        checkArgs(code: string, localvars): object {
-            let args = code.split(/\s*,\s*/),
-                keys = [],
-                keysArray = void 0,
-                vals = [];
-            // console.log(code, args);
-            for (let index = 0; index < args.length; index++) {
-                let arg = args[index];
-                if (arg){
-                    let array = arg.split(/\s*=\s*/);
-                    let position = this.getPosition(array[0]);
-                    if (position){
-                        var varname = array[0].replace(position.match, '');
-                    }else{
-                        var varname = array[0];
-                    }
-                    // console.log(arg, array, position, varname);
-                    if (varname.match(namingExpr)) {
-                        keys.push([varname, position]);
-                        vals.push(array[1]);
-                        localvars.self[varname] = 'var';
-                    } else if (varname.match(argsExpr)) {
-                        keysArray = [varname, position];
-                        localvars.self[varname] = 'var';
-                        break;
-                    }
-                }
-            }
-            return {
-                keys: keys,
-                keysArray: keysArray,
-                vals: vals
-            }
-        }
-        walkCall(posi: number, vars: any, type: string, codeInline: boolean): object {
-            let name = [],
-                params = [],
-                matches: any = this.replacements[posi][0].match(matchExpr.call),
-                nameArr: string[] = matches[1].split('___boundary_' + this.uid),
-                paramArr = this.replacements[matches[2]][0].split(/([\(\r\n,\)])/),
-                last: string = '';
-            // console.log(this.replacements[posi], matches);
-            for (let i = 0; i < nameArr.length; i++) {
-                const element = nameArr[i];
-                if (element) {
-                    this.pushReplacementsToAST(name, vars, nameArr[i], true);
-                }
-            }
-            for (let index = 0; index < paramArr.length; index++) {
-                const element = paramArr[index].trim();
-                let line: string[] = element.split('___boundary_' + this.uid);
-                if (element && element != '(' && element != ')' && element != ',') {
-                    let inline: object[] = [];
-                    for (let i = 0; i < line.length; i++) {
-                        this.pushReplacementsToAST(inline, vars, line[i], true);
-                    }
-                    // console.log(last, last === "\r", last === "\n");
-                    params.push({
-                        type: 'parameter',
-                        vars: vars,
-                        stype: (last === "\n" || last === "\r") ? 'block' : 'inline',
-                        body: inline
-                    });
-                }
-                last = paramArr[index];
-            }
-            // console.log(this.replacements[posi]);
-            return {
-                type: type,
-                posi: this.getPosition(this.replacements[posi][1]),
-                stype: codeInline ? 'inline' : 'block',
-                name: name,
-                vars: vars,
-                params: params
-            };
-        }
-        
+        } 
         walkParentheses(posi: number, vars: any, codeInline: boolean): object {
             let body = [],
                 array = this.replacements[posi][0].replace(/([\[\s\]])/g, '').split(/\s*([,\r\n]+)/);
@@ -1746,6 +1774,40 @@
             }
             return body;
         }
+        checkArgs(code: string, localvars): object {
+            let args = code.split(/\s*,\s*/),
+                keys = [],
+                keysArray = void 0,
+                vals = [];
+            // console.log(code, args);
+            for (let index = 0; index < args.length; index++) {
+                let arg = args[index];
+                if (arg) {
+                    let array = arg.split(/\s*=\s*/);
+                    let position = this.getPosition(array[0]);
+                    if (position) {
+                        var varname = array[0].replace(position.match, '');
+                    } else {
+                        var varname = array[0];
+                    }
+                    // console.log(arg, array, position, varname);
+                    if (varname.match(namingExpr)) {
+                        keys.push([varname, position]);
+                        vals.push(array[1]);
+                        localvars.self[varname] = 'var';
+                    } else if (varname.match(argsExpr)) {
+                        keysArray = [varname, position];
+                        localvars.self[varname] = 'var';
+                        break;
+                    }
+                }
+            }
+            return {
+                keys: keys,
+                keysArray: keysArray,
+                vals: vals
+            }
+        }
         checkFnBody(vars: any, args: any, code: string): object[] {
             code = code.trim()
             // console.log(code);
@@ -1911,7 +1973,7 @@
                 this.posimap.push(position);
                 let replace = '/* @posi' + index + ' */';
                 if (codes){
-                    codes.push();
+                    codes.push(replace);
                 }
                 return replace;
             }
@@ -1966,18 +2028,36 @@
                 const element = array[index];
                 // console.log(element);
                 switch (element.type) {
+                    case 'array':
+                        this.pushArrayCodes(codes, element, layer, codeInline, namespace);
+                        break;
+                    case 'call':
+                    case 'construct':
+                        // console.log(layer);
+                        this.pushCallCodes(codes, element, layer, namespace);
+                        break;
+                    case 'class':
+                    case 'dec':
+                        this.pushClassCodes(codes, element, layer, namespace);
+                        break;
                     case 'code':
                         if (element.value){
                             var code: string = this.patchVariables(element.value, vars);
                             switch (element.stype) {
                                 case 'break':
                                 case 'closer':
-                                    codes.push(indent.replace("\t", '') + code);
+                                    codes.push(indent.replace("\t", '') + this.pushPostionsToMap(element.posi) + code);
                                     break;
                                 case 'inline':
+                                    if (element.posi&&element.posi.head){
+                                        console.log(element);
+                                    }
                                     codes.push(code);
                                     break;
                                 default:
+                                    if (element.posi) {
+                                        console.log(codeInline, element);
+                                    }
                                     if (codeInline) {
                                         codes.push(code);
                                     } else {
@@ -1986,21 +2066,7 @@
                                     break;
                             }
                             break;
-                        } else if (element.stype==='newline'){
-                            codes.push(indent);
                         }
-                        break;
-                    case 'dec':
-                    case 'class':
-                        this.pushClassCodes(codes, element, layer, namespace);
-                        break;
-                    case 'call':
-                    case 'construct':
-                        // console.log(layer);
-                        this.pushCallCodes(codes, element, layer, namespace);
-                        break;
-                    case 'array':
-                        this.pushArrayCodes(codes, element, layer, codeInline, namespace);
                         break;
                     case 'codes':
                         // console.log(element);
@@ -2030,6 +2096,101 @@
             // this.fixVariables(vars);
             return codes;
         }
+        pushArrayCodes(codes: string[], element: any, layer: number, codeInline: boolean, namespace: string): string[] {
+            let elements: string[] = [];
+            if(element.posi){
+                this.pushPostionsToMap(element.posi, codes);
+            }
+            codes.push('[');
+            if (element.body.length) {
+                let _layer = layer;
+                let indent2;
+                let _break = false;
+                // console.log(element.params[0]);
+                if (element.body[0].posi && element.body[0].posi.head) {
+                    _layer++;
+                    indent2 = "\r\n" + stringRepeat("\t", _layer);
+                    codes.push(indent2);
+                    _break = true;
+                }
+                for (let index = 0; index < element.body.length; index++) {
+                    const body = element.body[index].body;
+                    let elemCodes: string[] = [];
+                    this.pushPostionsToMap(element.body[index].posi, elemCodes)
+                    this.pushCodes(elemCodes, element.vars, body, _layer, true, namespace);
+                    if (elemCodes.length) {
+                        elements.push(elemCodes.join('').trim());
+                    }
+                }
+                while (elements.length && !elements[0].trim()) {
+                    elements.shift();
+                }
+                if (elements.length) {
+                    if (_break) {
+                        codes.push(elements.join(',' + indent2));
+                    } else {
+                        codes.push(elements.join(', '));
+                    }
+                }
+            }
+            codes.push(']');
+            return codes;
+        }
+        pushCallCodes(codes: string[], element: any, layer: number, namespace: string): string[] {
+            let naming: string[] = this.pushCodes([], element.vars, element.name, layer, true, namespace);
+            if (element.posi) {
+                this.pushPostionsToMap(element, codes);
+                if (element.posi.head) {
+                    var indent = "\r\n" + stringRepeat("\t", layer);
+                    codes.push(indent);
+                }
+            }
+            let name = naming.join('');
+            if (name === 'new') {
+                codes.push('new (');
+            } else {
+                if (element.type === 'construct') {
+                    codes.push('new ');
+                }
+                codes.push(name + '(');
+            }
+
+            let parameters: string[] = [];
+            if (element.params.length) {
+                let _layer = layer;
+                let indent2;
+                let _break = false;
+                // console.log(element.params[0]);
+                if (element.params[0].posi && element.params[0].posi.head) {
+                    _layer++;
+                    indent2 = "\r\n" + stringRepeat("\t", _layer);
+                    codes.push(indent2);
+                    _break = true;
+                }
+                for (let index = 0; index < element.params.length; index++) {
+                    const param = element.params[index].body;
+                    let paramCodes: string[] = [];
+                    this.pushPostionsToMap(element.params[index].posi, paramCodes)
+                    this.pushCodes(paramCodes, element.vars, param, _layer, true, namespace);
+                    if (paramCodes.length) {
+                        parameters.push(paramCodes.join('').trim());
+                    }
+                }
+                while (parameters.length && !parameters[0].trim()) {
+                    parameters.shift();
+                }
+                if (parameters.length) {
+                    if (_break) {
+                        codes.push(parameters.join(',' + indent2));
+                    } else {
+                        codes.push(parameters.join(', '));
+                    }
+                }
+                // console.log(parameters);  
+            }
+            codes.push(')');
+            return codes;
+        }
         pushClassCodes(codes: string[], element: any, layer: number, namespace: string): string[] {
             let indent1 = "\r\n" + stringRepeat("\t", layer);
             let indent2 = "\r\n" + stringRepeat("\t", layer + 1);
@@ -2039,21 +2200,22 @@
             let toES6: boolean = false;
             if (element.subtype === 'stdClass') {
                 cname = 'pandora.' + namespace + element.cname.trim();
-                codes.push(indent1 + 'pandora.declareClass(\'' + namespace + element.cname.trim() + '\', ');
+                codes.push(indent1 + this.pushPostionsToMap(element.posi) + 'pandora.declareClass(\'' + namespace + element.cname.trim() + '\', ');
             } else {
                 if (element.cname && element.cname.trim()) {
                     cname = element.cname.trim();
                     if (cname.match(/^[\$\w]+$/)) {
                         if (this.toES6) {
-                            codes.push(indent1 + 'class ' + cname + ' ');
+                            codes.push(indent1 + this.pushPostionsToMap(element.posi) + 'class ' + cname + ' ');
                             toES6 = true;
                         } else {
-                            codes.push(indent1 + 'var ' + cname + ' = ' + 'pandora.declareClass(');
+                            codes.push(indent1 + 'var ' + this.pushPostionsToMap(element.posi) + cname + ' = ' + 'pandora.declareClass(');
                         }
                     } else {
-                        codes.push(indent1 + cname + ' = ' + 'pandora.declareClass(');
+                        codes.push(indent1 + this.pushPostionsToMap(element.posi) + cname + ' = ' + 'pandora.declareClass(');
                     }
                 } else {
+                    this.pushPostionsToMap(element.posi, codes)
                     if (this.toES6) {
                         codes.push('class ');
                         toES6 = true;
@@ -2205,24 +2367,18 @@
                 }
             }
 
-            // while (elements.length && !elements[0].trim()) {
-            //     elements.shift();
-            // }
-
             if (toES6) {
                 if (elements.length) {
                     codes.push(elements.join(''));
                 }
                 codes.push(indent1 + '}');
+                codes.push(indent1);
             } else {
                 if (elements.length) {
                     codes.push(elements.join(','));
                 }
                 codes.push(indent1 + '})');
                 if (cname) {
-                    // while (static_elements.length && !static_elements[0].trim()) {
-                    //     static_elements.shift();
-                    // }
                     if (static_elements.length) {
                         codes.push(';' + indent1 + 'pandora.extend(' + cname + ', {');
                         codes.push(static_elements.join(','));
@@ -2230,12 +2386,53 @@
                     } else {
                         codes.push(';');
                     }
+                    codes.push(indent1);
                 }
             }
-            if(element.stype==='block'){
-                codes.push(indent1);
+            return codes;
+        }
+        pushFunctionCodes(codes: string[], element: any, layer: number, namespace: string): string[] {
+            let indent = "\r\n" + stringRepeat("\t", layer);
+            if (element.posi) {
+                this.pushPostionsToMap(element, codes);
             }
-            // console.log(elements, static_elements); 
+            if (element.type === 'def' && element.fname) {
+                if ((element.subtype === 'var') || (element.subtype === 'let')) {
+                    codes.push(indent + element.subtype + ' ' + element.fname + ' = function (');
+                } else if ((element.subtype === 'public')) {
+                    codes.push(indent + 'pandora.' + namespace + element.fname + ' = function (');
+                } else {
+                    codes.push(indent + 'function ' + element.fname + ' (');
+                }
+            } else {
+                if (element.posi && element.posi.head){
+                    codes.push(indent);
+                }
+                codes.push('function (');
+            }
+
+            if (element.args.length) {
+                let args: string[] = [];
+                for (let index = 0; index < element.args.length; index++) {
+                    args.push(this.pushPostionsToMap(element.args[index][1]) + element.args[index][0]);
+                }
+                codes.push(args.join(', '));
+            }
+
+            codes.push(') {');
+            // console.log(element.body);
+            if (element.body.length) {
+                // console.log(element.body);
+                this.pushCodes(codes, element.vars, element.body, layer + 1, false, namespace);
+            } else {
+                indent = '';
+            }
+            if ((element.subtype === 'var') || (element.subtype === 'let')) {
+                codes.push(indent + '};');
+                codes.push(indent);
+            } else {
+                codes.push(indent + '}');
+            }
             return codes;
         }
         pushExpandClassCodes(codes: string[], element: any, layer: number, namespace: string): string[] {
@@ -2352,107 +2549,6 @@
                 }
             }
         }
-        pushCallCodes(codes: string[], element: any, layer: number, namespace: string): string[] {
-            let naming: string[] = this.pushCodes([], element.vars, element.name, layer, true, namespace);
-            // console.log(naming);
-            // console.log(element);
-            if (element.stype === 'block') {
-                // console.log(naming.join(''), layer);
-                var indent = "\r\n" + stringRepeat("\t", layer);
-                codes.push(indent);
-            }
-            let name = naming.join('');
-            if (name === 'new') {
-                codes.push('new (');
-            } else {
-                if (element.type === 'construct') {
-                    codes.push('new ');
-                }
-                codes.push(name + '(');
-            }
-
-            let parameters: string[] = [];
-            if (element.params.length) {
-                let _layer = layer;
-                let indent2;
-                let _break = false;
-                // console.log(element.params[0]);
-                if (element.params[0].stype == "block") {
-                    _layer++;
-                    indent2 = "\r\n" + stringRepeat("\t", _layer);
-                    codes.push(indent2);
-                    _break = true;
-                }
-                for (let index = 0; index < element.params.length; index++) {
-                    const param = element.params[index].body;
-                    let paramCodes: string[] = this.pushCodes([], element.vars, param, _layer, true, namespace);
-                    if (paramCodes.length) {
-                        parameters.push(paramCodes.join('').trim());
-                    }
-                }
-                while (parameters.length && !parameters[0].trim()) {
-                    parameters.shift();
-                }
-                if (parameters.length) {
-                    if (_break) {
-                        codes.push(parameters.join(',' + indent2));
-                    } else {
-                        codes.push(parameters.join(', '));
-                    }
-                }
-                // console.log(parameters);  
-            }
-
-            if (element.stype === 'block') {
-                codes.push(');');
-                codes.push(indent);
-            } else {
-                codes.push(')');
-            }
-            return codes;
-        }
-        pushArrayCodes(codes: string[], element: any, layer: number, codeInline: boolean, namespace: string): string[] {
-            let elements: string[] = [];
-            codes.push('[');
-            if (element.body.length) {
-                let _layer = layer;
-                let indent2;
-                let _break = false;
-                // console.log(element.params[0]);
-                if (element.body[0].stype == "block") {
-                    _layer++;
-                    indent2 = "\r\n" + stringRepeat("\t", _layer);
-                    codes.push(indent2);
-                    _break = true;
-                }
-                for (let index = 0; index < element.body.length; index++) {
-                    const body = element.body[index].body;
-                    let elemCodes: string[] = this.pushCodes([], element.vars, body, _layer, true, namespace);
-                    // let elem:string[] = this.pushCodes([], body, layer + 1);
-                    if (elemCodes.length) {
-                        elements.push(elemCodes.join('').trim());
-                    }
-
-                }
-                while (elements.length && !elements[0].trim()) {
-                    elements.shift();
-                }
-                if (elements.length) {
-                    if (_break) {
-                        codes.push(elements.join(',' + indent2));
-                    } else {
-                        codes.push(elements.join(', '));
-                    }
-                }
-            }
-            codes.push(']');
-            // if (codeInline) {
-            //     codes.push(']');
-            // } else {
-            //     codes.push('];');
-            // }
-            return codes;
-        }
         pushTravelCodes(codes: string[], element: any, layer: number, namespace: string): string[] {
             let indent = "\r\n" + stringRepeat("\t", layer);
             // console.log(element);
@@ -2462,47 +2558,6 @@
             this.pushFunctionCodes(codes, element.callback, layer, namespace);
             codes.push(', this);');
             codes.push(indent);
-            return codes;
-        }
-        pushFunctionCodes(codes: string[], element: any, layer: number, namespace: string): string[] {
-            let indent = "\r\n" + stringRepeat("\t", layer);
-            // console.log(element.type, element.subtype);
-            if (element.type === 'def' && element.fname) {
-                if ((element.subtype === 'var') || (element.subtype === 'let')) {
-                    codes.push(indent + element.subtype + ' ' + element.fname + ' = function (');
-                } else if ((element.subtype === 'public')) {
-                    codes.push(indent + 'pandora.' + namespace + element.fname + ' = function (');
-                } else {
-                    codes.push(indent + 'function ' + element.fname + ' (');
-                }
-            } else {
-                codes.push('function (');
-            }
-
-            if (element.args.length) {
-                let args: string[] = [];
-                for (let index = 0; index < element.args.length; index ++) {
-                    // console.log(element.args[index]);
-                    this.pushPostionsToMap(element.args[index][1], args);
-                    args.push(element.args[index][0]);
-                }
-                codes.push(args.join(', '));
-            }
-
-            codes.push(') {');
-            // console.log(element.body);
-            if (element.body.length) {
-                // console.log(element.body);
-                this.pushCodes(codes, element.vars, element.body, layer + 1, false, namespace);
-            } else {
-                indent = '';
-            }
-            if (element.stype === 'block') {
-                codes.push(indent + '};');
-                codes.push(indent);
-            }else{
-                codes.push(indent + '}');
-            }
             return codes;
         }
         pushExpressionCodes(codes: string[], element: any, layer: number, namespace: string): string[] {

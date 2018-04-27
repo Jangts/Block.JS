@@ -14,10 +14,8 @@ namespace foo.bar;
  */
 
 use $_/arr/
-use   $_/util/bool;
-   use $_/util/type as type1;
-use $_/util/../util/type as types[];
-use $_/util/../util/type as type2, type3;
+use   $_/util/bool; use $_/util/type as type1;  use $_/util/../util/type as types[]
+                   use $_/util/../util/type as type2, type3;
 
 
 # return;
@@ -46,9 +44,13 @@ console.log([_]);
 console.log(_.arr);
 console.log(_.util);
 
-(d,e)=> (d + (e=>e+4)(e))
+var a = b = ((c,d)=> (e => (f=>( c + d + e + f + 18))))(1,3)(4)(12)
+console.log(a);
 
+strings = 'Hello, I\'m tangram.js.'.split(''), // 字符数组化
+a = strings;
 
+console.log(a);
 
 let myArray = [0, f(a){}];
 
