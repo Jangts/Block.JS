@@ -50,6 +50,7 @@
     // ' & ', ' ^ ', ' | ', ' && ', ' || ',
     // ' = ', ' += ', ' -= ', ' *= ', ' /= ', ' %= ', ' <<= ', ' >>= ', ' >>>= ', ' &= ', ' ^= ', ' |= '
     operators = {
+        // 因为打开所有括号后还有检查一次符号，所以运算量还是会带有括号
         mixed: /([\$\w])\s*(@\d+L\d+P\d+O*\d*::)?(\=\=|\!\=|\=|\!|\+|\-|\*|\/|\%|<<|>>|>>>|\&|\^|\||<|>)=\s*((\+|\-)?[\$\w\.])/g,
         bool: /([\$\w])\s*(@\d+L\d+P\d+O*\d*::)?(\&\&|\|\||\<|\<\<|\>\>\>|\>\>|\>)\s*((\+|\-)?[\$\w\.])/g,
         op: /([\$\w])\s*(@\d+L\d+P\d+O*\d*::)?(\+|\-|\*\*|\*|\/|\%)\s*((\s+(\+|\-))?[\$\w\.])/g,
@@ -72,7 +73,7 @@
         fnlike: /(@\d+L\d+P\d+O*\d*::)?(^|(var|public|let|function|def)\s+)?([\$\w]*\s*\([^\(\)]*\))\s*\{([^\{\}]*?)\}/g,
         arraylike: /(\s*@\d+L\d+P\d+O*\d*::)?\[(\s*[^\[\]]*?)\s*\]/g,
         call: /(@\d+L\d+P\d+O*\d*::)?((new)\s+([\$\w\.]+)|\.*[\$\w]+)\s*(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)\s*([^\$\w\s\{]|[\r\n].|\s*___boundary_[A-Z0-9_]{36}_\d+_as_array___|\s*___boundary_\d+_as_operator___|$)/g,
-        arrowfn: /(@\d+L\d+P\d+O*\d*::)?(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)\s*(->|=>)\s*([^,;\r\n]+)\s*(,|;|\r|\n|$)/g,
+        arrowfn: /(@\d+L\d+P\d+O*\d*::)?(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)\s*(@\d+L\d+P\d+O*\d*::)?(->|=>)\s*([^,;\r\n]+)\s*(,|;|\r|\n|$)/g,
         closure: /((@\d+L\d+P\d+O*\d*::)?@*[\$\w]+|\)(@\d+L\d+P\d+O*\d*::)?)?\s*\{(\s*[^\{\}]*?)\s*\}/g
     }, matchExpr = {
         string: /(\/|\#|`|"|')([\*\/\=])?/,
@@ -120,7 +121,8 @@
             this.posimap = [];
             this.closurecount = 0;
             this.uid = boundaryMaker();
-            this.markPattern = new RegExp('___boundary_(\\\d+)_as_(mark|preoperator|operator|aftoperator)___', 'g');
+            this.markPattern = new RegExp('___boundary_(\\\d+)_as_(mark)___', 'g');
+            this.trimPattern = new RegExp('(___boundary_' + this.uid + '_(\\\d+)_as_(string|pattern|template)___|___boundary_(\\\d+)_as_(propname)___)', 'g');
             this.lastPattern = new RegExp('(___boundary_' + this.uid + '_(\\\d+)_as_(string|pattern|template)___|___boundary_(\\\d+)_as_(propname|preoperator|operator|aftoperator|comments)___)', 'g');
             this.input = input;
             this.output = undefined;
@@ -743,7 +745,7 @@
                 });
             }
             return string.replace(operators.error, function (match, before, op, after) {
-                // console.log(this.replacements);
+                console.log(match, string);
                 throw 'tangram.js sugar Error: Unexpected `' + op + '` in `' + _this.decode(match) + '`';
             });
         };
@@ -754,7 +756,7 @@
             if (arrow) {
                 if (string.match(replaceExpr.arrowfn)) {
                     // console.log(string.match(matchExpr.arrowfn));
-                    return string.replace(replaceExpr.arrowfn, function (match, posi, params, paramsindex, arrow, body, end) {
+                    return string.replace(replaceExpr.arrowfn, function (match, posi1, params, paramsindex, posi2, arrow, body, end) {
                         // console.log(match);
                         // console.log(body);
                         var matches = body.match(/^\s*___boundary_[A-Z0-9_]{36}_(\d+)_as_(parentheses|object|closure)___\s*$/);
@@ -778,7 +780,18 @@
                         }
                         var index = _this.replacements.length;
                         // console.log(body);
-                        _this.replacements.push([params + arrow + body, posi && posi.trim()]);
+                        if (posi1 === void 0) {
+                            if (posi2 === void 0) {
+                                var posi = undefined;
+                            }
+                            else {
+                                var posi = posi2.trim();
+                            }
+                        }
+                        else {
+                            var posi = posi1.trim();
+                        }
+                        _this.replacements.push([params + arrow + body, posi]);
                         return '___boundary_' + _this.uid + '_' + index + '_as_arrowfn___' + end;
                     });
                 }
@@ -789,6 +802,7 @@
                     else {
                         index = 0;
                     }
+                    // console.log(string);
                     throw 'tangram.js sugar Error: Unexpected `' + arrow[0] + '` in `' + this.decode(string.substr(index, 256)) + '`';
                 }
             }
@@ -798,12 +812,19 @@
             if (string) {
                 var match = string.match(/@(\d+)L(\d+)P(\d+)(O*)(\d*):*/);
                 if (match) {
+                    if (match[4]) {
+                        var ocol = parseInt(match[5]);
+                    }
+                    else {
+                        var ocol = parseInt(match[3]);
+                    }
                     return {
                         match: match[0],
+                        head: !ocol,
                         file: parseInt(match[1]),
                         line: parseInt(match[2]) + 1,
                         col: parseInt(match[3]) + 1,
-                        o: [parseInt(match[1]), parseInt(match[2]), parseInt(match[4] ? match[5] : match[3])]
+                        o: [parseInt(match[1]), parseInt(match[2]), ocol]
                     };
                 }
             }
@@ -1064,7 +1085,7 @@
         Sugar.prototype.walk = function (element, vars, codeInline) {
             switch (element.type) {
                 case 'array':
-                    return this.walkArray(element.posi, vars, codeInline);
+                    return this.walkArray(element.posi, vars /*, codeInline*/);
                 case 'arrowfn':
                     return this.walkArrowFn(element.posi, vars, codeInline);
                 case 'call':
@@ -1103,27 +1124,62 @@
                     };
             }
         };
-        Sugar.prototype.walkArray = function (posi, vars, codeInline) {
+        Sugar.prototype.walkArray = function (posi, vars /*, codeInline: boolean*/) {
             var body = [], array = this.replacements[posi][0].replace(/([\[\s\]])/g, '').split(',');
+            // console.log(this.replacements[posi]);
             for (var index_10 = 0; index_10 < array.length; index_10++) {
                 var line = array[index_10].split('___boundary_' + this.uid);
                 var inline = [];
                 for (var i = 0; i < line.length; i++) {
                     this.pushReplacementsToAST(inline, vars, line[i], true);
                 }
-                console.log(array[index_10], inline);
+                // console.log(array[index], inline);
                 body.push({
                     type: 'element',
                     vars: vars,
                     body: inline
                 });
             }
+            var position = this.getPosition(this.replacements[posi][1]);
             return {
                 type: 'array',
-                posi: this.getPosition(this.replacements[posi][1]),
-                stype: codeInline ? 'inline' : 'block',
+                posi: position,
+                // stype: codeInline ? 'inline' : 'block',
                 vars: vars,
                 body: body
+            };
+        };
+        Sugar.prototype.walkArrowFn = function (posi, vars, codeInline) {
+            var matches = this.replacements[posi][0].match(matchExpr.arrowfn);
+            // console.log(this.replacements[posi], matches);
+            var subtype = 'fn';
+            var selfvas = {
+                this: 'var',
+                arguments: 'var'
+            };
+            if (matches[3] === '=>') {
+                subtype = '=>';
+                selfvas = {
+                    this: 'let',
+                    arguments: 'let'
+                };
+            }
+            var localvars = {
+                parent: vars,
+                self: selfvas,
+                fixed: [],
+                fix_map: {},
+                type: 'fnbody'
+            };
+            var args = this.checkArgs(this.replacements[matches[2]][0].replace(/(^\(|\)$)/g, ''), localvars);
+            return {
+                type: 'def',
+                posi: this.getPosition(this.replacements[posi][1]),
+                // stype: codeInline ? 'inline' : 'block',
+                subtype: subtype,
+                args: args.keys,
+                defaults: args.vals,
+                body: this.checkFnBody(localvars, args, matches[4])
             };
         };
         Sugar.prototype.walkClass = function (posi, vars, codeInline) {
@@ -1372,38 +1428,6 @@
                 body: this.checkFnBody(localvars, args, matches[5])
             };
         };
-        Sugar.prototype.walkArrowFn = function (posi, vars, codeInline) {
-            var matches = this.replacements[posi][0].match(matchExpr.arrowfn);
-            // console.log(this.replacements[posi], matches);
-            var subtype = 'fn';
-            var selfvas = {
-                this: 'var',
-                arguments: 'var'
-            };
-            if (matches[3] === '=>') {
-                subtype = '=>';
-                selfvas = {
-                    this: 'let',
-                    arguments: 'let'
-                };
-            }
-            var localvars = {
-                parent: vars,
-                self: selfvas,
-                fixed: [],
-                fix_map: {},
-                type: 'fnbody'
-            };
-            var args = this.checkArgs(this.replacements[matches[2]][0].replace(/(^\(|\)$)/g, ''), localvars);
-            return {
-                type: 'def',
-                stype: codeInline ? 'inline' : 'block',
-                subtype: subtype,
-                args: args.keys,
-                defaults: args.vals,
-                body: this.checkFnBody(localvars, args, matches[4])
-            };
-        };
         Sugar.prototype.checkArgs = function (code, localvars) {
             var args = code.split(/\s*,\s*/), keys = [], keysArray = void 0, vals = [];
             // console.log(code, args);
@@ -1412,7 +1436,13 @@
                 if (arg) {
                     var array = arg.split(/\s*=\s*/);
                     var position = this.getPosition(array[0]);
-                    var varname = array[0].replace(position.match, '');
+                    if (position) {
+                        var varname = array[0].replace(position.match, '');
+                    }
+                    else {
+                        var varname = array[0];
+                    }
+                    // console.log(arg, array, position, varname);
                     if (varname.match(namingExpr)) {
                         keys.push([varname, position]);
                         vals.push(array[1]);
@@ -2700,11 +2730,11 @@
         Sugar.prototype.trim = function (string) {
             // 此处的replace在整理完成后，将进行分析归纳，最后改写为callback形式的
             // console.log(string);
-            string = this.restoreStrings(string);
+            string = this.restoreStrings(string, false);
             // return string;
-            this.replacements = [['{}'], ['/='], ['/'], [' +'], [' -']];
+            // this.replacements = [['{}'], ['/='], ['/'], [' +'], [' -'], ['return ']];
             string = this.replaceStrings(string, true);
-            string = this.replaceOperators(string);
+            string = this.replaceOperators(string, false);
             // console.log(string);
             // return '';
             // 删除多余头部
@@ -2725,7 +2755,7 @@
             // string = string.replace(/(\s*)(return)\s*([\{\(}])/g, "$1$2 $3");
             // 删除多余换行
             string = string.replace(/\s*[\r\n]+([\r\n])?/g, "\r\n$1");
-            string = this.restoreStrings(string);
+            string = this.restoreStrings(string, true);
             // 删除多余空白
             string = string.replace(/\{\s+\}/g, '{}');
             string = string.replace(/\[\s+\]/g, '[]');
@@ -2769,10 +2799,16 @@
             // string = this.restoreStrings(string);
             // return string;
         };
-        Sugar.prototype.restoreStrings = function (string) {
+        Sugar.prototype.restoreStrings = function (string, last) {
             var that = this;
-            return string.replace(this.lastPattern, function () {
-                // console.log(arguments[1]);
+            if (last) {
+                var pattern = this.lastPattern;
+            }
+            else {
+                var pattern = this.trimPattern;
+            }
+            return string.replace(pattern, function () {
+                // console.log(pattern, arguments[2] || arguments[4], that.replacements, that.replacements[arguments[2] || arguments[4]]);
                 return that.replacements[arguments[2] || arguments[4]][0];
             }).replace(this.markPattern, function () {
                 return that.replacements[arguments[1]][0];
@@ -2791,7 +2827,7 @@
             string = string.replace(/\};(else|catch)(\s|\{|\()/g, "}$1$2");
             string = string.replace(/\s*(___boundary_\d+_as_operator___)\s*/g, "$1");
             // console.log(string);
-            string = this.restoreStrings(string);
+            string = this.restoreStrings(string, false);
             return string;
         };
         Sugar.prototype.run = function (precall, callback) {

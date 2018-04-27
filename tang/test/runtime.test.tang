@@ -38,13 +38,17 @@ b = c = 0
 var
 
 
-
-   a = b,
+// f= (d,e)=> (d + (e=>e+4)()),
+   a = b, c = s=>s,
 c = a;
 
 console.log([_]);
 console.log(_.arr);
 console.log(_.util);
+
+(d,e)=> (d + (e=>e+4)(e))
+
+
 
 let myArray = [0, f(a){}];
 

@@ -55,6 +55,7 @@
         // ' & ', ' ^ ', ' | ', ' && ', ' || ',
         // ' = ', ' += ', ' -= ', ' *= ', ' /= ', ' %= ', ' <<= ', ' >>= ', ' >>>= ', ' &= ', ' ^= ', ' |= '
         operators: any = {
+            // 因为打开所有括号后还有检查一次符号，所以运算量还是会带有括号
             mixed: /([\$\w])\s*(@\d+L\d+P\d+O*\d*::)?(\=\=|\!\=|\=|\!|\+|\-|\*|\/|\%|<<|>>|>>>|\&|\^|\||<|>)=\s*((\+|\-)?[\$\w\.])/g,
             bool: /([\$\w])\s*(@\d+L\d+P\d+O*\d*::)?(\&\&|\|\||\<|\<\<|\>\>\>|\>\>|\>)\s*((\+|\-)?[\$\w\.])/g,
             op: /([\$\w])\s*(@\d+L\d+P\d+O*\d*::)?(\+|\-|\*\*|\*|\/|\%)\s*((\s+(\+|\-))?[\$\w\.])/g,
@@ -79,7 +80,7 @@
             fnlike: /(@\d+L\d+P\d+O*\d*::)?(^|(var|public|let|function|def)\s+)?([\$\w]*\s*\([^\(\)]*\))\s*\{([^\{\}]*?)\}/g,
             arraylike: /(\s*@\d+L\d+P\d+O*\d*::)?\[(\s*[^\[\]]*?)\s*\]/g,
             call: /(@\d+L\d+P\d+O*\d*::)?((new)\s+([\$\w\.]+)|\.*[\$\w]+)\s*(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)\s*([^\$\w\s\{]|[\r\n].|\s*___boundary_[A-Z0-9_]{36}_\d+_as_array___|\s*___boundary_\d+_as_operator___|$)/g,
-            arrowfn: /(@\d+L\d+P\d+O*\d*::)?(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)\s*(->|=>)\s*([^,;\r\n]+)\s*(,|;|\r|\n|$)/g,
+            arrowfn: /(@\d+L\d+P\d+O*\d*::)?(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)\s*(@\d+L\d+P\d+O*\d*::)?(->|=>)\s*([^,;\r\n]+)\s*(,|;|\r|\n|$)/g,
             closure: /((@\d+L\d+P\d+O*\d*::)?@*[\$\w]+|\)(@\d+L\d+P\d+O*\d*::)?)?\s*\{(\s*[^\{\}]*?)\s*\}/g            
         },
         matchExpr = {
@@ -125,6 +126,7 @@
         namespace:string= ''
         namespace_posi: string
         markPattern: RegExp;
+        trimPattern: RegExp;
         lastPattern: RegExp;
         stringReplaceTimes: number = 65536;
         positions: Array<string>[] = []
@@ -140,7 +142,8 @@
         output: string | undefined
         constructor(input: string, toES6: boolean = false, run: boolean = false) {
             this.uid = boundaryMaker();
-            this.markPattern = new RegExp('___boundary_(\\\d+)_as_(mark|preoperator|operator|aftoperator)___', 'g');
+            this.markPattern = new RegExp('___boundary_(\\\d+)_as_(mark)___', 'g');
+            this.trimPattern = new RegExp('(___boundary_' + this.uid + '_(\\\d+)_as_(string|pattern|template)___|___boundary_(\\\d+)_as_(propname)___)', 'g');
             this.lastPattern = new RegExp('(___boundary_' + this.uid + '_(\\\d+)_as_(string|pattern|template)___|___boundary_(\\\d+)_as_(propname|preoperator|operator|aftoperator|comments)___)', 'g');
             this.input = input;
             this.output = undefined;
@@ -746,7 +749,7 @@
                 });
             }
             return string.replace(operators.error, (match: string, before: string, op: string, after: string) => {
-                // console.log(this.replacements);
+                console.log(match, string);
                 throw 'tangram.js sugar Error: Unexpected `' + op + '` in `' + this.decode(match) + '`';
             });
         }
@@ -756,7 +759,7 @@
             if (arrow) {
                 if (string.match(replaceExpr.arrowfn)) {
                     // console.log(string.match(matchExpr.arrowfn));
-                    return string.replace(replaceExpr.arrowfn, (match: string, posi, params: string, paramsindex: string, arrow: string, body: string, end: string) => {
+                    return string.replace(replaceExpr.arrowfn, (match: string, posi1, params: string, paramsindex: string, posi2, arrow: string, body: string, end: string) => {
                         // console.log(match);
                         // console.log(body);
                         let matches = body.match(/^\s*___boundary_[A-Z0-9_]{36}_(\d+)_as_(parentheses|object|closure)___\s*$/);
@@ -778,7 +781,16 @@
                         }
                         let index = this.replacements.length;
                         // console.log(body);
-                        this.replacements.push([params + arrow + body, posi && posi.trim()]);
+                        if (posi1===void 0){
+                            if (posi2 === void 0) {
+                                var posi = undefined;
+                            }else{
+                                var posi = posi2.trim();
+                            }
+                        } else {
+                            var posi = posi1.trim();
+                        }
+                        this.replacements.push([params + arrow + body, posi]);
                         return '___boundary_' + this.uid + '_' + index + '_as_arrowfn___' + end;
                     });
                 } else {
@@ -787,6 +799,7 @@
                     } else {
                         index = 0;
                     }
+                    // console.log(string);
                     throw 'tangram.js sugar Error: Unexpected `' + arrow[0] + '` in `' + this.decode(string.substr(index, 256)) + '`';
                 }
             }
@@ -796,12 +809,18 @@
             if (string){
                 let match = string.match(/@(\d+)L(\d+)P(\d+)(O*)(\d*):*/);
                 if (match) {
+                    if (match[4]){
+                        var ocol = parseInt(match[5]);
+                    }else{
+                        var ocol = parseInt(match[3]);
+                    }
                     return {
                         match: match[0],
+                        head: !ocol,
                         file: parseInt(match[1]),
                         line: parseInt(match[2]) + 1,
                         col: parseInt(match[3]) + 1,
-                        o: [parseInt(match[1]), parseInt(match[2]), parseInt(match[4] ? match[5] : match[3])]
+                        o: [parseInt(match[1]), parseInt(match[2]), ocol]
                     }
                 }
             }
@@ -1047,7 +1066,7 @@
         walk(element: any, vars: any, codeInline: boolean): object {
             switch (element.type) {
                 case 'array':
-                    return this.walkArray(element.posi, vars, codeInline);
+                    return this.walkArray(element.posi, vars/*, codeInline*/);
                 case 'arrowfn':
                     return this.walkArrowFn(element.posi, vars, codeInline);
                 case 'call': case 'construct':
@@ -1085,29 +1104,65 @@
                     }
             }
         }
-        walkArray(posi: number, vars: any, codeInline: boolean): object {
+        walkArray(posi: number, vars: any/*, codeInline: boolean*/): object {
             let body = [],
                 array = this.replacements[posi][0].replace(/([\[\s\]])/g, '').split(',');
+            // console.log(this.replacements[posi]);
             for (let index = 0; index < array.length; index++) {
                 let line = array[index].split('___boundary_' + this.uid);
                 let inline: object[] = [];
                 for (let i = 0; i < line.length; i++) {
                     this.pushReplacementsToAST(inline, vars, line[i], true);
                 }
-                console.log(array[index], inline);
+                // console.log(array[index], inline);
                 body.push({
                     type: 'element',
                     vars: vars,
                     body: inline
                 });
             }
+            let position = this.getPosition(this.replacements[posi][1]);
             return {
                 type: 'array',
-                posi: this.getPosition(this.replacements[posi][1]),
-                stype: codeInline ? 'inline' : 'block',
+                posi: position,
+                // stype: codeInline ? 'inline' : 'block',
                 vars: vars,
                 body: body
             };
+        }
+        walkArrowFn(posi: number, vars: any, codeInline: boolean) {
+            let matches: any = this.replacements[posi][0].match(matchExpr.arrowfn);
+            // console.log(this.replacements[posi], matches);
+
+            let subtype = 'fn';
+            let selfvas = {
+                this: 'var',
+                arguments: 'var'
+            };
+            if (matches[3] === '=>') {
+                subtype = '=>';
+                selfvas = {
+                    this: 'let',
+                    arguments: 'let'
+                }
+            }
+            let localvars = {
+                parent: vars,
+                self: selfvas,
+                fixed: [],
+                fix_map: {},
+                type: 'fnbody'
+            };
+            let args: any = this.checkArgs(this.replacements[matches[2]][0].replace(/(^\(|\)$)/g, ''), localvars);
+            return {
+                type: 'def',
+                posi: this.getPosition(this.replacements[posi][1]),
+                // stype: codeInline ? 'inline' : 'block',
+                subtype: subtype,
+                args: args.keys,
+                defaults: args.vals,
+                body: this.checkFnBody(localvars, args, matches[4])
+            }
         }
         walkClass(posi: number, vars: any, codeInline: boolean = true) {
             // console.log(this.replacements[posi]);
@@ -1346,39 +1401,7 @@
                 body: this.checkFnBody(localvars, args, matches[5])
             }
         }
-        walkArrowFn(posi: number, vars: any, codeInline: boolean) {
-            let matches: any = this.replacements[posi][0].match(matchExpr.arrowfn);
-            // console.log(this.replacements[posi], matches);
-
-            let subtype = 'fn';
-            let selfvas = {
-                this: 'var',
-                arguments: 'var'
-                };
-            if (matches[3] === '=>') {
-                subtype = '=>';
-                selfvas = {
-                    this: 'let',
-                    arguments: 'let'
-                }
-            }
-            let localvars = {
-                parent: vars,
-                self: selfvas,
-                fixed: [],
-                fix_map: {},
-                type: 'fnbody'
-            };
-            let args: any = this.checkArgs(this.replacements[matches[2]][0].replace(/(^\(|\)$)/g, ''), localvars);
-            return {
-                type: 'def',
-                stype: codeInline ? 'inline' : 'block',
-                subtype: subtype,
-                args: args.keys,
-                defaults: args.vals,
-                body: this.checkFnBody(localvars, args, matches[4])
-            }
-        }
+        
         checkArgs(code: string, localvars): object {
             let args = code.split(/\s*,\s*/),
                 keys = [],
@@ -1390,7 +1413,12 @@
                 if (arg){
                     let array = arg.split(/\s*=\s*/);
                     let position = this.getPosition(array[0]);
-                    let varname = array[0].replace(position.match, '');
+                    if (position){
+                        var varname = array[0].replace(position.match, '');
+                    }else{
+                        var varname = array[0];
+                    }
+                    // console.log(arg, array, position, varname);
                     if (varname.match(namingExpr)) {
                         keys.push([varname, position]);
                         vals.push(array[1]);
@@ -2665,12 +2693,12 @@
         trim(string: string): string {
             // 此处的replace在整理完成后，将进行分析归纳，最后改写为callback形式的
             // console.log(string);
-            string = this.restoreStrings(string);
+            string = this.restoreStrings(string, false);
             // return string;
-            this.replacements = [['{}'], ['/='], ['/'], [' +'], [' -']];
+            // this.replacements = [['{}'], ['/='], ['/'], [' +'], [' -'], ['return ']];
 
             string = this.replaceStrings(string, true);
-            string = this.replaceOperators(string);
+            string = this.replaceOperators(string, false);
             // console.log(string);
             // return '';
 
@@ -2697,7 +2725,7 @@
             // 删除多余换行
             string = string.replace(/\s*[\r\n]+([\r\n])?/g, "\r\n$1");
 
-            string = this.restoreStrings(string);
+            string = this.restoreStrings(string, true);
 
             // 删除多余空白
             string = string.replace(/\{\s+\}/g, '{}');
@@ -2753,10 +2781,15 @@
             // string = this.restoreStrings(string);
             // return string;
         }
-        restoreStrings(string: string): string {
+        restoreStrings(string: string, last:boolean): string {
             let that = this;
-            return string.replace(this.lastPattern, function () {
-                // console.log(arguments[1]);
+            if(last){
+                var pattern = this.lastPattern;
+            } else {
+                var pattern = this.trimPattern;
+            }
+            return string.replace(pattern, function () {
+                // console.log(pattern, arguments[2] || arguments[4], that.replacements, that.replacements[arguments[2] || arguments[4]]);
                 return that.replacements[arguments[2] || arguments[4]][0];
             }).replace(this.markPattern, function () {
                 return that.replacements[arguments[1]][0];
@@ -2775,7 +2808,7 @@
             string = string.replace(/\};(else|catch)(\s|\{|\()/g, "}$1$2");
             string = string.replace(/\s*(___boundary_\d+_as_operator___)\s*/g, "$1");
             // console.log(string);
-            string = this.restoreStrings(string);
+            string = this.restoreStrings(string, false);
 
             return string;
         }
