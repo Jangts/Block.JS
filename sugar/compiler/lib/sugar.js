@@ -50,44 +50,49 @@
     // ' & ', ' ^ ', ' | ', ' && ', ' || ',
     // ' = ', ' += ', ' -= ', ' *= ', ' /= ', ' %= ', ' <<= ', ' >>= ', ' >>>= ', ' &= ', ' ^= ', ' |= '
     operators = {
-        mixed: /([\$\w\)\}\]])\s*(\=\=|\!\=|\=|\!|\+|\-|\*|\/|\%|<<|>>|>>>|\&|\^|\||<|>)=\s*((\+|\-)?[\$\w\(\{\[]|\.*\d)/g,
-        bool: /([\$\w\)\}\]])\s*(\&\&|\|\||\<|\<\<|\>\>\>|\>\>|\>)\s*((\+|\-)?[\$\w\(\{\[]|\.*\d)/g,
-        op: /([\$\w\)\}\]])\s*(\+|\-|\*\*|\*|\/|\%)\s*((\s+(\+|\-))?[\$\w\(\{\[]|\.*\d)/g,
+        mixed: /([\$\w])\s*(@\d+L\d+P\d+O*\d*::)?(\=\=|\!\=|\=|\!|\+|\-|\*|\/|\%|<<|>>|>>>|\&|\^|\||<|>)=\s*((\+|\-)?[\$\w\.])/g,
+        bool: /([\$\w])\s*(@\d+L\d+P\d+O*\d*::)?(\&\&|\|\||\<|\<\<|\>\>\>|\>\>|\>)\s*((\+|\-)?[\$\w\.])/g,
+        op: /([\$\w])\s*(@\d+L\d+P\d+O*\d*::)?(\+|\-|\*\*|\*|\/|\%)\s*((\s+(\+|\-))?[\$\w\.])/g,
         owords: /\s+(in|of)\s+/g,
-        sign: /(^|\s*[^\+\-])(\+|\-)(\.*\d|[\$\w_\(\[\{)])/g,
-        swords: /([^\$\w_\.]+)(new|typeof|instanceof|delete)\s+(\.*\d|[\$\w\(\[\{)])/g,
-        before: /(\+\+|\-\-|\!|\~)\s*([\$\w\(\{\[])/g,
-        after: /([\$\w\)\]])\s*(\+\+|\-\-)/g,
+        sign: /(^|\s*[^\+\-])(@\d+L\d+P\d+O*\d*::)?(\+|\-)([\$\w\.])/g,
+        swords: /(^|[^\$\w])(typeof|instanceof|void|delete)\s+(\+*\-*[\$\w\.])/g,
+        before: /(\+\+|\-\-|\!|\~)\s*([\$\w])/g,
+        after: /([\$\w\.])\s*(\+\+|\-\-)/g,
         error: /(.*)(\+\+|\-\-|\+|\-)(.*)/g
     }, replaceExpr = {
-        use: /\s*use\s+.[\$\w\.,\s\/\\]+?(\[\])?[;\r\n]+/g,
+        await: /^((\s*@\d+L\d+P0::)*\s*(@\d+L\d+P0*)::(\s*))?"await"\s*/,
         using: /^\s*use\s+/g,
+        namespace: /((@\d+L\d+P0)::)?(\s*)namespace\s+([\$\w\.]+)\s*;*/g,
+        // 位置是在replace usings 和 strings 之后才tidy的，所以还存在后接空格
+        use: /(@\d+L\d+P\d+O*\d*::)\s*use\s+([\$\w\.\s\/\\]+(,(@\d+L\d+P\d+O*\d*::)?[\$\w\.\s\/\\]+)?(\[\])?)[;\r\n]/g,
+        include: /\s*@include\s+[\$\w\.\s\/\\]+?[;\r\n]+/g,
         return: /[\s;\r\n]+$/g,
-        include: /\s*@include\s+.[\$\w\.\s\/\\]+?[;\r\n]+/g,
-        class: /(class|dec|expands)\s+((pandora)?\.)?([\$\w\.]+\s+)?(extends\s+([\$\w\.]+)\s*)?\{([^\{\}]*?)\}/g,
-        define: /(ns|namespace|extends)\s+([\$\w\.]+)\s*\{([^\{\}]*?)\}/g,
-        fnlike: /((var|let|function|def)\s+)?([\$\w]*)\s*\(([^\(\)]*)\)\s*\{([^\{\}]*?)\}/g,
-        arraylike: /\s*\[\s*([^\[\]]*?)\s*\]/g,
-        call: /([\$\w]+)\s*(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)\s*([^\$\w\s\{]|[\r\n].|\s*___boundary_[A-Z0-9_]{36}_\d+_as_array___|\s*___boundary_\d+_as_operator___|$)/g,
-        closure: /(@*[\$\w]+|\))?\s*\{(\s*[^\{\}]*?)\s*\}/g,
-        arrowfn: /\s*(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)\s*(->|=>)\s*([^,;\r\n]+)\s*(,|;|\r|\n|$)/g
+        extends: /(@\d+L\d+P\d+O*\d*::)?((ns|namespace|stroe|extends)\s+[\$\w\.]+\s*\{[^\{\}]*?\})/g,
+        class: /(@\d+L\d+P\d+O*\d*::)?((class|expands)\s+([\$\w\.]+\s+)?(extends\s+[\$\w\.]+\s*)?\{[^\{\}]*?\})/g,
+        fnlike: /(@\d+L\d+P\d+O*\d*::)?(^|(var|public|let|function|def)\s+)?([\$\w]*\s*\([^\(\)]*\))\s*\{([^\{\}]*?)\}/g,
+        arraylike: /(\s*@\d+L\d+P\d+O*\d*::)?\[(\s*[^\[\]]*?)\s*\]/g,
+        call: /(@\d+L\d+P\d+O*\d*::)?((new)\s+([\$\w\.]+)|\.*[\$\w]+)\s*(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)\s*([^\$\w\s\{]|[\r\n].|\s*___boundary_[A-Z0-9_]{36}_\d+_as_array___|\s*___boundary_\d+_as_operator___|$)/g,
+        arrowfn: /(@\d+L\d+P\d+O*\d*::)?(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)\s*(->|=>)\s*([^,;\r\n]+)\s*(,|;|\r|\n|$)/g,
+        closure: /((@\d+L\d+P\d+O*\d*::)?@*[\$\w]+|\)(@\d+L\d+P\d+O*\d*::)?)?\s*\{(\s*[^\{\}]*?)\s*\}/g
     }, matchExpr = {
         string: /(\/|\#|`|"|')([\*\/\=])?/,
         strings: {
-            '/': /(\/.+?\/[img]*)\s*?(\sin|[\r\n\.,;\)\]\}]|\/\/|$)/,
-            '`': /(`[^`]*`)\s*?(\sin|[\r\n]|[^\$\w\s\*\/]|\/\/|$)/,
-            '"': /(".*?")\s*?(\sin|[\r\n]|[^\$\w\s\*\/]|\/\/|$)/,
-            "'": /('.*?')\s*?(\sin|[\r\n]|[^\$\w\s\*\/]|\/\/|$)/
+            // 位置是在replace usings 和 strings 之后才tidy的，所以还存在后接空格
+            '/': /(\s*@\d+L\d+P\d+O?\d*::\s*)?(\/.+?\/[img]*)\s*?(\sin|[\r\n\.,;\)\]\}]|\/\/|$)/,
+            '`': /(\s*@\d+L\d+P\d+O*\d*::\s*)?(`[^`]*`)\s*?(\sin|[\r\n]|[^\$\w\s\*\/]|\/\/|$)/,
+            '"': /(\s*@\d+L\d+P\d+O*\d*::\s*)?(".*?")\s*?(\sin|[\r\n]|[^\$\w\s\*\/]|\/\/|$)/,
+            "'": /(\s*@\d+L\d+P\d+O*\d*::\s*)?('.*?')\s*?(\sin|[\r\n]|[^\$\w\s\*\/]|\/\/|$)/
         },
         index: /(\d+)_as_([a-z]+)/,
         index3: /^_(\d+)_as_([a-z]+)___([\s\S]*)$/,
-        class: /(class|dec|expands)\s+((pandora)?\.)?([\$\w\.]+\s+)?(extends\s+([\$\w\.]+)\s*)?\{([^\{\}]*?)\}/,
-        classelement: /^\s*((public|static|set|get|om)\s+)?([\$\w]*)\s*(\=*)([\s\S]*)$/,
+        extends: /(ns|namespace|store|extends)\s+(\.)?([\$\w\.]+)\s*\{([^\{\}]*?)\}/,
+        class: /(class|dec|expands)\s+(\.)?([\$\w\.]+\s+)?(extends\s+([\$\w\.]+)\s*)?\{([^\{\}]*?)\}/,
+        fnlike: /(^|(var|public|let|function|def)\s+)?([\$\w]*)\s*\(([^\(\)]*)\)\s*\{([^\{\}]*?)\}/,
+        call: /([\$\w\.]+)\s*___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___/,
+        arrowfn: /(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)\s*(->|=>)\s*([^,;\r\n]+)/,
         objectattr: /^\s*((([\$\w]+)))\s*(\:*)([\s\S]*)$/,
-        define: /(ns|namespace|extends)\s+([\$\w\.]+)\s*\{([^\{\}]*?)\}/,
-        fnlike: /((var|let|function|def)\s+)?([\$\w]*)\s*(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)\s*\{([^\{\}]*?)\}/,
-        call: /([\$\w]+|\])\s*(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)/,
-        arrowfn: /(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)\s*(->|=>)\s*([^,;\r\n]+)/
+        classelement: /^\s*((public|static|set|get|om)\s+)?([\$\w]*)\s*(\=*)([\s\S]*)$/,
+        travelargs: /^((@\d+L\d+P\d+O*\d*::)?[\$a-zA-Z_][\$\w\.-]+)\s+as\s+([\$\w]+)(\s*,((@\d+L\d+P\d+O*\d*::)?([\$\w]*)))?/
     }, boundaryMaker = function () {
         var radix = 36;
         var uid = new Array(36);
@@ -104,18 +109,23 @@
             if (toES6 === void 0) { toES6 = false; }
             if (run === void 0) { run = false; }
             this.isMainBlock = true;
+            this.namespace = '';
             this.stringReplaceTimes = 65536;
-            this.replacements = ['{}', '/=', '/', ' +', ' -', 'return '];
+            this.positions = [];
             this.imports = [];
             this.using_as = {};
             this.ast = {};
             this.configinfo = '{}';
             this.toES6 = false;
+            this.posimap = [];
+            this.closurecount = 0;
             this.uid = boundaryMaker();
             this.markPattern = new RegExp('___boundary_(\\\d+)_as_(mark|preoperator|operator|aftoperator)___', 'g');
-            this.lastPattern = new RegExp('(___boundary_' + this.uid + '_(\\\d+)_as_(string|pattern|template)___|___boundary_(\\\d+)_as_(propname|preoperator|operator|aftoperator)___)', 'g');
+            this.lastPattern = new RegExp('(___boundary_' + this.uid + '_(\\\d+)_as_(string|pattern|template)___|___boundary_(\\\d+)_as_(propname|preoperator|operator|aftoperator|comments)___)', 'g');
             this.input = input;
             this.output = undefined;
+            this.replacements = [['{}'], ['/='], ['/'], [' +'], [' -'], ['return ']];
+            this.mappings = [];
             if (toES6) {
                 this.toES6 = true;
             }
@@ -127,118 +137,256 @@
             // console.log(this.input);
             var vars = {
                 parent: {
-                    fixed: [],
+                    fixed: ['window'],
                     fix_map: {}
                 },
-                self: ['var this', 'var arguments'],
+                self: {
+                    this: 'var',
+                    arguments: 'var'
+                },
                 fixed: [],
                 fix_map: {},
                 type: 'block'
             };
-            this.buildAST(this.getReplacePosis(this.getSentences(this.encode(this.input), vars), vars), vars);
+            var lines = this.input.split(/[\r\n]/);
+            var positions = [];
+            for (var line = 0; line < lines.length; line++) {
+                var elements = lines[line].split(/(,|;|\{|\(|\)|\})/);
+                // console.log(elements);
+                var newline = [];
+                for (var posi = 0, length_1 = 0; posi < elements.length; posi++) {
+                    var element = elements[posi];
+                    if (posi === 0) {
+                        length_1 = 0;
+                    }
+                    if (element === ',' || element === ';' || element === '{' || element === '(' || element === ')' || element === '}') {
+                        newline.push(element);
+                    }
+                    else {
+                        newline.push('@0L' + line + 'P' + length_1 + '::' + element);
+                    }
+                    length_1 += element.length;
+                }
+                positions.push(newline);
+            }
+            // positions[0][0] = positions[0][0].replace('@0L0P0::', '');
+            var newlines = positions.map(function (line) {
+                return line.join("");
+            });
+            this.positions.push(positions);
+            var newcontent = newlines.join("\r\n");
+            // console.log(this.positions);
+            this.buildAST(this.pickReplacePosis(this.getLines(this.encode(newcontent), vars), vars), vars);
             // this.output = 'console.log("Hello, world!");';
             this.generate();
             // console.log(this.replacements);
             return this;
         };
-        Sugar.prototype.decode = function (string) {
-            var matches = string.match(/___boundary_([A-Z0-9_]{37})?(\d+)_as_[a-z]+___/);
-            while (matches) {
-                // console.log(matches, this.replacements[matches[2]]);
-                string = string.replace(matches[0], this.replacements[matches[2]]);
-                matches = string.match(/___boundary_([A-Z0-9_]{37})?(\d+)_as_[a-z]+___/);
+        Sugar.prototype.tidy = function (string) {
+            var on = true;
+            while (on) {
+                on = false;
+                string = string.replace(/(@\d+L\d+P\d+O?\d*::\s*)+(@\d+L\d+P0::)/g, function (match, last, newline) {
+                    // console.log(match);
+                    on = true;
+                    return "\r\n" + newline;
+                });
             }
-            // console.log(string);
+            on = true;
+            while (on) {
+                on = false;
+                string = string.replace(/(@\d+L\d+P)0::(\s+)/g, function (match, pre, space) {
+                    // console.log(pre, space);
+                    on = true;
+                    return pre + space.length + 'O0::';
+                });
+            }
+            on = true;
+            while (on) {
+                on = false;
+                string = string.replace(/(@\d+L\d+P)(\d+)::(\s+)/g, function (match, pre, num, space) {
+                    // console.log(pre, num, space);
+                    on = true;
+                    return pre + (parseInt(num) + space.length) + 'O' + num + '::';
+                });
+            }
+            on = true;
+            while (on) {
+                on = false;
+                string = string.replace(/(\{|\[|\(|\)|\]|\})\s*@\d+L\d+P\d+O?\d*::\s*(\{|\)|\]|\})/g, function (match, before, atfer) {
+                    // console.log(match);
+                    on = true;
+                    return before + atfer;
+                });
+            }
+            on = true;
+            while (on) {
+                on = false;
+                string = string.replace(/@\d+L\d+P([1-9]|\d\d+)::\s*(\)|\]|\})/g, function (match, posi, panbrackets) {
+                    // console.log(match);
+                    on = true;
+                    return panbrackets;
+                });
+            }
+            on = true;
+            while (on) {
+                on = false;
+                string = string.replace(/(\s*@\d+L\d+P\d+O?\d*::)+(,|;)/g, function (match, posi, panstop) {
+                    // console.log(match);
+                    on = true;
+                    return panstop;
+                });
+            }
             return string;
         };
         Sugar.prototype.encode = function (string) {
             var _this = this;
-            string = string.replace(/^\s*"await"\s*/, function (match) {
+            // console.log(string);
+            string = string
+                .replace(replaceExpr.await, function (match, gaps, preline, posi, gap) {
                 _this.isMainBlock = false;
-                // console.log('This is not a main block.');
+                if (gaps) {
+                    _this.maintag_posi = posi;
+                    if (!!gap) {
+                        _this.maintag_posi += 'O' + gap.length;
+                    }
+                }
+                else {
+                    _this.maintag_posi = '@0L0P0';
+                }
+                // console.log(gaps, preline, posi, !!gap, gap.length);
+                // console.log('This is not a main block.', this.maintag_posi);
+                return '';
+            })
+                .replace(replaceExpr.namespace, function (match, posi, at, gap, namespace) {
+                if (_this.namespace === '') {
+                    _this.namespace += namespace + '.';
+                    _this.namespace_posi = at;
+                    if (gap) {
+                        _this.namespace_posi += 'O' + gap.length;
+                    }
+                    // console.log('namespace:' + namespace, this.namespace_posi);
+                }
                 return '';
             });
             // console.log(string);
             string = this.replaceUsing(string);
             string = this.replaceStrings(string);
-            // console.log(string);
+            string = this.tidy(string);
             while (string.indexOf('@include') >= 0) {
                 string = this.replaceIncludes(string);
             }
-            string = string.replace(/___boundary_[A-Z0-9_]{36}_(\d+)_as_string___\s*(\:|\(|\=)/g, '___boundary_$1_as_propname___$2');
+            string = string.replace(/(@\d+L\d+P\d+O?\d*::)?___boundary_[A-Z0-9_]{36}_(\d+)_as_string___\s*(\:|\(|\=)/g, function (match, posi, index, after) {
+                // console.log(match, posi, index, after, this.replacements[index]);
+                return '___boundary_' + index + '_as_propname___' + after;
+            });
             string = string.replace(/([\$\w]+)\s*(->|=>)/g, "($1)$2");
             // console.log(string);
             // console.log(this.replacements);
             string = this.replaceBrackets(string);
+            // console.log(string);
             string = this.replaceBraces(string);
+            // console.log(string);
             string = this.replaceParentheses(string);
+            // console.log(string);
+            string = string
+                .replace(/\s*[\r\n]+\s*___boundary_/g, "\r\n___boundary_")
+                .replace(/\s+___boundary_/g, ' ___boundary_')
+                .replace(/(@\d+L\d+P\d+O?\d*::\s*)?return(\s|___boundary_)/g, function (match, posi, after) {
+                var index = _this.replacements.length;
+                _this.replacements.push(['return ', posi]);
+                return ('___boundary_' + index + '_as_preoperator___ ' + after).replace(/\s+/, '');
+            })
+                .replace(/@\d+L\d+P\d+O?\d*::(___boundary_|$)/g, "$1")
+                .replace(/\s*(,|;)\s*/g, "$1\r\n");
             // console.log(string);
             // console.log(this.replacements);
             return string;
         };
         Sugar.prototype.replaceUsing = function (string) {
             var _this = this;
-            return string.replace(replaceExpr.use, function (match) {
+            // console.log(string);
+            return string.replace(replaceExpr.use, function (match, posi, url) {
+                // console.log(match, posi, url);
                 var index = _this.replacements.length;
-                _this.replacements.push(match);
+                _this.replacements.push([url, posi]);
                 return '___boundary_' + _this.uid + '_' + index + '_as_using___;' + "\r\n";
             });
         };
-        Sugar.prototype.replaceStrings = function (string) {
+        Sugar.prototype.replaceStrings = function (string, ignoreComments) {
             var _this = this;
+            if (ignoreComments === void 0) { ignoreComments = false; }
             string = string.replace(/\\+(`|")/g, function (match) {
                 var index = _this.replacements.length;
-                _this.replacements.push(match);
+                _this.replacements.push([match]);
                 return '___boundary_' + index + '_as_mark___';
-            }).replace(/\\[^\r\n]/g, function (match) {
+            }).replace(/\\[^\r\n](@\d+L\d+P\d+O?\d*::)*/g, function (match) {
                 var index = _this.replacements.length;
-                _this.replacements.push(match);
+                _this.replacements.push([match]);
                 return '___boundary_' + index + '_as_mark___';
             });
             var count = 0;
             var matches = string.match(matchExpr.string);
-            while ((count < this.stringReplaceTimes) && matches) {
+            var _loop_1 = function () {
                 count++;
                 // console.log(count);
                 // console.log(matches);
-                var index_1 = this.replacements.length;
+                var index_1 = this_1.replacements.length;
                 switch (matches[1]) {
                     case '#':
                         string = string.replace(/(\S*)\s*\#.+/, "$1");
                         matches = string.match(matchExpr.string);
-                        continue;
+                        return "continue";
                     case '/':
                         switch (matches[2]) {
                             case '*':
-                                string = string.replace(/\/\*{1,2}[\s\S]*?(\*\/|$)/, "");
+                                if (ignoreComments) {
+                                    // console.log(true);
+                                    string = string.replace(/\/\*{1,2}[\s\S]*?(\*\/|$)/, function (match) {
+                                        _this.replacements.push([match]);
+                                        return '___boundary_' + index_1 + '_as_comments___';
+                                    });
+                                }
+                                else {
+                                    string = string.replace(/\/\*{1,2}[\s\S]*?(\*\/|$)/, "");
+                                }
                                 matches = string.match(matchExpr.string);
-                                continue;
+                                return "continue";
                             case '/':
                                 string = string.replace(/(\S*)\s*\/\/.+/, "$1");
                                 matches = string.match(matchExpr.string);
-                                continue;
+                                return "continue";
                             case '=':
                                 string = string.replace(matches[0], '___boundary_1_as_operator___');
                                 matches = string.match(matchExpr.string);
-                                continue;
+                                return "continue";
                         }
                         break;
                 }
                 var match = string.match(matchExpr.strings[matches[1]]);
                 // if (match && (matches.index === match.index) && ((match[2] === 'i') || !match[2].match(/[\$\w\{]/))) {
-                if (match && (matches.index === match.index) && ((match[2] === ' in') || !match[2].match(/[\$\w\{]/))) {
+                if (match && (matches.index >= match.index) && ((match[3] === ' in') || !match[3].match(/[\$\w\{]/))) {
                     // console.log(matches, match);
-                    this.replacements.push(match[1]);
-                    string = string.replace(match[1], '___boundary_' + this.uid + '_' + index_1 + stringas[matches[1]]);
+                    if (match[1]) {
+                        this_1.replacements.push([match[2].replace(/@\d+L\d+P\d+O?\d*::/g, ''), match[1].trim()]);
+                    }
+                    else {
+                        this_1.replacements.push([match[2].replace(/@\d+L\d+P\d+O?\d*::/g, '')]);
+                    }
+                    string = string.replace(match[0], '___boundary_' + this_1.uid + '_' + index_1 + stringas[matches[1]] + match[3]);
                 }
                 else if (matches[0] === '/') {
                     string = string.replace(matches[0], '___boundary_2_as_operator___');
                 }
                 else {
-                    console.log(matches, match);
-                    throw 'tangram.js sugar Error: Unexpected `' + matches[1] + '` in `' + this.decode(string.substr(matches.index, 256)) + '`';
+                    console.log(string, matches, match);
+                    throw 'tangram.js sugar Error: Unexpected `' + matches[1] + '` in `' + this_1.decode(string.substr(matches.index, 256)) + '`';
                 }
                 matches = string.match(matchExpr.string);
+            };
+            var this_1 = this;
+            while ((count < this.stringReplaceTimes) && matches) {
+                _loop_1();
             }
             // console.log(string);
             // console.log(this.replacements);
@@ -263,13 +411,13 @@
                 count++;
                 // console.log(left, right);
                 if (left < right) {
-                    string = string.replace(replaceExpr.arraylike, function (match, elements) {
+                    string = string.replace(replaceExpr.arraylike, function (match, posi, elements) {
                         // console.log(match);
                         elements = _this.replaceBraces(elements);
                         elements = _this.replaceParentheses(elements);
                         // match = this.replaceOperators(match, false);
                         var index = _this.replacements.length;
-                        _this.replacements.push('[' + elements + ']');
+                        _this.replacements.push(['[' + elements + ']', posi && posi.trim()]);
                         return '___boundary_' + _this.uid + '_' + index + '_as_array___';
                     });
                     left = string.indexOf('[');
@@ -321,55 +469,93 @@
         };
         Sugar.prototype.replaceCodeSegments = function (string) {
             var _this = this;
-            if (string.match(matchExpr.class)) {
-                return string.replace(replaceExpr.class, function (match) {
-                    match = _this.replaceParentheses(match);
-                    // match = this.replaceOperators(match, false);
+            if (string.match(replaceExpr.class)) {
+                return string.replace(replaceExpr.class, function (match, posi, body) {
+                    body = _this.replaceParentheses(body);
+                    // body = this.replaceOperators(body, false);
                     var index = _this.replacements.length;
-                    _this.replacements.push(match);
+                    _this.replacements.push([body, posi && posi.trim()]);
                     return '___boundary_' + _this.uid + '_' + index + '_as_class___';
                 });
             }
-            if (string.match(matchExpr.define)) {
-                return string.replace(replaceExpr.define, function (match) {
-                    match = _this.replaceParentheses(match);
-                    // match = this.replaceOperators(match, false);
+            if (string.match(replaceExpr.extends)) {
+                return string.replace(replaceExpr.extends, function (match, posi, body) {
+                    body = _this.replaceParentheses(body);
+                    // body = this.replaceOperators(body, false);
                     var index = _this.replacements.length;
-                    _this.replacements.push(match);
-                    return '___boundary_' + _this.uid + '_' + index + '_as_define___';
+                    _this.replacements.push([body, posi && posi.trim()]);
+                    return '___boundary_' + _this.uid + '_' + index + '_as_extends___';
                 });
             }
             if (string.match(replaceExpr.fnlike)) {
-                return string.replace(replaceExpr.fnlike, function (match) {
+                return string.replace(replaceExpr.fnlike, function (match, posi, typewithgap, type, call, closure) {
                     // console.log(match);
-                    match = _this.replaceParentheses(match);
-                    // match = this.replaceOperators(match, false);
+                    closure = _this.replaceParentheses(closure);
+                    call = _this.replaceOperators(call, false);
+                    match = (typewithgap || '') + call + ' {' + closure + '}';
+                    match = match
+                        .replace(/\s*[\r\n]+\s*___boundary_/, "\r\n___boundary_")
+                        .replace(/\s+___boundary_/, ' ___boundary_')
+                        .replace(/(@\d+L\d+P\d+O?\d*::\s*)?return(\s|___boundary_)/, function (match, posi, after) {
+                        var index = _this.replacements.length;
+                        _this.replacements.push(['return ', posi]);
+                        return ('___boundary_' + index + '_as_preoperator___ ' + after).replace(/\s+/, '');
+                    });
                     var index = _this.replacements.length;
-                    _this.replacements.push(match);
+                    // console.log(match);
+                    _this.replacements.push([match, posi && posi.trim()]);
                     return '___boundary_' + _this.uid + '_' + index + '_as_function___';
                 });
             }
-            return string.replace(replaceExpr.closure, function (match, word, closure) {
+            return string.replace(replaceExpr.closure, function (match, word, posi2, posi3, closure) {
                 // console.log(match, word, closure);
-                if (!word && match.match(/\{\s*\}/)) {
+                if (!word && match.match(/\s*\{\s*\}/)) {
                     return '___boundary_0_as_mark___';
                 }
                 closure = _this.replaceParentheses(closure);
                 // closure = this.replaceOperators(closure, false);
+                // console.log(closure);
+                if (posi2) {
+                    word = word.replace(posi2, '');
+                    var posi = posi2.trim();
+                }
+                else if (posi3) {
+                    word = word.replace(posi3, '');
+                    var posi = posi3.trim();
+                }
+                else {
+                    var posi = void 0;
+                }
                 var index = _this.replacements.length;
                 if (word === '@config') {
-                    _this.configinfo = _this.decode(match.replace('@config', ''));
+                    if (_this.configinfo === '{}') {
+                        _this.configinfo_posi = posi;
+                        _this.configinfo = _this.decode(match.replace('@config', ''));
+                    }
                     return '';
                 }
                 if (word === 'return') {
-                    _this.replacements.push('{' + closure + '}');
+                    _this.replacements.push(['{' + closure + '}']);
                     return '___boundary_5_as_preoperator___ ___boundary_' + _this.uid + '_' + index + '_as_object___';
                 }
-                if ((word && (word != 'return') || (closure.indexOf(';') >= 0))) {
-                    _this.replacements.push('{' + closure + '}');
-                    return (word || '') + ' ___boundary_' + _this.uid + '_' + index + '_as_closure___';
+                if ((word && (word != 'return')) ||
+                    (closure.indexOf(';') >= 0) ||
+                    // !closure.match(/^\s*\{\s*(public|static|set|get|om)\s+)?(___boundary_[A-Z0-9_]{36}_(\d+)_as_function___|\|)(,|$)/)) {
+                    closure.match(/^\s*___boundary_[A-Z0-9_]{36}_\d+_as_[^f]\w+___/)) {
+                    // console.log(closure);
+                    closure = closure
+                        .replace(/\s*[\r\n]+\s*___boundary_/, "\r\n___boundary_")
+                        .replace(/\s+___boundary_/, ' ___boundary_')
+                        .replace(/(@\d+L\d+P\d+O?\d*::\s*)?return(\s|___boundary_)/, function (match, posi, after) {
+                        var index = _this.replacements.length;
+                        _this.replacements.push(['return ', posi]);
+                        return ('___boundary_' + index + '_as_preoperator___ ' + after).replace(/\s+/, '');
+                    });
+                    _this.replacements.push(['{' + closure + '}', posi]);
+                    return (word || '') + ' ___boundary_' + _this.uid + '_' + index + '_as_closure___;';
                 }
-                _this.replacements.push('{' + closure + '}');
+                // console.log(closure);
+                _this.replacements.push(['{' + closure + '}']);
                 return '___boundary_' + _this.uid + '_' + index + '_as_object___';
             });
         };
@@ -383,12 +569,12 @@
                 // console.log(left, right);
                 if (left < right) {
                     string = string.replace(/\s*\(\s*([^\(\)]*?)\s*\)/g, function (match, paramslike) {
-                        // console.log(match, paramslike);
+                        // console.log(match, '=>', paramslike);
                         paramslike = _this.replaceCalls(paramslike);
                         paramslike = _this.replaceOperators(paramslike, false);
                         paramslike = _this.replaceArrowFunctions(paramslike);
                         var index = _this.replacements.length;
-                        _this.replacements.push('(' + paramslike + ')');
+                        _this.replacements.push(['(' + paramslike + ')']);
                         return '___boundary_' + _this.uid + '_' + index + '_as_parentheses___';
                     });
                     // console.log(string);
@@ -417,11 +603,17 @@
         };
         Sugar.prototype.replaceCalls = function (string) {
             var _this = this;
-            return string.replace(replaceExpr.call, function (match, callname, args, argsposi, after) {
-                // console.log(match);
+            return string.replace(replaceExpr.call, function (match, posi, fullname, constructor, callname, args, argindex, after) {
+                // console.log(match, string)
                 var index = _this.replacements.length;
-                _this.replacements.push(callname + args);
-                return '___boundary_' + _this.uid + '_' + index + '_as_call___' + after;
+                if (constructor) {
+                    _this.replacements.push([callname + args, posi && posi.trim()]);
+                    return '___boundary_' + _this.uid + '_' + index + '_as_construct___' + after;
+                }
+                else {
+                    _this.replacements.push([fullname + args, posi && posi.trim()]);
+                    return '___boundary_' + _this.uid + '_' + index + '_as_call___' + after;
+                }
             });
         };
         Sugar.prototype.replaceOperators = function (string, toMin) {
@@ -434,31 +626,55 @@
                     // console.log(match);
                     on = true;
                     var index = _this.replacements.length;
-                    _this.replacements.push(' ' + word + ' ');
+                    _this.replacements.push([' ' + word + ' ']);
                     return '___boundary_' + index + '_as_operator___';
                 });
             }
+            // console.log(string);
             on = true;
             while (on) {
                 on = false;
                 string = string.replace(operators.swords, function (match, before, word, right) {
-                    // console.log(match, before);
+                    // console.log(match, before, word);
                     on = true;
                     var index = _this.replacements.length;
                     if ((word === 'typeof') || (word === 'instanceof')) {
-                        _this.replacements.push(' ' + word + ' ');
+                        // console.log(match, before, word)
+                        _this.replacements.push([' ' + word + ' ']);
                         before = before.trim();
                     }
                     else {
-                        _this.replacements.push(word + ' ');
+                        _this.replacements.push([word + ' ']);
                     }
                     return before + '___boundary_' + index + '_as_preoperator___' + right;
                 });
             }
             on = true;
             while (on) {
+                // console.log(string);
                 on = false;
-                string = string.replace(operators.mixed, function (match, left, op, right, sign) {
+                string = string.replace(operators.mixed, function (match, left, posi, op, right, sign) {
+                    // console.log(string);
+                    // console.log(match, left, op, right, sign);
+                    on = true;
+                    if (sign) {
+                        var _index = sign === '+' ? 3 : 4;
+                        right = right.replace(sign, '___boundary_' + _index + '_as_preoperator___');
+                    }
+                    var index = _this.replacements.length;
+                    if (toMin) {
+                        _this.replacements.push([op + '=']);
+                    }
+                    else {
+                        _this.replacements.push([' ' + op + '= ']);
+                    }
+                    return left + '___boundary_' + index + '_as_operator___' + right;
+                });
+            }
+            on = true;
+            while (on) {
+                on = false;
+                string = string.replace(operators.bool, function (match, left, posi, op, right, sign) {
                     // console.log(match);
                     on = true;
                     if (sign) {
@@ -467,10 +683,10 @@
                     }
                     var index = _this.replacements.length;
                     if (toMin) {
-                        _this.replacements.push(op + '=');
+                        _this.replacements.push([op]);
                     }
                     else {
-                        _this.replacements.push(' ' + op + '= ');
+                        _this.replacements.push([' ' + op + ' ']);
                     }
                     return left + '___boundary_' + index + '_as_operator___' + right;
                 });
@@ -478,7 +694,7 @@
             on = true;
             while (on) {
                 on = false;
-                string = string.replace(operators.bool, function (match, left, op, right, sign) {
+                string = string.replace(operators.op, function (match, left, posi, op, right, sign) {
                     // console.log(match);
                     on = true;
                     if (sign) {
@@ -487,10 +703,10 @@
                     }
                     var index = _this.replacements.length;
                     if (toMin) {
-                        _this.replacements.push(op);
+                        _this.replacements.push([op]);
                     }
                     else {
-                        _this.replacements.push(' ' + op + ' ');
+                        _this.replacements.push([' ' + op + ' ']);
                     }
                     return left + '___boundary_' + index + '_as_operator___' + right;
                 });
@@ -498,23 +714,7 @@
             on = true;
             while (on) {
                 on = false;
-                string = string.replace(operators.op, function (match, left, op, right) {
-                    // console.log(match);
-                    on = true;
-                    var index = _this.replacements.length;
-                    if (toMin) {
-                        _this.replacements.push(op);
-                    }
-                    else {
-                        _this.replacements.push(' ' + op + ' ');
-                    }
-                    return left + '___boundary_' + index + '_as_operator___' + right;
-                });
-            }
-            on = true;
-            while (on) {
-                on = false;
-                string = string.replace(operators.sign, function (match, before, sign, number) {
+                string = string.replace(operators.sign, function (match, before, posi, sign, number) {
                     on = true;
                     // let index = this.replacements.length;
                     // this.replacements.push(' ' + sign);
@@ -528,7 +728,7 @@
                 string = string.replace(operators.before, function (match, op, number) {
                     on = true;
                     var index = _this.replacements.length;
-                    _this.replacements.push(op);
+                    _this.replacements.push([op]);
                     return '___boundary_' + index + '_as_preoperator___' + number;
                 });
             }
@@ -538,7 +738,7 @@
                 string = string.replace(operators.after, function (match, number, op) {
                     on = true;
                     var index = _this.replacements.length;
-                    _this.replacements.push(op);
+                    _this.replacements.push([op]);
                     return number + '___boundary_' + index + '_as_aftoperator___';
                 });
             }
@@ -552,15 +752,15 @@
             var arrow = string.match(/(->|=>)/);
             // console.log(arrow);
             if (arrow) {
-                if (string.match(matchExpr.arrowfn)) {
+                if (string.match(replaceExpr.arrowfn)) {
                     // console.log(string.match(matchExpr.arrowfn));
-                    return string.replace(replaceExpr.arrowfn, function (match, params, paramsposi, arrow, body, end) {
+                    return string.replace(replaceExpr.arrowfn, function (match, posi, params, paramsindex, arrow, body, end) {
                         // console.log(match);
                         // console.log(body);
                         var matches = body.match(/^\s*___boundary_[A-Z0-9_]{36}_(\d+)_as_(parentheses|object|closure)___\s*$/);
                         // console.log(matches);
                         if (matches) {
-                            var code = _this.replacements[matches[1]];
+                            var code = _this.replacements[matches[1]][0];
                             if (matches[2] === 'parentheses') {
                                 body = code.replace(/^\(\s*(.*?)\s*\)$/, function (match, code) {
                                     return '___boundary_5_as_preoperator___ ' + code;
@@ -578,7 +778,7 @@
                         }
                         var index = _this.replacements.length;
                         // console.log(body);
-                        _this.replacements.push(params + arrow + body);
+                        _this.replacements.push([params + arrow + body, posi && posi.trim()]);
                         return '___boundary_' + _this.uid + '_' + index + '_as_arrowfn___' + end;
                     });
                 }
@@ -594,196 +794,180 @@
             }
             return string;
         };
-        Sugar.prototype.getSentences = function (string, vars) {
+        Sugar.prototype.getPosition = function (string) {
+            if (string) {
+                var match = string.match(/@(\d+)L(\d+)P(\d+)(O*)(\d*):*/);
+                if (match) {
+                    return {
+                        match: match[0],
+                        file: parseInt(match[1]),
+                        line: parseInt(match[2]) + 1,
+                        col: parseInt(match[3]) + 1,
+                        o: [parseInt(match[1]), parseInt(match[2]), parseInt(match[4] ? match[5] : match[3])]
+                    };
+                }
+            }
+            return void 0;
+        };
+        Sugar.prototype.getLines = function (string, vars) {
+            string = string.replace(/::(var|let|public)\s+(@\d+L\d+P(\d+O)?0::)/g, '::$1 ').replace(/([^,;\s])\s*(@\d+L\d+P(\d+O)?0::)/g, '$1;$2');
             var array = string.split(/\s*;+\s*/);
             var lines = [];
+            // console.log(string, array);
             // console.log(array);
             for (var index_3 = 0; index_3 < array.length; index_3++) {
-                var sentence = array[index_3].trim();
-                if (sentence) {
-                    if (index_3) {
-                        lines.push({
-                            type: 'line',
-                            stype: 'newline',
-                            value: ''
-                        });
-                    }
-                    var sublines = sentence.split(/(^|[^,\s][\r\n]|[^,]\s+[\r\n]|else\s)\s*(var|let)\s+/);
-                    // console.log(sublines);
-                    for (var i = 0; i < sublines.length; i++) {
-                        var element = sublines[i];
-                        // console.log(element);
-                        if ((element === 'var' || (element === 'let'))) {
-                            if (!this.toES6) {
-                                element = 'var';
-                            }
-                            this.pushVariables(lines, vars, sublines[++i] + (sublines[++i] || ''), element);
+                var line = array[index_3].trim();
+                if (line) {
+                    var spilitarray = line.split(/::(var|let|public)\s+/);
+                    // console.log(spilitarray);
+                    // continue;
+                    if (spilitarray.length === 1) {
+                        var errsymbol = line.match(/(^|\s+)(var|let|public)(\s+|$)/);
+                        if (errsymbol) {
+                            // console.log(line);
+                            throw 'tangram.js sugar Error: Unexpected `' + errsymbol + '` in `' + this.decode(line) + '`.';
                         }
                         else {
-                            if (element.match(/(|[^,;\s][\r\n])\s*(var)\s+/)) {
-                                // console.log(element);
-                                throw 'tangram.js sugar Error: Unexpected Variable definition `' + this.decode(element) + '`' + (((vars.type === 'fnbody') || (vars.type === 'codesbody')) ? ' in `' + this.decode(string) + '`' : '');
-                            }
-                            else {
-                                // console.log(element);
-                                this.pushLines(lines, element + (sublines[++i] || ''));
-                            }
+                            // console.log(line);
+                            this.pushSentencesToLines(lines, line);
                         }
+                    }
+                    else if (spilitarray.length === 3) {
+                        var sentences = spilitarray[2].split(/,\s*(@\d+L\d+P\d+O?\d*::)/);
+                        sentences.unshift(spilitarray[0]);
+                        for (var p = 0; p < sentences.length; p += 2) {
+                            this.pushVariablesToLine(lines, vars, sentences[p], sentences[p + 1], spilitarray[1]);
+                        }
+                        // console.log(spilitarray, sentences);
+                    }
+                    else {
+                        // console.log(spilitarray[3], spilitarray);
+                        var position = this.getPosition(spilitarray[2]);
+                        throw 'tangram.js sugar Error: Unexpected `' + spilitarray[3] + '` at char ' + position.col + ' on line ' + position.line + '， near ' + this.decode(spilitarray[2]) + '.';
                     }
                 }
             }
-            // this.fixVariables(vars);
             // console.log(lines);
             return lines;
         };
-        Sugar.prototype.pushVariables = function (lines, vars, string, symbol) {
-            // console.log(matchExpr.call.test(string), string);
-            var array = string.split(/\s*,\s*/);
-            // console.log(array);
-            for (var index_4 = 0; index_4 < array.length; index_4++) {
-                var element = array[index_4].trim();
-                ;
-                if (element) {
-                    var array_1 = element.split(/\s*[\r\n]+\s*/);
-                    if (array_1.length) {
-                        for (var index_5 = 0; index_5 < array_1.length; index_5++) {
-                            var line = array_1[index_5];
-                            if (index_5) {
-                                lines.push({
-                                    type: 'line',
-                                    value: line + ';'
-                                });
-                            }
-                            else {
-                                if (line.match(/^[\$\w]+\s*(=|$)/)) {
-                                    this.checkVariables(lines, vars, line, string, symbol);
-                                }
-                                else {
-                                    // console.log(array);
-                                    throw 'tangram.js sugar Error: Unexpected Variable definition `' + symbol + ' ' + this.decode(line) + '`' + (((vars.type === 'fnbody') || (vars.type === 'codesbody')) ? ' in `' + this.decode(string) + '`' : '');
-                                }
-                            }
-                        }
+        Sugar.prototype.pushSentencesToLines = function (lines, string) {
+            if (string) {
+                var match = string.match(/^___boundary_[A-Z0-9_]{36}_(\d+)_as_(\w+)___/);
+                var value = string + ';';
+                if (match) {
+                    // console.log(match);
+                    // console.log(this.replacements[match[1]]);
+                    var position = this.getPosition(this.replacements[match[1]][1]);
+                    if (match[2] === 'function' || match[2] === 'closure') {
+                        var value = string;
                     }
-                    else {
-                        if (element.match(/^[\$\w]\s*(=.+|\s*)$/)) {
-                            this.checkVariables(lines, vars, element, string, symbol);
-                        }
-                        else {
-                            throw 'tangram.js sugar Error: Unexpected Variable definition `' + symbol + ' ' + this.decode(element) + '`' + '`' + (((vars.type === 'fnbody') || (vars.type === 'codesbody')) ? ' in `' + this.decode(string) + '`' : '');
-                        }
-                    }
-                }
-            }
-        };
-        Sugar.prototype.checkVariables = function (lines, vars, line, string, symbol) {
-            var array = line.split(/\s*=\s*/);
-            var value = array.pop();
-            if (array.length) {
-                for (var index_6 = 0; index_6 < array.length; index_6++) {
-                    var element = array[index_6];
-                    if (element.match(/[\$\w]+/)) {
-                        vars.self.push(symbol + ' ' + element);
-                        if (index_6) {
-                            lines.push({
-                                type: 'line',
-                                value: symbol + ' ' + element + ' = ' + array[0] + ';'
-                            });
-                        }
-                        else {
-                            lines.push({
-                                type: 'line',
-                                value: symbol + ' ' + element + ' = ' + value + ';'
-                            });
-                        }
-                    }
-                    else {
-                        throw 'tangram.js sugar Error: Unexpected Variable definition `' + symbol + ' ' + this.decode(line) + '`' + (((vars.type === 'fnbody') || (vars.type === 'codesbody')) ? ' in `' + this.decode(string) + '`' : '');
-                    }
-                }
-            }
-            else {
-                if (value.match(/[\$\w]+/)) {
-                    vars.self.push(symbol + ' ' + value);
-                    lines.push({
-                        type: 'line',
-                        value: symbol + ' ' + value + ';'
-                    });
                 }
                 else {
-                    throw 'tangram.js sugar Error: Unexpected Variable definition `' + symbol + ' ' + this.decode(line) + '`' + (((vars.type === 'fnbody') || (vars.type === 'codesbody')) ? ' in `' + this.decode(string) + '`' : '');
+                    var position = this.getPosition(string);
+                    // console.log(position, string)
+                    if (position) {
+                        var value = string.replace(position.match, '') + ';';
+                    }
                 }
-            }
-            // console.log(array);   
-        };
-        Sugar.prototype.pushLines = function (lines, string) {
-            var array = string.split(/\s*[\r\n]+\s*/);
-            for (var index_7 = 0; index_7 < array.length; index_7++) {
-                var element = array[index_7];
-                // console.log(element);
-                // if (element.match(/g/)) {
-                //     lines.push({
-                //         type: 'line',
-                //         value: element
-                //     });
-                // } else 
-                if (element.match(/___boundary_[A-Z0-9_]{36}_\d+_as_(function|closure)___/)) {
-                    lines.push({
-                        type: 'line',
-                        value: element
-                    });
-                }
-                else if (element) {
-                    lines.push({
-                        type: 'line',
-                        value: element + ';'
-                    });
-                }
+                lines.push({
+                    type: 'line',
+                    posi: position,
+                    value: value
+                });
             }
         };
-        Sugar.prototype.getReplacePosis = function (lines, vars) {
+        Sugar.prototype.pushVariablesToLine = function (lines, vars, posi, line, symbol) {
+            if (line) {
+                if (this.toES6 && symbol !== 'public') {
+                    var _symbol = symbol;
+                }
+                else {
+                    var _symbol = 'var';
+                }
+                var position = this.getPosition(posi);
+                var array = line.split(/\s*=\s*/);
+                // console.log(array);
+                if (array.length === 1) {
+                    var value = 'void 0';
+                }
+                else {
+                    var value = array.pop();
+                }
+                for (var index_4 = 0; index_4 < array.length; index_4++) {
+                    var element = array[index_4].trim();
+                    if (element.match(/^[\$\w]+$/)) {
+                        // console.log(element);
+                        if (vars.self[element] === void 0) {
+                            vars.self[element] = symbol;
+                        }
+                        else if (vars.self[element] === 'let' || symbol === 'let') {
+                            throw 'tangram.js sugar Error:  Variable `' + element + '` has already been declared at char ' + position.col + ' on line ' + position.line + '.';
+                        }
+                        lines.push({
+                            type: 'line',
+                            posi: position,
+                            value: _symbol + ' ' + element + ' = ' + value + ';'
+                        });
+                    }
+                    else {
+                        console.log(element);
+                        throw 'tangram.js sugar Error: Unexpected Definition `' + symbol + ' at char ' + position.col + ' on line ' + position.line + '.';
+                    }
+                }
+            }
+        };
+        Sugar.prototype.pickReplacePosis = function (lines, vars) {
             var imports = [], using_as = {}, midast = [];
-            for (var index_8 = 0; index_8 < lines.length; index_8++) {
+            for (var index_5 = 0; index_5 < lines.length; index_5++) {
                 // console.log(lines[index]);
-                var line = lines[index_8].value.trim();
+                var line = lines[index_5].value.trim();
                 if (line) {
                     var inline = [];
                     var array = line.split('___boundary_' + this.uid);
                     // console.log(array)
-                    for (var index_9 = 0; index_9 < array.length; index_9++) {
-                        var element = array[index_9].trim();
+                    for (var index_6 = 0; index_6 < array.length; index_6++) {
+                        var element = array[index_6].trim();
                         if (element) {
                             var matches = element.match(matchExpr.index3);
                             if (matches) {
                                 if (matches[2] === 'using') {
-                                    var src = this.replacements[matches[1]].replace(replaceExpr.using, '').replace(replaceExpr.return, '');
+                                    var src = this.replacements[matches[1]][0].replace(replaceExpr.using, '').replace(replaceExpr.return, '');
+                                    var posi = this.replacements[matches[1]][1];
                                     var srcArr = src.split(/\s+as\s+/);
                                     // console.log(srcArr);
                                     if (srcArr[1] && srcArr[1].trim()) {
                                         src = srcArr[0].trim();
                                         if (!imports['includes'](src)) {
                                             imports.push(src);
+                                            imports.push(posi);
                                         }
-                                        var array_2 = srcArr[1].split(',');
+                                        var array_1 = srcArr[1].split(',');
                                         // console.log(array);
-                                        for (var index_10 = 0; index_10 < array_2.length; index_10++) {
-                                            var element_1 = array_2[index_10].trim();
+                                        for (var index_7 = 0; index_7 < array_1.length; index_7++) {
+                                            var element_1 = array_1[index_7].trim();
                                             if (element_1) {
                                                 if (element_1.match(/^[\$\w]+\[\]$/)) {
                                                     var alias = element_1.replace('[]', '');
                                                     using_as[alias] = [src];
-                                                    vars.self.push(alias);
+                                                    var varname = alias;
                                                     break;
                                                 }
                                                 else {
-                                                    using_as[element_1] = [src, index_10];
-                                                    vars.self.push(element_1);
+                                                    using_as[element_1] = [src, index_7];
+                                                    var varname = element_1;
+                                                }
+                                                if (vars.self[varname] === void 0) {
+                                                    vars.self[varname] = 'var';
+                                                }
+                                                else if (vars.self[varname] === 'let') {
+                                                    throw 'tangram.js sugar Error:  Variable `' + varname + '` has already been declared.';
                                                 }
                                             }
                                         }
                                     }
                                     else {
                                         imports.push(src);
+                                        imports.push(posi);
                                     }
                                 }
                                 else {
@@ -809,12 +993,19 @@
                                 });
                             }
                         }
+                        else {
+                            inline.push({
+                                type: 'code',
+                                vars: vars,
+                                value: array[index_6]
+                            });
+                        }
                     }
                     midast.push(inline);
                 }
                 else {
                     // console.log(lines[index].stype);
-                    if (lines[index_8].stype === 'newline') {
+                    if (lines[index_5].stype === 'newline') {
                         midast.push([{
                                 type: 'code',
                                 vars: vars,
@@ -834,12 +1025,12 @@
                 vars: vars,
                 body: []
             };
-            for (var index_11 = 0; index_11 < midast.length; index_11++) {
-                var block = midast[index_11];
+            for (var index_8 = 0; index_8 < midast.length; index_8++) {
+                var block = midast[index_8];
                 if (block.length === 1) {
                     var element = block[0];
                     if (element.type === 'code') {
-                        // this.pushCodeElements(ast.body, element.value);
+                        // this.pushCodesToAST(ast.body, element.value);
                         ast.body.push(element);
                     }
                     else {
@@ -853,14 +1044,14 @@
                         vars: vars,
                         body: []
                     };
-                    for (var index_12 = 0; index_12 < block.length; index_12++) {
-                        var element = block[index_12];
+                    for (var index_9 = 0; index_9 < block.length; index_9++) {
+                        var element = block[index_9];
                         if (element.type === 'code') {
-                            element.stype = index_12 ? 'inline' : 'block';
+                            element.stype = index_9 ? 'inline' : 'block';
                             codes.body.push(element);
                         }
                         else {
-                            codes.body.push(this.walk(element, vars, !!index_12));
+                            codes.body.push(this.walk(element, vars, !!index_9));
                         }
                     }
                     ast.body.push(codes);
@@ -877,13 +1068,14 @@
                 case 'arrowfn':
                     return this.walkArrowFn(element.posi, vars, codeInline);
                 case 'call':
-                    return this.walkCall(element.posi, vars, codeInline);
+                case 'construct':
+                    return this.walkCall(element.posi, vars, element.type, codeInline);
                 case 'class':
                     return this.walkClass(element.posi, vars, codeInline);
                 case 'closure':
                     return this.walkClosure(element.posi, vars);
-                case 'define':
-                    return this.walkNamespace(element.posi, vars, codeInline);
+                case 'extends':
+                    return this.walkExtends(element.posi, vars, codeInline);
                 case 'function':
                     return this.walkFnLike(element.posi, vars, 'def', codeInline);
                 case 'object':
@@ -898,8 +1090,8 @@
                         type: 'code',
                         stype: codeInline ? 'inline' : 'block',
                         vars: vars,
-                        value: this.replacements[element.posi].replace(this.markPattern, function () {
-                            return that_1.replacements[arguments[1]];
+                        value: this.replacements[element.posi][0].replace(this.markPattern, function () {
+                            return that_1.replacements[arguments[1]][0];
                         })
                     };
                 default:
@@ -907,169 +1099,293 @@
                         type: 'code',
                         stype: codeInline ? 'inline' : 'block',
                         vars: vars,
-                        value: '// Unidentified Code'
+                        value: "\r\n"
                     };
             }
+        };
+        Sugar.prototype.walkArray = function (posi, vars, codeInline) {
+            var body = [], array = this.replacements[posi][0].replace(/([\[\s\]])/g, '').split(',');
+            for (var index_10 = 0; index_10 < array.length; index_10++) {
+                var line = array[index_10].split('___boundary_' + this.uid);
+                var inline = [];
+                for (var i = 0; i < line.length; i++) {
+                    this.pushReplacementsToAST(inline, vars, line[i], true);
+                }
+                console.log(array[index_10], inline);
+                body.push({
+                    type: 'element',
+                    vars: vars,
+                    body: inline
+                });
+            }
+            return {
+                type: 'array',
+                posi: this.getPosition(this.replacements[posi][1]),
+                stype: codeInline ? 'inline' : 'block',
+                vars: vars,
+                body: body
+            };
         };
         Sugar.prototype.walkClass = function (posi, vars, codeInline) {
             if (codeInline === void 0) { codeInline = true; }
             // console.log(this.replacements[posi]);
-            var matches = this.replacements[posi].match(matchExpr.class);
+            var matches = this.replacements[posi][0].match(matchExpr.class);
             // console.log(matches);
-            return {
-                type: (matches[1] === 'expands') ? 'expands' : 'class',
-                stype: codeInline ? 'inline' : 'block',
-                subtype: matches[2] ? 'stdClass' : 'anonClass',
-                cname: matches[4],
-                base: matches[6],
-                vars: vars,
-                body: this.checkClassBody(vars, matches[7] || '')
-            };
-        };
-        Sugar.prototype.walkNamespace = function (posi, vars, codeInline) {
-            // console.log(this.replacements[posi]);
-            var matches = this.replacements[posi].match(matchExpr.define);
-            var subtype = 'ext';
-            var objname = matches[2];
-            if ((matches[1] === 'ns') || (matches[1] === 'namespace')) {
-                subtype = 'namespace';
+            var type = matches[1];
+            var stype = 'block';
+            if (matches[2]) {
+                var subtype = 'stdClass';
             }
             else {
-                var match_2 = matches[2].match(/^(pandora)?.([\$a-zA-Z_][\$\w\.]+$)/);
-                // console.log(matches[2], match_2);
-                if (match_2) {
-                    subtype = 'namespace';
-                    objname = match_2[2];
+                if (type === 'dec') {
+                    var subtype = 'stdClass';
                 }
+                else {
+                    var subtype = 'anonClass';
+                }
+            }
+            var cname = matches[3];
+            if (type === 'class') {
+                if (subtype === 'anonClass') {
+                    if (cname) {
+                        if (vars.self[cname] === void 0) {
+                            vars.self[cname] = 'var';
+                        }
+                        else if (vars.self[cname] === 'let') {
+                            throw 'tangram.js sugar Error:  Variable `' + cname + '` has already been declared.';
+                        }
+                        // vars.self.push('var ' + cname);
+                    }
+                    else {
+                        if (codeInline) {
+                            stype = 'inline';
+                        }
+                    }
+                }
+                else {
+                    // 标准类必须是块元素，否则无地方拓展静态属性和方法
+                }
+            }
+            return {
+                type: type,
+                stype: stype,
+                subtype: subtype,
+                cname: cname,
+                base: matches[5],
+                vars: vars,
+                body: this.checkClassBody(vars, matches[6] || '')
+            };
+        };
+        Sugar.prototype.walkExtends = function (posi, vars, codeInline) {
+            // console.log(this.replacements[posi]);
+            var matches = this.replacements[posi][0].match(matchExpr.extends);
+            var subtype = 'ext';
+            var objname = matches[3];
+            // console.log(matches);
+            if ((matches[1] === 'ns') || (matches[1] === 'namespace')) {
+                subtype = 'ns';
+                var localvars = {
+                    parent: vars,
+                    self: {
+                        this: 'var',
+                        arguments: 'var'
+                    },
+                    fixed: [],
+                    fix_map: {},
+                    type: 'fnbody'
+                };
+                vars = localvars;
+                var body = this.checkFnBody(localvars, {
+                    keys: [],
+                    keysArray: void 0,
+                    vals: []
+                }, matches[4]);
+            }
+            else {
+                if (matches[2]) {
+                    subtype = 'extns';
+                }
+                var body = this.checkObjMember(vars, matches[4]);
             }
             // console.log(matches);
             return {
-                type: 'define',
+                type: 'extends',
                 stype: codeInline ? 'inline' : 'block',
                 subtype: subtype,
                 oname: objname,
                 vars: vars,
-                body: this.checkObjMember(vars, matches[3])
+                body: body
             };
         };
         Sugar.prototype.walkFnLike = function (posi, vars, type, codeInline) {
             // console.log(this.replacements[posi]);
-            var matches = this.replacements[posi].match(matchExpr.fnlike);
+            var matches = this.replacements[posi][0].match(matchExpr.fnlike);
+            var fname = matches[3] !== 'function' ? matches[3] : '';
             // if (!matches) {
             //     console.log(posi, this.replacements);
             // } else {
             //     console.log((matches);
             // }
-            if (matches[1] == null && type === 'def') {
-                if (reservedWords['includes'](matches[3])) {
-                    var headline = this.replacements[matches[5]].replace(/(^\(|\)$)/g, '');
-                    var localvars_1 = {
-                        parent: vars,
-                        self: [],
-                        fixed: [],
-                        fix_map: {},
-                        type: 'codes'
-                    };
-                    if (matches[3] === 'for') {
-                        // console.log(matches);
-                        var firstSentence = headline.split(/\s*;\s*/)[0];
-                        var match = firstSentence.match(/^\s*(var|let)\s+([\$\w]+\s*=.+)$/);
-                        // console.log(firstSentence, match);
-                        if (match) {
-                            this.pushVariables([], localvars_1, match[2], match[1]);
-                        }
-                        // console.log(localvars);
-                    }
-                    return {
-                        type: 'exp',
-                        vars: localvars_1,
-                        expression: matches[3],
-                        head: this.pushLineToBody([], localvars_1, headline, true),
-                        body: this.pushToBody([], localvars_1, matches[6])
-                    };
-                }
-                if (matches[3] === 'each') {
-                    var condition = this.replacements[matches[5]].replace(/(^\(|\)$)/g, '').match(/^([\$a-zA-Z_][\$\w\.-]+)\s+as\s+([\$\w]+)(\s*,\s*([\$\w]*))?/);
-                    // console.log(matches, condition);
-                    if (condition) {
-                        var iterator = [], array = condition[1].split('___boundary_' + this.uid);
-                        var self_1, agrs = [];
-                        if (condition[3]) {
-                            if (condition[4]) {
-                                self_1 = ['var this', 'var arguments', 'var ' + condition[2], 'var ' + condition[4]];
-                                agrs = [condition[2], condition[4]];
-                            }
-                            else {
-                                self_1 = ['var this', 'var arguments', 'var ' + condition[2]];
-                                agrs = [condition[2]];
-                            }
-                        }
-                        else {
-                            self_1 = ['var this', 'var arguments', 'var _index', 'var ' + condition[2]];
-                            agrs = ['_index', condition[2]];
-                        }
-                        var localvars_2 = {
+            if (type === 'def') {
+                if (matches[1] == null) {
+                    if (reservedWords['includes'](fname)) {
+                        var headline = matches[4];
+                        var localvars_1 = {
                             parent: vars,
-                            self: self_1,
+                            self: {},
                             fixed: [],
                             fix_map: {},
-                            type: 'travel'
+                            type: 'codes'
                         };
-                        for (var index_13 = 0; index_13 < array.length; index_13++) {
-                            this.pushReplacements(iterator, localvars_2, array[index_13], true);
+                        if (fname === 'for') {
+                            // console.log(matches);
+                            var firstSentence = headline.split(/\s*;\s*/)[0];
+                            var match = firstSentence.match(/^\s*(var|let)\s+([\$\w]+\s*=.+)$/);
+                            // console.log(firstSentence, match);
+                            if (match) {
+                                this.pushVariablesToLine([], localvars_1, '', match[2], match[1]);
+                            }
+                            // console.log(localvars);
+                        }
+                        var head = this.pushLineToBody([], localvars_1, headline, true);
+                        var body = this.pushToBody([], localvars_1, matches[5]);
+                        for (var varname in localvars_1.self) {
+                            if (localvars_1.self.hasOwnProperty(varname)) {
+                                if (vars.self[varname] === void 0) {
+                                    vars.self[varname] = 'var';
+                                }
+                                else if (vars.self[varname] === 'let') {
+                                    throw 'tangram.js sugar Error:  Variable `' + varname + '` has already been declared.';
+                                }
+                            }
                         }
                         return {
-                            type: 'travel',
-                            iterator: iterator,
-                            vars: localvars_2,
-                            callback: {
-                                type: 'def',
-                                stype: 'inline',
-                                fname: '',
-                                args: agrs,
-                                body: this.pushToBody([], localvars_2, matches[6])
-                            }
+                            type: 'exp',
+                            stype: 'block',
+                            vars: localvars_1,
+                            expression: fname,
+                            head: head,
+                            body: body
                         };
                     }
+                    if (fname === 'each') {
+                        var condition = matches[4].match(matchExpr.travelargs);
+                        // console.log(matches, condition);
+                        if (condition) {
+                            var iterator = [], array = condition[1].split('___boundary_' + this.uid);
+                            var self_1 = {
+                                this: 'var',
+                                arguments: 'var',
+                            }, agrs = [];
+                            if (condition[4]) {
+                                if (condition[7]) {
+                                    self_1[condition[3]] = 'var';
+                                    self_1[condition[7]] = 'var';
+                                    agrs = [[condition[3], condition[2]], [condition[7], condition[6]]];
+                                }
+                                else {
+                                    self_1[condition[3]] = 'var';
+                                    agrs = [[condition[3], condition[2]]];
+                                }
+                            }
+                            else {
+                                self_1['_index'] = 'var';
+                                self_1[condition[3]] = 'var';
+                                agrs = [['_index', undefined], [condition[3], condition[2]]];
+                            }
+                            var localvars_2 = {
+                                parent: vars,
+                                self: self_1,
+                                fixed: [],
+                                fix_map: {},
+                                type: 'travel'
+                            };
+                            for (var index_11 = 0; index_11 < array.length; index_11++) {
+                                this.pushReplacementsToAST(iterator, localvars_2, array[index_11], true);
+                            }
+                            return {
+                                type: 'travel',
+                                stype: 'block',
+                                iterator: iterator,
+                                vars: localvars_2,
+                                callback: {
+                                    type: 'def',
+                                    stype: 'inline',
+                                    fname: '',
+                                    args: agrs,
+                                    body: this.pushToBody([], localvars_2, matches[5])
+                                }
+                            };
+                        }
+                    }
                 }
-            }
-            // console.log(this.replacements[posi], type, matches);
-            // if (posi == 98) {
-            // console.log(matches[4]);
-            // }
-            var subtype = 'fn';
-            var fname = matches[3] !== 'function' ? matches[3] : '';
-            if (fname && matches[2] && ((matches[2] === 'var') || (matches[2] === 'let')) && !codeInline) {
-                subtype = this.toES6 ? matches[2] : 'var';
-                vars.self.push(subtype + ' ' + fname);
+                var subtype = matches[2] === 'def' ? 'def' : 'fn';
+                // console.log(matches);
+                if (fname && !codeInline) {
+                    if (matches[2]) {
+                        if ((matches[2] === 'var') || (matches[2] === 'let')) {
+                            if (vars.self[fname] === void 0) {
+                                vars.self[fname] = 'var';
+                            }
+                            else if (vars.self[fname] === 'let' || matches[2] === 'let') {
+                                throw 'tangram.js sugar Error:  Variable `' + fname + '` has already been declared.';
+                            }
+                            subtype = this.toES6 ? matches[2] : 'var';
+                        }
+                        else if (matches[2] === 'public') {
+                            subtype = 'public';
+                            // console.log(matches[5]);
+                        }
+                        var stype = 'block';
+                    }
+                }
+                else {
+                    if (matches[2] === 'public') {
+                        subtype = 'public';
+                        stype = 'block';
+                        // console.log(matches[5]);
+                    }
+                    else {
+                        var stype = codeInline ? 'inline' : 'block';
+                    }
+                }
             }
             var localvars = {
                 parent: vars,
-                self: ['var this', 'var arguments'],
+                self: {
+                    this: 'var',
+                    arguments: 'var'
+                },
                 fixed: [],
                 fix_map: {},
                 type: 'fnbody'
             };
-            var args = this.walkArgs(parseInt(matches[5]), localvars);
+            var args = this.checkArgs(matches[4], localvars);
             return {
                 type: type,
                 vars: localvars,
-                stype: codeInline ? 'inline' : 'block',
+                stype: stype,
                 subtype: subtype,
                 fname: fname,
                 args: args.keys,
                 defaults: args.vals,
-                body: this.checkFnBody(vars, args, matches[6])
+                body: this.checkFnBody(localvars, args, matches[5])
             };
         };
         Sugar.prototype.walkArrowFn = function (posi, vars, codeInline) {
-            var matches = this.replacements[posi].match(matchExpr.arrowfn);
+            var matches = this.replacements[posi][0].match(matchExpr.arrowfn);
             // console.log(this.replacements[posi], matches);
             var subtype = 'fn';
-            var selfvas = ['var this', 'var arguments'];
+            var selfvas = {
+                this: 'var',
+                arguments: 'var'
+            };
             if (matches[3] === '=>') {
                 subtype = '=>';
-                selfvas = ['let this', 'let arguments'];
+                selfvas = {
+                    this: 'let',
+                    arguments: 'let'
+                };
             }
             var localvars = {
                 parent: vars,
@@ -1078,7 +1394,7 @@
                 fix_map: {},
                 type: 'fnbody'
             };
-            var args = this.walkArgs(parseInt(matches[2]), localvars);
+            var args = this.checkArgs(this.replacements[matches[2]][0].replace(/(^\(|\)$)/g, ''), localvars);
             return {
                 type: 'def',
                 stype: codeInline ? 'inline' : 'block',
@@ -1088,20 +1404,25 @@
                 body: this.checkFnBody(localvars, args, matches[4])
             };
         };
-        Sugar.prototype.walkArgs = function (posi, localvars) {
-            var code = this.replacements[posi].replace(/(^\(|\)$)/g, '');
+        Sugar.prototype.checkArgs = function (code, localvars) {
             var args = code.split(/\s*,\s*/), keys = [], keysArray = void 0, vals = [];
-            for (var index_14 = 0; index_14 < args.length; index_14++) {
-                var array = args[index_14].split(/\s*=\s*/);
-                if (array[0].match(namingExpr)) {
-                    keys.push(array[0]);
-                    vals.push(array[1]);
-                    localvars.self.push(array[0]);
-                }
-                else if (array[0].match(argsExpr)) {
-                    keysArray = array[0];
-                    localvars.self.push(array[0]);
-                    break;
+            // console.log(code, args);
+            for (var index_12 = 0; index_12 < args.length; index_12++) {
+                var arg = args[index_12];
+                if (arg) {
+                    var array = arg.split(/\s*=\s*/);
+                    var position = this.getPosition(array[0]);
+                    var varname = array[0].replace(position.match, '');
+                    if (varname.match(namingExpr)) {
+                        keys.push([varname, position]);
+                        vals.push(array[1]);
+                        localvars.self[varname] = 'var';
+                    }
+                    else if (varname.match(argsExpr)) {
+                        keysArray = [varname, position];
+                        localvars.self[varname] = 'var';
+                        break;
+                    }
                 }
             }
             return {
@@ -1110,22 +1431,22 @@
                 vals: vals
             };
         };
-        Sugar.prototype.walkCall = function (posi, vars, codeInline) {
-            var name = [], params = [], matches = this.replacements[posi].match(matchExpr.call), nameArr = matches[1].split('___boundary_' + this.uid), paramArr = this.replacements[matches[3]].split(/([\(\r\n,\)])/), last = '';
+        Sugar.prototype.walkCall = function (posi, vars, type, codeInline) {
+            var name = [], params = [], matches = this.replacements[posi][0].match(matchExpr.call), nameArr = matches[1].split('___boundary_' + this.uid), paramArr = this.replacements[matches[2]][0].split(/([\(\r\n,\)])/), last = '';
             // console.log(this.replacements[posi], matches);
             for (var i = 0; i < nameArr.length; i++) {
-                var element = nameArr[i].trim();
+                var element = nameArr[i];
                 if (element) {
-                    this.pushReplacements(name, vars, nameArr[i], true);
+                    this.pushReplacementsToAST(name, vars, nameArr[i], true);
                 }
             }
-            for (var index_15 = 0; index_15 < paramArr.length; index_15++) {
-                var element = paramArr[index_15].trim();
+            for (var index_13 = 0; index_13 < paramArr.length; index_13++) {
+                var element = paramArr[index_13].trim();
                 var line = element.split('___boundary_' + this.uid);
                 if (element && element != '(' && element != ')' && element != ',') {
                     var inline = [];
                     for (var i = 0; i < line.length; i++) {
-                        this.pushReplacements(inline, vars, line[i], true);
+                        this.pushReplacementsToAST(inline, vars, line[i], true);
                     }
                     // console.log(last, last === "\r", last === "\n");
                     params.push({
@@ -1135,44 +1456,25 @@
                         body: inline
                     });
                 }
-                last = paramArr[index_15];
+                last = paramArr[index_13];
             }
+            // console.log(this.replacements[posi]);
             return {
-                type: 'call',
+                type: type,
+                posi: this.getPosition(this.replacements[posi][1]),
                 stype: codeInline ? 'inline' : 'block',
                 name: name,
                 vars: vars,
                 params: params
             };
         };
-        Sugar.prototype.walkArray = function (posi, vars, codeInline) {
-            var body = [], array = this.replacements[posi].replace(/([\[\s\]])/g, '').split(',');
-            for (var index_16 = 0; index_16 < array.length; index_16++) {
-                var line = array[index_16].split('___boundary_' + this.uid);
-                var inline = [];
-                for (var i = 0; i < line.length; i++) {
-                    this.pushReplacements(inline, vars, line[i], true);
-                }
-                body.push({
-                    type: 'element',
-                    vars: vars,
-                    body: inline
-                });
-            }
-            return {
-                type: 'array',
-                stype: codeInline ? 'inline' : 'block',
-                vars: vars,
-                body: body
-            };
-        };
         Sugar.prototype.walkParentheses = function (posi, vars, codeInline) {
-            var body = [], array = this.replacements[posi].replace(/([\[\s\]])/g, '').split(/\s*([,\r\n]+)/);
-            for (var index_17 = 0; index_17 < array.length; index_17++) {
-                var line = array[index_17].split('___boundary_' + this.uid);
+            var body = [], array = this.replacements[posi][0].replace(/([\[\s\]])/g, '').split(/\s*([,\r\n]+)/);
+            for (var index_14 = 0; index_14 < array.length; index_14++) {
+                var line = array[index_14].split('___boundary_' + this.uid);
                 // let inline: object[] = [];
                 for (var i = 0; i < line.length; i++) {
-                    this.pushReplacements(body, vars, line[i], true);
+                    this.pushReplacementsToAST(body, vars, line[i], true);
                 }
                 // body.push({
                 //     type: 'element',
@@ -1191,24 +1493,28 @@
             return {
                 type: 'object',
                 vars: vars,
-                body: this.checkObjMember(vars, this.replacements[posi])
+                body: this.checkObjMember(vars, this.replacements[posi][0])
             };
         };
         Sugar.prototype.walkClosure = function (posi, vars) {
             // console.log(this.replacements[posi]);
             var localvars = {
                 parent: vars,
-                self: [],
+                self: {},
                 fixed: [],
                 fix_map: {},
                 type: 'codes'
             };
-            var array = this.replacements[posi].split(/\s*(\{|\})\s*/);
+            var array = this.replacements[posi][0].split(/\s*(\{|\})\s*/);
             var body = this.pushToBody([], localvars, array[2]);
-            for (var index_18 = 0; index_18 < localvars.self.length; index_18++) {
-                var element = localvars.self[index_18];
-                if (element.substr(0, 4) === 'var ') {
-                    vars.self.push(element);
+            for (var varname in localvars.self) {
+                if (localvars.self.hasOwnProperty(varname)) {
+                    if (vars.self[varname] === void 0) {
+                        vars.self[varname] = 'var';
+                    }
+                    else if (vars.self[varname] === 'let') {
+                        throw 'tangram.js sugar Error:  Variable `' + varname + '` has already been declared.';
+                    }
                 }
             }
             // console.log(array);
@@ -1216,21 +1522,8 @@
                 type: 'code',
                 stype: 'inline',
                 vars: localvars,
-                value: array[0] + ' {'
+                value: array[0] ? (array[0] + ' {') : '{'
             });
-            // if (array[0].trim() === ')') {
-            //     body.unshift({
-            //         type: 'code',
-            //         stype: 'inline',
-            //         value: ') {'
-            //     });
-            // } else {
-            //     body.unshift({
-            //         type: 'code',
-            //         stype: 'break',
-            //         value: array[0] + ' {'
-            //     });
-            // }
             body.push({
                 type: 'code',
                 stype: 'closer',
@@ -1256,8 +1549,8 @@
                         value: attr[5]
                     });
                 }
-                for (var index_19 = 1; index_19 < array.length; index_19++) {
-                    var element = array[index_19];
+                for (var index_15 = 1; index_15 < array.length; index_15++) {
+                    var element = array[index_15];
                     var matches = element.trim().match(matchExpr.index3);
                     if (matches) {
                         body.push(this.walk({
@@ -1305,8 +1598,8 @@
         };
         Sugar.prototype.checkClassBody = function (vars, code) {
             var body = [], array = code.split(/[;,\r\n]+/);
-            for (var index_20 = 0; index_20 < array.length; index_20++) {
-                var element = array[index_20].trim();
+            for (var index_16 = 0; index_16 < array.length; index_16++) {
+                var element = array[index_16].trim();
                 var type = 'method';
                 // console.log(element);
                 if (element) {
@@ -1376,8 +1669,8 @@
         Sugar.prototype.checkObjMember = function (vars, code) {
             var that = this, body = [], bodyIndex = -1, lastIndex = 0, array = code.split(/\s*[\{,\}]\s*/);
             // console.log(code, array);
-            for (var index_21 = 0; index_21 < array.length; index_21++) {
-                var element = array[index_21].trim();
+            for (var index_17 = 0; index_17 < array.length; index_17++) {
+                var element = array[index_17].trim();
                 if (element) {
                     var elArr = element.split('___boundary_' + this.uid);
                     if (elArr[0] && elArr[0].trim()) {
@@ -1409,12 +1702,13 @@
                                 case 'string':
                                 case 'pattern':
                                 case 'tamplate':
+                                    console.log(body, bodyIndex);
                                     body[bodyIndex].body.push({
                                         type: 'code',
                                         stype: 'inline',
                                         vars: vars,
-                                        value: ',' + this.replacements[parseInt(m[1])].replace(this.markPattern, function () {
-                                            return that.replacements[arguments[1]];
+                                        value: ',' + this.replacements[parseInt(m[1])][0].replace(this.markPattern, function () {
+                                            return that.replacements[arguments[1]][0];
                                         })
                                     });
                                     if (m[3]) {
@@ -1444,16 +1738,17 @@
             // console.log(code);
             var body = [];
             // console.log(args, lines);
-            for (var index_22 = 0; index_22 < args.vals.length; index_22++) {
-                if (args.vals[index_22] !== undefined) {
-                    var valArr = args.vals[index_22].split('___boundary_' + this.uid);
+            for (var index_18 = 0; index_18 < args.vals.length; index_18++) {
+                if (args.vals[index_18] !== undefined) {
+                    var valArr = args.vals[index_18].split('___boundary_' + this.uid);
                     if (valArr[1]) {
                         body.push({
                             type: 'code',
                             stype: 'block',
-                            value: 'if (' + args.keys[index_22] + ' === void 0) { ' + args.keys[index_22] + ' = ' + valArr[0]
+                            posi: args.keys[index_18][1],
+                            value: 'if (' + args.keys[index_18][0] + ' === void 0) { ' + args.keys[index_18][0] + ' = ' + valArr[0]
                         });
-                        this.pushReplacements(body, vars, valArr[1], true);
+                        this.pushReplacementsToAST(body, vars, valArr[1], true);
                         body.push({
                             type: 'code',
                             stype: 'inline',
@@ -1463,7 +1758,8 @@
                     else {
                         body.push({
                             type: 'code',
-                            value: 'if (' + args.keys[index_22] + ' === void 0) { ' + args.keys[index_22] + ' = ' + valArr[0] + '; }'
+                            posi: args.keys[index_18][1],
+                            value: 'if (' + args.keys[index_18][0] + ' === void 0) { ' + args.keys[index_18][0] + ' = ' + valArr[0] + '; }'
                         });
                     }
                 }
@@ -1471,19 +1767,20 @@
             if (args.keysArray) {
                 body.push({
                     type: 'code',
-                    value: 'var ' + args.keysArray.replace('...', '') + ' = Array.prototype.slice.call(arguments, ' + args.keys.length + ');'
+                    posi: args.keysArray[1],
+                    value: 'var ' + args.keysArray[0].replace('...', '') + ' = Array.prototype.slice.call(arguments, ' + args.keys.length + ');'
                 });
             }
-            // console.log(code);
             this.pushToBody(body, vars, code);
+            // console.log(code, body);
             return body;
         };
         Sugar.prototype.pushToBody = function (body, vars, code) {
             if (body === void 0) { body = []; }
-            var lines = code ? this.getSentences(code, vars) : [];
+            var lines = code ? this.getLines(code, vars) : [];
             // console.log(lines);
-            for (var index_23 = 0; index_23 < lines.length; index_23++) {
-                var line = lines[index_23].value.trim();
+            for (var index_19 = 0; index_19 < lines.length; index_19++) {
+                var line = lines[index_19].value.trim();
                 this.pushLineToBody(body, vars, line, [',', ';']['includes'](line));
             }
             if (body.length) {
@@ -1505,10 +1802,10 @@
                 while (array.length && !array[0].trim()) {
                     array.shift();
                 }
-                for (var index_24 = 0; index_24 < array.length; index_24++) {
+                for (var index_20 = 0; index_20 < array.length; index_20++) {
                     // console.log(index, array[index]);
                     // console.log(lineInLine || !!index);
-                    this.pushReplacements(inline, vars, array[index_24], lineInLine || !!index_24);
+                    this.pushReplacementsToAST(inline, vars, array[index_20], lineInLine || !!index_20);
                 }
                 if (inline.length === 1) {
                     body.push(inline[0]);
@@ -1523,7 +1820,7 @@
             }
             return body;
         };
-        Sugar.prototype.pushReplacements = function (body, vars, code, codeInline) {
+        Sugar.prototype.pushReplacementsToAST = function (body, vars, code, codeInline) {
             // console.log(code, codeInline);
             code = code.trim();
             if (code) {
@@ -1535,7 +1832,7 @@
                     }, vars, codeInline));
                     var match_3 = matches[3].trim();
                     if (match_3) {
-                        this.pushCodeElements(body, vars, match_3, true);
+                        this.pushCodesToAST(body, vars, match_3, true);
                     }
                     // if (matches[1]==94) {
                     // console.log(body);
@@ -1543,25 +1840,43 @@
                 }
                 else {
                     // console.log(code, codeInline);
-                    this.pushCodeElements(body, vars, code, codeInline);
+                    this.pushCodesToAST(body, vars, code, codeInline);
                 }
             }
             return body;
         };
-        Sugar.prototype.pushCodeElements = function (body, vars, code, codeInline) {
-            var array = code.split(/(\s*[;\r\n]+)\s*/);
-            while (array.length && !array[0].trim()) {
-                array.shift();
+        Sugar.prototype.pushCodesToAST = function (body, vars, code, codeInline) {
+            if (code === ';') {
+                body.push({
+                    type: 'code',
+                    posi: undefined,
+                    vars: vars,
+                    stype: 'inline',
+                    value: ';'
+                });
             }
-            for (var index_25 = 0; index_25 < array.length; index_25++) {
-                var element = array[index_25].trim();
-                if (element) {
-                    body.push({
-                        type: 'code',
-                        vars: vars,
-                        stype: (codeInline && !index_25) ? 'inline' : (element === ';' ? 'inline' : 'block'),
-                        value: element
-                    });
+            else {
+                var array = code.split(/(\s*[\r\n]+)\s*/);
+                if (array.length > 1) {
+                    console.log(code, array);
+                }
+                else {
+                    var position = this.getPosition(code);
+                    if (position) {
+                        var element = code.replace(position.match, '');
+                    }
+                    else {
+                        var element = code;
+                    }
+                    if (element) {
+                        body.push({
+                            type: 'code',
+                            posi: position,
+                            vars: vars,
+                            stype: codeInline ? 'inline' : 'block',
+                            value: element
+                        });
+                    }
                 }
             }
             return body;
@@ -1572,13 +1887,27 @@
             var head = [];
             var body = [];
             var foot = [];
+            this.fixVariables(this.ast.vars);
             this.pushHeader(head, this.imports);
             this.pushAlias(body, this.using_as);
-            this.pushCodes(body, this.ast.vars, this.ast.body, 1);
+            this.pushCodes(body, this.ast.vars, this.ast.body, 1, false, this.namespace);
             this.pushFooter(foot);
             this.output = head.join('') + this.trim(body.join('')) + foot.join('');
             // console.log(this.output);
             return this;
+        };
+        Sugar.prototype.pushPostionsToMap = function (position, codes) {
+            if (codes === void 0) { codes = undefined; }
+            if (position) {
+                var index_21 = this.posimap.length;
+                this.posimap.push(position);
+                var replace = '/* @posi' + index_21 + ' */';
+                if (codes) {
+                    codes.push();
+                }
+                return replace;
+            }
+            return '';
         };
         Sugar.prototype.pushHeader = function (codes, array) {
             codes.push('/*!');
@@ -1591,10 +1920,18 @@
             if (this.configinfo === '{}') {
                 codes.push("// ");
             }
+            else {
+                this.pushPostionsToMap(this.getPosition(this.configinfo_posi), codes);
+            }
             codes.push('tangram.config(' + this.configinfo + ');');
             codes.push("\r\n" + 'tangram.block([');
             if (this.imports.length) {
-                codes.push("\r\n\t'" + this.imports.join("',\r\n\t'") + "'\r\n");
+                var imports = [];
+                for (var index_22 = 0; index_22 < this.imports.length; index_22 += 2) {
+                    imports.push(this.pushPostionsToMap(this.getPosition(this.imports[index_22 + 1])) + "'" + this.imports[index_22] + "'");
+                }
+                // console.log(this.imports, imports);
+                codes.push("\r\n\t" + imports.join(",\r\n\t") + "\r\n");
             }
             codes.push('], function (pandora, global, imports, undefined) {');
             return codes;
@@ -1613,77 +1950,84 @@
             }
             return codes;
         };
-        Sugar.prototype.pushCodes = function (codes, vars, array, layer, codeInline) {
+        Sugar.prototype.pushCodes = function (codes, vars, array, layer, codeInline, namespace) {
             if (codeInline === void 0) { codeInline = false; }
+            if (namespace === void 0) { namespace = this.namespace; }
             var indent = "\r\n" + stringRepeat("\t", layer);
             // console.log(codes, array);
             // console.log(array);
             // console.log(layer, array);
-            for (var index_26 = 0; index_26 < array.length; index_26++) {
-                var element = array[index_26];
+            for (var index_23 = 0; index_23 < array.length; index_23++) {
+                var element = array[index_23];
                 // console.log(element);
                 switch (element.type) {
                     case 'code':
-                        // console.log(element);
-                        switch (element.stype) {
-                            case 'break':
-                            case 'closer':
-                                codes.push(indent.replace("\t", '') + element.value);
-                                break;
-                            case 'inline':
-                                codes.push(element.value);
-                                break;
-                            case 'newline':
-                                codes.push(indent);
-                                break;
-                            default:
-                                if (codeInline) {
-                                    codes.push(element.value);
-                                }
-                                else {
-                                    codes.push(indent + element.value);
-                                }
-                                break;
+                        if (element.value) {
+                            var code = this.patchVariables(element.value, vars);
+                            switch (element.stype) {
+                                case 'break':
+                                case 'closer':
+                                    codes.push(indent.replace("\t", '') + code);
+                                    break;
+                                case 'inline':
+                                    codes.push(code);
+                                    break;
+                                default:
+                                    if (codeInline) {
+                                        codes.push(code);
+                                    }
+                                    else {
+                                        codes.push(indent + code);
+                                    }
+                                    break;
+                            }
+                            break;
+                        }
+                        else if (element.stype === 'newline') {
+                            codes.push(indent);
                         }
                         break;
+                    case 'dec':
                     case 'class':
-                        this.pushClassCodes(codes, element, layer);
+                        this.pushClassCodes(codes, element, layer, namespace);
                         break;
                     case 'call':
+                    case 'construct':
                         // console.log(layer);
-                        this.pushCallCodes(codes, element, layer);
+                        this.pushCallCodes(codes, element, layer, namespace);
                         break;
                     case 'array':
-                        this.pushArrayCodes(codes, element, layer, codeInline);
+                        this.pushArrayCodes(codes, element, layer, codeInline, namespace);
                         break;
                     case 'codes':
                         // console.log(element);
-                        this.pushCodes(codes, element.vars, element.body, layer + ((element.stype === 'local') ? 1 : 0), codeInline);
+                        this.pushCodes(codes, element.vars, element.body, layer + ((element.stype === 'local') ? 1 : 0), codeInline, namespace);
                         break;
                     case 'def':
-                        this.pushFunctionCodes(codes, element, layer);
+                        this.pushFunctionCodes(codes, element, layer, namespace);
                         break;
-                    case 'define':
-                        this.pushDefineCodes(codes, element, layer);
+                    case 'extends':
+                        this.pushExtendsCodes(codes, element, layer, namespace);
                         break;
                     case 'exp':
-                        this.pushExpressionCodes(codes, element, layer);
+                        this.pushExpressionCodes(codes, element, layer, namespace);
                         break;
                     case 'expands':
-                        this.pushExpandClassCodes(codes, element, layer);
+                        this.pushExpandClassCodes(codes, element, layer, namespace);
                         break;
                     case 'object':
                         // console.log(element);
-                        this.pushObjCodes(codes, element, layer);
+                        this.pushObjCodes(codes, element, layer, namespace);
                         break;
                     case 'travel':
-                        this.pushTravelCodes(codes, element, layer);
+                        this.pushTravelCodes(codes, element, layer, namespace);
                         break;
                 }
             }
+            // this.fixVariables(vars);
             return codes;
         };
-        Sugar.prototype.pushClassCodes = function (codes, element, layer) {
+        Sugar.prototype.pushClassCodes = function (codes, element, layer, namespace) {
             var indent1 = "\r\n" + stringRepeat("\t", layer);
             var indent2 = "\r\n" + stringRepeat("\t", layer + 1);
             var elements = [];
@@ -1691,8 +2035,8 @@
             var cname = '';
             var toES6 = false;
             if (element.subtype === 'stdClass') {
-                cname = 'pandora.' + element.cname.trim();
-                codes.push(indent1 + 'pandora.declareClass(\'' + element.cname.trim() + '\', ');
+                cname = 'pandora.' + namespace + element.cname.trim();
+                codes.push(indent1 + 'pandora.declareClass(\'' + namespace + element.cname.trim() + '\', ');
             }
             else {
                 if (element.cname && element.cname.trim()) {
@@ -1703,16 +2047,16 @@
                             toES6 = true;
                         }
                         else {
-                            codes.push(indent1 + 'var ' + cname + ' = pandora.declareClass(');
+                            codes.push(indent1 + 'var ' + cname + ' = ' + 'pandora.declareClass(');
                         }
                     }
                     else {
-                        codes.push(indent1 + cname + ' = pandora.declareClass(');
+                        codes.push(indent1 + cname + ' = ' + 'pandora.declareClass(');
                     }
                 }
                 else {
                     if (this.toES6) {
-                        codes.push(indent1 + 'class ');
+                        codes.push('class ');
                         toES6 = true;
                     }
                     else {
@@ -1731,8 +2075,8 @@
             codes.push('{');
             // console.log(element);
             if (toES6) {
-                for (var index_27 = 0; index_27 < element.body.length; index_27++) {
-                    var member = element.body[index_27];
+                for (var index_24 = 0; index_24 < element.body.length; index_24++) {
+                    var member = element.body[index_24];
                     var elem = [];
                     // console.log(member);
                     switch (member.type) {
@@ -1741,33 +2085,33 @@
                                 member.fname === 'constructor';
                             }
                             elem.push(indent2 + member.fname + ' ');
-                            this.pushFunctionCodes(elem, member, layer + 1);
+                            this.pushFunctionCodes(elem, member, layer + 1, namespace);
                             // console.log(member.fname, elem);
                             elements.push(elem.join('').replace(/\s*function\s*\(/, '('));
                             break;
                         case 'prop':
                             elem.push(indent2 + member.pname + ' = ');
-                            this.pushCodes(elem, member.vars, member.body, layer + 1, true);
+                            this.pushCodes(elem, member.vars, member.body, layer + 1, true, namespace);
                             static_elements.push(elem.join('') + ';');
                             break;
                         case 'setPropMethod':
                             elem.push(indent2 + 'set ' + member.fname + ' ');
-                            this.pushFunctionCodes(elem, member, layer + 1);
+                            this.pushFunctionCodes(elem, member, layer + 1, namespace);
                             elements.push(elem.join('').replace(/\s*function\s*\(/, '('));
                             break;
                         case 'getPropMethod':
                             elem.push(indent2 + 'get ' + member.fname + ' ');
-                            this.pushFunctionCodes(elem, member, layer + 1);
+                            this.pushFunctionCodes(elem, member, layer + 1, namespace);
                             elements.push(elem.join('').replace(/\s*function\s*\(/, '('));
                             break;
                         case 'staticMethod':
                             elem.push(indent2 + 'static ' + member.fname + ' ');
-                            this.pushFunctionCodes(elem, member, layer + 1);
+                            this.pushFunctionCodes(elem, member, layer + 1, namespace);
                             elements.push(elem.join('').replace(/\s*function\s*\(/, '('));
                             break;
                         case 'staticProp':
                             elem.push(indent2 + 'static ' + member.fname + ' = ');
-                            this.pushCodes(elem, member.vars, member.body, layer + 1, true);
+                            this.pushCodes(elem, member.vars, member.body, layer + 1, true, namespace);
                             static_elements.push(elem.join('') + ';');
                             break;
                     }
@@ -1778,14 +2122,14 @@
                 var setters = [];
                 var getters = [];
                 var indent3 = "\r\n" + stringRepeat("\t", layer + 2);
-                for (var index_28 = 0; index_28 < element.body.length; index_28++) {
-                    var member = element.body[index_28];
+                for (var index_25 = 0; index_25 < element.body.length; index_25++) {
+                    var member = element.body[index_25];
                     var elem = [];
                     // console.log(member);
                     switch (member.type) {
                         case 'method':
                             elem.push(indent2 + member.fname + ': ');
-                            this.pushFunctionCodes(elem, member, layer + 1);
+                            this.pushFunctionCodes(elem, member, layer + 1, namespace);
                             if (this.toES6) {
                                 elements.push(elem.join('').replace(/\:\s+function\s*\(/, '('));
                             }
@@ -1799,7 +2143,7 @@
                             if (!overrides[member.fname][argslen]) {
                                 var fname = overrides[member.fname][argslen] = '___override_method_' + member.fname + '_' + argslen;
                                 elem.push(indent2 + fname + ': ');
-                                this.pushFunctionCodes(elem, member, layer + 1);
+                                this.pushFunctionCodes(elem, member, layer + 1, namespace);
                                 if (this.toES6) {
                                     elements.push(elem.join('').replace(/\:\s+function\s*\(/, '('));
                                 }
@@ -1810,12 +2154,12 @@
                             break;
                         case 'prop':
                             elem.push(indent2 + member.pname + ': ');
-                            this.pushCodes(elem, member.vars, member.body, layer + 1, true);
+                            this.pushCodes(elem, member.vars, member.body, layer + 1, true, namespace);
                             elements.push(elem.join(''));
                             break;
                         case 'setPropMethod':
                             elem.push(indent3 + member.fname + ': ');
-                            this.pushFunctionCodes(elem, member, layer + 2);
+                            this.pushFunctionCodes(elem, member, layer + 2, namespace);
                             if (this.toES6) {
                                 setters.push(elem.join('').replace(/\:\s+function\s*\(/, '('));
                             }
@@ -1825,7 +2169,7 @@
                             break;
                         case 'getPropMethod':
                             elem.push(indent3 + member.fname + ': ');
-                            this.pushFunctionCodes(elem, member, layer + 2);
+                            this.pushFunctionCodes(elem, member, layer + 2, namespace);
                             if (this.toES6) {
                                 getters.push(elem.join('').replace(/\:\s+function\s*\(/, '('));
                             }
@@ -1835,7 +2179,7 @@
                             break;
                         case 'staticMethod':
                             elem.push(indent2 + member.fname + ': ');
-                            this.pushFunctionCodes(elem, member, layer + 1);
+                            this.pushFunctionCodes(elem, member, layer + 1, namespace);
                             if (this.toES6) {
                                 static_elements.push(elem.join('').replace(/\:\s+function\s*\(/, '('));
                             }
@@ -1845,7 +2189,7 @@
                             break;
                         case 'staticProp':
                             elem.push(indent2 + member.pname + ': ');
-                            this.pushCodes(elem, member.vars, member.body, layer + 1, true);
+                            this.pushCodes(elem, member.vars, member.body, layer + 1, true, namespace);
                             static_elements.push(elem.join(''));
                             break;
                     }
@@ -1886,17 +2230,20 @@
                     }
                 }
             }
+            if (element.stype === 'block') {
+                codes.push(indent1);
+            }
             // console.log(elements, static_elements); 
             return codes;
         };
-        Sugar.prototype.pushExpandClassCodes = function (codes, element, layer) {
+        Sugar.prototype.pushExpandClassCodes = function (codes, element, layer, namespace) {
             var indent1 = "\r\n" + stringRepeat("\t", layer);
             var indent2 = "\r\n" + stringRepeat("\t", layer + 1);
             var elements = [];
             var static_elements = [];
             var cname = '';
             if (element.subtype === 'stdClass') {
-                cname = 'pandora.' + element.cname.trim();
+                cname = 'pandora.' + namespace + element.cname.trim();
             }
             else {
                 if (element.cname && element.cname.trim()) {
@@ -1907,21 +2254,21 @@
                 }
             }
             codes.push(indent1 + 'pandora.extend(' + cname + '.prototype, ');
-            if (element.base) {
-                codes.push(element.base.trim() + ', ');
-            }
+            // if (element.base) {
+            //     codes.push(element.base.trim() + ', ');
+            // }
             codes.push('{');
             // console.log(element);
             var overrides = {};
             var indent3 = "\r\n" + stringRepeat("\t", layer + 2);
-            for (var index_29 = 0; index_29 < element.body.length; index_29++) {
-                var member = element.body[index_29];
+            for (var index_26 = 0; index_26 < element.body.length; index_26++) {
+                var member = element.body[index_26];
                 var elem = [];
                 // console.log(member);
                 switch (member.type) {
                     case 'method':
                         elem.push(indent2 + member.fname + ': ');
-                        this.pushFunctionCodes(elem, member, layer + 1);
+                        this.pushFunctionCodes(elem, member, layer + 1, namespace);
                         if (this.toES6) {
                             elements.push(elem.join('').replace(/\:\s+function\s*\(/, '('));
                         }
@@ -1935,7 +2282,7 @@
                         if (!overrides[member.fname][argslen]) {
                             var fname = overrides[member.fname][argslen] = '___override_method_' + member.fname + '_' + argslen;
                             elem.push(indent2 + fname + ': ');
-                            this.pushFunctionCodes(elem, member, layer + 1);
+                            this.pushFunctionCodes(elem, member, layer + 1, namespace);
                             if (this.toES6) {
                                 elements.push(elem.join('').replace(/\:\s+function\s*\(/, '('));
                             }
@@ -1946,12 +2293,12 @@
                         break;
                     case 'prop':
                         elem.push(indent2 + member.pname + ': ');
-                        this.pushCodes(elem, member.vars, member.body, layer + 1, true);
+                        this.pushCodes(elem, member.vars, member.body, layer + 1, true, namespace);
                         elements.push(elem.join(''));
                         break;
                     case 'staticMethod':
                         elem.push(indent2 + member.fname + ': ');
-                        this.pushFunctionCodes(elem, member, layer + 1);
+                        this.pushFunctionCodes(elem, member, layer + 1, namespace);
                         if (this.toES6) {
                             static_elements.push(elem.join('').replace(/\:\s+function\s*\(/, '('));
                         }
@@ -1961,7 +2308,7 @@
                         break;
                     case 'staticProp':
                         elem.push(indent2 + member.pname + ': ');
-                        this.pushCodes(elem, member.vars, member.body, layer + 1, true);
+                        this.pushCodes(elem, member.vars, member.body, layer + 1, true, namespace);
                         static_elements.push(elem.join(''));
                         break;
                 }
@@ -1979,6 +2326,7 @@
             else {
                 codes.push(';');
             }
+            codes.push(indent1);
             // console.log(elements, static_elements); 
             return codes;
         };
@@ -2005,8 +2353,8 @@
                 }
             }
         };
-        Sugar.prototype.pushCallCodes = function (codes, element, layer) {
-            var naming = this.pushCodes([], element.vars, element.name, layer, true);
+        Sugar.prototype.pushCallCodes = function (codes, element, layer, namespace) {
+            var naming = this.pushCodes([], element.vars, element.name, layer, true, namespace);
             // console.log(naming);
             // console.log(element);
             if (element.stype === 'block') {
@@ -2014,8 +2362,16 @@
                 var indent = "\r\n" + stringRepeat("\t", layer);
                 codes.push(indent);
             }
-            codes.push(naming.join(''));
-            codes.push('(');
+            var name = naming.join('');
+            if (name === 'new') {
+                codes.push('new (');
+            }
+            else {
+                if (element.type === 'construct') {
+                    codes.push('new ');
+                }
+                codes.push(name + '(');
+            }
             var parameters = [];
             if (element.params.length) {
                 var _layer = layer;
@@ -2028,9 +2384,9 @@
                     codes.push(indent2);
                     _break = true;
                 }
-                for (var index_30 = 0; index_30 < element.params.length; index_30++) {
-                    var param = element.params[index_30].body;
-                    var paramCodes = this.pushCodes([], element.vars, param, _layer, true);
+                for (var index_27 = 0; index_27 < element.params.length; index_27++) {
+                    var param = element.params[index_27].body;
+                    var paramCodes = this.pushCodes([], element.vars, param, _layer, true, namespace);
                     if (paramCodes.length) {
                         parameters.push(paramCodes.join('').trim());
                     }
@@ -2048,11 +2404,16 @@
                 }
                 // console.log(parameters);  
             }
-            codes.push(')');
-            // console.log(codes);
+            if (element.stype === 'block') {
+                codes.push(');');
+                codes.push(indent);
+            }
+            else {
+                codes.push(')');
+            }
             return codes;
         };
-        Sugar.prototype.pushArrayCodes = function (codes, element, layer, codeInline) {
+        Sugar.prototype.pushArrayCodes = function (codes, element, layer, codeInline, namespace) {
             var elements = [];
             codes.push('[');
             if (element.body.length) {
@@ -2066,9 +2427,9 @@
                     codes.push(indent2);
                     _break = true;
                 }
-                for (var index_31 = 0; index_31 < element.body.length; index_31++) {
-                    var body = element.body[index_31].body;
-                    var elemCodes = this.pushCodes([], element.vars, body, _layer, true);
+                for (var index_28 = 0; index_28 < element.body.length; index_28++) {
+                    var body = element.body[index_28].body;
+                    var elemCodes = this.pushCodes([], element.vars, body, _layer, true, namespace);
                     // let elem:string[] = this.pushCodes([], body, layer + 1);
                     if (elemCodes.length) {
                         elements.push(elemCodes.join('').trim());
@@ -2094,22 +2455,26 @@
             // }
             return codes;
         };
-        Sugar.prototype.pushTravelCodes = function (codes, element, layer) {
+        Sugar.prototype.pushTravelCodes = function (codes, element, layer, namespace) {
             var indent = "\r\n" + stringRepeat("\t", layer);
             // console.log(element);
             codes.push(indent + 'pandora.each(');
-            this.pushCodes(codes, element.vars, element.iterator, layer);
+            this.pushCodes(codes, element.vars, element.iterator, layer, true, namespace);
             codes.push(', ');
-            this.pushFunctionCodes(codes, element.callback, layer);
+            this.pushFunctionCodes(codes, element.callback, layer, namespace);
             codes.push(', this);');
             codes.push(indent);
             return codes;
         };
-        Sugar.prototype.pushFunctionCodes = function (codes, element, layer) {
+        Sugar.prototype.pushFunctionCodes = function (codes, element, layer, namespace) {
             var indent = "\r\n" + stringRepeat("\t", layer);
+            // console.log(element.type, element.subtype);
             if (element.type === 'def' && element.fname) {
                 if ((element.subtype === 'var') || (element.subtype === 'let')) {
                     codes.push(indent + element.subtype + ' ' + element.fname + ' = function (');
+                }
+                else if ((element.subtype === 'public')) {
+                    codes.push(indent + 'pandora.' + namespace + element.fname + ' = function (');
                 }
                 else {
                     codes.push(indent + 'function ' + element.fname + ' (');
@@ -2119,63 +2484,85 @@
                 codes.push('function (');
             }
             if (element.args.length) {
-                codes.push(element.args.join(', '));
+                var args = [];
+                for (var index_29 = 0; index_29 < element.args.length; index_29++) {
+                    // console.log(element.args[index]);
+                    this.pushPostionsToMap(element.args[index_29][1], args);
+                    args.push(element.args[index_29][0]);
+                }
+                codes.push(args.join(', '));
             }
             codes.push(') {');
             // console.log(element.body);
             if (element.body.length) {
-                this.pushCodes(codes, element.vars, element.body, layer + 1);
+                // console.log(element.body);
+                this.pushCodes(codes, element.vars, element.body, layer + 1, false, namespace);
             }
             else {
                 indent = '';
             }
-            codes.push(indent + '}');
-            // if (element.type === 'def' && !element.fname) {
-            //     codes.push(indent + '};');
-            // } else if (element.stype === 'var') {
-            //     codes.push(indent + '};');
-            // } else {
-            // }
+            if (element.stype === 'block') {
+                codes.push(indent + '};');
+                codes.push(indent);
+            }
+            else {
+                codes.push(indent + '}');
+            }
             return codes;
         };
-        Sugar.prototype.pushExpressionCodes = function (codes, element, layer) {
+        Sugar.prototype.pushExpressionCodes = function (codes, element, layer, namespace) {
             var indent = "\r\n" + stringRepeat("\t", layer);
             codes.push(indent + element.expression + ' (');
             // console.log(element.head);
-            this.pushCodes(codes, element.vars.parent, element.head, layer, true);
+            this.pushCodes(codes, element.vars.parent, element.head, layer, true, namespace);
             codes.push(') {');
+            codes.push(indent);
             // console.log(element.body);
-            this.pushCodes(codes, element.vars, element.body, layer + 1);
+            this.pushCodes(codes, element.vars, element.body, layer + 1, false, namespace);
+            // if (element.stype === 'block') {
+            //     codes.push(indent + '};');
+            //     codes.push(indent);
+            // } else {
+            // }
             codes.push(indent + '}');
             return codes;
         };
-        Sugar.prototype.pushDefineCodes = function (codes, element, layer) {
-            var indent = "\r\n" + stringRepeat("\t", layer);
-            if (element.subtype === 'namespace') {
-                codes.push(indent + 'pandora(\'' + element.oname.trim() + '\', ');
+        Sugar.prototype.pushExtendsCodes = function (codes, element, layer, namespace) {
+            var indent1 = "\r\n" + stringRepeat("\t", layer);
+            var indent2 = "\r\n" + stringRepeat("\t", layer);
+            if (element.subtype === 'ns') {
+                codes.push(indent2 + 'pandora.ns(\'' + namespace + element.oname.trim() + '\', function () {');
+                this.pushCodes(codes, element.vars, element.body, layer + 1, false, namespace + element.oname.trim() + '.');
+                // console.log(element.body);
+                codes.push(indent2 + '}');
+            }
+            else if (element.subtype === 'extns') {
+                codes.push(indent1 + 'pandora.ns(\'' + namespace + element.oname.trim() + '\', ');
+                this.pushObjCodes(codes, element, layer, namespace);
             }
             else {
-                codes.push(indent + 'pandora.extend(' + element.oname + ', ');
+                codes.push(indent1 + 'pandora.extend(' + element.oname + ', ');
+                this.pushObjCodes(codes, element, layer, namespace);
             }
-            this.pushObjCodes(codes, element, layer);
             codes.push(');');
+            codes.push(indent1);
             return codes;
         };
-        Sugar.prototype.pushObjCodes = function (codes, element, layer) {
+        Sugar.prototype.pushObjCodes = function (codes, element, layer, namespace) {
             var indent1 = "\r\n" + stringRepeat("\t", layer);
             var indent2 = "\r\n" + stringRepeat("\t", layer + 1);
             codes.push('{');
             if (element.body.length) {
                 var elements = [];
                 // console.log(element);
-                for (var index_32 = 0; index_32 < element.body.length; index_32++) {
-                    var member = element.body[index_32];
+                for (var index_30 = 0; index_30 < element.body.length; index_30++) {
+                    var member = element.body[index_30];
                     var elem = [];
                     // console.log(member);
                     switch (member.type) {
                         case 'method':
                             elem.push(indent2 + member.fname + ': ');
-                            this.pushFunctionCodes(elem, member, layer + 1);
+                            this.pushFunctionCodes(elem, member, layer + 1, namespace);
                             if (this.toES6) {
                                 elements.push(elem.join('').replace(/\:\s+function\s*\(/, '('));
                             }
@@ -2185,7 +2572,7 @@
                             break;
                         case 'objProp':
                             elem.push(indent2 + member.pname + ': ');
-                            this.pushCodes(elem, member.vars, member.body, layer + 1, true);
+                            this.pushCodes(elem, member.vars, member.body, layer + 1, true, namespace);
                             elements.push(elem.join(''));
                             break;
                     }
@@ -2198,23 +2585,51 @@
                     codes.push(indent1);
                 }
             }
-            codes.push('}');
+            if (element.stype === 'block') {
+                codes.push('};');
+                codes.push(indent1);
+            }
+            else {
+                codes.push('}');
+            }
             return codes;
         };
         Sugar.prototype.fixVariables = function (vars) {
-            if (1)
+            this.closurecount++;
+            console.log(vars.type, vars);
+            if (1) {
+                for (var index_31 = 0; index_31 < vars.self.length; index_31++) {
+                    var element = vars.self[index_31].split(/\s+/)[1];
+                    if (['pandora', 'global', 'imports', 'undefined']['includes'](element)) {
+                        if (!vars.fix_map[element]) {
+                            var i = 1;
+                            var newname = element + '_' + i;
+                            while (vars.fixed['includes'](newname)) {
+                                i++;
+                                newname = element + '_' + i;
+                            }
+                            vars.fixed.push(newname);
+                            vars.fix_map[element] = newname;
+                        }
+                    }
+                }
+                switch (vars.type) {
+                    case 'block':
+                        break;
+                }
                 return;
+            }
             switch (vars.type) {
                 case 'block':
                     vars.fixed = vars.parent;
-                    for (var index_33 = 0; index_33 < vars.self.length; index_33++) {
-                        var element = vars.self[index_33].split(/\s+/)[1];
+                    for (var index_32 = 0; index_32 < vars.self.length; index_32++) {
+                        var element = vars.self[index_32].split(/\s+/)[1];
                         while (!vars.fixed['includes'](element)) {
                             vars.fixed.push(element);
                         }
                     }
-                    for (var index_34 = 0; index_34 < vars.self.length; index_34++) {
-                        var element = vars.self[index_34].split(/\s+/)[1];
+                    for (var index_33 = 0; index_33 < vars.self.length; index_33++) {
+                        var element = vars.self[index_33].split(/\s+/)[1];
                         if (['pandora', 'global', 'imports', 'undefined']['includes'](element)) {
                             while (!vars.fixed['includes'](element)) {
                                 vars.fixed.push(element);
@@ -2245,6 +2660,23 @@
             }
             console.log(vars);
         };
+        Sugar.prototype.patchVariables = function (code, vars) {
+            var _this = this;
+            // console.log(code, vars);
+            if (code) {
+                // console.log(code);
+                return code.replace(/(^|[^\$\w\.]\s*)([\$a-z_][\$\w]*)(\*[\$\w]|$)/i, function (match, before, varname, after) {
+                    // console.log(match, before, varname, after);
+                    return before + _this.patchVariable(varname, vars) + after;
+                });
+            }
+            // console.log(code);
+            return '';
+        };
+        Sugar.prototype.patchVariable = function (varname, vars) {
+            // console.log(varname, vars);
+            return varname;
+        };
         Sugar.prototype.pushFooter = function (codes) {
             if (this.isMainBlock) {
                 codes.push("\r\n" + '}, true);');
@@ -2254,12 +2686,24 @@
             }
             return codes;
         };
+        Sugar.prototype.decode = function (string) {
+            string = string.replace(/@\d+L\d+P\d+(O\d+)?:*/g, '');
+            var matches = string.match(/___boundary_([A-Z0-9_]{37})?(\d+)_as_[a-z]+___/);
+            while (matches) {
+                // console.log(matches, this.replacements[matches[2]]);
+                string = string.replace(matches[0], this.replacements[matches[2]]).replace(/@\d+L\d+P\d+(O\d+)?:*/g, '');
+                matches = string.match(/___boundary_([A-Z0-9_]{37})?(\d+)_as_[a-z]+___/);
+            }
+            // console.log(string);
+            return string.replace(/(@\d+L\d+P\d+O?\d*::)/g, '');
+        };
         Sugar.prototype.trim = function (string) {
             // 此处的replace在整理完成后，将进行分析归纳，最后改写为callback形式的
             // console.log(string);
             string = this.restoreStrings(string);
-            this.replacements = ['{}', '/=', '/', ' +', ' -', 'return'];
-            string = this.replaceStrings(string);
+            // return string;
+            this.replacements = [['{}'], ['/='], ['/'], [' +'], [' -']];
+            string = this.replaceStrings(string, true);
             string = this.replaceOperators(string);
             // console.log(string);
             // return '';
@@ -2271,8 +2715,8 @@
             string = string.replace(/\s*;([^\s])/g, "; $1");
             string = string.replace(/(\{|\[|\(|\.|\:)\s*[,;]+/g, "$1");
             string = string.replace(/\s*[,;]+(\s*)(\.|\:|\)|\])/g, "$1$2");
-            string = string.replace(/[,;\s]*(\=|\?|\:)[,;\s]*/g, " $1 ");
-            string = string.replace(/([\r\n]*\s*[\$\w_])\s+(\:)/g, "$1$2");
+            string = string.replace(/\s+(\=|\?|\:)[,;\s]*/g, " $1 ");
+            string = string.replace(/([\r\n]*\s*[\$\w])\s+(\:)/g, "$1$2");
             // // 关键字处理
             string = string.replace(/if\s*\(([^\)]+)\)\s*[,;]+/g, "if ($1)");
             string = string.replace(/([^\$\w])else\s*[,;]+/g, "$1else");
@@ -2329,13 +2773,13 @@
             var that = this;
             return string.replace(this.lastPattern, function () {
                 // console.log(arguments[1]);
-                return that.replacements[arguments[2] || arguments[4]];
+                return that.replacements[arguments[2] || arguments[4]][0];
             }).replace(this.markPattern, function () {
-                return that.replacements[arguments[1]];
-            });
+                return that.replacements[arguments[1]][0];
+            }).replace(/(@\d+L\d+P\d+O?\d*::)/g, '');
         };
         Sugar.prototype.min = function () {
-            this.replacements = ['{}', '/=', '/', ' +', ' -', 'return'];
+            this.replacements = [['{}'], ['/='], ['/'], [' +'], [' -'], ['return ']];
             var string = this.replaceStrings(this.output);
             string = this.replaceOperators(string, true);
             // console.log(string);

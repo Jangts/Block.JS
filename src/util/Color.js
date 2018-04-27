@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Tue, 24 Apr 2018 15:55:04 GMT
+ * Datetime: Wed, 25 Apr 2018 00:54:02 GMT
  */
 ;
 // tangram.config({});
@@ -156,19 +156,19 @@ tangram.block([], function (pandora, global, imports, undefined) {
 		var _s;
 		var l;
 		if (s === 0 && b === 1) {
-			return[h, 100, 100];
+			return [h, 100, 100];
 		}
 		if (b === 0) {
-			return[h, s * 100, 0];
+			return [h, s * 100, 0];
 		}
 		l = (2 - s) * b / 2;
 		_s = (s * b)/(1 - Math.abs(l * 2 - 1));
-		return[h, _s * 100, l * 100];
+		return [h, _s * 100, l * 100];
 	};
 	var hue2rgb = function (p, q, t) {
 		if(t < 0)t += 1;
 		if(t > 1)t -= 1;
-		if(t < 1/6)return p + (q - p) * 6 * t;
+		if(t < 1/6)return   p + (q - p) * 6 * t;
 		if(t < 1/2)return q;
 		if(t < 2/3)return p + (q - p) * (2/3 - t) * 6;
 		return p;
@@ -187,26 +187,26 @@ tangram.block([], function (pandora, global, imports, undefined) {
 			g = hue2rgb(p, q, h);
 			b = hue2rgb(p, q, h - 1 / 3);
 		}
-		return[r, g, b];
+		return [r, g, b];
 	};
 	var hsl2RGB = function (h, s, l) {
 		var base = hsl2BaseRGB(h, s, l);
-		return[Math.round(base[0] * 255), Math.round(base[1] * 255), Math.round(base[2] * 255)];
+		return [Math.round(base[0] * 255), Math.round(base[1] * 255), Math.round(base[2] * 255)];
 	};
 	var hsl2SafeRGB = function (h, s, l) {
 		var base = hsl2BaseRGB(h, s, l);
-		return[Math.round(base[0] * 10) * 25.5, Math.round(base[1] * 10) * 25.5, Math.round(base[2] * 10) * 25.5];
+		return [Math.round(base[0] * 10) * 25.5, Math.round(base[1] * 10) * 25.5, Math.round(base[2] * 10) * 25.5];
 	};
 	var hsl2HSB = function (h, s, l) {
 		s /= 100, l /= 100;
 		var _s;
 		var b;
 		if (l === 0) {
-			return[h, s * 100, 0];
+			return [h, s * 100, 0];
 		}
 		b = ((1 - Math.abs(l * 2 - 1)) * s + l * 2)/ 2;
 		_s = (b - l) * 2 / b;
-		return[h, s, b];
+		return [h, s, b];
 	};
 	var rgb2HSB = function (r, g, b) {
 		r /= 255, g /= 255, b /= 255;
@@ -221,7 +221,7 @@ tangram.block([], function (pandora, global, imports, undefined) {
 			var d = max - min;
 			s = d / b;
 			switch (max) {
-				case r: h = (g - b)/ d + (g < b ? 6: 0);
+				case r: h = (g - b) / d + (g < b ? 6: 0);
 				break;
 				case g: h = (b - r)/ d + 2;
 				break;
@@ -230,7 +230,7 @@ tangram.block([], function (pandora, global, imports, undefined) {
 			}
 			h /= 6;
 		}
-		return[h, s, b];
+		return [h, s, b];
 	};
 	var rgb2HSL = function (r, g, b) {
 		r /= 255, g /= 255, b /= 255;
@@ -243,9 +243,9 @@ tangram.block([], function (pandora, global, imports, undefined) {
 			h = s = 0;
 		}else {
 			var d = max - min;
-			s = l > 0.5 ? d/(2 - max - min) : d/(max + min);
+			s = l > 0.5 ? d /(2 - max - min) : d/(max + min);
 			switch (max) {
-				case r: h = (g - b)/ d + (g < b ? 6: 0);
+				case r: h = (g - b) / d + (g < b ? 6: 0);
 				break;
 				case g: h = (b - r)/ d + 2;
 				break;
@@ -254,7 +254,7 @@ tangram.block([], function (pandora, global, imports, undefined) {
 			}
 			h /= 6;
 		}
-		return[h, s, l];
+		return [h, s, l];
 	};
 	var hex = function (num) {
 		var hex;
@@ -264,20 +264,20 @@ tangram.block([], function (pandora, global, imports, undefined) {
 	};
 	var convs = {
 		rgb: function (arr) {
-			return'rgb(' + arr[0] + ',' + arr[1] + ',' + arr[2] + ')';
+			return 'rgb(' + arr[0] + ',' + arr[1] + ',' + arr[2] + ')';
 		},
 		rgba: function (arr) {
-			return'rgb(' + arr[0] + ',' + arr[1] + ',' + arr[2] + ',' + arr[3] + ')';
+			return 'rgb(' + arr[0] + ',' + arr[1] + ',' + arr[2] + ',' + arr[3] + ')';
 		},
 		hex6: function (arr) {
-			return'#' + hex(arr[0]) + hex(arr[1]) + hex(arr[2]);
+			return '#' + hex(arr[0]) + hex(arr[1]) + hex(arr[2]);
 		},
 		hex8: function (arr) {
-			return'#' + hex(arr[0]) + hex(arr[1]) + hex(arr[2]) + hex(arr[3] * 255);
+			return '#' + hex(arr[0]) + hex(arr[1]) + hex(arr[2]) + hex(arr[3] * 255);
 		},
 		hsl: function (rgb) {
 			var arr = rgb2HSL(rgb[0], rgb[1], rgb[2]);
-			return'hsl(' + arr[0] + ',' + arr[1] + '%,' + arr[2] + '%)';
+			return 'hsl(' + arr[0] + ',' + arr[1] + '%,' + arr[2] + '%)';
 		},
 		name: function (arr) {
 			var hex6 = '#' + hex(arr[0]) + hex(arr[1]) + hex(arr[2]);
@@ -292,7 +292,7 @@ tangram.block([], function (pandora, global, imports, undefined) {
 		}
 	};
 	var toArray = function (value) {
-		if(/^#[A-Za-z0-9]{3}$/.test(value)) {
+		if(/^#[A-Za-z0-9]{3}$/.test(value))  {
 			value = value.replace(/#/, "");
 			var arr = [];
 			arr[0] = parseInt(value.substr(0, 1) + value.substr(0, 1), 16);
@@ -368,7 +368,7 @@ tangram.block([], function (pandora, global, imports, undefined) {
 		toArray: toArray,
 		regColor: function (name, val) {
 			var arr;
-			switch(typeof name) {
+			switch (typeof name) {
 				case 'string': arr = toArray(val);
 				if (arr) {
 					name = name.toLowerCase();
@@ -392,7 +392,7 @@ tangram.block([], function (pandora, global, imports, undefined) {
 			}
 			var arr = toArray(value);
 			if (convs[type]) {
-				returnconvs[type](arr);
+				return convs[type](arr);
 			}else {
 				return convs.rgba(arr);
 			};
@@ -404,5 +404,6 @@ tangram.block([], function (pandora, global, imports, undefined) {
 		rgb2HSB: rgb2HSB,
 		rgb2HSB: rgb2HSB
 	});
-	_.extend(_.util.Color, names);
+	pandora.extend(pandora.util.Color, names);
+	return pandora.util.Color;
 });

@@ -6,7 +6,7 @@
  *
  * Date 2017-04-06
  */
-
+namespace util;
 
 use $_/util/type;
 use $_/dom/;
@@ -18,7 +18,7 @@ File = global.File,
 FileList = global.FileList,
 FormData = global.FormData;
 
-namespace util.bool {
+extends .bool {
     truthy(value) {
         return !!value
     },
@@ -176,5 +176,4 @@ namespace util.bool {
 }
 
 _.extend(global, _.util.bool);
-
 return _.util.bool;

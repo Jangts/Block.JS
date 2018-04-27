@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Tue, 24 Apr 2018 15:55:03 GMT
+ * Datetime: Wed, 25 Apr 2018 00:54:01 GMT
  */
 ;
 // tangram.config({});
@@ -22,7 +22,7 @@ tangram.block([
 	var namingExpr = /^[A-Z_]\w*$/i;
 	var create = function (tablename, fields, primarykey, constraints) {
 		var defaultStorageName = 'pandora.data.Table.' + tablename;
-		return {
+return {
 			ai: 0,
 			length: 0,
 			name: tablename,
@@ -43,7 +43,7 @@ tangram.block([
 		for (i; i < parts; i++) {
 			storageName = 'pandora.data.Table.' + tablename + (i ? i: '');
 			storages.push(storageName);
-			new Storage(storageName).set('data', json.substr(partlen * i, partlen));
+new Storage(storageName).set('data', json.substr(partlen * i, partlen));
 		}
 		mateinfs.length = _.obj.length(tables[tablename]);
 		mateinfs.storages = storages;
@@ -51,9 +51,9 @@ tangram.block([
 	};
 	var check = function (value, constraint) {
 		switch (constraint.type) {
-			case 'boolean': return _.arr.has([true, false, 1, 0], value);
+			case 'boolean': return   _.arr.has([true, false, 1, 0], value);
 			case 'object': return(typeof value === 'object');
-			case 'string': if(typeof value === 'string') {
+			case 'string': if (typeof value === 'string') {
 				if (constraint.length) {
 					if (value.length > constraint.length) {
 						return false;
@@ -66,7 +66,7 @@ tangram.block([
 				return true;
 			}
 			return false;
-			case 'number': if(typeof value === 'number') {
+			case 'number': if (typeof value === 'number') {
 				if (constraint.max) {
 					if (value.length > constraint.length) {
 						return false;
@@ -85,20 +85,22 @@ tangram.block([
 	};
 	var assign = function (mateinfs, data, _data) {
 		pandora.each(mateinfs.fields, function (fieldname, value) {
-			if((fieldname != mateinfs.pk) && data.hasOwnProperty(fieldname)) {
+			if((fieldname != mateinfs.pk) && data.hasOwnProperty(fieldname))  {
 				if (mateinfs.constraints && mateinfs.constraints[fieldname]) {
-					if(check(data[fieldname], mateinfs.constraints[fieldname])) {
+					if(check(data[fieldname], mateinfs.constraints[fieldname]))  {
 						_data[fieldname] = data[fieldname];
-					}else {
-						if(!_data.hasOwnProperty(fieldname)) {
+					}
+					else {
+						if(!_data.hasOwnProperty(fieldname))  {
 							_data[fieldname] = value;
 						};
 					};
-				}else {
+				}else  {
 					_data[fieldname] = data[fieldname];
 				};
-			}else {
-				if(!_data.hasOwnProperty(fieldname)) {
+			}
+			else {
+				if(!_data.hasOwnProperty(fieldname))  {
 					_data[fieldname] = value;
 				};
 			};
@@ -107,7 +109,7 @@ tangram.block([
 	};
 	pandora.declareClass('data.Sheet', {
 		_init: function (tablename, fields, primarykey, constraints) {
-			if(namingExpr.test(tablename)) {
+			if(namingExpr.test(tablename))  {
 				this.tablename = tablename;
 				if (!tables[tablename]) {
 					var mateinfs = metable.get(tablename);
@@ -115,7 +117,7 @@ tangram.block([
 						if (fields) {
 							mateinfs = create(tablename, fields, primarykey, constraints);
 							metable.set(tablename, mateinfs);
-						}else {
+						}else  {
 							mateinfs = create(tablename, {
 								'id': 0
 							}, 'id', {});
@@ -135,14 +137,15 @@ tangram.block([
 					}
 					console.log(mateinfs);
 				};
-			}else {
+			}
+			else {
 				_.error('Error Tablename');
 			};
 		},
 		add: function (fieldname, value, constraint) {
 			var tablename = this.tablename;
 			var mateinfs = infs[tablename];
-			if(!mateinfs.fields.hasOwnProperty(fieldname)) {
+			if(!mateinfs.fields.hasOwnProperty(fieldname))  {
 				mateinfs.fields[fieldname] = value = value || '';
 				if (constraint && constraint.type) {
 					mateinfs.constraints[fieldname] = constraint;
@@ -158,18 +161,18 @@ tangram.block([
 			var tablename = this.tablename;
 			var mateinfs = infs[tablename];
 			if (fieldname) {
-				if(mateinfs.fields.hasOwnProperty(fieldname)) {
+				if(mateinfs.fields.hasOwnProperty(fieldname))  {
 					delete mateinfs.fields[fieldname];
 					delete mateinfs.constraints[fieldname];
 					pandora.each(tables[tablename], function (id, row) {
 						delete row[fieldname];
 					}, this);
-					update(this.tablename);
+					 update(this.tablename);
 				}
 				return this;
 			}
 			pandora.each(mateinfs.storages, function (i, storageName) {
-				new Storage(storageName).clear(true);
+new Storage(storageName).clear(true);
 			}, this);
 			metable.set(tablename);
 			delete infs[tablename];
@@ -180,7 +183,7 @@ tangram.block([
 			var tablename = this.tablename;
 			var mateinfs = infs[tablename];
 			if (fieldname) {
-				if(mateinfs.fields.hasOwnProperty(fieldname)) {
+				if(mateinfs.fields.hasOwnProperty(fieldname))  {
 					mateinfs.fields[newname] = value === undefined ? mateinfs.fields[fieldname] : value;
 					delete mateinfs.fields[fieldname];
 					mateinfs.constraints[newname] = mateinfs.constraints[fieldname];
@@ -189,7 +192,7 @@ tangram.block([
 						row[newname] = row[fieldname];
 						delete row[fieldname];
 					}, this);
-					update(tablename);
+					 update(tablename);
 				}
 				return this;
 			}
@@ -203,15 +206,15 @@ tangram.block([
 				data[mateinfs.pk] = ++mateinfs.ai;
 				tables[tablename][mateinfs.ai] = data;
 			}, this);
-			update(tablename);
+			 update(tablename)
 			return mateinfs.ai;
 		},
 		update: function (id, data) {
 			var tablename = this.tablename;
 			var mateinfs = infs[tablename];
-			if(id && tables[tablename].hasOwnProperty(id) && data) {
+			if(id && tables[tablename].hasOwnProperty(id) && data)  {
 				tables[tablename][id] = assign(mateinfs, data, tables[tablename][id]);
-				update(tablename);
+update(tablename);
 			}
 			return this;
 		},
@@ -234,7 +237,7 @@ tangram.block([
 				pandora.each(arguments, function (i, id) {
 					delete tables[tablename][id];
 				}, this);
-				update(tablename);
+				 update(tablename);
 			}
 			return this;
 		},
@@ -260,7 +263,7 @@ tangram.block([
 				if (mateinfs) {
 					if (width) {
 						_width = ' width="' + width + '"';
-					}else {
+					}else  {
 						_width = '';
 					}
 					if (border) {
@@ -305,7 +308,7 @@ tangram.block([
 					var table = 'json.' + matchs[3];
 					switch (type) {
 						case 'select': var sql = 'select ' + matchs[2] + table + ' ' + matchs[4];
-						returnqueryJSON(sql, tables);
+						return queryJSON(sql, tables);
 						case 'delete': var sql = 'select * from ' + table + ' ' + matchs[4];
 						var result = queryJSON(sql, tables);
 						if (result.length) {
@@ -317,9 +320,9 @@ tangram.block([
 						return result.length;
 						case 'update': var mas = matchs[4].match(/^set\s+(\{.+\})\s+(where\s+\(.+\))$/i);
 						if (mas) {
-							try {
-								eval('var data = ' + mas[1]);
-								if(typeof(data)) {
+							try  {
+eval('var data = ' + mas[1]);
+								if(typeof(data))  {
 									var sql = 'select * from ' + table + ' ' + mas[2];
 									var result = queryJSON(sql, tables);
 									if (result.length) {
@@ -338,9 +341,9 @@ tangram.block([
 						return 0;
 						case 'insert': var mas = matchs[4].match(/^values\s+(\{.+\})\s*$/i);
 						if (mas) {
-							try {
-								eval('var data = [' + mas[1] + ']');
-								if(typeof(data)) {
+							try  {
+eval('var data = [' + mas[1] + ']');
+								if(typeof(data))  {
 									var table = new _.data.Sheet(matchs[3]);
 									return table.insert.apply(table, data);
 								};

@@ -18,9 +18,12 @@ this.tangram.auto([
                 // console.log(script.src);
                 _.async.ajax(script.src, function (data) {
                     tangram_js_sugar(data).compile().run(function (content) {
+                        console.log(this.ast);
+                        console.log(this.mappings);
                         console.log(content);
                     }, function () {
-                        console.log(this.ast, this.replacements);
+                        // console.log(this.ast);
+                        // console.log(this.replacements);
                     });
                 });
                 // ;
@@ -28,6 +31,8 @@ this.tangram.auto([
                 tangram_js_sugar(script.innerHTML).compile().run(function (content) {
                     console.log(content);
                 }, function () {
+                    console.log(this.ast);
+                    // console.log(this.replacements);
                 });
             }
         }

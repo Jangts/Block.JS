@@ -149,7 +149,7 @@ _('util.fasttype', (obj) {
     return Object.prototype.toString.call(obj).replace(/\[object\s|\]/g, '');
 });
 
-extends .util.type {
+namespace util.type {
     Obj: typeofObj,
     Str: typeofStr,
     isGlobal: isGlobal,
@@ -168,5 +168,4 @@ extends .util.type {
 extends _.util.type.Obj {
     native: nativeType
 }
-
 return _.util.type;

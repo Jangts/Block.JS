@@ -1,13 +1,13 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Tue, 24 Apr 2018 15:55:02 GMT
+ * Datetime: Wed, 25 Apr 2018 00:54:00 GMT
  */
 ;
 // tangram.config({});
 tangram.block([], function (pandora, global, imports, undefined) {
 	var _ = pandora;
-	var getParents = function (index) {
+	function getParents (index) {
 		var parents = [];
 		pandora.each(this.data, function (i, leaf) {
 			if (leaf[this.indexkey] == index) {
@@ -17,7 +17,7 @@ tangram.block([], function (pandora, global, imports, undefined) {
 		}, this);
 		return parents;
 	}
-	var getChildren = function (parent) {
+	function getChildren (parent) {
 		var children = [];
 		pandora.each(this.data, function (i, leaf) {
 			if (leaf[this.parentindexkey] == parent) {

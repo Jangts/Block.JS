@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <script>
+    function fn(){
+
+    }
+    fn .foo = 1;
+    fn .bar = 2;
+    for (const key in fn) {
+        if (fn.hasOwnProperty(key)) {
+            const element = fn[key];
+            console.log(element);
+        }
+    }
+    // var obj = {};
+    // console.log(obj);
+    // console.log(new obj.constructor);
+    // var objs = {
+    //     // obj:undefined,
+    //     _obj : {
+    //         foo : {
+    //             foo:1,
+    //             bar:2
+    //         },
+    //         bar:{
+    //             foo:'a',
+    //             bar:'b'
+    //         }
+    //     }
+    // }
+
+    // Object.defineProperty(objs, 'obj', {
+    //     // enumerable: true,
+    //     configurable: true,
+    //     // value: undefined,
+    //     get: function(){
+    //         console.log('foo');
+    //         return objs._obj;
+    //     },
+    //     set: function(value){
+    //         console.log(value);
+    //         objs._obj = 5;
+    //     }
+    // });
+
+    // obj = objs.obj;
+
+    // objs.obj.foo.bar = 5;
+    // console.log(objs.obj.foo.bar);
+    </script>
+</body>
+</html>

@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Tue, 24 Apr 2018 15:55:02 GMT
+ * Datetime: Wed, 25 Apr 2018 00:54:00 GMT
  */
 ;
 // tangram.config({});
@@ -29,20 +29,22 @@ tangram.block([
 				link.href = href;
 			}
 			if(_.dom.getAttr(link, 'loaded') === 'loaded') {
-				setTimeout(function () {
+setTimeout(function () {
 					_.util.bool.isFn(callback) && callback();
 				}, 0);
-			}else {
-				if(typeof(link.onreadystatechange) === 'object') {
+			}
+			else {
+				if(typeof(link.onreadystatechange) === 'object')  {
 					link.attachEvent('onreadystatechange', function () {
 						if (link.readyState === 'loaded' || link.readyState === 'complete') {
 							_.dom.setAttr(link, 'loaded', 'loaded');
 							_.util.bool.isFn(callback) && callback();
-						}else {
+						}else  {
 							console.log(link.readyState);
 						};
 					});
-				}else if(typeof(link.onload) !== 'undefined') {
+				}
+				else if(typeof(link.onload) !== 'undefined') {
 					link.addEventListener('load', function () {
 						_.dom.setAttr(link, 'loaded', 'loaded');
 						_.util.bool.isFn(callback) && callback();
@@ -60,15 +62,17 @@ tangram.block([
 			}
 			if(_.dom.getAttr(script, 'loaded')) {
 				_.util.bool.isFn(callback) && callback();
-			}else {
-				if(typeof(script.onreadystatechange) === 'object') {
+			}
+			else {
+				if(typeof(script.onreadystatechange) === 'object')  {
 					script.attachEvent('onreadystatechange', function () {
 						if (script.readyState === 'loaded' || script.readyState === 'complete') {
 							_.dom.setAttr(script, 'loaded', 'loaded');
 							_.util.bool.isFn(callback) && callback();
 						};
 					});
-				}else if(typeof(script.onload) === 'object') {
+				}
+				else if(typeof(script.onload) === 'object') {
 					script.addEventListener('load', function () {
 						_.dom.setAttr(script, 'loaded', '');
 						_.util.bool.isFn(callback) && callback();
@@ -78,12 +82,13 @@ tangram.block([
 		},
 		ajax: function (url, options) {
 			switch (arguments.length) {
-				case 2: if(!_.util.bool.isObj(options)) {
-					if(_.util.bool.isFn(options)) {
+				case 2: if(!_.util.bool.isObj(options))  {
+					if(_.util.bool.isFn(options))  {
 						options = {
 							success: options
 						};
-					}else {
+					}
+					else {
 						options = {};
 					};
 				}
@@ -93,7 +98,8 @@ tangram.block([
 				break;
 				case 1: if(_.util.bool.isObj(url)) {
 					options = url;
-				}else if(_.util.bool.isStr(url)) {
+				}
+				else if(_.util.bool.isStr(url)) {
 					options = {
 						url: url,
 						method: 'GET'
@@ -105,24 +111,26 @@ tangram.block([
 					method: 'GET'
 				};
 				break;
-				default: return undefined;
+				default: return   undefined;
 			}
 			if (!options.method) {
-				if((typeofoptions.data === 'object') || (typeofoptions.data === 'string')) {
+				if((typeof options.data === 'object') || (typeof options.data === 'string'))  {
 					options.method = 'POST';
-				}else {
+				}
+				else {
 					options.method = 'GET';
 					options.data = undefined;
 				};
 			}
 			if(options.data && (options.method.toUpperCase() === 'GET')) {
-				if(typeof options.data == 'object') {
+				if (typeof options.data == 'object') {
 					options.data = _.obj.toQueryString(options.data);
 				}
-				if(typeof options.data == 'string') {
-					if(options.url.indexOf('?') !==  -1) {
+				if (typeof options.data == 'string') {
+					if(options.url.indexOf('?') !==  -1)  {
 						options.url = options.url + "&" + options.data;
-					}else {
+					}
+					else {
 						options.url = options.url + "?" + options.data;
 					};
 				}
@@ -132,7 +140,7 @@ tangram.block([
 			Promise.success = Promise.done;
 			Promise.error = Promise.fail;
 			Promise.complete = Promise.always;
-			if (options.beforeSend &&  typeof options.beforeSend == 'function') {
+			if (options.beforeSend && typeof options.beforeSend == 'function') {
 				options.beforeSend(Promise.xmlhttp);
 			}
 			Promise.progress(options.progress).success(options.success).error(options.fail).complete(options.complete);
@@ -140,11 +148,11 @@ tangram.block([
 				options.charset = 'UTF-8';
 			}
 			if (options.data) {
-				if(typeof options.data == 'object') {
+				if (typeof options.data == 'object') {
 					if (!options.mime) {
 						options.mime = 'multipart/form-data';
 					}
-					if(!_.util.bool.isForm(options.data)) {
+					if(!_.util.bool.isForm(options.data))  {
 						if (options.mime === 'application/json') {
 							return Promise.setRequestHeader('Content-Type', 'application/json; charset=' + options.charset).send(JSON.stringify(options.data));
 						}
@@ -156,7 +164,7 @@ tangram.block([
 					}
 					return Promise.send(options.data);
 				}
-				if(typeof options.data == 'string') {
+				if (typeof options.data == 'string') {
 					if (!options.mime) {
 						options.mime = 'application/x-www-form-urlencoded';
 					}
@@ -170,7 +178,7 @@ tangram.block([
 			_.async.ajax({
 				url: url,
 				success: function (txt) {
-					doneCallback(JSON.parse(txt));
+doneCallback(JSON.parse(txt));
 				},
 				fail: failCallback
 			});

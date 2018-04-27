@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Tue, 24 Apr 2018 15:55:03 GMT
+ * Datetime: Wed, 25 Apr 2018 00:54:01 GMT
  */
 ;
 // tangram.config({});
@@ -23,7 +23,7 @@ tangram.block([
 			return _.util.bool.isObj(file) && file instanceof __class;
 		},
 		isScala: function (vari) {
-			return typeof vari === 'boolean' ||  typeof vari === 'string' ||  typeof vari === 'number';
+			return typeof vari === 'boolean' || typeof vari === 'string' || typeof vari === 'number';
 		},
 		isBool: function (vari) {
 			return typeof vari === 'boolean';
@@ -55,7 +55,7 @@ tangram.block([
 			return _.arr.has(array, elem);
 		},
 		in: function (elem, object) {
-			if(_.util.type.isArray(object)) {
+			if(_.util.type.isArray(object))  {
 				return _.arr.has(object, elem);
 			}
 			if(_.util.bool.isObj(object)) {
@@ -80,12 +80,12 @@ tangram.block([
 			return typeof str === 'string';
 		},
 		isOuterHTML: function (str) {
-			return/^<(\w+)[\s\S]+<\/\1>$/.test(str) || /^<(\w+)[^>]*\/\s*>$/.test(str);
+			return /^<(\w+)[\s\S]+<\/\1>$/.test(str) || /^<(\w+)[^>]*\/\s*>$/.test(str);
 		},
 		isIntStr: _.util.type.isIntStr,
 		isFloatStr: _.util.type.isFloatStr,
 		isPercent: function (str) {
-			return(typeof str === 'string') && (/^[-\+]{0,1}(\d+(\.\d+){0,1}|\.\d+)\%$/.test(str));
+return(typeof str === 'string') && (/^[-\+]{0,1}(\d+(\.\d+){0,1}|\.\d+)\%$/.test(str));
 		},
 		hasStr: _.hasString,
 		isInt: function (num) {
@@ -98,7 +98,7 @@ tangram.block([
 			return !isNaN(parseFloat(num)) && isFinite(num);
 		},
 		isFinite: function (num) {
-			returnisFinite(num);
+			return isFinite(num);
 		},
 		isNumeric: function (num) {
 			return typeof num === 'number' || _.util.type.isIntStr(num) || _.util.type.isFloatStr(num);
@@ -106,7 +106,7 @@ tangram.block([
 		isNul: function (obj) {
 			if (obj) {
 				return false;
-			}else {
+			}else  {
 				return true;
 			};
 		},
@@ -115,12 +115,13 @@ tangram.block([
 			var re = new RegExp(strRegex);
 			if(re.test(str)) {
 				return true;
-			}else {
+			}
+			else {
 				return false;
 			};
 		},
 		isHttpMethod: function (method) {
-			if(typeof method !== 'string') {
+			if (typeof method !== 'string') {
 				return false;
 			}
 			method = method.toUpperCase();
@@ -134,12 +135,12 @@ tangram.block([
 			return reg.test(this._ua);
 		},
 		isIE: function () {
-			return'ActiveXObject' in window;
+			return 'ActiveXObject' in window;
 		},
 		isAndroid: function () {
 			var android = false;
 			var sAgent = navigator.userAgent;
-			if(/android/i.test(sAgent)) {
+			if(/android/i.test(sAgent))  {
 				android = true;
 				var aMat = sAgent.toString().match(/android ([0-9]\.[0-9])/i);
 				if (aMat && aMat[1]) {

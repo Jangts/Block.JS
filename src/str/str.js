@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Tue, 24 Apr 2018 15:55:03 GMT
+ * Datetime: Wed, 25 Apr 2018 00:54:01 GMT
  */
 ;
 // tangram.config({});
@@ -18,10 +18,11 @@ tangram.block([], function (pandora, global, imports, undefined) {
 			var c = string.charCodeAt(n);
 			if (c < 128) {
 				utftext += String.fromCharCode(c);
-			}else if((c > 127) && (c < 2048)) {
+			}else if((c > 127) && (c < 2048))  {
 				utftext += String.fromCharCode((c >> 6)| 192);
 				utftext += String.fromCharCode((c&63)| 128);
-			}else {
+			}
+			else {
 				utftext += String.fromCharCode((c >> 12)| 224);
 				utftext += String.fromCharCode(((c >> 6)&63)| 128);
 				utftext += String.fromCharCode((c&63)| 128);
@@ -40,11 +41,12 @@ tangram.block([], function (pandora, global, imports, undefined) {
 			if (c < 128) {
 				string += String.fromCharCode(c);
 				i++;
-			}else if((c > 191) && (c < 224)) {
+			}else if((c > 191) && (c < 224))  {
 				c2 = utftext.charCodeAt(i + 1);
 				string += String.fromCharCode(((c&31) << 6)|(c2&63));
 				i += 2;
-			}else {
+			}
+			else {
 				c2 = utftext.charCodeAt(i + 1);
 				c3 = utftext.charCodeAt(i + 2);
 				string += String.fromCharCode(((c&15) << 12)|((c2&63) << 6)|(c3&63));
@@ -58,7 +60,7 @@ tangram.block([], function (pandora, global, imports, undefined) {
 			return String.fromCharCode(code);
 		},
 		escape: function (str) {
-			return"echo(\"" + str.replace(/"/g, '\\"').replace(/\n/g, '\\n').replace(/\r/g, '\\r') + "\");";
+			return "echo(\"" + str.replace(/"/g, '\\"').replace(/\n/g, '\\n').replace(/\r/g, '\\r') + "\");";
 		},
 		repeat: function (target, n) {
 			var s = target;
@@ -76,7 +78,7 @@ tangram.block([], function (pandora, global, imports, undefined) {
 			return total;
 		},
 		base64Encode: function (input) {
-			input =  typeof input === 'string' ? input: '';
+			input = typeof input === 'string' ? input: '';
 			var output = "";
 			var chr1;
 			var chr2;
@@ -95,9 +97,10 @@ tangram.block([], function (pandora, global, imports, undefined) {
 				enc2 = ((chr1&3) << 4)|(chr2 >> 4);
 				enc3 = ((chr2&15) << 2)|(chr3 >> 6);
 				enc4 = chr3 & 63;
-				if(isNaN(chr2)) {
+				if(isNaN(chr2))  {
 					enc3 = enc4 = 64;
-				}else if(isNaN(chr3)) {
+				}
+				else if(isNaN(chr3)) {
 					enc4 = 64;
 				}
 				output = output + _keyStr.charAt(enc1) + _keyStr.charAt(enc2) + _keyStr.charAt(enc3) + _keyStr.charAt(enc4);
@@ -105,7 +108,7 @@ tangram.block([], function (pandora, global, imports, undefined) {
 			return output;
 		},
 		base64Decode: function (input) {
-			input =  typeof input === 'string' ? input: '';
+			input = typeof input === 'string' ? input: '';
 			var output = "";
 			var chr1;
 			var chr2;

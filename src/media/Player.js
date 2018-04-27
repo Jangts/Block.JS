@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Tue, 24 Apr 2018 15:55:03 GMT
+ * Datetime: Wed, 25 Apr 2018 00:54:01 GMT
  */
 ;
 // tangram.config({});
@@ -16,10 +16,11 @@ tangram.block([
 		protectTime: 100,
 		lastActionTime: Date.now(),
 		_init: function (elem, sheet) {
-			if(_.util.bool.isEl(elem) && _.uitl.bool.inArr(elem.tagName, ['AUDIO', 'VIDEO'])) {
+			if(_.util.bool.isEl(elem) && _.uitl.bool.inArr(elem.tagName, ['AUDIO', 'VIDEO']))  {
 				this.Element = elem;
 				this.type = this.Element.tagName;
-			}else {
+			}
+			else {
 				this.Element = new Audio;
 				this.type = 'AUDIO';
 				sheet = elem;
@@ -28,11 +29,11 @@ tangram.block([
 			this.register(sheet);
 		},
 		setSource: function (sources) {
-			if(sources && (typeofsources === 'object')) {
+			if(sources && (typeof sources === 'object'))  {
 				var that = this;
 				for (var i in sources) {
-					if(this.canPlay(i) == 'maybe') {
-						try {
+					if(this.canPlay(i) == 'maybe')  {
+						try  {
 							that.Element.src = sources[i];
 						}
 						catch (e) {
@@ -47,13 +48,14 @@ tangram.block([
 			return this;
 		},
 		register: function (sheet, sources) {
-			if(sheet && (typeofsheet === 'object')) {
+			if(sheet && (typeof sheet === 'object'))  {
 				for (var code in sheet) {
-					if(sheet[code] && (typeofsheet[code] === 'object')) {
+					if(sheet[code] && (typeof sheet[code] === 'object'))  {
 						this.sheet[code] = sheet[code];
 					};
 				};
-			}else if(sheet && sources && (typeofsheet === 'string') && (typeofsources === 'object')) {
+			}
+			else if(sheet && sources && (typeof sheet === 'string') && (typeof sources === 'object')) {
 				this.sheet[code] = sheet[code];
 			}
 			return this;
@@ -89,7 +91,7 @@ tangram.block([
 				this.Element.pause();
 				this.lastActionTime = Date.now();
 				_.util.bool.isFn(onpause) && onpause.call(this);
-			}else {
+			}else  {
 				this.timer && clearTimeout(this.timer);
 				this.timer = setTimeout(function () {
 					that.Element.pause();
@@ -107,7 +109,7 @@ tangram.block([
 			return this;
 		},
 		volume: function (vol) {
-			switch(typeof vol) {
+			switch (typeof vol) {
 				case 'string': if (vol == 'up') {
 					var volume = this.Element.volume + 0.1;
 					if (volume >= 1) {

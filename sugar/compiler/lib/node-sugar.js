@@ -135,7 +135,7 @@ switch (options.command) {
     default:
         break;
 }
-// node ./../sugar/compiler/lib/node-sugar.js cdir ./ -m -c
+// node ./../../sugar/compiler/lib/node-sugar.js cdir ./ ./../../src/ -m -c
 // console.log(fs.readFileSync('./Tree.tang', 'utf-8'));
 // handlers.compile('./arr/arr.tang', './../src/arr/arr.js');
 // handlers.compile('./arr/diff.tang', './../src/arr/diff.js');

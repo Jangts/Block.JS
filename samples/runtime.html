@@ -12,9 +12,6 @@
 
 <body>
     <script>
-        for (var index = 0, length = 5; index < 5; index++) {
-            console.log(index);
-        }
         tangram.block([
             '$_/arr/',
             '$_/util/bool',
@@ -26,7 +23,39 @@
                 declare = pandora.declareClass,
                 
                 document = global.document,
-                console = global.console;
+                console = global.console;bbbb+a
+
+                let x = 0;
+                {
+                    // var x = 1;
+                }
+           for (let index = 0; index < 10; index++) {
+               a = ()=>{
+                   index++;
+               }
+               a();
+               console.log(index);
+           }
+
+                console.log(a);
+var b = 0;
+{
+    a:0,
+    b:0
+}
+var c = 0;
+d = c;
+{
+    // console.log(a);
+    console.log(b);
+    let a = 1;
+    var b =1;
+    c = 1;
+    d = 1;
+}
+
+console.log(a, b, c, d);
+
             function foo(bar, ...args){
     console.log(bar, args);
 }

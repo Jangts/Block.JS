@@ -9,12 +9,10 @@
 
 
 var _ = pandora,
-    
-    
-    doc = global.document,
-    console = global.console;
+doc = global.document,
+console = global.console;
 
-var names = {
+let names = {
     aliceblue: "#f0f8ff", // rgb(240, 248, 255)	爱丽丝蓝
     antiquewhite: "#faebd7", // rgb(250, 235, 215)	古董白
     aqua: "#00ffff", // rgb(0, 255, 255)	青　色
@@ -428,12 +426,13 @@ class .util.Color {
         }
     }
 
-    static hsb2HSL = hsb2HSL,
-    static hsl2RGB = hsl2RGB,
-    static hsl2SafeRGB = hsl2SafeRGB,
-    static hsl2HSB = hsl2HSB,
-    static rgb2HSB = rgb2HSB,
+    static hsb2HSL = hsb2HSL
+    static hsl2RGB = hsl2RGB
+    static hsl2SafeRGB = hsl2SafeRGB
+    static hsl2HSB = hsl2HSB
+    static rgb2HSB = rgb2HSB
     static rgb2HSB = rgb2HSB
 }
 
-_.extend(_.util.Color, names);
+pandora.extend(pandora.util.Color, names);
+return pandora.util.Color;

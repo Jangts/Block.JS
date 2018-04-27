@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Tue, 24 Apr 2018 15:55:04 GMT
+ * Datetime: Wed, 25 Apr 2018 00:54:02 GMT
  */
 ;
 // tangram.config({});
@@ -11,61 +11,61 @@ tangram.block([], function (pandora, global, imports, undefined) {
 	var console = global.console;
 	function typeofObj (object) {
 		if (!object) {
-			return'Null';
+			return 'Null';
 		}
-		if(isGlobal(object)) {
-			return'Global';
+		if(isGlobal(object))  {
+			return 'Global';
 		}
 		if(isDoc(object)) {
-			return'HTMLDocument';
+			return 'HTMLDocument';
 		}
 		if(isElement(object)) {
-			return'Element';
+			return 'Element';
 		}
 		if(isElements(object)) {
-			return'Elements';
+			return 'Elements';
 		}
 		if(isArray(object)) {
-			return'Array';
+			return 'Array';
 		}
 		if(isRegExp(object)) {
-			return'RegExp';
+			return 'RegExp';
 		}
-		returnnativeType(object);
+		return nativeType(object);
 	}
 	function nativeType (object) {
 		if (!object) {
-			return'Null';
+			return 'Null';
 		}
 		var match = Object.prototype.toString.call(object).match(/\[object (\w+)\]/);
 		if (match) {
 			return match[1];
 		}
-		return'Object';
+		return 'Object';
 	}
-	var isGlobal = function (object) {
+	function isGlobal (object) {
 		return object === window;
 	}
-	var isDoc = function (object) {
+	function isDoc (object) {
 		return object === document;
 	}
-	var isElement = function (object) {
-		return object &&  typeof object === 'object' && ((HTMLElement && (object instanceof HTMLElement)) || (object.nodeType === 1) || (DocumentFragment && (object instanceof DocumentFragment)) || (object.nodeType === 11));
+	function isElement (object) {
+		return object && typeof object === 'object' && ((HTMLElement && (objectinstanceofHTMLElement)) || (object.nodeType === 1) || (DocumentFragment && (objectinstanceofDocumentFragment)) || (object.nodeType === 11));
 	}
-	var isElFragment = function (object) {
-		return object &&  typeof object === 'object' && ((DocumentFragment && (object instanceof DocumentFragment)) || (object.nodeType === 11));
+	function isElFragment (object) {
+		return object && typeof object === 'object' && ((DocumentFragment && (objectinstanceofDocumentFragment)) || (object.nodeType === 11));
 	}
-	var isElements = function (object) {
-		if (object &&  typeof object === 'object') {
-			if(HTMLCollection && (object instanceof HTMLCollection)) {
+	function isElements (object) {
+		if (object && typeof object === 'object') {
+			if(HTMLCollection && (objectinstanceofHTMLCollection))  {
 				return true;
 			}
-			if(NodeList && (object instanceof NodeList)) {
+			if(NodeList && (objectinstanceofNodeList)) {
 				return true;
 			}
-			if((object instanceof Array) || (Object.prototype.toString.call(object) === '[object Array]') || ((typeof(object.length) === 'number') && ((typeof(object.item) === 'function') || (typeof(object.splice) != 'undefined')))) {
+			if((objectinstanceofArray) || (Object.prototype.toString.call(object) === '[object Array]') || ((typeof(object.length) === 'number') && ((typeof(object.item) === 'function') || (typeof(object.splice) != 'undefined')))) {
 				for (var i = 0; i < object.length; i++) {
-					if(!isElement(object[i])) {
+					if(!isElement(object[i]))  {
 						return false;
 					};
 				}
@@ -73,43 +73,43 @@ tangram.block([], function (pandora, global, imports, undefined) {
 			};
 		};
 	}
-	var isArray = function (object) {
+	function isArray (object) {
 		return Object.prototype.toString.call(object) === '[object Array]';
 	}
-	var isRegExp = function (object) {
+	function isRegExp (object) {
 		return object instanceof RegExp;
 	}
-	var typeofStr = function (string) {
-		if(isIntStr(string)) {
-			return'StringInteger';
+	function typeofStr (string) {
+		if(isIntStr(string))  {
+			return 'StringInteger';
 		}
 		if(isFloatStr(string)) {
-			return'StringFloat';
+			return 'StringFloat';
 		}
-		return'String';
+		return 'String';
 	}
 	var IntExpr = /^(\+|-)?\d+$/;
-	var isIntStr = function (string) {
+	function isIntStr (string) {
 		return IntExpr.test(string);
 	}
-	var isFloatStr = function (string) {
-		if(/^[-\+]{0,1}[\d\.]+$/.test(string)) {
-			if(string.split('.').length === 2 && string.split('.')[1] != '') {
+	function isFloatStr (string) {
+		if(/^[-\+]{0,1}[\d\.]+$/.test(string))  {
+			if(string.split('.').length === 2 && string.split('.')[1] != '')  {
 				return true;
 			};
 		}
 		return false;
 	}
-	var isInteger = function (number) {
-		if(typeof Number.isInteger === 'function') {
+	function isInteger (number) {
+		if (typeof Number.isInteger === 'function') {
 			return Number.isInteger(number);
-		}else {
+		}else  {
 			return Math.floor(number) === number;
 		};
 	}
 	_('util.type', function (object, subtype) {
-		switch(typeof object) {
-			case 'object': return subtype ? typeofObj(object) : (object == null ? 'Null': ((typeofObj(object) === 'Array') ? 'Array': 'Object'));
+		switch (typeof object) {
+			case 'object': return   subtype ? typeofObj(object) : (object == null ? 'Null': ((typeofObj(object) === 'Array') ? 'Array': 'Object'));
 			case 'function': case 'boolean': case 'undefined': return(typeof object).replace(/(\w)/, function (v) {
 				return v.toUpperCase();
 			});

@@ -1,16 +1,16 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Tue, 24 Apr 2018 15:55:02 GMT
+ * Datetime: Wed, 25 Apr 2018 00:54:00 GMT
  */
 ;
 // tangram.config({});
 tangram.block([], function (pandora, global, imports, undefined) {
-	var getItemKey = function (item, key) {
-		if(!item||!key)return void 666;
+	function getItemKey (item, key) {
+		if(!item||!key)return   void 666;
 		return typeof key === 'string' ? item[key] : key(item);
 	}
-	var makeKeyIndexAndFree = function (list, key) {
+	function makeKeyIndexAndFree (list, key) {
 		var keyIndex = {};
 		var free = [];
 		for (var i = 0, len = list.length; i < len; i++) {
@@ -21,8 +21,7 @@ tangram.block([], function (pandora, global, imports, undefined) {
 			}else {
 				free.push(item);
 			};
-		}
-		return {
+		} return  {
 			keyIndex: keyIndex,
 			free: free
 		};
@@ -63,9 +62,10 @@ tangram.block([], function (pandora, global, imports, undefined) {
 				item = oldList[i];
 				itemKey = getItemKey(item, key);
 				if (itemKey) {
-					if(!newKeyIndex.hasOwnProperty(itemKey)) {
+					if(!newKeyIndex.hasOwnProperty(itemKey))  {
 						children.push(null);
-					}else {
+					}
+					else {
 						var newItemIndex = newKeyIndex[itemKey];
 						children.push(newList[newItemIndex]);
 					};
@@ -79,9 +79,9 @@ tangram.block([], function (pandora, global, imports, undefined) {
 			i = 0;
 			while (i < simulateList.length) {
 				if (simulateList[i] === null) {
-					remove(i);
-					removeSimulate(i);
-				}else {
+remove(i);
+					 removeSimulate(i);
+				}else  {
 					i++;
 				};
 			}
@@ -95,22 +95,23 @@ tangram.block([], function (pandora, global, imports, undefined) {
 				if (simulateItem) {
 					if (itemKey === simulateItemKey) {
 						j++;
-					}else {
-						if(!oldKeyIndex.hasOwnProperty(itemKey)) {
-							insert(i, item);
-						}else {
+					}else  {
+						if(!oldKeyIndex.hasOwnProperty(itemKey))  {
+insert(i, item);
+						}
+						else {
 							var nextItemKey = getItemKey(simulateList[j + 1], key);
 							if (nextItemKey === itemKey) {
-								remove(i);
-								removeSimulate(j);
+remove(i);
+								 removeSimulate(j);
 								j++;
 							}else {
-								insert(i, item);
+insert(i, item);
 							};
 						};
 					};
 				}else {
-					insert(i, item);
+insert(i, item);
 				}
 				i++;
 			}

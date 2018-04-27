@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Tue, 24 Apr 2018 15:55:03 GMT
+ * Datetime: Wed, 25 Apr 2018 00:54:00 GMT
  */
 ;
 // tangram.config({});
@@ -61,16 +61,19 @@ tangram.block([], function (pandora, global, imports, undefined) {
 		then: function (doneCallbacks, failCallbacks) {
 			var Promise = this;
 			return new _.async.Promise(function (resolve, reject) {
-				try{ typeof doneCallbacks === 'function' && Promise.handlers.done.push(doneCallbacks);  typeof failCallbacks === 'function' && Promise.handlers.fail.push(failCallbacks);
+				try  {
+					typeof doneCallbacks === 'function' && Promise.handlers.done.push(doneCallbacks);
+					typeof failCallbacks === 'function' && Promise.handlers.fail.push(failCallbacks);
 					Promise.handlers.always.push(resolve);
 					Promise.listener();
 				}
 				catch (err) {
-					reject(err);
+reject(err);
 				};
 			});
 		},
-		done: function (doneCallbacks) { typeof doneCallbacks == 'function' && this.handlers.done.push(doneCallbacks);
+		done: function (doneCallbacks) {
+			typeof doneCallbacks == 'function' && this.handlers.done.push(doneCallbacks);
 		},
 		'catch': function (failCallbacks) {
 			return this.then(null, failCallbacks);
@@ -82,7 +85,7 @@ tangram.block([], function (pandora, global, imports, undefined) {
 			var Result = [];
 			var Promises = {
 				then: function (doneCallback) {
-					Callback = (typeofdoneCallback === 'function') ? doneCallback: undefined;
+					Callback = (typeof doneCallback === 'function') ? doneCallback: undefined;
 				}
 			};
 			var Done = 0;
@@ -95,7 +98,7 @@ tangram.block([], function (pandora, global, imports, undefined) {
 			pandora.each(array, function (i, item) {
 				item.then(function (data) {
 					Result[i] = data;
-					Check();
+Check();
 				});
 			}, this);
 			return Promises;
@@ -105,8 +108,8 @@ tangram.block([], function (pandora, global, imports, undefined) {
 			var Fail;
 			var Promises = {
 				then: function (doneCallback, failCallback) {
-					Done = (typeofdoneCallback === 'function') ? doneCallback: undefined;
-					Fail = (typeoffailCallback === 'function') ? failCallback: undefined;
+					Done = (typeof doneCallback === 'function') ? doneCallback: undefined;
+					Fail = (typeof failCallback === 'function') ? failCallback: undefined;
 				}
 			};
 			var Checked = false;
@@ -123,9 +126,9 @@ tangram.block([], function (pandora, global, imports, undefined) {
 			};
 			pandora.each(array, function (i, item) {
 				item.then(function () {
-					Check(item);
+Check(item);
 				}, function () {
-					Check(item);
+Check(item);
 				});
 			}, this);
 			return Promises;
@@ -136,21 +139,21 @@ tangram.block([], function (pandora, global, imports, undefined) {
 			var Value = [];
 			var Promises = {
 				then: function (doneCallback, failCallback) {
-					Done = (typeofdoneCallback === 'function') ? doneCallback: undefined;
-					Fail = (typeoffailCallback === 'function') ? failCallback: undefined;
+					Done = (typeof doneCallback === 'function') ? doneCallback: undefined;
+					Fail = (typeof failCallback === 'function') ? failCallback: undefined;
 				}
 			};
 			var iterator = new _.Iterator(array);
 			var Resolver = function (callback) {
-				new _.async.Promise(callback).done(function (data) {
+new _.async.Promise(callback).done(function (data) {
 					Value.push(data);
-					Check();
+Check();
 				});
 			};
 			var Check = function () {
 				var elememt = iterator.next();
-				if (elememt &&  typeof elememt == 'function') {
-					Resolver(elememt);
+				if (elememt && typeof elememt == 'function') {
+Resolver(elememt);
 				}else
 				if (iterator.__ == array.length - 1) {
 					Done && Done.call({
@@ -164,7 +167,7 @@ tangram.block([], function (pandora, global, imports, undefined) {
 					}, Value);
 				};
 			};
-			Check();
+Check();
 			return Promises;
 		}
 	});

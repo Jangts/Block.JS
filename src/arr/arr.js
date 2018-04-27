@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Tue, 24 Apr 2018 15:55:02 GMT
+ * Datetime: Wed, 25 Apr 2018 00:54:00 GMT
  */
 ;
 // tangram.config({});
@@ -14,15 +14,15 @@ tangram.block([
 			if (arguments.length > 0) {
 				var array = [];
 				for (var a = 0; a < arguments.length; a++) {
-					if(typeof arguments[a] == 'object' && arguments[a] instanceof Array) {
+					if (typeof arguments[a] == 'object' && arguments[a]instanceof Array) {
 						pandora.each(arguments[a], function (index, elememt) {
-							if(array.indexOf(elememt) < 0) {
+							if(array.indexOf(elememt) < 0)  {
 								array.push(elememt);
 							};
 						}, this);
 					};
 				};
-			}else {
+			}else  {
 				var array = [];
 			}
 			return array;
@@ -33,7 +33,7 @@ tangram.block([
 				for (var i = 0; i < array1.length; i++) {
 					object[array1[i]] = array2[i] || null;
 				};
-			}else {
+			}else  {
 				for (var i = 0; i < array1.length; i++) {
 					object[i] = array1[i];
 				};
@@ -41,14 +41,14 @@ tangram.block([
 			return object;
 		},
 		each: function (array, handler) {
-			if(_.util.type.isArray(array)) {
+			if(_.util.type.isArray(array))  {
 				for (var i = 0; i < array.length; i++) {
 					handler.call(array[i], i, array[i]);
 				};
 			};
 		},
 		eachReverse: function (array, handler) {
-			if(_.util.type.isArray(array)) {
+			if(_.util.type.isArray(array))  {
 				for (var i = array.length - 1; i >  -1; i--) {
 					handler.call(array[i], i, array[i]);
 				};
@@ -93,9 +93,9 @@ tangram.block([
 		index: function (array, elem) {
 			if (Array.prototype.indexOf) {
 				return array.indexOf(elem);
-			}else {
+			}else  {
 				for (var i = 0; i < array.length; i++) {
-					if(array[i] === elem)return i;
+					if(array[i] === elem)return   i;
 				}
 				return - 1;
 			};
@@ -106,7 +106,7 @@ tangram.block([
 		where: function (array, filter) {
 			var filtered = [];
 			pandora.each(array, function (index, elem) {
-				if(filter(elem)) {
+				if(filter(elem))  {
 					filtered.push(elem);
 				};
 			}, this);
@@ -115,14 +115,14 @@ tangram.block([
 		unique: function (array) {
 			var result = [];
 			pandora.each(array, function (i, elem) {
-				if(_.arr.has(result, elem) === false) {
+				if(_.arr.has(result, elem) === false)  {
 					result.push(elem);
 				};
 			}, this);
 			return result;
 		},
 		sum: function (array) {
-			returneval(array.join('+'));
+			return eval(array.join('+'));
 		},
 		max: function (array) {
 			return Math.max.apply(Math, array);

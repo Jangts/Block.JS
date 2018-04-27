@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Tue, 24 Apr 2018 15:55:03 GMT
+ * Datetime: Wed, 25 Apr 2018 00:54:00 GMT
  */
 ;
 // tangram.config({});
@@ -25,7 +25,8 @@ tangram.block([
 			var domain;
 			if(strReg.test(url)) {
 				domain = url.replace(strReg, '').split('/')[0];
-			}else {
+			}
+			else {
 				domain = url.split('/')[0].indexOf(':') > 0 ? url.split('/')[0] : location.host;
 			}
 			this.PromiseStatus = 'pending';
@@ -73,9 +74,10 @@ tangram.block([
 					if (this.readyState == 4) {
 						Promise.statusText = this.statusText;
 						Promise.statusCode = this.status;
-						if((this.status >= 200 && this.status < 300) || this.status == 304) {
+						if((this.status >= 200 && this.status < 300) || this.status == 304)  {
 							Promise.PromiseStatus = 'resolved';
-						}else {
+						}
+						else {
 							Promise.PromiseStatus = 'rejected';
 						}
 						Promise.PromiseValue = this.responseText;
@@ -85,7 +87,7 @@ tangram.block([
 				this.xmlhttp.onerror = function () {}
 				this.xmlhttp.send(data);
 				delete this.xmlhttp;
-			}else {
+			}else  {
 				this.PromiseStatus = 'rejected';
 				this.listener();
 			}
@@ -102,25 +104,29 @@ tangram.block([
 			return this.responseHeaders ? this.responseHeaders[key] : null;
 		},
 		progress: function (progressCallbacks) {
-			for (var i in arguments) { typeof arguments[i] == 'function' && this.handlers.progress.push(arguments[i]);
+			for (var i in arguments) {
+				typeof arguments[i] == 'function' && this.handlers.progress.push(arguments[i]);
 			}
 			this.listener();
 			return this;
 		},
 		done: function (doneCallbacks) {
-			for (var i in arguments) { typeof arguments[i] == 'function' && this.handlers.done.push(arguments[i]);
+			for (var i in arguments) {
+				typeof arguments[i] == 'function' && this.handlers.done.push(arguments[i]);
 			}
 			this.listener();
 			return this;
 		},
 		fail: function (doneCallbacks) {
-			for (var i in arguments) { typeof arguments[i] == 'function' && this.handlers.fail.push(arguments[i]);
+			for (var i in arguments) {
+				typeof arguments[i] == 'function' && this.handlers.fail.push(arguments[i]);
 			}
 			this.listener();
 			return this;
 		},
 		always: function (alwaysCallbacks) {
-			for (var i in arguments) { typeof arguments[i] == 'function' && this.handlers.always.push(arguments[i]);
+			for (var i in arguments) {
+				typeof arguments[i] == 'function' && this.handlers.always.push(arguments[i]);
 			}
 			this.listener();
 			return this;

@@ -1,13 +1,3 @@
-* {
-    box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    position: relative;
-    margin: 0;
-    padding: 0;
-    border: none;
-}
-
 html {
     font-size: 125%;
 }
@@ -15,6 +5,16 @@ html {
 body {
     font-size: 14px;
     font-size: 0.7rem;
+}
+
+.tangram-addin-map {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    border: none;
 }
 
 .tangram-addin-map {

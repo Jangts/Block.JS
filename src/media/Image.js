@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Tue, 24 Apr 2018 15:55:03 GMT
+ * Datetime: Wed, 25 Apr 2018 00:54:01 GMT
  */
 ;
 // tangram.config({});
@@ -25,9 +25,9 @@ tangram.block([
 	pandora.declareClass('media.Image', {
 		_init: function (option) {
 			var that = this;
-			if(isStr(option)) {
+			if(isStr(option))  {
 				var callback = function () {
-					if(isEl(that.context)) {
+					if(isEl(that.context))  {
 						that.context.appendChild(that.image);
 					};
 				};
@@ -35,24 +35,26 @@ tangram.block([
 				this.preview = null;
 				this.onload = callback;
 				this.onerror = callback;
-			}else if(isObj(option)) {
+			}
+			else if(isObj(option)) {
 				this.src = option.src;
 				this.previewsrc = option.preview;
 				var doneCallback = function () {
-					if(isEl(that.context)) {
+					if(isEl(that.context))  {
 						that.context.appendChild(that.image);
-						isFn(option.onload) && option.onload.call(this, that);
+isFn(option.onload) && option.onload.call(this, that);
 					};
 				};
 				var failCallback = function () {
-					if(isEl(that.context)) {
+					if(isEl(that.context))  {
 						that.context.appendChild(that.image);
-						isFn(option.onerror) && option.onerror.call(this, that);
+isFn(option.onerror) && option.onerror.call(this, that);
 					};
 				};
 				this.onload = doneCallback;
 				this.onerror = failCallback;
-			}else {
+			}
+			else {
 				return;
 			}
 			this.image = new Image();
@@ -70,7 +72,7 @@ tangram.block([
 			var that = this;
 			var onload = function () {
 				that.context.appendChild(that.image);
-				load(that.image, that.src, function () {
+load(that.image, that.src, function () {
 					that.previewsrc = null;
 					that.onload.call(this);
 				}, function () {
@@ -79,17 +81,17 @@ tangram.block([
 				});
 			};
 			var onerror = function () {
-				load(that.image, that.src, that.onload, that.onerror);
+load(that.image, that.src, that.onload, that.onerror);
 			};
-			load(this.image, this.previewsrc, onload, onerror);
+load(this.image, this.previewsrc, onload, onerror);
 		},
 		appendTo: function (context) {
-			if(isEl(context)) {
+			if(isEl(context))  {
 				this.context = context;
 				if (this.previewsrc) {
 					this.preview();
-				}else {
-					load(this.image, this.src, this.onload, this.onerror);
+				}else  {
+load(this.image, this.src, this.onload, this.onerror);
 				};
 			};
 		},

@@ -5,7 +5,9 @@
     "main": "./lib/node-sugar.js",
     "dependencies": {
         "@types/node": "^9.6.6",
-        "glob": "^7.1.2"
+        "glob": "^7.1.2",
+        "source-map": "^0.7.2",
+        "source-map-builder": "0.0.7"
     },
     "devDependencies": {},
     "scripts": {

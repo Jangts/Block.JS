@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Tue, 24 Apr 2018 15:55:03 GMT
+ * Datetime: Wed, 25 Apr 2018 00:54:00 GMT
  */
 ;
 // tangram.config({});
@@ -37,11 +37,11 @@ tangram.block([
 			var jsonsql_scope = eval(jsonsql_o.from);
 			var jsonsql_result = [];
 			var jsonsql_rc = 0;
-			if (jsonsql_o.where == "")
+if (jsonsql_o.where == "")
 			jsonsql_o.where = "true";
 			for (var jsonsql_i in jsonsql_scope) {
 				with (jsonsql_scope[jsonsql_i]) {
-					if(eval(jsonsql_o.where)) {
+					if(eval(jsonsql_o.where))  {
 						jsonsql_result[jsonsql_rc++] = sqlengine.returnFields(jsonsql_scope[jsonsql_i], jsonsql_o.fields);
 					};
 				};
@@ -49,20 +49,19 @@ tangram.block([
 			return jsonsql_result;
 		},
 		returnFields: function (scope, fields) {
-			if (fields.length == 0)
+if (fields.length == 0)
 			fields = ["*"];
-			if (fields[0] == "*")
+			 if (fields[0] == "*")
 			return scope;
-			var returnobj = {};
-			for(var i in fields);
+			var returnobj = {}; for(var i in fields);
 			returnobj[fields[i]] = scope[fields[i]];
 			return returnobj;
 		},
 		returnOrderBy: function (result, orderby, order) {
-			if (orderby.length == 0)
+if (orderby.length == 0)
 			return result;
 			result.sort(function (a, b) {
-				switch(order.toLowerCase()) {
+				switch(order.toLowerCase())  {
 					case "desc": return(eval('a.' + orderby[0] + ' < b.' + orderby[0])) ? 1:  -1;
 					case "asc": return(eval('a.' + orderby[0] + ' > b.' + orderby[0])) ? 1:  -1;
 					case "descnum": return(eval('a.' + orderby[0] + ' - b.' + orderby[0]));
@@ -73,7 +72,7 @@ tangram.block([
 		},
 		returnLimit: function (result, limit) {
 			switch (limit.length) {
-				case 0: return result;
+				case 0: return   result;
 				case 1: return result.splice(0, limit[0]);
 				case 2: return result.splice(limit[0] - 1, limit[1]);
 			};
@@ -81,16 +80,16 @@ tangram.block([
 	};
 	pandora('data', {
 		encodeJSON: function (data) {
-			try {
+			try  {
 				return JSON.stringify(data);
 			}
 			catch (error) {
 				console.log(error, data);
-				return'';
+				return '';
 			};
 		},
 		decodeJSON: function (txt) {
-			try {
+			try  {
 				return JSON.parse(txt);
 			}
 			catch (error) {
@@ -111,11 +110,11 @@ tangram.block([
 			return sqlengine.parse(json, ops);
 		},
 		reBuildUrl: function (url, data) {
-			if(typeof url === 'object') {
+			if (typeof url === 'object') {
 				data = url;
 				url = location.href;
 			}
-			if(url.indexOf('?') !==  -1) {
+			if(url.indexOf('?') !==  -1)  {
 				return url + "&" + _.obj.toQueryString(data);
 			}
 			return url + "?" + _.obj.toQueryString(data);
@@ -128,13 +127,13 @@ tangram.block([
 					var cookies = c.split(';');
 					for (var i = 0, l = cookies.length; i < l; i++) {
 						var cookie = JY.trim(cookies[i]);
-						if(cookie.substring(0, name.length + 1) == (name + '=')) {
+						if(cookie.substring(0, name.length + 1) == (name + '='))  {
 							ret = decodeURIComponent(cookie.substring(name.length + 1));
 							break;
 						};
 					};
 				};
-			}else {
+			}else  {
 				prop = prop || {};
 				var expires = '';
 				if (prop.expires) {

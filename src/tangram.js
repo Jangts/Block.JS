@@ -36,11 +36,11 @@ void function (global, factory) {
      * ------------------------------------------------------------------
      */
     var name = 'tangram.js javascript framework', version = '0.9.00', website = 'tangram.js.cn',
-        /* 获取当前时间戳 */
+        /** 获取当前时间戳 */
         startTime = new Date(),
-        /* 启用调试模式 */
+        /** 启用调试模式 */
         useDebugMode = false,
-        /* 备份全局变量的引用，以防止这些变量被其他代码修改 */
+        /** 备份全局变量的引用，以防止这些变量被其他代码修改 */
         console = global.console, doc = global.document, open = global.open, location = global.location,
         // 获取页面的head元素，如果没有的话，创建之
         head = (function () {
@@ -53,7 +53,7 @@ void function (global, factory) {
                 if (head) {
                     return head;
                 }
-                /* 如果原网页中没有HEAD标签，则创建一个 */
+                /** 如果原网页中没有HEAD标签，则创建一个 */
                 head = doc.createElement('head'),
                     documentElement = doc.documentElement || doc.getElementsByTagName('*')[0];
                 documentElement.appendChild(head);
@@ -64,34 +64,34 @@ void function (global, factory) {
          * Get Information of runtime
          * 获取运行环境信息
          */
-        /* 定义计算相对路径的函数 */
+        /** 定义计算相对路径的函数 */
         calculateRelativePath = function (uri, reference) {
-            /* 如果不指定目标dir，则和当前页面dir比较 */
+            /** 如果不指定目标dir，则和当前页面dir比较 */
             reference = reference || maindir;
             var i = 0, pathname_array = uri.split('/'), referdir_array = reference.split('/');
             pathname_array.length--;
             referdir_array.length--;
             //console.log(pathname_array, referdir_array)
-            /* 如果皆不为本地文件 */
+            /** 如果皆不为本地文件 */
             if (pathname_array[i] !== 'file:' && referdir_array[i] !== 'file:') {
-                /* 通过检查数组的前三位，以确保当前pathname与目标dir的协议及主机一致 */
+                /** 通过检查数组的前三位，以确保当前pathname与目标dir的协议及主机一致 */
                 for (i; i < 3; i++) {
                     if (pathname_array[i] != referdir_array[i]) {
                         return pathname_array.join('/') + '/';
                     }
                 }
             }
-            /* 如果存在本地文件 */
+            /** 如果存在本地文件 */
             else {
-                /* 通过检查数组的前五位，以确保当前pathname与目标dir的协议、盘符及根目录一致 */
+                /** 通过检查数组的前五位，以确保当前pathname与目标dir的协议、盘符及根目录一致 */
                 for (i; i < 5; i++) {
-                    /* 如果当前pathname与目标dir的协议及盘符不一致，则直接返回当前pathname */
+                    /** 如果当前pathname与目标dir的协议及盘符不一致，则直接返回当前pathname */
                     if (pathname_array[i] != referdir_array[i]) {
                         return pathname_array.join('/') + '/';
                     }
                 }
             }
-            /* 如果通过以上检查，则进行相对性比较 */
+            /** 如果通过以上检查，则进行相对性比较 */
             var pathname = './';
             for (i; i < referdir_array.length; i++) {
                 if (pathname_array[i] != referdir_array[i]) {
@@ -107,7 +107,7 @@ void function (global, factory) {
             }
             return pathname;
         },
-        /* 计算宿主文件的目录地址 */
+        /** 计算宿主文件的目录地址 */
         maindir = (function () {
             if (location !== undefined) {
                 var pathname_array = location.pathname.split('/');
@@ -116,7 +116,7 @@ void function (global, factory) {
             }
             return './';
         })(),
-        /* 计算核心运行文件的相关信息 */
+        /** 计算核心运行文件的相关信息 */
         runtime = (function () {
             if (doc !== undefined) {
                 var scripts = doc.getElementsByTagName('script'), preg = /([\w\-\.\/:]+\/)tangram[\w\-\.]*\.js/i, i, src, matchs;
@@ -136,7 +136,7 @@ void function (global, factory) {
                         };
                     }
                 }
-                ;
+                
                 return {
                     Element: null,
                     Pathname: './'
@@ -161,11 +161,11 @@ void function (global, factory) {
          * Exception Handling
          * 错误处理
          */
-        /* 强制报错：当方法被调用时抛出相应的错误描述 */
+        /** 强制报错：当方法被调用时抛出相应的错误描述 */
         error = function (str) {
             throw "tangram.js Error: " + str;
         },
-        /* 调式报错：只有tangram.js处于调试模式时，才会抛出相应的错误描述，否则返回一个布尔值 */
+        /** 调式报错：只有tangram.js处于调试模式时，才会抛出相应的错误描述，否则返回一个布尔值 */
         debug = function (str) {
             if (useDebugMode) {
                 error(str);
@@ -178,13 +178,13 @@ void function (global, factory) {
          * Traversal and Copy
          * 遍历与拷贝
          */
-        /* 一般遍历：用以遍历对象，并执行相应操作 */
+        /** 一般遍历：用以遍历对象，并执行相应操作 */
         each = function (obj, handler, that) {
-            /* 首先检查是否为空对象或空值。 */
+            /** 首先检查是否为空对象或空值。 */
             if (typeof (obj) == 'object' && obj) {
-                /* 截取传入的不定参数 */
+                /** 截取传入的不定参数 */
                 var addArgs = slice(arguments, 3);
-                /* 判断是否为数组对象 */
+                /** 判断是否为数组对象 */
                 if ((obj instanceof Array) || (Object.prototype.toString.call(obj) === '[object Array]') || ((typeof (obj.length) === 'number') && ((typeof (obj.item) === 'function') || (typeof (obj.splice) != 'undefined')))) {
                     for (var i = 0; i < obj.length; i++) {
                         handler.apply(that || obj[i], [i, obj[i]].concat(addArgs));
@@ -197,22 +197,22 @@ void function (global, factory) {
                 }
             }
         },
-        /* 可控遍历：相比通用遍历：多了一个中断方法 */
+        /** 可控遍历：相比通用遍历：多了一个中断方法 */
         loop = (function () {
-            /* 高级遍历方法的中断参数，当其值为是时，将中断当前遍历 */
+            /** 高级遍历方法的中断参数，当其值为是时，将中断当前遍历 */
             var BREAK = false;
-            /* 高级遍历方法的中断：其作用是将终端参数的值设为是 */
+            /** 高级遍历方法的中断：其作用是将终端参数的值设为是 */
             loop.out = function () {
                 BREAK = true;
             };
             function loop(obj, handler, that) {
-                /* 首先检查是否为空对象或空值。 */
+                /** 首先检查是否为空对象或空值。 */
                 if (typeof (obj) == 'object' && obj) {
-                    /* 截取传入的不定参数 */
+                    /** 截取传入的不定参数 */
                     var addArgs = slice(arguments, 3);
-                    /* 初始化中断参数 */
+                    /** 初始化中断参数 */
                     BREAK = false;
-                    /* 判断是否为数组对象 */
+                    /** 判断是否为数组对象 */
                     if ((obj instanceof Array) || (Object.prototype.toString.call(obj) === '[object Array]') || ((typeof (obj.length) === 'number') && ((typeof (obj.item) === 'function') || (typeof (obj.splice) != 'undefined')))) {
                         for (var i = 0; i < obj.length; i++) {
                             if (BREAK) {
@@ -235,7 +235,7 @@ void function (global, factory) {
             }
             return loop;
         })(),
-        /* 深度拷贝：复制一个对象时逐层复制每一个子对象 */
+        /** 深度拷贝：复制一个对象时逐层复制每一个子对象 */
         deep = function (source) {
             var type = Object.prototype.toString.call(source).match(/\[object (\w+)\]/)[1];
             if (type === 'Object') {
@@ -254,7 +254,7 @@ void function (global, factory) {
             }
             return source;
         },
-        /* 影子拷贝：复制一个对象时只复制对象的基本类型 */
+        /** 影子拷贝：复制一个对象时只复制对象的基本类型 */
         shallow = function (source) {
             var target = {};
             each(source, function (key, value) {
@@ -262,14 +262,14 @@ void function (global, factory) {
             });
             return target;
         },
-        /* 对象拓展：复制一些对象的元素到指定的对象 */
+        /** 对象拓展：复制一些对象的元素到指定的对象 */
         extend = function (base) {
             base = (base && (typeof (base) === 'object' || typeof (base) === 'function')) ? base : global;
             var rewrite = (arguments[1] === 1 || arguments[1] === true) ? true : false;
             each(slice(arguments, 1), function (index, source) {
                 each(source, function (key, value) {
                     if (source.hasOwnProperty(key)) {
-                        /* 判断是否需要覆盖 */
+                        /** 判断是否需要覆盖 */
                         if (typeof base[key] === 'undefined' || rewrite) {
                             base[key] = value;
                         }
@@ -278,7 +278,7 @@ void function (global, factory) {
             });
             return base;
         },
-        /* 对象更新：仅当对象含有该元素且其值不为undefined时有效 */
+        /** 对象更新：仅当对象含有该元素且其值不为undefined时有效 */
         update = function (base) {
             base = (base && (typeof (base) === 'object' || typeof (base) === 'function')) ? base : global;
             each(slice(arguments, 1), function (index, source) {
@@ -298,9 +298,9 @@ void function (global, factory) {
      */
     var storage = {
         maps: {
-            /* 链接标签映射 */
+            /** 链接标签映射 */
             linkTags: {},
-            /* 缺省加载源类型 */
+            /** 缺省加载源类型 */
             sourceTypes: {
                 js: {
                     tag: 'script',
@@ -319,9 +319,9 @@ void function (global, factory) {
                     source: 'src'
                 }
             },
-            /* 标识符注册表 */
+            /** 标识符注册表 */
             identifiersReg: [],
-            /* 标识符描述映射表 */
+            /** 标识符描述映射表 */
             identifiersMap: {},
         },
         classes: {},
@@ -329,14 +329,19 @@ void function (global, factory) {
         locales: {},
         core: runtime,
         addinUrl: runtime.Pathname + '../addins/',
+        exports: {
+            /** 模块快速导出对象的临时缓存 */
+            temp: []
+        },
         blocks: {
-            /* 代码块映射 */
+            /** 代码块映射 */
             // map: {},
-            /* 临时代码块缓存 */
+            /** 模块包含的代码块的临时缓存 */
+            /** 与导出对象的临时缓存一样可能被滞留模块和对象污染，暂时并没有办法解决，自能寄希望余使用者*/
             temp: [],
-            /* 主（动）代码块 */
+            /** 主（动）代码块 */
             mains: [],
-            /* 从（引用）代码块 */
+            /** 从（引用）代码块 */
             requires: {}
         },
         mainUrl: './',
@@ -349,7 +354,7 @@ void function (global, factory) {
      * ------------------------------------------------------------------
      */
     var zero2z = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split(''),
-        /* 获取随机标识符 */
+        /** 获取随机标识符 */
         getUid = function (radix) {
             var uid = new Array(36);
             for (var i = 0; i < 36; i++) {
@@ -372,7 +377,7 @@ void function (global, factory) {
         Iterator = function (obj, onlyKey) {
             this._init(obj, onlyKey);
         },
-        /* URL加载函数 */
+        /** URL加载函数 */
         loadURL = function (url, callback, parent, type) {
             var Element, source, loadType = storage.maps.sourceTypes[type] || storage.maps.sourceTypes.js,
                 callback = typeof callback === 'function' ? callback : function () {
@@ -453,7 +458,7 @@ void function (global, factory) {
      * Bind Prototypes To Identifier And Iterator
      * 绑定标识符构造器与迭代器的原型
      */
-    /* 为标识符构造器绑定原型 */
+    /** 为标识符构造器绑定原型 */
     storage.classes.Identifier = Identifier.prototype = {
         _protected: storage.classesSharedSpace,
         /**
@@ -517,9 +522,9 @@ void function (global, factory) {
             return deep(this);
         }
     };
-    /* 为迭代器绑定原型 */
+    /** 为迭代器绑定原型 */
     storage.classes.Iterator = Iterator.prototype = new Array;
-    /* 拓展迭代器的原型 */
+    /** 拓展迭代器的原型 */
     extend(Iterator.prototype, true, {
         _protected: storage.classesSharedSpace,
         /**
@@ -652,7 +657,7 @@ void function (global, factory) {
             for (var i = 0; i < this.length; i++) {
                 this[index] = callback.call(this, this[index]);
             }
-            ;
+            
             return this;
         },
         _extends: Identifier.prototype._extends,
@@ -669,7 +674,7 @@ void function (global, factory) {
          * The Pandora's box
          * 潘多拉盒子
          */
-        /* 潘多拉拓展接口 */
+        /** 潘多拉拓展接口 */
         pandora = storage.pandora = (function () {
             /**
              * 拓展潘多拉对象
@@ -681,36 +686,47 @@ void function (global, factory) {
              */
             function pandora(name, value, update) {
                 if (namingExpr.test(name)) {
-                    var object = pandora, NameSplit = name.split('.');
+                    // 检查传入值
                     value = value || {};
+                    var
+                    // 将命名空间切到pandora根空间
+                    object = pandora,
+                    // 拆分命名字串
+                    NameSplit = name.split('.');
+                    
+                    // 遍历命名空间
                     for (var i = 0; i < NameSplit.length && object; i++) {
+                        var subname = NameSplit[i].trim();
+                        // 达到最后一位
                         if (i == NameSplit.length - 1) {
-                            if ((object[NameSplit[i]] === undefined) || (typeof value !== 'object')) {
-                                object[NameSplit[i]] = value;
-                                object = object[NameSplit[i]];
+                            subname = subname || 'default';
+                            if ((object[subname] === undefined) || (typeof value !== 'object')) {
+                                object[subname] = value;
+                                object = object[subname];
                             }
                             else {
-                                object = object[NameSplit[i]];
+                                object = object[subname];
                                 for (var k in value) {
                                     object[k] = update ? value[k] : object[k] || value[k];
                                 }
                             }
                         }
-                        else if (NameSplit[i] != '') {
-                            object[NameSplit[i]] = object[NameSplit[i]] || {};
-                            object = object[NameSplit[i]];
+                        // 非末尾，排除空白
+                        else if (subname != '') {
+                            object[subname] = object[subname] || {};
+                            object = object[subname];
                         }
-                        ;
+                        
                     }
-                    ;
+                    
                     return object;
                 }
                 return error('Can not reput \'' + name + '\' into pandora box.');
             }
-            ;
-            /* 初始化潘多拉接口 */
+            
+            /** 初始化潘多拉接口 */
             return extend(pandora, {
-                /* 获取运行环境信息 */
+                /** 获取运行环境信息 */
                 core: {
                     /**
                      * 获取开始时间
@@ -894,9 +910,9 @@ void function (global, factory) {
                 mainUrl: function () {
                     return storage.mainUrl;
                 },
-                /* 私有缓存区操作 */
+                /** 私有缓存区操作 */
                 // locker: lockerHandlers,
-                /* 命名正则 */
+                /** 命名正则 */
                 namingExpr: namingExpr,
                 /**
                  * 检查具名类
@@ -952,6 +968,20 @@ void function (global, factory) {
                  */
                 ab: function (includes, callback) {
                     return block(includes, callback, true);
+                },
+                ns: function (name, callback){
+                    if (typeof callback === 'object'){
+                        return pandora(name, callback, true);
+                    }
+                    // 执行函数
+                    var namespace = pandora(name);
+                    var members = callback.call(namespace);
+                    if (typeof callback === 'object') {
+                        for (var k in value) {
+                            object[k] = object[k] || value[k];
+                        }
+                    }
+                    return namespace;
                 },
                 /**
                  * 简易渲染
@@ -1051,14 +1081,14 @@ void function (global, factory) {
          * The tangram.js class factory
          * tangram.js类工厂
          */
-        /* 祖先类 */
+        /** 祖先类 */
         blockClass = {
             _public: storage.classesSharedSpace,
             _init: function () { },
             _extends: Identifier.prototype._extends,
             _clone: Identifier.prototype._clone
         },
-        /* 准备类的成员 */
+        /** 准备类的成员 */
         prepareClassMembers = function (target, data, start) {
             for (start; start < data.length; start++) {
                 if (data[start] && typeof data[start] === 'object') {
@@ -1077,7 +1107,7 @@ void function (global, factory) {
             'instance._private = {};' +
             'instance._init.apply(instance, arguments);' +
             'return instance;}',
-        /* 定义类的方法 */
+        /** 定义类的方法 */
         produceClass = function (classname, superclass, members) {
             var Class = function () { }, name, constructor;
             Class.prototype = superclass;
@@ -1106,8 +1136,8 @@ void function (global, factory) {
                     }
                 };
                 constructor.prototype = new Class();
-            }
-            ;
+            };
+
             members._parent = superclass;
             if (members._getters) {
                 (function () {
@@ -1151,7 +1181,7 @@ void function (global, factory) {
             extend(constructor.prototype, true, members);
             return constructor;
         },
-        /* 定义类的通用接口 */
+        /** 定义类的通用接口 */
         declareClass = pandora.declareClass = function () {
             var classname, superclass, members = {};
             if (arguments.length > 0) {
@@ -1203,11 +1233,11 @@ void function (global, factory) {
     var block = function (includes, callback, blockname) {
         return new Block(includes, callback, blockname).result;
     },
-        /* 当前主（动）代码块的指针 */
+        /** 当前主（动）代码块的指针 */
         mainPointer = 0,
-        /* 代码块依赖计数 */
+        /** 代码块依赖计数 */
         requireCount = 0, loadedCount = 0,
-        /* 运行从代码块 */
+        /** 运行从代码块 */
         fireblock = function (block) {
             if (block.uid){
                 // console.log(block);
@@ -1275,7 +1305,7 @@ void function (global, factory) {
                         blockname = callback;
                         break;
                 }
-                ;
+                
                 requireCount += this.requires.length;
                 this.core = {
                     imports: {},
@@ -1290,6 +1320,8 @@ void function (global, factory) {
                             that.listene();
                         }, 0);
                     }
+                    // 可能废弃自定义块名，貌似没有实际意义
+                    // 只是在命名空间机制下没有实际意义，事实上在exports机制下还是有其作用的
                     else if (typeof (blockname) === 'string') {
                         storage.blocks.requires[blockname.toLowerCase()] = {
                             blocks: [this.core],
@@ -1299,7 +1331,9 @@ void function (global, factory) {
                     }
                 }
                 else {
-                    storage.blocks.temp.push(this.core);
+                    if (blockname !== false){
+                        storage.blocks.temp.push(this.core);
+                    }
                     this.mainid = -1;
                 }
                 // console.log(this.requires);
@@ -1325,7 +1359,7 @@ void function (global, factory) {
                     // console.log(arr);
                     // console.log(storage);
                     url = arr[0].replace(/^\$_\//, storage.core.Pathname).replace(/^\$\.\//, storage.mainUrl).replace(/^\$\+\//, storage.addinUrl);
-                    /* 检查引用文件类型 */
+                    /** 检查引用文件类型 */
                     if (url.match(/\.css$/) || url.match(/^[\?]+\.css\?$/)) {
                         filetype = 'css';
                     }
@@ -1364,8 +1398,9 @@ void function (global, factory) {
                             else {
                                 script.setAttribute('data-tangram-id', id);
                                 storage.blocks.requires[id].status = 'loaded';
-                                storage.blocks.requires[id].exports = [];
+                                storage.blocks.requires[id].exports = storage.exports.temp;
                                 storage.blocks.requires[id].blocks = storage.blocks.temp;
+                                storage.exports.temp = [];
                                 storage.blocks.temp = [];
                                 each(storage.blocks.requires[id].blocks, function (i, block) {
                                     // block.type = 'called';
@@ -1382,7 +1417,7 @@ void function (global, factory) {
                     loadedCount++;
                     that.listene();
                 }
-                ;
+                
             },
             /**
              * 监听加载状态
@@ -1420,7 +1455,7 @@ void function (global, factory) {
                 status: 1
             }
         });
-    /* 接口开放到全局 */
+    /** 接口开放到全局 */
     var tangram = {
         block: block,
         /**
@@ -1471,6 +1506,9 @@ void function (global, factory) {
         auto: function (includes, callback) {
             return block(includes, callback, true);
         },
+        exports: function(object){
+            storage.exports.temp.push(object);
+        },
         /**
          * 取潘多拉
          *
@@ -1504,7 +1542,7 @@ void function (global, factory) {
      * 最后的准备工作
      * ------------------------------------------------------------------
      */
-    /* 自动配置 */
+    /** 自动配置 */
     if (storage.core.Element) {
         var config = storage.core.Element.getAttribute('data-config'), mains = storage.core.Element.getAttribute('data-mains'), debug = storage.core.Element.getAttribute('data-tangram-debug');
         if (config) {
@@ -1527,11 +1565,11 @@ void function (global, factory) {
             useDebugMode = true;
         }
     }
-    /* 检查是否调试模式 */
+    /** 检查是否调试模式 */
     if (useDebugMode) {
         console.log(storage);
     }
-    /* 打卡 */
+    /** 打卡 */
     if (!global.parent || global.parent == global) {
         console.log('[' + startTime.toLocaleString() + ']tangram.js framework Start Working!');
     }

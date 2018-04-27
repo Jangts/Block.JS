@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Tue, 24 Apr 2018 15:55:04 GMT
+ * Datetime: Wed, 25 Apr 2018 00:54:02 GMT
  */
 ;
 // tangram.config({});
@@ -13,7 +13,7 @@ tangram.block([], function (pandora, global, imports, undefined) {
 		return n < 10 ? "0" + n: n;
 	};
 	var patterns = [[/^\d+$/, function (time) {
-		returnparseInt(time);
+		return parseInt(time);
 	}], [/^[A-z]+\s+\d{1,2},\d{3,4}(\s+\d{1,2}:\d{1,2}:\d{1,2}){0,1}$/, function (time) {
 		return Date.parse(time.replace(/\s+/g, ' '));
 	}], [/^\d{1,2}\/\d{1,2}\/\d{3,4}(\s+\d{1,2}:\d{1,2}:\d{1,2}){0,1}$/, function (time) {
@@ -30,7 +30,7 @@ tangram.block([], function (pandora, global, imports, undefined) {
 		var hour = parseInt(timeStrs[0], 10);
 		var minute = parseInt(timeStrs[1], 10) - 1;
 		var second = parseInt(timeStrs[2], 10);
-		return[year, month, day, hour, minute, second];
+		return [year, month, day, hour, minute, second];
 	}], [/^\d{3,4}-\d{1,2}-\d{1,2}(\s+\d{1,2}:\d{1,2}:\d{1,2}){0,1}$/, function (time) {
 		var tempStrs = time.split(/\s+/);
 		var dateStrs = tempStrs[0].split('-');
@@ -41,60 +41,60 @@ tangram.block([], function (pandora, global, imports, undefined) {
 		var hour = parseInt(timeStrs[0], 10);
 		var minute = parseInt(timeStrs[1], 10);
 		var second = parseInt(timeStrs[2], 10);
-		return[year, month, day, hour, minute, second];
+		return [year, month, day, hour, minute, second];
 	}]];
 	var months = [];
 	var mons = [];
 	var match = {
 		year: function (Y) {
-			if((typeofY === 'number') || ((typeofm === 'string') && (/^\d{3,4}$/.test(Y)))) {
-				returnparseInt(Y);
+			if((typeof Y === 'number') || ((typeof m === 'string') && (/^\d{3,4}$/.test(Y))))  {
+				return parseInt(Y);
 			}
 			return 1;
 		},
 		month: function (m) {
-			if((typeofm === 'number') || ((typeofm === 'string') && (/^\d{1,2}$/.test(m)))) {
-				returnparseInt(m);
+			if((typeof m === 'number') || ((typeof m === 'string') && (/^\d{1,2}$/.test(m))))  {
+				return parseInt(m);
 			}
-			if((typeofm === 'string') && (months.indexOf(m) >= 0)) {
+			if((typeof m === 'string') && (months.indexOf(m) >= 0)) {
 				return months.indexOf(m);
 			}
-			if((typeofm === 'string') && (mons.indexOf(m) >= 0)) {
+			if((typeof m === 'string') && (mons.indexOf(m) >= 0)) {
 				return mons.indexOf(m);
 			}
 			return 1;
 		},
 		day: function (d) {
-			if((typeofd === 'number') || ((typeofd === 'string') && (/^\d{1,2}$/.test(d)))) {
-				returnparseInt(d);
+			if((typeof d === 'number') || ((typeof d === 'string') && (/^\d{1,2}$/.test(d))))  {
+				return parseInt(d);
 			}
 			return 1;
 		},
 		time: function (t) {
-			if((typeoft === 'number') || ((typeoft === 'string') && (/^\d{1,2}$/.test(t)))) {
-				returnparseInt(t);
+			if((typeof t === 'number') || ((typeof t === 'string') && (/^\d{1,2}$/.test(t))))  {
+				return parseInt(t);
 			}
 			return 0;
 		}
 	};
 	var getArray = function (year, month, day, hour, minute, second) {
-		return[match.year(year), match.month(month) - 1, match.day(day), match.time(hour), match.time(minute), match.time(second)];
+		return [match.year(year), match.month(month) - 1, match.day(day), match.time(hour), match.time(minute), match.time(second)];
 	};
 	var codes = {
 		'week ago': function () {
-			return Date.parse(newDate()) - 60 * 60 * 24 * 7 * 1000;
+			return Date.parse(new Date()) - 60 * 60 * 24 * 7 * 1000;
 		},
 		'yesterday': function () {
-			return Date.parse(newDate()) - 60 * 60 * 24 * 1000;
+			return Date.parse(new Date()) - 60 * 60 * 24 * 1000;
 		},
 		'now': function () {
-			return Date.parse(newDate());
+			return Date.parse(new Date());
 		},
 		'tomorrow': function () {
-			return Date.parse(newDate()) + 60 * 60 * 24 * 1000;
+			return Date.parse(new Date()) + 60 * 60 * 24 * 1000;
 		},
 		'week future': function () {
-			return Date.parse(newDate()) + 60 * 60 * 24 * 7 * 1000;
+			return Date.parse(new Date()) + 60 * 60 * 24 * 7 * 1000;
 		}
 	};
 	var units = {
@@ -110,12 +110,13 @@ tangram.block([], function (pandora, global, imports, undefined) {
 			var t;
 			var date;
 			switch (arguments.length) {
-				case 1: switch(typeof time) {
+				case 1: switch (typeof time) {
 					case 'object': if (time instanceof Array) {
 						t = getArray(time[0], time[1], time[2], time[3], time[4], time[5]);
-					}else if((typeoftime.year === 'number') || /^\d{3,4}$/.test(time.year)) {
+					}else if((typeof time.year === 'number') || /^\d{3,4}$/.test(time.year)) {
 						t = getArray(time.year, time.month, time.day, time.hour, time.minute, time.second);
-					}else if((typeoftime.Y === 'number') || /^\d{3,4}$/.test(time.Y)) {
+					}
+					else if((typeof time.Y === 'number') || /^\d{3,4}$/.test(time.Y)) {
 						t = getArray(time.Y, time.m, time.d, time.H, time.i, time.s);
 					}
 					break;
@@ -123,7 +124,7 @@ tangram.block([], function (pandora, global, imports, undefined) {
 						t = codes[time]();
 					}
 					_.loop(patterns, function (i, type) {
-						if(type[0].test(time)) {
+						if(type[0].test(time))  {
 							t = type[1](time);
 							_.loop.out();
 						};
@@ -145,7 +146,7 @@ tangram.block([], function (pandora, global, imports, undefined) {
 				case 6: t = getArray(arguments[0], arguments[1], arguments[2], arguments[3], arguments[4], arguments[5]);
 				break;
 			}
-			switch(typeof t) {
+			switch (typeof t) {
 				case 'number': date = new Date(t);
 				break;
 				case 'object': date = new Date(t[0], t[1], t[2], t[3], t[4], t[5]);
@@ -168,65 +169,65 @@ tangram.block([], function (pandora, global, imports, undefined) {
 			return dates[this.id].getTime();
 		},
 		year: function (val) {
-			if(typeof val == 'number') {
+			if (typeof val == 'number') {
 				dates[this.id].setFullYear(val);
 				return this;
 			}
 			return dates[this.id].getFullYear();
 		},
 		month: function (val) {
-			if(typeof val == 'number') {
+			if (typeof val == 'number') {
 				dates[this.id].setMonth(val);
 				return this;
 			}
 			return dates[this.id].getMonth() + 1;
 		},
 		dayofweek: function (val) {
-			if(typeof val == 'number') {
+			if (typeof val == 'number') {
 				dates[this.id].setDay(val);
 				return this;
 			}
 			return dates[this.id].getDay();
 		},
 		day: function (val) {
-			if(typeof val == 'number') {
+			if (typeof val == 'number') {
 				dates[this.id].setDate(val);
 				return this;
 			}
 			return dates[this.id].getDate();
 		},
 		hour: function (val) {
-			if(typeof val == 'number') {
+			if (typeof val == 'number') {
 				dates[this.id].setHours(val);
 				return this;
 			}
 			return dates[this.id].getHours();
 		},
 		minute: function (val) {
-			if(typeof val == 'number') {
+			if (typeof val == 'number') {
 				dates[this.id].setFullMinutes(val);
 				return this;
 			}
 			return dates[this.id].getMinutes();
 		},
 		second: function (val) {
-			if(typeof val == 'number') {
+			if (typeof val == 'number') {
 				dates[this.id].setSeconds(val);
 				return this;
 			}
 			return dates[this.id].getSeconds();
 		},
 		ms: function (val) {
-			if(typeof val == 'number') {
+			if (typeof val == 'number') {
 				dates[this.id].setMilliseconds(val);
 				return this;
 			}
 			return dates[this.id].getMilliseconds();
 		},
 		when: function (hour) {
-			hour =  typeof hour == 'number' ? hour: this.hour();
+			hour = typeof hour == 'number' ? hour: this.hour();
 			switch (hour) {
-				case 1: case 2: case 3: case 4: return'WEE';
+				case 1: case 2: case 3: case 4: return   'WEE';
 				case 5: case 6: return'DWN';
 				case 7: case 8: case 9: case 10: case 11: return'MRN';
 				case 12: case 13: return'NOON';
@@ -236,10 +237,9 @@ tangram.block([], function (pandora, global, imports, undefined) {
 			};
 		},
 		utc: function (sets) {
-			if (sets) {(typeofsets.day === 'number') && dates[this.id].setUTCDate(sets.day); (typeofsets.week === 'number') && dates[this.id].setUTCDay(sets.week); (typeofsets.month === 'number') && dates[this.id].setUTCMonth(sets.month - 1); (typeofsets.year === 'number') && dates[this.id].setUTCFullYear(sets.year); (typeofsets.hour === 'number') && dates[this.id].setUTCHours(sets.hour); (typeofsets.minute === 'number') && dates[this.id].setUTCMinutes(sets.minute); (typeofsets.second === 'number') && dates[this.id].setUTCSeconds(sets.second); (typeofsets.ms === 'number') && dates[this.id].setUTCMilliseconds(sets.ms);
+			if (sets) {(typeof sets.day === 'number') && dates[this.id].setUTCDate(sets.day); (typeof sets.week === 'number') && dates[this.id].setUTCDay(sets.week); (typeof sets.month === 'number') && dates[this.id].setUTCMonth(sets.month - 1); (typeof sets.year === 'number') && dates[this.id].setUTCFullYear(sets.year); (typeof sets.hour === 'number') && dates[this.id].setUTCHours(sets.hour); (typeof sets.minute === 'number') && dates[this.id].setUTCMinutes(sets.minute); (typeof sets.second === 'number') && dates[this.id].setUTCSeconds(sets.second); (typeof sets.ms === 'number') && dates[this.id].setUTCMilliseconds(sets.ms);
 				return this;
-			}
-			return {
+			} return  {
 				day: dates[this.id].getUTCDate(),
 				week: dates[this.id].getUTCDay(),
 				month: dates[this.id].getUTCMonth() + 1,
@@ -252,7 +252,7 @@ tangram.block([], function (pandora, global, imports, undefined) {
 		},
 		toString: function (type) {
 			switch (type) {
-				case 'source': return dates[this.id].toSource();
+				case 'source': return   dates[this.id].toSource();
 				case 'time': return dates[this.id].toTimeString();
 				case 'date': return dates[this.id].toDateString();
 				case 'GMT': case 'UTC': return dates[this.id].toUTCString();
@@ -266,18 +266,18 @@ tangram.block([], function (pandora, global, imports, undefined) {
 			return dates[this.id].valueOf();
 		},
 		prev: function (t, unit) {
-			t =  typeof t == 'number' ? t: 1;
+			t = typeof t == 'number' ? t: 1;
 			ms = units[unit] ? units[unit] * t: 1000 * t;
 			return this.ms(this.ms() - ms);
 		},
 		next: function (t, unit) {
-			t =  typeof t == 'number' ? t: 1;
+			t = typeof t == 'number' ? t: 1;
 			ms = units[unit] ? units[unit] * t: 1000 * t;
 			return this.ms(this.ms() + ms);
 		},
 		now: function () {
 			this.update();
-			return {
+return {
 				year: this.year(),
 				month: this.month(),
 				day: this.day(),
@@ -311,7 +311,7 @@ tangram.block([], function (pandora, global, imports, undefined) {
 				m: m,
 				ss: doubleDigit(s),
 				s: s
-			};
+			}
 			for (var i in matchs) {
 				format = format.replace(i, matchs[i]);
 			};
@@ -325,7 +325,7 @@ tangram.block([], function (pandora, global, imports, undefined) {
 			}, duration);
 		},
 		process: function (callback, time, unit) {
-			if(typeof time == 'string') {
+			if (typeof time == 'string') {
 				var regp = /^(\d{3,4}\/\d{2}\/\d{2})(\s+(\d{2}:\d{2})(:\d{2}){0,1}){0,1}$/;
 				var time = str.replace('-', '/').replace(/\*/, ' ').replace(/\/(\d)/, '/0$1');
 				var duration = 0;
@@ -333,33 +333,32 @@ tangram.block([], function (pandora, global, imports, undefined) {
 					duration = new Date().getTime(time) - this.time();
 				};
 			}else
-			if(typeof time == 'number') {
+			if (typeof time == 'number') {
 				duration = units[unit] ? units[unit] * time: 1000 * time;
 			}
-			duration = (duration >= 0) ? duration: 0;
-			setTimeout(callback, duration);
+			duration = (duration >= 0) ? duration: 0; setTimeout(callback, duration);
 		}
 	});
 	pandora.extend(pandora.util.Time, {
 		stamp: function () {
-			var timestamp = Date.parse(newDate());
+			var timestamp = Date.parse(new Date());
 			return timestamp / 1000;
 		},
 		loop: function (callback, duration, times) {
-			callback =  typeof callback == 'function' ? callback: function () {}
-			duration =  typeof duration == 'number' ? duration: 1000;
-			times =  typeof times == 'number' ? times: 0;
+			callback = typeof callback == 'function' ? callback: function () {}
+			duration = typeof duration == 'number' ? duration: 1000;
+			times = typeof times == 'number' ? times: 0;
 			var that = this;
 			if (times == 0) {
-				setInterval(callback, duration);
+setInterval(callback, duration);
 			}else
 			if (times == 1) {
-				setTimeout(callback, duration);
+setTimeout(callback, duration);
 			}else {
 				var timer = function () {
-					setTimeout(function () {
-						callback();
-						--times && timer();
+setTimeout(function () {
+callback();
+						 --times && timer();
 					}, duration);
 				};
 				times > 0 && timer();

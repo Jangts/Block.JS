@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Tue, 24 Apr 2018 15:55:03 GMT
+ * Datetime: Wed, 25 Apr 2018 00:54:01 GMT
  */
 ;
 // tangram.config({});
@@ -23,7 +23,7 @@ tangram.block([
 				return - c * (t/=d) * (t - 2) + b;
 			},
 			easeInOut: function (t, b, c, d) {
-				if((t/=d/2) < 1)return c / 2 * t * t + b;
+				if((t/=d/2) < 1)return   c / 2 * t * t + b;
 				return - c / 2 * ((--t) * (t - 2) - 1) + b;
 			}
 		},
@@ -35,7 +35,7 @@ tangram.block([
 				return c * ((t = t/d - 1) * t * t + 1) + b;
 			},
 			easeInOut: function (t, b, c, d) {
-				if((t/=d/2) < 1)return c / 2 * t * t * t + b;
+				if((t/=d/2) < 1)return   c / 2 * t * t * t + b;
 				return c / 2 * ((t -= 2) * t * t + 2) + b;
 			}
 		},
@@ -47,7 +47,7 @@ tangram.block([
 				return - c * ((t = t/d - 1) * t * t * t - 1) + b;
 			},
 			easeInOut: function (t, b, c, d) {
-				if((t/=d/2) < 1)return c / 2 * t * t * t * t + b;
+				if((t/=d/2) < 1)return   c / 2 * t * t * t * t + b;
 				return - c / 2 * ((t -= 2) * t * t * t - 2) + b;
 			}
 		},
@@ -59,7 +59,7 @@ tangram.block([
 				return c * ((t = t/d - 1) * t * t * t * t + 1) + b;
 			},
 			easeInOut: function (t, b, c, d) {
-				if((t/=d/2) < 1)return c / 2 * t * t * t * t * t + b;
+				if((t/=d/2) < 1)return   c / 2 * t * t * t * t * t + b;
 				return c / 2 * ((t -= 2) * t * t * t * t + 2) + b;
 			}
 		},
@@ -76,13 +76,13 @@ tangram.block([
 		},
 		Expo: {
 			easeIn: function (t, b, c, d) {
-				return(t == 0) ? b: c * Math.pow(2, 10 * (t/d - 1)) + b;
+return(t == 0) ? b: c * Math.pow(2, 10 * (t/d - 1)) + b;
 			},
 			easeOut: function (t, b, c, d) {
-				return(t == d) ? b + c: c * (-Math.pow(2,   -10 * t / d) + 1) + b;
+return(t == d) ? b + c: c * (-Math.pow(2,   -10 * t / d) + 1) + b;
 			},
 			easeInOut: function (t, b, c, d) {
-				if(t == 0)return b;
+				if(t == 0)return   b;
 				if(t == d)return b + c;
 				if((t/=d/2) < 1)return c / 2 * Math.pow(2, 10 * (t - 1)) + b;
 				return c / 2 * (-Math.pow(2,   -10 * --t) + 2) + b;
@@ -102,35 +102,38 @@ tangram.block([
 		},
 		Elastic: {
 			easeIn: function (t, b, c, d, a, p) {
-				if(t == 0)return b;
+				if(t == 0)return   b;
 				if((t/=d) == 1)return b + c;
 				if(!p)p = d * .3;
-				if(!a || a < Math.abs(c)) {
+				if(!a || a < Math.abs(c))  {
 					a = c;
 					var s = p / 4;
-				}else
+				}
+				else
 				var s = p/(2 * Math.PI) * Math.asin(c / a);
 				return - (a * Math.pow(2, 10 * (t -= 1)) * Math.sin((t * d - s) * (2 * Math.PI)/ p)) + b;
 			},
 			easeOut: function (t, b, c, d, a, p) {
-				if(t == 0)return b;
+				if(t == 0)return   b;
 				if((t/=d) == 1)return b + c;
 				if(!p)p = d * .3;
-				if(!a || a < Math.abs(c)) {
+				if(!a || a < Math.abs(c))  {
 					a = c;
 					var s = p / 4;
-				}else
+				}
+				else
 				var s = p/(2 * Math.PI) * Math.asin(c / a);
-				return(a * Math.pow(2,   -10 * t) * Math.sin((t * d - s) * (2 * Math.PI)/ p) + c + b);
+return(a * Math.pow(2,   -10 * t) * Math.sin((t * d - s) * (2 * Math.PI)/ p) + c + b);
 			},
 			easeInOut: function (t, b, c, d, a, p) {
-				if(t == 0)return b;
+				if(t == 0)return   b;
 				if((t/=d/2) == 2)return b + c;
 				if(!p)p = d * (.3 * 1.5);
-				if(!a || a < Math.abs(c)) {
+				if(!a || a < Math.abs(c))  {
 					a = c;
 					var s = p / 4;
-				}else
+				}
+				else
 				var s = p/(2 * Math.PI) * Math.asin(c / a);
 				if(t < 1)return - .5 * (a * Math.pow(2, 10 * (t -= 1)) * Math.sin((t * d - s) * (2 * Math.PI)/ p)) + b;
 				return a * Math.pow(2,   -10 * (t -= 1)) * Math.sin((t * d - s) * (2 * Math.PI)/ p) * .5 + c + b;
@@ -147,7 +150,7 @@ tangram.block([
 			},
 			easeInOut: function (t, b, c, d, s) {
 				if(s == undefined)s = 1.70158;
-				if((t/=d/2) < 1)return c / 2 * (t * t * (((s *= (1.525)) + 1) * t - s)) + b;
+				if((t/=d/2) < 1)return   c / 2 * (t * t * (((s *= (1.525)) + 1) * t - s)) + b;
 				return c / 2 * ((t -= 2) * t * (((s *= (1.525)) + 1) * t + s) + 2) + b;
 			}
 		},
@@ -156,18 +159,21 @@ tangram.block([
 				return c - _.math.easing.Bounce.easeOut(d - t, 0, c, d) + b;
 			},
 			easeOut: function (t, b, c, d) {
-				if((t/=d) < (1/2.75)) {
+				if((t/=d) < (1/2.75))  {
 					return c * (7.5625 * t * t) + b;
-				}else if(t < (2/2.75)) {
+				}
+				else if(t < (2/2.75)) {
 					return c * (7.5625 * (t -= (1.5/2.75)) * t + .75) + b;
-				}else if(t < (2.5/2.75)) {
+				}
+				else if(t < (2.5/2.75)) {
 					return c * (7.5625 * (t -= (2.25/2.75)) * t + .9375) + b;
-				}else {
+				}
+				else {
 					return c * (7.5625 * (t -= (2.625/2.75)) * t + .984375) + b;
 				};
 			},
 			easeInOut: function (t, b, c, d) {
-				if(t < d/2)return _.math.easing.Bounce.easeIn(t * 2, 0, c, d) * .5 + b;
+				if(t < d/2)return   _.math.easing.Bounce.easeIn(t * 2, 0, c, d) * .5 + b;
 				else return _.math.easing.Bounce.easeOut(t * 2 - d, 0, c, d) * .5 + c * .5 + b;
 			}
 		}
@@ -175,9 +181,10 @@ tangram.block([
 	var easings = (function () {
 		var easings = {};
 		pandora.each(_.math.easing, function (type, tween) {
-			if(_.util.bool.isFn(tween)) {
+			if(_.util.bool.isFn(tween))  {
 				easings[type] = tween;
-			}else {
+			}
+			else {
 				pandora.each(tween, function (ease, fn) {
 					easings[ease + type] = _.util.bool.isFn(fn) ? fn: function (t, b, c, d) {
 						return c * t / d + b;

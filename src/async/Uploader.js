@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Tue, 24 Apr 2018 15:55:03 GMT
+ * Datetime: Wed, 25 Apr 2018 00:54:00 GMT
  */
 ;
 // tangram.config({});
@@ -29,7 +29,7 @@ tangram.block([
 		var response;
 		if (uploader.upload) {
 			var onTransferring = handlers.progress;
-			var onSendStart = function (evt) {
+			function onSendStart (evt) {
 				response = {
 					lengthComputable: evt.lengthComputable,
 					loaded: evt.loaded,
@@ -40,7 +40,7 @@ tangram.block([
 				};
 				_.util.bool.isFn(onBeforeTransferring) && onBeforeTransferring.call(that, response);
 			}
-			var onSendProgress = function (evt) {
+			function onSendProgress (evt) {
 				response = {
 					lengthComputable: evt.lengthComputable,
 					loaded: evt.loaded,
@@ -51,7 +51,7 @@ tangram.block([
 				};
 				_.util.bool.isFn(onTransferring) && onTransferring.call(that, response);
 			}
-			var onSendComplete = function (evt) {
+			function onSendComplete (evt) {
 				response = {
 					readyState: uploader.readyState,
 					status: uploader.status,
@@ -59,7 +59,7 @@ tangram.block([
 				};
 				_.util.bool.isFn(onAfterTransferring) && onAfterTransferring.call(that, response);
 			}
-			var onFailed = function (evt) {
+			function onFailed (evt) {
 				response = {
 					readyState: uploader.readyState,
 					status: uploader.status,
@@ -67,7 +67,7 @@ tangram.block([
 				};
 				_.util.bool.isFn(onUploadFailed) && onUploadFailed.call(that, response);
 			}
-			var onTimeout = function (evt) {
+			function onTimeout (evt) {
 				response = {
 					readyState: uploader.readyState,
 					status: uploader.status,
@@ -76,7 +76,7 @@ tangram.block([
 				_.util.bool.isFn(onUploadFailed) && onUploadFailed.call(that, response);
 			};
 		}
-		var onStateChange = function () {
+		function onStateChange () {
 			if (this.readyState == 1) {
 				response = {
 					lengthComputable: false,
@@ -104,7 +104,7 @@ tangram.block([
 						responseText: this.responseText
 					};
 					_.util.bool.isFn(onUploadComplete) && onUploadComplete.call(that, response);
-				}else {
+				}else  {
 					response = {
 						readyState: this.readyState,
 						status: this.status,
@@ -114,7 +114,7 @@ tangram.block([
 				};
 			};
 		}
-		if (uploader.upload &&  typeof uploader.onprogress != 'undefined') {
+		if (uploader.upload && typeof uploader.onprogress != 'undefined') {
 			uploader.upload.onloadstart = onSendStart;
 			uploader.upload.onprogress = onSendProgress;
 			uploader.upload.onloadend = onSendComplete;
@@ -132,19 +132,19 @@ tangram.block([
 		isOnlyFilter: true,
 		_init: function (files, types, suffixs, maxSize) {
 			this.files = files;
-			if(_.util.bool.isArr(types)) {
+			if(_.util.bool.isArr(types))  {
 				this.fileTypeRegExp = toRegExp(types);
 			}
 			if(_.util.bool.isArr(suffixs) && suffixs.length) {
 				this.fileNameRegExp = new RegExp(".(" + suffixs.join('|') + ")$");
 			}
-			this.fileMaxSize =  typeof maxSize == 'number' ? maxSize: 1024 * 1024 * 200;
+			this.fileMaxSize = typeof maxSize == 'number' ? maxSize: 1024 * 1024 * 200;
 		},
 		checkType: function (doneCallback, failCallback) {
 			var result = this.filesChecker(this.files);
 			if (this.isOnlyFilter) {
 				var result = this.filesFilter();
-			}else {
+			}else  {
 				var result = this.filesChecker();
 			}
 			if (result[0]) {
@@ -156,31 +156,31 @@ tangram.block([
 		filesFilter: function () {
 			var array = [];
 			for (var i = 0; i < this.files.length; i++) {
-				if(this.checkSIZE(this.files[i])) {
-					if(this.checkTYPE(this.files[i]) || this.checkEXTN(this.files[i])) {
+				if(this.checkSIZE(this.files[i]))  {
+					if(this.checkTYPE(this.files[i]) || this.checkEXTN(this.files[i]))  {
 						array.push(this.files[i]);
 					};
 				};
 			}
 			if (array.length > 0) {
 				if (this.files.length > array.length) {
-					return[true, array, 0];
+					return [true, array, 0];
 				}
-				return[true, array, 1];
+				return [true, array, 1];
 			}else {
-				return[false, 0, 2];
+				return [false, 0, 2];
 			};
 		},
 		filesChecker: function () {
 			for (var i = 0; i < this.files.length; i++) {
-				if(!(this.checkTYPE(this.files[i]) || this.checkEXTN(this.files[i]))) {
-					return[false, this.files[i], 0];
+				if(!(this.checkTYPE(this.files[i]) || this.checkEXTN(this.files[i])))  {
+					return [false, this.files[i], 0];
 				}
 				if(!this.checkSIZE(this.files[i])) {
-					return[false, this.files[i], 1];
+					return [false, this.files[i], 1];
 				};
 			}
-			return[true, this.files, 1];
+			return [true, this.files, 1];
 		},
 		checkTYPE: function (file) {
 			return this.fileTypeRegExp && this.fileTypeRegExp.test(file.type);
@@ -194,14 +194,14 @@ tangram.block([
 		transfer: function (options, method) {
 			if (this.files.length && this.files.length === 1) {
 				_.async.Uploader.transfer.call(this, this.files[0], options, method);
-			}else {
+			}else  {
 				_.async.Uploader.transfer.call(this, this.files, options, method);
 			};
 		}
 	});
 	pandora.extend(pandora.async.Uploader, {
 		transfer: function (file, options, method) {
-			if(_.util.bool.isFile(file)) {
+			if(_.util.bool.isFile(file))  {
 				options = options || {};
 				options.url = options.url || location.href;
 				options.data = options.data || {};
@@ -209,20 +209,21 @@ tangram.block([
 				for (var i in options.data) {
 					form.append(i, options.data[i]);
 				}
-				if(typeof options.filefield == 'string') {
+				if (typeof options.filefield == 'string') {
 					form.append(options.filefield, file);
 				}else {
 					form.append('myfile', file);
 				}
 				form.append('enctype', 'multipart/form-data');
-			}else if(_.util.bool.isFiles(file)) {
+			}
+			else if(_.util.bool.isFiles(file)) {
 				options = options || {};
 				options.data = options.data || {};
 				var form = new FormData();
 				for (var i in options.data) {
 					form.append(i, options.data[i]);
 				}
-				if(typeof options.filefield == 'string') {
+				if (typeof options.filefield == 'string') {
 					filefield = options.filefield + '[]';
 				}else {
 					filefield = 'myfile[]';
@@ -231,13 +232,15 @@ tangram.block([
 					form.append(filefield, file[i]);
 				}
 				form.append('enctype', 'multipart/form-data');
-			}else if(_.util.bool.isForm(file)) {
+			}
+			else if(_.util.bool.isForm(file)) {
 				options = options || {};
 				var form = file;
 				for (var i in options.data) {
 					form.append(i, options.data[i]);
 				};
-			}else {
+			}
+			else {
 				return _.debug('Must Give Transfer A File.');
 			}
 			if (method) {

@@ -9,10 +9,8 @@
 
 
 var _ = pandora,
-    
-    
-    doc = global.document,
-    console = global.console;
+doc = global.document,
+console = global.console;
 
 var doubleDigit = (n) {
     return n < 10 ? "0" + n : n;
