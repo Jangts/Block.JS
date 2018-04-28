@@ -136,21 +136,7 @@ class .Test {
     }
 }
 
-class pandora.Test2 extends _.foo.bar.Test{
-    num
-    str = 'test2 class'
-    static = [1,2,3];
-    method = anon(elem = null){
-        this.elem = elem;
-    }
-    
-    method bar(){
-        
-    }
-    static method foo(){
-        
-    }
-}
+
 
 class myClass extends _.foo.bar.Test {
     static prop
@@ -206,8 +192,7 @@ render = function(letter) {
         }, 150);
     } else {
         setTimeout(function() {
-            _.render({
-                'margin': "10px auto",
+            _.render({'margin': "10px auto",
                 textAlign: "center",
                 fontSize: "13px",
                 color: "#666"

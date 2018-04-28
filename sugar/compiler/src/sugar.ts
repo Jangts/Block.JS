@@ -102,8 +102,8 @@
             call: /([\$\w][\$\w\.]*)\s*___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___/,
             arrowfn: /(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)\s*(->|=>)\s*([^,;\r\n]+)/,
 
-            objectattr: /^\s*((([\$\w]+)))\s*(\:*)([\s\S]*)$/,
-            classelement: /^\s*((public|static|set|get|om)\s+)?([\$\w]*)\s*(\=*)([\s\S]*)$/,
+            objectattr: /^\s*(@\d+L\d+P\d+O?\d*::)?((([\$\w]+)))\s*(\:*)([\s\S]*)$/,
+            classelement: /^\s*(@\d+L\d+P\d+O?\d*::)?((public|static|set|get|om)\s+)?([\$\w]*)\s*(\=*)([\s\S]*)$/,
             travelargs: /^((@\d+L\d+P\d+O*\d*::)?[\$a-zA-Z_][\$\w\.-]+)\s+as\s+([\$\w]+)(\s*,((@\d+L\d+P\d+O*\d*::)?([\$\w]*)))?/
         },
         boundaryMaker = (): string => {
@@ -219,10 +219,10 @@
             on = true;
             while (on) {
                 on = false;
-                string = string.replace(/(@\d+L\d+P)0::(\s+)/g, (match, pre, space) => {
+                string = string.replace(/[\r\n]*(@\d+L\d+P)0::(\s+)/g, (match, pre, space) => {
                     // console.log(pre, space);
                     on = true;
-                    return pre + space.length + 'O0::';
+                    return "\r\n" + pre + space.length + 'O0::';
                 });
             }
             on = true;
@@ -294,15 +294,20 @@
             // console.log(string);
             string = this.replaceUsing(string);
             string = this.replaceStrings(string);
-            string = this.tidy(string);
-
             while (string.indexOf('@include') >= 0) {
                 string = this.replaceIncludes(string);
             }
+            string = this.tidy(string);
 
-            string = string.replace(/(@\d+L\d+P\d+O?\d*::)?___boundary_[A-Z0-9_]{36}_(\d+)_as_string___\s*(\:|\(|\=)/g, (match, posi, index, after)=>{
-                // console.log(match, posi, index, after, this.replacements[index]);
-                return '___boundary_'+index+'_as_propname___'+after;
+            string = string.replace(/(@\d+L\d+P\d+O?\d*::)?((public|static|set|get|om)\s+)?___boundary_[A-Z0-9_]{36}_(\d+)_as_string___\s*(\:|\(|\=)/g, (match, posi, desc, type, index, after)=>{
+                // console.log(posi, desc, this.replacements[index][1]);
+                if (this.replacements[index][1]){
+                    return /*"\r\n" + */this.replacements[index][1] + '___boundary_' + index + '_as_propname___' + after;
+                }
+                if (desc){
+                    return /*"\r\n" + */posi + desc + '___boundary_' + index + '_as_propname___' + after;
+                }
+                return /*"\r\n" + */'___boundary_' + index + '_as_propname___' + after;
             });
             string = string.replace(/([\$\w]+)\s*(->|=>)/g, "($1)$2");
             // console.log(string);
@@ -392,9 +397,9 @@
                 if (match && (matches.index >= match.index) && !match[5]) {
                     // console.log(matches, match);
                     if (match[1]){
-                        this.replacements.push([match[2].replace(/@\d+L\d+P\d+O?\d*::/g, ''), match[1].trim()]);
+                        this.replacements.push([match[2].replace(/@\d+L\d+P\d+O?\d*::/g, ''), match[1].trim(), match[3]]);
                     }else{
-                        this.replacements.push([match[2].replace(/@\d+L\d+P\d+O?\d*::/g, '')]);
+                        this.replacements.push([match[2].replace(/@\d+L\d+P\d+O?\d*::/g, ''), void 0, match[3]]);
                     }
                     string = string.replace(match[0], '___boundary_' + this.uid + '_' + index + stringas[matches[1]] + match[3]);
                 } else if (matches[0] === '/') {
@@ -897,9 +902,7 @@
                             value: value
                         });
                     }
-                    
                 }
-               
             }
         }
         pushVariablesToLine(lines: any, vars: any, posi: string, line: string, symbol: string) {
@@ -939,7 +942,7 @@
                                 type: 'line',
                                 subtype: 'variable',
                                 posi: position,
-                                value: _symbol + ' ' + element + ' = ';
+                                value: _symbol + ' ' + element + ' = '
                             });
                             lines.push({
                                 type: 'line',
@@ -950,7 +953,7 @@
                         }
                         value = element;
                     } else {
-                        console.log(element);
+                        // console.log(element);
                         throw 'tangram.js sugar Error: Unexpected Definition `' + symbol + ' at char ' + position.col + ' on line ' + position.line + '.';
                     }
                 }
@@ -972,7 +975,7 @@
                             while (!array[0].trim()) {
                                 array.shift();
                             }
-                            console.log(array)
+                            // console.log(array)
                             for (let i = 0; i < array.length; i++) {
                                 let element = array[i].trim();
                                 let matches: any;
@@ -1115,7 +1118,8 @@
                     for (let index = 0; index < block.length; index++) {
                         const element = block[index];
                         if (element.type === 'code') {
-                            element.stype = index ? 'inline' : 'block';
+                            // console.log(index, element);
+                            // element.display = index ? 'inline' : 'block';
                             codes.body.push(element);
                         } else {
                             codes.body.push(this.walk(element, vars, !!index));
@@ -1129,6 +1133,7 @@
             return this;
         }
         walk(element: any, vars: any, codeInline: boolean): object {
+            // console.log(element);
             switch (element.type) {
                 case 'array':
                     return this.walkArray(element.posi, vars/*, codeInline*/);
@@ -1154,9 +1159,10 @@
                 case 'template':
                     let that = this;
                     let position = this.getPosition(this.replacements[element.posi][1]);
+                    // console.log(position);
                     return {
                         type: 'code',
-                        stype: (position && position.head) ? 'block' : 'inline',
+                        display: 'inline',
                         posi: position,
                         vars: vars,
                         value: this.replacements[element.posi][0].replace(this.markPattern, function () {
@@ -1166,9 +1172,9 @@
                 default:
                     return {
                         type: 'code',
-                        stype: codeInline ? 'inline' : 'block',
+                        display: 'inline',
                         vars: vars,
-                        value: "\r\n"
+                        value: ""
                     }
             }
         }
@@ -1312,6 +1318,51 @@
                 base: matches[5],
                 vars: vars,
                 body: this.checkClassBody(vars, matches[6] || '')
+            }
+        }
+        walkClosure(posi: number, vars: any) {
+            // console.log(this.replacements[posi]);
+            let localvars = {
+                parent: vars,
+                self: {},
+                fixed: [],
+                fix_map: {},
+                type: 'codes'
+            };
+            let array = this.replacements[posi][0].split(/\s*(\{|\})\s*/);
+            let position = this.getPosition(this.replacements[posi][1]);
+            let body = this.pushToBody([], localvars, array[2]);
+            for (const varname in localvars.self) {
+                if (localvars.self.hasOwnProperty(varname)) {
+                    if (vars.self[varname] === void 0) {
+                        vars.self[varname] = 'var';
+                    } else if (vars.self[varname] === 'let') {
+                        throw 'tangram.js sugar Error:  Variable `' + varname + '` has already been declared.';
+                    }
+                }
+            }
+            // console.log(array);
+            body.unshift({
+                type: 'code',
+                display: 'inline',
+                posi: position,
+                vars: localvars,
+                value: array[0] ? (array[0] + ' {') : '{'
+            });
+            body.push({
+                type: 'code',
+                posi: void 0,
+                display: 'closer',
+                vars: localvars,
+                value: '}'
+            });
+
+            return {
+                type: 'codes',
+                posi: position,
+                subtype: 'local',
+                vars: localvars,
+                body: body
             }
         }
         walkExtends(posi: number, vars: any, codeInline: boolean) {
@@ -1535,62 +1586,27 @@
                 body: this.checkObjMember(vars, this.replacements[posi][0])
             };
         }
-        walkClosure(posi: number, vars: any) {
-            // console.log(this.replacements[posi]);
-            let localvars = {
-                parent: vars,
-                self: {},
-                fixed: [],
-                fix_map: {},
-                type: 'codes'
-            };
-            let array = this.replacements[posi][0].split(/\s*(\{|\})\s*/);
-            let body = this.pushToBody([], localvars, array[2]);
-            for (const varname in localvars.self) {
-                if (localvars.self.hasOwnProperty(varname)) {
-                    if (vars.self[varname] === void 0) {
-                        vars.self[varname] = 'var';
-                    } else if (vars.self[varname] === 'let') {
-                        throw 'tangram.js sugar Error:  Variable `' + varname + '` has already been declared.';
-                    }
-                }
-            }
-            // console.log(array);
-            body.unshift({
-                type: 'code',
-                stype: 'inline',
-                vars: localvars,
-                value: array[0] ? (array[0] + ' {') : '{'
-            });
-            body.push({
-                type: 'code',
-                stype: 'closer',
-                vars: localvars,
-                value: '}'
-            });
-
-            return {
-                type: 'codes',
-                stype: 'local',
-                vars: localvars,
-                body: body
-            }
-        }
-        checkProp(vars: any, type: string, attr: string[], array: string[]): object {
-            // console.log(array);
+        checkProp(vars: any, posi, type: string, attr: string[], array: string[]): object {
+            // console.log(posi);
+            // console.log(type, posi, attr, array);
+            let position = this.getPosition(posi);
+            position.head = true;
+            // console.log(position);
             if (array.length > 1) {
                 let body = [];
-                if (attr[5]) {
+                if (attr[6]) {
                     body.push({
                         type: 'code',
-                        stype: 'inline',
+                        posi: void 0,
+                        display: 'inline',
                         vars: vars,
-                        value: attr[5]
+                        value: attr[6]
                     });
                 }
                 for (let index = 1; index < array.length; index++) {
                     const element = array[index];
                     const matches: any = element.trim().match(matchExpr.index3);
+                    // console.log(matches);
                     if (matches) {
                         body.push(this.walk({
                             posi: matches[1],
@@ -1599,15 +1615,18 @@
                         if (matches[3]) {
                             body.push({
                                 type: 'code',
-                                stype: 'inline',
+                                posi: void 0,
+                                display: 'inline',
                                 vars: vars,
                                 value: matches[3]
                             });
                         }
                     } else {
+                        // console.log(element);
                         body.push({
                             type: 'code',
-                            stype: 'inline',
+                            posi: void 0,
+                            display: 'inline',
                             vars: vars,
                             value: element
                         });
@@ -1615,21 +1634,24 @@
                 }
                 return {
                     type: type,
-                    pname: attr[3] || 'myAttribute',
+                    posi: position,
+                    pname: attr[4] || 'myAttribute',
                     vars: vars,
                     body: body
                 };
             }
             return {
                 type: type,
-                pname: attr[3] || 'myAttribute',
+                posi: position,
+                pname: attr[4] || 'myAttribute',
                 vars: vars,
                 body: [
                     {
                         type: 'code',
-                        stype: 'inline',
+                        posi: void 0,
+                        display: 'inline',
                         vars: vars,
-                        value: attr[5]
+                        value: attr[6]
                     }
                 ]
             };
@@ -1637,18 +1659,20 @@
         checkClassBody(vars: any, code: string): object[] {
             let body = [],
                 array = code.split(/[;,\r\n]+/);
+                console.log(code);
             for (let index = 0; index < array.length; index++) {
                 let element = array[index].trim();
                 let type: string = 'method';
                 // console.log(element);
                 if (element) {
                     let elArr = element.split('___boundary_' + this.uid);
-
+                    // console.log(elArr);
                     if (elArr[0] && elArr[0].trim()) {
                         let match_0 = elArr[0].match(matchExpr.classelement);
+                        // console.log(match_0[4].trim(), match_0, elArr);
                         if (match_0) {
-                            if (match_0[3].trim()) {
-                                switch (match_0[2]) {
+                            if (match_0[4].trim()) {
+                                switch (match_0[3]) {
                                     case undefined:
                                     case 'public':
                                         type = 'prop';
@@ -1657,19 +1681,19 @@
                                         type = 'staticProp';
                                         break;
                                     default:
-                                        throw 'tangram.js sugar Error: Cannot use `' + match_0[2] + '` on property `' + match_0[3] + '`';
+                                        throw 'tangram.js sugar Error: Cannot use `' + match_0[3] + '` on property `' + match_0[4] + '`';
                                 }
-                                if (match_0[4] != '=') {
+                                if (match_0[5] != '=') {
                                     if ((elArr.length === 1)) {
-                                        match_0[5] = 'undefined';
+                                        match_0[6] = 'undefined';
                                     } else {
                                         continue;
                                     }
                                 }
-                                body.push(this.checkProp(vars, type, match_0, elArr));
+                                body.push(this.checkProp(vars, match_0[1], type, match_0, elArr));
                                 continue;
                             }
-                            switch (match_0[2]) {
+                            switch (match_0[3]) {
                                 case 'om':
                                     type = 'overrideMethod';
                                     break;
@@ -1680,14 +1704,13 @@
                                     type = 'setPropMethod';
                                     break;
                                 case 'static':
-                                    match_0[3] = 'static';
-                                    if (match_0[4] === '=') {
-                                        body.push(this.checkProp(vars, 'prop', match_0, elArr));
-                                        continue;
-                                    }
-                                    if ((elArr.length === 1)) {
-                                        match_0[5] = 'undefined';
-                                        body.push(this.checkProp(vars, 'prop', match_0, elArr));
+                                    // console.log(match_0[5], elArr);
+                                    if (match_0[5] === '=') {
+                                        match_0[4] = 'static';
+                                        if ((elArr.length === 1)) {
+                                            match_0[6] = 'undefined';
+                                        }
+                                        body.push(this.checkProp(vars, match_0[1], 'prop', match_0, elArr));
                                         continue;
                                     }
                                     type = 'staticMethod';
@@ -1696,9 +1719,9 @@
                         }
                     }
                     if (elArr[1] && elArr[1].trim()) {
-                        let m1: any = elArr[1].trim().match(matchExpr.index);
-                        if (m1[2] === 'function') {
-                            body.push(this.walkFnLike(parseInt(m1[1]), vars, type, true));
+                        let match_1: any = elArr[1].trim().match(matchExpr.index);
+                        if (match_1[2] === 'function') {
+                            body.push(this.walkFnLike(parseInt(match_1[1]), vars, type, true));
                         }
                     }
                 }
@@ -1718,9 +1741,9 @@
                     if (elArr[0] && elArr[0].trim()) {
                         var match_0 = elArr[0].trim().match(matchExpr.objectattr);
                         if (match_0) {
-                            if (match_0[4] != ':') {
+                            if (match_0[5] != ':') {
                                 if ((elArr.length === 1)) {
-                                    match_0[5] = match_0[3];
+                                    match_0[6] = match_0[4];
                                 }
                                 else {
                                     // console.log(elArr);
@@ -1728,7 +1751,7 @@
                                 }
                             }
                             // console.log(elArr);
-                            body.push(this.checkProp(vars, 'objProp', match_0, elArr));
+                            body.push(this.checkProp(vars, match_0[1], 'objProp', match_0, elArr));
                             bodyIndex++;
                             continue;
                         } else {
@@ -1737,33 +1760,35 @@
                     } else {
                         // console.log(elArr);
                         for (let i = 1; i < elArr.length; i++) {
-                            const m = elArr[i].trim().match(matchExpr.index3);
-                            switch (m[2]) {
+                            const match = elArr[i].trim().match(matchExpr.index3);
+                            switch (match[2]) {
                                 case 'string':
                                 case 'pattern':
                                 case 'tamplate':
                                     console.log(body, bodyIndex);
                                     body[bodyIndex].body.push({
                                         type: 'code',
-                                        stype: 'inline',
+                                        posi: void 0,
+                                        display: 'inline',
                                         vars: vars,
-                                        value: ',' + this.replacements[parseInt(m[1])][0].replace(this.markPattern, function () {
+                                        value: ',' + this.replacements[parseInt(match[1])][0].replace(this.markPattern, function () {
                                             return that.replacements[arguments[1]][0];
                                         })
                                     });
-                                    if (m[3]) {
+                                    if (match[3]) {
                                         body[bodyIndex].body.push({
                                             type: 'code',
-                                            stype: 'inline',
+                                            posi: void 0,
+                                            display: 'inline',
                                             vars: vars,
-                                            value: m[3]
+                                            value: match[3]
                                         });
                                     }
                                     break;
 
                                 case 'function':
                                     if (elArr.length === 2) {
-                                        body.push(this.walkFnLike(parseInt(m[1]), vars, 'method', true));
+                                        body.push(this.walkFnLike(parseInt(match[1]), vars, 'method', true));
                                         bodyIndex++;
                                     }
                                     break;
@@ -1819,20 +1844,22 @@
                     if (valArr[1]) {
                         body.push({
                             type: 'code',
-                            stype: 'block',
                             posi: args.keys[index][1],
+                            display: 'block',
                             value: 'if (' + args.keys[index][0] + ' === void 0) { ' + args.keys[index][0] + ' = ' + valArr[0]
                         });
                         this.pushReplacementsToAST(body, vars, valArr[1], true);
                         body.push({
                             type: 'code',
-                            stype: 'inline',
+                            posi: void 0,
+                            display: 'inline',
                             value: '; }'
                         });
                     } else {
                         body.push({
                             type: 'code',
                             posi: args.keys[index][1],
+                            display: 'block',
                             value: 'if (' + args.keys[index][0] + ' === void 0) { ' + args.keys[index][0] + ' = ' + valArr[0] + '; }'
                         });
                     }
@@ -1842,7 +1869,8 @@
             if (args.keysArray) {
                 body.push({
                     type: 'code',
-                    posi: args.keysArray[1],
+                    posi: args.keys[index][1],
+                    display: 'block',
                     value: 'var ' + args.keysArray[0].replace('...', '') + ' = Array.prototype.slice.call(arguments, ' + args.keys.length + ');'
                 });
             }
@@ -1862,7 +1890,8 @@
             if (body.length) {
                 body.push({
                     type: 'code',
-                    stype: 'inline',
+                    posi: void 0,
+                    display: 'inline',
                     vars: vars,
                     value: ';'
                 });
@@ -1923,9 +1952,9 @@
             if(code===';'){
                 body.push({
                     type: 'code',
-                    posi: undefined,
                     vars: vars,
-                    stype: 'inline',
+                    posi: void 0,
+                    display: 'inline',
                     value: ';'
                 });
             }else{
@@ -2043,20 +2072,20 @@
                     case 'code':
                         if (element.value){
                             var code: string = this.patchVariables(element.value, vars);
-                            switch (element.stype) {
+                            switch (element.display) {
                                 case 'break':
                                 case 'closer':
                                     codes.push(indent.replace("\t", '') + this.pushPostionsToMap(element.posi) + code);
                                     break;
                                 case 'inline':
                                     if (element.posi&&element.posi.head){
-                                        console.log(element);
+                                        // console.log(element);
                                     }
                                     codes.push(code);
                                     break;
                                 default:
                                     if (element.posi) {
-                                        console.log(codeInline, element);
+                                        // console.log(codeInline, element);
                                     }
                                     if (codeInline) {
                                         codes.push(code);
@@ -2645,7 +2674,7 @@
         closurecount : number = 0;
         fixVariables(vars: any) {
             this.closurecount++;
-            console.log(vars.type, vars);
+            // console.log(vars.type, vars);
             if(1){
                 for (let index = 0; index < vars.self.length; index++) {
                     const element = vars.self[index].split(/\s+/)[1];
