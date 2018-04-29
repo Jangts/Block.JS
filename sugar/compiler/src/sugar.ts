@@ -82,7 +82,8 @@
             arraylike: /(@\d+L\d+P\d+O*\d*::)?\[(\s*[^\[\]]*?)\s*\]/g,
             call: /(@\d+L\d+P\d+O*\d*::)?((new)\s+([\$\w\.]+)|(\.)?([\$\w]+))\s*(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)\s*([^\$\w\s\{]|[\r\n].|\s*___boundary_[A-Z0-9_]{36}_\d+_as_array___|\s*___boundary_\d+_as_operator___|$)/g,
             arrowfn: /(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)\s*(->|=>)\s*([^,;\r\n]+)\s*(,|;|\r|\n|$)/g,
-            closure: /((@\d+L\d+P\d+O*\d*::)?@*[\$\w]+|\))?(@\d+L\d+P\d+O*\d*::)?\s*\{(\s*[^\{\}]*?)\s*\}/g            
+            closure: /((@\d+L\d+P\d+O*\d*::)?@*[\$\w]+|\))?(@\d+L\d+P\d+O*\d*::)?\s*\{(\s*[^\{\}]*?)\s*\}/g,
+            expression: /(@\d+L\d+P\d+O*\d*::)?(if|for|while|switch|with|catch|each)\s*(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)\s*(___boundary_[A-Z0-9_]{36}_(\d+)_as_closure___)/g
         },
         matchExpr = {
             string: /(\/|\#|`|"|')([\*\/\=])?/,
@@ -321,6 +322,7 @@
             // console.log(string);
             string = this.replaceParentheses(string);
             // console.log(string);
+            string = this.recheckFunctionsLike(string);
             string = string
                 .replace(/@\d+L\d+P\d+O?\d*::(___boundary_|$)/g, "$1")
                 .replace(/\s*(,|;)\s*/g, "$1\r\n");
@@ -464,6 +466,7 @@
                 // console.log(left, right);
                 if (left < right) {
                     string = this.replaceCodeSegments(string);
+                    string = this.recheckFunctionsLike(string);
                     left = string.indexOf('{');
                     right = string.indexOf('}');
                 } else {
@@ -597,6 +600,7 @@
                 var index = right;
                 throw 'tangram.js sugar Error: Unexpected `)` in `' + this.decode(string.substr(index, 256)) + '`';
             }
+            string = this.recheckFunctionsLike(string);
             string = this.replaceCalls(string);
             string = this.replaceOperators(string, false);
             string = this.replaceArrowFunctions(string);
@@ -794,6 +798,22 @@
                     // console.log(string);
                     throw 'tangram.js sugar Error: Unexpected `' + arrow[0] + '` in `' + this.decode(string.substr(arrow.index, 256)) + '`';
                 }
+            }
+            return string;
+        }
+        recheckFunctionsLike(string: string): string {
+            while (string.match(replaceExpr.expression)) {
+                /// console.log(string.match(matchExpr.arrowfn));
+                string = string.replace(replaceExpr.expression, (match: string, posi, expname, exp: string, expindex: string, closure: string, closureindex: string) => {
+                    // console.log(match, posi, expname, exp, expindex, closure, closureindex);
+                    // console.log(expindex, closureindex);
+                    let expressioncontent = this.replacements[expindex][0];
+                    let body = this.replacements[closureindex][0];
+                    let index = this.replacements.length;
+                    // console.log(expressioncontent, body);
+                    this.replacements.push([expname + expressioncontent + body, posi]);
+                    return '___boundary_' + this.uid + '_' + index + '_as_expression___';
+                });
             }
             return string;
         }
@@ -1034,7 +1054,7 @@
                             posi: lines[index].posi,
                             display: lines[index].display,
                             vars: vars,
-                            value: lines[index].value.trim()
+                            value: lines[index].value
                         }]);
                         break;
                     case 'using':
@@ -1058,14 +1078,16 @@
                                     let match = element.match(/^(@\d+L\d+P\d+::)\s*([\$\w]+)(\[\])?$/);
                                     let position = this.getPosition(match[1]);
                                     if (match[3]) {
-                                        let alias = element.replace(match[0], match[2]);
+                                        let alias = element.replace(match[0], match[2]).trim();
+                                        // console.log(alias);
                                         using_as[alias] = [src, position];
                                         var varname = alias;
                                         break;
                                     } else {
-                                        let alias = element.replace(match[1], '');
-                                        using_as[element] = [src, position, index];
-                                        var varname = element;
+                                        let alias = element.replace(match[1], '').trim();
+                                        // console.log(alias);
+                                        using_as[alias] = [src, position, index];
+                                        var varname = alias;
                                     }
                                     if (vars.self[varname] === void 0) {
                                         vars.self[varname] = 'var';
@@ -1095,7 +1117,7 @@
             return preast;
         }
         buildAST(preast: object[], vars: any): Sugar {
-            console.log(preast);
+            // console.log(preast);
             let ast = {
                 type: 'codes',
                 vars: vars,
@@ -1278,6 +1300,8 @@
                     return this.walkClass(element.index, element.display, vars);
                 case 'closure':
                     return this.walkClosure(element.index, element.display, vars);
+                case 'expression':
+                    return this.walkFnLike(element.index, element.display, vars, 'exp');
                 case 'extends':
                     return this.walkExtends(element.index, element.display, vars);
                 case 'function':
@@ -1531,8 +1555,8 @@
             // } else {
             //     console.log((matches);
             // }
-            if (type === 'def') {
-                if (matches[1] == null){
+            if (type === 'def' || type === 'exp') {
+                if ((type === 'exp') || (matches[1] == null)){
                     if (reservedWords['includes'](fname)) {
                         const headline = matches[4];
                         let localvars = {
@@ -2053,8 +2077,9 @@
             return codes;
         }
         pushAlias(codes: string[], alias: any): string[] {
-            // console.log(alias);
+            console.log(alias);
             for (const key in alias) {
+                // console.log(key);
                 // let position = this.getPosition(key);
                 // let _key = key.replace(position.match, '').trim();
                 codes.push("\r\n\t" + this.pushPostionsToMap(alias[key][0]) + "var " + key);
@@ -2153,10 +2178,11 @@
             codes.push('[');
             if (element.body.length) {
                 let _layer = layer;
-                let indent2;
+                let indent1, indent2;
                 let _break = false;
                 // console.log(element.body[0]);
                 if (element.body[0].posi && element.body[0].posi.head) {
+                    indent1 = "\r\n" + stringRepeat("\t", _layer);
                     _layer++;
                     indent2 = "\r\n" + stringRepeat("\t", _layer);
                     codes.push(indent2);
@@ -2180,8 +2206,7 @@
                 }
                 if (elements.length) {
                     if (_break) {
-                        console.log('foooooo');
-                        codes.push(elements.join(',' + indent2));
+                        codes.push(elements.join(',' + indent2) + indent1);
                     } else {
                         codes.push(elements.join(', '));
                     }
@@ -2468,7 +2493,12 @@
                 } else if ((element.subtype === 'public')) {
                     codes.push(indent + posi + 'pandora.' + namespace + element.fname + ' = function (');
                 } else {
-                    codes.push(indent + posi + 'function ' + element.fname + ' (');
+                    if (element.posi){
+
+                    }else{
+                        codes.push(indent + posi + 'function ' + element.fname + ' (');
+                    }
+                    
                 }
             } else {
                 codes.push(posi + 'function (');
@@ -2632,7 +2662,7 @@
                 codes.push(elements.join(','));
             }
             codes.push(indent1 + '})');
-            console.log(element.display);
+            // console.log(element.display);
             if (static_elements.length) {
                 codes.push(';' + indent1 + 'pandora.extend(' + cname + ', {');
                 codes.push(static_elements.join(','));
@@ -2711,9 +2741,7 @@
                     codes.push(elements.join(','));
                     codes.push(indent1);
                 }
-                codes.push(indent1);
             }
-            codes.push(indent1);
             codes.push('}');
             return codes;
         }
@@ -2830,7 +2858,7 @@
             string = this.replaceStrings(string, false);
             // console.log(string);
             string = this.replaceOperators(string, false);
-            // console.log(string);
+            console.log(string);
             // return '';
 
             // 删除多余头部
