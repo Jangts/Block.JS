@@ -19,7 +19,7 @@ this.tangram.auto([
                 _.async.ajax(script.src, function (data) {
                     tangram_js_sugar(data).compile().run(function (content) {
                         console.log(this.ast);
-                        console.log(this.mappings);
+                        console.log(this.posimap, this.mappings);
                         console.log(content);
                     }, function () {
                         // console.log(this.ast);
