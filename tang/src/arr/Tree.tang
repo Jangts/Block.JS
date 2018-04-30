@@ -9,7 +9,7 @@
 
 var _ = pandora;
 
-var getParents (index) {  
+getParents (index) {  
     var parents = [];
     each(this.data as i, leaf) {
         if (leaf[this.indexkey] == index) {
@@ -20,7 +20,7 @@ var getParents (index) {
     return parents;
 }
 
-var getChildren (parent) {
+getChildren (parent) {
     var children = [];
     each(this.data as i, leaf) {
         if (leaf[this.parentindexkey] == parent) {

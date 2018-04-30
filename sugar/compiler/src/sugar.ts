@@ -56,45 +56,45 @@
         // ' = ', ' += ', ' -= ', ' *= ', ' /= ', ' %= ', ' <<= ', ' >>= ', ' >>>= ', ' &= ', ' ^= ', ' |= '
         operators: any = {
             // 因为打开所有括号后还有检查一次符号，所以运算量还是会带有括号
-            mixed: /([\$\w]\s*(@\d+L\d+P\d+O*\d*::)?)(\=\=|\!\=|\=|\!|\+|\-|\*|\/|\%|<<|>>|>>>|\&|\^|\||<|>)=\s*((\+|\-)?[\$\w\.])/g,
-            bool: /([\$\w]\s*(@\d+L\d+P\d+O*\d*::)?)(\&\&|\|\||\<|\<\<|\>\>\>|\>\>|\>)\s*((\+|\-)?[\$\w\.])/g,
-            op: /([\$\w]\s*(@\d+L\d+P\d+O*\d*::)?)(\+|\-|\*\*|\*|\/|\%)\s*((\s+(\+|\-))?[\$\w\.])/g,
+            mixed: /([\$\w]\s*(@\d+L\d+P\d+O*\d*:::)?)(\=\=|\!\=|\=|\!|\+|\-|\*|\/|\%|<<|>>|>>>|\&|\^|\||<|>)=\s*((\+|\-)?[\$\w\.])/g,
+            bool: /([\$\w]\s*(@\d+L\d+P\d+O*\d*:::)?)(\&\&|\|\||\<|\<\<|\>\>\>|\>\>|\>)\s*((\+|\-)?[\$\w\.])/g,
+            op: /([\$\w]\s*(@\d+L\d+P\d+O*\d*:::)?)(\+|\-|\*\*|\*|\/|\%)\s*((\s+(\+|\-))?[\$\w\.])/g,
             owords: /\s+(in|of)\s+/g,
-            sign: /(^|\s*[^\+\-](@\d+L\d+P\d+O*\d*::)?)(\+|\-)([\$\w\.])/g,
+            sign: /(^|\s*[^\+\-])(\+|\-)([\$\w\.])/g,
             swords: /(^|[^\$\w])(typeof|instanceof|void|delete)\s+(\+*\-*[\$\w\.])/g,
             before: /(\+\+|\-\-|\!|\~)\s*([\$\w])/g,
             after: /([\$\w\.])\s*(\+\+|\-\-)/g,
             error: /(.*)(\+\+|\-\-|\+|\-)(.*)/g
         },
-        replaceWords = /(@\d+L\d+P\d+O?\d*::)?(return|else)\s*(\s|;|___boundary_[A-Z0-9_]{36}_(\d+)_as_([a-z]+)___)/g,
+        replaceWords = /(@\d+L\d+P\d+O?\d*:::)?(return|else|try)\s*(\s|;|___boundary_[A-Z0-9_]{36}_(\d+)_as_([a-z]+)___)/g,
         replaceExpRegPattern = {
-            await: /^((\s*@\d+L\d+P0::)*\s*(@\d+L\d+P0*)::(\s*))?"await"\s*/,
+            await: /^((\s*@\d+L\d+P0:::)*\s*(@\d+L\d+P0*):::(\s*))?"await"\s*/,
             using: /^\s*use\s+/g,
-            namespace: /((@\d+L\d+P0)::)?(\s*)namespace\s+([\$\w\.]+)\s*;*/g,
+            namespace: /((@\d+L\d+P0):::)?(\s*)namespace\s+([\$\w\.]+)\s*(;|\r|\n)/g,
             // 位置是在replace usings 和 strings 之后才tidy的，所以还存在后接空格
-            use: /(@\d+L\d+P\d+::)\s*use\s+([\$\w\.\/\\]+(\s+as\s+@\d+L\d+P\d+::\s*[\$\w]+)?(\s*,@\d+L\d+P\d+::\s*[\$\w]+)*(\[@\d+L\d+P\d+::\s*\]\s*)?)[;\r\n]/g,
+            use: /(@\d+L\d+P\d+:::)\s*use\s+([\$\w\.\/\\]+(\s+as\s+@\d+L\d+P\d+:::\s*[\$\w]+)?(\s*,@\d+L\d+P\d+:::\s*[\$\w]+)*(\[@\d+L\d+P\d+:::\s*\]\s*)?)[;\r\n]/g,
             include: /\s*@include\s+[\$\w\.\s\/\\]+?[;\r\n]+/g,
 
             return: /[\s;\r\n]+$/g,
-            extends: /(@\d+L\d+P\d+O*\d*::)?((ns|namespace|stroe|extends)\s+[\$\w\.]+\s*\{[^\{\}]*?\})/g,
-            class: /(@\d+L\d+P\d+O*\d*::)?((class|expands)\s+([\$\w\.]+\s+)?(extends\s+[\$\w\.]+\s*)?\{[^\{\}]*?\})/g,
-            fnlike: /(@\d+L\d+P\d+O*\d*::)?(^|(var|public|let|function|def)\s+)?([\$\w]*\s*\([^\(\)]*\))\s*\{([^\{\}]*?)\}/g,
-            parentheses: /(@\d+L\d+P\d+O*\d*::)?\(\s*([^\(\)]*?)\s*\)/g,
-            arraylike: /(@\d+L\d+P\d+O*\d*::)?\[(\s*[^\[\]]*?)\s*\]/g,
-            call: /(@\d+L\d+P\d+O*\d*::)?((new)\s+([\$\w\.]+)|(\.)?([\$\w]+))\s*(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)\s*([^\$\w\s\{]|[\r\n].|\s*___boundary_[A-Z0-9_]{36}_\d+_as_array___|\s*___boundary_\d+_as_operator___|$)/g,
-            callschain: /\s*\.___boundary_[A-Z0-9_]{36}_(\d+)_as_method___((@\d+L\d+P\d+O*\d*::)?\.___boundary_[A-Z0-9_]{36}_\d+_as_method___)*/g,
+            extends: /(@\d+L\d+P\d+O*\d*:::)?((ns|namespace|store|extends)\s+[\$\w\.]+\s*\{[^\{\}]*?\})/g,
+            class: /(@\d+L\d+P\d+O*\d*:::)?((class|expands)\s+([\$\w\.]+\s+)?(extends\s+[\$\w\.]+\s*)?\{[^\{\}]*?\})/g,
+            fnlike: /(@\d+L\d+P\d+O*\d*:::)?(^|(function|def)\s+)?([\$\w]*\s*\([^\(\)]*\))\s*\{([^\{\}]*?)\}/g,
+            parentheses: /(@\d+L\d+P\d+O*\d*:::)?\(\s*([^\(\)]*?)\s*\)/g,
+            arraylike: /(@\d+L\d+P\d+O*\d*:::)?\[(\s*[^\[\]]*?)\s*\]/g,
+            call: /(@\d+L\d+P\d+O*\d*:::)?((new)\s+([\$\w\.]+)|(\.)?([\$\w]+))\s*(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)\s*([^\$\w\s\{]|[\r\n].|\s*___boundary_[A-Z0-9_]{36}_\d+_as_array___|\s*@boundary_\d+_as_operator::|$)/g,
+            callschain: /\s*\.___boundary_[A-Z0-9_]{36}_(\d+)_as_method___((@\d+L\d+P\d+O*\d*:::)?\.___boundary_[A-Z0-9_]{36}_\d+_as_method___)*/g,
             arrowfn: /(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)\s*(->|=>)\s*([^,;\r\n]+)\s*(,|;|\r|\n|$)/g,
-            closure: /((@\d+L\d+P\d+O*\d*::)?@*[\$\w]+|\))?(@\d+L\d+P\d+O*\d*::)?\s*\{(\s*[^\{\}]*?)\s*\}/g,
-            expression: /(@\d+L\d+P\d+O*\d*::)?(if|for|while|switch|with|catch|each)\s*(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)\s*(___boundary_[A-Z0-9_]{36}_(\d+)_as_closure___)/g
+            closure: /((@\d+L\d+P\d+O*\d*:::)?@*[\$\w]+|\))?(@\d+L\d+P\d+O*\d*:::)?\s*\{(\s*[^\{\}]*?)\s*\}/g,
+            expression: /(@\d+L\d+P\d+O*\d*:::)?(if|for|while|switch|with|catch|each)\s*(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)\s*(___boundary_[A-Z0-9_]{36}_(\d+)_as_closure___)/g
         },
         matchExpRegPattern = {
             string: /(\/|\#|`|"|')([\*\/\=])?/,
             strings: {
                 // 位置是在replace usings 和 strings 之后才tidy的，所以还存在后接空格
-                '/': /(\s*@\d+L\d+P\d+O?\d*::\s*)?(\/[^\/\r\n]+\/[img]*)(\s*)(\sin\s|___boundary_\d+_as_(propname|preoperator|operator|aftoperator|comments)___|([\$\w])|[^\$\w]|$)/,
-                '`': /(\s*@\d+L\d+P\d+O*\d*::\s*)?(`[^`]*`)(\s*)(\sin\s|___boundary_\d+_as_(propname|preoperator|operator|aftoperator|comments)___|([\$\w])|[^\$\w]|$|$)/,
-                '"': /(\s*@\d+L\d+P\d+O*\d*::\s*)?("[^\"\r\n]*")(\s*)(\sin\s|___boundary_\d+_as_(propname|preoperator|operator|aftoperator|comments)___|([\$\w])|[^\$\w]|$)/,
-                "'": /(\s*@\d+L\d+P\d+O*\d*::\s*)?('[^\'\r\n]*')(\s*)(\sin\s|___boundary_\d+_as_(propname|preoperator|operator|aftoperator|comments)___|([\$\w])|[^\$\w]|$)/
+                '/': /(\s*@\d+L\d+P\d+O?\d*:::\s*)?(\/[^\/\r\n]+\/[img]*)(\s+in\s|\s*@boundary_\d+_as_(preoperator|operator|aftoperator|comments)::|\s*[\r\n]|(\s*[\$\w])|\s*[^\$\w]|\s*$)/,
+                '`': /(\s*@\d+L\d+P\d+O*\d*:::\s*)?(`[^`]*`)(\s+in\s|\s*@boundary_\d+_as_(preoperator|operator|aftoperator|comments)::|\s*[\r\n]|(\s*[\$\w])|\s*[^\$\w]|\s*$)/,
+                '"': /(\s*@\d+L\d+P\d+O*\d*:::\s*)?("[^\"\r\n]*")(\s+in\s|\s*@boundary_\d+_as_(preoperator|operator|aftoperator|comments)::|\s*[\r\n]|(\s*[\$\w])|\s*[^\$\w]|\s*$)/,
+                "'": /(\s*@\d+L\d+P\d+O*\d*:::\s*)?('[^\'\r\n]*')(\s+in\s|\s*@boundary_\d+_as_(preoperator|operator|aftoperator|comments)::|\s*[\r\n]|\s*([\$\w])|\s*[^\$\w]|\s*$)/
             },
             index: /(\d+)_as_([a-z]+)/,
             index3: /^_(\d+)_as_([a-z]+)___([\s\S]*)$/,
@@ -105,9 +105,9 @@
             call: /([\$\w][\$\w\.]*)\s*___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___/,
             arrowfn: /(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)\s*(->|=>)\s*([^,;\r\n]+)/,
 
-            objectattr: /^\s*(@\d+L\d+P\d+O?\d*::)?((([\$\w]+)))\s*(\:*)([\s\S]*)$/,
-            classelement: /^\s*(@\d+L\d+P\d+O?\d*::)?((public|static|set|get|om)\s+)?([\$\w]*)\s*(\=*)([\s\S]*)$/,
-            travelargs: /^((@\d+L\d+P\d+O*\d*::)?[\$a-zA-Z_][\$\w\.-]+)\s+as\s(@\d+L\d+P\d+O*\d*::)([\$\w]+)(\s*,((@\d+L\d+P\d+O*\d*::)([\$\w]*)))?/
+            objectattr: /^\s*(@\d+L\d+P\d+O?\d*:::)?((([\$\w]+)))\s*(\:*)([\s\S]*)$/,
+            classelement: /^\s*(@\d+L\d+P\d+O?\d*:::)?((public|static|set|get|om)\s+)?([\$\w]*)\s*(\=*)([\s\S]*)$/,
+            travelargs: /^((@\d+L\d+P\d+O*\d*:::)?[\$a-zA-Z_][\$\w\.-]+)\s+as\s(@\d+L\d+P\d+O*\d*:::)([\$\w]+)(\s*,((@\d+L\d+P\d+O*\d*:::)([\$\w]*)))?/
         },
         boundaryMaker = (): string => {
             let radix = 36;
@@ -147,9 +147,9 @@
         tess = {}
         constructor(input: string, toES6: boolean = false, run: boolean = false) {
             this.uid = boundaryMaker();
-            this.markPattern = new RegExp('___boundary_(\\\d+)_as_(mark)___', 'g');
-            this.trimPattern = new RegExp('(___boundary_' + this.uid + '_(\\\d+)_as_(string|pattern|template)___|___boundary_(\\\d+)_as_(propname)___)', 'g');
-            this.lastPattern = new RegExp('(___boundary_' + this.uid + '_(\\\d+)_as_(string|pattern|template)___|___boundary_(\\\d+)_as_(propname|preoperator|operator|aftoperator|comments)___)', 'g');
+            this.markPattern = new RegExp('@boundary_(\\\d+)_as_(mark)::', 'g');
+            this.trimPattern = new RegExp('(___boundary_' + this.uid + '_(\\\d+)_as_(string|pattern|template)___|___boundary_(\\\d+)_as_propname___)', 'g');
+            this.lastPattern = new RegExp('(___boundary_' + this.uid + '_(\\\d+)_as_(string|pattern|template)___|___boundary_(\\\d+)_as_propname___|@boundary_(\\\d+)_as_(preoperator|operator|aftoperator|comments)::)', 'g');
             this.input = input;
             this.output = undefined;
             this.replacements = [['{}'], ['/='], ['/'], [' +'], [' -']];
@@ -191,13 +191,13 @@
                     if (element === ',' || element === ';' || element === '{' || element === '[' || element === '(' || element === '}' || element === ' as ' || element === '->' || element === '=>') {
                         newline.push(element);
                     } else {
-                        newline.push('@0L' + l + 'P' + length + '::' + element);
+                        newline.push('@0L' + l + 'P' + length + ':::' + element);
                     }
                     length += element.length;
                 }
                 positions.push(newline);
             }
-            // positions[0][0] = positions[0][0].replace('@0L0P0::', '');
+           
             let newlines = positions.map((line) => {
                 return line.join("");
             })
@@ -214,7 +214,7 @@
             let on = true;
             while (on) {
                 on = false;
-                string = string.replace(/(@\d+L\d+P\d+O?\d*::\s*)+(@\d+L\d+P0::)/g, (match: string, last: string, newline: string) => {
+                string = string.replace(/(@\d+L\d+P\d+O?\d*:::\s*)+(@\d+L\d+P0:::)/g, (match: string, last: string, newline: string) => {
                     // console.log(match);
                     on = true;
                     return "\r\n" + newline;
@@ -223,25 +223,25 @@
             on = true;
             while (on) {
                 on = false;
-                string = string.replace(/[\r\n]*(@\d+L\d+P)0::(\s+)/g, (match, pre, space) => {
+                string = string.replace(/[\r\n]*(@\d+L\d+P)0:::(\s+)/g, (match, pre, space) => {
                     // console.log(pre, space);
                     on = true;
-                    return "\r\n" + pre + space.length + 'O0::';
+                    return "\r\n" + pre + space.length + 'O0:::';
                 });
             }
             on = true;
             while (on) {
                 on = false;
-                string = string.replace(/(@\d+L\d+P)(\d+)::(\s+)/g, (match, pre, num, space) => {
+                string = string.replace(/(@\d+L\d+P)(\d+):::(\s+)/g, (match, pre, num, space) => {
                     // console.log(pre, num, space);
                     on = true;
-                    return pre + (parseInt(num) + space.length) + 'O' + num + '::';
+                    return pre + (parseInt(num) + space.length) + 'O' + num + ':::';
                 });
             }
             on = true;
             while (on) {
                 on = false;
-                string = string.replace(/(\{|\[|\(|\)|\]|\})\s*@\d+L\d+P\d+O?\d*::\s*(\{|\)|\]|\})/g, (match: string, before: string, atfer: string) => {
+                string = string.replace(/(\{|\[|\(|\)|\]|\})\s*@\d+L\d+P\d+O?\d*:::\s*(\{|\)|\]|\})/g, (match: string, before: string, atfer: string) => {
                     // console.log(match);
                     on = true;
                     return before + atfer;
@@ -250,7 +250,7 @@
             on = true;
             while (on) {
                 on = false;
-                string = string.replace(/@\d+L\d+P([1-9]|\d\d+)::\s*(\)|\]|\})/g, (match: string, posi: string, panbrackets: string) => {
+                string = string.replace(/@\d+L\d+P([1-9]|\d\d+):::\s*(\)|\]|\})/g, (match: string, posi: string, panbrackets: string) => {
                     // console.log(match);
                     on = true;
                     return panbrackets;
@@ -259,7 +259,7 @@
             on = true;
             while (on) {
                 on = false;
-                string = string.replace(/(\s*@\d+L\d+P\d+O?\d*::)+(,|;)/g, (match: string, posi: string, panstop: string) => {
+                string = string.replace(/(\s*@\d+L\d+P\d+O?\d*:::)+(,|;)/g, (match: string, posi: string, panstop: string) => {
                     // console.log(match);
                     on = true;
                     return panstop;
@@ -291,7 +291,7 @@
                         if (gap) {
                             this.namespace_posi += 'O' + gap.length;
                         }
-                        // console.log('namespace:' + namespace, this.namespace_posi);
+                        console.log('namespace:' + namespace, this.namespace_posi);
                     }
                     return '';
                 });
@@ -304,7 +304,7 @@
             }
             string = this.tidy(string);
             // console.log(string);
-            string = string.replace(/(@\d+L\d+P\d+O?\d*::)?((public|static|set|get|om)\s+)?___boundary_[A-Z0-9_]{36}_(\d+)_as_string___\s*(\:|\(|\=)/g, (match, posi, desc, type, index, after) => {
+            string = string.replace(/(@\d+L\d+P\d+O?\d*:::)?((public|static|set|get|om)\s+)?___boundary_[A-Z0-9_]{36}_(\d+)_as_string___\s*(\:|\(|\=)/g, (match, posi, desc, type, index, after) => {
                 // console.log(posi, desc, this.replacements[index][1]);
                 if (this.replacements[index][1]) {
                     return /*"\r\n" + */this.replacements[index][1] + '___boundary_' + index + '_as_propname___' + after;
@@ -326,8 +326,8 @@
             string = this.replaceParentheses(string);
             // console.log(string);
             string = string
-                .replace(/@\d+L\d+P\d+O?\d*::(___boundary_|$)/g, "$1")
-                .replace(/@\d+L\d+P\d+O?\d*::(___boundary_|$)/g, "$1")
+                .replace(/@\d+L\d+P\d+O?\d*:::(___boundary_|$)/g, "$1")
+                .replace(/@\d+L\d+P\d+O?\d*:::(___boundary_|$)/g, "$1")
                 .replace(/\s*(,|;)\s*/g, "$1\r\n");
             // console.log(string);
             // console.log(this.replacements);
@@ -349,12 +349,13 @@
             string = string.replace(/\\+(`|")/g, (match: string) => {
                 let index = this.replacements.length;
                 this.replacements.push([match]);
-                return '___boundary_' + index + '_as_mark___';
-            }).replace(/\\[^\r\n](@\d+L\d+P\d+O?\d*::)*/g, (match: string) => {
+                return '@boundary_' + index + '_as_mark::';
+            }).replace(/\\[^\r\n](@\d+L\d+P\d+O?\d*:::)*/g, (match: string) => {
                 let index = this.replacements.length;
                 this.replacements.push([match]);
-                return '___boundary_' + index + '_as_mark___';
+                return '@boundary_' + index + '_as_mark::';
             });
+            // console.log(string);
 
             let count: number = 0;
             let matches: any = string.match(matchExpRegPattern.string);
@@ -377,7 +378,7 @@
                                     // console.log(true);
                                     string = string.replace(/\/\*{1,2}[\s\S]*?(\*\/|$)/, (match) => {
                                         this.replacements.push([match]);
-                                        return '___boundary_' + index + '_as_comments___';
+                                        return '@boundary_' + index + '_as_comments::';
                                     });
                                 } else {
                                     string = string.replace(/\/\*{1,2}[\s\S]*?(\*\/|$)/, "");
@@ -389,26 +390,26 @@
                                 matches = string.match(matchExpRegPattern.string);
                                 continue;
                             case '=':
-                                string = string.replace(matches[0], '___boundary_1_as_operator___');
+                                string = string.replace(matches[0], '@boundary_1_as_operator::');
                                 matches = string.match(matchExpRegPattern.string);
                                 continue;
                         }
                         break;
                 }
                 let match: any = string.match(matchExpRegPattern.strings[matches[1]]);
-                if (match && (matches.index >= match.index) && !match[6]) {
+                if (match && (matches.index >= match.index) && !match[5]) {
                     // console.log(matches, match);
                     if (match[1]) {
-                        this.replacements.push([match[2].replace(/@\d+L\d+P\d+O?\d*::/g, ''), match[1].trim(), match[4]]);
+                        this.replacements.push([match[2].replace(/@\d+L\d+P\d+O?\d*:::/g, ''), match[1].trim(), match[4]]);
                     } else {
-                        this.replacements.push([match[2].replace(/@\d+L\d+P\d+O?\d*::/g, ''), void 0, match[4]]);
+                        this.replacements.push([match[2].replace(/@\d+L\d+P\d+O?\d*:::/g, ''), void 0, match[4]]);
                     }
-                    string = string.replace(match[0], '___boundary_' + this.uid + '_' + index + stringas[matches[1]] + match[3] + match[4]);
+                    string = string.replace(match[0], '___boundary_' + this.uid + '_' + index + stringas[matches[1]] + match[3]);
                 } else if (matches[0] === '/') {
-                    string = string.replace(matches[0], '___boundary_2_as_operator___');
+                    string = string.replace(matches[0], '@boundary_2_as_operator::');
                 } else {
                     // console.log(string, matches, match);
-                    console.log(matches, match);
+                    // console.log(matches, match);
                     throw 'tangram.js sugar Error: Unexpected `' + matches[1] + '` in `' + this.decode(string.substr(matches.index, 256)) + '`';
                 }
                 matches = string.match(matchExpRegPattern.string);
@@ -521,7 +522,7 @@
             return string.replace(replaceExpRegPattern.closure, (match: string, word: string, posi2, posi3, closure: string) => {
                 // console.log(match, '|', word, '|', posi2, '|', posi3, '|', closure);
                 if (!word && match.match(/\s*\{\s*\}/)) {
-                    return '___boundary_0_as_mark___';
+                    return '@boundary_0_as_mark::';
                 }
                 closure = this.replaceParentheses(closure);
                 // closure = this.replaceOperators(closure, false);
@@ -551,7 +552,7 @@
                     // console.log(posi2, posi3);
                     let index2 = this.replacements.length;
                     this.replacements.push(['return ', posi2]);
-                    return '___boundary_' + index2 + '_as_preoperator___ ___boundary_' + this.uid + '_' + index + '_as_object___';
+                    return '@boundary_' + index2 + '_as_preoperator::___boundary_' + this.uid + '_' + index + '_as_object___';
                 }
                 if (
                     (word && (word != 'return')) ||
@@ -566,20 +567,8 @@
                 return '___boundary_' + this.uid + '_' + index + '_as_object___';
             });
         }
-        replaceWords(string: string) {
-            return string.replace(replaceWords, (match, posi, word, after) => {
-                let index = this.replacements.length;
-                if (after === ';') {
-                    this.replacements.push([word, posi && posi.trim()]);
-                    return ';___boundary_' + index + '_as_operator___' + after;
-                }
-                this.replacements.push([word + ' ', posi && posi.trim()]);
-                return ';___boundary_' + index + '_as_operator___';
-            })
-        }
         replaceParentheses(string: string): string {
             string = this.replaceWords(string);
-            // string = this.replaceOperators(string, false);
             let left = string.indexOf('(');
             let right = string.indexOf(')');
             let count: number = 0;
@@ -588,7 +577,7 @@
                 // console.log(left, right);
                 if (left < right) {
                     string = string.replace(replaceExpRegPattern.parentheses, (match, posi, paramslike: string) => {
-                        // paramslike = this.replaceOperators(paramslike, false);
+                        paramslike = this.replaceOperators(paramslike, false);
                         paramslike = this.replaceCalls(paramslike);
                         paramslike = this.replaceArrowFunctions(paramslike);
                         let index = this.replacements.length;
@@ -597,7 +586,6 @@
                     });
                     // console.log(string);
                     string = this.recheckFunctionsLike(string);
-                    string = this.replaceOperators(string, false);
                     left = string.indexOf('(');
                     right = string.indexOf(')');
                 } else {
@@ -614,10 +602,23 @@
                 var index = right;
                 throw 'tangram.js sugar Error: Unexpected `)` in `' + this.decode(string.substr(index, 256)) + '`';
             }
+            string = this.replaceOperators(string, false);
             string = this.replaceCalls(string);
-            // string = this.replaceOperators(string, false);
             string = this.replaceArrowFunctions(string);
             return string;
+        }
+        replaceWords(string: string) {
+            // console.log(string);
+            return string.replace(replaceWords, (match, posi, word, after) => {
+                let index = this.replacements.length;
+                // console.log(word, after);
+                if (after === ';') {
+                    this.replacements.push([word, posi && posi.trim()]);
+                    return ';@boundary_' + index + '_as_preoperator::;';
+                }
+                this.replacements.push([word + ' ', posi && posi.trim()]);
+                return ';@boundary_' + index + '_as_preoperator::' + after;
+            })
         }
         recheckFunctionsLike(string: string): string {
             while (string.match(replaceExpRegPattern.expression)) {
@@ -645,7 +646,7 @@
                     on = true;
                     let index = this.replacements.length;
                     this.replacements.push([' ' + word + ' ']);
-                    return '___boundary_' + index + '_as_operator___';
+                    return '@boundary_' + index + '_as_operator::';
                 });
             }
 
@@ -657,14 +658,15 @@
                     // console.log(match, before, word);
                     on = true;
                     let index = this.replacements.length;
-                    if ((word === 'typeof') || (word === 'instanceof')) {
+                    if (word === 'instanceof') {
                         // console.log(match, before, word)
                         this.replacements.push([' ' + word + ' ']);
                         before = before.trim()
+                        return before + '@boundary_' + index + '_as_operator::' + right;
                     } else {
                         this.replacements.push([word + ' ']);
                     }
-                    return before + '___boundary_' + index + '_as_preoperator___' + right;
+                    return before + '@boundary_' + index + '_as_preoperator::' + right;
                 });
             }
 
@@ -678,15 +680,15 @@
                     on = true;
                     if (sign) {
                         let _index = sign === '+' ? 3 : 4;
-                        right = right.replace(sign, '___boundary_' + _index + '_as_preoperator___');
+                        right = right.replace(sign, '@boundary_' + _index + '_as_preoperator::');
                     }
                     let index = this.replacements.length;
                     if (toMin) {
                         this.replacements.push([op + '=']);
                     } else {
-                        this.replacements.push([' ' + op + '= ']);
+                        this.replacements.push([' ' + op + '= ', posi]);
                     }
-                    return left + '___boundary_' + index + '_as_operator___' + right;
+                    return left + '@boundary_' + index + '_as_operator::' + right;
                 });
             }
 
@@ -698,47 +700,49 @@
                     on = true;
                     if (sign) {
                         let _index = sign === '+' ? 3 : 4;
-                        right = right.replace(sign, '___boundary_' + _index + '_as_preoperator___');
+                        right = right.replace(sign, '@boundary_' + _index + '_as_preoperator::');
                     }
                     let index = this.replacements.length;
                     if (toMin) {
                         this.replacements.push([op]);
                     } else {
-                        this.replacements.push([' ' + op + ' ']);
+                        this.replacements.push([' ' + op + ' ', posi]);
                     }
-                    return left + '___boundary_' + index + '_as_operator___' + right;
+                    return left + '@boundary_' + index + '_as_operator::' + right;
                 });
             }
 
             on = true;
             while (on) {
                 on = false;
+                // console.log(string);
                 string = string.replace(operators.op, (match: string, left: string, posi: string, op: string, right: string, sign: string) => {
                     // console.log(match);
                     on = true;
                     if (sign) {
                         let _index = sign === '+' ? 3 : 4;
-                        right = right.replace(sign, '___boundary_' + _index + '_as_preoperator___');
+                        right = right.replace(sign, '@boundary_' + _index + '_as_preoperator::');
                     }
                     let index = this.replacements.length;
                     if (toMin) {
                         this.replacements.push([op]);
                     } else {
-                        this.replacements.push([' ' + op + ' ']);
+                        this.replacements.push([' ' + op + ' ', posi]);
                     }
-                    return left + '___boundary_' + index + '_as_operator___' + right;
+                    // console.log(left + '@boundary_' + index + '_as_operator::' + right);
+                    return left + '@boundary_' + index + '_as_operator::' + right;
                 });
             }
 
             on = true;
             while (on) {
                 on = false;
-                string = string.replace(operators.sign, (match: string, before: string, posi: string, sign: string, number: string) => {
+                string = string.replace(operators.sign, (match: string, before: string, sign: string, number: string) => {
                     on = true;
                     // let index = this.replacements.length;
                     // this.replacements.push(' ' + sign);
                     let index = sign === '+' ? 3 : 4;
-                    return before + '___boundary_' + index + '_as_preoperator___' + number;
+                    return before + '@boundary_' + index + '_as_preoperator::' + number;
                 });
             }
 
@@ -749,7 +753,7 @@
                     on = true;
                     let index = this.replacements.length;
                     this.replacements.push([op]);
-                    return '___boundary_' + index + '_as_preoperator___' + number;
+                    return '@boundary_' + index + '_as_preoperator::' + number;
                 });
             }
 
@@ -760,11 +764,11 @@
                     on = true;
                     let index = this.replacements.length;
                     this.replacements.push([op]);
-                    return number + '___boundary_' + index + '_as_aftoperator___';
+                    return number + '@boundary_' + index + '_as_aftoperator::';
                 });
             }
             return string.replace(operators.error, (match: string, before: string, op: string, after: string) => {
-                console.log(string, match);
+                // console.log(string, match);
                 throw 'tangram.js sugar Error: Unexpected `' + op + '` in `' + this.decode(match) + '`';
             });
         }
@@ -782,6 +786,8 @@
                     this.replacements.push([callname + args, posi && posi.trim()]);
                     if (dot) {
                         return '.___boundary_' + this.uid + '_' + index + '_as_method___' + after;
+                    } else if (callname==='if'){
+                        return '___boundary_' + this.uid + '_' + index + '_as_if___' + after;
                     }
                     return '___boundary_' + this.uid + '_' + index + '_as_call___' + after;
                 }
@@ -816,7 +822,7 @@
                                 body = code.replace(/^\(\s*(.*?)\s*\)$/, (match: string, code: string) => {
                                     let index = this.replacements.length;
                                     this.replacements.push(['return ', posi]);
-                                    return '___boundary_' + index + '_as_preoperator___ ' + code;
+                                    return '@boundary_' + index + '_as_preoperator:: ' + code;
                                 });
                             } else {
                                 // console.log(code);
@@ -825,7 +831,7 @@
                         } else {
                             let index = this.replacements.length;
                             this.replacements.push(['return ', void 0]);
-                            body = '___boundary_' + index + '_as_preoperator___ ' + body;
+                            body = '@boundary_' + index + '_as_preoperator:: ' + body;
                             // console.log(body);
                         }
                         let index = this.replacements.length;
@@ -863,33 +869,63 @@
         getLines(string: string, vars: any): object[] {
             // console.log(string);
             string = string
-                .replace(/::(var|let|public)\s+(@\d+L\d+P(\d+O)?0::)/g, '::$1 ')
-                .replace(/([^,;\s])\s*(@\d+L\d+P(\d+O)?0::[^\.\(\[)])/g, '$1;$2')
-                .replace(/(___boundary_[A-Z0-9_]{36}_\d+_as_(class|function)___)([\r\n]+)/g, "$1;\r\n");
+                .replace(/:::(var|let|public)\s+(@\d+L\d+P(\d+O)?0:::)/g, ':::$1 ')
+                .replace(/([^,;\s])\s*(@\d+L\d+P(\d+O)?0:::[^\.\(\[)])/g, '$1;$2')
+                .replace(/(___boundary_[A-Z0-9_]{36}_\d+_as_(class|function)___)[\r\n]+/g, "$1;\r\n")
+                .replace(/(___boundary_[A-Z0-9_]{36}_\d+_as_(if)___)[;\s]+/g, "$1 ");
             const sentences: string[] = string.split(/\s*;+\s*/);
             let lines: object[] = [];
-            // console.log(sentences);
+            // console.log(string, sentences);
             for (let s = 0; s < sentences.length; s++) {
                 const sentence = sentences[s].trim();
-                // console.log(line);
+                // console.log(sentence);
                 if (sentence) {
-                    const array = sentence.split(/::(var|let|public)\s+/);
-                    // console.log(array);
+                    const array = sentence.split(/:::(var|let|public)\s+/);
+                    // console.log(array, sentence);
                     // continue;
+                    // if(1)var a =2;
                     if (array.length === 1) {
                         let definition = sentence.match(/(^|\s+)(var|let|public)(\s+|$)/);
                         if (definition) {
-                            // console.log(definition);
-                            throw 'tangram.js sugar Error: Unexpected `' + definition + '` in `' + this.decode(sentence) + '`.';
+                            let definitions = sentence.match(/(@boundary_(\d+)_as_preoperator::|___boundary_[A-Z0-9_]{36}_\d+_as_(if|closure)___)\s*(var|let|public)\s+([\s\S]+)/);
+                            if (definitions){
+                                if (!definitions[2] || this.replacements[definitions[2]][0]==='else '){
+                                    this.pushSentenceToLines(lines, definitions[1], 'inline');
+                                    var clauses = definitions[5].split(/,\s*(@\d+L\d+P\d+O?\d*:::)/);
+                                    clauses.unshift(undefined);
+                                    // console.log(definitions[5], clauses);
+                                    for (let c = 0; c < clauses.length; c += 2) {
+                                        if(c){
+                                            _symbol = '';
+                                        }else{
+                                            if (this.toES6 && definitions[4] !== 'public') {
+                                                var _symbol = definitions[4];
+                                            } else {
+                                                var _symbol = 'var';
+                                            }
+                                        }
+                                        if (c === clauses.length-2){
+                                            var endmark = ';';
+                                        }else{
+                                            var endmark = ',';
+                                        }
+                                        this.pushVariablesToLine(lines, vars, clauses[c + 1], definitions[4], clauses[c], 'inline', _symbol, endmark);
+                                    }
+                                    continue;
+                                }
+                            }
+                            // console.log(sentence);
+                            throw 'tangram.js sugar Error: Unexpected `' + definition[1] + '` in `' + this.decode(sentence) + '`.';
                         } else {
                             // console.log(sentence);
                             this.pushSentenceToLines(lines, sentence, 'block');
                         }
                     } else if (array.length === 3) {
-                        var clauses = array[2].split(/,\s*(@\d+L\d+P\d+O?\d*::)/);
+                        var clauses = array[2].split(/,\s*(@\d+L\d+P\d+O?\d*:::)/);
                         clauses.unshift(array[0]);
+                        // console.log(array, clauses);
                         for (let c = 0; c < clauses.length; c += 2) {
-                            this.pushVariablesToLine(lines, vars, clauses[c], clauses[c + 1], array[1]);
+                            this.pushVariablesToLines(lines, vars, clauses[c], clauses[c + 1], array[1]);
                         }
                         // console.log(spilitarray, sentences);
                     } else {
@@ -904,20 +940,28 @@
         }
         pushSentenceToLines(lines: any[], code: string, display: string) {
             value = code.trim();
-            if (value && !value.match(/^@\d+L\d+P\d+O?\d*::$/)) {
+            if (value && !value.match(/^@\d+L\d+P\d+O?\d*:::$/)) {
                 let match_as_statement = value.match(/^___boundary_[A-Z0-9_]{36}_(\d+)_as_([a-z]+)___([\r\n]+|$)/);
                 if (match_as_statement) {
-                    if (display === 'block') {
+                    if (display === 'block' && !['class', 'function', 'closure', 'if']['includes'](match_as_statement[2])) {
+                        // console.log(match_as_statement[2]);
                         value = value + ';';
                     }
+                    // console.log(this.replacements[match_as_statement[1]]);
                     lines.push({
                         type: 'line',
                         subtype: match_as_statement[2],
+                        posi: this.replacements[match_as_statement[1]][1],
                         display: display,
                         index: match_as_statement[1],
                         value: value
                     });
                 } else {
+                    // console.log(value, display === 'block');
+                    if ((display === 'block')&&!/_as_closure___$/.test(value)){
+                        value += ';';
+                    }
+                    // console.log(value);
                     let clauses = value.split(',');
                     // console.log(clauses);
                     for (let c = 0; c < clauses.length; c++) {
@@ -931,7 +975,7 @@
                             var value = element.replace(position.match, '');
                         } else {
                             var value = element.trim();
-                            let match_as_mark = value.match(/^___boundary_(\d+)_as_([a-z]+)___/);
+                            let match_as_mark = value.match(/^@boundary_(\d+)_as_([a-z]+)::/);
                             if (match_as_mark && this.replacements[match_as_mark[1]][1]) {
                                 position = this.getPosition(this.replacements[match_as_mark[1]][1]);
                                 if (position && (display === 'block')) {
@@ -939,9 +983,9 @@
                                 }
                             }
                         }
-                        if (display === 'block') {
-                            value = value + ';';
-                        }
+                        // if (display === 'block') {
+                        //     value = value + ';';
+                        // }
                         lines.push({
                             type: 'line',
                             subtype: 'sentence',
@@ -953,13 +997,18 @@
                 }
             }
         }
-        pushVariablesToLine(lines: any, vars: any, posi: string, code: string, symbol: string) {
+        pushVariablesToLines(lines: any, vars: any, posi: string, code: string, symbol: string) {
             if (code) {
                 if (this.toES6 && symbol !== 'public') {
                     var _symbol = symbol;
                 } else {
                     var _symbol = 'var';
                 }
+                this.pushVariablesToLine(lines, vars, code, symbol, posi, 'block', _symbol, ';');
+            }
+        }
+        pushVariablesToLine(lines: any, vars: any, code: string, symbol: string, posi: string = '', display: string = 'inline', _symbol: string = '', endmark: string = ',') {
+            if (code) {
                 let position = this.getPosition(posi);
                 let array = code.split(/\s*=\s*/);
                 // console.log(array);
@@ -971,22 +1020,22 @@
                 for (let index = 0; index < array.length; index++) {
                     const element = array[index].trim();
                     if (element.match(/^[\$\w]+$/)) {
-                        // console.log(element);
-                        if (vars.self[element] === void 0) {
-                            vars.self[element] = symbol;
-                        } else if (vars.self[element] === 'let' || symbol === 'let') {
-                            throw 'tangram.js sugar Error:  Variable `' + element + '` has already been declared at char ' + position.col + ' on line ' + position.line + '.';
-                        }
-                        position.head = true;
+                        // console.log(element);                    
+                        if (position && display==='block') position.head = true;
                         if (index) {
                             lines.push({
                                 type: 'line',
                                 subtype: 'assignment',
                                 posi: position,
-                                display: 'block',
-                                value: element + ' = ' + value + ';'
+                                display: display,
+                                value: element + ' = ' + value + endmark
                             });
                         } else {
+                            if (vars.self[element] === void 0) {
+                                vars.self[element] = symbol;
+                            } else if (vars.self[element] === 'let' || symbol === 'let') {
+                                throw 'tangram.js sugar Error:  Variable `' + element + '` has already been declared at char ' + position.col + ' on line ' + position.line + '.';
+                            }
                             lines.push({
                                 type: 'line',
                                 subtype: 'variable',
@@ -999,7 +1048,7 @@
                                 subtype: 'sentence',
                                 display: 'inline',
                                 posi: void 0,
-                                value: value + ';'
+                                value: value + endmark
                             });
                         }
                         value = element;
@@ -1027,15 +1076,15 @@
                             while (!statements[0].trim()) {
                                 statements.shift();
                             }
-                            // console.log(array)
+                            // console.log(statements)
                             for (let s = 0; s < statements.length; s++) {
-                                let statement = statements[s].trim();
-                                if (statement) {
+                                let statement = statements[s];
+                                if (statement.trim()) {
                                     let match_as_statement: any = statement.match(matchExpRegPattern.index3);
-                                    // console.log(matches);
+                                    // console.log(match_as_statement);
                                     if (match_as_statement) {
-                                        let tret_of_match: string = match_as_statement[3].trim();
-                                        if (tret_of_match) {
+                                        let tret_of_match: string = match_as_statement[3];
+                                        if (tret_of_match.trim() && !(tret_of_match === ';' && ['class', 'function', 'closure', 'if']['includes'](match_as_statement[2]))) {
                                             inline.push({
                                                 index: match_as_statement[1],
                                                 display: 'inline',
@@ -1043,8 +1092,8 @@
                                             });
                                             var rows = tret_of_match.split(/[\r\n]+/);
                                             for (let r = 0; r < rows.length; r++) {
-                                                const row = rows[r].trim();
-                                                if (row) {
+                                                const row = rows[r];
+                                                if (row.trim()) {
                                                     this.pushCodeToAST(inline, vars, row, false, undefined);
                                                 }
                                             }
@@ -1074,8 +1123,8 @@
                                         var rows = statements[0].split(/[\r\n]+/);
                                         // console.log(rows, array.length);
                                         for (let r = 0; r < rows.length; r++) {
-                                            const row = rows[r].trim();
-                                            if (row) {
+                                            const row = rows[r];
+                                            if (row.trim()) {
                                                 this.pushCodeToAST(inline, vars, row, isblock, (r === 0) && lines[index].posi);
                                             }
                                         }
@@ -1114,7 +1163,7 @@
                                 const element = array[index].trim();
                                 if (element) {
                                     // console.log(element);
-                                    let match = element.match(/^(@\d+L\d+P\d+::)\s*([\$\w]+)(\[\])?$/);
+                                    let match = element.match(/^(@\d+L\d+P\d+:::)\s*([\$\w]+)(\[\])?$/);
                                     let position = this.getPosition(match[1]);
                                     if (match[3]) {
                                         let alias = element.replace(match[0], match[2]).trim();
@@ -1141,7 +1190,6 @@
                         }
                         break;
                     default:
-                        // console.log(lines[index].display);
                         preast.push([{
                             index: lines[index].index,
                             display: lines[index].display,
@@ -1195,23 +1243,24 @@
         }
         pushBodyToAST(body: object[] = [], vars: any, code: string): object[] {
             let lines: any = code ? this.getLines(code, vars) : [];
-            // console.log(lines);
+            // console.log(code, lines);
             for (let index = 0; index < lines.length; index++) {
                 switch (lines[index].subtype) {
                     case 'sentence':
                         const line = lines[index].value.trim();
+                        // console.log(lines[index].display === 'block', line);
                         // console.log(lines[index].display);
                         this.pushSentencesToAST(body, vars, line, lines[index].display === 'block', lines[index].posi);
                         break;
 
                     case 'variable':
-                        body.push([{
+                        body.push({
                             type: 'code',
                             posi: lines[index].posi,
                             display: lines[index].display,
                             vars: vars,
-                            value: lines[index].value.trim()
-                        }]);
+                            value: lines[index].value
+                        });
                         break;
                     default:
                         body.push(this.walk({
@@ -1251,14 +1300,14 @@
         }
         pushReplacementsToAST(body: object[], vars: any, code: string, isblock: boolean, blockposi: any): object[] {
             // console.log(code);
-            code = code.trim();
-            if (code) {
+            // code = code.trim();
+            if (code.trim()) {
                 let match_as_statement: any = code.match(matchExpRegPattern.index3);
                 // console.log(code, match_as_statement, isblock, blockposi);
                 if (match_as_statement) {
                     let tret_of_match: string = match_as_statement[3].trim();
                     // console.log(code, match_as_statement, isblock, blockposi);
-                    if (tret_of_match) {
+                    if (tret_of_match && tret_of_match!==';') {
                         body.push(this.walk({
                             index: match_as_statement[1],
                             display: 'inline',
@@ -1266,8 +1315,8 @@
                         }, vars));
                         var rows = tret_of_match.split(/[\r\n]+/);
                         for (let r = 0; r < rows.length; r++) {
-                            const row = rows[r].trim();
-                            if (row) {
+                            const row = rows[r];
+                            if (row.trim()) {
                                 this.pushCodeToAST(body, vars, row, false, undefined);
                             }
                         }
@@ -1282,8 +1331,8 @@
                     var rows = code.split(/[\r\n]+/);
                     // console.log(array);
                     for (let r = 0; r < rows.length; r++) {
-                        const row = rows[r].trim();
-                        if (row) {
+                        const row = rows[r];
+                        if (row.trim()) {
                             this.pushCodeToAST(body, vars, row, isblock, (r === 0) && blockposi);
                         }
                     }
@@ -1295,7 +1344,7 @@
             let display = isblock ? 'block' : 'inline';
             let position = this.getPosition(code) || blockposi;
             if (position) {
-                var element = code.replace(position.match, '').trim();
+                var element = code.replace(position.match, '');
                 if (position.head) {
                     if (element.indexOf('.') === 0) {
                         display = 'member';
@@ -1323,6 +1372,8 @@
                     return this.walkArray(element.index, element.display, vars);
                 case 'arrowfn':
                     return this.walkArrowFn(element.index, element.display, vars);
+                case 'if':
+                    // console.log(element);
                 case 'call':
                 case 'method':
                 case 'construct':
@@ -1502,7 +1553,7 @@
                 position = this.getPosition(this.replacements[index][1]),
                 calls = [];
                 
-                code.replace(/(@\d+L\d+P\d+O*\d*::)?\.___boundary_[A-Z0-9_]{36}_(\d+)_as_method___/g, (match, posi, _index)=>{
+                code.replace(/(@\d+L\d+P\d+O*\d*:::)?\.___boundary_[A-Z0-9_]{36}_(\d+)_as_method___/g, (match, posi, _index)=>{
                     // console.log(match, posi, _index);
                     if (posi){
                         this.replacements[_index][1] = posi;
@@ -1610,14 +1661,11 @@
                     fix_map: {},
                     type: 'fnbody'
                 };
+                var body = this.pushBodyToAST([], localvars, matches[4]);
+                // console.log(localvars);
                 vars = localvars;
-                var body = this.checkFnBody(localvars, {
-                    keys: [],
-                    keysArray: void 0,
-                    vals: []
-                }, matches[4]);
             } else {
-                if (matches[2]) {
+                if ((matches[1] === 'store')|| matches[2]) {
                     subtype = 'extns';
                 }
                 var body = this.checkObjMember(vars, matches[4]);
@@ -1656,7 +1704,7 @@
                             const match = firstSentence.match(/^\s*(var|let)\s+([\$\w]+\s*=.+)$/);
                             // console.log(firstSentence, match);
                             if (match) {
-                                this.pushVariablesToLine([], localvars, '', match[2], match[1]);
+                                this.pushVariablesToLines([], localvars, '', match[2], match[1]);
                             }
                             // console.log(localvars);
                         }
@@ -1770,6 +1818,11 @@
                 type: 'fnbody'
             };
             let args: any = this.checkArgs(matches[4], localvars);
+            if (display==='block'){
+                if(!fname){
+                    fname = 'default_function_name';
+                }
+            }
             return {
                 type: type,
                 vars: localvars,
@@ -1970,7 +2023,7 @@
                 if (element) {
                     var elArr = element.split('___boundary_' + this.uid);
                     if (elArr[0] && elArr[0].trim()) {
-                        var match_0 = elArr[0].trim().match(matchExpRegPattern.objectattr);
+                        var match_0 = elArr[0].match(matchExpRegPattern.objectattr);
                         if (match_0) {
                             if (match_0[5] != ':') {
                                 if ((elArr.length === 1)) {
@@ -2199,6 +2252,7 @@
                 case 'array':
                     this.pushArrayCodes(codes, element, layer, namespace);
                     break;
+                case 'if':
                 case 'call':
                 case 'method':
                 case 'construct':
@@ -2364,7 +2418,7 @@
                 }
             }
             // console.log(element.display);
-            if (element.display === 'block') {
+            if (element.display === 'block'&&element.type!=='if') {
                 codes.push(');');
             } else {
                 codes.push(')');
@@ -2644,17 +2698,29 @@
         }
         pushExtendsCodes(codes: string[], element: any, layer: number, namespace: string): string[] {
             let indent1 = "\r\n" + stringRepeat("\t", layer);
-            let indent2 = "\r\n" + stringRepeat("\t", layer);
+            let indent2 = "\r\n" + stringRepeat("\t", layer + 1);
+            let indent3 = "\r\n" + stringRepeat("\t", layer + 2);
             if (element.posi) {
                 var posi = this.pushPostionsToMap(element.posi);
             } else {
                 var posi = '';
             }
             if (element.subtype === 'ns') {
-                codes.push(indent2 + posi + 'pandora.ns(\'' + namespace + element.oname.trim() + '\', function () {');
+                codes.push(indent1 + posi + 'pandora.ns(\'' + namespace + element.oname.trim() + '\', function () {');
                 this.pushCodes(codes, element.vars, element.body, layer + 1, namespace + element.oname.trim() + '.');
                 // console.log(element.body);
+                let exports = [];
+                codes.push(indent2 + 'return {');
+                for (const key in element.vars.self) {
+                    if (element.vars.self.hasOwnProperty(key) && element.vars.self[key]==='public') {
+                        exports.push(key + ': ' + key);
+                    }
+                }
+                if(exports.length){
+                    codes.push(indent3 + exports.join(',' + indent3));
+                }
                 codes.push(indent2 + '}');
+                codes.push(indent1 + '}');
             } else if (element.subtype === 'extns') {
                 codes.push(indent1 + posi + 'pandora.ns(\'' + namespace + element.oname.trim() + '\', ');
                 this.pushObjCodes(codes, element, layer, namespace);
@@ -2965,11 +3031,11 @@
             let matches = string.match(/___boundary_([A-Z0-9_]{37})?(\d+)_as_[a-z]+___/);
             while (matches) {
                 // console.log(matches, this.replacements[matches[2]]);
-                string = string.replace(matches[0], this.replacements[matches[2]]).replace(/@\d+L\d+P\d+(O\d+)?:*/g, '');
+                string = string.replace(matches[0], this.replacements[matches[2]][0]).replace(/@\d+L\d+P\d+(O\d+)?:*/g, '');
                 matches = string.match(/___boundary_([A-Z0-9_]{37})?(\d+)_as_[a-z]+___/);
             }
             // console.log(string);
-            return string.replace(/(@\d+L\d+P\d+O?\d*::)/g, '');
+            return string.replace(/(@\d+L\d+P\d+O?\d*:::)/g, '');
         }
         trim(string: string): string {
             // 此处的replace在整理完成后，将进行分析归纳，最后改写为callback形式的
@@ -3002,10 +3068,9 @@
             // string = string.replace(/([^\$\w])else\s*[,;]+/g, "$1else");
             // string = string.replace(/([^\s])\s*(instanceof)\s+/g, " $1 ");
             // string = string.replace(/(,|;)?[\r\n]+(\s*)(var|delete|return)\s+/g, "$1\r\n$2$3 ");
-            // string = string.replace(/(\s*)(return)\s*([\{\(}])/g, "$1$2 $3");
+            
 
-            // 删除多余换行
-            string = string.replace(/\s*[\r\n]+([\r\n])?/g, "\r\n$1");
+            
 
             // 删除多余空白
             // string = string.replace(/\{\s+\}/g, '{}');
@@ -3013,8 +3078,34 @@
             // string = string.replace(/\(\s+\)/g, '()');
 
             // console.log(string);
-            string = this.restoreStrings(string, true);
+            // 去除多余符号
+            string = string.replace(/\s*;(\s*;)*/g, ";");
+            string = string.replace(/(\{|\[|\(|\.|\:)\s*[,;]+/g, "$1");
+            // 格式化相应符号
+            string = string.replace(/\s+(\=|\?|\:)[,;\s]*/g, " $1 ");
+            // 删除多余换行
+            string = string.replace(/\s*[\r\n]+([\r\n])?/g, "\r\n$1");
             // console.log(string);
+            // 运算符处理
+            string = string.replace(/(\s*)(@boundary_(\d+)_as_(operator|aftoperator)::)\s*/g, (match, pregap, operator, index)=>{
+                // console.log(this.replacements[index]);
+                if (this.replacements[index][1]){
+                    // console.log(this.replacements[index]);
+                    return pregap + operator;
+                }
+                return operator;
+            });
+            string = string.replace(/(@boundary_\d+_as_(preoperator)::)(\s*;+|(\s+([^;])))/g, (match, operator, word, right, afterwithgap, after) => {
+                if (after){
+                    return operator + after;
+                }
+                return operator;
+            });
+            string = this.restoreStrings(string, true);
+            // 关键字处理
+            // console.log(string);
+            
+            
 
             
             // string = string.replace(/(\(|\[)\s+([\r\n]+)/g, "$1$2");
@@ -3031,19 +3122,19 @@
                 // string = string.replace(/[;\r\n]+(\s*)(var|delete|return)\s+/g, ";\r\n$1$2 ");
 
                 //前置运算符处理
-                // string = string.replace(/[,\s]*(___boundary_\d+_as_preoperator___)[,;\s]*/g, "$1");
+                // string = string.replace(/[,\s]*(@boundary_\d+_as_preoperator::)[,;\s]*/g, "$1");
                 // string = string.replace(/((\<|\!|\>)\=*)\s+(\+|\-)\s+(\d)/g, '$1 $3$4');
 
 
                 // 中置运算符前后不能结非标量
-                // string = string.replace(/[,;\s]*(___boundary_\d+_as_operator___)[,;\s]*/g, "$1");
+                // string = string.replace(/[,;\s]*(@boundary_\d+_as_operator::)[,;\s]*/g, "$1");
                 // string = string.replace(/[,;\s]*(\=|\!|\+|\-|\*|\/|\%|\&|\^|\||<|>)[,;\s]*/g, " $1 ");
                 // string = string.replace(/\s*;+\s*(<+|\+|\-|\*|\/|>+)\s+/g, " $1 ");
                 // string = string.replace(/\s+(<+|\+|\-|\*|\/|>+)\s*;+\s*/g, " $1 ");
                 // string = string.replace(/[,;\s]*(\?)[,;\s]*/g, " $1 ");
 
                 // 后置运算符前面必须有内容
-                // string = string.replace(/[,;\s]*(___boundary_\d+_as_aftoperator___)/g, "$1");
+                // string = string.replace(/[,;\s]*(@boundary_\d+_as_aftoperator::)/g, "$1");
                 // string = string.replace(/[,;\s]*(\(|\))/g, "$1");
 
                 //去除多余符号
@@ -3078,13 +3169,13 @@
                 var pattern = this.trimPattern;
             }
             return string.replace(pattern, function () {
-                // console.log(arguments[0]);
+                // console.log(arguments);
                 // console.log(pattern, arguments[2] || arguments[4], that.replacements, that.replacements[arguments[2] || arguments[4]]);
-                return that.replacements[arguments[2] || arguments[4]][0];
+                return that.replacements[arguments[2] || arguments[4] || arguments[5]][0];
             }).replace(this.markPattern, function () {
                 // console.log(arguments[0], that.replacements[arguments[1]][1]);
                 return that.replacements[arguments[1]][0];
-            }).replace(/(@\d+L\d+P\d+O?\d*::)/g, '');
+            }).replace(/(@\d+L\d+P\d+O?\d*:::)/g, '');
         }
         min(): string {
             this.replacements = [['{}'], ['/='], ['/'], [' +'], [' -'], ['return ']];
@@ -3097,7 +3188,7 @@
             string = string.replace(/;*\};+\s*/g, "}");
             string = string.replace(/\}([\$\w\.])\s*/g, "};$1");
             string = string.replace(/\};(else|catch)(\s|\{|\()/g, "}$1$2");
-            string = string.replace(/\s*(___boundary_\d+_as_operator___)\s*/g, "$1");
+            string = string.replace(/\s*(@boundary_\d+_as_operator::)\s*/g, "$1");
             // console.log(string);
             string = this.restoreStrings(string, false);
 

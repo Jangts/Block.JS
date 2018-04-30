@@ -9,6 +9,7 @@ tangram.block([
 	'$_/util/type'
 ], function (pandora, global, imports, undefined) {
 	var _ = pandora;
+
 	pandora('arr', {
 		merge: function () {
 			if (arguments.length > 0) {
@@ -22,7 +23,7 @@ tangram.block([
 						}, this);
 					};
 				};
-			}else  {
+			} else {
 				var array = [];
 			}
 			return array;

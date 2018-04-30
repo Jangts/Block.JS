@@ -164,7 +164,7 @@
             }]
         },
         {
-            "match": "\\b(?<![\\.\\$])(break|by|catch|continue|else|finally|for|in|of|if|return|switch|then|throw|try|unless|when|while|until|loop|do|export|import|default|from|as|yield|async|await(?<=for)\\s+own|@config|@include|use|each|namespace|ns|def|dec|expands)(?!\\s*:)\\b",
+            "match": "\\b(?<![\\.\\$])(break|by|catch|continue|else|finally|for|in|of|if|return|switch|then|throw|try|unless|when|while|until|loop|do|export|import|default|from|as|yield|async|await(?<=for)\\s+own|@config|@include|use|each|namespace|ns|store|def|dec|expands)(?!\\s*:)\\b",
             "name": "keyword.control.tang"
         },
         {

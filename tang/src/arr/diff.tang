@@ -7,32 +7,31 @@
  * Date 2017-04-06
  */
 
-var getItemKey (item, key) {
-    if (!item || !key) return void 666
-    return typeof key === 'string' ? item[key] : key(item);
-}
-
-var makeKeyIndexAndFree (list, key) {
-    var keyIndex = {};
-    var free = [];
-    for (var i = 0, len = list.length; i < len; i++) {
-        var item = list[i];
-        var itemKey = getItemKey(item, key);
-        if (itemKey) {
-            keyIndex[itemKey] = i;
-        } else {
-            free.push(item);
-        }
-    }
-    return {
-        keyIndex: keyIndex,
-        free: free
-    }
-};
-
 namespace arr {
-    makeKeyIndexAndFree: makeKeyIndexAndFree,
-    diff (oldList, newList, key) {
+    var getItemKey = (item, key) {
+        if (!item || !key) return void 666
+        return typeof key === 'string' ? item[key] : key(item);
+    }
+    
+    public makeKeyIndexAndFree = (list, key) {
+        var keyIndex = {};
+        var free = [];
+        for (var i = 0, len = list.length; i < len; i++) {
+            var item = list[i];
+            var itemKey = getItemKey(item, key);
+            if (itemKey) {
+                keyIndex[itemKey] = i;
+            } else {
+                free.push(item);
+            }
+        }
+        return {
+            keyIndex: keyIndex,
+            free: free
+        }
+    },
+    
+    diff = (oldList, newList, key) {
         var oldMap = makeKeyIndexAndFree(oldList, key),
             newMap = makeKeyIndexAndFree(newList, key),
             newFree = newMap.free,
