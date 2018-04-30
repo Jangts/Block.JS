@@ -53,7 +53,7 @@
         // 因为打开所有括号后还有检查一次符号，所以运算量还是会带有括号
         mixed: /([\$\w]\s*(@\d+L\d+P\d+O*\d*:::)?)(\=\=|\!\=|\=|\!|\+|\-|\*|\/|\%|<<|>>|>>>|\&|\^|\||<|>)=\s*((\+|\-)?[\$\w\.])/g,
         bool: /([\$\w]\s*(@\d+L\d+P\d+O*\d*:::)?)(\&\&|\|\||\<|\<\<|\>\>\>|\>\>|\>)\s*((\+|\-)?[\$\w\.])/g,
-        op: /([\$\w]\s*(@\d+L\d+P\d+O*\d*:::)?)(\+|\-|\*\*|\*|\/|\%)\s*((\s+(\+|\-))?[\$\w\.])/g,
+        op: /([\$\w]\s*(@\d+L\d+P\d+O*\d*:::)?)(\+|\-|\*\*|\*|\/|\%|\&)\s*((\s+(\+|\-))?[\$\w\.])/g,
         owords: /\s+(in|of)\s+/g,
         sign: /(^|\s*[^\+\-])(\+|\-)([\$\w\.])/g,
         swords: /(^|[^\$\w])(typeof|instanceof|void|delete)\s+(\+*\-*[\$\w\.])/g,
@@ -271,7 +271,7 @@
                     if (gap) {
                         _this.namespace_posi += 'O' + gap.length;
                     }
-                    console.log('namespace:' + namespace, _this.namespace_posi);
+                    // console.log('namespace:' + namespace, this.namespace_posi);
                 }
                 return '';
             });
@@ -876,7 +876,7 @@
             string = string
                 .replace(/:::(var|let|public)\s+(@\d+L\d+P(\d+O)?0:::)/g, ':::$1 ')
                 .replace(/([^,;\s])\s*(@\d+L\d+P(\d+O)?0:::[^\.\(\[)])/g, '$1;$2')
-                .replace(/(___boundary_[A-Z0-9_]{36}_\d+_as_(class|function)___)[\r\n]+/g, "$1;\r\n")
+                .replace(/[\r\n]+(___boundary_[A-Z0-9_]{36}_\d+_as_(if|class|function|extends)___)/g, ";$1")
                 .replace(/(___boundary_[A-Z0-9_]{36}_\d+_as_(if)___)[;\s]+/g, "$1 ");
             var sentences = string.split(/\s*;+\s*/);
             var lines = [];
@@ -972,6 +972,10 @@
                     // console.log(value, display === 'block');
                     if ((display === 'block') && !/_as_closure___$/.test(value)) {
                         value += ';';
+                    }
+                    else if (/_as_aftoperator::$/.test(value)) {
+                        value += ';';
+                        display === 'block';
                     }
                     // console.log(value);
                     var clauses = value.split(',');
@@ -1315,12 +1319,17 @@
                 }
                 // console.log(array);
                 if (array.length === 1) {
-                    this.pushReplacementsToAST(body, vars, array[0], isblock, blockposi);
+                    this.pushReplacementsToAST(inline, vars, array[0], isblock, blockposi);
                 }
                 else {
                     for (var index_8 = 0; index_8 < array.length; index_8++) {
                         this.pushReplacementsToAST(inline, vars, array[index_8], false, (index_8 === 0) && blockposi);
                     }
+                }
+                if (inline.length === 1) {
+                    body.push(inline[0]);
+                }
+                else {
                     body.push({
                         type: 'codes',
                         vars: vars,
@@ -1458,7 +1467,7 @@
         };
         Sugar.prototype.walkArray = function (index, display, vars) {
             var body = [], position = this.getPosition(this.replacements[index][1]), clauses = this.replacements[index][0].replace(/([\[\s\]])/g, '').split(',');
-            // console.log(this.replacements[index]);
+            // console.log(this.replacements[index], clauses);
             for (var c = 0; c < clauses.length; c++) {
                 if (c) {
                     var posi = this.getPosition(clauses[c]);
@@ -1468,6 +1477,7 @@
                 }
                 this.pushSentencesToAST(body, vars, clauses[c], false, posi);
             }
+            // console.log(body);
             return {
                 type: 'array',
                 posi: position,
@@ -3130,7 +3140,12 @@
             // console.log(string);
             // 去除多余符号
             string = string.replace(/\s*;(\s*;)*/g, ";");
-            string = string.replace(/(\{|\[|\(|\.|\:)\s*[,;]+/g, "$1");
+            string = string.replace(/(.)(\{|\[|\(|\.|\:)\s*[,;]+/g, function (match, before, mark) {
+                if ((before === mark) && (before === ':')) {
+                    return match;
+                }
+                return before + mark;
+            });
             // 格式化相应符号
             string = string.replace(/\s+(\=|\?|\:)[,;\s]*/g, " $1 ");
             // 删除多余换行
@@ -3151,6 +3166,7 @@
                 }
                 return operator;
             });
+            // console.log(string);
             string = this.restoreStrings(string, true);
             // 关键字处理
             // console.log(string);

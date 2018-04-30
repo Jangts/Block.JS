@@ -33,7 +33,7 @@ var XMLHttpRequest = global.XMLHttpRequest,
         var response;
         if (uploader.upload) {
             var onTransferring = handlers.progress;
-            var onSendStart (evt) {
+            var onSendStart = (evt) {
                 response = {
                     lengthComputable: evt.lengthComputable,
                     loaded: evt.loaded,
@@ -44,7 +44,7 @@ var XMLHttpRequest = global.XMLHttpRequest,
                 }
                 _.util.bool.isFn(onBeforeTransferring) && onBeforeTransferring.call(that, response);
             };
-            var onSendProgress (evt) {
+            var onSendProgress = (evt) {
                 response = {
                     lengthComputable: evt.lengthComputable,
                     loaded: evt.loaded,
@@ -55,7 +55,7 @@ var XMLHttpRequest = global.XMLHttpRequest,
                 }
                 _.util.bool.isFn(onTransferring) && onTransferring.call(that, response);
             };
-            var onSendComplete (evt) {
+            var onSendComplete = (evt) {
                 response = {
                     readyState: uploader.readyState,
                     status: uploader.status,
@@ -63,7 +63,7 @@ var XMLHttpRequest = global.XMLHttpRequest,
                 }
                 _.util.bool.isFn(onAfterTransferring) && onAfterTransferring.call(that, response);
             };
-            var onFailed (evt) {
+            var onFailed = (evt) {
                 response = {
                     readyState: uploader.readyState,
                     status: uploader.status,
@@ -71,7 +71,7 @@ var XMLHttpRequest = global.XMLHttpRequest,
                 }
                 _.util.bool.isFn(onUploadFailed) && onUploadFailed.call(that, response);
             };
-            var onTimeout (evt) {
+            var onTimeout = (evt) {
                 response = {
                     readyState: uploader.readyState,
                     status: uploader.status,
@@ -80,7 +80,7 @@ var XMLHttpRequest = global.XMLHttpRequest,
                 _.util.bool.isFn(onUploadFailed) && onUploadFailed.call(that, response);
             }
         };
-        var onStateChange  () {
+        var onStateChange = () {
             if (this.readyState == 1) {
                 response = {
                     lengthComputable: false,

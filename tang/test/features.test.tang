@@ -39,7 +39,7 @@ e(){
 
 }
 
-var f () {}
+var f = () {}
 
 var g = (){}
 
@@ -273,7 +273,7 @@ console.log(pandora, a, b, c, d, e, f, g, h, i, j);
 
 // }
 
-// var myFn4 (arg1=flase){
+// var myFn4 = (arg1=flase){
 //     console.log(arg1);
 
 // }
