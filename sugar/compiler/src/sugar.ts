@@ -66,14 +66,15 @@
             after: /([\$\w\.])\s*(\+\+|\-\-)/g,
             error: /(.*)(\+\+|\-\-|\+|\-)(.*)/g
         },
-        replaceExpr = {
+        replaceWords = /(@\d+L\d+P\d+O?\d*::)?(return|else)\s*(\s|;|___boundary_[A-Z0-9_]{36}_(\d+)_as_([a-z]+)___)/g,
+        replaceExpRegPattern = {
             await: /^((\s*@\d+L\d+P0::)*\s*(@\d+L\d+P0*)::(\s*))?"await"\s*/,
             using: /^\s*use\s+/g,
             namespace: /((@\d+L\d+P0)::)?(\s*)namespace\s+([\$\w\.]+)\s*;*/g,
             // 位置是在replace usings 和 strings 之后才tidy的，所以还存在后接空格
             use: /(@\d+L\d+P\d+::)\s*use\s+([\$\w\.\/\\]+(\s+as\s+@\d+L\d+P\d+::\s*[\$\w]+)?(\s*,@\d+L\d+P\d+::\s*[\$\w]+)*(\[@\d+L\d+P\d+::\s*\]\s*)?)[;\r\n]/g,
             include: /\s*@include\s+[\$\w\.\s\/\\]+?[;\r\n]+/g,
-            
+
             return: /[\s;\r\n]+$/g,
             extends: /(@\d+L\d+P\d+O*\d*::)?((ns|namespace|stroe|extends)\s+[\$\w\.]+\s*\{[^\{\}]*?\})/g,
             class: /(@\d+L\d+P\d+O*\d*::)?((class|expands)\s+([\$\w\.]+\s+)?(extends\s+[\$\w\.]+\s*)?\{[^\{\}]*?\})/g,
@@ -81,11 +82,12 @@
             parentheses: /(@\d+L\d+P\d+O*\d*::)?\(\s*([^\(\)]*?)\s*\)/g,
             arraylike: /(@\d+L\d+P\d+O*\d*::)?\[(\s*[^\[\]]*?)\s*\]/g,
             call: /(@\d+L\d+P\d+O*\d*::)?((new)\s+([\$\w\.]+)|(\.)?([\$\w]+))\s*(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)\s*([^\$\w\s\{]|[\r\n].|\s*___boundary_[A-Z0-9_]{36}_\d+_as_array___|\s*___boundary_\d+_as_operator___|$)/g,
+            callschain: /\s*\.___boundary_[A-Z0-9_]{36}_(\d+)_as_method___((@\d+L\d+P\d+O*\d*::)?\.___boundary_[A-Z0-9_]{36}_\d+_as_method___)*/g,
             arrowfn: /(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)\s*(->|=>)\s*([^,;\r\n]+)\s*(,|;|\r|\n|$)/g,
             closure: /((@\d+L\d+P\d+O*\d*::)?@*[\$\w]+|\))?(@\d+L\d+P\d+O*\d*::)?\s*\{(\s*[^\{\}]*?)\s*\}/g,
             expression: /(@\d+L\d+P\d+O*\d*::)?(if|for|while|switch|with|catch|each)\s*(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)\s*(___boundary_[A-Z0-9_]{36}_(\d+)_as_closure___)/g
         },
-        matchExpr = {
+        matchExpRegPattern = {
             string: /(\/|\#|`|"|')([\*\/\=])?/,
             strings: {
                 // 位置是在replace usings 和 strings 之后才tidy的，所以还存在后接空格
@@ -96,7 +98,7 @@
             },
             index: /(\d+)_as_([a-z]+)/,
             index3: /^_(\d+)_as_([a-z]+)___([\s\S]*)$/,
-                     
+
             extends: /(ns|namespace|store|extends)\s+(\.)?([\$\w\.]+)\s*\{([^\{\}]*?)\}/,
             class: /(class|dec|expands)\s+(\.)?([\$\w\.]+\s+)?(extends\s+([\$\w\.]+)\s*)?\{([^\{\}]*?)\}/,
             fnlike: /(^|(var|public|let|function|def)\s+)?([\$\w]*)\s*\(([^\(\)]*)\)\s*\{([^\{\}]*?)\}/,
@@ -125,7 +127,7 @@
         input: string
         isMainBlock: boolean = true
         maintag_posi: string
-        namespace:string= ''
+        namespace: string = ''
         namespace_posi: string
         markPattern: RegExp;
         trimPattern: RegExp;
@@ -140,7 +142,7 @@
         configinfo = '{}'
         configinfo_posi: string
         toES6 = false
-        posimap:any[] = [];
+        posimap: any[] = [];
         output: string | undefined
         tess = {}
         constructor(input: string, toES6: boolean = false, run: boolean = false) {
@@ -177,26 +179,26 @@
             let lines = this.input.split(/\r{0,1}\n/);
             // console.log(lines);
             let positions = [];
-            for (let line = 0; line < lines.length; line++) {
-                const elements = lines[line].split(/(,|;|\{|\[|\(|\}|\sas\s|->|=>)/);
+            for (let l = 0; l < lines.length; l++) {
+                const elements = lines[l].split(/(,|;|\{|\[|\(|\}|\sas\s|->|=>)/);
                 // console.log(elements);
-                let newline = []; 
-                for (let posi = 0, length = 0; posi < elements.length; posi++) {
-                    const element = elements[posi];
-                    if(posi === 0){
+                let newline = [];
+                for (let c = 0, length = 0; c < elements.length; c++) {
+                    const element = elements[c];
+                    if (c === 0) {
                         length = 0;
                     }
-                    if (element === ',' || element === ';' || element === '{' || element === '[' || element === '(' || element === '}' || element === ' as ' || element === '->' || element === '=>'){
+                    if (element === ',' || element === ';' || element === '{' || element === '[' || element === '(' || element === '}' || element === ' as ' || element === '->' || element === '=>') {
                         newline.push(element);
-                    }else{
-                        newline.push('@0L' + line + 'P' + length + '::' + element);
+                    } else {
+                        newline.push('@0L' + l + 'P' + length + '::' + element);
                     }
                     length += element.length;
                 }
-                positions.push(newline);          
+                positions.push(newline);
             }
             // positions[0][0] = positions[0][0].replace('@0L0P0::', '');
-            let newlines = positions.map((line)=>{
+            let newlines = positions.map((line) => {
                 return line.join("");
             })
             this.positions.push(positions);
@@ -208,7 +210,7 @@
             // console.log(this.replacements);
             return this;
         }
-        tidy(string){
+        tidy(string) {
             let on = true;
             while (on) {
                 on = false;
@@ -268,22 +270,22 @@
         encode(string: string): string {
             // console.log(string);
             string = string
-                .replace(replaceExpr.await, (match: string, gaps, preline, posi, gap) => {
+                .replace(replaceExpRegPattern.await, (match: string, gaps, preline, posi, gap) => {
                     this.isMainBlock = false;
-                    if (gaps){
+                    if (gaps) {
                         this.maintag_posi = posi;
                         if (!!gap) {
                             this.maintag_posi += 'O' + gap.length;
                         }
-                    }else{
+                    } else {
                         this.maintag_posi = '@0L0P0';
                     }
                     // console.log(gaps, preline, posi, !!gap, gap.length);
                     // console.log('This is not a main block.', this.maintag_posi);
                     return '';
                 })
-                .replace(replaceExpr.namespace, (match: string, posi, at, gap:string, namespace:string) => {
-                    if (this.namespace===''){
+                .replace(replaceExpRegPattern.namespace, (match: string, posi, at, gap: string, namespace: string) => {
+                    if (this.namespace === '') {
                         this.namespace += namespace + '.';
                         this.namespace_posi = at;
                         if (gap) {
@@ -302,17 +304,18 @@
             }
             string = this.tidy(string);
             // console.log(string);
-            string = string.replace(/(@\d+L\d+P\d+O?\d*::)?((public|static|set|get|om)\s+)?___boundary_[A-Z0-9_]{36}_(\d+)_as_string___\s*(\:|\(|\=)/g, (match, posi, desc, type, index, after)=>{
+            string = string.replace(/(@\d+L\d+P\d+O?\d*::)?((public|static|set|get|om)\s+)?___boundary_[A-Z0-9_]{36}_(\d+)_as_string___\s*(\:|\(|\=)/g, (match, posi, desc, type, index, after) => {
                 // console.log(posi, desc, this.replacements[index][1]);
-                if (this.replacements[index][1]){
+                if (this.replacements[index][1]) {
                     return /*"\r\n" + */this.replacements[index][1] + '___boundary_' + index + '_as_propname___' + after;
                 }
-                if (desc){
+                if (desc) {
                     return /*"\r\n" + */posi + desc + '___boundary_' + index + '_as_propname___' + after;
                 }
                 return /*"\r\n" + */'___boundary_' + index + '_as_propname___' + after;
             });
-            string = string.replace(/([\$\w]+)\s*(->|=>)/g, "($1)$2");
+            string = string
+                .replace(/([\$\w]+)\s*(->|=>)/g, "($1)$2");
             // console.log(string);
             // console.log(this.replacements);
 
@@ -322,8 +325,8 @@
             // console.log(string);
             string = this.replaceParentheses(string);
             // console.log(string);
-            string = this.recheckFunctionsLike(string);
             string = string
+                .replace(/@\d+L\d+P\d+O?\d*::(___boundary_|$)/g, "$1")
                 .replace(/@\d+L\d+P\d+O?\d*::(___boundary_|$)/g, "$1")
                 .replace(/\s*(,|;)\s*/g, "$1\r\n");
             // console.log(string);
@@ -332,17 +335,17 @@
         }
         replaceUsing(string: string): string {
             // console.log(string);
-            return string.replace(replaceExpr.use, (match: string, posi, url, as, more, array) => {
+            return string.replace(replaceExpRegPattern.use, (match: string, posi, url, as, more, array) => {
                 // console.log(match, posi, url, as, more, array);
                 let index = this.replacements.length;
-                if (array){
+                if (array) {
                     url = url.replace(array, '[]');
                 }
                 this.replacements.push([url, posi]);
                 return '___boundary_' + this.uid + '_' + index + '_as_using___;';
             });
         }
-        replaceStrings(string: string, ignoreComments:boolean = false): string {
+        replaceStrings(string: string, ignoreComments: boolean = false): string {
             string = string.replace(/\\+(`|")/g, (match: string) => {
                 let index = this.replacements.length;
                 this.replacements.push([match]);
@@ -354,7 +357,7 @@
             });
 
             let count: number = 0;
-            let matches: any = string.match(matchExpr.string);
+            let matches: any = string.match(matchExpRegPattern.string);
 
             while ((count < this.stringReplaceTimes) && matches) {
                 count++;
@@ -364,40 +367,40 @@
                 switch (matches[1]) {
                     case '#':
                         string = string.replace(/(\S*)\s*\#.+/, "$1");
-                        matches = string.match(matchExpr.string);
+                        matches = string.match(matchExpRegPattern.string);
                         continue;
 
                     case '/':
                         switch (matches[2]) {
                             case '*':
-                                if(ignoreComments){
+                                if (ignoreComments) {
                                     // console.log(true);
-                                    string = string.replace(/\/\*{1,2}[\s\S]*?(\*\/|$)/, (match)=>{
+                                    string = string.replace(/\/\*{1,2}[\s\S]*?(\*\/|$)/, (match) => {
                                         this.replacements.push([match]);
                                         return '___boundary_' + index + '_as_comments___';
                                     });
-                                }else{
+                                } else {
                                     string = string.replace(/\/\*{1,2}[\s\S]*?(\*\/|$)/, "");
                                 }
-                                matches = string.match(matchExpr.string);
+                                matches = string.match(matchExpRegPattern.string);
                                 continue;
                             case '/':
                                 string = string.replace(/(\S*)\s*\/\/.*/, "$1");
-                                matches = string.match(matchExpr.string);
+                                matches = string.match(matchExpRegPattern.string);
                                 continue;
                             case '=':
                                 string = string.replace(matches[0], '___boundary_1_as_operator___');
-                                matches = string.match(matchExpr.string);
+                                matches = string.match(matchExpRegPattern.string);
                                 continue;
                         }
                         break;
                 }
-                let match: any = string.match(matchExpr.strings[matches[1]]);
+                let match: any = string.match(matchExpRegPattern.strings[matches[1]]);
                 if (match && (matches.index >= match.index) && !match[6]) {
                     // console.log(matches, match);
-                    if (match[1]){
+                    if (match[1]) {
                         this.replacements.push([match[2].replace(/@\d+L\d+P\d+O?\d*::/g, ''), match[1].trim(), match[4]]);
-                    }else{
+                    } else {
                         this.replacements.push([match[2].replace(/@\d+L\d+P\d+O?\d*::/g, ''), void 0, match[4]]);
                     }
                     string = string.replace(match[0], '___boundary_' + this.uid + '_' + index + stringas[matches[1]] + match[3] + match[4]);
@@ -408,14 +411,14 @@
                     console.log(matches, match);
                     throw 'tangram.js sugar Error: Unexpected `' + matches[1] + '` in `' + this.decode(string.substr(matches.index, 256)) + '`';
                 }
-                matches = string.match(matchExpr.string);
+                matches = string.match(matchExpRegPattern.string);
             }
             // console.log(string);
             // console.log(this.replacements);
             return string;
         }
         replaceIncludes(string: string): string {
-            string = string.replace(replaceExpr.include, (match: string) => {
+            string = string.replace(replaceExpRegPattern.include, (match: string) => {
                 return this.onReadFile(match);
             });
             return this.replaceStrings(this.input);
@@ -431,15 +434,14 @@
                 count++;
                 // console.log(left, right);
                 if (left < right) {
-                    string = string.replace(replaceExpr.arraylike, (match: string, posi: string, elements: string) => {
-                        // console.log(match);
-                        elements = this.replaceBraces(elements);
-                        elements = this.replaceParentheses(elements);
-                        // match = this.replaceOperators(match, false);
-                        let index = this.replacements.length;
-                        this.replacements.push(['[' + elements + ']', posi && posi.trim()]);
-                        return '___boundary_' + this.uid + '_' + index + '_as_array___';
-                    });
+                    string = string.replace(replaceExpRegPattern.arraylike, (match: string, posi: string, elements: string) => {
+                            // console.log(match);
+                            elements = this.replaceBraces(elements);
+                            elements = this.replaceParentheses(elements);
+                            let index = this.replacements.length;
+                            this.replacements.push(['[' + elements + ']', posi && posi.trim()]);
+                            return '___boundary_' + this.uid + '_' + index + '_as_array___';
+                        });
                     left = string.indexOf('[');
                     right = string.indexOf(']');
                 } else {
@@ -466,7 +468,7 @@
                 // console.log(left, right);
                 if (left < right) {
                     string = this.replaceCodeSegments(string);
-                    string = this.recheckFunctionsLike(string);
+                    string = this.recheckFunctionsLike(string)
                     left = string.indexOf('{');
                     right = string.indexOf('}');
                 } else {
@@ -485,32 +487,30 @@
             return string;
         }
         replaceCodeSegments(string: string): string {
-            if (string.match(replaceExpr.class)) {
-                return string.replace(replaceExpr.class, (match: string, posi, body) => {
+            if (string.match(replaceExpRegPattern.class)) {
+                return string.replace(replaceExpRegPattern.class, (match: string, posi, body) => {
                     body = this.replaceParentheses(body);
-                    // body = this.replaceOperators(body, false);
                     let index = this.replacements.length;
                     this.replacements.push([body, posi && posi.trim()]);
                     return '___boundary_' + this.uid + '_' + index + '_as_class___';
                 });
             }
 
-            if (string.match(replaceExpr.extends)) {
-                return string.replace(replaceExpr.extends, (match: string, posi, body) => {
+            if (string.match(replaceExpRegPattern.extends)) {
+                return string.replace(replaceExpRegPattern.extends, (match: string, posi, body) => {
                     body = this.replaceParentheses(body);
-                    // body = this.replaceOperators(body, false);
                     let index = this.replacements.length;
                     this.replacements.push([body, posi && posi.trim()]);
                     return '___boundary_' + this.uid + '_' + index + '_as_extends___';
                 });
             }
 
-            if (string.match(replaceExpr.fnlike)) {
-                return string.replace(replaceExpr.fnlike, (match: string, posi, typewithgap, type, call, closure) => {
+            if (string.match(replaceExpRegPattern.fnlike)) {
+                return string.replace(replaceExpRegPattern.fnlike, (match: string, posi, typewithgap, type, call, closure) => {
                     // console.log(match);
                     closure = this.replaceParentheses(closure);
                     call = this.replaceOperators(call, false);
-                    match = (typewithgap || '')+ call + ' {' + closure + '}';
+                    match = (typewithgap || '') + call + ' {' + closure + '}';
                     let index = this.replacements.length;
                     // console.log(match);
                     this.replacements.push([match, posi && posi.trim()]);
@@ -518,7 +518,7 @@
                 });
             }
 
-            return string.replace(replaceExpr.closure, (match: string, word: string, posi2, posi3, closure: string) => {
+            return string.replace(replaceExpRegPattern.closure, (match: string, word: string, posi2, posi3, closure: string) => {
                 // console.log(match, '|', word, '|', posi2, '|', posi3, '|', closure);
                 if (!word && match.match(/\s*\{\s*\}/)) {
                     return '___boundary_0_as_mark___';
@@ -546,6 +546,7 @@
                     return '';
                 }
                 if (word === 'return') {
+                    // console.log(true);
                     this.replacements.push(['{' + closure + '}']);
                     // console.log(posi2, posi3);
                     let index2 = this.replacements.length;
@@ -555,7 +556,6 @@
                 if (
                     (word && (word != 'return')) ||
                     (closure.indexOf(';') >= 0) ||
-                    // !closure.match(/^\s*\{\s*(public|static|set|get|om)\s+)?(___boundary_[A-Z0-9_]{36}_(\d+)_as_function___|\|)(,|$)/)) {
                     closure.match(/^\s*___boundary_[A-Z0-9_]{36}_\d+_as_[^f]\w+___/)) {
                     // console.log(closure);
                     this.replacements.push(['{' + closure + '}', posi3]);
@@ -566,7 +566,20 @@
                 return '___boundary_' + this.uid + '_' + index + '_as_object___';
             });
         }
+        replaceWords(string: string) {
+            return string.replace(replaceWords, (match, posi, word, after) => {
+                let index = this.replacements.length;
+                if (after === ';') {
+                    this.replacements.push([word, posi && posi.trim()]);
+                    return ';___boundary_' + index + '_as_operator___' + after;
+                }
+                this.replacements.push([word + ' ', posi && posi.trim()]);
+                return ';___boundary_' + index + '_as_operator___';
+            })
+        }
         replaceParentheses(string: string): string {
+            string = this.replaceWords(string);
+            // string = this.replaceOperators(string, false);
             let left = string.indexOf('(');
             let right = string.indexOf(')');
             let count: number = 0;
@@ -574,16 +587,17 @@
                 count++;
                 // console.log(left, right);
                 if (left < right) {
-                    string = string.replace(replaceExpr.parentheses, (match, posi, paramslike: string) => {
-                        // console.log(match, '=>', paramslike);
+                    string = string.replace(replaceExpRegPattern.parentheses, (match, posi, paramslike: string) => {
+                        // paramslike = this.replaceOperators(paramslike, false);
                         paramslike = this.replaceCalls(paramslike);
-                        paramslike = this.replaceOperators(paramslike, false);
                         paramslike = this.replaceArrowFunctions(paramslike);
                         let index = this.replacements.length;
                         this.replacements.push(['(' + paramslike + ')', posi && posi.trim()]);
                         return '___boundary_' + this.uid + '_' + index + '_as_parentheses___';
                     });
                     // console.log(string);
+                    string = this.recheckFunctionsLike(string);
+                    string = this.replaceOperators(string, false);
                     left = string.indexOf('(');
                     right = string.indexOf(')');
                 } else {
@@ -600,30 +614,27 @@
                 var index = right;
                 throw 'tangram.js sugar Error: Unexpected `)` in `' + this.decode(string.substr(index, 256)) + '`';
             }
-            string = this.recheckFunctionsLike(string);
             string = this.replaceCalls(string);
-            string = this.replaceOperators(string, false);
+            // string = this.replaceOperators(string, false);
             string = this.replaceArrowFunctions(string);
             return string;
         }
-        replaceCalls(string: string): string {
-            // console.log(string);
-            return string.replace(replaceExpr.call, (match: string, posi, fullname: string, constructor: string, methodname: string, dot, callname, args: string, argindex: string, after: string) => {
-                if (fullname.match(replaceExpr.call)){
-                    fullname = this.replaceCalls(fullname);
-                }
-                let index = this.replacements.length;
-                if (constructor) {
-                    this.replacements.push([fullname + args, posi && posi.trim()]);
-                    return '___boundary_' + this.uid + '_' + index + '_as_construct___' + after;
-                }else{
-                    this.replacements.push([callname + args, posi && posi.trim()]);
-                    if (dot){
-                        return '.___boundary_' + this.uid + '_' + index + '_as_method___' + after;
-                    }
-                    return '___boundary_' + this.uid + '_' + index + '_as_call___' + after;
-                }
-            });
+        recheckFunctionsLike(string: string): string {
+            while (string.match(replaceExpRegPattern.expression)) {
+                // console.log(string);
+                string = string.replace(replaceExpRegPattern.expression, (match: string, posi, expname, exp: string, expindex: string, closure: string, closureindex: string) => {
+                    // console.log(match, posi, expname, exp, expindex, closure, closureindex);
+                    // console.log(expindex, closureindex);
+                    let expressioncontent = this.replacements[expindex][0];
+                    let body = this.replacements[closureindex][0];
+                    let index = this.replacements.length;
+                    // console.log(index, match, expname + '(' + expressioncontent + ')' + body);
+                    // console.log(expressioncontent, body);
+                    this.replacements.push([expname + expressioncontent + body, posi]);
+                    return '___boundary_' + this.uid + '_' + index + '_as_expression___';
+                });
+            }
+            return string;
         }
         replaceOperators(string: string, toMin: boolean = false): string {
             let on = true;
@@ -637,7 +648,7 @@
                     return '___boundary_' + index + '_as_operator___';
                 });
             }
-            
+
             // console.log(string);
             on = true;
             while (on) {
@@ -678,7 +689,7 @@
                     return left + '___boundary_' + index + '_as_operator___' + right;
                 });
             }
-            
+
             on = true;
             while (on) {
                 on = false;
@@ -698,7 +709,7 @@
                     return left + '___boundary_' + index + '_as_operator___' + right;
                 });
             }
-            
+
             on = true;
             while (on) {
                 on = false;
@@ -741,7 +752,7 @@
                     return '___boundary_' + index + '_as_preoperator___' + number;
                 });
             }
-            
+
             on = true;
             while (on) {
                 on = false;
@@ -753,17 +764,44 @@
                 });
             }
             return string.replace(operators.error, (match: string, before: string, op: string, after: string) => {
-                console.log(match, string);
+                console.log(string, match);
                 throw 'tangram.js sugar Error: Unexpected `' + op + '` in `' + this.decode(match) + '`';
+            });
+        }
+        replaceCalls(string: string): string {
+            // console.log(string);
+            return this.replaceCallsChain(string.replace(replaceExpRegPattern.call, (match: string, posi, fullname: string, constructor: string, methodname: string, dot, callname, args: string, argindex: string, after: string) => {
+                if (fullname.match(replaceExpRegPattern.call)) {
+                    fullname = this.replaceCalls(fullname);
+                }
+                let index = this.replacements.length;
+                if (constructor) {
+                    this.replacements.push([fullname + args, posi && posi.trim()]);
+                    return '___boundary_' + this.uid + '_' + index + '_as_construct___' + after;
+                } else {
+                    this.replacements.push([callname + args, posi && posi.trim()]);
+                    if (dot) {
+                        return '.___boundary_' + this.uid + '_' + index + '_as_method___' + after;
+                    }
+                    return '___boundary_' + this.uid + '_' + index + '_as_call___' + after;
+                }
+            }));
+        }
+        replaceCallsChain(string: string): string {
+            // console.log(string);
+            return string.replace(replaceExpRegPattern.callschain, (match: string, _index:string) => {
+                let index = this.replacements.length;
+                this.replacements.push([match, this.replacements[_index][1]]);
+                return '___boundary_' + this.uid + '_' + index + '_as_callschain___';
             });
         }
         replaceArrowFunctions(string: string): string {
             let arrow = string.match(/(->|=>)/);
             // console.log(arrow);
             if (arrow) {
-                if (string.match(replaceExpr.arrowfn)) {
-                    // console.log(string.match(matchExpr.arrowfn));
-                    return string.replace(replaceExpr.arrowfn, (match: string, params: string, paramsindex: string, arrow: string, body: string, end: string) => {
+                if (string.match(replaceExpRegPattern.arrowfn)) {
+                    // console.log(string.match(matchExpRegPattern.arrowfn));
+                    return string.replace(replaceExpRegPattern.arrowfn, (match: string, params: string, paramsindex: string, arrow: string, body: string, end: string) => {
                         // console.log(match, params, paramsindex, arrow, body, end);
                         // console.log(body);
                         let posi = this.replacements[paramsindex][1];
@@ -801,29 +839,13 @@
             }
             return string;
         }
-        recheckFunctionsLike(string: string): string {
-            while (string.match(replaceExpr.expression)) {
-                /// console.log(string.match(matchExpr.arrowfn));
-                string = string.replace(replaceExpr.expression, (match: string, posi, expname, exp: string, expindex: string, closure: string, closureindex: string) => {
-                    // console.log(match, posi, expname, exp, expindex, closure, closureindex);
-                    // console.log(expindex, closureindex);
-                    let expressioncontent = this.replacements[expindex][0];
-                    let body = this.replacements[closureindex][0];
-                    let index = this.replacements.length;
-                    // console.log(expressioncontent, body);
-                    this.replacements.push([expname + expressioncontent + body, posi]);
-                    return '___boundary_' + this.uid + '_' + index + '_as_expression___';
-                });
-            }
-            return string;
-        }
-        getPosition(string:string){
-            if (string){
+        getPosition(string: string) {
+            if (string) {
                 let match = string.match(/@(\d+)L(\d+)P(\d+)(O*)(\d*):*/);
                 if (match) {
-                    if (match[4]){
+                    if (match[4]) {
                         var ocol = parseInt(match[5]);
-                    }else{
+                    } else {
                         var ocol = parseInt(match[3]);
                     }
                     return {
@@ -839,99 +861,107 @@
             return void 0;
         }
         getLines(string: string, vars: any): object[] {
+            // console.log(string);
             string = string
                 .replace(/::(var|let|public)\s+(@\d+L\d+P(\d+O)?0::)/g, '::$1 ')
-                .replace(/([^,;\s])\s*(@\d+L\d+P(\d+O)?0::)/g, '$1;$2')
-                .replace(/(___boundary_[A-Z0-9_]{36}_\d+_as_(class)___)([\r\n]+)/, "$1;\r\n");
-            const array: string[] = string.split(/\s*;+\s*/);
+                .replace(/([^,;\s])\s*(@\d+L\d+P(\d+O)?0::[^\.\(\[)])/g, '$1;$2')
+                .replace(/(___boundary_[A-Z0-9_]{36}_\d+_as_(class|function)___)([\r\n]+)/g, "$1;\r\n");
+            const sentences: string[] = string.split(/\s*;+\s*/);
             let lines: object[] = [];
-            // console.log(array);
-            for (let index = 0; index < array.length; index++) {
-                const line = array[index].trim();
+            // console.log(sentences);
+            for (let s = 0; s < sentences.length; s++) {
+                const sentence = sentences[s].trim();
                 // console.log(line);
-                if (line) {
-                    const spilitarray = line.split(/::(var|let|public)\s+/);
-                    // console.log(spilitarray);
+                if (sentence) {
+                    const array = sentence.split(/::(var|let|public)\s+/);
+                    // console.log(array);
                     // continue;
-                    if (spilitarray.length === 1) {
-                        let errsymbol = line.match(/(^|\s+)(var|let|public)(\s+|$)/);
-                        if (errsymbol) {
-                            // console.log(line);
-                            throw 'tangram.js sugar Error: Unexpected `' + errsymbol + '` in `' + this.decode(line) + '`.';
+                    if (array.length === 1) {
+                        let definition = sentence.match(/(^|\s+)(var|let|public)(\s+|$)/);
+                        if (definition) {
+                            // console.log(definition);
+                            throw 'tangram.js sugar Error: Unexpected `' + definition + '` in `' + this.decode(sentence) + '`.';
                         } else {
-                            // console.log(line);
-                            this.pushSentenceToLines(lines, line);
+                            // console.log(sentence);
+                            this.pushSentenceToLines(lines, sentence, 'block');
                         }
-                    } else if (spilitarray.length === 3) {
-                        var sentences = spilitarray[2].split(/,\s*(@\d+L\d+P\d+O?\d*::)/);
-                        sentences.unshift(spilitarray[0]);
-                        for (let p = 0; p < sentences.length; p+=2) {
-                            this.pushVariablesToLine(lines, vars, sentences[p], sentences[p + 1], spilitarray[1]);
+                    } else if (array.length === 3) {
+                        var clauses = array[2].split(/,\s*(@\d+L\d+P\d+O?\d*::)/);
+                        clauses.unshift(array[0]);
+                        for (let c = 0; c < clauses.length; c += 2) {
+                            this.pushVariablesToLine(lines, vars, clauses[c], clauses[c + 1], array[1]);
                         }
                         // console.log(spilitarray, sentences);
-                    }else{
+                    } else {
                         // console.log(spilitarray[3], spilitarray);
-                        var position = this.getPosition(spilitarray[2]);
-                        throw 'tangram.js sugar Error: Unexpected `' + spilitarray[3] + '` at char ' + position.col + ' on line ' + position.line + '， near ' + this.decode(spilitarray[2]) + '.';
-                    }       
+                        var position = this.getPosition(array[2]);
+                        throw 'tangram.js sugar Error: Unexpected `' + array[3] + '` at char ' + position.col + ' on line ' + position.line + '， near ' + this.decode(array[2]) + '.';
+                    }
                 }
             }
             // console.log(lines);
             return lines;
         }
-        pushSentenceToLines(lines: any[], string: string) {
-            string = string.trim();
-            if (string && !string.match(/^@\d+L\d+P\d+O?\d*::$/)) {
-                let match = string.match(/^___boundary_[A-Z0-9_]{36}_(\d+)_as_([a-z]+)___([\r\n]+|$)/);
-                if (match) {
+        pushSentenceToLines(lines: any[], code: string, display: string) {
+            value = code.trim();
+            if (value && !value.match(/^@\d+L\d+P\d+O?\d*::$/)) {
+                let match_as_statement = value.match(/^___boundary_[A-Z0-9_]{36}_(\d+)_as_([a-z]+)___([\r\n]+|$)/);
+                if (match_as_statement) {
+                    if (display === 'block') {
+                        value = value + ';';
+                    }
                     lines.push({
                         type: 'line',
-                        subtype: match[2],
-                        index: match[1],
-                        value: string
+                        subtype: match_as_statement[2],
+                        display: display,
+                        index: match_as_statement[1],
+                        value: value
                     });
                 } else {
-                    // console.log(string)
-                    // string += ';';
-                    let strings = string.split(',');
-                    // console.log(strings);
-                    for (let index = 0; index < strings.length; index++) {
-                        let element = strings[index];
-                        let position = this.getPosition(string) ;
-                        // console.log(position, string)
+                    let clauses = value.split(',');
+                    // console.log(clauses);
+                    for (let c = 0; c < clauses.length; c++) {
+                        let element = clauses[c];
+                        let position = this.getPosition(element);
+                        // console.log(position, value)
                         if (position) {
-                            position.head = true;
+                            if (display === 'block') {
+                                position.head = true;
+                            }
                             var value = element.replace(position.match, '');
-                        }else{
-                            var value = string.trim();
-                            let match = value.match(/^___boundary_(\d+)_as_([a-z]+)___/);
-                            // console.log(value, match, this.getPosition(this.replacements[match[1]][1]));
-                            if(match&&this.replacements[match[1]][1]){
-                                position = this.getPosition(this.replacements[match[1]][1]);
-                                if (position){
+                        } else {
+                            var value = element.trim();
+                            let match_as_mark = value.match(/^___boundary_(\d+)_as_([a-z]+)___/);
+                            if (match_as_mark && this.replacements[match_as_mark[1]][1]) {
+                                position = this.getPosition(this.replacements[match_as_mark[1]][1]);
+                                if (position && (display === 'block')) {
                                     position.head = true;
                                 }
                             }
                         }
+                        if (display === 'block') {
+                            value = value + ';';
+                        }
                         lines.push({
                             type: 'line',
                             subtype: 'sentence',
+                            display: display,
                             posi: position,
-                            value: value + ';'
+                            value: value
                         });
                     }
                 }
             }
         }
-        pushVariablesToLine(lines: any, vars: any, posi: string, line: string, symbol: string) {
-            if (line){   
+        pushVariablesToLine(lines: any, vars: any, posi: string, code: string, symbol: string) {
+            if (code) {
                 if (this.toES6 && symbol !== 'public') {
                     var _symbol = symbol;
                 } else {
                     var _symbol = 'var';
                 }
                 let position = this.getPosition(posi);
-                let array = line.split(/\s*=\s*/);
+                let array = code.split(/\s*=\s*/);
                 // console.log(array);
                 if (array.length === 1) {
                     var value = 'void 0';
@@ -948,25 +978,26 @@
                             throw 'tangram.js sugar Error:  Variable `' + element + '` has already been declared at char ' + position.col + ' on line ' + position.line + '.';
                         }
                         position.head = true;
-                        if(index){
+                        if (index) {
                             lines.push({
                                 type: 'line',
-                                subtype: 'variable',
+                                subtype: 'assignment',
                                 posi: position,
                                 display: 'block',
-                                value: _symbol + ' ' + element + ' = ' + value + ';'
+                                value: element + ' = ' + value + ';'
                             });
-                        }else{
+                        } else {
                             lines.push({
                                 type: 'line',
                                 subtype: 'variable',
+                                display: 'inline',
                                 posi: position,
-                                display:'inline',
                                 value: _symbol + ' ' + element + ' = '
                             });
                             lines.push({
                                 type: 'line',
                                 subtype: 'sentence',
+                                display: 'inline',
                                 posi: void 0,
                                 value: value + ';'
                             });
@@ -989,56 +1020,63 @@
                 switch (lines[index].subtype) {
                     case 'sentence':
                         // console.log(lines[index]);
-                        const line = lines[index].value.trim();
-                        if (line) {
+                        const code = lines[index].value.trim();
+                        if (code) {
                             let inline = [];
-                            const array: string[] = line.split('___boundary_' + this.uid);
-                            while (!array[0].trim()) {
-                                // console.log(true, array[0])
-                                array.shift();
+                            const statements: string[] = code.split('___boundary_' + this.uid);
+                            while (!statements[0].trim()) {
+                                statements.shift();
                             }
                             // console.log(array)
-                            for (let i = 0; i < array.length; i++) {
-                                let element = array[i].trim();
-                                if (element){
-                                    let matches: any = element.match(matchExpr.index3);
+                            for (let s = 0; s < statements.length; s++) {
+                                let statement = statements[s].trim();
+                                if (statement) {
+                                    let match_as_statement: any = statement.match(matchExpRegPattern.index3);
                                     // console.log(matches);
-                                    if (matches) {
-                                        let match_3: string = matches[3].trim();
-                                        if (match_3) {
+                                    if (match_as_statement) {
+                                        let tret_of_match: string = match_as_statement[3].trim();
+                                        if (tret_of_match) {
                                             inline.push({
-                                                index: matches[1],
-                                                type: matches[2]
+                                                index: match_as_statement[1],
+                                                display: 'inline',
+                                                type: match_as_statement[2]
                                             });
-                                            var splits = match_3.split(/[\r\n]+/);
-                                            for (let l = 0; l < splits.length; l++) {
-                                                const element = splits[l].trim();
-                                                if (element) {
-                                                    this.pushCodeToAST(inline, vars, element, undefined, false);
+                                            var rows = tret_of_match.split(/[\r\n]+/);
+                                            for (let r = 0; r < rows.length; r++) {
+                                                const row = rows[r].trim();
+                                                if (row) {
+                                                    this.pushCodeToAST(inline, vars, row, false, undefined);
                                                 }
                                             }
-                                        }else{
-                                            if (array.length === 1){
+                                        } else {
+                                            // console.log(lines[index].display);
+                                            if (statements.length === 1) {
                                                 inline.push({
-                                                    index: matches[1],
-                                                    display: 'blcok',
-                                                    type: matches[2]
+                                                    index: match_as_statement[1],
+                                                    display: lines[index].display,
+                                                    type: match_as_statement[2]
                                                 });
-                                            }else{
+                                            } else {
                                                 inline.push({
-                                                    index: matches[1],
-                                                    type: matches[2]
+                                                    index: match_as_statement[1],
+                                                    display: 'inline',
+                                                    type: match_as_statement[2]
                                                 });
                                             }
                                         }
-                                    }else{
+                                    } else {
+                                        if ((statements.length === 1) && (lines[index].display === 'block')) {
+                                            var isblock = true;
+                                        } else {
+                                            var isblock = false;
+                                        }
                                         // console.log(array[0], lines[index].posi);
-                                        var splits = array[0].split(/[\r\n]+/);
-                                        // console.log(splits, array.length);
-                                        for (let l = 0; l < splits.length; l++) {
-                                            const element = splits[l].trim();
-                                            if (element) {
-                                                this.pushCodeToAST(inline, vars, element, (l === 0) && lines[index].posi, (array.length === 1));
+                                        var rows = statements[0].split(/[\r\n]+/);
+                                        // console.log(rows, array.length);
+                                        for (let r = 0; r < rows.length; r++) {
+                                            const row = rows[r].trim();
+                                            if (row) {
+                                                this.pushCodeToAST(inline, vars, row, isblock, (r === 0) && lines[index].posi);
                                             }
                                         }
                                     }
@@ -1049,6 +1087,7 @@
                         break;
 
                     case 'variable':
+                    case 'assignment':
                         preast.push([{
                             type: 'code',
                             posi: lines[index].posi,
@@ -1059,7 +1098,7 @@
                         break;
                     case 'using':
                         // console.log(lines[index]);
-                        let src = this.replacements[lines[index].index][0].replace(replaceExpr.using, '').replace(replaceExpr.return, '');
+                        let src = this.replacements[lines[index].index][0].replace(replaceExpRegPattern.using, '').replace(replaceExpRegPattern.return, '');
                         let posi = this.replacements[lines[index].index][1];
                         let srcArr = src.split(/\s+as\s+/);
                         // console.log(srcArr);
@@ -1100,11 +1139,12 @@
                             imports.push(src);
                             imports.push(posi);
                         }
-                    break;
+                        break;
                     default:
+                        // console.log(lines[index].display);
                         preast.push([{
                             index: lines[index].index,
-                            display: 'block',
+                            display: lines[index].display,
                             type: lines[index].subtype
                         }]);
                         break;
@@ -1112,7 +1152,7 @@
             }
             this.imports = imports;
             this.using_as = using_as;
-            console.log(using_as);
+            // console.log(using_as);
             // console.log(imports, preast);
             return preast;
         }
@@ -1138,11 +1178,9 @@
                         vars: vars,
                         body: []
                     };
-                    for (let index = 0; index < block.length; index++) {
-                        const element = block[index];
+                    for (let b = 0; b < block.length; b++) {
+                        const element = block[b];
                         if (element.type === 'code') {
-                            // console.log(index, element);
-                            // element.display = index ? 'inline' : 'block';
                             codes.body.push(element);
                         } else {
                             codes.body.push(this.walk(element, vars));
@@ -1162,7 +1200,8 @@
                 switch (lines[index].subtype) {
                     case 'sentence':
                         const line = lines[index].value.trim();
-                        this.pushSentencesToAST(body, vars, line, lines[index].posi);
+                        // console.log(lines[index].display);
+                        this.pushSentencesToAST(body, vars, line, lines[index].display === 'block', lines[index].posi);
                         break;
 
                     case 'variable':
@@ -1185,8 +1224,9 @@
             }
             return body;
         }
-        pushSentencesToAST(body: object[] = [], vars: any, code: string, position, isFullLine:boolean = true): object[] {
+        pushSentencesToAST(body: object[] = [], vars: any, code: string, isblock: boolean = true, blockposi: any): object[] {
             if (code) {
+                // console.log(isblock, blockposi);
                 let inline = [];
                 const array: string[] = code.split('___boundary_' + this.uid);
                 // console.log(array);
@@ -1195,10 +1235,10 @@
                 }
                 // console.log(array);
                 if (array.length === 1) {
-                    this.pushReplacementsToAST(body, vars, array[0], position, isFullLine);
+                    this.pushReplacementsToAST(body, vars, array[0], isblock, blockposi);
                 } else {
                     for (let index = 0; index < array.length; index++) {
-                        this.pushReplacementsToAST(inline, vars, array[index], position, false);
+                        this.pushReplacementsToAST(inline, vars, array[index], false, (index === 0) && blockposi);
                     }
                     body.push({
                         type: 'codes',
@@ -1209,71 +1249,62 @@
             }
             return body;
         }
-        pushReplacementsToAST(body: object[], vars: any, code: string, position, onlyone: boolean): object[] {
+        pushReplacementsToAST(body: object[], vars: any, code: string, isblock: boolean, blockposi: any): object[] {
             // console.log(code);
             code = code.trim();
             if (code) {
-                let matches: any = code.match(matchExpr.index3);
-                // console.log(code, matches);
-                if (matches) {
-                    let match_3: string = matches[3].trim();
-                    if (match_3) {
+                let match_as_statement: any = code.match(matchExpRegPattern.index3);
+                // console.log(code, match_as_statement, isblock, blockposi);
+                if (match_as_statement) {
+                    let tret_of_match: string = match_as_statement[3].trim();
+                    // console.log(code, match_as_statement, isblock, blockposi);
+                    if (tret_of_match) {
                         body.push(this.walk({
-                            index: matches[1],
-                            type: matches[2]
+                            index: match_as_statement[1],
+                            display: 'inline',
+                            type: match_as_statement[2]
                         }, vars));
-                        var array = match_3.split(/[\r\n]+/);
-                        for (let index = 0; index < array.length; index++) {
-                            const element = array[index].trim();
-                            if (element) {
-                                this.pushCodeToAST(body, vars, element, undefined, onlyone);
+                        var rows = tret_of_match.split(/[\r\n]+/);
+                        for (let r = 0; r < rows.length; r++) {
+                            const row = rows[r].trim();
+                            if (row) {
+                                this.pushCodeToAST(body, vars, row, false, undefined);
                             }
                         }
-                    }else{
-                        if (onlyone){
-                            body.push(this.walk({
-                                index: matches[1],
-                                display: 'block',
-                                type: matches[2]
-                            }, vars));
-                        }else{
-                            body.push(this.walk({
-                                index: matches[1],
-                                type: matches[2]
-                            }, vars));
-                        }
+                    } else {
+                        body.push(this.walk({
+                            index: match_as_statement[1],
+                            display: isblock ? 'block' : 'inline',
+                            type: match_as_statement[2]
+                        }, vars));
                     }
                 } else {
-                    var array = code.split(/[\r\n]+/);
+                    var rows = code.split(/[\r\n]+/);
                     // console.log(array);
-                    for (let index = 0; index < array.length; index++) {
-                        const element = array[index].trim();
-                        if (element) {
-                            this.pushCodeToAST(body, vars, element, (index === 0) && position, onlyone);
+                    for (let r = 0; r < rows.length; r++) {
+                        const row = rows[r].trim();
+                        if (row) {
+                            this.pushCodeToAST(body, vars, row, isblock, (r === 0) && blockposi);
                         }
                     }
                 }
             }
             return body;
         }
-        pushCodeToAST(body: object[], vars: any, code: string, position, onlyone: boolean): object[] {
-            let display = 'inline';
-            // console.log(code, position);
-            position = position || this.getPosition(code);
-            // console.log(code, position);
+        pushCodeToAST(body: object[], vars: any, code: string, isblock: boolean, blockposi: any): object[] {
+            let display = isblock ? 'block' : 'inline';
+            let position = this.getPosition(code) || blockposi;
             if (position) {
                 var element = code.replace(position.match, '').trim();
-                if (position.head){
-                    if (element.indexOf('.')===0) {
+                if (position.head) {
+                    if (element.indexOf('.') === 0) {
                         display = 'member';
-                    } else if (onlyone) {
-                        display = 'blcok';
                     }
                 }
             } else {
                 var element = code;
             }
-            // console.log(position);
+            // console.log(element, position);
             if (element) {
                 body.push({
                     type: 'code',
@@ -1289,13 +1320,15 @@
             // console.log(element);
             switch (element.type) {
                 case 'array':
-                    return this.walkArray(element.index, undefined, vars);
+                    return this.walkArray(element.index, element.display, vars);
                 case 'arrowfn':
-                    return this.walkArrowFn(element.index, undefined, vars);
+                    return this.walkArrowFn(element.index, element.display, vars);
                 case 'call':
                 case 'method':
                 case 'construct':
                     return this.walkCall(element.index, element.display, vars, element.type);
+                case 'callschain':
+                    return this.walkCallsChain(element.index, element.display, vars, element.type);
                 case 'class':
                     return this.walkClass(element.index, element.display, vars);
                 case 'closure':
@@ -1305,11 +1338,12 @@
                 case 'extends':
                     return this.walkExtends(element.index, element.display, vars);
                 case 'function':
+                    // console.log(element.index, element.display, vars, 'def');
                     return this.walkFnLike(element.index, element.display, vars, 'def');
                 case 'object':
-                    return this.walkObject(element.index, undefined, vars);
+                    return this.walkObject(element.index, element.display, vars);
                 case 'parentheses':
-                    return this.walkParentheses(element.index, undefined, vars);
+                    return this.walkParentheses(element.index, element.display, vars);
                 case 'pattern':
                 case 'string':
                 case 'template':
@@ -1319,7 +1353,7 @@
                     return {
                         type: 'code',
                         posi: position,
-                        display: 'inline',
+                        display: element.display || 'inline',
                         vars: vars,
                         value: this.replacements[element.index][0].replace(this.markPattern, function () {
                             return that.replacements[arguments[1]][0];
@@ -1335,24 +1369,29 @@
                     }
             }
         }
-        walkArray(index: number, display:any, vars: any): object {
+        walkArray(index: number, display: any, vars: any): object {
             let body = [],
                 position = this.getPosition(this.replacements[index][1]),
-                array = this.replacements[index][0].replace(/([\[\s\]])/g, '').split(',');
+                clauses = this.replacements[index][0].replace(/([\[\s\]])/g, '').split(',');
             // console.log(this.replacements[index]);
-            for (let index = 0; index < array.length; index++) {
-                this.pushSentencesToAST(body, vars, array[index], this.getPosition(array[index]), false);
+            for (let c = 0; c < clauses.length; c++) {
+                if (c) {
+                    var posi = this.getPosition(clauses[c]);
+                } else {
+                    var posi = this.getPosition(clauses[c]) || position;
+                }
+                this.pushSentencesToAST(body, vars, clauses[c], false, posi);
             }
             return {
                 type: 'array',
                 posi: position,
-                display: 'inline',
+                display: display,
                 vars: vars,
                 body: body
             };
         }
-        walkArrowFn(index: number, display:any, vars: any) {
-            let matches: any = this.replacements[index][0].match(matchExpr.arrowfn);
+        walkArrowFn(index: number, display: any, vars: any) {
+            let matches: any = this.replacements[index][0].match(matchExpRegPattern.arrowfn);
             // console.log(this.replacements[index], matches);
             let subtype = 'fn';
             let selfvas = {
@@ -1384,72 +1423,121 @@
                 body: this.checkFnBody(localvars, args, matches[4])
             }
         }
-        walkCall(index: number, display:any, vars: any, type: string): object {
+        walkCall(index: number, display: any, vars: any, type: string): object {
             let name = [],
                 params = [],
-                matches: any = this.replacements[index][0].match(matchExpr.call),
+                matches: any = this.replacements[index][0].match(matchExpRegPattern.call),
+                position = this.getPosition(this.replacements[index][1]),
                 nameArr: string[] = matches[1].split('___boundary_' + this.uid),
                 paramArr = this.replacements[matches[2]][0].split(/([\(,\)])/);
             // console.log(this.getLines(this.replacements[matches[2]][0], vars));
             // console.log(this.replacements[index], matches);
-            for (let i = 0; i < nameArr.length; i++) {
-                const element = nameArr[i];
+            for (let n = 0; n < nameArr.length; n++) {
+                const element = nameArr[n];
                 if (element) {
-                    this.pushReplacementsToAST(name, vars, nameArr[i], undefined, false);
+                    if (type === 'construct') {
+                        this.pushReplacementsToAST(name, vars, element, false, undefined);
+                    } else {
+                        this.pushReplacementsToAST(name, vars, element, false, (n === 0) && position);
+                    }
                 }
             }
             // console.log(matches, paramArr);
-            for (let index = 0; index < paramArr.length; index++) {
-                const position = this.getPosition(paramArr[index]);
-                if (position){
-                    var element = paramArr[index].replace(position.match, '').trim();
-                }else{
-                    var element = paramArr[index].trim();
+            for (let p = 0; p < paramArr.length; p++) {
+                const paramPosi = this.getPosition(paramArr[p]);
+                if (paramPosi) {
+                    var param = paramArr[p].replace(paramPosi.match, '').trim();
+                } else {
+                    var param = paramArr[p].trim();
                 }
-                
-                let line: string[] = element.split('___boundary_' + this.uid);
-                if (element && element != '(' && element != ')' && element != ',') {
-                    // console.log(index, element, position);
-                    let inline: object[] = [];
-                    for (let i = 0; i < line.length; i++) {
-                        this.pushReplacementsToAST(inline, vars, line[i], (i===0)&&position, false);
+                // console.log(paramPosi);
+                if (param && param != '(' && param != ')' && param != ',') {
+                    // console.log(p, param, paramPosi);
+                    let statements: string[] = param.split('___boundary_' + this.uid);
+                    let inline: any[] = [];
+                    for (let s = 0; s < statements.length; s++) {
+                        this.pushReplacementsToAST(inline, vars, statements[s], false, (s === 0) && paramPosi);
                     }
-                    params.push({
-                        type: 'parameter',
-                        posi: position,
-                        vars: vars,
-                        body: inline
-                    });
+                    if (inline.length) {
+                        params.push({
+                            type: 'parameter',
+                            posi: inline[0].posi || paramPosi,
+                            display: 'inline',
+                            vars: vars,
+                            body: inline
+                        });
+                    } else {
+                        params.push({
+                            type: 'parameter',
+                            posi: paramPosi,
+                            display: 'inline',
+                            vars: vars,
+                            body: [{
+                                type: 'code',
+                                posi: paramPosi,
+                                display: 'inline',
+                                vars: vars,
+                                value: 'void 0'
+                            }]
+                        });
+                    }
                 }
+            }
+            if (type === 'method') {
+                if (position) position.head = false;
+                display = 'inline';
             }
             // console.log(this.replacements[index]);
             return {
                 type: type,
-                posi: this.getPosition(this.replacements[index][1]),
-                display: display || 'inline',
+                posi: position,
+                display: display,
                 name: name,
                 vars: vars,
                 params: params
             };
         }
-        walkClass(index: number, display:any, vars: any = true) {
+        walkCallsChain(index: number, display: any, vars: any, type: string): object {
+            let code = this.replacements[index][0],
+                position = this.getPosition(this.replacements[index][1]),
+                calls = [];
+                
+                code.replace(/(@\d+L\d+P\d+O*\d*::)?\.___boundary_[A-Z0-9_]{36}_(\d+)_as_method___/g, (match, posi, _index)=>{
+                    // console.log(match, posi, _index);
+                    if (posi){
+                        this.replacements[_index][1] = posi;
+                    }
+                    calls.push(this.walkCall(_index, 'inline', vars, 'method'));
+                    return '';
+                });
+            // console.log(code, calls, position);
+
+            return {
+                type: 'callschain',
+                posi: position,
+                display: (position && position.head) ? 'blocks' : 'inline',
+                vars: vars,
+                calls: calls
+            };
+        }
+        walkClass(index: number, display: any, vars: any = true) {
             // console.log(this.replacements[index]);
-            let matches: any = this.replacements[index][0].match(matchExpr.class);
+            let matches: any = this.replacements[index][0].match(matchExpRegPattern.class);
             // console.log(matches);
             var type = matches[1];
-            if (matches[2]){
+            if (matches[2]) {
                 var subtype = 'stdClass';
-            }else{
-                if (type==='dec'){
+            } else {
+                if (type === 'dec') {
                     var subtype = 'stdClass';
-                }else{
+                } else {
                     var subtype = 'anonClass';
                 }
             }
             let cname = matches[3] && matches[3].trim();
             if (type === 'class') {
                 if (subtype === 'anonClass') {
-                    if (cname){
+                    if (cname) {
                         if (vars.self[cname] === void 0) {
                             vars.self[cname] = 'var';
                         } else if (vars.self[cname] === 'let') {
@@ -1460,7 +1548,7 @@
                 }
                 // 标准类必须是块元素，否则无地方拓展静态属性和方法
             }
-            
+
             return {
                 type: type,
                 posi: this.getPosition(this.replacements[index][1]),
@@ -1472,7 +1560,7 @@
                 body: this.checkClassBody(vars, matches[6] || '')
             }
         }
-        walkClosure(index: number, display:any, vars: any) {
+        walkClosure(index: number, display: any, vars: any) {
             // console.log(this.replacements[index]);
             let localvars = {
                 parent: vars,
@@ -1503,9 +1591,9 @@
                 body: body
             }
         }
-        walkExtends(index: number, display:any, vars: any) {
+        walkExtends(index: number, display: any, vars: any) {
             // console.log(this.replacements[index]);
-            let matches: any = this.replacements[index][0].match(matchExpr.extends);
+            let matches: any = this.replacements[index][0].match(matchExpRegPattern.extends);
             let position = this.getPosition(this.replacements[index][1]);
             let subtype: string = 'ext';
             let objname: string = matches[3];
@@ -1528,13 +1616,13 @@
                     keysArray: void 0,
                     vals: []
                 }, matches[4]);
-            }else{
-                if (matches[2]){
+            } else {
+                if (matches[2]) {
                     subtype = 'extns';
                 }
                 var body = this.checkObjMember(vars, matches[4]);
             }
-           
+
             // console.log(matches);
             return {
                 type: 'extends',
@@ -1546,17 +1634,13 @@
                 body: body
             }
         }
-        walkFnLike(index: number, display:any, vars: any, type: string) {
-            // console.log(this.replacements[index]);
-            let matches: any = this.replacements[index][0].match(matchExpr.fnlike);
+        walkFnLike(index: number, display: any, vars: any, type: string) {
+            // console.log(index, this.replacements[index]);
+            let matches: any = this.replacements[index][0].match(matchExpRegPattern.fnlike);
+            // console.log(matches);
             let fname = matches[3] !== 'function' ? matches[3] : '';
-            // if (!matches) {
-            //     console.log(posi, this.replacements);
-            // } else {
-            //     console.log((matches);
-            // }
             if (type === 'def' || type === 'exp') {
-                if ((type === 'exp') || (matches[1] == null)){
+                if ((type === 'exp') || (matches[1] == null)) {
                     if (reservedWords['includes'](fname)) {
                         const headline = matches[4];
                         let localvars = {
@@ -1576,11 +1660,9 @@
                             }
                             // console.log(localvars);
                         }
-                        let head = this.pushSentencesToAST([], localvars, headline, this.getPosition(headline), false);
-                        // let head = [], array = headline.split('___boundary_' + this.uid);
-                        // for (let index = 0; index < array.length; index++) {
-                        //     this.pushReplacementsToAST(head, localvars, array[index], this.getPosition(headline), false);
-                        // }
+                        let head = this.pushSentencesToAST([], localvars, headline, false, this.getPosition(headline))[0] || (()=>{
+                            throw 'tangram.js sugar Error:  Must have statements in head of ' + fname + ' expreesion.';
+                        })();
                         let body = this.pushBodyToAST([], localvars, matches[5]);
                         for (const varname in localvars.self) {
                             if (localvars.self.hasOwnProperty(varname)) {
@@ -1601,10 +1683,10 @@
                         };
                     }
                     if (fname === 'each') {
-                        const condition = matches[4].match(matchExpr.travelargs);
+                        const condition = matches[4].match(matchExpRegPattern.travelargs);
                         // console.log(matches, condition);
                         if (condition) {
-                            
+
                             let self = {
                                 this: 'var',
                                 arguments: 'var',
@@ -1631,11 +1713,9 @@
                                 fix_map: {},
                                 type: 'travel'
                             };
-                            let iterator = this.pushSentencesToAST([], localvars, condition[1], this.getPosition(condition[2]), false);
-                            // let iterator = [], array = condition[1].split('___boundary_' + this.uid);
-                            // for (let index = 0; index < array.length; index++) {
-                            //     this.pushReplacementsToAST(iterator, localvars, array[index], this.getPosition(condition[1]), false);
-                            // }
+                            let iterator = this.pushSentencesToAST([], localvars, condition[1], false, this.getPosition(condition[2]))[0] || (() => {
+                                throw 'tangram.js sugar Error:  Must have statements in head of each expreesion.';
+                            })();
 
                             return {
                                 type: 'travel',
@@ -1654,9 +1734,9 @@
                     }
                 }
                 var subtype = matches[2] === 'def' ? 'def' : 'fn';
-                var position =  this.getPosition(this.replacements[index][1]);
+                var position = this.getPosition(this.replacements[index][1]);
                 // console.log(matches);
-                if (fname && display==='block') {
+                if (fname && display === 'block') {
                     if (matches[2]) {
                         if ((matches[2] === 'var') || (matches[2] === 'let')) {
                             if (vars.self[fname] === void 0) {
@@ -1670,7 +1750,7 @@
                             // console.log(matches[5]);
                         }
                     }
-                } else { 
+                } else {
                     if (matches[2] === 'public') {
                         subtype = 'public';
                         display = 'block';
@@ -1678,7 +1758,7 @@
                     }
                 }
             }
-            
+
             let localvars = {
                 parent: vars,
                 self: {
@@ -1701,17 +1781,22 @@
                 defaults: args.vals,
                 body: this.checkFnBody(localvars, args, matches[5])
             }
-        } 
-        walkParentheses(index: number, display:undefined, vars: any): object {
+        }
+        walkParentheses(index: number, display: undefined, vars: any): object {
             let body = [],
-                array = this.replacements[index][0].replace(/([\[\s\]])/g, '').split(/\s*([,\r\n]+)/);
-            for (let index = 0; index < array.length; index++) {
-                this.pushSentencesToAST(body, vars, array[index], this.getPosition(array[index]), false);
-                // let line = array[index].split('___boundary_' + this.uid);
-                // // let inline: object[] = [];
-                // for (let i = 0; i < line.length; i++) {
-                //     this.pushReplacementsToAST(body, vars, line[i], this.getPosition(array[index]), false);
-                // }
+                clauses = this.replacements[index][0].replace(/([\[\s\]])/g, '').split(/\s*(,)/),
+                position = this.getPosition(this.replacements[index][1]);
+            for (let c = 0; c < clauses.length; c++) {
+                if (c) {
+                    var posi = this.getPosition(clauses[c]);
+                } else {
+                    var posi = this.getPosition(clauses[c]) || position;
+                }
+                this.pushSentencesToAST(body, vars, clauses[c], false, posi);
+            }
+            // console.log(body);
+            if (body.length === 1){
+                return body[0];
             }
             return {
                 type: 'codes',
@@ -1720,9 +1805,10 @@
                 body: body
             };
         }
-        walkObject(index: number, display:any, vars: any = true) {
+        walkObject(index: number, display: any, vars: any = true) {
             return {
                 type: 'object',
+                display: display || 'inline',
                 posi: this.getPosition(this.replacements[index][1]),
                 vars: vars,
                 body: this.checkObjMember(vars, this.replacements[index][0])
@@ -1732,7 +1818,7 @@
             // console.log(posi);
             // console.log(type, posi, attr, array);
             let position = this.getPosition(posi);
-            position.head = true;
+            // position.head = false;
             // console.log(position);
             if (array.length > 1) {
                 let body = [];
@@ -1747,20 +1833,20 @@
                 }
                 for (let index = 1; index < array.length; index++) {
                     const element = array[index];
-                    const matches: any = element.trim().match(matchExpr.index3);
+                    const match_as_statement: any = element.trim().match(matchExpRegPattern.index3);
                     // console.log(matches);
-                    if (matches) {
+                    if (match_as_statement) {
                         body.push(this.walk({
-                            index: matches[1],
-                            type: matches[2]
+                            index: match_as_statement[1],
+                            type: match_as_statement[2]
                         }, vars));
-                        if (matches[3]) {
+                        if (match_as_statement[3]) {
                             body.push({
                                 type: 'code',
                                 posi: void 0,
                                 display: 'inline',
                                 vars: vars,
-                                value: matches[3].trim()
+                                value: match_as_statement[3].trim()
                             });
                         }
                     } else {
@@ -1777,6 +1863,7 @@
                 return {
                     type: type,
                     posi: position,
+                    display: 'inline',
                     pname: attr[4].trim() || 'myAttribute',
                     vars: vars,
                     body: body
@@ -1785,6 +1872,7 @@
             return {
                 type: type,
                 posi: position,
+                display: 'inline',
                 pname: attr[4].trim() || 'myAttribute',
                 vars: vars,
                 body: [
@@ -1802,7 +1890,7 @@
             // console.log(code);
             let body = [],
                 array = code.replace('_as_function___', '_as_function___;').split(/[;,\r\n]+/);
-                // console.log(code);
+            // console.log(code);
             for (let index = 0; index < array.length; index++) {
                 let element = array[index].trim();
                 let type: string = 'method';
@@ -1811,7 +1899,7 @@
                     let elArr = element.split('___boundary_' + this.uid);
                     // console.log(elArr);
                     if (elArr[0] && elArr[0].trim()) {
-                        let match_0 = elArr[0].match(matchExpr.classelement);
+                        let match_0 = elArr[0].match(matchExpRegPattern.classelement);
                         // console.log(match_0[4].trim(), match_0, elArr);
                         if (match_0) {
                             if (match_0[4].trim()) {
@@ -1862,7 +1950,7 @@
                         }
                     }
                     if (elArr[1] && elArr[1].trim()) {
-                        let match_1: any = elArr[1].trim().match(matchExpr.index);
+                        let match_1: any = elArr[1].trim().match(matchExpRegPattern.index);
                         if (match_1[2] === 'function') {
                             body.push(this.walkFnLike(parseInt(match_1[1]), 'inline', vars, type));
                         }
@@ -1882,7 +1970,7 @@
                 if (element) {
                     var elArr = element.split('___boundary_' + this.uid);
                     if (elArr[0] && elArr[0].trim()) {
-                        var match_0 = elArr[0].trim().match(matchExpr.objectattr);
+                        var match_0 = elArr[0].trim().match(matchExpRegPattern.objectattr);
                         if (match_0) {
                             if (match_0[5] != ':') {
                                 if ((elArr.length === 1)) {
@@ -1903,8 +1991,8 @@
                     } else {
                         // console.log(elArr);
                         for (let i = 1; i < elArr.length; i++) {
-                            const match = elArr[i].trim().match(matchExpr.index3);
-                            switch (match[2]) {
+                            const match_as_statement = elArr[i].trim().match(matchExpRegPattern.index3);
+                            switch (match_as_statement[2]) {
                                 case 'string':
                                 case 'pattern':
                                 case 'tamplate':
@@ -1914,24 +2002,24 @@
                                         posi: void 0,
                                         display: 'inline',
                                         vars: vars,
-                                        value: ',' + this.replacements[parseInt(match[1])][0].replace(this.markPattern, function () {
+                                        value: ',' + this.replacements[parseInt(match_as_statement[1])][0].replace(this.markPattern, function () {
                                             return that.replacements[arguments[1]][0];
                                         })
                                     });
-                                    if (match[3]) {
+                                    if (match_as_statement[3]) {
                                         body[bodyIndex].body.push({
                                             type: 'code',
                                             posi: void 0,
                                             display: 'inline',
                                             vars: vars,
-                                            value: match[3]
+                                            value: match_as_statement[3]
                                         });
                                     }
                                     break;
 
                                 case 'function':
                                     if (elArr.length === 2) {
-                                        body.push(this.walkFnLike(parseInt(match[1]), 'inline', vars, 'method'));
+                                        body.push(this.walkFnLike(parseInt(match_as_statement[1]), 'inline', vars, 'method'));
                                         bodyIndex++;
                                     }
                                     break;
@@ -1991,7 +2079,7 @@
                             display: 'block',
                             value: 'if (' + args.keys[index][0] + ' === void 0) { ' + args.keys[index][0] + ' = ' + valArr[0]
                         });
-                        this.pushReplacementsToAST(body, vars, valArr[1], this.getPosition(args.vals[index]), false);
+                        this.pushReplacementsToAST(body, vars, valArr[1], false, this.getPosition(args.vals[index]));
                         body.push({
                             type: 'code',
                             posi: void 0,
@@ -2017,7 +2105,7 @@
                     value: 'var ' + args.keysArray[0].replace('...', '') + ' = Array.prototype.slice.call(arguments, ' + args.keys.length + ');'
                 });
             }
-            
+
             this.pushBodyToAST(body, vars, code);
             // console.log(code, body);
             return body;
@@ -2037,12 +2125,12 @@
             // console.log(this.output);
             return this;
         }
-        pushPostionsToMap(position, codes: string[]|undefined=undefined){
-            if (position){
+        pushPostionsToMap(position, codes: string[] | undefined = undefined) {
+            if (position) {
                 let index = this.posimap.length;
                 this.posimap.push(position);
                 let replace = '/* @posi' + index + ' */';
-                if (codes){
+                if (codes) {
                     codes.push(replace);
                 }
                 return replace;
@@ -2060,14 +2148,14 @@
             codes.push("\r\n");
             if (this.configinfo === '{}') {
                 codes.push("// ");
-            }else{
+            } else {
                 this.pushPostionsToMap(this.getPosition(this.configinfo_posi), codes);
             }
             codes.push('tangram.config(' + this.configinfo + ');');
             codes.push("\r\n" + 'tangram.block([');
             if (this.imports.length) {
-                let imports:string[] = [];
-                for (let index = 0; index < this.imports.length; index+=2) {
+                let imports: string[] = [];
+                for (let index = 0; index < this.imports.length; index += 2) {
                     imports.push(this.pushPostionsToMap(this.getPosition(this.imports[index + 1])) + "'" + this.imports[index] + "'");
                 }
                 // console.log(this.imports, imports);
@@ -2077,7 +2165,7 @@
             return codes;
         }
         pushAlias(codes: string[], alias: any): string[] {
-            console.log(alias);
+            // console.log(alias);
             for (const key in alias) {
                 // console.log(key);
                 // let position = this.getPosition(key);
@@ -2105,7 +2193,7 @@
             // this.fixVariables(vars);
             return codes;
         }
-        pushElement(codes: string[], vars: any, element:any, layer: number, namespace: string = this.namespace): string[] {
+        pushElement(codes: string[], vars: any, element: any, layer: number, namespace: string = this.namespace): string[] {
             let indent = "\r\n" + stringRepeat("\t", layer);
             switch (element.type) {
                 case 'array':
@@ -2116,6 +2204,9 @@
                 case 'construct':
                     // console.log(layer);
                     this.pushCallCodes(codes, element, layer, namespace);
+                    break;
+                case 'callschain':
+                    this.pushCallsCodes(codes, element, layer, namespace);
                     break;
                 case 'class':
                 case 'dec':
@@ -2131,7 +2222,7 @@
                             if (element.posi) {
                                 if (element.posi.head) {
                                     codes.push(indent);
-                                    if(element.display==='member'){
+                                    if (element.display === 'member') {
                                         codes.push("\t");
                                     }
                                 }
@@ -2172,7 +2263,7 @@
         }
         pushArrayCodes(codes: string[], element: any, layer: number, namespace: string): string[] {
             let elements: string[] = [];
-            if(element.posi){
+            if (element.posi) {
                 this.pushPostionsToMap(element.posi, codes);
             }
             codes.push('[');
@@ -2190,9 +2281,9 @@
                 }
                 // console.log(element.body);
                 for (let index = 0; index < element.body.length; index++) {
-                    if (element.body[index].value){
+                    if (element.body[index].value) {
                         elements.push(this.pushPostionsToMap(element.body[index].posi) + element.body[index].value);
-                    }else{
+                    } else {
                         let elemCodes: string[] = [];
                         this.pushPostionsToMap(element.body[index].posi, elemCodes)
                         this.pushElement(elemCodes, element.vars, element.body[index], _layer, namespace);
@@ -2219,7 +2310,7 @@
             let naming: string[] = this.pushCodes([], element.vars, element.name, layer, namespace);
             // console.log(element);
             if (element.posi) {
-                if(element.type==='method'){
+                if (element.type === 'method') {
                     element.posi.head = false;
                 }
                 if (element.posi.head) {
@@ -2273,10 +2364,33 @@
                 }
             }
             // console.log(element.display);
-            if(element.display==='block'){
+            if (element.display === 'block') {
                 codes.push(');');
-            }else{
+            } else {
                 codes.push(')');
+            }
+            return codes;
+        }
+        pushCallsCodes(codes: string[], element: any, layer: number, namespace: string): string[] {
+            let elements: any[] = [];
+            let _layer = layer;
+            let indent;
+            let _break = false;
+            // console.log(element);
+            if (element.posi&&element.posi.head) {
+                _layer++;
+                indent = "\r\n" + stringRepeat("\t", _layer);
+                _break = true;
+            }
+            for (let index = 0; index < element.calls.length; index++) {
+                const method = element.calls[index];
+                elements.push(this.pushElement([], element.vars, method, _layer, namespace).join(''));
+            }
+
+            if (_break) {
+                codes.push(indent + '.' + elements.join(indent + '.'));
+            } else {
+                codes.push('.' + elements.join('.'));
             }
             return codes;
         }
@@ -2484,7 +2598,7 @@
             let indent = "\r\n" + stringRepeat("\t", layer);
             if (element.posi) {
                 var posi = this.pushPostionsToMap(element.posi);
-            }else{
+            } else {
                 var posi = '';
             }
             if (element.type === 'def' && element.fname) {
@@ -2493,12 +2607,11 @@
                 } else if ((element.subtype === 'public')) {
                     codes.push(indent + posi + 'pandora.' + namespace + element.fname + ' = function (');
                 } else {
-                    if (element.posi){
-
-                    }else{
+                    if (element.display === 'block') {
                         codes.push(indent + posi + 'function ' + element.fname + ' (');
+                    } else {
+                        codes.push(posi + 'function ' + element.fname + ' (');
                     }
-                    
                 }
             } else {
                 codes.push(posi + 'function (');
@@ -2563,17 +2676,17 @@
             }
             if (element.type === 'closure') {
                 codes.push(' {');
-            }else{
-                codes.push(indent1 + posi + element.expression + '(');
+            } else {
+                codes.push(indent1 + posi + element.expression + ' (');
                 // console.log(element.head);
-                this.pushCodes(codes, element.vars.parent, element.head, layer, namespace);
+                this.pushElement(codes, element.vars.parent, element.head, layer, namespace);
                 codes.push(') {');
             }
-            
+
             codes.push(indent2);
             // console.log(element.body);
             this.pushCodes(codes, element.vars, element.body, layer + 1, namespace);
-            codes.push(indent1 + '}');
+            codes.push(indent1 + '} ');
             return codes;
         }
         pushExpandClassCodes(codes: string[], element: any, layer: number, namespace: string): string[] {
@@ -2701,28 +2814,36 @@
             let indent = "\r\n" + stringRepeat("\t", layer);
             // console.log(element);
             codes.push(indent + 'pandora.each(');
-            this.pushCodes(codes, element.vars, element.iterator, layer, namespace);
+            this.pushElement(codes, element.vars, element.iterator, layer, namespace);
             codes.push(', ');
             this.pushFunctionCodes(codes, element.callback, layer, namespace);
             codes.push(', this);');
             codes.push(indent);
             return codes;
         }
-        pushObjCodes(codes: string[], element: any, layer: number, namespace:string) {
+        pushObjCodes(codes: string[], element: any, layer: number, namespace: string) {
             let indent1 = "\r\n" + stringRepeat("\t", layer);
             let indent2 = "\r\n" + stringRepeat("\t", layer + 1);
             codes.push('{');
             if (element.body.length) {
                 let elements: string[] = [];
-                // console.log(element);
+                let _layer = layer;
+                let _break = false;
+                // console.log(element.body[0]);
+                if ((element.body.length>1)||(element.body[0].posi && element.body[0].posi.head)) {
+                    _layer++;
+                    codes.push(indent2);
+                    _break = true;
+                }
+                // console.log(_break, element);
                 for (let index = 0; index < element.body.length; index++) {
                     const member = element.body[index];
                     let elem: string[] = [];
                     // console.log(member);
                     switch (member.type) {
                         case 'method':
-                            elem.push(indent2 + member.fname + ': ');
-                            this.pushFunctionCodes(elem, member, layer + 1, namespace);
+                            elem.push(member.fname + ': ');
+                            this.pushFunctionCodes(elem, member, _layer, namespace);
                             if (this.toES6) {
                                 elements.push(elem.join('').replace(/\:\s+function\s*\(/, '('));
                             } else {
@@ -2731,32 +2852,34 @@
                             break;
 
                         case 'objProp':
-                            elem.push(indent2 + member.pname + ': ');
-                            this.pushCodes(elem, member.vars, member.body, layer + 1, namespace);
+                            elem.push(member.pname + ': ');
+                            this.pushCodes(elem, member.vars, member.body, _layer, namespace);
                             elements.push(elem.join(''));
                             break;
                     }
                 }
-                if (elements.length) {
-                    codes.push(elements.join(','));
+                if (_break) {
+                    codes.push(elements.join(',' + indent2));
                     codes.push(indent1);
+                }else{
+                    codes.push(elements.join(','));
                 }
             }
             codes.push('}');
             return codes;
         }
-        closurecount : number = 0;
+        closurecount: number = 0;
         fixVariables(vars: any) {
             this.closurecount++;
             // console.log(vars.type, vars);
-            if(1){
+            if (1) {
                 for (let index = 0; index < vars.self.length; index++) {
                     const element = vars.self[index].split(/\s+/)[1];
                     if (['pandora', 'global', 'imports', 'undefined']['includes'](element)) {
-                        if (!vars.fix_map[element]){
+                        if (!vars.fix_map[element]) {
                             let i = 1;
                             let newname = element + '_' + i;
-                            while (vars.fixed['includes'](newname)){
+                            while (vars.fixed['includes'](newname)) {
                                 i++;
                                 newname = element + '_' + i;
                             }
@@ -2768,7 +2891,7 @@
                 switch (vars.type) {
                     case 'block':
 
-                    break;
+                        break;
                 }
                 return;
             }
@@ -2815,7 +2938,7 @@
         }
         patchVariables(code: string, vars: any): string {
             // console.log(code, vars);
-            if (code){
+            if (code) {
                 // console.log(code);
                 return code.replace(/(^|[^\$\w\.]\s*)([\$a-z_][\$\w]*)(\*[\$\w]|$)/i, (match, before, varname, after) => {
                     // console.log(match, before, varname, after);
@@ -2858,40 +2981,42 @@
             string = this.replaceStrings(string, false);
             // console.log(string);
             string = this.replaceOperators(string, false);
-            console.log(string);
+            // console.log(string);
             // return '';
 
             // 删除多余头部
             // string = string.replace(/^[,;\s]+[\r\n]+/g, "\r\n");
-            string = string.replace(/^[,;\s]+/g, "\r\n\t");
+            // string = string.replace(/^[,;\s]+/g, "\r\n\t");
 
             //去除多余符号
             // string = string.replace(/\s*;(\s*;)+/g, ";");
-            string = string.replace(/\s*;([^\s])/g, "; $1");
+            // string = string.replace(/\s*;([^\s])/g, "; $1");
 
-            string = string.replace(/(\{|\[|\(|\.|\:)\s*[,;]+/g, "$1");
-            string = string.replace(/\s*[,;]+(\s*)(\.|\:|\)|\])/g, "$1$2");
-            string = string.replace(/\s+(\=|\?|\:)[,;\s]*/g, " $1 ");
-            string = string.replace(/([\r\n]*\s*[\$\w])\s+(\:)/g, "$1$2");
+            // string = string.replace(/(\{|\[|\(|\.|\:)\s*[,;]+/g, "$1");
+            // string = string.replace(/\s*[,;]+(\s*)(\.|\:|\)|\])/g, "$1$2");
+            // string = string.replace(/\s+(\=|\?|\:)[,;\s]*/g, " $1 ");
+            // string = string.replace(/([\r\n]*\s*[\$\w])\s+(\:)/g, "$1$2");
 
             // // 关键字处理
-            string = string.replace(/if\s*\(([^\)]+)\)\s*[,;]+/g, "if ($1)");
-            string = string.replace(/([^\$\w])else\s*[,;]+/g, "$1else");
+            // string = string.replace(/if\s*\(([^\)]+)\)\s*[,;]+/g, "if ($1)");
+            // string = string.replace(/([^\$\w])else\s*[,;]+/g, "$1else");
             // string = string.replace(/([^\s])\s*(instanceof)\s+/g, " $1 ");
-            string = string.replace(/(,|;)?[\r\n]+(\s*)(var|delete|return)\s+/g, "$1\r\n$2$3 ");
+            // string = string.replace(/(,|;)?[\r\n]+(\s*)(var|delete|return)\s+/g, "$1\r\n$2$3 ");
             // string = string.replace(/(\s*)(return)\s*([\{\(}])/g, "$1$2 $3");
 
             // 删除多余换行
             string = string.replace(/\s*[\r\n]+([\r\n])?/g, "\r\n$1");
 
+            // 删除多余空白
+            // string = string.replace(/\{\s+\}/g, '{}');
+            // string = string.replace(/\[\s+\]/g, '[]');
+            // string = string.replace(/\(\s+\)/g, '()');
+
             // console.log(string);
             string = this.restoreStrings(string, true);
             // console.log(string);
 
-            // 删除多余空白
-            string = string.replace(/\{\s+\}/g, '{}');
-            string = string.replace(/\[\s+\]/g, '[]');
-            string = string.replace(/\(\s+\)/g, '()');
+            
             // string = string.replace(/(\(|\[)\s+([\r\n]+)/g, "$1$2");
             // string = string.replace(/([^\r\n])\s+(\)|\])/g, "$1$2");
 
@@ -2945,9 +3070,9 @@
             }
             // return string;
         }
-        restoreStrings(string: string, last:boolean): string {
+        restoreStrings(string: string, last: boolean): string {
             let that = this;
-            if(last){
+            if (last) {
                 var pattern = this.lastPattern;
             } else {
                 var pattern = this.trimPattern;

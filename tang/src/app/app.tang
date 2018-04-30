@@ -1,3 +1,4 @@
+"await"
 use $_/app/Application;
 
 let _ = pandora;
