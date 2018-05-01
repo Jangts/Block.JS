@@ -4,6 +4,7 @@ var tangram_js_sugar = require('./sugar.js');
 var fs = require('fs');
 var glob = require("glob");
 var path = require('path');
+var vlq = require('vlq');
 var commands = ['compile', 'cdir', 'build', 'help', 'version'];
 // console.log(process.argv);
 var options = {

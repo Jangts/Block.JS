@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Wed, 25 Apr 2018 00:54:02 GMT
+ * Datetime: Mon, 30 Apr 2018 17:12:26 GMT
  */
 ;
 // tangram.config({});
@@ -11,116 +11,120 @@ tangram.block([], function (pandora, global, imports, undefined) {
 	var console = global.console;
 	function typeofObj (object) {
 		if (!object) {
-			return 'Null';
+			return 'Null'
 		}
-		if(isGlobal(object))  {
-			return 'Global';
+		if (isDoc(object)) {
+			return 'HTMLDocument'
 		}
-		if(isDoc(object)) {
-			return 'HTMLDocument';
+		if (isElement(object)) {
+			return 'Element'
 		}
-		if(isElement(object)) {
-			return 'Element';
+		if (isElements(object)) {
+			return 'Elements'
 		}
-		if(isElements(object)) {
-			return 'Elements';
+		if (isArray(object)) {
+			return 'Array'
 		}
-		if(isArray(object)) {
-			return 'Array';
+		if (isRegExp(object)) {
+			return 'RegExp'
 		}
-		if(isRegExp(object)) {
-			return 'RegExp';
-		}
-		return nativeType(object);
+		return nativeType(object)
 	}
 	function nativeType (object) {
 		if (!object) {
-			return 'Null';
+			return 'Null'
 		}
-		var match = Object.prototype.toString.call(object).match(/\[object (\w+)\]/);
+		var match = Object.prototype.toString.call(object).match(/\[object (\w+)\]/)
 		if (match) {
-			return match[1];
+			return match[1]
 		}
-		return 'Object';
+		return 'Object'
 	}
-	function isGlobal (object) {
+	var isGlobal = function (object) {
 		return object === window;
 	}
-	function isDoc (object) {
+	var isDoc = function (object) {
 		return object === document;
 	}
-	function isElement (object) {
-		return object && typeof object === 'object' && ((HTMLElement && (objectinstanceofHTMLElement)) || (object.nodeType === 1) || (DocumentFragment && (objectinstanceofDocumentFragment)) || (object.nodeType === 11));
+	var isElement = function (object) {
+		return object && typeof object === 'object' && ((HTMLElement && (object instanceof HTMLElement)) || (object.nodeType === 1) || (DocumentFragment && (object instanceof DocumentFragment)) || (object.nodeType === 11))
 	}
-	function isElFragment (object) {
-		return object && typeof object === 'object' && ((DocumentFragment && (objectinstanceofDocumentFragment)) || (object.nodeType === 11));
+	var isElFragment = function (object) {
+		return object && typeof object === 'object' && ((DocumentFragment && (object instanceof DocumentFragment)) || (object.nodeType === 11))
 	}
-	function isElements (object) {
+	var isElements = function (object) {
 		if (object && typeof object === 'object') {
-			if(HTMLCollection && (objectinstanceofHTMLCollection))  {
+			if (HTMLCollection && (object instanceof HTMLCollection)) {
 				return true;
 			}
-			if(NodeList && (objectinstanceofNodeList)) {
+			if (NodeList && (object instanceof NodeList)) {
 				return true;
 			}
-			if((objectinstanceofArray) || (Object.prototype.toString.call(object) === '[object Array]') || ((typeof(object.length) === 'number') && ((typeof(object.item) === 'function') || (typeof(object.splice) != 'undefined')))) {
-				for (var i = 0; i < object.length; i++) {
-					if(!isElement(object[i]))  {
+			if ((object instanceof Array) || (Object.prototype.toString.call(object) === '[object Array]') || ((typeof(object.length) === 'number') && ((typeof(object.item) === 'function') || (typeof(object.splice) != 'undefined')))) {
+				for (var i = 0;i < object.length;i++) {
+					if (!isElement(object[i])) {
 						return false;
-					};
+					}
 				}
 				return true;
-			};
-		};
+			}
+		}
 	}
-	function isArray (object) {
-		return Object.prototype.toString.call(object) === '[object Array]';
+	var isArray = function (object) {
+		return Object.prototype.toString.call(object) === '[object Array]'
 	}
-	function isRegExp (object) {
+	var isRegExp = function (object) {
 		return object instanceof RegExp;
 	}
-	function typeofStr (string) {
-		if(isIntStr(string))  {
-			return 'StringInteger';
+	var typeofStr = function (string) {
+		if (isIntStr(string)) {
+			return 'StringInteger'
 		}
-		if(isFloatStr(string)) {
-			return 'StringFloat';
+		if (isFloatStr(string)) {
+			return 'StringFloat'
 		}
-		return 'String';
+		return 'String'
 	}
 	var IntExpr = /^(\+|-)?\d+$/;
-	function isIntStr (string) {
-		return IntExpr.test(string);
+	var isIntStr = function (string) {
+		return IntExpr.test(string)
 	}
-	function isFloatStr (string) {
-		if(/^[-\+]{0,1}[\d\.]+$/.test(string))  {
-			if(string.split('.').length === 2 && string.split('.')[1] != '')  {
+	var isFloatStr = function (string) {
+		if (/^[-\+]{0,1}[\d\.]+$/.test(string)) {
+			if (string.split('.').length === 2 && string.split('.')[1] != '') {
 				return true;
-			};
+			}
 		}
 		return false;
 	}
-	function isInteger (number) {
+	var isInteger = function (number) {
 		if (typeof Number.isInteger === 'function') {
-			return Number.isInteger(number);
-		}else  {
+			return Number.isInteger(number)
+		}
+		else {
 			return Math.floor(number) === number;
-		};
+		}
 	}
 	_('util.type', function (object, subtype) {
 		switch (typeof object) {
-			case 'object': return   subtype ? typeofObj(object) : (object == null ? 'Null': ((typeofObj(object) === 'Array') ? 'Array': 'Object'));
-			case 'function': case 'boolean': case 'undefined': return(typeof object).replace(/(\w)/, function (v) {
-				return v.toUpperCase();
-			});
-			case 'number': return subtype ? (isInteger(object) ? 'Integer': 'Float') : 'Number';
-			case 'string': return subtype ? typeofStr(object) : 'String';
-		};
+			case 'object':
+			return subtype ? typeofObj(object):(object == null?'Null':((typeofObj(object) === 'Array')?'Array':'Object'))
+			case 'function':
+			case 'boolean':
+			case 'undefined':
+			return (typeof object).replace(/(\w)/, function (v) {
+				return v.toUpperCase()
+			})
+			case 'number':
+			return subtype ? (isInteger(object)?'Integer':'Float'):'Number'
+			case 'string':
+			return subtype ? typeofStr(object):'String'
+		}
 	});
 	_('util.fasttype', function (obj) {
-		return Object.prototype.toString.call(obj).replace(/\[object\s|\]/g, '');
+		return Object.prototype.toString.call(obj).replace(/\[object\s|\]/g, '')
 	});
-	pandora('util.type', {
+	pandora.ns('util.type', {
 		Obj: typeofObj,
 		Str: typeofStr,
 		isGlobal: isGlobal,
@@ -134,9 +138,13 @@ tangram.block([], function (pandora, global, imports, undefined) {
 		isIntStr: isIntStr,
 		isFloatStr: isFloatStr,
 		isInteger: isInteger
+
 	});
-	pandora.extend(_.util.type.Obj, {
-		native: nativeType
+	pandora.ns('util.type.Obj', function () {
+		var native = nativeType;
+		return {
+			native: native
+		}
 	});
 	return _.util.type;
 });

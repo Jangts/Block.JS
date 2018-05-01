@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Wed, 25 Apr 2018 00:54:00 GMT
+ * Datetime: Mon, 30 Apr 2018 17:12:24 GMT
  */
 ;
 // tangram.config({});
@@ -13,161 +13,165 @@ tangram.block([], function (pandora, global, imports, undefined) {
 		_init: function (resolver) {
 			var Promise = this;
 			function resolve (value) {
-				Promise.PromiseStatus = 'resolved';
+				Promise.PromiseStatus = 'resolved'
 				Promise.PromiseValue = value;
-				Promise.listener();
+				Promise.listener()
 			}
 			function reject (value) {
-				Promise.PromiseStatus = 'rejected';
+				Promise.PromiseStatus = 'rejected'
 				Promise.PromiseValue = value;
-				Promise.listener();
+				Promise.listener()
 			}
-			this.PromiseStatus = 'pending';
+			this.PromiseStatus = 'pending'
 			this.PromiseValue = undefined;
 			this.handlers = {
 				always: [],
 				done: [],
 				fail: [],
 				progress: []
-			};
-			resolver && resolver(resolve, reject);
+			}
+			resolver && resolver(resolve, reject)
 		},
 		listener: function () {
 			switch (this.PromiseStatus) {
-				case 'resolved': this.callback('always', this.PromiseValue);
-				this.callback('done', this.PromiseValue);
+				case 'resolved':
+				this.callback('always', this.PromiseValue)
+				this.callback('done', this.PromiseValue)
 				break;
-				case 'rejected': this.callback('always', this.PromiseValue);
-				this.callback('fail', this.PromiseValue);
+				case 'rejected':
+				this.callback('always', this.PromiseValue)
+				this.callback('fail', this.PromiseValue)
 				break;
-				case 'pending': this.callback('progress', this.PromiseValue);
+				case 'pending':
+				this.callback('progress', this.PromiseValue)
 				break;
-			};
+			}
 		},
 		callback: function (status, data) {
 			for (var i in this.handlers[status]) {
-				this.handlers[status][i].call(this, data);
+				this.handlers[status][i].call(this, data)
 			}
-			this.handlers[status] = [];
+			this.handlers[status]=[]
 			if (status === 'done' || status == 'fail') {
 				this.handlers = {
 					always: [],
 					done: [],
 					fail: [],
 					progress: []
-				};
-			};
+				}
+			}
 		},
 		then: function (doneCallbacks, failCallbacks) {
 			var Promise = this;
 			return new _.async.Promise(function (resolve, reject) {
-				try  {
-					typeof doneCallbacks === 'function' && Promise.handlers.done.push(doneCallbacks);
-					typeof failCallbacks === 'function' && Promise.handlers.fail.push(failCallbacks);
-					Promise.handlers.always.push(resolve);
-					Promise.listener();
+				try {
+					typeof doneCallbacks === 'function' && Promise.handlers.done.push(doneCallbacks)
+					typeof failCallbacks === 'function' && Promise.handlers.fail.push(failCallbacks)
+					Promise.handlers.always.push(resolve)
+					Promise.listener()
 				}
 				catch (err) {
-reject(err);
-				};
-			});
+					reject(err);
+				}
+			})
 		},
 		done: function (doneCallbacks) {
-			typeof doneCallbacks == 'function' && this.handlers.done.push(doneCallbacks);
+			typeof doneCallbacks == 'function' && this.handlers.done.push(doneCallbacks)
 		},
 		'catch': function (failCallbacks) {
-			return this.then(null, failCallbacks);
+			return this.then(null, failCallbacks)
 		}
 	});
 	pandora.extend(pandora.async.Promise, {
 		all: function (array) {
-			var Callback;
-			var Result = [];
+			var Callback = void 0;
+			var Result = []
 			var Promises = {
 				then: function (doneCallback) {
-					Callback = (typeof doneCallback === 'function') ? doneCallback: undefined;
+					Callback = (typeof doneCallback === 'function')? doneCallback : undefined;
 				}
-			};
+			}
 			var Done = 0;
 			var Check = function () {
 				Done++;
 				if (Done == array.length) {
-					Callback && Callback(Result);
-				};
-			};
+					Callback && Callback(Result)
+				}
+			}
 			pandora.each(array, function (i, item) {
 				item.then(function (data) {
-					Result[i] = data;
-Check();
-				});
+					Result[i]= data;
+					Check();
+				})
 			}, this);
 			return Promises;
 		},
 		race: function (array) {
-			var Done;
-			var Fail;
+			var Done = void 0;
+			var Fail = void 0;
 			var Promises = {
 				then: function (doneCallback, failCallback) {
-					Done = (typeof doneCallback === 'function') ? doneCallback: undefined;
-					Fail = (typeof failCallback === 'function') ? failCallback: undefined;
+					Done = (typeof doneCallback === 'function')? doneCallback : undefined;
+					Fail = (typeof failCallback === 'function')? failCallback : undefined;
 				}
-			};
+			}
 			var Checked = false;
 			var Check = function (Promise) {
 				if (Checked === false) {
 					Checked = true;
 					if (Promise.PromiseStatus === "resolved") {
-						Done && Done(Promise.PromiseValue);
+						Done && Done(Promise.PromiseValue)
 					}
 					if (Promise.PromiseStatus === "rejected") {
-						Fail && Fail(Promise.PromiseValue);
-					};
-				};
-			};
+						Fail && Fail(Promise.PromiseValue)
+					}
+				}
+			}
 			pandora.each(array, function (i, item) {
 				item.then(function () {
-Check(item);
+					Check(item);
 				}, function () {
-Check(item);
-				});
+					Check(item);
+				})
 			}, this);
 			return Promises;
 		},
 		oneByOne: function (array) {
-			var Done;
-			var Fail;
-			var Value = [];
+			var Done = void 0;
+			var Fail = void 0;
+			var Value = []
 			var Promises = {
 				then: function (doneCallback, failCallback) {
-					Done = (typeof doneCallback === 'function') ? doneCallback: undefined;
-					Fail = (typeof failCallback === 'function') ? failCallback: undefined;
+					Done = (typeof doneCallback === 'function')? doneCallback : undefined;
+					Fail = (typeof failCallback === 'function')? failCallback : undefined;
 				}
-			};
-			var iterator = new _.Iterator(array);
+			}
+			var iterator = new _.Iterator(array)
 			var Resolver = function (callback) {
-new _.async.Promise(callback).done(function (data) {
-					Value.push(data);
-Check();
+				new new _.async.Promise(callback).done(function (data) {
+					Value.push(data)
+					Check();
 				});
-			};
+			}
 			var Check = function () {
-				var elememt = iterator.next();
+				var elememt = iterator.next()
 				if (elememt && typeof elememt == 'function') {
-Resolver(elememt);
-				}else
-				if (iterator.__ == array.length - 1) {
+					Resolver(elememt);
+				}
+				else if (iterator.__ == array.length - 1) {
 					Done && Done.call({
 						PromiseStatus: 'resolved',
 						PromiseValue: Value
-					}, Value);
-				}else {
+					}, Value)
+				}
+				else {
 					Fail && Fail.call({
 						PromiseStatus: 'resolved',
 						PromiseValue: Value
-					}, Value);
-				};
-			};
-Check();
+					}, Value)
+				}
+			}
+			Check();
 			return Promises;
 		}
 	});

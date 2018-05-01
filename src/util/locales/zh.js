@@ -1,13 +1,12 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Wed, 25 Apr 2018 00:54:02 GMT
+ * Datetime: Mon, 30 Apr 2018 17:12:26 GMT
  */
 ;
 // tangram.config({});
 tangram.block([], function (pandora, global, imports, undefined) {
-	var _ = pandora;
-	_.locales('times', {
+	pandora.locales('times', {
 		'zh-CN': {
 			days: ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日"],
 			daysShort: ["周日", "周一", "周二", "周三", "周四", "周五", "周六", "周日"],

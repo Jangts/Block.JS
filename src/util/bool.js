@@ -1,13 +1,13 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Wed, 25 Apr 2018 00:54:01 GMT
+ * Datetime: Mon, 30 Apr 2018 17:12:26 GMT
  */
 ;
 // tangram.config({});
 tangram.block([
-	'$_/util/type',
-	'$_/dom/'
+	/* @posi0 */'$_/util/type',
+	/* @posi1 */'$_/dom/'
 ], function (pandora, global, imports, undefined) {
 	var _ = pandora;
 	var doc = global.document;
@@ -15,7 +15,7 @@ tangram.block([
 	var File = global.File;
 	var FileList = global.FileList;
 	var FormData = global.FormData;
-	pandora('util.bool', {
+	pandora.ns('util.bool', {
 		truthy: function (value) {
 			return !!value;
 		},
@@ -23,10 +23,10 @@ tangram.block([
 			return _.util.bool.isObj(file) && file instanceof __class;
 		},
 		isScala: function (vari) {
-			return typeof vari === 'boolean' || typeof vari === 'string' || typeof vari === 'number';
+			return typeof vari === 'boolean'|| typeof vari === 'string'|| typeof vari === 'number'
 		},
 		isBool: function (vari) {
-			return typeof vari === 'boolean';
+			return typeof vari === 'boolean'
 		},
 		isObj: function (obj) {
 			return typeof obj === 'object' && obj;
@@ -36,30 +36,30 @@ tangram.block([
 		isDoc: _.util.type.isDoc,
 		isEl: _.util.type.isElement,
 		isVisi: function (elem) {
-			return _.dom.getStyle(elem, 'display') != 'none';
+			return _.dom.getStyle(elem, 'display') != 'none'
 		},
 		isHide: function (elem) {
-			return _.dom.getStyle(elem, 'display') === 'none';
+			return _.dom.getStyle(elem, 'display') === 'none'
 		},
 		isEls: _.util.type.isElements,
 		isArr: _.util.type.isArray,
 		inArr: function (elem, array, ignoreType) {
 			if (ignoreType) {
-				for (var i = 0; i < array.length; i++) {
+				for (var i = 0;i < array.length;i++) {
 					if (array[i] == elem) {
 						return true;
-					};
+					}
 				}
 				return false;
 			}
-			return _.arr.has(array, elem);
+			return _.arr.has(array, elem)
 		},
 		in: function (elem, object) {
-			if(_.util.type.isArray(object))  {
-				return _.arr.has(object, elem);
+			if (_.util.type.isArray(object)) {
+				return _.arr.has(object, elem)
 			}
-			if(_.util.bool.isObj(object)) {
-				return _.obj.has(object, elem);
+			if (_.util.bool.isObj(object)) {
+				return _.obj.has(object, elem)
 			}
 			return false;
 		},
@@ -74,65 +74,75 @@ tangram.block([
 			return _.util.bool.isObj(data) && data instanceof FormData;
 		},
 		isFn: function (obj) {
-			return typeof obj === 'function';
+			return typeof obj === 'function'
 		},
 		isStr: function (str) {
-			return typeof str === 'string';
+			return typeof str === 'string'
 		},
 		isOuterHTML: function (str) {
-			return /^<(\w+)[\s\S]+<\/\1>$/.test(str) || /^<(\w+)[^>]*\/\s*>$/.test(str);
+			return /^<(\w+)[\s\S]+<\/\1>$/.test(str) || /^<(\w+)[^>]*\/\s*>$/.test(str)
 		},
 		isIntStr: _.util.type.isIntStr,
 		isFloatStr: _.util.type.isFloatStr,
 		isPercent: function (str) {
-return(typeof str === 'string') && (/^[-\+]{0,1}(\d+(\.\d+){0,1}|\.\d+)\%$/.test(str));
+			return (typeof str === 'string') && (/^[-\+]{0,1}(\d+(\.\d+){0,1}|\.\d+)\%$/.test(str))
 		},
 		hasStr: _.hasString,
 		isInt: function (num) {
-			return _.util.type.isInteger(num) || _.util.type.isIntStr(num);
+			return _.util.type.isInteger(num) || _.util.type.isIntStr(num)
 		},
 		isNum: function (num) {
-			return typeof num === 'number';
+			return typeof num === 'number'
 		},
 		isNumber: function (num) {
-			return !isNaN(parseFloat(num)) && isFinite(num);
+			return !isNaN(parseFloat(num)) && isFinite(num)
 		},
 		isFinite: function (num) {
-			return isFinite(num);
+			return isFinite(num)
 		},
 		isNumeric: function (num) {
-			return typeof num === 'number' || _.util.type.isIntStr(num) || _.util.type.isFloatStr(num);
+			return typeof num === 'number' || _.util.type.isIntStr(num) || _.util.type.isFloatStr(num)
 		},
 		isNul: function (obj) {
 			if (obj) {
 				return false;
-			}else  {
+			}
+			else {
 				return true;
-			};
+			}
 		},
 		isUrl: function (str) {
-			var strRegex = "^((https|http|ftp|rtsp|mms|wss|ws)?://)" + "?(([0-9a-z_!~*'().&=+$%-]+:)?[0-9a-z_!~*'().&=+$%-]+@)?" + "(([0-9]{1,3}\.){3}[0-9]{1,3}" + "|" + "([0-9a-z_!~*'()-]+\.)*" + "([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\." + "[a-z]{2,6})" + "(:[0-9]{1,4})?" + "((/?)|" + "(/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+/?)$";
-			var re = new RegExp(strRegex);
-			if(re.test(str)) {
+			var strRegex = "^((https|http|ftp|rtsp|mms|wss|ws)?://)"
+			 + "?(([0-9a-z_!~*'().&=+$%-]+: )?[0-9a-z_!~*'().&=+$%-]+@)?"
+			 + "(([0-9]{1,3}\.){3}[0-9]{1,3}"
+			 + "|"
+			 + "([0-9a-z_!~*'()-]+\.)*"
+			 + "([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\."
+			 + "[a-z]{2,6})"
+			 + "(:[0-9]{1,4})?"
+			 + "((/?)|"
+			 + "(/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+/?)$"
+			var re = new RegExp(strRegex)
+			if (re.test(str)) {
 				return true;
 			}
 			else {
 				return false;
-			};
+			}
 		},
 		isHttpMethod: function (method) {
 			if (typeof method !== 'string') {
 				return false;
 			}
-			method = method.toUpperCase();
+			method = method.toUpperCase()
 			return _.util.bool.inArr(method, ['GET', 'CONNECT', 'COPY', 'DELETE', 'HEAD', 'LINK', 'OPTIONS', 'POST', 'PUT', 'PATCH', 'TRACE', 'UNLINK', 'UPDATE', 'WRAPPED']) && method;
 		},
 		isSupportCanvas: function () {
-			return typeof CanvasRenderingContext2D != "undefined";
+			return typeof CanvasRenderingContext2D != "undefined"
 		},
 		isWebkit: function () {
-			const reg = /webkit/i;
-			return reg.test(this._ua);
+			const reg = /webkit/i
+			return reg.test(this._ua)
 		},
 		isIE: function () {
 			return 'ActiveXObject' in window;
@@ -140,12 +150,12 @@ return(typeof str === 'string') && (/^[-\+]{0,1}(\d+(\.\d+){0,1}|\.\d+)\%$/.test
 		isAndroid: function () {
 			var android = false;
 			var sAgent = navigator.userAgent;
-			if(/android/i.test(sAgent))  {
+			if (/android/i.test(sAgent)) {
 				android = true;
-				var aMat = sAgent.toString().match(/android ([0-9]\.[0-9])/i);
+				var aMat = sAgent.toString().match(/android ([0-9]\.[0-9])/i)
 				if (aMat && aMat[1]) {
-					android = parseFloat(aMat[1]);
-				};
+					android = parseFloat(aMat[1])
+				}
 			}
 			return android;
 		}

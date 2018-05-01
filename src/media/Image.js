@@ -1,13 +1,13 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Wed, 25 Apr 2018 00:54:01 GMT
+ * Datetime: Mon, 30 Apr 2018 17:12:25 GMT
  */
 ;
 // tangram.config({});
 tangram.block([
-	'$_/util/bool',
-	'$_/async/Request'
+	/* @posi0 */'$_/util/bool',
+	/* @posi1 */'$_/async/Request'
 ], function (pandora, global, imports, undefined) {
 	var _ = pandora;
 	var doc = global.document;
@@ -21,43 +21,43 @@ tangram.block([
 		img.src = src;
 		img.onload = doneCallback;
 		img.onerror = failCallback;
-	};
+	}
 	pandora.declareClass('media.Image', {
 		_init: function (option) {
 			var that = this;
-			if(isStr(option))  {
+			if (isStr(option)) {
 				var callback = function () {
-					if(isEl(that.context))  {
-						that.context.appendChild(that.image);
-					};
-				};
+					if (isEl(that.context)) {
+						that.context.appendChild(that.image)
+					}
+				}
 				this.src = option;
 				this.preview = null;
 				this.onload = callback;
 				this.onerror = callback;
 			}
-			else if(isObj(option)) {
+			else if (isObj(option)) {
 				this.src = option.src;
 				this.previewsrc = option.preview;
 				var doneCallback = function () {
-					if(isEl(that.context))  {
-						that.context.appendChild(that.image);
-isFn(option.onload) && option.onload.call(this, that);
-					};
-				};
+					if (isEl(that.context)) {
+						that.context.appendChild(that.image)
+						isFn(option.onload) && option.onload.call(this, that)
+					}
+				}
 				var failCallback = function () {
-					if(isEl(that.context))  {
-						that.context.appendChild(that.image);
-isFn(option.onerror) && option.onerror.call(this, that);
-					};
-				};
+					if (isEl(that.context)) {
+						that.context.appendChild(that.image)
+						isFn(option.onerror) && option.onerror.call(this, that)
+					}
+				}
 				this.onload = doneCallback;
 				this.onerror = failCallback;
 			}
 			else {
-				return;
+				return
 			}
-			this.image = new Image();
+			this.image = new Image()
 			if (option.width) {
 				this.image.width = option.width;
 			}
@@ -65,39 +65,40 @@ isFn(option.onerror) && option.onerror.call(this, that);
 				this.image.height = option.height;
 			}
 			if (option.context) {
-				this.appendTo(option.context);
-			};
+				this.appendTo(option.context)
+			}
 		},
 		preview: function () {
 			var that = this;
 			var onload = function () {
-				that.context.appendChild(that.image);
-load(that.image, that.src, function () {
+				that.context.appendChild(that.image)
+				load(that.image, that.src, function () {
 					that.previewsrc = null;
-					that.onload.call(this);
+					that.onload.call(this)
 				}, function () {
 					that.image.src = that.previewsrc;
-					that.onerror.call(this);
+					that.onerror.call(this)
 				});
-			};
+			}
 			var onerror = function () {
-load(that.image, that.src, that.onload, that.onerror);
-			};
-load(this.image, this.previewsrc, onload, onerror);
+				load(that.image, that.src, that.onload, that.onerror);
+			}
+			load(this.image, this.previewsrc, onload, onerror);
 		},
 		appendTo: function (context) {
-			if(isEl(context))  {
+			if (isEl(context)) {
 				this.context = context;
 				if (this.previewsrc) {
-					this.preview();
-				}else  {
-load(this.image, this.src, this.onload, this.onerror);
-				};
-			};
+					this.preview()
+				}
+				else {
+					load(this.image, this.src, this.onload, this.onerror);
+				}
+			}
 		},
 		toString: function () {
-			var div = doc.createElement('div');
-			div.appendChild(this.image);
+			var div = doc.createElement('div')
+			div.appendChild(this.image)
 			var html = div.innerHTML;
 			div = null;
 			delete div;
@@ -105,15 +106,15 @@ load(this.image, this.src, this.onload, this.onerror);
 		},
 		toBase: function (callback, mime) {
 			var img = this.image;
-			var canvas = doc.createElement('CANVAS');
-			var ctx = canvas.getctx('2d');
-			img.crossOrigin = 'Anonymous';
+			var canvas = doc.createElement('CANVAS')
+			var ctx = canvas.getctx('2d')
+			img.crossOrigin = 'Anonymous'
 			img.onload = function () {
 				canvas.height = img.height;
 				canvas.width = img.width;
-				ctx.drawImage(img, 0, 0);
-				var dataURL = canvas.toDataURL(mime || 'image/png');
-				callback.call(this, dataURL);
+				ctx.drawImage(img, 0, 0)
+				var dataURL = canvas.toDataURL(mime || 'image/png')
+				callback.call(this, dataURL)
 				canvas = null;
 			}
 			img.src = this.src;

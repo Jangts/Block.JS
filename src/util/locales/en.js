@@ -1,12 +1,11 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Wed, 25 Apr 2018 00:54:02 GMT
+ * Datetime: Mon, 30 Apr 2018 17:12:26 GMT
  */
 ;
 // tangram.config({});
 tangram.block([], function (pandora, global, imports, undefined) {
-	var _ = pandora;
 	var en = {
 		days: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
 		daysShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
@@ -17,10 +16,11 @@ tangram.block([], function (pandora, global, imports, undefined) {
 		suffix: [],
 		meridiem: []
 	};
-	_.locales('times', {
+	pandora.locales('times', {
 		'en': en,
 		'en-GB': en,
 		'en-UK': en,
 		'en-US': en
+
 	});
 });

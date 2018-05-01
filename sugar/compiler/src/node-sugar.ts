@@ -13,6 +13,7 @@ const tangram_js_sugar = require('./sugar.js');
 const fs = require('fs');
 const glob = require("glob");
 const path = require('path');
+const vlq = require('vlq');
 const commands = ['compile', 'cdir', 'build', 'help', 'version'];
 
 // console.log(process.argv);

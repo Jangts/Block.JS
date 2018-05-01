@@ -130,7 +130,7 @@
             this.lastPattern = new RegExp('(___boundary_' + this.uid + '_(\\\d+)_as_(string|pattern|template)___|___boundary_(\\\d+)_as_propname___|@boundary_(\\\d+)_as_(preoperator|operator|aftoperator|comments)::)', 'g');
             this.input = input;
             this.output = undefined;
-            this.replacements = [['{}'], ['/='], ['/'], [' +'], [' -']];
+            this.replacements = [['{}'], ['/='], ['/'], [' +'], [' -'], [' === ']];
             this.mappings = [];
             if (toES6) {
                 this.toES6 = true;
@@ -851,21 +851,22 @@
         };
         Sugar.prototype.getPosition = function (string) {
             if (string) {
+                // console.log(string);
                 var match = string.match(/@(\d+)L(\d+)P(\d+)(O*)(\d*):*/);
                 if (match) {
                     if (match[4]) {
-                        var ocol = parseInt(match[5]);
+                        var index = parseInt(match[5]);
                     }
                     else {
-                        var ocol = parseInt(match[3]);
+                        var index = parseInt(match[3]);
                     }
                     return {
                         match: match[0],
-                        head: !ocol,
+                        head: !index,
                         file: parseInt(match[1]),
                         line: parseInt(match[2]) + 1,
                         col: parseInt(match[3]) + 1,
-                        o: [parseInt(match[1]), parseInt(match[2]), ocol]
+                        o: [parseInt(match[1]), parseInt(match[2]), parseInt(match[3]), index],
                     };
                 }
             }
@@ -1787,7 +1788,7 @@
                                 if (condition[8]) {
                                     self_1[condition[4]] = 'var';
                                     self_1[condition[8]] = 'var';
-                                    agrs = [[condition[4], condition[3]], [condition[8], condition[7]]];
+                                    agrs = [[condition[4], this.getPosition(condition[3])], [condition[8], this.getPosition(condition[7])]];
                                 }
                                 else {
                                     self_1[condition[4]] = 'var';
@@ -1797,7 +1798,7 @@
                             else {
                                 self_1['_index'] = 'var';
                                 self_1[condition[4]] = 'var';
-                                agrs = [['_index', undefined], [condition[4], condition[3]]];
+                                agrs = [['_index', undefined], [condition[4], this.getPosition(condition[3])]];
                             }
                             var localvars_2 = {
                                 parent: vars,
@@ -2174,7 +2175,7 @@
                             type: 'code',
                             posi: args.keys[index_13][1],
                             display: 'block',
-                            value: 'if (' + args.keys[index_13][0] + ' === void 0) { ' + args.keys[index_13][0] + ' = ' + valArr[0]
+                            value: 'if (' + args.keys[index_13][0] + '@boundary_5_as_operator::void 0) { ' + args.keys[index_13][0] + ' = ' + valArr[0]
                         });
                         this.pushReplacementsToAST(body, vars, valArr[1], false, this.getPosition(args.vals[index_13]));
                         body.push({
@@ -2189,7 +2190,7 @@
                             type: 'code',
                             posi: args.keys[index_13][1],
                             display: 'block',
-                            value: 'if (' + args.keys[index_13][0] + ' === void 0) { ' + args.keys[index_13][0] + ' = ' + valArr[0] + '; }'
+                            value: 'if (' + args.keys[index_13][0] + '@boundary_5_as_operator::void 0) { ' + args.keys[index_13][0] + ' = ' + valArr[0] + '; }'
                         });
                     }
                 }
@@ -2217,13 +2218,14 @@
             this.pushAlias(body, this.using_as);
             this.pushCodes(body, this.ast.vars, this.ast.body, 1, this.namespace);
             this.pushFooter(foot);
-            this.output = head.join('') + this.trim(body.join('')) + foot.join('');
+            this.preoutput = head.join('') + this.trim(body.join('')) + foot.join('');
+            this.output = this.pickUpMap(this.restoreStrings(this.preoutput, true));
             // console.log(this.output);
             return this;
         };
         Sugar.prototype.pushPostionsToMap = function (position, codes) {
             if (codes === void 0) { codes = undefined; }
-            if (position) {
+            if (position && (typeof position === 'object')) {
                 var index_14 = this.posimap.length;
                 this.posimap.push(position);
                 var replace = '/* @posi' + index_14 + ' */';
@@ -2231,6 +2233,11 @@
                     codes.push(replace);
                 }
                 return replace;
+                // }else{
+                //     if (position){
+                //         console.log(position);
+                //         console.log(bar);
+                //     }
             }
             return '';
         };
@@ -2267,7 +2274,7 @@
                 // console.log(key);
                 // let position = this.getPosition(key);
                 // let _key = key.replace(position.match, '').trim();
-                codes.push("\r\n\t" + this.pushPostionsToMap(alias[key][0]) + "var " + key);
+                codes.push("\r\n\t" + this.pushPostionsToMap(alias[key][1]) + "var " + key);
                 codes.push(" = imports['" + alias[key][0]);
                 codes.push("']&&imports['" + alias[key][0]);
                 if (alias[key][2] !== undefined) {
@@ -3094,6 +3101,30 @@
             }
             return codes;
         };
+        Sugar.prototype.restoreStrings = function (string, last, toMin) {
+            if (toMin === void 0) { toMin = false; }
+            var that = this;
+            if (last) {
+                var pattern = this.lastPattern;
+            }
+            else {
+                var pattern = this.trimPattern;
+            }
+            return string.replace(pattern, function () {
+                if (arguments[5]) {
+                    if (toMin) {
+                        if (arguments[5] > 4) {
+                            return that.replacements[arguments[5]][0].trim();
+                        }
+                    }
+                    return that.replacements[arguments[5]][0];
+                }
+                return that.replacements[arguments[2] || arguments[4]][0];
+            }).replace(this.markPattern, function () {
+                // console.log(arguments[0], that.replacements[arguments[1]][1]);
+                return that.replacements[arguments[1]][0];
+            }).replace(/(@\d+L\d+P\d+O?\d*:::)/g, '');
+        };
         Sugar.prototype.decode = function (string) {
             string = string.replace(/@\d+L\d+P\d+(O\d+)?:*/g, '');
             var matches = string.match(/___boundary_([A-Z0-9_]{37})?(\d+)_as_[a-z]+___/);
@@ -3109,13 +3140,13 @@
             var _this = this;
             // 此处的replace在整理完成后，将进行分析归纳，最后改写为callback形式的
             // console.log(string);
-            string = this.restoreStrings(string, false);
+            // string = this.restoreStrings(string, false);
             // return string;
             // this.replacements = [['{}'], ['/='], ['/'], [' +'], [' -'], ['return ']];
             // console.log(string);
-            string = this.replaceStrings(string, false);
+            string = this.replaceStrings(string, true);
             // console.log(string);
-            string = this.replaceOperators(string, false);
+            // string = this.replaceOperators(string, false);
             // console.log(string);
             // return '';
             // 删除多余头部
@@ -3166,14 +3197,14 @@
                 }
                 return operator;
             });
+            return string;
             // console.log(string);
-            string = this.restoreStrings(string, true);
             // 关键字处理
             // console.log(string);
             // string = string.replace(/(\(|\[)\s+([\r\n]+)/g, "$1$2");
             // string = string.replace(/([^\r\n])\s+(\)|\])/g, "$1$2");
             // console.log(string);
-            return string;
+            // return string;
             {
                 // string = string.replace(/[;\r\n]+?(\s*)if\s*\(([\s\S]+?)\)/g, ";\r\n$1if ($2) ");
                 // string = string.replace(/if\s*\(([\s\S]+?)\)[\s,;]*{/g, "if ($1) {");
@@ -3212,37 +3243,41 @@
             }
             // return string;
         };
-        Sugar.prototype.restoreStrings = function (string, last) {
-            var that = this;
-            if (last) {
-                var pattern = this.lastPattern;
+        Sugar.prototype.pickUpMap = function (string) {
+            var lines = string.split(/\r{0,1}\n/);
+            var _lines = [];
+            var mappings = [];
+            for (var l = 0; l < lines.length; l++) {
+                var line = lines[l];
+                var mapping = [];
+                var match = void 0;
+                while (match = line.match(/\/\*\s@posi(\d+)\s\*\//)) {
+                    var index_28 = match.index;
+                    var position = this.posimap[match[1]];
+                    console.log(position);
+                    mapping.push([index_28, 0, position.o[1], position.o[2], 0]);
+                    line = line.replace(match[0], '');
+                }
+                _lines.push(line);
+                mappings.push(mapping);
             }
-            else {
-                var pattern = this.trimPattern;
-            }
-            return string.replace(pattern, function () {
-                // console.log(arguments);
-                // console.log(pattern, arguments[2] || arguments[4], that.replacements, that.replacements[arguments[2] || arguments[4]]);
-                return that.replacements[arguments[2] || arguments[4] || arguments[5]][0];
-            }).replace(this.markPattern, function () {
-                // console.log(arguments[0], that.replacements[arguments[1]][1]);
-                return that.replacements[arguments[1]][0];
-            }).replace(/(@\d+L\d+P\d+O?\d*:::)/g, '');
+            this.mappings = mappings;
+            console.log(mappings);
+            return _lines.join("\r\n");
         };
         Sugar.prototype.min = function () {
-            this.replacements = [['{}'], ['/='], ['/'], [' +'], [' -'], ['return ']];
-            var string = this.replaceStrings(this.output);
-            string = this.replaceOperators(string, true);
+            var string = this.replaceStrings(this.preoutput, false);
             // console.log(string);
             string = string.replace(/\s*(,|;|:|=|\?)\s+/g, "$1");
             string = string.replace(/([^\s])\s+([^\s])/g, "$1 $2");
+            string = string.replace(/([^\s])\s+(\.|\[\()/g, "$1$2");
             string = string.replace(/[;\s]*(\{|\[|\(|\]|\})\s*/g, "$1");
             string = string.replace(/;*\};+\s*/g, "}");
             string = string.replace(/\}([\$\w\.])\s*/g, "};$1");
             string = string.replace(/\};(else|catch)(\s|\{|\()/g, "}$1$2");
             string = string.replace(/\s*(@boundary_\d+_as_operator::)\s*/g, "$1");
             // console.log(string);
-            string = this.restoreStrings(string, false);
+            string = this.restoreStrings(string, true, true);
             return string;
         };
         Sugar.prototype.run = function (precall, callback) {
