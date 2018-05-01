@@ -9,12 +9,12 @@ tangram.block([
     '$_/painter/Charts/util/helpers',
     '$_/painter/Charts/util/events',
     '$_/painter/Charts/util/defaults'
-], function(pandora, global, imports, undefined) {
+], function(pandora, root, imports, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
-        
-        doc = global.document,
-        console = global.console;
+
+        doc = root.document,
+        console = root.console;
 
     var helpers = _.painter.Charts.util.helpers,
         events = _.painter.Charts.util.events,

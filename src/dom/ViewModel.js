@@ -10,11 +10,11 @@ tangram.block([
     '$_/util/bool',
     '$_/obj/Observer/',
     '$_/obj/Observer/Listener'
-], function(pandora, global, imports, undefined) {
+], function(pandora, root, imports, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
-        
-        doc = global.document;
+
+        doc = root.document;
 
     var vdoms = {},
         isFn = _.util.bool.isFn,

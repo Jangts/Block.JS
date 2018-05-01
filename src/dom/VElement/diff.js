@@ -11,12 +11,12 @@ tangram.block([
     '$_/dom/',
     '$_/dom/VElement/patch',
     '$_/arr/diff'
-], function(pandora, global, imports, undefined) {
+], function(pandora, root, imports, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
-        
-        doc = global.document,
-        console = global.console;
+
+        doc = root.document,
+        console = root.console;
 
     var patch = _.dom.VElement.patch,
         dfsWalk = function(oldNode, newNode, index, patches) {

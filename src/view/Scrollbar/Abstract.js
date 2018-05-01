@@ -6,11 +6,11 @@
  * Date 2017-04-06
  */
 ;
-tangram.block('$_/dom/Events', function(pandora, global, imports, undefined) {
+tangram.block('$_/dom/Events', function(pandora, root, imports, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
-        
-        doc = global.document;
+
+        doc = root.document;
 
     declare('see.Scrollbar.Abstract', {
         disabled: false,

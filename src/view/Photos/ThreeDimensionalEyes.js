@@ -10,13 +10,13 @@ tangram.block([
     '$_/util/bool',
     '$_/dom/Events',
     '$_/see/Photos/',
-], function(pandora, global, imports, undefined) {
+], function(pandora, root, imports, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
-        
-        doc = global.document,
-        console = global.console,
-        location = global.location,
+
+        doc = root.document,
+        console = root.console,
+        location = root.location,
         query = _.dom.sizzle || _.dom.query;
 
     _('see');

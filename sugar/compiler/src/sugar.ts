@@ -6,23 +6,23 @@
  * http://tangram.js.cn
  */
 ;
-(function (global, factory) {
+(function (root, factory) {
     if (typeof exports === 'object') {
-        exports = factory(global);
+        exports = factory(root);
         if (typeof module === 'object') {
             module.exports = exports;
         }
     }
-    else if (typeof global.define === 'function' && global.define.amd) {
+    else if (typeof root.define === 'function' && root.define.amd) {
         // AMD
-        global.define('tangram_js_sugar', [], function () {
-            return factory(global);
+        root.define('tangram_js_sugar', [], function () {
+            return factory(root);
         });
     }
     else {
-        global.tangram_js_sugar = factory(global);
+        root.tangram_js_sugar = factory(root);
     }
-}(this, function (global) {
+}(this, function (root) {
     if (Array.prototype['includes'] == undefined) {
         Array.prototype['includes'] = (searchElement: any, fromIndex: any): boolean => {
             fromIndex = parseInt(fromIndex) || 0;
@@ -2230,7 +2230,7 @@
                 // console.log(this.imports, imports);
                 codes.push("\r\n\t" + imports.join(",\r\n\t") + "\r\n");
             }
-            codes.push('], function (pandora, global, imports, undefined) {');
+            codes.push('], function (pandora, root, imports, undefined) {');
             return codes;
         }
         pushAlias(codes: string[], alias: any): string[] {

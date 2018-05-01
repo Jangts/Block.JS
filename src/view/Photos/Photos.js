@@ -11,12 +11,12 @@ tangram.block([
     '$_/util/query',
     '$_/util/bool',
     '$_/dom/'
-], function(pandora, global, imports, undefined) {
+], function(pandora, root, imports, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
-        
-        doc = global.document,
-        console = global.console;
+
+        doc = root.document,
+        console = root.console;
 
     declare('see.Photos', {
         _init: function(stage, images) {

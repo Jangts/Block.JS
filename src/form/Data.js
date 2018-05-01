@@ -10,14 +10,14 @@ tangram.block([
     '$_/util/bool',
     '$_/dom/',
     '$_/data/', '$_/async/'
-], function(pandora, global, imports, undefined) {
+], function(pandora, root, imports, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
-        
-        doc = global.document,
-        console = global.console,
-        location = global.location,
-        FormData = global.FormData,
+
+        doc = root.document,
+        console = root.console,
+        location = root.location,
+        FormData = root.FormData,
         query = _.dom.sizzle || _.dom.query;
 
     //Define Private Object 'validate'

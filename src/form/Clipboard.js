@@ -9,17 +9,17 @@
 tangram.block([
     '$_/util/bool',
     '$_/dom/'
-], function(pandora, global, imports, undefined) {
+], function(pandora, root, imports, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
-        
-        doc = global.document,
-        console = global.console;
+
+        doc = root.document,
+        console = root.console;
 
     // 注册_.data命名空间到pandora
     _('data');
 
-    var doc = global.document;
+    var doc = root.document;
 
     /**
      * 一个基于html的剪切板类

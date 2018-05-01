@@ -11,10 +11,10 @@ tangram.block([
     '$_/dom/',
     '$_/dom/HTMLCloser',
     '$_/form/SimpleEditor/util/events'
-], function(pandora, global, imports, undefined) {
+], function(pandora, root, imports, undefined) {
     var
         _ = pandora,
-        
+
         dialogs = cache.read(new _.Identifier('EDITOR_DIALOGS').toString()),
 
         conmands = {},

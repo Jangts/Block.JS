@@ -10,12 +10,12 @@ tangram.block([
     '$_/arr/',
     '$_/painter/Charts/util/helpers',
     '$_/painter/Charts/components/Abstract'
-], function(pandora, global, imports, undefined) {
+], function(pandora, root, imports, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
-        
-        doc = global.document,
-        console = global.console;
+
+        doc = root.document,
+        console = root.console;
 
     var helpers = _.painter.Charts.util.helpers,
         getMax = function(steps, value) {

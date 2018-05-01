@@ -8,85 +8,85 @@
 ;
 tangram.block([
     '$_/obj/Observer/'
-], function(pandora, global, imports, undefined) {
+], function(pandora, root, imports, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
-        
-        doc = global.document,
-        console = global.console,
-        location = global.location;
+
+        doc = root.document,
+        console = root.console,
+        location = root.location;
 
     var observe = _.obj.observe,
         watch = _.obj.watch;
 
 
-    declare('Component',{
+    declare('Component', {
         id: null,
         state: false,
         viewstatus: false,
         actived: false,
         name: 'Base Component',
         Element: null,
-        _init: function (elem) {
+        _init: function(elem) {
             this.id = new _.Identifier().toString();
             this.Element = _.util.type.isElement(elem) ? elem : doc.getElementById(elem) || document;
             this.Element.setAttribute('id', this.id);
             return this;
         },
-        _observe: function () {
+        _observe: function() {
             if (!this._observer) {
                 observe(this);
             }
             return this;
         },
-        _listen: function (attr, writeCallback, readCallback) {
+        _listen: function(attr, writeCallback, readCallback) {
             this._observer.listen(attr, writeCallback, readCallback);
             return this;
         },
-        on: function () {
+        on: function() {
             this.state = true;
             this.setAttr('data-app-state', 'on');
             return this;
         },
-        off: function () {
+        off: function() {
             this.state = false;
             this.setAttr('data-app-state', 'off');
             return this;
         },
-        toggleStatus: function () {
+        toggleStatus: function() {
             if (this.status) {
                 return this.off();
             } else {
                 return this.on();
             }
         },
-        setAttr: function (atrr, value) {
+        setAttr: function(atrr, value) {
             this.Element.setAttribute(atrr, value);
             return this;
         },
-        getAttr: function (atrr) {
+        getAttr: function(atrr) {
             return this.Element.getAttribute(atrr);
         },
-        removeAttr: function (atrr) {
+        removeAttr: function(atrr) {
             this.Element.removeAttribute(atrr);
             return this;
         },
-        setStyle: function (pros, value) {
+        setStyle: function(pros, value) {
             this.Element.style[pros] = value;
             return this;
         },
-        getStyle: function (pros, value) {
+        getStyle: function(pros, value) {
             return this.Element.style[pros];
         },
-        render: function (data) {
+        render: function(data) {
             return this.onload();
         },
         onload: _.self,
-        resize: function () {
+        resize: function() {
             return this.onresize();
         },
         onresize: _.self,
-        dest: function () {
+        dest: function() {
             this.onbeforedestroy();
             var parent = this.Element && this.Element.parentNode;
             if (parent) {

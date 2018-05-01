@@ -11,11 +11,11 @@ tangram.block([
     '$_/dom/',
     '$_/dom/VElement/patch',
     '$_/dom/VElement/diff'
-], function(pandora, global, imports, undefined) {
+], function(pandora, root, imports, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
-        
-        doc = global.document;
+
+        doc = root.document;
 
     var patch = _.dom.VElement.patch,
         diff = _.dom.VElement.diff;

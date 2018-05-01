@@ -10,11 +10,11 @@ tangram.block([
     '$_/arr/',
     '$_/dom/query/',
     '$_/dom/Events'
-], function(pandora, global, imports, undefined) {
+], function(pandora, root, imports, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
-        
-        doc = global.document,
+
+        doc = root.document,
         query = _.dom.sizzle || _.dom.query;
 
     // 注册_.dom命名空间到pandora
@@ -60,7 +60,7 @@ tangram.block([
         },
 
         getStyle = function(elem, property) {
-            if (elem == global || elem == doc) {
+            if (elem == root || elem == doc) {
                 elem = doc.documentElement || doc.body;
             }
             if (property) {
@@ -123,7 +123,7 @@ tangram.block([
                 return;
             }
             if (elem) {
-                if (elem == global || elem == global.document) {
+                if (elem == root || elem == root.document) {
                     elem = doc.documentElement || doc.body;
                 }
                 attr = property.replace(/(\-([a-z]){1})/g,
@@ -598,7 +598,7 @@ tangram.block([
                 typeof elem[evenType] == 'function' && elem[evenType]();
                 return this;
             },
-            touch: function (obj, selector, fn) {
+            touch: function(obj, selector, fn) {
                 var move;
                 var istouch = false;
                 if (typeof selector === "function") {
@@ -606,13 +606,13 @@ tangram.block([
                     selector = null;
                 }
                 if (typeof fn === "function") {
-                    _.dom.events.add(obj, 'touchstart', selector, null, function () {
+                    _.dom.events.add(obj, 'touchstart', selector, null, function() {
                         istouch = true;
                     });
-                    _.dom.events.add(obj, 'touchmove', selector, null, function (e) {
+                    _.dom.events.add(obj, 'touchmove', selector, null, function(e) {
                         move = true;
                     });
-                    _.dom.events.add(obj, 'touchend', selector, null, function (e) {
+                    _.dom.events.add(obj, 'touchend', selector, null, function(e) {
                         e.preventDefault();
                         if (!move) {
                             var touch = e.changedTouches[0];
@@ -635,14 +635,14 @@ tangram.block([
                     }
                 }
             },
-            touchStart: function (obj, selector, fn) {
+            touchStart: function(obj, selector, fn) {
                 if (typeof selector === "function") {
                     fn = selector;
                     selector = null;
                 }
                 if (typeof fn === "function") {
                     var istouch = false;
-                    _.dom.events.add(obj, 'touchstart', selector, null, function (e) {
+                    _.dom.events.add(obj, 'touchstart', selector, null, function(e) {
                         var touch = e.changedTouches[0];
                         e.pageX = touch.pageX;
                         e.pageY = touch.pageY;
@@ -657,14 +657,14 @@ tangram.block([
                     }
                 }
             },
-            touchMove: function (obj, selector, fn) {
+            touchMove: function(obj, selector, fn) {
                 if (typeof selector === "function") {
                     fn = selector;
                     selector = null;
                 }
                 if (typeof fn === "function") {
                     var istouch = false;
-                    _.dom.events.add(obj, 'touchmove', selector, null, function (e) {
+                    _.dom.events.add(obj, 'touchmove', selector, null, function(e) {
                         var touch = e.changedTouches[0];
                         e.pageX = touch.pageX;
                         e.pageY = touch.pageY;
@@ -679,14 +679,14 @@ tangram.block([
                     }
                 }
             },
-            touchEnd: function (obj, selector, fn) {
+            touchEnd: function(obj, selector, fn) {
                 if (typeof selector === "function") {
                     fn = selector;
                     selector = null;
                 }
                 if (typeof fn === "function") {
                     var istouch = false;
-                    _.dom.events.add(obj, 'touchend', selector, null, function (e) {
+                    _.dom.events.add(obj, 'touchend', selector, null, function(e) {
                         var touch = e.changedTouches[0];
                         e.pageX = touch.pageX;
                         e.pageY = touch.pageY;
@@ -701,16 +701,16 @@ tangram.block([
                     }
                 }
             },
-            swipeLeft: function (obj, fn) {
+            swipeLeft: function(obj, fn) {
                 var start = {},
                     end = {};
-                _.dom.events.touchStart(ojb, function (e) {
+                _.dom.events.touchStart(ojb, function(e) {
                     start = {
                         x: e.pageX,
                         y: e.pageY
                     };
                 });
-                _.dom.events.touchEnd(obj, function (e) {
+                _.dom.events.touchEnd(obj, function(e) {
                     end = {
                         x: e.pageX,
                         y: e.pageY
@@ -722,16 +722,16 @@ tangram.block([
                     }
                 });
             },
-            swipeRight: function (obj, fn) {
+            swipeRight: function(obj, fn) {
                 var start = {},
                     end = {};
-                _.dom.events.touchStart(ojb, function (e) {
+                _.dom.events.touchStart(ojb, function(e) {
                     start = {
                         x: e.pageX,
                         y: e.pageY
                     };
                 });
-                _.dom.events.touchEnd(obj, function (e) {
+                _.dom.events.touchEnd(obj, function(e) {
                     end = {
                         x: e.pageX,
                         y: e.pageY
@@ -743,16 +743,16 @@ tangram.block([
                     }
                 });
             },
-            swipe: function (obj, fn) {
+            swipe: function(obj, fn) {
                 var start = {},
                     end = {};
-                _.dom.events.touchStart(ojb, function (e) {
+                _.dom.events.touchStart(ojb, function(e) {
                     start = {
                         x: e.pageX,
                         y: e.pageY
                     };
                 });
-                _.dom.events.touchEnd(obj, function (e) {
+                _.dom.events.touchEnd(obj, function(e) {
                     end = {
                         x: e.pageX,
                         y: e.pageY

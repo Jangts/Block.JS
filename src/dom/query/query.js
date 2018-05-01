@@ -6,11 +6,11 @@
  * Date 2017-04-06
  */
 ;
-tangram.block(['$_/str/', '$_/arr/', '$_/obj/'], function(pandora, global, imports, undefined) {
+tangram.block(['$_/str/', '$_/arr/', '$_/obj/'], function(pandora, root, imports, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
-        
-        doc = global.document;
+
+        doc = root.document;
 
     //选择器正则表达式
     var idExpr = /^([\w-]+)?#([\w-]+)/;

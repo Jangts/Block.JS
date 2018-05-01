@@ -9,12 +9,12 @@
 tangram.block([
     '$_/util/bool',
     '$_/form/SimpleEditor/Range'
-], function(pandora, global, imports, undefined) {
+], function(pandora, root, imports, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
-        
-        doc = global.document,
-        console = global.console;
+
+        doc = root.document,
+        console = root.console;
 
 
     declare('form.SimpleEditor.Selection', {

@@ -9,10 +9,10 @@
 tangram.block([
     '$_/util/bool',
     '$_/dom/'
-], function(pandora, global, imports, undefined) {
+], function(pandora, root, imports, undefined) {
     var _ = pandora,
-        
-        console = global.console,
+
+        console = root.console,
         query = _.dom.sizzle || _.dom.query,
 
         regMethod = cache.read(new _.Identifier('EDITOR_REG_M').toString()),

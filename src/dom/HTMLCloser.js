@@ -7,11 +7,11 @@
  */
 ;
 tangram.block(['$_/util/bool', '$_/str/', '$_/dom/'], function(
-    pandora, global, undefined) {
+    pandora, root, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
-        
-        doc = global.document;
+
+        doc = root.document;
 
     // 注册_.dom命名空间到pandora
     _('dom');

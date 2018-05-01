@@ -9,10 +9,10 @@
 tangram.block([
     '$_/dom/',
     '$_/util/Color'
-], function(pandora, global, imports, undefined) {
+], function(pandora, root, imports, undefined) {
     var _ = pandora,
-        
-        console = global.console,
+
+        console = root.console,
         query = _.dom.sizzle || _.dom.query;
 
     var rbgaToHexadecimal = function(rgba) {

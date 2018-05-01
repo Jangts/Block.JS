@@ -9,11 +9,11 @@
 tangram.block([
     '$_/obj/',
     '$_/dom/'
-], function(pandora, global, imports, undefined) {
+], function(pandora, root, imports, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
-        doc = global.document,
-        console = global.console;
+        doc = root.document,
+        console = root.console;
 
     var REPLACE = 0,
         REORDER = 1,

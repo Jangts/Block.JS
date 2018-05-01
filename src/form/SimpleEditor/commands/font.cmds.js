@@ -8,10 +8,10 @@
 ;
 tangram.block([
     '$_/dom/'
-], function(pandora, global, imports, undefined) {
+], function(pandora, root, imports, undefined) {
     var _ = pandora,
-        
-        console = global.console,
+
+        console = root.console,
 
         regCommand = cache.read(new _.Identifier('EDITOR_REG_CMD').toString()),
         regCreater = cache.read(new _.Identifier('EDITOR_REG_C').toString()),

@@ -9,12 +9,12 @@
 tangram.block([
     '$_/painter/Charts/Charts',
     '$_/painter/Charts/util/helpers'
-], function(pandora, global, imports, undefined) {
+], function(pandora, root, imports, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
-        
-        doc = global.document,
-        console = global.console;
+
+        doc = root.document,
+        console = root.console;
 
     declare('painter.Charts.components.Abstract', {
         _init: function(configuration) {

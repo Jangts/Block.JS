@@ -11,12 +11,12 @@ tangram.block([
     '$_/painter/Charts/types/Abstract',
     '$_/painter/Charts/components/sharps/Line',
     '$_/painter/Charts/components/sharps/Point'
-], function(pandora, global, imports, undefined) {
+], function(pandora, root, imports, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
-        
-        doc = global.document,
-        console = global.console;
+
+        doc = root.document,
+        console = root.console;
 
     var helpers = _.painter.Charts.util.helpers,
         events = _.painter.Charts.util.events;

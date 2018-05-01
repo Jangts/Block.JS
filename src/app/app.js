@@ -6,10 +6,11 @@
 ;
 // tangram.config({});
 tangram.block([
-	/* @posi0 */'$_/app/Application'
-], function (pandora, global, imports, undefined) {
-	var _ = pandora;
-	pandora('app ', function (elem) {
-		return new _.app.Application(elem)
-	});
+    /* @posi0 */
+    '$_/app/Application'
+], function(pandora, root, imports, undefined) {
+    var _ = pandora;
+    pandora('app ', function(elem) {
+        return new _.app.Application(elem)
+    });
 });

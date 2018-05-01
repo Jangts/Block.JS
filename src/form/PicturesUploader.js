@@ -10,14 +10,14 @@ tangram.block([
     '$_/util/bool',
     '$_/dom/Elements',
     '$_/async/Uploader'
-], function(pandora, global, imports, undefined) {
+], function(pandora, root, imports, undefined) {
     var block = this,
         _ = pandora,
         $ = _.dom.select,
         declare = pandora.declareClass,
-        
-        doc = global.document,
-        console = global.console,
+
+        doc = root.document,
+        console = root.console,
         query = _.dom.sizzle || _.dom.query;
 
     var values = {},

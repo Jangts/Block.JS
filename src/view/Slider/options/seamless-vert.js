@@ -6,12 +6,12 @@
  * Date: 2017-04-06
  */
 ;
-tangram.block('$_/see/Slider/Slider', function(pandora, global, imports, undefined) {
+tangram.block('$_/see/Slider/Slider', function(pandora, root, imports, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
-        
-        doc = global.document,
-        location = global.location,
+
+        doc = root.document,
+        location = root.location,
         $ = _.dom.select;
 
     _.see.Slider.extend({

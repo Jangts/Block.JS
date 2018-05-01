@@ -11,12 +11,12 @@ tangram.block([
     '$_/dom/',
     '$_/painter/canvas',
     '$_/form/SimpleEditor/commands/insert.cmds'
-], function(pandora, global, imports, undefined) {
+], function(pandora, root, imports, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
-        
-        doc = global.document,
-        console = global.console,
+
+        doc = root.document,
+        console = root.console,
         query = _.dom.sizzle || _.dom.query,
 
         regMethod = cache.read(new _.Identifier('EDITOR_REG_M').toString()),

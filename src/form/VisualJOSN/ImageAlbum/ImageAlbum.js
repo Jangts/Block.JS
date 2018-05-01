@@ -17,12 +17,12 @@ tangram.block([
     '$_/form/VisualJOSN/builders.tmp',
     '$_/form/VisualJOSN/events.tmp',
     '$_/form/VisualJOSN/checks.tmp'
-], function(pandora, global, imports, undefined) {
+], function(pandora, root, imports, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
-        
-        doc = global.document,
-        console = global.console;
+
+        doc = root.document,
+        console = root.console;
 
     //Define NameSpace 'form'
     _('form');

@@ -9,13 +9,13 @@
 tangram.block([
     '$_/util/bool',
     '$_/dom/'
-], function(pandora, global, imports, undefined) {
+], function(pandora, root, imports, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
-        
-        doc = global.document,
-        location = global.location,
-        infinity = global.Number.POSITIVE_INFINITY,
+
+        doc = root.document,
+        location = root.location,
+        infinity = root.Number.POSITIVE_INFINITY,
         $ = _.dom.select;
 
     _('see');

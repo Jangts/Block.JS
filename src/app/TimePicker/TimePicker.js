@@ -13,11 +13,11 @@ tangram.block([
     // '$_/Time/Picker/events.tmp',
     '$_/Time/Picker/Builder',
     '$_/Time/Picker/Launcher',
-], function(pandora, global, imports, undefined) {
+], function(pandora, root, imports, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
-        
-        doc = global.document;
+
+        doc = root.document;
 
     var $ = _.dom.select;
 
@@ -26,7 +26,7 @@ tangram.block([
 
     var eventhandlers = {
         '.displayer .display-item .display-char': {
-            'click': function (event) {
+            'click': function(event) {
                 var picker = event.data,
                     builder = picker.builder,
                     launcher = picker.launcher,
@@ -99,7 +99,7 @@ tangram.block([
             }
         },
         '.buttons span': {
-            'click': function (event) {
+            'click': function(event) {
                 var picker = event.data,
                     launcher = picker.launcher,
                     type = _.dom.getAttr(this, 'data-type');
@@ -121,7 +121,7 @@ tangram.block([
             }
         },
         '.pickers ul li[data-value]': {
-            'click': function (event) {
+            'click': function(event) {
                 var picker = event.data,
                     builder = picker.builder,
                     launcher = picker.launcher,
@@ -134,7 +134,7 @@ tangram.block([
             }
         },
         '.pickers ul li.prev': {
-            'click': function (event) {
+            'click': function(event) {
                 var picker = event.data,
                     builder = picker.builder,
                     launcher = picker.launcher;
@@ -146,7 +146,7 @@ tangram.block([
             }
         },
         '.pickers ul li.next': {
-            'click': function (event) {
+            'click': function(event) {
                 var picker = event.data,
                     builder = picker.builder,
                     launcher = picker.launcher;

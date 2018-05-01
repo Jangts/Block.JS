@@ -9,13 +9,13 @@
 tangram.block([
     '$_/util/bool',
     '$_/see/Scrollbar/Abstract'
-], function(pandora, global, imports, undefined) {
+], function(pandora, root, imports, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
-        
-        doc = global.document,
-        console = global.console,
-        location = global.location,
+
+        doc = root.document,
+        console = root.console,
+        location = root.location,
         Abstract = _.see.Scrollbar.Abstract;
 
     var scrollbar = '';

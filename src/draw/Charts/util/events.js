@@ -10,12 +10,12 @@ tangram.block([
     '$_/arr/',
     '$_/dom/',
     '$_/painter/Charts/'
-], function(pandora, global, imports, undefined) {
+], function(pandora, root, imports, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
-        
-        doc = global.document,
-        console = global.console;
+
+        doc = root.document,
+        console = root.console;
 
     var getRelativePosition = function(evt) {
             var mouseX, mouseY;

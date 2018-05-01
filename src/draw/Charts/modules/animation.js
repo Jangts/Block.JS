@@ -3,12 +3,12 @@
  * Date: 2015-09-04
  */
 ;
-tangram.block('$_/painter/Charts/', function(pandora, global, imports, undefined) {
+tangram.block('$_/painter/Charts/', function(pandora, root, imports, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
-        
-        doc = global.document,
-        console = global.console;
+
+        doc = root.document,
+        console = root.console;
 
     var findNextWhere = function(arrayToSearch, filterCallback, startIndex) {
             // Default to start of the array
@@ -24,9 +24,9 @@ tangram.block('$_/painter/Charts/', function(pandora, global, imports, undefined
         },
 
         requestAnimFrame = (function() {
-            return global.requestAnimationFrame || global.webkitRequestAnimationFrame || global.mozRequestAnimationFrame || global.oRequestAnimationFrame || global.msRequestAnimationFrame ||
+            return root.requestAnimationFrame || root.webkitRequestAnimationFrame || root.mozRequestAnimationFrame || root.oRequestAnimationFrame || root.msRequestAnimationFrame ||
                 function(callback, fps) {
-                    return global.setTimeout(callback, 1000 / fps, this);
+                    return root.setTimeout(callback, 1000 / fps, this);
                 };
         })(),
 

@@ -6,10 +6,10 @@
  * Date: 2015-09-04
  */
 ;
-tangram.block([], function(pandora, global, imports, undefined) {
+tangram.block([], function(pandora, root, imports, undefined) {
     var _ = pandora,
-        
-        console = global.console;
+
+        console = root.console;
 
     var presets = [
             'bold', 'italic', 'insertorderedlist', 'insertunorderedlist',

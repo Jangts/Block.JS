@@ -10,12 +10,12 @@
 tangram.block([
     '$_/util/bool',
     '$_/dom/'
-], function(pandora, global, imports, undefined) {
+], function(pandora, root, imports, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
-        
-        doc = global.document,
-        location = global.location,
+
+        doc = root.document,
+        location = root.location,
         query = _.dom.sizzle || _.dom.query;
 
     declare('see.popup.Alerter', _.util.COM, {
@@ -77,7 +77,7 @@ tangram.block([
         },
         resize: function() {
             if (this.state) {
-                var winSize = _.dom.getSize(global);
+                var winSize = _.dom.getSize(root);
                 var contentHeightMax = winSize['height'] - 100;
                 var contentSize = _.dom.getSize(this.content);
                 var contentHeight = contentSize.height > contentHeightMax ? contentHeightMax : contentSize.height;

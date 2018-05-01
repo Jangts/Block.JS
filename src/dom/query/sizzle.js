@@ -6,11 +6,11 @@
  * Date 2017-04-06
  */
 ;
-tangram.block(function(pandora, global, imports, undefined) {
+tangram.block(function(pandora, root, imports, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
-        
-        doc = global.document;
+
+        doc = root.document;
 
     /*!
      * Sizzle CSS Selector Engine

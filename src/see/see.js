@@ -9,35 +9,35 @@
 tangram.block([
     '$_/util/bool',
     '$_/dom/Elements'
-], function(pandora, global, imports, undefined) {
+], function(pandora, root, imports, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
-        
-        doc = global.document,
-        location = global.location,
+
+        doc = root.document,
+        location = root.location,
         $ = _.dom.select;
 
     declare('see.Menu', {
-        _init: function (elem) {
+        _init: function(elem) {
             this.Element = _.util.bool.isStr(elem) ? _.dom.query.byId(elem) : elem;
             if (_.util.bool.isEl(this.Element)) {
                 this.render();
             }
         },
-        render: function () {
-            $('.submenu[data-width]', this.Element).each(function () {
+        render: function() {
+            $('.submenu[data-width]', this.Element).each(function() {
                 $(this).css('width', parseFloat($(this).data('width')));
             });
-            $('.submenu[data-height]', this.Element).each(function () {
+            $('.submenu[data-height]', this.Element).each(function() {
                 $(this).css('height', parseFloat($(this).data('height')));
             });
-            $('.submenu.under.al-center, .submenu.upon.al-center', this.Element).each(function () {
+            $('.submenu.under.al-center, .submenu.upon.al-center', this.Element).each(function() {
                 $('tangram-see').addClass('__while-menu-item-get-size');
                 width = $(this).width();
                 $('tangram-see').removeClass('__while-menu-item-get-size');
                 $(this).css('margin-left', '-' + width / 2 + 'px');
             });
-            $('.submenu.rside.al-middle, .submenu.lside.al-middle', this.Element).each(function () {
+            $('.submenu.rside.al-middle, .submenu.lside.al-middle', this.Element).each(function() {
                 $('tangram-see').addClass('__while-menu-item-get-size');
                 height = $(this).height();
                 $('tangram-see').removeClass('__while-menu-item-get-size');
@@ -47,16 +47,16 @@ tangram.block([
     });
 
     declare('see.List', {
-        _init: function (elem) {
+        _init: function(elem) {
             this.Element = _.util.bool.isStr(elem) ? _.dom.query.byId(elem) : elem;
             if (_.util.bool.isEl(this.Element)) {
                 this.render();
             }
         },
-        render: function () {
+        render: function() {
             if (_.dom.hasClass(this.Element, 'withthumb')) {
                 var itemWidth, mediaWidth, bodyWidth;
-                $('.tangram-see .articlelist.withthumb>.list-item', this.Element).each(function () {
+                $('.tangram-see .articlelist.withthumb>.list-item', this.Element).each(function() {
                     if (_.dom.hasClass(this, 'top-bottom')) {
                         return this;
                     }
@@ -73,7 +73,7 @@ tangram.block([
     });
 
     declare('see.PageList', {
-        _init: function (currentPage, maxAnchorNumber, style) {
+        _init: function(currentPage, maxAnchorNumber, style) {
             this.currentpage = currentPage || 1;
             this.maxAnchorNumber = maxAnchorNumber || 9;
 
@@ -86,12 +86,12 @@ tangram.block([
             this.align = style.align || 'al-center';
             this.color = style.color || 'ashy';
         },
-        ajax: function (url, callback, prePageItemNumber) {
+        ajax: function(url, callback, prePageItemNumber) {
             var that = this;
             if (_.util.bool.isStr(url)) {
                 new _.async.Request({
                     url: url
-                }).done(function (data) {
+                }).done(function(data) {
                     if (_.util.bool.isNumeric(data)) {
                         totalItemNumber = parseInt(data);
                     } else {
@@ -108,11 +108,11 @@ tangram.block([
                 }).send();
             }
         },
-        setter: function (totalItemNumber, prePageItemNumber) {
+        setter: function(totalItemNumber, prePageItemNumber) {
             prePageItemNumber = prePageItemNumber || 7;
             this.pageNumber = Math.ceil(totalItemNumber / prePageItemNumber);
         },
-        getData: function () {
+        getData: function() {
             var data = [];
             data["f"] = 1;
             data["p"] = this.currentpage > 1 ? this.currentpage - 1 : 1;
@@ -159,15 +159,15 @@ tangram.block([
             }
             return html + '</ul>';
         },
-        appendist: function (target, gotoPreviousAnchorname, gotoNextAnchorname, gotoFirstAnchorname, gotoLastAnchorname) {
+        appendist: function(target, gotoPreviousAnchorname, gotoNextAnchorname, gotoFirstAnchorname, gotoLastAnchorname) {
             $(target).append(this.getList(gotoPreviousAnchorname, gotoNextAnchorname, gotoFirstAnchorname, gotoLastAnchorname));
         }
     });
 
     _.extend(_.see, {
         NavMenu: {
-            auto: function () {
-                $('.tangram-see. menu[data-ic-auto]').each(function () {
+            auto: function() {
+                $('.tangram-see. menu[data-ic-auto]').each(function() {
                     if (($(this).data('icAuto') != 'false') && ($(this).data('icRendered') != 'navmenu')) {
                         $(this).data('icRendered', 'navmenu');
                         new _.see.NavMenu(this);
@@ -176,9 +176,9 @@ tangram.block([
             }
         },
         List: {
-            auto: function () {
+            auto: function() {
                 var List = this;
-                $('.tangram-see .articlelist[data-ic-auto]').each(function () {
+                $('.tangram-see .articlelist[data-ic-auto]').each(function() {
                     if (($(this).data('icAuto') != 'false') && ($(this).data('icRendered') != 'articlelist')) {
                         $(this).data('icRendered', 'articlelist');
                         new List(this);

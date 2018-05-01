@@ -3,13 +3,13 @@
  * Date: 2015-09-04
  */
 
-tangram.block('$_/util/bool', function(pandora, global, imports, undefined) {
+tangram.block('$_/util/bool', function(pandora, root, imports, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
-        
-        doc = global.document,
-        console = global.console,
-        location = global.location;
+
+        doc = root.document,
+        console = root.console,
+        location = root.location;
 
     var getBeveling = function(x, y) {
         return Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
@@ -72,7 +72,7 @@ tangram.block('$_/util/bool', function(pandora, global, imports, undefined) {
             img.src = url;
         },
         fileToBlob: function(file) {
-            return global.URL.createObjectURL(file);
+            return root.URL.createObjectURL(file);
         },
         fileToBase64: function(file, callback) {
             var reader = new FileReader();

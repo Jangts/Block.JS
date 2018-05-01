@@ -8,11 +8,11 @@
  * Contact xiaodpro@gmail.com
  */
 ;
-tangram.block(['$_/str/'], function(pandora, global, imports, undefined) {
+tangram.block(['$_/str/'], function(pandora, root, imports, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
-        
-        doc = global.document;
+
+        doc = root.document;
 
     var esc = _.str.escape,
         startTag = '<%',
@@ -172,7 +172,7 @@ tangram.block(['$_/str/'], function(pandora, global, imports, undefined) {
             options = options || {};
 
             if (options.mainUrl) {
-                global.config({
+                root.config({
                     mainUrl: options.mainUrl
                 });
             }

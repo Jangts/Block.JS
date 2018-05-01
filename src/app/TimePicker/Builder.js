@@ -10,11 +10,11 @@ tangram.block([
     '$_/Component/',
     '$_/dom/Elements',
     '$_/Time/locales/en'
-], function(pandora, global, imports, undefined) {
+], function(pandora, root, imports, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
-        
-        doc = global.document;
+
+        doc = root.document;
 
     var $ = _.dom.select;
 

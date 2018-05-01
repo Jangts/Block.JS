@@ -6,13 +6,13 @@
  * Date 2017-04-06
  */
 ;
-tangram.block(['$_/util/COM', '$_/dom/Elements'], function(pandora, global, imports, undefined) {
+tangram.block(['$_/util/COM', '$_/dom/Elements'], function(pandora, root, imports, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
-        
-        doc = global.document,
-        console = global.console,
-        location = global.location;
+
+        doc = root.document,
+        console = root.console,
+        location = root.location;
     var $ = _.dom.select;
 
     declare('see.popup.Dialog', _.util.COM, {
@@ -103,7 +103,7 @@ tangram.block(['$_/util/COM', '$_/dom/Elements'], function(pandora, global, impo
         },
         bind: function() {
             var that = this;
-            new _.dom.Events(global).push('resize', null, null, function() {
+            new _.dom.Events(root).push('resize', null, null, function() {
                 that.state && that.render();
             });
             if (this.closer) {

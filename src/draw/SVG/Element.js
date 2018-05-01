@@ -10,12 +10,12 @@ tangram.block([
     '$_/util/type',
     '$_/util/bool',
     '$_/dom/Events'
-], function(pandora, global, imports, undefined) {
+], function(pandora, root, imports, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
-        
-        doc = global.document,
-        console = global.console;
+
+        doc = root.document,
+        console = root.console;
 
 
     declare('painter.SVGElement', {

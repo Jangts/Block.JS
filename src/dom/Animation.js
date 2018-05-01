@@ -7,11 +7,11 @@
  */
 ;
 tangram.block(['$_/util/bool', '$_/util/Color', '$_/dom/'], function(
-    pandora, global, undefined) {
+    pandora, root, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
-        
-        doc = global.document;
+
+        doc = root.document;
 
     // 注册_.dom命名空间到pandora
     _('dom');
@@ -237,7 +237,7 @@ tangram.block(['$_/util/bool', '$_/util/Color', '$_/dom/'], function(
         }
     });
 
-    _('dom.animator', function (elem, options) {
+    _('dom.animator', function(elem, options) {
         if (elem) {
             var eleCache = cache.read(_.dom.cache(elem));
             if (eleCache.Animation) {
@@ -279,7 +279,7 @@ tangram.block(['$_/util/bool', '$_/util/Color', '$_/dom/'], function(
     });
 
     _.extend(_.dom.animator, {
-        play: function (elem, style, duration, easing, callback) {
+        play: function(elem, style, duration, easing, callback) {
             var Animation = _.dom.animator(elem);
             Animation.push({
                 to: style,
@@ -290,7 +290,7 @@ tangram.block(['$_/util/bool', '$_/util/Color', '$_/dom/'], function(
             });
             Animation.play(1);
         },
-        stop: function (elem, stopAll, goToEnd) {
+        stop: function(elem, stopAll, goToEnd) {
             var Animation = _.dom.animator(elem);
             if (stopAll && goToEnd) {
                 Animation.stop();
@@ -321,8 +321,8 @@ tangram.block(['$_/util/bool', '$_/util/Color', '$_/dom/'], function(
                 }
             }
         },
-        remove: function (elem, sceneNumber) {
-            if (elem && elem.YangramKey && cache.save(elem.YangramKey).Animation) { }
+        remove: function(elem, sceneNumber) {
+            if (elem && elem.YangramKey && cache.save(elem.YangramKey).Animation) {}
         }
     });
 });

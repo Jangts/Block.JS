@@ -14,12 +14,12 @@ tangram.block([
     '$_/math/easing',
     '$_/painter/canvas',
     '$_/painter/Charts/'
-], function(pandora, global, imports, undefined) {
+], function(pandora, root, imports, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
-        
-        doc = global.document,
-        console = global.console;
+
+        doc = root.document,
+        console = root.console;
 
     var aliasPixel = function(pixelWidth) {
             return (pixelWidth % 2 === 0) ? 0 : 0.5;

@@ -8,10 +8,10 @@
 ;
 tangram.block([
     '$_/util/bool'
-], function(pandora, global, imports, undefined) {
+], function(pandora, root, imports, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
-        console = global.console;
+        console = root.console;
 
     var isFn = _.util.bool.isFn,
 

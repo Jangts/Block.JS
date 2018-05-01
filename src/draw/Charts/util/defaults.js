@@ -3,12 +3,12 @@
  * Date: 2015-09-04
  */
 ;
-tangram.block(['$_/painter/Charts/'], function(pandora, global, imports, undefined) {
+tangram.block(['$_/painter/Charts/'], function(pandora, root, imports, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
-        
-        doc = global.document,
-        console = global.console;
+
+        doc = root.document,
+        console = root.console;
 
     _.extend(_.painter.Charts.util.defaults, {
         backgroundColor: 'transparent',

@@ -6,12 +6,12 @@
  * Date 2017-04-06
  */
 ;
-tangram.block(function(pandora, global, imports, undefined) {
+tangram.block(function(pandora, root, imports, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
-        
-        doc = global.document,
-        console = global.console;
+
+        doc = root.document,
+        console = root.console;
 
     var deepMerge = function(obj1, obj2) {
         if (obj1 && obj2) {
@@ -124,10 +124,10 @@ tangram.block(function(pandora, global, imports, undefined) {
             });
             return array;
         },
-        encodeQueryString: function (data) {
+        encodeQueryString: function(data) {
             return _.obj.toQueryString(data)
         },
-        decodeQueryString: function (str) {
+        decodeQueryString: function(str) {
             str = str.replace(/^(#|\?)/, '');
             var data = {};
             var fields = str.split('&');

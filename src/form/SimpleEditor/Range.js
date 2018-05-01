@@ -6,12 +6,12 @@
  * Date: 2017-04-06
  */
 ;
-tangram.block('$_/util/bool', function(pandora, global, imports, undefined) {
+tangram.block('$_/util/bool', function(pandora, root, imports, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
-        
-        doc = global.document,
-        console = global.console;
+
+        doc = root.document,
+        console = root.console;
 
     var isGetSelection = window.getSelection ? true : false,
         getRangeHtml = function(range) {

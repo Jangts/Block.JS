@@ -10,12 +10,12 @@ tangram.block([
     '$_/util/bool',
     '$_/dom/',
     '$_/form/SimpleEditor/commands/insert.cmds'
-], function(pandora, global, imports, undefined) {
+], function(pandora, root, imports, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
-        
-        doc = global.document,
-        console = global.console,
+
+        doc = root.document,
+        console = root.console,
         query = _.dom.sizzle || _.dom.query;
 
     var parameters = cache.read(new _.Identifier('EDITOR_PARAMS').toString()),

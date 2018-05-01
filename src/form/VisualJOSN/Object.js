@@ -8,12 +8,12 @@
 ;
 tangram.block([
     '$_/dom/'
-], function(pandora, global, imports, undefined) {
+], function(pandora, root, imports, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
-        
-        doc = global.document,
-        console = global.console,
+
+        doc = root.document,
+        console = root.console,
         query = _.dom.sizzle || _.dom.query;
 
     //Define NameSpace 'form.VisualJOSN'

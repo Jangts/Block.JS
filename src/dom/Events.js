@@ -8,17 +8,17 @@
 ;
 tangram.block([
     '$_/dom/',
-], function(pandora, global, imports, undefined) {
+], function(pandora, root, imports, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
-        
-        doc = global.document,
+
+        doc = root.document,
         query = _.dom.sizzle || _.dom.query;
 
     // 注册_.dom命名空间到pandora
     _('dom');
 
-    var doc = global.document,
+    var doc = root.document,
         removeByIndex = function(array, index) {
             var result = [];
             for (var i = 0; i < array.length; i++) {
@@ -79,7 +79,7 @@ tangram.block([
             return this;
         },
         originEventType: function(eventType, elem) {
-            if (typeof eventType == 'string' && typeof elem == 'object' && (elem.nodeType == 1 || elem.nodeType == 9 || elem === global)) {
+            if (typeof eventType == 'string' && typeof elem == 'object' && (elem.nodeType == 1 || elem.nodeType == 9 || elem === root)) {
                 if (typeof elem['on' + eventType] != 'undefined') {
                     return eventType;
                 }

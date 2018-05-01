@@ -3,12 +3,12 @@
  * Date: 2015-09-04
  */
 ;
-tangram.block(['$_/painter/Charts/components/Abstract'], function(pandora, global, imports, undefined) {
+tangram.block(['$_/painter/Charts/components/Abstract'], function(pandora, root, imports, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
-        
-        doc = global.document,
-        console = global.console;
+
+        doc = root.document,
+        console = root.console;
 
     declare('painter.Charts.components.sharps.Point', _.painter.Charts.components.Abstract, {
         display: true,

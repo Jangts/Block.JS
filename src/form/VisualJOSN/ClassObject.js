@@ -9,12 +9,12 @@
 tangram.block([
     '$_/data/Model',
     '$_/form/VisualJOSN/Object'
-], function(pandora, global, imports, undefined) {
+], function(pandora, root, imports, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
-        
-        doc = global.document,
-        console = global.console,
+
+        doc = root.document,
+        console = root.console,
         query = _.dom.sizzle || _.dom.query;
 
     var types = {
