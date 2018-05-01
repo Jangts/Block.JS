@@ -87,7 +87,7 @@ func main() {
          * 2. 使用load加载twilight样式并调用see.highlight.rendertAll；
          * 3. 使用see.highlight.renderAll渲染go代码；
          */
-        tangram.block(['$_/see/highlight/languages/go'], function(_, global, imports, undefined) {
+        tangram.block(['$_/see/highlight/languages/go'], function(pandora, root, imports, undefined) {
             _.load('../../../src/see/highlight/themes/twilight.css', _.see.highlight.renderAll, null, 'css');
         }, true);
     </script>

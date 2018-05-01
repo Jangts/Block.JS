@@ -19,8 +19,8 @@ use $_/util/../util/type as type2, imports;
 
 var _ = pandora,
 declare = pandora.declareClass,
-document = global.document,
-console = global.console;
+document = root.document,
+console = root.console;
 
 var pandora_1 = null, pandora = null;
 var a = 0;
@@ -59,7 +59,7 @@ let D = class {}
 console.log(pandora, a, b, c, d, e, f, g, h, i, j);
 
 // for (let index = 0, length = 5; index < 5; index++) {
-//     global.console.log(index);
+//     root.console.log(index);
 // }
 
 // function foo(bar, ...args){

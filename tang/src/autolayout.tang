@@ -4,8 +4,8 @@ use $_/see/ListView
 use $_/see/NavMenu
 var _ = pandora,
 
-doc = global.document,
-location = global.location,
+doc = root.document,
+location = root.location,
 $ = _.dom.select;
 extends _.see.Scrollbar {
 auto () {

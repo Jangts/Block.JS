@@ -13,9 +13,9 @@ use $_/obj/;
 use $_/str/hash;
 
 var _ = pandora,
-doc = global.document,
-console = global.console,
-location = global.location;
+doc = root.document,
+console = root.console,
+location = root.location;
 
 var alias = {},
     models = {},

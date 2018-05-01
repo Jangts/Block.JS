@@ -30,7 +30,7 @@
         tangram.block([
             '$_/data/',
             '$_/async/'
-        ], function(_, global, imports, undefined) {
+        ], function(pandora, root, imports, undefined) {
             function getAll() {
                 _.async.json("jsonsql.test.json", function(json) {
                     console.log(json, _.data.queryJSON("select * from json.channel", json));
@@ -48,9 +48,9 @@
                     console.log(_.data.queryJSON("select url from json.channel.items where (category=='javascript' && author=='trent') order by url asc limit 1,2", json));
                 });
             }
-            global.getAll = getAll;
-            global.getFiltered = getFiltered;
-            global.getLimit = getLimit;
+            root.getAll = getAll;
+            root.getFiltered = getFiltered;
+            root.getLimit = getLimit;
         }, true);
     </script>
 </body>

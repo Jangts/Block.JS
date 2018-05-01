@@ -17,7 +17,7 @@ tangram.block([
 ], function(pandora, root, imports, undefined) {
     var _ = pandora;
     var declare = pandora.declareClass;
-    var query = _.dom.sizzle || _.dom.query;
+    var query = _.dom.query.sizzle || _.dom.query;
     var insert = function(content, handler) {
         switch (typeof content) {
             case 'string':

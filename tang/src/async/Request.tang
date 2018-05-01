@@ -10,12 +10,12 @@
 use $_/async/Promise;
 var _ = pandora,
     
-    console = global.console;
+    console = root.console;
 
-var location = global.location,
-    XMLHttpRequest = global.XMLHttpRequest,
-    ActiveXObject = global.ActiveXObject,
-    FormData = global.FormData;
+var location = root.location,
+    XMLHttpRequest = root.XMLHttpRequest,
+    ActiveXObject = root.ActiveXObject,
+    FormData = root.FormData;
 
 /**
  * 一个封装后的XHR类

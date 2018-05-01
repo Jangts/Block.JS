@@ -16,7 +16,7 @@ tangram.block([
         doc = root.document,
         console = root.console,
         location = root.location,
-        query = _.dom.sizzle || _.dom.query;
+        query = _.dom.query.sizzle || _.dom.query;
 
     _('medias');
 

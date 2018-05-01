@@ -9,9 +9,9 @@
 
 use $_/util/type;
 var _ = pandora,
-doc = global.document,
-console = global.console,
-location = global.location,
+doc = root.document,
+console = root.console,
+location = root.location,
 lcm = (m, n) {
     //辗转相除法 求最大公约数
     var u = +m,

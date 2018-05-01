@@ -9,8 +9,8 @@
 namespace util;
 
 var _ = pandora,
-doc = global.document,
-console = global.console;
+doc = root.document,
+console = root.console;
 
 //对象子类型判断
 typeofObj (object) {

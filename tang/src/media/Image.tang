@@ -11,9 +11,9 @@ use $_/util/bool;
 use $_/async/Request;
 
 var _ = pandora,
-doc = global.document,
-Image = global.Image,
-console = global.console;    
+doc = root.document,
+Image = root.Image,
+console = root.console;    
 
 var isStr = _.util.bool.isStr,
     isObj = _.util.bool.isObj,

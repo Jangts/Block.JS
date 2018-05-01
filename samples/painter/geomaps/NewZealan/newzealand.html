@@ -16,9 +16,9 @@
             '$_/dom/Elements',
             '$_/painter/SVG'
         ];
-        tangram.block(includes, function(_, global, imports, undefined) {
-            var document = global.document;
-            var location = global.location;
+        tangram.block(includes, function(pandora, root, imports, undefined) {
+            var document = root.document;
+            var location = root.location;
             var $ = _.dom.select;
 
             var width = 900,

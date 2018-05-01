@@ -10,7 +10,7 @@ tangram.block([
     '$_/util/bool',
     '$_/util/type',
     '$_/util/../util/type'
-], function (pandora, global, imports, undefined) {
+], function (pandora, root, imports, undefined) {
     var type1 = imports['$_/util/type'] && imports['$_/util/type'][0];
     var types = imports['$_/util/../util/type'] && imports['$_/util/../util/type'];
     var type2 = imports['$_/util/../util/type'] && imports['$_/util/../util/type'][0];
@@ -18,13 +18,13 @@ tangram.block([
     var a = void 0;
     var _ = pandora;
     var declare = pandora.declareClass;
-    var document = global.document;
-    var console = global.console;
+    var document = root.document;
+    var console = root.console;
     aaaaa = b;
     aaaaa = b;
     aaaaa = b;
-    var document = global.document;
-    var console = global.console;
+    var document = root.document;
+    var console = root.console;
     var b = 0;
     b = c = 0;
     var a = b;

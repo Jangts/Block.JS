@@ -25,12 +25,12 @@ use   $_/util/bool; use $_/util/type as type1;  use $_/util/../util/type as type
 var a
 var _ = pandora,
 declare = pandora.declareClass,
-    document = global.document; var console = global.console;
+    document = root.document; var console = root.console;
 aaaaa = b
 aaaaa = b
 aaaaa = b ;var
          
-         document = global.document ; var console = global.console;
+         document = root.document ; var console = root.console;
       var b = 0;
 b = c = 0
 var

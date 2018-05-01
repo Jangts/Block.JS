@@ -1468,6 +1468,6 @@ tangram.block(function(pandora, root, imports, undefined) {
     };
 
     _('query', Sizzle);
-    _('dom.sizzle', Sizzle);
+    _('dom.query.sizzle', Sizzle);
 
 });

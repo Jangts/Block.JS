@@ -27,10 +27,10 @@
             '$_/painter/Charts/modules/animation',
             '$_/painter/Charts/modules/tooltip',
             '$_/painter/Charts/types/Bar'
-        ], function(_, global, imports, undefined) {
+        ], function(pandora, root, imports, undefined) {
 
-            var document = global.document;
-            var location = global.location;
+            var document = root.document;
+            var location = root.location;
             var randomScalingFactor = function() {
                 return Math.round(Math.random() * 100 + 100)
             };

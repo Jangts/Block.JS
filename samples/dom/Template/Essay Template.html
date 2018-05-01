@@ -42,9 +42,9 @@
     <script>
         tangram.block([
             '$_/dom/Template'
-        ], function(_, global, imports, undefined) {
+        ], function(pandora, root, imports, undefined) {
 
-            var document = global.document;
+            var document = root.document;
             var view = document.getElementById('view');
             var template1 = document.getElementById('template1').innerHTML;
             var template2 = document.getElementById('template2').innerHTML;

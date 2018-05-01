@@ -8,8 +8,8 @@
  */
 
 var _ = pandora,
-doc = global.document,
-console = global.console;
+doc = root.document,
+console = root.console;
 
 
 var charToInteger = {};

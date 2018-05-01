@@ -13,8 +13,8 @@
     <script>
         tangram.block([
             '$_/dom/VElement/'
-        ], function(_, global, imports, undefined) {
-            var document = global.document;
+        ], function(pandora, root, imports, undefined) {
+            var document = root.document;
 
             var velement = _.dom.VElement.create,
                 diff = _.dom.VElement.diff,

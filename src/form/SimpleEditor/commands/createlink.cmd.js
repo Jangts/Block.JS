@@ -13,7 +13,7 @@ tangram.block([
     var _ = pandora,
 
         console = root.console,
-        query = _.dom.sizzle || _.dom.query,
+        query = _.dom.query.sizzle || _.dom.query,
 
         regMethod = cache.read(new _.Identifier('EDITOR_REG_M').toString()),
         regCommand = cache.read(new _.Identifier('EDITOR_REG_CMD').toString()),

@@ -32,10 +32,10 @@
         tangram.block([
             '$_/dom/Elements',
             '$_/form/SimpleEditor/'
-        ], function(pandora, global, imports, undefined) {
+        ], function(pandora, root, imports, undefined) {
             var _ = pandora,
-                document = global.document,
-                console = global.console;
+                document = root.document,
+                console = root.console;
 
             var editor = _.form.careatEditors('.myeditor')[0];
             console.log(editor);

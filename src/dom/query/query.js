@@ -233,6 +233,6 @@ tangram.block(['$_/str/', '$_/arr/', '$_/obj/'], function(pandora, root, imports
     _.extend(_, {
         byId: byId,
         byCn: byClass,
-        query: _.dom.sizzle || query
+        query: _.dom.query.sizzle || query
     });
 });

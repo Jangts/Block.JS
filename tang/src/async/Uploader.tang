@@ -9,12 +9,12 @@
 
 use $_/util/bool;
 var _ = pandora,
-doc = global.document,
-console = global.console;
+doc = root.document,
+console = root.console;
 
-var XMLHttpRequest = global.XMLHttpRequest,
-    ActiveXObject = global.ActiveXObject,
-    FormData = global.FormData,
+var XMLHttpRequest = root.XMLHttpRequest,
+    ActiveXObject = root.ActiveXObject,
+    FormData = root.FormData,
 
     //Define Private Method 'toRegExp',  'fileTransfer'
     toRegExp = (array) {

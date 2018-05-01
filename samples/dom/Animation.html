@@ -14,9 +14,9 @@
         tangram.block([
             '$_/dom/Animation',
             '$_/math/easing'
-        ], function(pandora, global, imports, undefined) {
+        ], function(pandora, root, imports, undefined) {
             var _ = pandora,
-                document = global.document;
+                document = root.document;
             var div = document.createElement('div');
             div.style.position = "absolute";
             div.style.textAlign = "center";

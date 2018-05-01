@@ -13,10 +13,10 @@ use $_/dom/;
 use $_/async/Request;
 
 var _ = pandora,
-doc = global.document,
-location = global.location,
-console = global.console,
-FormData = global.FormData,
+doc = root.document,
+location = root.location,
+console = root.console,
+FormData = root.FormData,
 query = _.dom.sizzle || _.dom.query;
 
 store async {

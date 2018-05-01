@@ -12,11 +12,11 @@ use $_/util/type;
 use $_/dom/;
 
 var _ = pandora,
-doc = global.document,
-console = global.console,
-File = global.File,
-FileList = global.FileList,
-FormData = global.FormData;
+doc = root.document,
+console = root.console,
+File = root.File,
+FileList = root.FileList,
+FormData = root.FormData;
 
 store bool {
     truthy(value) {
@@ -176,5 +176,5 @@ store bool {
     }
 }
 
-_.extend(global, _.util.bool);
+_.extend(root, _.util.bool);
 return _.util.bool;

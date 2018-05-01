@@ -18,7 +18,7 @@ tangram.block([
         console = root.console,
         location = root.location,
         FormData = root.FormData,
-        query = _.dom.sizzle || _.dom.query;
+        query = _.dom.query.sizzle || _.dom.query;
 
     //Define Private Object 'validate'
     var validate = {},

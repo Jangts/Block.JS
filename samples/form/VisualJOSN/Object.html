@@ -47,16 +47,16 @@
         tangram.auto([
             '$_/dom/Elements',
             '$_/form/VisualJOSN/Object'
-        ], function(pandora, global, imports, undefined) {
+        ], function(pandora, root, imports, undefined) {
             var _ = pandora,
-                document = global.document,
-                console = global.console,
+                document = root.document,
+                console = root.console,
                 $ = _.dom.select;
 
             var visualObject = new _.form.VisualJOSN.Object($('.myinputs')[0], $('[name="myinput"]')[0]);
 
 
-            global.resetInputValue = function() {
+            root.resetInputValue = function() {
                 var json = visualObject.getJSON();
                 alert(json);
                 alert($('[name="myinput"]').val());

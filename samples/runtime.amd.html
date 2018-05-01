@@ -13,12 +13,12 @@
 <body>
     <script>
         require(['tangram'], function(tangram) {
-            tangram.block([], function(pandora, global, imports, undefined) {
+            tangram.block([], function(pandora, root, imports, undefined) {
                 var _ = pandora,
                     declare = pandora.declareClass,
                     
-                    document = global.document,
-                    console = global.console;
+                    document = root.document,
+                    console = root.console;
 
                 var div = _.render({
                         margin: "100px auto 0",

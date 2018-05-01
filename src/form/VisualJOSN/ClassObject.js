@@ -15,7 +15,7 @@ tangram.block([
 
         doc = root.document,
         console = root.console,
-        query = _.dom.sizzle || _.dom.query;
+        query = _.dom.query.sizzle || _.dom.query;
 
     var types = {
             color: 'string',

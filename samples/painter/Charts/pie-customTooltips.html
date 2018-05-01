@@ -81,9 +81,9 @@
             '$_/painter/Charts/modules/animation',
             '$_/painter/Charts/modules/tooltip',
             '$_/painter/Charts/types/Pie'
-        ], function(_, global, imports, undefined) {
-            var document = global.document;
-            var location = global.location;
+        ], function(pandora, root, imports, undefined) {
+            var document = root.document;
+            var location = root.location;
 
             var $ = _.dom.$,
                 customTooltips = function(tooltip) {

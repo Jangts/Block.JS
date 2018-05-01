@@ -13,7 +13,7 @@ tangram.block([
         declare = pandora.declareClass,
 
         doc = root.document,
-        query = _.dom.sizzle || _.dom.query;
+        query = _.dom.query.sizzle || _.dom.query;
 
     // 注册_.dom命名空间到pandora
     _('dom');

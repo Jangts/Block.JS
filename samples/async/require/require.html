@@ -12,8 +12,8 @@
 <body>
     <div id="test"></div>
     <script>
-        tangram.block(['$_/async/require'], function(pandora, global, imports, undefined) {
-            var document = global.document;
+        tangram.block(['$_/async/require'], function(pandora, root, imports, undefined) {
+            var document = root.document;
             require('./testmodule', function(module) {
 
                 var div = document.createElement('div');

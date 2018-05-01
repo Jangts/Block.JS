@@ -11,7 +11,7 @@
 
 <body>
     <script>
-        tangram.block(function(pandora, global, imports, undefined) {
+        tangram.block(function(pandora, root, imports, undefined) {
             var _ = pandora;
 
             _('animals', [{
@@ -38,7 +38,7 @@
             }]);
         }, '$_/animals');
 
-        tangram.block(function(pandora, global, imports, undefined) {
+        tangram.block(function(pandora, root, imports, undefined) {
             var _ = pandora,
                 declare = pandora.declareClass;
 
@@ -55,7 +55,7 @@
 
         }, '$_/Animal');
 
-        tangram.block(['$_/animals', '$_/Animal'], function(_, global, imports, undefined) {
+        tangram.block(['$_/animals', '$_/Animal'], function(pandora, root, imports, undefined) {
             var it;
             _.each(_.animals, function(i, animal) {
                 it = _.Animal(this);

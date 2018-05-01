@@ -913,7 +913,7 @@ final class App
          * 2. 使用load加载coy样式并调用see.highlight.rendertAll；
          * 3. 使用see.highlight.rendertAll渲染php代码；
          */
-        tangram.block(['$_/see/highlight/languages/php'], function(_, global, imports, undefined) {
+        tangram.block(['$_/see/highlight/languages/php'], function(pandora, root, imports, undefined) {
             _.load('../../../src/see/highlight/themes/coy.css', _.see.highlight.renderAll, null, 'css');
         }, true);
     </script>

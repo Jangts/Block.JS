@@ -16,7 +16,7 @@ tangram.block([
 
         doc = root.document,
         console = root.console,
-        query = _.dom.sizzle || _.dom.query;
+        query = _.dom.query.sizzle || _.dom.query;
 
     var parameters = cache.read(new _.Identifier('EDITOR_PARAMS').toString()),
         regMethod = cache.read(new _.Identifier('EDITOR_REG_M').toString()),

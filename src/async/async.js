@@ -20,7 +20,7 @@ tangram.block([
     var location = root.location;
     var console = root.console;
     var FormData = root.FormData;
-    var query = _.dom.sizzle || _.dom.query;
+    var query = _.dom.query.sizzle || _.dom.query;
     pandora.ns('async', {
         load: _.load,
         loadCSS: function(href, callback) {

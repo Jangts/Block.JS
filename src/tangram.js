@@ -15,20 +15,15 @@ void
 function(root, factory) {
     if (typeof exports === 'object') {
         root.console = console;
-        exports = factory(root);
+        root.tangram = exports.tangram = factory(root);
         if (typeof module === 'object') {
             module.exports = exports;
         }
-    } else if (typeof define === 'function' && define.amd) {
-        // AMD
-        define('tangram', [], function() {
-            return factory(root);
-        });
     } else {
         root.tangram = factory(root);
-        root.block = root.tangram.block;
     }
-}(this, function(root, undefined) {
+    root.block = root.tangram.block;
+}(typeof window === 'undefined' ? global : window, function(root, undefined) {
     /**
      * ------------------------------------------------------------------
      * Runtime Environment Initialization
@@ -337,9 +332,9 @@ function(root, factory) {
         locales: {},
         core: runtime,
         addinUrl: runtime.Pathname + '../addins/',
-        exports: {
-            /** 模块快速导出对象的临时缓存 */
-            temp: []
+        /** 模块快速导出对象的临时缓存 */
+        common_module: {
+            exports: {}
         },
         blocks: {
             /** 代码块映射 */
@@ -1233,9 +1228,9 @@ function(root, factory) {
         fireblock = function(block) {
             if (block.uid) {
                 // console.log(block);
-                return block.exports;
+                return;
             }
-            // console.log(block);
+            // console.log(block.imports);
             each(block.imports, function(id, blocks) {
                 var isAlisa = (typeof blocks === 'string');
                 if (isAlisa) {
@@ -1243,24 +1238,21 @@ function(root, factory) {
                 } else {
                     var require = storage.blocks.requires[id];
                 }
+                // console.log(require);
                 if (require.status === 'loaded') {
                     require.status = 'fired';
                     // console.log(id, require.blocks);
                     each(require.blocks, function(i, block) {
-                        require.exports.push(fireblock(block));
+                        // console.log(block)
+                        // block.exports = require.exports;
+                        fireblock(block);
                     });
                 }
-                // console.log(id, isAlisa, blocks);
-                // console.log(block);
                 block.imports[id] = require.exports;
-                if (isAlisa && block.imports[id].length) {
-                    root[id] = block.imports[id][0];
-                }
             });
 
             block.uid = new Identifier().toString();
-            block.exports = block.callback(storage.pandora, root, block.imports);
-            return block.exports;
+            return block.callback(storage.pandora, root, block.imports);
         },
         /**
          * @class Iterator
@@ -1300,29 +1292,31 @@ function(root, factory) {
                 requireCount += this.requires.length;
                 this.core = {
                     imports: {},
+                    module: null,
                     callback: this.callback
                 };
                 if (blockname) {
                     if (blockname === true) {
                         var that = this;
                         // this.core['type'] = 'caller';
-                        setTimeout(function() {
+                        // setTimeout(function() {
                             that.mainid = storage.blocks.mains.push(that.core) - 1;
                             that.listene();
-                        }, 0);
+                        // }, 0);
                     }
                     // 可能废弃自定义块名，貌似没有实际意义
                     // 只是在命名空间机制下没有实际意义，事实上在exports机制下还是有其作用的
                     else if (typeof(blockname) === 'string') {
                         storage.blocks.requires[blockname.toLowerCase()] = {
                             blocks: [this.core],
-                            exports: [],
                             status: 'loaded'
                         };
                     }
+                    tangram.init();
                 } else {
                     if (blockname !== false) {
                         storage.blocks.temp.push(this.core);
+                        // console.log('001');
                     }
                     this.mainid = -1;
                 }
@@ -1385,15 +1379,18 @@ function(root, factory) {
                             } else {
                                 script.setAttribute('data-tangram-id', id);
                                 storage.blocks.requires[id].status = 'loaded';
-                                storage.blocks.requires[id].exports = storage.exports.temp;
                                 storage.blocks.requires[id].blocks = storage.blocks.temp;
-                                storage.exports.temp = [];
-                                storage.blocks.temp = [];
+                                storage.blocks.requires[id].exports = storage.common_module.exports;
+                                // console.log('002');
                                 each(storage.blocks.requires[id].blocks, function(i, block) {
                                     // block.type = 'called';
+                                    block.module = storage.blocks.requires[id];
                                     block.url = url;
                                 });
                             }
+                            // console.log(storage.blocks.requires[id]);
+                            // console.log('003');
+                            tangram.init();
                             that.listene();
                         }, false, filetype);
                     }
@@ -1491,8 +1488,20 @@ function(root, factory) {
         auto: function(includes, callback) {
             return block(includes, callback, true);
         },
-        exports: function(object) {
-            storage.exports.temp.push(object);
+        /**
+         * 初始化tangram的模块功能，使之与CMD接近
+         *
+         * @return tangram
+         */
+        init: function () {
+            if (this === tangram) {
+                // console.log('clear');
+                storage.blocks.temp = [];
+                storage.common_module.exports = {};
+                this.exports = storage.common_module.exports;
+                return this;
+            }
+            error('cannot call a private method from another object');
         },
         /**
          * 取潘多拉

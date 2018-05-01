@@ -3216,7 +3216,7 @@
                 while (match = line.match(/\/\*\s@posi(\d+)\s\*\//)){
                     let index = match.index;
                     let position = this.posimap[match[1]];
-                    console.log(position);
+                    // console.log(position);
                     mapping.push([index, 0, position.o[1], position.o[2], 0]);
                     line = line.replace(match[0], '');
                 }

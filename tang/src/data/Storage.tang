@@ -12,10 +12,10 @@ use $_/obj/;
 use $_/str/hash;
 
 var _ = pandora,
-doc = global.document,
-console = global.console,
-location = global.location,
-localStorage = global.localStorage;
+doc = root.document,
+console = root.console,
+location = root.location,
+localStorage = root.localStorage;
 
 var data = {};
 
@@ -27,7 +27,7 @@ class .data.Storage {
             this.id = new _.Identifier(name, 1).toString();
         }
         try {
-            data[this.id] = global.JSON.parse(localStorage[this.id]);
+            data[this.id] = root.JSON.parse(localStorage[this.id]);
             this.length = _.obj.length(data[this.id], true);
         } catch (e) {
             data[this.id] = {};
@@ -43,12 +43,12 @@ class .data.Storage {
             if (value === undefined) {
                 if (data[this.id].hasOwnProperty(key)) {
                     delete data[this.id][key];
-                    localStorage[this.id] = global.JSON.stringify(data[this.id]);
+                    localStorage[this.id] = root.JSON.stringify(data[this.id]);
                     this.length = _.obj.length(data[this.id], true);
                 }
             } else {
                 data[this.id][key] = value;
-                localStorage[this.id] = global.JSON.stringify(data[this.id]);
+                localStorage[this.id] = root.JSON.stringify(data[this.id]);
                 this.length = _.obj.length(data[this.id], true);
             }
         }

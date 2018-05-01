@@ -439,7 +439,7 @@ trap - ERR
          * 2. 使用load加载coy样式并调用see.highlight.rendertAll；
          * 3. 使用see.highlight.rendertAll渲染powershell代码；
          */
-        tangram.block(['$_/see/highlight/languages/powershell'], function(_, global, imports, undefined) {
+        tangram.block(['$_/see/highlight/languages/powershell'], function(pandora, root, imports, undefined) {
             _.load('../../../src/see/highlight/themes/coy.css', _.see.highlight.renderAll, null, 'css');
         }, true);
     </script>

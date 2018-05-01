@@ -10,8 +10,8 @@
 use $_/str/hash;
 
 var _ = pandora,
-console = global.console,
-blobSlice = global.File.prototype.mozSlice || global.File.prototype.webkitSlice || global.File.prototype.slice;
+console = root.console,
+blobSlice = root.File.prototype.mozSlice || root.File.prototype.webkitSlice || root.File.prototype.slice;
 
 var add32 (a, b) {
         return (a + b) & 0xFFFFFFFF;

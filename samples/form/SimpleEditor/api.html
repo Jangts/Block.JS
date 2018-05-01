@@ -54,14 +54,14 @@
         tangram.block([
             '$_/dom/Elements',
             '$_/form/SimpleEditor/'
-        ], function(pandora, global, imports, undefined) {
+        ], function(pandora, root, imports, undefined) {
             var _ = pandora,
-                document = global.document,
-                console = global.console,
+                document = root.document,
+                console = root.console,
                 $ = _.dom.select;
 
-            global.$ = $;
-            global.editor = new _.form.SimpleEditor($('.myeditor')[0], {}, $('[name="myinput"]'));
+            root.$ = $;
+            root.editor = new _.form.SimpleEditor($('.myeditor')[0], {}, $('[name="myinput"]'));
         }, true);
 
         function insertHtml() {

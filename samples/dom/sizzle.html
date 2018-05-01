@@ -22,10 +22,10 @@
     <script>
         tangram.block([
             '$_/dom/query/sizzle'
-        ], function(pandora, global, imports, undefined) {
+        ], function(pandora, root, imports, undefined) {
             var _ = pandora,
-                document = global.document,
-                console = global.console;
+                document = root.document,
+                console = root.console;
 
             var iterator = new _.Iterator(_.query('.changeText')),
                 render = function(elem) {

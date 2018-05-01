@@ -18,13 +18,13 @@
             '$_/util/type as type1',
             '$_/util/../util/type as type2',
             '$_/util/../util/type as type3'
-        ], function(pandora, global, imports, undefined) {
+        ], function(pandora, root, imports, undefined) {
            
             var _ = pandora,
                 declare = pandora.declareClass,
                 
-                document = global.document,
-                console = global.console;
+                document = root.document,
+                console = root.console;
 
             console.log(imports);
             console.log(type1);

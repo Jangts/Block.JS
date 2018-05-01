@@ -16,7 +16,7 @@ tangram.block([
 
         doc = root.document,
         location = root.location,
-        query = _.dom.sizzle || _.dom.query;
+        query = _.dom.query.sizzle || _.dom.query;
 
     declare('see.popup.Alerter', _.util.COM, {
         current: 0,

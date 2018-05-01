@@ -13,9 +13,9 @@
     <script>
         tangram.block([
             '$_/dom/HTMLCloser'
-        ], function(pandora, global, imports, undefined) {
+        ], function(pandora, root, imports, undefined) {
             var _ = pandora,
-                document = global.document,
+                document = root.document,
                 obj = new _.dom.HTMLCloser(input);
             var input = 'aaa</p></div><h3 class="a">0000<p>1111<b>2222</b></b>3333</h3><img src="123.jpg" /><br><p>abcd<span>e';
             console.log(input);

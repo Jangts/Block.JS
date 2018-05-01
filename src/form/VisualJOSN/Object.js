@@ -14,7 +14,7 @@ tangram.block([
 
         doc = root.document,
         console = root.console,
-        query = _.dom.sizzle || _.dom.query;
+        query = _.dom.query.sizzle || _.dom.query;
 
     //Define NameSpace 'form.VisualJOSN'
     _('form.VisualJOSN');

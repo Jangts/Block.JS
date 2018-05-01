@@ -117,7 +117,7 @@ exitSuccess = exitWith ExitSuccess</code>
          * 2. 使用load加载twilight样式并调用see.highlight.rendertAll；
          * 3. 使用see.highlight.renderAll渲染haskell代码；
          */
-        tangram.block(['$_/see/highlight/languages/haskell'], function(_, global, imports, undefined) {
+        tangram.block(['$_/see/highlight/languages/haskell'], function(pandora, root, imports, undefined) {
             _.load('../../../src/see/highlight/themes/twilight.css', _.see.highlight.renderAll, null, 'css');
         }, true);
     </script>

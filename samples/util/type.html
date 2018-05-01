@@ -11,8 +11,8 @@
 
 <body>
     <script>
-        tangram.block(['$_/util/type'], function(_, global, imports, undefined) {
-            var document = global.document,
+        tangram.block(['$_/util/type'], function(pandora, root, imports, undefined) {
+            var document = root.document,
                 objs = [1, '2', 2.5, '3.0', 'four', {
                         length: 0
                     }, null, function() {

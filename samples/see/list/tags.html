@@ -92,7 +92,7 @@
     </section>
 
     <script type="text/javascript">
-        tangram.block('$_/dom/Elements', function(_, global, imports, undefined) {
+        tangram.block('$_/dom/Elements', function(pandora, root, imports, undefined) {
             var $ = _.dom.select;
             $('.list-item').click(function() {
                 $('.list-item', this.parentNode).removeClass('selected');

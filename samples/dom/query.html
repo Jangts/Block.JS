@@ -20,7 +20,7 @@
     <div class="changeText">Original Text</div>
     <div class="changeText">Original Text</div>
     <script>
-        tangram.block(['$_/dom/query/'], function(_, global, imports, undefined) {
+        tangram.block(['$_/dom/query/'], function(pandora, root, imports, undefined) {
 
             var iterator = new _.Iterator(_.query('.changeText')),
                 render = function(elem) {

@@ -13,7 +13,7 @@ tangram.block([
     var _ = pandora,
 
         console = root.console,
-        query = _.dom.sizzle || _.dom.query;
+        query = _.dom.query.sizzle || _.dom.query;
 
     var rbgaToHexadecimal = function(rgba) {
             var arr = rgba.split(/\D+/);

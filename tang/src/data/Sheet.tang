@@ -13,9 +13,9 @@ use $_/obj/;
 use $_/data/Storage;
 
 var _ = pandora,
-doc = global.document,
-console = global.console,
-location = global.location,
+doc = root.document,
+console = root.console,
+location = root.location,
 Storage = _.data.Storage,
 queryJSON = _.data.queryJSON;
 
@@ -39,7 +39,7 @@ partlen = 1000 * 1000 * 5,
 update = (tablename) {
     var storageName,
         mateinfs = infs[tablename],
-        json = global.JSON.stringify(tables[tablename]),
+        json = root.JSON.stringify(tables[tablename]),
         parts = json.length / partlen,
         i = 0,
         storages = [];
@@ -141,7 +141,7 @@ class .data.Sheet {
                 // console.log(json);
                 infs[tablename] = mateinfs;
                 try {
-                    tables[tablename] = global.JSON.parse(json);
+                    tables[tablename] = root.JSON.parse(json);
                 } catch (e) {
                     tables[tablename] = {};
                 }

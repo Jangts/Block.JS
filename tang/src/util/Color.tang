@@ -9,8 +9,8 @@
 
 
 var _ = pandora,
-doc = global.document,
-console = global.console;
+doc = root.document,
+console = root.console;
 
 let names = {
     aliceblue: "#f0f8ff", // rgb(240, 248, 255)	爱丽丝蓝
