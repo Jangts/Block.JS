@@ -69,13 +69,13 @@
         replaceWords = /(@\d+L\d+P\d+O?\d*:::)?(return|else|try)\s*(\s|;|___boundary_[A-Z0-9_]{36}_(\d+)_as_([a-z]+)___)/g,
         replaceExpRegPattern = {
             await: /^((\s*@\d+L\d+P0:::)*\s*(@\d+L\d+P0*):::(\s*))?"await"\s*/,
-            using: /^\s*use\s+/g,
+            // using: /^\s*use\s+/g,
             namespace: /((@\d+L\d+P0):::)?(\s*)namespace\s+([\$\w\.]+)\s*(;|\r|\n)/g,
             // 位置是在replace usings 和 strings 之后才tidy的，所以还存在后接空格
-            use: /(@\d+L\d+P\d+:::)\s*use\s+([\$\w\.\/\\]+(\s+as\s+@\d+L\d+P\d+:::\s*[\$\w]+)?(\s*,@\d+L\d+P\d+:::\s*[\$\w]+)*(\[@\d+L\d+P\d+:::\s*\]\s*)?)[;\r\n]/g,
-            include: /\s*@include\s+[\$\w\.\s\/\\]+?[;\r\n]+/g,
+            use: /(@\d+L\d+P\d+:::)\s*use\s+([\$\w\.\/\\]+)(\s+as(\s+(@\d+L\d+P\d+:::\s*[\$\w]+)|\s*(@\d+L\d+P\d+:::\s*)?\{(@\d+L\d+P\d+:::\s*[\$\w]+(\s*,@\d+L\d+P\d+:::\s*[\$\w]+)*)\})(@\d+L\d+P\d+:::\s*)?)?\s*[;\r\n]/g,
+            include: /\s*@include\s+___boundary_[A-Z0-9_]{36}_(\d+)_as_string___[;\r\n]+/g,
 
-            return: /[\s;\r\n]+$/g,
+            // return: /[\s;\r\n]+$/g,
             extends: /(@\d+L\d+P\d+O*\d*:::)?((ns|namespace|store|extends)\s+[\$\w\.]+\s*\{[^\{\}]*?\})/g,
             class: /(@\d+L\d+P\d+O*\d*:::)?((class|expands)\s+([\$\w\.]+\s+)?(extends\s+[\$\w\.]+\s*)?\{[^\{\}]*?\})/g,
             fnlike: /(@\d+L\d+P\d+O*\d*:::)?(^|(function|def)\s+)?([\$\w]*\s*\([^\(\)]*\))\s*\{([^\{\}]*?)\}/g,
@@ -143,10 +143,11 @@
         configinfo_posi: string
         toES6 = false
         posimap: any[] = [];
+        sources:any[] = [];
         preoutput: string | undefined
         output: string | undefined
         tess = {}
-        constructor(input: string, toES6: boolean = false, run: boolean = false) {
+        constructor(input: string, source: string = '', toES6: boolean = false, run: boolean = false) {
             this.uid = boundaryMaker();
             this.markPattern = new RegExp('@boundary_(\\\d+)_as_(mark)::', 'g');
             this.trimPattern = new RegExp('(___boundary_' + this.uid + '_(\\\d+)_as_(string|pattern|template)___|___boundary_(\\\d+)_as_propname___)', 'g');
@@ -157,6 +158,13 @@
             this.mappings = [];
             if (toES6) {
                 this.toES6 = true;
+            }
+            if(source){
+                this.sources.push({
+                    id:0,
+                    src: source
+                });
+                this.sources[source] = true;
             }
             if (run) {
                 this.run();
@@ -177,7 +185,19 @@
                 fix_map: {},
                 type: 'block'
             };
-            let lines = this.input.split(/\r{0,1}\n/);
+            let newcontent:string = this.markPosition(this.input, 0);            
+            // console.log(this.positions);
+            this.buildAST(this.pickReplacePosis(this.getLines(this.encode(newcontent), vars), vars), vars);
+            // this.output = 'console.log("Hello, world!");';
+            this.generate();
+            // console.log(this.replacements);
+            return this;
+        }
+        error(str){
+            throw 'tangram.js sugar Error: ' + str;
+        }
+        markPosition(string, sourceid:number = 0){
+            let lines = string.split(/\r{0,1}\n/);
             // console.log(lines);
             let positions = [];
             for (let l = 0; l < lines.length; l++) {
@@ -192,26 +212,19 @@
                     if (element === ',' || element === ';' || element === '{' || element === '[' || element === '(' || element === '}' || element === ' as ' || element === '->' || element === '=>') {
                         newline.push(element);
                     } else {
-                        newline.push('@0L' + l + 'P' + length + ':::' + element);
+                        newline.push('@' + sourceid + 'L' + l + 'P' + length + ':::' + element);
                     }
                     length += element.length;
                 }
                 positions.push(newline);
             }
-           
             let newlines = positions.map((line) => {
                 return line.join("");
             })
             this.positions.push(positions);
-            let newcontent = newlines.join("\r\n");
-            // console.log(this.positions);
-            this.buildAST(this.pickReplacePosis(this.getLines(this.encode(newcontent), vars), vars), vars);
-            // this.output = 'console.log("Hello, world!");';
-            this.generate();
-            // console.log(this.replacements);
-            return this;
+            return newlines.join("\r\n");
         }
-        tidy(string) {
+        tidyPosition(string) {
             let on = true;
             while (on) {
                 on = false;
@@ -300,10 +313,8 @@
             string = this.replaceUsing(string);
             // console.log(string);
             string = this.replaceStrings(string);
-            while (string.indexOf('@include') >= 0) {
-                string = this.replaceIncludes(string);
-            }
-            string = this.tidy(string);
+            string = this.replaceIncludes(string);
+            string = this.tidyPosition(string);
             // console.log(string);
             string = string.replace(/(@\d+L\d+P\d+O?\d*:::)?((public|static|set|get|om)\s+)?___boundary_[A-Z0-9_]{36}_(\d+)_as_string___\s*(\:|\(|\=)/g, (match, posi, desc, type, index, after) => {
                 // console.log(posi, desc, this.replacements[index][1]);
@@ -335,14 +346,17 @@
             return string;
         }
         replaceUsing(string: string): string {
-            // console.log(string);
-            return string.replace(replaceExpRegPattern.use, (match: string, posi, url, as, more, array) => {
-                // console.log(match, posi, url, as, more, array);
+            return string.replace(replaceExpRegPattern.use, (match: string, posi, url, as, alias, variables, posimembers, members) => {
+                // console.log(arguments);
+                // console.log(match, ':', posi, url, as, alias);
                 let index = this.replacements.length;
-                if (array) {
-                    url = url.replace(array, '[]');
+                if (members) {
+                    // console.log(members);
+                    // url = url.replace(array, '[]');
+                    this.replacements.push([url, members, posi]);
+                    return '___boundary_' + this.uid + '_' + index + '_as_usings___;';
                 }
-                this.replacements.push([url, posi]);
+                this.replacements.push([url, variables, posi]);
                 return '___boundary_' + this.uid + '_' + index + '_as_using___;';
             });
         }
@@ -411,7 +425,7 @@
                 } else {
                     // console.log(string, matches, match);
                     // console.log(matches, match);
-                    throw 'tangram.js sugar Error: Unexpected `' + matches[1] + '` in `' + this.decode(string.substr(matches.index, 256)) + '`';
+                    this.error('Unexpected `' + matches[1] + '` in `' + this.decode(string.substr(matches.index, 256)) + '`');
                 }
                 matches = string.match(matchExpRegPattern.string);
             }
@@ -420,12 +434,29 @@
             return string;
         }
         replaceIncludes(string: string): string {
-            string = string.replace(replaceExpRegPattern.include, (match: string) => {
-                return this.onReadFile(match);
-            });
-            return this.replaceStrings(this.input);
+            if (this.sources.length){
+                let on = true;
+                let id = this.sources.length - 1;
+                while (on) {
+                    on = false;
+                    string = string.replace(replaceExpRegPattern.include, (match: string, index) => {
+                        // console.log(match, this.replacements[index][0]);
+                        // console.log(this.sources);
+                        // console.log(id, this.sources[id].src);
+                        let str = this.onReadFile(this.replacements[index][0].replace(/('|"|`)/g, '').trim(), this.sources[id].src.replace(/[^\/\\]+$/, ''));
+                        str = this.markPosition(str, this.sources.length - 1);
+                        // console.log(str);
+                        str = this.replaceStrings(str);
+                        // console.log(str);
+                        str = this.replaceIncludes(str);
+                        return str;//this.onReadFile(match);
+                    });
+                }
+            }
+            return string
         }
-        onReadFile(match: string): string {
+        onReadFile(match: string, source): string {
+            // console.log(match, source);
             return '';
         }
         replaceBrackets(string: string): string {
@@ -452,12 +483,12 @@
                     } else {
                         var index = left;
                     }
-                    throw 'tangram.js sugar Error: Unexpected `' + (right >= 0 ? ']' : '[') + '` in `' + this.decode(string.substr(index, 256)) + '`';
+                    this.error('Unexpected `' + (right >= 0 ? ']' : '[') + '` in `' + this.decode(string.substr(index, 256)) + '`');
                 }
             }
             if (right >= 0) {
                 var index = right;
-                throw 'tangram.js sugar Error: Unexpected `]` in `' + this.decode(string.substr(index, 256)) + '`';
+                this.error('Unexpected `]` in `' + this.decode(string.substr(index, 256)) + '`');
             }
             return string;
         }
@@ -479,12 +510,12 @@
                     } else {
                         var index = left;
                     }
-                    throw 'tangram.js sugar Error: Unexpected `' + (right >= 0 ? '}' : '{') + '` in `' + this.decode(string.substr(index, 256)) + '`';
+                    this.error('Unexpected `' + (right >= 0 ? '}' : '{') + '` in `' + this.decode(string.substr(index, 256)) + '`');
                 }
             }
             if (right >= 0) {
                 var index = right;
-                throw 'tangram.js sugar Error: Unexpected `}` in `' + this.decode(string.substr(index, 256)) + '`';
+                this.error('Unexpected `}` in `' + this.decode(string.substr(index, 256)) + '`');
             }
             return string;
         }
@@ -511,7 +542,7 @@
                 return string.replace(replaceExpRegPattern.fnlike, (match: string, posi, typewithgap, type, call, closure) => {
                     // console.log(match);
                     closure = this.replaceParentheses(closure);
-                    call = this.replaceOperators(call, false);
+                    call = this.replaceOperators(call);
                     match = (typewithgap || '') + call + ' {' + closure + '}';
                     let index = this.replacements.length;
                     // console.log(match);
@@ -578,7 +609,7 @@
                 // console.log(left, right);
                 if (left < right) {
                     string = string.replace(replaceExpRegPattern.parentheses, (match, posi, paramslike: string) => {
-                        paramslike = this.replaceOperators(paramslike, false);
+                        paramslike = this.replaceOperators(paramslike);
                         paramslike = this.replaceCalls(paramslike);
                         paramslike = this.replaceArrowFunctions(paramslike);
                         let index = this.replacements.length;
@@ -596,14 +627,14 @@
                         var index = left;
                     }
                     // console.log(string);
-                    throw 'tangram.js sugar Error: Unexpected `' + (right >= 0 ? ')' : '(') + '` in `' + this.decode(string.substr(index, 256)) + '`';
+                    this.error('Unexpected `' + (right >= 0 ? ')' : '(') + '` in `' + this.decode(string.substr(index, 256)) + '`');
                 }
             }
             if (right >= 0) {
                 var index = right;
-                throw 'tangram.js sugar Error: Unexpected `)` in `' + this.decode(string.substr(index, 256)) + '`';
+                this.error('Unexpected `)` in `' + this.decode(string.substr(index, 256)) + '`');
             }
-            string = this.replaceOperators(string, false);
+            string = this.replaceOperators(string);
             string = this.replaceCalls(string);
             string = this.replaceArrowFunctions(string);
             return string;
@@ -638,7 +669,7 @@
             }
             return string;
         }
-        replaceOperators(string: string, toMin: boolean = false): string {
+        replaceOperators(string: string): string {
             let on = true;
             while (on) {
                 on = false;
@@ -684,11 +715,7 @@
                         right = right.replace(sign, '@boundary_' + _index + '_as_preoperator::');
                     }
                     let index = this.replacements.length;
-                    if (toMin) {
-                        this.replacements.push([op + '=']);
-                    } else {
-                        this.replacements.push([' ' + op + '= ', posi]);
-                    }
+                    this.replacements.push([' ' + op + '= ', posi]);
                     return left + '@boundary_' + index + '_as_operator::' + right;
                 });
             }
@@ -704,11 +731,7 @@
                         right = right.replace(sign, '@boundary_' + _index + '_as_preoperator::');
                     }
                     let index = this.replacements.length;
-                    if (toMin) {
-                        this.replacements.push([op]);
-                    } else {
-                        this.replacements.push([' ' + op + ' ', posi]);
-                    }
+                    this.replacements.push([' ' + op + ' ', posi]);
                     return left + '@boundary_' + index + '_as_operator::' + right;
                 });
             }
@@ -725,11 +748,7 @@
                         right = right.replace(sign, '@boundary_' + _index + '_as_preoperator::');
                     }
                     let index = this.replacements.length;
-                    if (toMin) {
-                        this.replacements.push([op]);
-                    } else {
-                        this.replacements.push([' ' + op + ' ', posi]);
-                    }
+                    this.replacements.push([' ' + op + ' ', posi]);
                     // console.log(left + '@boundary_' + index + '_as_operator::' + right);
                     return left + '@boundary_' + index + '_as_operator::' + right;
                 });
@@ -770,7 +789,8 @@
             }
             return string.replace(operators.error, (match: string, before: string, op: string, after: string) => {
                 // console.log(string, match);
-                throw 'tangram.js sugar Error: Unexpected `' + op + '` in `' + this.decode(match) + '`';
+                this.error('Unexpected `' + op + '` in `' + this.decode(match) + '`');
+                return '';
             });
         }
         replaceCalls(string: string): string {
@@ -841,7 +861,7 @@
                     });
                 } else {
                     // console.log(string);
-                    throw 'tangram.js sugar Error: Unexpected `' + arrow[0] + '` in `' + this.decode(string.substr(arrow.index, 256)) + '`';
+                    this.error('Unexpected `' + arrow[0] + '` in `' + this.decode(string.substr(arrow.index, 256)) + '`');
                 }
             }
             return string;
@@ -917,7 +937,7 @@
                                 }
                             }
                             // console.log(sentence);
-                            throw 'tangram.js sugar Error: Unexpected `' + definition[1] + '` in `' + this.decode(sentence) + '`.';
+                            this.error('Unexpected `' + definition[1] + '` in `' + this.decode(sentence) + '`.');
                         } else {
                             // console.log(sentence);
                             this.pushSentenceToLines(lines, sentence, 'block');
@@ -933,7 +953,7 @@
                     } else {
                         // console.log(spilitarray[3], spilitarray);
                         var position = this.getPosition(array[2]);
-                        throw 'tangram.js sugar Error: Unexpected `' + array[3] + '` at char ' + position.col + ' on line ' + position.line + '， near ' + this.decode(array[2]) + '.';
+                        this.error('Unexpected `' + array[3] + '` at char ' + position.col + ' on line ' + position.line + '， near ' + this.decode(array[2]) + '.');
                     }
                 }
             }
@@ -1039,7 +1059,7 @@
                             if (vars.self[element] === void 0) {
                                 vars.self[element] = symbol;
                             } else if (vars.self[element] === 'let' || symbol === 'let') {
-                                throw 'tangram.js sugar Error:  Variable `' + element + '` has already been declared at char ' + position.col + ' on line ' + position.line + '.';
+                                this.error(' Variable `' + element + '` has already been declared at char ' + position.col + ' on line ' + position.line + '.');
                             }
                             lines.push({
                                 type: 'line',
@@ -1059,7 +1079,7 @@
                         value = element;
                     } else {
                         // console.log(element);
-                        throw 'tangram.js sugar Error: Unexpected Definition `' + symbol + ' at char ' + position.col + ' on line ' + position.line + '.';
+                        this.error('Unexpected Definition `' + symbol + '` at char ' + position.col + ' on line ' + position.line + ' in file [' + position.file + '][' + this.sources[position.file].src + '].');
                     }
                 }
             }
@@ -1151,47 +1171,32 @@
                         }]);
                         break;
                     case 'using':
-                        // console.log(lines[index]);
-                        let src = this.replacements[lines[index].index][0].replace(replaceExpRegPattern.using, '').replace(replaceExpRegPattern.return, '');
-                        let posi = this.replacements[lines[index].index][1];
-                        let srcArr = src.split(/\s+as\s+/);
-                        // console.log(srcArr);
-                        if (srcArr[1] && srcArr[1].trim()) {
-                            src = srcArr[0].trim();
-                            if (!imports['includes'](src)) {
-                                imports.push(src);
-                                imports.push(posi);
-                            }
-                            const array = srcArr[1].split(',');
-                            // console.log(array);
-                            for (let index = 0; index < array.length; index++) {
-                                const element = array[index].trim();
-                                if (element) {
-                                    // console.log(element);
-                                    let match = element.match(/^(@\d+L\d+P\d+:::)\s*([\$\w]+)(\[\])?$/);
-                                    let position = this.getPosition(match[1]);
-                                    if (match[3]) {
-                                        let alias = element.replace(match[0], match[2]).trim();
-                                        // console.log(alias);
-                                        using_as[alias] = [src, position];
-                                        var varname = alias;
-                                        break;
-                                    } else {
-                                        let alias = element.replace(match[1], '').trim();
-                                        // console.log(alias);
-                                        using_as[alias] = [src, position, index];
-                                        var varname = alias;
-                                    }
-                                    if (vars.self[varname] === void 0) {
-                                        vars.self[varname] = 'var';
-                                    } else if (vars.self[varname] === 'let') {
-                                        throw 'tangram.js sugar Error:  Variable `' + varname + '` has already been declared.';
-                                    }
-                                }
-                            }
-                        } else {
+                    case 'usings':
+                        // console.log(lines[index]);.return
+                        let posi = this.replacements[lines[index].index][2];
+                        let src = this.replacements[lines[index].index][0].trim();
+                        // let alias = .trim();
+
+                        if (!imports['includes'](src)) {
                             imports.push(src);
                             imports.push(posi);
+                        }
+                        if (this.replacements[lines[index].index][1]){
+                            if (lines[index].subtype==='usings'){
+                                let members = this.replacements[lines[index].index][1].split(',');
+                                for (let m = 0; m < members.length; m++) {
+                                    let position = this.getPosition(members[m]);
+                                    let alias = members[m].replace(position.match, '').trim();
+                                    using_as[alias] = [src, alias, position];  
+                                }
+                                // console.log(this.replacements[lines[index].index][1]);
+                            }else{
+                                let position = this.getPosition(this.replacements[lines[index].index][1]);
+                                let alias = this.replacements[lines[index].index][1].replace(position.match, '').trim();
+                                // console.log(alias);
+                                using_as[alias] = [src, '*', position];   
+                            }
+                            
                         }
                         break;
                     default:
@@ -1602,7 +1607,7 @@
                         if (vars.self[cname] === void 0) {
                             vars.self[cname] = 'var';
                         } else if (vars.self[cname] === 'let') {
-                            throw 'tangram.js sugar Error:  Variable `' + cname + '` has already been declared.';
+                            this.error(' Variable `' + cname + '` has already been declared.');
                         }
                         // vars.self.push('var ' + cname);
                     }
@@ -1638,7 +1643,7 @@
                     if (vars.self[varname] === void 0) {
                         vars.self[varname] = 'var';
                     } else if (vars.self[varname] === 'let') {
-                        throw 'tangram.js sugar Error:  Variable `' + varname + '` has already been declared.';
+                        this.error(' Variable `' + varname + '` has already been declared.');
                     }
                 }
             }
@@ -1719,7 +1724,7 @@
                             // console.log(localvars);
                         }
                         let head = this.pushSentencesToAST([], localvars, headline, false, this.getPosition(headline))[0] || (()=>{
-                            throw 'tangram.js sugar Error:  Must have statements in head of ' + fname + ' expreesion.';
+                            this.error(' Must have statements in head of ' + fname + ' expreesion.');
                         })();
                         let body = this.pushBodyToAST([], localvars, matches[5]);
                         for (const varname in localvars.self) {
@@ -1727,7 +1732,7 @@
                                 if (vars.self[varname] === void 0) {
                                     vars.self[varname] = 'var';
                                 } else if (vars.self[varname] === 'let') {
-                                    throw 'tangram.js sugar Error:  Variable `' + varname + '` has already been declared.';
+                                    this.error(' Variable `' + varname + '` has already been declared.');
                                 }
                             }
                         }
@@ -1772,7 +1777,7 @@
                                 type: 'travel'
                             };
                             let iterator = this.pushSentencesToAST([], localvars, condition[1], false, this.getPosition(condition[2]))[0] || (() => {
-                                throw 'tangram.js sugar Error:  Must have statements in head of each expreesion.';
+                                this.error(' Must have statements in head of each expreesion.');
                             })();
 
                             return {
@@ -1800,7 +1805,7 @@
                             if (vars.self[fname] === void 0) {
                                 vars.self[fname] = 'var';
                             } else if (vars.self[fname] === 'let' || matches[2] === 'let') {
-                                throw 'tangram.js sugar Error:  Variable `' + fname + '` has already been declared.';
+                                this.error(' Variable `' + fname + '` has already been declared.');
                             }
                             subtype = this.toES6 ? matches[2] : 'var';
                         } else if (matches[2] === 'public') {
@@ -1975,7 +1980,7 @@
                                         type = 'staticProp';
                                         break;
                                     default:
-                                        throw 'tangram.js sugar Error: Cannot use `' + match_0[3] + '` on property `' + match_0[4] + '`';
+                                        this.error('Cannot use `' + match_0[3] + '` on property `' + match_0[4] + '`');
                                 }
                                 if (match_0[5] != '=') {
                                     if ((elArr.length === 1)) {
@@ -2163,7 +2168,7 @@
             if (args.keysArray) {
                 body.push({
                     type: 'code',
-                    posi: args.keys[index][1],
+                    posi: args.keysArray[1],
                     display: 'block',
                     value: 'var ' + args.keysArray[0].replace('...', '') + ' = Array.prototype.slice.call(arguments, ' + args.keys.length + ');'
                 });
@@ -2198,11 +2203,6 @@
                     codes.push(replace);
                 }
                 return replace;
-            // }else{
-            //     if (position){
-            //         console.log(position);
-            //         console.log(bar);
-            //     }
             }
             return '';
         }
@@ -2239,13 +2239,13 @@
                 // console.log(key);
                 // let position = this.getPosition(key);
                 // let _key = key.replace(position.match, '').trim();
-                codes.push("\r\n\t" + this.pushPostionsToMap(alias[key][1]) + "var " + key);
+                codes.push("\r\n\t" + this.pushPostionsToMap(alias[key][2]) + "var " + key);
                 codes.push(" = imports['" + alias[key][0]);
-                codes.push("']&&imports['" + alias[key][0]);
-                if (alias[key][2] !== undefined) {
-                    codes.push("'][" + alias[key][2] + "];");
-                } else {
+                codes.push("'] && imports['" + alias[key][0]);
+                if (alias[key][1] === '*') {
                     codes.push("'];");
+                } else {
+                    codes.push("']['" + key + "'];");
                 }
             }
             return codes;
@@ -2872,7 +2872,7 @@
         pushOverrideMethod(elements, overrides, indent2, indent3) {
             for (const fname in overrides) {
                 if (overrides.hasOwnProperty(fname)) {
-                    console.log(overrides[fname]);
+                    // console.log(overrides[fname]);
                     let elem = [];
                     elem.push(indent2 + fname + ': ');
                     if (this.toES6) {
@@ -2883,7 +2883,7 @@
                     const element = overrides[fname];
                     for (var args in element) {
                         if (element.hasOwnProperty(args)) {
-                            elem.push(indent3 + 'if (arguments.length === ' + args + ') { return this.' + element[args] + '.apply(this, arguments); }');
+                            elem.push(indent3 + 'if (arguments.length@boundary_5_as_operator::' + args + ') { return this.' + element[args] + '.apply(this, arguments); }');
                         }
                     }
                     elem.push(indent3 + 'return this.' + element[args] + '.apply(this, arguments);');
@@ -3042,7 +3042,7 @@
             }
             return codes;
         }
-        restoreStrings(string: string, last: boolean, toMin: boolean = false): string {
+        restoreStrings(string: string, last: boolean): string {
             let that = this;
             if (last) {
                 var pattern = this.lastPattern;
@@ -3051,16 +3051,10 @@
             }
             return string.replace(pattern, function () {
                 if (arguments[5]) {
-                    if (toMin) {
-                        if (arguments[5] > 4) {
-                            return that.replacements[arguments[5]][0].trim();
-                        }
-                    }
                     return that.replacements[arguments[5]][0];
                 }
                 return that.replacements[arguments[2] || arguments[4]][0];
             }).replace(this.markPattern, function () {
-                // console.log(arguments[0], that.replacements[arguments[1]][1]);
                 return that.replacements[arguments[1]][0];
             }).replace(/(@\d+L\d+P\d+O?\d*:::)/g, '');
         }
@@ -3217,32 +3211,16 @@
                     let index = match.index;
                     let position = this.posimap[match[1]];
                     // console.log(position);
-                    mapping.push([index, 0, position.o[1], position.o[2], 0]);
+                    mapping.push([index, position.o[0], position.o[1], position.o[2], 0]);
                     line = line.replace(match[0], '');
                 }
                 _lines.push(line);
                 mappings.push(mapping);
             }
             this.mappings = mappings;
-            console.log(mappings)
+            // console.log(mappings)
             return _lines.join("\r\n");
         }
-        min(): string {
-            let string = this.replaceStrings(this.preoutput, false);
-            // console.log(string);
-            string = string.replace(/\s*(,|;|:|=|\?)\s+/g, "$1");
-            string = string.replace(/([^\s])\s+([^\s])/g, "$1 $2");
-            string = string.replace(/([^\s])\s+(\.|\[\()/g, "$1$2");
-            string = string.replace(/[;\s]*(\{|\[|\(|\]|\})\s*/g, "$1");
-            string = string.replace(/;*\};+\s*/g, "}");
-            string = string.replace(/\}([\$\w\.])\s*/g, "};$1");
-            string = string.replace(/\};(else|catch)(\s|\{|\()/g, "}$1$2");
-            string = string.replace(/\s*(@boundary_\d+_as_operator::)\s*/g, "$1");
-            // console.log(string);
-            string = this.restoreStrings(string, true, true);
-            return string;
-        }
-        
         run(precall = null, callback = (content) => { }) {
             if (!this.output) {
                 this.compile();

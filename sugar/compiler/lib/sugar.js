@@ -62,12 +62,12 @@
         error: /(.*)(\+\+|\-\-|\+|\-)(.*)/g
     }, replaceWords = /(@\d+L\d+P\d+O?\d*:::)?(return|else|try)\s*(\s|;|___boundary_[A-Z0-9_]{36}_(\d+)_as_([a-z]+)___)/g, replaceExpRegPattern = {
         await: /^((\s*@\d+L\d+P0:::)*\s*(@\d+L\d+P0*):::(\s*))?"await"\s*/,
-        using: /^\s*use\s+/g,
+        // using: /^\s*use\s+/g,
         namespace: /((@\d+L\d+P0):::)?(\s*)namespace\s+([\$\w\.]+)\s*(;|\r|\n)/g,
         // 位置是在replace usings 和 strings 之后才tidy的，所以还存在后接空格
-        use: /(@\d+L\d+P\d+:::)\s*use\s+([\$\w\.\/\\]+(\s+as\s+@\d+L\d+P\d+:::\s*[\$\w]+)?(\s*,@\d+L\d+P\d+:::\s*[\$\w]+)*(\[@\d+L\d+P\d+:::\s*\]\s*)?)[;\r\n]/g,
-        include: /\s*@include\s+[\$\w\.\s\/\\]+?[;\r\n]+/g,
-        return: /[\s;\r\n]+$/g,
+        use: /(@\d+L\d+P\d+:::)\s*use\s+([\$\w\.\/\\]+)(\s+as(\s+(@\d+L\d+P\d+:::\s*[\$\w]+)|\s*(@\d+L\d+P\d+:::\s*)?\{(@\d+L\d+P\d+:::\s*[\$\w]+(\s*,@\d+L\d+P\d+:::\s*[\$\w]+)*)\})(@\d+L\d+P\d+:::\s*)?)?\s*[;\r\n]/g,
+        include: /\s*@include\s+___boundary_[A-Z0-9_]{36}_(\d+)_as_string___[;\r\n]+/g,
+        // return: /[\s;\r\n]+$/g,
         extends: /(@\d+L\d+P\d+O*\d*:::)?((ns|namespace|store|extends)\s+[\$\w\.]+\s*\{[^\{\}]*?\})/g,
         class: /(@\d+L\d+P\d+O*\d*:::)?((class|expands)\s+([\$\w\.]+\s+)?(extends\s+[\$\w\.]+\s*)?\{[^\{\}]*?\})/g,
         fnlike: /(@\d+L\d+P\d+O*\d*:::)?(^|(function|def)\s+)?([\$\w]*\s*\([^\(\)]*\))\s*\{([^\{\}]*?)\}/g,
@@ -109,7 +109,8 @@
         return new Array(number + 1).join(string);
     };
     var Sugar = /** @class */ (function () {
-        function Sugar(input, toES6, run) {
+        function Sugar(input, source, toES6, run) {
+            if (source === void 0) { source = ''; }
             if (toES6 === void 0) { toES6 = false; }
             if (run === void 0) { run = false; }
             this.isMainBlock = true;
@@ -122,6 +123,7 @@
             this.configinfo = '{}';
             this.toES6 = false;
             this.posimap = [];
+            this.sources = [];
             this.tess = {};
             this.closurecount = 0;
             this.uid = boundaryMaker();
@@ -134,6 +136,13 @@
             this.mappings = [];
             if (toES6) {
                 this.toES6 = true;
+            }
+            if (source) {
+                this.sources.push({
+                    id: 0,
+                    src: source
+                });
+                this.sources[source] = true;
             }
             if (run) {
                 this.run();
@@ -154,7 +163,20 @@
                 fix_map: {},
                 type: 'block'
             };
-            var lines = this.input.split(/\r{0,1}\n/);
+            var newcontent = this.markPosition(this.input, 0);
+            // console.log(this.positions);
+            this.buildAST(this.pickReplacePosis(this.getLines(this.encode(newcontent), vars), vars), vars);
+            // this.output = 'console.log("Hello, world!");';
+            this.generate();
+            // console.log(this.replacements);
+            return this;
+        };
+        Sugar.prototype.error = function (str) {
+            throw 'tangram.js sugar Error: ' + str;
+        };
+        Sugar.prototype.markPosition = function (string, sourceid) {
+            if (sourceid === void 0) { sourceid = 0; }
+            var lines = string.split(/\r{0,1}\n/);
             // console.log(lines);
             var positions = [];
             for (var l = 0; l < lines.length; l++) {
@@ -170,7 +192,7 @@
                         newline.push(element);
                     }
                     else {
-                        newline.push('@0L' + l + 'P' + length_1 + ':::' + element);
+                        newline.push('@' + sourceid + 'L' + l + 'P' + length_1 + ':::' + element);
                     }
                     length_1 += element.length;
                 }
@@ -180,15 +202,9 @@
                 return line.join("");
             });
             this.positions.push(positions);
-            var newcontent = newlines.join("\r\n");
-            // console.log(this.positions);
-            this.buildAST(this.pickReplacePosis(this.getLines(this.encode(newcontent), vars), vars), vars);
-            // this.output = 'console.log("Hello, world!");';
-            this.generate();
-            // console.log(this.replacements);
-            return this;
+            return newlines.join("\r\n");
         };
-        Sugar.prototype.tidy = function (string) {
+        Sugar.prototype.tidyPosition = function (string) {
             var on = true;
             while (on) {
                 on = false;
@@ -279,10 +295,8 @@
             string = this.replaceUsing(string);
             // console.log(string);
             string = this.replaceStrings(string);
-            while (string.indexOf('@include') >= 0) {
-                string = this.replaceIncludes(string);
-            }
-            string = this.tidy(string);
+            string = this.replaceIncludes(string);
+            string = this.tidyPosition(string);
             // console.log(string);
             string = string.replace(/(@\d+L\d+P\d+O?\d*:::)?((public|static|set|get|om)\s+)?___boundary_[A-Z0-9_]{36}_(\d+)_as_string___\s*(\:|\(|\=)/g, function (match, posi, desc, type, index, after) {
                 // console.log(posi, desc, this.replacements[index][1]);
@@ -314,14 +328,17 @@
         };
         Sugar.prototype.replaceUsing = function (string) {
             var _this = this;
-            // console.log(string);
-            return string.replace(replaceExpRegPattern.use, function (match, posi, url, as, more, array) {
-                // console.log(match, posi, url, as, more, array);
+            return string.replace(replaceExpRegPattern.use, function (match, posi, url, as, alias, variables, posimembers, members) {
+                // console.log(arguments);
+                // console.log(match, ':', posi, url, as, alias);
                 var index = _this.replacements.length;
-                if (array) {
-                    url = url.replace(array, '[]');
+                if (members) {
+                    // console.log(members);
+                    // url = url.replace(array, '[]');
+                    _this.replacements.push([url, members, posi]);
+                    return '___boundary_' + _this.uid + '_' + index + '_as_usings___;';
                 }
-                _this.replacements.push([url, posi]);
+                _this.replacements.push([url, variables, posi]);
                 return '___boundary_' + _this.uid + '_' + index + '_as_using___;';
             });
         };
@@ -393,7 +410,7 @@
                 else {
                     // console.log(string, matches, match);
                     // console.log(matches, match);
-                    throw 'tangram.js sugar Error: Unexpected `' + matches[1] + '` in `' + this_1.decode(string.substr(matches.index, 256)) + '`';
+                    this_1.error('Unexpected `' + matches[1] + '` in `' + this_1.decode(string.substr(matches.index, 256)) + '`');
                 }
                 matches = string.match(matchExpRegPattern.string);
             };
@@ -407,12 +424,29 @@
         };
         Sugar.prototype.replaceIncludes = function (string) {
             var _this = this;
-            string = string.replace(replaceExpRegPattern.include, function (match) {
-                return _this.onReadFile(match);
-            });
-            return this.replaceStrings(this.input);
+            if (this.sources.length) {
+                var on = true;
+                var id_1 = this.sources.length - 1;
+                while (on) {
+                    on = false;
+                    string = string.replace(replaceExpRegPattern.include, function (match, index) {
+                        // console.log(match, this.replacements[index][0]);
+                        // console.log(this.sources);
+                        // console.log(id, this.sources[id].src);
+                        var str = _this.onReadFile(_this.replacements[index][0].replace(/('|"|`)/g, '').trim(), _this.sources[id_1].src.replace(/[^\/\\]+$/, ''));
+                        str = _this.markPosition(str, _this.sources.length - 1);
+                        // console.log(str);
+                        str = _this.replaceStrings(str);
+                        // console.log(str);
+                        str = _this.replaceIncludes(str);
+                        return str; //this.onReadFile(match);
+                    });
+                }
+            }
+            return string;
         };
-        Sugar.prototype.onReadFile = function (match) {
+        Sugar.prototype.onReadFile = function (match, source) {
+            // console.log(match, source);
             return '';
         };
         Sugar.prototype.replaceBrackets = function (string) {
@@ -442,12 +476,12 @@
                     else {
                         var index = left;
                     }
-                    throw 'tangram.js sugar Error: Unexpected `' + (right >= 0 ? ']' : '[') + '` in `' + this.decode(string.substr(index, 256)) + '`';
+                    this.error('Unexpected `' + (right >= 0 ? ']' : '[') + '` in `' + this.decode(string.substr(index, 256)) + '`');
                 }
             }
             if (right >= 0) {
                 var index = right;
-                throw 'tangram.js sugar Error: Unexpected `]` in `' + this.decode(string.substr(index, 256)) + '`';
+                this.error('Unexpected `]` in `' + this.decode(string.substr(index, 256)) + '`');
             }
             return string;
         };
@@ -471,12 +505,12 @@
                     else {
                         var index = left;
                     }
-                    throw 'tangram.js sugar Error: Unexpected `' + (right >= 0 ? '}' : '{') + '` in `' + this.decode(string.substr(index, 256)) + '`';
+                    this.error('Unexpected `' + (right >= 0 ? '}' : '{') + '` in `' + this.decode(string.substr(index, 256)) + '`');
                 }
             }
             if (right >= 0) {
                 var index = right;
-                throw 'tangram.js sugar Error: Unexpected `}` in `' + this.decode(string.substr(index, 256)) + '`';
+                this.error('Unexpected `}` in `' + this.decode(string.substr(index, 256)) + '`');
             }
             return string;
         };
@@ -502,7 +536,7 @@
                 return string.replace(replaceExpRegPattern.fnlike, function (match, posi, typewithgap, type, call, closure) {
                     // console.log(match);
                     closure = _this.replaceParentheses(closure);
-                    call = _this.replaceOperators(call, false);
+                    call = _this.replaceOperators(call);
                     match = (typewithgap || '') + call + ' {' + closure + '}';
                     var index = _this.replacements.length;
                     // console.log(match);
@@ -570,7 +604,7 @@
                 // console.log(left, right);
                 if (left < right) {
                     string = string.replace(replaceExpRegPattern.parentheses, function (match, posi, paramslike) {
-                        paramslike = _this.replaceOperators(paramslike, false);
+                        paramslike = _this.replaceOperators(paramslike);
                         paramslike = _this.replaceCalls(paramslike);
                         paramslike = _this.replaceArrowFunctions(paramslike);
                         var index = _this.replacements.length;
@@ -590,14 +624,14 @@
                         var index = left;
                     }
                     // console.log(string);
-                    throw 'tangram.js sugar Error: Unexpected `' + (right >= 0 ? ')' : '(') + '` in `' + this.decode(string.substr(index, 256)) + '`';
+                    this.error('Unexpected `' + (right >= 0 ? ')' : '(') + '` in `' + this.decode(string.substr(index, 256)) + '`');
                 }
             }
             if (right >= 0) {
                 var index = right;
-                throw 'tangram.js sugar Error: Unexpected `)` in `' + this.decode(string.substr(index, 256)) + '`';
+                this.error('Unexpected `)` in `' + this.decode(string.substr(index, 256)) + '`');
             }
-            string = this.replaceOperators(string, false);
+            string = this.replaceOperators(string);
             string = this.replaceCalls(string);
             string = this.replaceArrowFunctions(string);
             return string;
@@ -634,9 +668,8 @@
             }
             return string;
         };
-        Sugar.prototype.replaceOperators = function (string, toMin) {
+        Sugar.prototype.replaceOperators = function (string) {
             var _this = this;
-            if (toMin === void 0) { toMin = false; }
             var on = true;
             while (on) {
                 on = false;
@@ -681,12 +714,7 @@
                         right = right.replace(sign, '@boundary_' + _index + '_as_preoperator::');
                     }
                     var index = _this.replacements.length;
-                    if (toMin) {
-                        _this.replacements.push([op + '=']);
-                    }
-                    else {
-                        _this.replacements.push([' ' + op + '= ', posi]);
-                    }
+                    _this.replacements.push([' ' + op + '= ', posi]);
                     return left + '@boundary_' + index + '_as_operator::' + right;
                 });
             }
@@ -701,12 +729,7 @@
                         right = right.replace(sign, '@boundary_' + _index + '_as_preoperator::');
                     }
                     var index = _this.replacements.length;
-                    if (toMin) {
-                        _this.replacements.push([op]);
-                    }
-                    else {
-                        _this.replacements.push([' ' + op + ' ', posi]);
-                    }
+                    _this.replacements.push([' ' + op + ' ', posi]);
                     return left + '@boundary_' + index + '_as_operator::' + right;
                 });
             }
@@ -722,12 +745,7 @@
                         right = right.replace(sign, '@boundary_' + _index + '_as_preoperator::');
                     }
                     var index = _this.replacements.length;
-                    if (toMin) {
-                        _this.replacements.push([op]);
-                    }
-                    else {
-                        _this.replacements.push([' ' + op + ' ', posi]);
-                    }
+                    _this.replacements.push([' ' + op + ' ', posi]);
                     // console.log(left + '@boundary_' + index + '_as_operator::' + right);
                     return left + '@boundary_' + index + '_as_operator::' + right;
                 });
@@ -765,7 +783,8 @@
             }
             return string.replace(operators.error, function (match, before, op, after) {
                 // console.log(string, match);
-                throw 'tangram.js sugar Error: Unexpected `' + op + '` in `' + _this.decode(match) + '`';
+                _this.error('Unexpected `' + op + '` in `' + _this.decode(match) + '`');
+                return '';
             });
         };
         Sugar.prototype.replaceCalls = function (string) {
@@ -844,7 +863,7 @@
                 }
                 else {
                     // console.log(string);
-                    throw 'tangram.js sugar Error: Unexpected `' + arrow[0] + '` in `' + this.decode(string.substr(arrow.index, 256)) + '`';
+                    this.error('Unexpected `' + arrow[0] + '` in `' + this.decode(string.substr(arrow.index, 256)) + '`');
                 }
             }
             return string;
@@ -924,7 +943,7 @@
                                 }
                             }
                             // console.log(sentence);
-                            throw 'tangram.js sugar Error: Unexpected `' + definition[1] + '` in `' + this.decode(sentence) + '`.';
+                            this.error('Unexpected `' + definition[1] + '` in `' + this.decode(sentence) + '`.');
                         }
                         else {
                             // console.log(sentence);
@@ -943,7 +962,7 @@
                     else {
                         // console.log(spilitarray[3], spilitarray);
                         var position = this.getPosition(array[2]);
-                        throw 'tangram.js sugar Error: Unexpected `' + array[3] + '` at char ' + position.col + ' on line ' + position.line + '， near ' + this.decode(array[2]) + '.';
+                        this.error('Unexpected `' + array[3] + '` at char ' + position.col + ' on line ' + position.line + '， near ' + this.decode(array[2]) + '.');
                     }
                 }
             }
@@ -1061,7 +1080,7 @@
                                 vars.self[element] = symbol;
                             }
                             else if (vars.self[element] === 'let' || symbol === 'let') {
-                                throw 'tangram.js sugar Error:  Variable `' + element + '` has already been declared at char ' + position.col + ' on line ' + position.line + '.';
+                                this.error(' Variable `' + element + '` has already been declared at char ' + position.col + ' on line ' + position.line + '.');
                             }
                             lines.push({
                                 type: 'line',
@@ -1082,7 +1101,7 @@
                     }
                     else {
                         // console.log(element);
-                        throw 'tangram.js sugar Error: Unexpected Definition `' + symbol + ' at char ' + position.col + ' on line ' + position.line + '.';
+                        this.error('Unexpected Definition `' + symbol + '` at char ' + position.col + ' on line ' + position.line + ' in file [' + position.file + '][' + this.sources[position.file].src + '].');
                     }
                 }
             }
@@ -1174,50 +1193,31 @@
                             }]);
                         break;
                     case 'using':
-                        // console.log(lines[index]);
-                        var src = this.replacements[lines[index_4].index][0].replace(replaceExpRegPattern.using, '').replace(replaceExpRegPattern.return, '');
-                        var posi = this.replacements[lines[index_4].index][1];
-                        var srcArr = src.split(/\s+as\s+/);
-                        // console.log(srcArr);
-                        if (srcArr[1] && srcArr[1].trim()) {
-                            src = srcArr[0].trim();
-                            if (!imports['includes'](src)) {
-                                imports.push(src);
-                                imports.push(posi);
-                            }
-                            var array = srcArr[1].split(',');
-                            // console.log(array);
-                            for (var index_5 = 0; index_5 < array.length; index_5++) {
-                                var element = array[index_5].trim();
-                                if (element) {
-                                    // console.log(element);
-                                    var match = element.match(/^(@\d+L\d+P\d+:::)\s*([\$\w]+)(\[\])?$/);
-                                    var position = this.getPosition(match[1]);
-                                    if (match[3]) {
-                                        var alias = element.replace(match[0], match[2]).trim();
-                                        // console.log(alias);
-                                        using_as[alias] = [src, position];
-                                        var varname = alias;
-                                        break;
-                                    }
-                                    else {
-                                        var alias = element.replace(match[1], '').trim();
-                                        // console.log(alias);
-                                        using_as[alias] = [src, position, index_5];
-                                        var varname = alias;
-                                    }
-                                    if (vars.self[varname] === void 0) {
-                                        vars.self[varname] = 'var';
-                                    }
-                                    else if (vars.self[varname] === 'let') {
-                                        throw 'tangram.js sugar Error:  Variable `' + varname + '` has already been declared.';
-                                    }
-                                }
-                            }
-                        }
-                        else {
+                    case 'usings':
+                        // console.log(lines[index]);.return
+                        var posi = this.replacements[lines[index_4].index][2];
+                        var src = this.replacements[lines[index_4].index][0].trim();
+                        // let alias = .trim();
+                        if (!imports['includes'](src)) {
                             imports.push(src);
                             imports.push(posi);
+                        }
+                        if (this.replacements[lines[index_4].index][1]) {
+                            if (lines[index_4].subtype === 'usings') {
+                                var members = this.replacements[lines[index_4].index][1].split(',');
+                                for (var m = 0; m < members.length; m++) {
+                                    var position = this.getPosition(members[m]);
+                                    var alias = members[m].replace(position.match, '').trim();
+                                    using_as[alias] = [src, alias, position];
+                                }
+                                // console.log(this.replacements[lines[index].index][1]);
+                            }
+                            else {
+                                var position = this.getPosition(this.replacements[lines[index_4].index][1]);
+                                var alias = this.replacements[lines[index_4].index][1].replace(position.match, '').trim();
+                                // console.log(alias);
+                                using_as[alias] = [src, '*', position];
+                            }
                         }
                         break;
                     default:
@@ -1242,8 +1242,8 @@
                 vars: vars,
                 body: []
             };
-            for (var index_6 = 0; index_6 < preast.length; index_6++) {
-                var block = preast[index_6];
+            for (var index_5 = 0; index_5 < preast.length; index_5++) {
+                var block = preast[index_5];
                 if (block.length === 1) {
                     var element = block[0];
                     if (element.type === 'code') {
@@ -1279,28 +1279,28 @@
             if (body === void 0) { body = []; }
             var lines = code ? this.getLines(code, vars) : [];
             // console.log(code, lines);
-            for (var index_7 = 0; index_7 < lines.length; index_7++) {
-                switch (lines[index_7].subtype) {
+            for (var index_6 = 0; index_6 < lines.length; index_6++) {
+                switch (lines[index_6].subtype) {
                     case 'sentence':
-                        var line = lines[index_7].value.trim();
+                        var line = lines[index_6].value.trim();
                         // console.log(lines[index].display === 'block', line);
                         // console.log(lines[index].display);
-                        this.pushSentencesToAST(body, vars, line, lines[index_7].display === 'block', lines[index_7].posi);
+                        this.pushSentencesToAST(body, vars, line, lines[index_6].display === 'block', lines[index_6].posi);
                         break;
                     case 'variable':
                         body.push({
                             type: 'code',
-                            posi: lines[index_7].posi,
-                            display: lines[index_7].display,
+                            posi: lines[index_6].posi,
+                            display: lines[index_6].display,
                             vars: vars,
-                            value: lines[index_7].value
+                            value: lines[index_6].value
                         });
                         break;
                     default:
                         body.push(this.walk({
-                            index: lines[index_7].index,
+                            index: lines[index_6].index,
                             display: 'block',
-                            type: lines[index_7].subtype
+                            type: lines[index_6].subtype
                         }, vars));
                         break;
                 }
@@ -1323,8 +1323,8 @@
                     this.pushReplacementsToAST(inline, vars, array[0], isblock, blockposi);
                 }
                 else {
-                    for (var index_8 = 0; index_8 < array.length; index_8++) {
-                        this.pushReplacementsToAST(inline, vars, array[index_8], false, (index_8 === 0) && blockposi);
+                    for (var index_7 = 0; index_7 < array.length; index_7++) {
+                        this.pushReplacementsToAST(inline, vars, array[index_7], false, (index_7 === 0) && blockposi);
                     }
                 }
                 if (inline.length === 1) {
@@ -1638,7 +1638,7 @@
                             vars.self[cname] = 'var';
                         }
                         else if (vars.self[cname] === 'let') {
-                            throw 'tangram.js sugar Error:  Variable `' + cname + '` has already been declared.';
+                            this.error(' Variable `' + cname + '` has already been declared.');
                         }
                         // vars.self.push('var ' + cname);
                     }
@@ -1674,7 +1674,7 @@
                         vars.self[varname] = 'var';
                     }
                     else if (vars.self[varname] === 'let') {
-                        throw 'tangram.js sugar Error:  Variable `' + varname + '` has already been declared.';
+                        this.error(' Variable `' + varname + '` has already been declared.');
                     }
                 }
             }
@@ -1728,6 +1728,7 @@
             };
         };
         Sugar.prototype.walkFnLike = function (index, display, vars, type) {
+            var _this = this;
             // console.log(index, this.replacements[index]);
             var matches = this.replacements[index][0].match(matchExpRegPattern.fnlike);
             // console.log(matches);
@@ -1754,7 +1755,7 @@
                             // console.log(localvars);
                         }
                         var head = this.pushSentencesToAST([], localvars_1, headline, false, this.getPosition(headline))[0] || (function () {
-                            throw 'tangram.js sugar Error:  Must have statements in head of ' + fname + ' expreesion.';
+                            _this.error(' Must have statements in head of ' + fname + ' expreesion.');
                         })();
                         var body = this.pushBodyToAST([], localvars_1, matches[5]);
                         for (var varname in localvars_1.self) {
@@ -1763,7 +1764,7 @@
                                     vars.self[varname] = 'var';
                                 }
                                 else if (vars.self[varname] === 'let') {
-                                    throw 'tangram.js sugar Error:  Variable `' + varname + '` has already been declared.';
+                                    this.error(' Variable `' + varname + '` has already been declared.');
                                 }
                             }
                         }
@@ -1808,7 +1809,7 @@
                                 type: 'travel'
                             };
                             var iterator = this.pushSentencesToAST([], localvars_2, condition[1], false, this.getPosition(condition[2]))[0] || (function () {
-                                throw 'tangram.js sugar Error:  Must have statements in head of each expreesion.';
+                                _this.error(' Must have statements in head of each expreesion.');
                             })();
                             return {
                                 type: 'travel',
@@ -1836,7 +1837,7 @@
                                 vars.self[fname] = 'var';
                             }
                             else if (vars.self[fname] === 'let' || matches[2] === 'let') {
-                                throw 'tangram.js sugar Error:  Variable `' + fname + '` has already been declared.';
+                                this.error(' Variable `' + fname + '` has already been declared.');
                             }
                             subtype = this.toES6 ? matches[2] : 'var';
                         }
@@ -1931,8 +1932,8 @@
                         value: attr[6].trim()
                     });
                 }
-                for (var index_9 = 1; index_9 < array.length; index_9++) {
-                    var element = array[index_9];
+                for (var index_8 = 1; index_8 < array.length; index_8++) {
+                    var element = array[index_8];
                     var match_as_statement = element.trim().match(matchExpRegPattern.index3);
                     // console.log(matches);
                     if (match_as_statement) {
@@ -1991,8 +1992,8 @@
             // console.log(code);
             var body = [], array = code.replace('_as_function___', '_as_function___;').split(/[;,\r\n]+/);
             // console.log(code);
-            for (var index_10 = 0; index_10 < array.length; index_10++) {
-                var element = array[index_10].trim();
+            for (var index_9 = 0; index_9 < array.length; index_9++) {
+                var element = array[index_9].trim();
                 var type = 'method';
                 // console.log(element);
                 if (element) {
@@ -2012,7 +2013,7 @@
                                         type = 'staticProp';
                                         break;
                                     default:
-                                        throw 'tangram.js sugar Error: Cannot use `' + match_0[3] + '` on property `' + match_0[4] + '`';
+                                        this.error('Cannot use `' + match_0[3] + '` on property `' + match_0[4] + '`');
                                 }
                                 if (match_0[5] != '=') {
                                     if ((elArr.length === 1)) {
@@ -2063,8 +2064,8 @@
         Sugar.prototype.checkObjMember = function (vars, code) {
             var that = this, body = [], bodyIndex = -1, lastIndex = 0, array = code.split(/\s*[\{,\}]\s*/);
             // console.log(code, array);
-            for (var index_11 = 0; index_11 < array.length; index_11++) {
-                var element = array[index_11].trim();
+            for (var index_10 = 0; index_10 < array.length; index_10++) {
+                var element = array[index_10].trim();
                 if (element) {
                     var elArr = element.split('___boundary_' + this.uid);
                     if (elArr[0] && elArr[0].trim()) {
@@ -2132,8 +2133,8 @@
         Sugar.prototype.checkArgs = function (code, localvars) {
             var args = code.split(/\s*,\s*/), keys = [], keysArray = void 0, vals = [];
             // console.log(code, args);
-            for (var index_12 = 0; index_12 < args.length; index_12++) {
-                var arg = args[index_12];
+            for (var index_11 = 0; index_11 < args.length; index_11++) {
+                var arg = args[index_11];
                 if (arg) {
                     var array = arg.split(/\s*=\s*/);
                     var position = this.getPosition(array[0]);
@@ -2167,17 +2168,17 @@
             // console.log(code);
             var body = [];
             // console.log(args, lines);
-            for (var index_13 = 0; index_13 < args.vals.length; index_13++) {
-                if (args.vals[index_13] !== undefined) {
-                    var valArr = args.vals[index_13].split('___boundary_' + this.uid);
+            for (var index_12 = 0; index_12 < args.vals.length; index_12++) {
+                if (args.vals[index_12] !== undefined) {
+                    var valArr = args.vals[index_12].split('___boundary_' + this.uid);
                     if (valArr[1]) {
                         body.push({
                             type: 'code',
-                            posi: args.keys[index_13][1],
+                            posi: args.keys[index_12][1],
                             display: 'block',
-                            value: 'if (' + args.keys[index_13][0] + '@boundary_5_as_operator::void 0) { ' + args.keys[index_13][0] + ' = ' + valArr[0]
+                            value: 'if (' + args.keys[index_12][0] + '@boundary_5_as_operator::void 0) { ' + args.keys[index_12][0] + ' = ' + valArr[0]
                         });
-                        this.pushReplacementsToAST(body, vars, valArr[1], false, this.getPosition(args.vals[index_13]));
+                        this.pushReplacementsToAST(body, vars, valArr[1], false, this.getPosition(args.vals[index_12]));
                         body.push({
                             type: 'code',
                             posi: void 0,
@@ -2188,9 +2189,9 @@
                     else {
                         body.push({
                             type: 'code',
-                            posi: args.keys[index_13][1],
+                            posi: args.keys[index_12][1],
                             display: 'block',
-                            value: 'if (' + args.keys[index_13][0] + '@boundary_5_as_operator::void 0) { ' + args.keys[index_13][0] + ' = ' + valArr[0] + '; }'
+                            value: 'if (' + args.keys[index_12][0] + '@boundary_5_as_operator::void 0) { ' + args.keys[index_12][0] + ' = ' + valArr[0] + '; }'
                         });
                     }
                 }
@@ -2198,7 +2199,7 @@
             if (args.keysArray) {
                 body.push({
                     type: 'code',
-                    posi: args.keys[index][1],
+                    posi: args.keysArray[1],
                     display: 'block',
                     value: 'var ' + args.keysArray[0].replace('...', '') + ' = Array.prototype.slice.call(arguments, ' + args.keys.length + ');'
                 });
@@ -2226,18 +2227,13 @@
         Sugar.prototype.pushPostionsToMap = function (position, codes) {
             if (codes === void 0) { codes = undefined; }
             if (position && (typeof position === 'object')) {
-                var index_14 = this.posimap.length;
+                var index_13 = this.posimap.length;
                 this.posimap.push(position);
-                var replace = '/* @posi' + index_14 + ' */';
+                var replace = '/* @posi' + index_13 + ' */';
                 if (codes) {
                     codes.push(replace);
                 }
                 return replace;
-                // }else{
-                //     if (position){
-                //         console.log(position);
-                //         console.log(bar);
-                //     }
             }
             return '';
         };
@@ -2259,8 +2255,8 @@
             codes.push("\r\n" + 'tangram.block([');
             if (this.imports.length) {
                 var imports = [];
-                for (var index_15 = 0; index_15 < this.imports.length; index_15 += 2) {
-                    imports.push(this.pushPostionsToMap(this.getPosition(this.imports[index_15 + 1])) + "'" + this.imports[index_15] + "'");
+                for (var index_14 = 0; index_14 < this.imports.length; index_14 += 2) {
+                    imports.push(this.pushPostionsToMap(this.getPosition(this.imports[index_14 + 1])) + "'" + this.imports[index_14] + "'");
                 }
                 // console.log(this.imports, imports);
                 codes.push("\r\n\t" + imports.join(",\r\n\t") + "\r\n");
@@ -2274,14 +2270,14 @@
                 // console.log(key);
                 // let position = this.getPosition(key);
                 // let _key = key.replace(position.match, '').trim();
-                codes.push("\r\n\t" + this.pushPostionsToMap(alias[key][1]) + "var " + key);
+                codes.push("\r\n\t" + this.pushPostionsToMap(alias[key][2]) + "var " + key);
                 codes.push(" = imports['" + alias[key][0]);
-                codes.push("']&&imports['" + alias[key][0]);
-                if (alias[key][2] !== undefined) {
-                    codes.push("'][" + alias[key][2] + "];");
+                codes.push("'] && imports['" + alias[key][0]);
+                if (alias[key][1] === '*') {
+                    codes.push("'];");
                 }
                 else {
-                    codes.push("'];");
+                    codes.push("']['" + key + "'];");
                 }
             }
             return codes;
@@ -2291,8 +2287,8 @@
             // console.log(codes, array);
             // console.log(array);
             // console.log(layer, array);
-            for (var index_16 = 0; index_16 < array.length; index_16++) {
-                var element = array[index_16];
+            for (var index_15 = 0; index_15 < array.length; index_15++) {
+                var element = array[index_15];
                 // console.log(element);
                 this.pushElement(codes, vars, element, layer, namespace);
             }
@@ -2389,14 +2385,14 @@
                     _break = true;
                 }
                 // console.log(element.body);
-                for (var index_17 = 0; index_17 < element.body.length; index_17++) {
-                    if (element.body[index_17].value) {
-                        elements.push(this.pushPostionsToMap(element.body[index_17].posi) + element.body[index_17].value);
+                for (var index_16 = 0; index_16 < element.body.length; index_16++) {
+                    if (element.body[index_16].value) {
+                        elements.push(this.pushPostionsToMap(element.body[index_16].posi) + element.body[index_16].value);
                     }
                     else {
                         var elemCodes = [];
-                        this.pushPostionsToMap(element.body[index_17].posi, elemCodes);
-                        this.pushElement(elemCodes, element.vars, element.body[index_17], _layer, namespace);
+                        this.pushPostionsToMap(element.body[index_16].posi, elemCodes);
+                        this.pushElement(elemCodes, element.vars, element.body[index_16], _layer, namespace);
                         if (elemCodes.length) {
                             elements.push(elemCodes.join('').trim());
                         }
@@ -2453,10 +2449,10 @@
                     // codes.push(indent2);
                     _break = true;
                 }
-                for (var index_18 = 0; index_18 < element.params.length; index_18++) {
-                    var param = element.params[index_18].body;
+                for (var index_17 = 0; index_17 < element.params.length; index_17++) {
+                    var param = element.params[index_17].body;
                     var paramCodes = [];
-                    this.pushPostionsToMap(element.params[index_18].posi, paramCodes);
+                    this.pushPostionsToMap(element.params[index_17].posi, paramCodes);
                     this.pushCodes(paramCodes, element.vars, param, _layer, namespace);
                     if (paramCodes.length) {
                         parameters.push(paramCodes.join('').trim());
@@ -2495,8 +2491,8 @@
                 indent = "\r\n" + stringRepeat("\t", _layer);
                 _break = true;
             }
-            for (var index_19 = 0; index_19 < element.calls.length; index_19++) {
-                var method = element.calls[index_19];
+            for (var index_18 = 0; index_18 < element.calls.length; index_18++) {
+                var method = element.calls[index_18];
                 elements.push(this.pushElement([], element.vars, method, _layer, namespace).join(''));
             }
             if (_break) {
@@ -2556,8 +2552,8 @@
             codes.push('{');
             // console.log(element);
             if (toES6) {
-                for (var index_20 = 0; index_20 < element.body.length; index_20++) {
-                    var member = element.body[index_20];
+                for (var index_19 = 0; index_19 < element.body.length; index_19++) {
+                    var member = element.body[index_19];
                     var elem = [];
                     // console.log(member);
                     switch (member.type) {
@@ -2603,8 +2599,8 @@
                 var setters = [];
                 var getters = [];
                 var indent3 = "\r\n" + stringRepeat("\t", layer + 2);
-                for (var index_21 = 0; index_21 < element.body.length; index_21++) {
-                    var member = element.body[index_21];
+                for (var index_20 = 0; index_20 < element.body.length; index_20++) {
+                    var member = element.body[index_20];
                     var elem = [];
                     // console.log(member);
                     switch (member.type) {
@@ -2738,8 +2734,8 @@
             }
             if (element.args.length) {
                 var args = [];
-                for (var index_22 = 0; index_22 < element.args.length; index_22++) {
-                    args.push(this.pushPostionsToMap(element.args[index_22][1]) + element.args[index_22][0]);
+                for (var index_21 = 0; index_21 < element.args.length; index_21++) {
+                    args.push(this.pushPostionsToMap(element.args[index_21][1]) + element.args[index_21][0]);
                 }
                 codes.push(args.join(', '));
             }
@@ -2856,8 +2852,8 @@
             // console.log(element);
             var overrides = {};
             var indent3 = "\r\n" + stringRepeat("\t", layer + 2);
-            for (var index_23 = 0; index_23 < element.body.length; index_23++) {
-                var member = element.body[index_23];
+            for (var index_22 = 0; index_22 < element.body.length; index_22++) {
+                var member = element.body[index_22];
                 var elem = [];
                 // console.log(member);
                 switch (member.type) {
@@ -2929,7 +2925,7 @@
         Sugar.prototype.pushOverrideMethod = function (elements, overrides, indent2, indent3) {
             for (var fname in overrides) {
                 if (overrides.hasOwnProperty(fname)) {
-                    console.log(overrides[fname]);
+                    // console.log(overrides[fname]);
                     var elem = [];
                     elem.push(indent2 + fname + ': ');
                     if (this.toES6) {
@@ -2941,7 +2937,7 @@
                     var element = overrides[fname];
                     for (var args in element) {
                         if (element.hasOwnProperty(args)) {
-                            elem.push(indent3 + 'if (arguments.length === ' + args + ') { return this.' + element[args] + '.apply(this, arguments); }');
+                            elem.push(indent3 + 'if (arguments.length@boundary_5_as_operator::' + args + ') { return this.' + element[args] + '.apply(this, arguments); }');
                         }
                     }
                     elem.push(indent3 + 'return this.' + element[args] + '.apply(this, arguments);');
@@ -2976,8 +2972,8 @@
                     _break = true;
                 }
                 // console.log(_break, element);
-                for (var index_24 = 0; index_24 < element.body.length; index_24++) {
-                    var member = element.body[index_24];
+                for (var index_23 = 0; index_23 < element.body.length; index_23++) {
+                    var member = element.body[index_23];
                     var elem = [];
                     // console.log(member);
                     switch (member.type) {
@@ -3013,8 +3009,8 @@
             this.closurecount++;
             // console.log(vars.type, vars);
             if (1) {
-                for (var index_25 = 0; index_25 < vars.self.length; index_25++) {
-                    var element = vars.self[index_25].split(/\s+/)[1];
+                for (var index_24 = 0; index_24 < vars.self.length; index_24++) {
+                    var element = vars.self[index_24].split(/\s+/)[1];
                     if (['pandora', 'global', 'imports', 'undefined']['includes'](element)) {
                         if (!vars.fix_map[element]) {
                             var i = 1;
@@ -3037,14 +3033,14 @@
             switch (vars.type) {
                 case 'block':
                     vars.fixed = vars.parent;
-                    for (var index_26 = 0; index_26 < vars.self.length; index_26++) {
-                        var element = vars.self[index_26].split(/\s+/)[1];
+                    for (var index_25 = 0; index_25 < vars.self.length; index_25++) {
+                        var element = vars.self[index_25].split(/\s+/)[1];
                         while (!vars.fixed['includes'](element)) {
                             vars.fixed.push(element);
                         }
                     }
-                    for (var index_27 = 0; index_27 < vars.self.length; index_27++) {
-                        var element = vars.self[index_27].split(/\s+/)[1];
+                    for (var index_26 = 0; index_26 < vars.self.length; index_26++) {
+                        var element = vars.self[index_26].split(/\s+/)[1];
                         if (['pandora', 'global', 'imports', 'undefined']['includes'](element)) {
                             while (!vars.fixed['includes'](element)) {
                                 vars.fixed.push(element);
@@ -3101,8 +3097,7 @@
             }
             return codes;
         };
-        Sugar.prototype.restoreStrings = function (string, last, toMin) {
-            if (toMin === void 0) { toMin = false; }
+        Sugar.prototype.restoreStrings = function (string, last) {
             var that = this;
             if (last) {
                 var pattern = this.lastPattern;
@@ -3112,16 +3107,10 @@
             }
             return string.replace(pattern, function () {
                 if (arguments[5]) {
-                    if (toMin) {
-                        if (arguments[5] > 4) {
-                            return that.replacements[arguments[5]][0].trim();
-                        }
-                    }
                     return that.replacements[arguments[5]][0];
                 }
                 return that.replacements[arguments[2] || arguments[4]][0];
             }).replace(this.markPattern, function () {
-                // console.log(arguments[0], that.replacements[arguments[1]][1]);
                 return that.replacements[arguments[1]][0];
             }).replace(/(@\d+L\d+P\d+O?\d*:::)/g, '');
         };
@@ -3252,33 +3241,18 @@
                 var mapping = [];
                 var match = void 0;
                 while (match = line.match(/\/\*\s@posi(\d+)\s\*\//)) {
-                    var index_28 = match.index;
+                    var index_27 = match.index;
                     var position = this.posimap[match[1]];
                     // console.log(position);
-                    mapping.push([index_28, 0, position.o[1], position.o[2], 0]);
+                    mapping.push([index_27, position.o[0], position.o[1], position.o[2], 0]);
                     line = line.replace(match[0], '');
                 }
                 _lines.push(line);
                 mappings.push(mapping);
             }
             this.mappings = mappings;
-            console.log(mappings);
+            // console.log(mappings)
             return _lines.join("\r\n");
-        };
-        Sugar.prototype.min = function () {
-            var string = this.replaceStrings(this.preoutput, false);
-            // console.log(string);
-            string = string.replace(/\s*(,|;|:|=|\?)\s+/g, "$1");
-            string = string.replace(/([^\s])\s+([^\s])/g, "$1 $2");
-            string = string.replace(/([^\s])\s+(\.|\[\()/g, "$1$2");
-            string = string.replace(/[;\s]*(\{|\[|\(|\]|\})\s*/g, "$1");
-            string = string.replace(/;*\};+\s*/g, "}");
-            string = string.replace(/\}([\$\w\.])\s*/g, "};$1");
-            string = string.replace(/\};(else|catch)(\s|\{|\()/g, "}$1$2");
-            string = string.replace(/\s*(@boundary_\d+_as_operator::)\s*/g, "$1");
-            // console.log(string);
-            string = this.restoreStrings(string, true, true);
-            return string;
         };
         Sugar.prototype.run = function (precall, callback) {
             if (precall === void 0) { precall = null; }

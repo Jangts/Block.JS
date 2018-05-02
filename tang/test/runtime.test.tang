@@ -1,239 +1,241 @@
-// // "await"
+// // // "await"
 
-// namespace foo.bar;
-// namespace foo.bar;
-// namespace foo.bar;
-// namespace foo.bar;
-/*!
- * tangram.js framework source code
- *
- * static util.imports
- * init UMD
- *
- * Date 2017-04-06
- */
+// // namespace foo.bar;
+// // namespace foo.bar;
+// // namespace foo.bar;
+// // namespace foo.bar;
+// /*!
+//  * tangram.js framework source code
+//  *
+//  * static util.imports
+//  * init UMD
+//  *
+//  * Date 2017-04-06
+//  */
 
 use $_/arr/
-use   $_/util/bool; use $_/util/type as type1;  use $_/util/../util/type as types[]
-                   use $_/util/../util/type as type2, type3;
+use   $_/util/bool; use $_/util/type as {type1};  use $_/util/../util/type as types
+                   use $_/util/../util/type as {type2, type3};
 
 
-# return;
-# 静好格式的注释将被编译为js注释
+@include './test.tf';
+// @include './test3.tf';
+// # return;
+// # 静好格式的注释将被编译为js注释
 
-// 斜杠形式的注释将被删除
-var a
-var _ = pandora,
-declare = pandora.declareClass,
-    document = root.document; var console = root.console;
-aaaaa = b
-aaaaa = b
-aaaaa = b ;var
+// // 斜杠形式的注释将被删除
+// var a
+// var _ = pandora,
+// declare = pandora.declareClass,
+//     document = root.document; var console = root.console;
+// aaaaa = b
+// aaaaa = b
+// aaaaa = b ;var
          
-         document = root.document ; var console = root.console;
-      var b = 0;
-b = c = 0
-var
+//          document = root.document ; var console = root.console;
+//       var b = 0;
+// b = c = 0
+// var
 
 
-// f= (d,e)=> (d + (e=>e+4)()),
-   a = b, c = s=>s,
-c = a;
-use $_/util/../util/type as type2, type3
-var _ = pandora;
-console.log([
-    _, 1, (){}]);
-console.log(_.arr);
-console.log(_.util);
-c = x=> x + 2;
+// // f= (d,e)=> (d + (e=>e+4)()),
+//    a = b, c = s=>s,
+// c = a;
+// use $_/util/../util/type as type2, type3
+// var _ = pandora;
+// console.log([
+//     _, 1, (){}]);
+// console.log(_.arr);
+// console.log(_.util);
+// c = x=> x + 2;
 
-var a = b = ((c,d)=> (e => (f=>( c + d + e + f + 18))))(1,3)(4)(12)
-console.log(a);
+// var a = b = ((c,d)=> (e => (f=>( c + d + e + f + 18))))(1,3)(4)(12)
+// console.log(a);
 
-strings = 'Hello, I\'m tangram.js.'.split(''), // 字符数组化
-a = strings;
+// strings = 'Hello, I\'m tangram.js.'.split(''), // 字符数组化
+// a = strings;
 
-console.log(a);
+// console.log(a);
 
-let myArray = [0, f(a){}];
+// let myArray = [0, f(a){}];
 
-each(myArray as i, el){
-    console.log(this);
-    console.log(i, el);
-}
+// each(myArray as i, el){
+//     console.log(this);
+//     console.log(i, el);
+// }
 
-each(myArray as i,){
-    console.log(this);
-    console.log(i);
-}
+// each(myArray as i,){
+//     console.log(this);
+//     console.log(i);
+// }
 
-each(myArray as el){
-    console.log(this);
-    console.log(_index, el);
-}
+// each(myArray as el){
+//     console.log(this);
+//     console.log(_index, el);
+// }
 
-var each = (i, el){
-    console.log(i, el);
-}
+// var each = (i, el){
+//     console.log(i, el);
+// }
 
-console.log(imports)
-console.log(type1);
-console.log(type2)
-console.log(type3);
-
-
-
-extends .see.Scrollbar {
-    auto () {
-        $('.tangram-see.scrollbar[data-ic-auto]').each(() {
-            if (($(this).data('icAuto') != 'false') && ($(this).data('icRendered') != 'scrollbar') && [1,'2',{c:3}].includes(1)) {
-                $(this).data('icRendered', 'scrollbar');
-                new _.foo.bar.see.Scrollbar(this, {
-                    theme: $(this).data('scbarTheme') || 'default-light',
-                });
-            }
-        });
-    }
-};
-
-extends _.foo.bar.see.Scrollbar {
-    'auto' () {
-        $('.tangram-see.scrollbar[data-ic-auto]').each(() {
-            if (($(this).data('icAuto') != 'false') && ($(this).data('icRendered') != 'scrollbar') && [1,'2',{c:3}].includes(1)) {
-                $(this).data('icRendered', 'scrollbar');
-                new _.foo.bar.see.Scrollbar(this, {
-                    theme: $(this).data('scbarTheme') || 'default-light',
-                });
-            }
-        });
-    }
-};
+// console.log(imports)
+// console.log(type1);
+// console.log(type2)
+// console.log(type3);
 
 
-var obj = {
-    result:4,
-    method1(){
-        console.log(1); return this;
-    },
-    method2(){
-        console.log(2) 
-        return this;
-    },
-    method3(){
-        console.log(3);
-        return this;
-    }
-}
 
-obj
-    .method1()
-    .method2()
-    .method3()
-    .result;
+// extends .see.Scrollbar {
+//     auto () {
+//         $('.tangram-see.scrollbar[data-ic-auto]').each(() {
+//             if (($(this).data('icAuto') != 'false') && ($(this).data('icRendered') != 'scrollbar') && [1,'2',{c:3}].includes(1)) {
+//                 $(this).data('icRendered', 'scrollbar');
+//                 new _.foo.bar.see.Scrollbar(this, {
+//                     theme: $(this).data('scbarTheme') || 'default-light',
+//                 });
+//             }
+//         });
+//     }
+// };
 
-console.log(
-    obj
-    .method1()
-    .method2()
-    .method3()
-    .result, 5
-);
-
-class .Test {
-    num = 1;
-    str = 'test class'
-    static 'num' = 2
-    static str = 'static string';static arr = [
-        0,
-        'b',
-        (arg1){
-            console.log(arg1);
-        }
-    ];
-    prop;
-
-    _init(arg1='hello'){
-        console.log(arg1);
-    } static prop = {
-        times: 5,
-        type: 'static',
-        method (arg1='method') {
-            console.log(arg1);
-        }
-    }
-
-    static method11(arg11){
-        console.log(arg11);
-    }
-}
-
-expands .Test {
-    num2 = 2;
-}
+// extends _.foo.bar.see.Scrollbar {
+//     'auto' () {
+//         $('.tangram-see.scrollbar[data-ic-auto]').each(() {
+//             if (($(this).data('icAuto') != 'false') && ($(this).data('icRendered') != 'scrollbar') && [1,'2',{c:3}].includes(1)) {
+//                 $(this).data('icRendered', 'scrollbar');
+//                 new _.foo.bar.see.Scrollbar(this, {
+//                     theme: $(this).data('scbarTheme') || 'default-light',
+//                 });
+//             }
+//         });
+//     }
+// };
 
 
-class myClass extends _.foo.bar.Test {
-    static prop
-}
-new(_.foo.bar.Test)
+// var obj = {
+//     result:4,
+//     method1(){
+//         console.log(1); return this;
+//     },
+//     method2(){
+//         console.log(2) 
+//         return this;
+//     },
+//     method3(){
+//         console.log(3);
+//         return this;
+//     }
+// }
+
+// obj
+//     .method1()
+//     .method2()
+//     .method3()
+//     .result;
+
+// console.log(
+//     obj
+//     .method1()
+//     .method2()
+//     .method3()
+//     .result, 5
+// );
+
+// class .Test {
+//     num = 1;
+//     str = 'test class'
+//     static 'num' = 2
+//     static str = 'static string';static arr = [
+//         0,
+//         'b',
+//         (arg1){
+//             console.log(arg1);
+//         }
+//     ];
+//     prop;
+
+//     _init(arg1='hello'){
+//         console.log(arg1);
+//     } static prop = {
+//         times: 5,
+//         type: 'static',
+//         method (arg1='method') {
+//             console.log(arg1);
+//         }
+//     }
+
+//     static method11(arg11){
+//         console.log(arg11);
+//     }
+// }
+
+// expands .Test {
+//     num2 = 2;
+// }
 
 
-var AnonClass = class {
-    desc = 'this is an anonymous class'
-    _init(){
+// class myClass extends _.foo.bar.Test {
+//     static prop
+// }
+// new(_.foo.bar.Test)
 
-    }
-}
 
-let AnonClass2 = class extends _.Test2 {
-    desc = 'this is an anonymous class'
-    _init(){
+// var AnonClass = class {
+//     desc = 'this is an anonymous class'
+//     _init(){
 
-    }
-}
+//     }
+// }
 
-myFn1 (arg1){
-    console.log(arg1);
-}
+// let AnonClass2 = class extends _.Test2 {
+//     desc = 'this is an anonymous class'
+//     _init(){
 
-function myFn2 (){
+//     }
+// }
+
+// myFn1 (arg1){
+//     console.log(arg1);
+// }
+
+// function myFn2 (){
     
-}
+// }
 
-var myFn3 = (arg1=flase){
-    console.log(arg1);
+// var myFn3 = (arg1=flase){
+//     console.log(arg1);
 
-}
+// }
 
-var div = _.render({
-    margin: "100px auto 0",
-    textAlign: "center",
-    fontSize: "72px"
-}),
-uid = new _.Identifier(), // 生成标识符
-strings = 'Hello, I\'m tangram.js.'.split(''), // 字符数组化
-iterator = new _.Iterator(strings), // 生成迭代器
-render = function(letter) {
-    if (letter) {
-        setTimeout(function() {
-            div.innerHTML += letter;
-            render(iterator.next());
-        }, 150);
-    } else {
-        setTimeout(function() {
-            _.render({'margin': "10px auto",
-                textAlign: "center",
-                fontSize: "13px",
-                color: "#666"
-            }, 'TestUID : ' + uid.toString());
-        }, 200);
-    }
-};
+// var div = _.render({
+//     margin: "100px auto 0",
+//     textAlign: "center",
+//     fontSize: "72px"
+// }),
+// uid = new _.Identifier(), // 生成标识符
+// strings = 'Hello, I\'m tangram.js.'.split(''), // 字符数组化
+// iterator = new _.Iterator(strings), // 生成迭代器
+// render = function(letter) {
+//     if (letter) {
+//         setTimeout(function() {
+//             div.innerHTML += letter;
+//             render(iterator.next());
+//         }, 150);
+//     } else {
+//         setTimeout(function() {
+//             _.render({'margin': "10px auto",
+//                 textAlign: "center",
+//                 fontSize: "13px",
+//                 color: "#666"
+//             }, 'TestUID : ' + uid.toString());
+//         }, 200);
+//     }
+// };
 
-console.log(uid, iterator);
+// console.log(uid, iterator);
 
-setTimeout(() {
-    render(iterator.next());
-}, 200);
+// setTimeout(() {
+//     render(iterator.next());
+// }, 200);
 
-return {div};
+// return {div};

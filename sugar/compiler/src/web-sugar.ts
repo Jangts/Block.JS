@@ -16,28 +16,14 @@ this.tangram.auto([
         var script = scripts[index];
         if (script.type === "text/tangram.js-sugar") {
             if (script.src) {
-                // console.log(script.src);
-                _.async.ajax(script.src, function (data) {
-                    tangram_js_sugar(data).compile().run(function (content) {
-                        // console.log(this.ast);
+                var src = script.src;
+                var i = 0;
+                _.async.ajax(src, function (data) {
+                    let sugar = tangram_js_sugar(data).compile().run(function (content) {
+                        console.log(this.ast);
                         // console.log(this.posimap, this.mappings);
                         console.log(content);
                         // console.log(this.min());
-                        let lines = [];
-                        let last = [0,0,0,0,0];
-                        for (let index = 0; index < this.mappings.length; index++) {
-                            let points = [];
-                            for (let point = 0; point < this.mappings[index].length; point++) {
-                                let numbers = [];
-                                for (let n = 0; n < this.mappings[index][point].length; n++) {
-                                    numbers.push(vlq.encode(this.mappings[index][point][n] - last[n]));
-                                }
-                                points.push(numbers.join(''));
-                                last = this.mappings[index][point];
-                            }
-                            lines.push(points.join(','));
-                        }
-                        console.log(lines.join(';'));
                     }, function () {
                         // console.log(this.ast);
                         // console.log(this.replacements);

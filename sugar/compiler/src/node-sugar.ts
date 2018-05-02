@@ -9,20 +9,70 @@
  */
 ;
 
-const tangram_js_sugar = require('./sugar.js');
+
 const fs = require('fs');
 const glob = require("glob");
 const path = require('path');
-const vlq = require('vlq');
-const commands = ['compile', 'cdir', 'build', 'help', 'version'];
+const tangram_js_sugar = require('./sugar.js');
+const vlq = require('./vlq.js');
+const commands = ['compile', 'test', 'cdir', 'build', 'help', 'version'];
 
 // console.log(process.argv);
+const mapBuilder = (omappings: any[], filename: string, basename: string, osources:any[], version: number | string = 3)=>{
+    let lines = [];
+    let sources:string[] = [];
+    let last = [0, 0, 0, 0, 0];
+    let dirname = path.dirname(filename);
+    for (let s = 0; s < osources.length; s++) {
+        sources.push('.' + osources[s].src.replace(dirname, ''));
+    }
+    for (let index = 0; index < omappings.length; index++) {
+        let points = [];
+        let linemap = omappings[index]
+        for (let point = 0; point < linemap.length; point++) {
+            let numbers = [];
+            let pointmap = linemap[point];
+            for (let n = 0; n < pointmap.length; n++) {
+                numbers.push(vlq.encode(pointmap[n] - last[n]));
+            }
+            points.push(numbers.join(''));
+            last = pointmap;
+        }
+        lines.push(points.join(','));
+    }
+    
+    let mappings = {
+        "version": version,
+        "file": basename,
+        "sourceRoot": "",
+        "sources": sources,
+        "names": [],
+        "mappings": lines.join(';')
+    };
+    return JSON.stringify(mappings)
+}
+
+const onReadFile = function (match: string, parent): string {
+    // console.log(match, parent.source);
+    let source = path.resolve(parent + match + '.tf');
+    if (this.sources[source]) {
+        this.error('source ' + source + 'had already been loaded.');
+    }
+    this.sources.push({
+        id: this.sources.length,
+        src: source
+    });
+    this.sources[source] = true;
+    // console.log('src: ' + source);
+    return fs.readFileSync(source, 'utf-8');
+}
 
 let options = {
     command: 'compile',
     inputDir: '',
     outputDir: '',
     containSubDir: false,
+    generateSourceMap: false,
     safemode: false,
     toES6: false,
     compileMin: false
@@ -39,18 +89,35 @@ let handlers = {
             console.log('must input a filename');
             return;
         }
+        i = path.resolve(i);
+        o = path.resolve(o);
         console.log('compile tang file ' + i + '...');
         var script = fs.readFileSync(i, 'utf-8');
-        var sugar = tangram_js_sugar(script, this.toES6).compile();
-        fs.writeFileSync(o, sugar.output);
-        console.log('file ' + o + ' compiled completed!');
-        if (options.compileMin) {
-            let om = o.replace(/js$/, 'min.js');
-            fs.writeFileSync(om, sugar.min());
-            console.log('file ' + om + ' compiled completed!');
+        var sugar = tangram_js_sugar(script, i);
+        sugar.onReadFile = onReadFile;
+        sugar.compile();
+        if (options.generateSourceMap){
+            let basename = './' + path.basename(o);
+            var output: string = sugar.output + "\r\n//# sourceMappingURL=" + basename + '.map';
+            let mappings = mapBuilder(sugar.mappings, o, basename, sugar.sources);
+            fs.writeFileSync(o + '.map', mappings);
+        }else{
+            var output: string = sugar.output;
         }
-        // console.log(sugar.output);
-        
+        fs.writeFileSync(o, output);
+        console.log('file ' + o + ' compiled completed!');
+        // if (options.compileMin){
+        //     let m = o.replace(/.js$/, '.min.js');
+        //     let outmin = sugar.min();
+        //     fs.writeFileSync(m, outmin);
+        //     console.log('file ' + o + ' and file ' + m + ' compiled completed!');
+        // }else{
+        //     console.log('file ' + o + ' compiled completed!');
+        // }
+    },
+    test() {
+        // console.log('Hello, world!');
+        handlers.compile('./test/main.tang', './test/script.js');
     },
     cdir() {
         let indir = path.resolve(options.inputDir);
@@ -107,13 +174,16 @@ process.argv.slice(index).forEach(function (item) {
         case "-m":
             options.compileMin = true;
             break;
+        case "-map":
+            options.generateSourceMap = true;
+            break;
         case "-v":
             options.command = 'version';
             break;
         case "-s":
             options.safemode = true;
             break;
-        case "-e":
+        case "-es6":
             options.toES6 = true;
             break;
         default:
@@ -133,6 +203,9 @@ switch (options.command) {
     case 'compile':
         handlers.compile();
         break;
+    case 'test':
+        handlers.test();
+        break;
     case 'cdir':
         handlers.cdir();
         break;
@@ -149,38 +222,3 @@ switch (options.command) {
 }
 
 // node ./../../sugar/compiler/lib/node-sugar.js cdir ./ ./../../src/ -m -c
-// console.log(fs.readFileSync('./Tree.tang', 'utf-8'));
-
-// handlers.compile('./arr/arr.tang', './../src/arr/arr.js');
-// handlers.compile('./arr/diff.tang', './../src/arr/diff.js');
-// handlers.compile('./arr/Tree.tang', './../src/arr/Tree.js');
-
-// handlers.compile('./async/async.tang', './../src/async/async.js');
-// handlers.compile('./async/Promise.tang', './../src/async/Promise.js');
-// handlers.compile('./async/Request.tang', './../src/async/Request.js');
-// handlers.compile('./async/Uploader.tang', './../src/async/Uploader.js');
-
-// handlers.compile('./data/data.tang', './../src/data/data.js');
-// handlers.compile('./data/Model.tang', './../src/data/Model.js');
-// handlers.compile('./data/Sheet.tang', './../src/data/Sheet.js');
-// handlers.compile('./data/Storage.tang', './../src/data/Storage.js');
-
-// handlers.compile('./math/math.tang', './../src/math/math.js');
-// handlers.compile('./math/easing.tang', './../src/math/easing.js');
-
-// handlers.compile('./media/Image.tang', './../src/media/Image.js');
-// handlers.compile('./media/Player.tang', './../src/media/Player.js');
-
-// handlers.compile('./str/str.tang', './../src/str/str.js');
-// handlers.compile('./str/hash.tang', './../src/str/hash.js');
-// handlers.compile('./str/MD5Encoder.tang', './../src/str/MD5Encoder.js');
-
-
-// handlers.compile('./util/locales/en.tang', './../src/util/locales/en.js');
-// handlers.compile('./util/locales/zh.tang', './../src/util/locales/zh.js');
-// handlers.compile('./util/bool.tang', './../src/util/bool.js');
-// handlers.compile('./util/Color.tang', './../src/util/Color.js');
-// handlers.compile('./util/Time.tang', './../src/util/Time.js');
-// handlers.compile('./util/type.tang', './../src/util/type.js');
-
-// handlers.compile('./autolayout.tang', './../src/autolayout.js');
