@@ -1,0 +1,55 @@
+    let s = typeof {}
+
+    {
+        foo(){}
+    } ;var a =1
+
+    let c = a
+    {
+        foo(){};
+    }
+
+    var d = {
+        foo(){}
+    }
+
+   ({
+        foo:'bar'
+    }).foo;
+
+
+    console.log(1, {
+        foo:'bar'
+    }.foo);
+
+    console.log(1, {
+        foo(){}
+    }.foo);
+
+
+log true, {
+    foo(){}
+}.foo();
+
+    var f = {
+        s
+    }
+
+    var g = {
+        s,
+        foo(){}
+    }
+
+    var h = [
+        1, 2,
+        { }
+    ]
+
+    var i = [1, 2,
+        { }
+    ]
+
+    var j = [
+        { },
+        2, 3
+    ]

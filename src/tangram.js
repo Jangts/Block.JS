@@ -967,14 +967,18 @@ function(root, factory) {
                         return pandora(name, callback, true);
                     }
                     // 执行函数
-                    var namespace = pandora(name);
-                    var members = callback.call(namespace);
-                    if (typeof callback === 'object') {
-                        for (var k in value) {
-                            object[k] = object[k] || value[k];
+                    if (typeof callback === 'function') {
+                        var namespace = pandora(name);
+                        var members = callback.call(namespace);
+                        // console.log(name, namespace, members);
+                        if (members && (typeof members === 'object')) {
+                            for (var m in members) {
+                                namespace[m] = members[m];
+                            }
                         }
+                        return namespace;
                     }
-                    return namespace;
+                    error('namespace method(pandora.ms) must be  given a function or an object.');
                 },
                 /**
                  * 简易渲染
@@ -1300,8 +1304,8 @@ function(root, factory) {
                         var that = this;
                         // this.core['type'] = 'caller';
                         // setTimeout(function() {
-                            that.mainid = storage.blocks.mains.push(that.core) - 1;
-                            that.listene();
+                        that.mainid = storage.blocks.mains.push(that.core) - 1;
+                        that.listene();
                         // }, 0);
                     }
                     // 可能废弃自定义块名，貌似没有实际意义
@@ -1493,7 +1497,7 @@ function(root, factory) {
          *
          * @return tangram
          */
-        init: function () {
+        init: function() {
             if (this === tangram) {
                 // console.log('clear');
                 storage.blocks.temp = [];

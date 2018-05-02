@@ -8,8 +8,7 @@
 ;
 this.tangram.auto([
     '$_/async/',
-    '$_/../sugar/compiler/lib/sugar',
-    '$_/../sugar/compiler/node_modules/vlq/dist/vlq'
+    '$_/../sugar/compiler/lib/sugar'
 ], function (_) {
     var sugars = [], scripts = document.getElementsByTagName('script');
     for (var index = 0; index < scripts.length; index++) {

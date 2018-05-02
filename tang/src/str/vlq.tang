@@ -19,12 +19,6 @@ var integerToChar = {};
     charToInteger[char] = i;
     integerToChar[i] = char;
 });
- 
-dim 
-
-store 
-
-global
 
 decode(string) {
     var result = [];

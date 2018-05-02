@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RUNTIME</title>
+    <script src="../../src/tangram.js" data-tangram-debug></script>
+</head>
+
+<body>
+    <script type="text/tangram.js-sugar">
+    namespace foo;
+
+    console = root.console;
+
+    class Bar {_init(){}}
+    class .Bar {_init(){}}
+
+    expands .Bar {foo='bar'}
+
+    namespace bar1 {
+        public Bar1 = class {_init(){}}
+        class .Bar2 {_init(){}}
+
+        expands .Bar2 {foo='bar'}
+
+        namespace bla {
+            public Bar1 = class {_init(){}}
+            class .Bar2 {_init(){}}
+            extends Bar1 {foo:'bar'}
+            extends .Bar2 {foo:'bar'};
+            setTimeout(()=>{
+                console.log(this);
+            }, 0);
+
+            global blabla {
+                public Bar1 = class {_init(){}}
+                class .Bar2 {_init(){}}
+            }
+
+            global blabla return {
+                Bar3 : class {_init(){}}
+            }
+        }
+    }
+
+    public bar2 = (arg) -> log arg
+
+    namespace bar3 return {
+        Bar1: class {_init(){}}
+    }
+
+    log 'string1';
+
+    log 'string2', {};
+
+    log ('string2', 'string3');
+
+    # pandora.foo.bar2('Hello, world!');
+
+    setTimeout(()=>{
+        console.log([pandora]);
+    }, 0);
+    </script>
+    <script src="../../sugar/compiler/lib/web-sugar.js"></script>
+</body>
+
+</html>

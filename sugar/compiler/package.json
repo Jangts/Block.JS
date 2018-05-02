@@ -4,6 +4,7 @@
     "description": "tangram.js syntactic sugar",
     "main": "./lib/node-sugar.js",
     "dependencies": {
+        "@types/node": "^9.6.6",
         "glob": "^7.1.2"
     },
     "devDependencies": {},
