@@ -65,7 +65,7 @@
         // using: /^\s*use\s+/g,
         namespace: /((@\d+L\d+P0):::)?(\s*)namespace\s+([\$\w\.]+)\s*(;|\r|\n)/g,
         // 位置是在replace usings 和 strings 之后才tidy的，所以还存在后接空格
-        use: /(@\d+L\d+P\d+:::)\s*use\s+([\$\w\.\/\\]+)(\s+as(\s+(@\d+L\d+P\d+:::\s*[\$\w]+)|\s*(@\d+L\d+P\d+:::\s*)?\{(@\d+L\d+P\d+:::\s*[\$\w]+(\s*,@\d+L\d+P\d+:::\s*[\$\w]+)*)\})(@\d+L\d+P\d+:::\s*)?)?\s*[;\r\n]/g,
+        use: /(@\d+L\d+P\d+:::)\s*use(\$)?\s+([\$\w\.\/\\]+)(\s+as(\s+(@\d+L\d+P\d+:::\s*[\$\w]+)|\s*(@\d+L\d+P\d+:::\s*)?\{(@\d+L\d+P\d+:::\s*[\$\w]+(\s*,@\d+L\d+P\d+:::\s*[\$\w]+)*)\})(@\d+L\d+P\d+:::\s*)?)?\s*[;\r\n]/g,
         include: /\s*@include\s+___boundary_[A-Z0-9_]{36}_(\d+)_as_string___[;\r\n]+/g,
         // return: /[\s;\r\n]+$/g,
         extends: /(@\d+L\d+P\d+O*\d*:::)?((ns|namespace|global|extends)\s+([\$\w\.]+)\s*(return\s*)?\{([^\{\}]*?)\})/g,
@@ -97,7 +97,7 @@
         arrowfn: /(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)\s*(->|=>)\s*([^,;\r\n]+)/,
         objectattr: /^\s*(@\d+L\d+P\d+O?\d*:::)?((([\$\w]+)))\s*(\:*)([\s\S]*)$/,
         classelement: /^\s*(@\d+L\d+P\d+O?\d*:::)?((public|static|set|get|om)\s+)?([\$\w]*)\s*(\=*)([\s\S]*)$/,
-        travelargs: /^((@\d+L\d+P\d+O*\d*:::)?[\$a-zA-Z_][\$\w\.-]+)\s+as\s(@\d+L\d+P\d+O*\d*:::)([\$\w]+)(\s*,((@\d+L\d+P\d+O*\d*:::)([\$\w]*)))?/
+        travelargs: /^((@\d+L\d+P\d+O*\d*:::)?[\$\w][\$\w\.]*)\s+as\s(@\d+L\d+P\d+O*\d*:::)([\$\w]+)(\s*,((@\d+L\d+P\d+O*\d*:::)([\$\w]*)))?/
     }, boundaryMaker = function () {
         var radix = 36;
         var uid = new Array(36);
@@ -336,7 +336,7 @@
         };
         Sugar.prototype.replaceUsing = function (string) {
             var _this = this;
-            return string.replace(replaceExpRegPattern.use, function (match, posi, url, as, alias, variables, posimembers, members) {
+            return string.replace(replaceExpRegPattern.use, function (match, posi, $, url, as, alias, variables, posimembers, members) {
                 // console.log(arguments);
                 // console.log(match, ':', posi, url, as, alias);
                 var index = _this.replacements.length;
@@ -345,6 +345,9 @@
                     // url = url.replace(array, '[]');
                     _this.replacements.push([url, members, posi]);
                     return '___boundary_' + _this.uid + '_' + index + '_as_usings___;';
+                }
+                if ($) {
+                    url = '$_/' + url;
                 }
                 _this.replacements.push([url, variables, posi]);
                 return '___boundary_' + _this.uid + '_' + index + '_as_using___;';
@@ -1861,7 +1864,7 @@
                     }
                     if (fname === 'each') {
                         var condition = matches[4].match(matchExpRegPattern.travelargs);
-                        // console.log(matches, condition);
+                        console.log(matches, condition);
                         if (condition) {
                             var self_1 = {
                                 this: 'var',
