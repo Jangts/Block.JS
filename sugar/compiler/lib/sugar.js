@@ -24,6 +24,7 @@
         // TNS
         root.tangram.init();
         root.tangram.module.exports = factory(root);
+        console.log(root.tangram.module.exports);
     }
     else {
         root.tangram_js_sugar = factory(root);
@@ -84,7 +85,7 @@
     }, replaceWords = /(@\d+L\d+P\d+O?\d*:::)?(continue|finally|return|throw|break|case|else|try|do)\s*(\s|;|___boundary_[A-Z0-9_]{36}_(\d+)_as_([a-z]+)___)/g, replaceExpRegPattern = {
         await: /^((\s*@\d+L\d+P0:::)*\s*(@\d+L\d+P0*):::(\s*))?"await"\s*/,
         // using: /^\s*use\s+/g,
-        namespace: /((@\d+L\d+P0):::)?(\s*)namespace\s+(\.{0,1}[\$a-zA-Z_][\$\w\.]*)\s*(;|\r|\n)/g,
+        namespace: /[\r\n]((@\d+L\d+P0):::)?(\s*)namespace\s+(\.{0,1}[\$a-zA-Z_][\$\w\.]*)\s*(;|\r|\n)/g,
         // 位置是在replace usings 和 strings 之后才tidy的，所以还存在后接空格
         use: /(@\d+L\d+P\d+:::)\s*use(\$)?\s+([\$\w\.\/\\\?\=\&]+)(\s+as(\s+(@\d+L\d+P\d+:::\s*[\$a-zA-Z_][\$\w]*)|\s*(@\d+L\d+P\d+:::\s*)?\{(@\d+L\d+P\d+:::\s*[\$a-zA-Z_][\$\w]*(\s*,@\d+L\d+P\d+:::\s*[\$a-zA-Z_][\$\w]*)*)\})(@\d+L\d+P\d+:::\s*)?)?\s*[;\r\n]/g,
         include: /\s*@include\s+___boundary_[A-Z0-9_]{36}_(\d+)_as_string___[;\r\n]+/g,
@@ -175,14 +176,17 @@
             var newcontent = this.markPosition(this.input, 0);
             var string = this.encode(newcontent);
             var vars = {
-                namespace: {
-                    name: this.namespace,
-                    public: [],
-                },
                 parent: null,
-                body: {},
+                root: {
+                    namespace: this.namespace,
+                    public: {},
+                    private: {},
+                    protected: {},
+                    fixed: [],
+                    fix_map: {}
+                },
                 self: {},
-                childs: {},
+                locals: {},
                 fixed: [],
                 fix_map: {},
                 type: 'block'
@@ -1179,8 +1183,8 @@
                         else {
                             if (vars.self[element] === void 0) {
                                 vars.self[element] = symbol;
-                                if (symbol === 'public' && vars.namespace) {
-                                    vars.namespace.public.push(element);
+                                if (symbol === 'public' && vars.root.namespace !== null) {
+                                    vars.root.public[element] = null;
                                 }
                             }
                             else if (vars.self[element] === 'let' || symbol === 'let') {
@@ -1601,21 +1605,27 @@
             var selfvas = {};
             if (matches[3] === '=>') {
                 subtype = '=>';
-                vars.body['this'] = null;
-                vars.body['arguments'] = null;
-                var body = vars.body;
+                vars.locals['this'] = null;
+                vars.locals['arguments'] = null;
+                var locals = vars.locals;
                 var varstype = 'arrowfn';
             }
             else {
-                var body = {};
-                var varstype = 'fnbody';
+                var locals = {};
+                var varstype = 'body';
             }
             var localvars = {
-                namespace: null,
                 parent: vars,
-                body: body,
+                root: {
+                    namespace: null,
+                    public: {},
+                    private: {},
+                    protected: {},
+                    fixed: [],
+                    fix_map: {}
+                },
                 self: {},
-                childs: {},
+                locals: locals,
                 fixed: [],
                 fix_map: {},
                 type: varstype
@@ -1776,11 +1786,10 @@
         Sugar.prototype.walkClosure = function (index, display, vars) {
             // console.log(this.replacements[index]);
             var localvars = {
-                namespace: vars.namespace,
                 parent: vars,
-                body: vars.body,
+                root: vars.root,
                 self: {},
-                childs: {},
+                locals: vars.locals,
                 fixed: [],
                 fix_map: {},
                 type: 'closure'
@@ -1788,7 +1797,7 @@
             var array = this.replacements[index][0].split(/\s*(\{|\})\s*/);
             var position = this.getPosition(this.replacements[index][1]);
             var body = this.pushBodyToAST([], localvars, array[2]);
-            this.resetParentVars(vars, localvars);
+            this.resetVarsRoot(localvars);
             // console.log(array);
             return {
                 type: 'closure',
@@ -1816,14 +1825,17 @@
                     namespace = objname + '.';
                 }
                 localvars = {
-                    namespace: {
-                        name: namespace,
-                        public: [],
-                    },
                     parent: vars,
-                    body: {},
+                    root: {
+                        namespace: namespace,
+                        public: {},
+                        private: {},
+                        protected: {},
+                        fixed: [],
+                        fix_map: {}
+                    },
                     self: {},
-                    childs: {},
+                    locals: {},
                     fixed: [],
                     fix_map: {},
                     type: 'body'
@@ -1861,11 +1873,10 @@
                     if (reservedFname['includes'](fname)) {
                         var headline = matches[4];
                         var localvars_1 = {
-                            namespace: vars.namespace,
                             parent: vars,
-                            body: vars.body,
+                            root: vars.root,
                             self: {},
-                            childs: {},
+                            locals: vars.locals,
                             fixed: [],
                             fix_map: {},
                             type: 'closure'
@@ -1894,7 +1905,7 @@
                             // console.log(localvars, head);
                         }
                         var body = this.pushBodyToAST([], localvars_1, matches[5]);
-                        this.resetParentVars(vars, localvars_1);
+                        this.resetVarsRoot(localvars_1);
                         return {
                             type: 'exp',
                             display: 'block',
@@ -1935,17 +1946,23 @@
                                     this.error('itemname cannot same to the default indexname');
                                 }
                             }
-                            vars.body['arguments'] = null;
                             var localvars_2 = {
-                                namespace: null,
                                 parent: vars,
-                                body: vars.body,
-                                self: self_1,
-                                childs: {},
+                                root: {
+                                    namespace: null,
+                                    public: {},
+                                    private: {},
+                                    protected: {},
+                                    fixed: [],
+                                    fix_map: {}
+                                },
+                                self: {},
+                                locals: vars.locals,
                                 fixed: [],
                                 fix_map: {},
                                 type: 'travel'
                             };
+                            localvars_2.locals['arguments'] = null;
                             var iterator = this.pushSentencesToAST([], localvars_2, condition[1], false, this.getPosition(condition[2]))[0] || (function () {
                                 _this.error(' Must have statements in head of each expreesion.');
                             })();
@@ -1984,7 +2001,7 @@
                     }
                     if (fname) {
                         if (!vars.self.hasOwnProperty(fname)) {
-                            vars.childs[fname] = 'var';
+                            vars.root.private[fname] = 'var';
                         }
                         else if (vars.self[fname] === 'let') {
                             this.error(' Variable `' + fname + '` has already been declared.');
@@ -1993,11 +2010,17 @@
                 }
             }
             var localvars = {
-                namespace: null,
                 parent: vars,
-                body: {},
+                root: {
+                    namespace: null,
+                    public: {},
+                    private: {},
+                    protected: {},
+                    fixed: [],
+                    fix_map: {}
+                },
                 self: {},
-                childs: {},
+                locals: {},
                 fixed: [],
                 fix_map: {},
                 type: 'body'
@@ -2402,8 +2425,8 @@
             return codes;
         };
         Sugar.prototype.pushAlias = function (codes, vars, alias) {
-            for (var key in vars.body) {
-                codes.push("\r\n\tvar " + vars.body[key] + ' = ' + key + ';');
+            for (var key in vars.locals) {
+                codes.push("\r\n\tvar " + vars.locals[key] + ' = ' + key + ';');
             }
             for (var key_1 in alias) {
                 // console.log(key);
@@ -2924,9 +2947,9 @@
                 // console.log(element.body);
                 var exports_1 = [];
                 codes.push(indent2 + 'return {');
-                for (var i = 0; i < element.vars.namespace.public.length; i++) {
-                    if (!exports_1['includes'](element.vars.namespace.public[i])) {
-                        exports_1.push(element.vars.namespace.public[i] + ': ' + element.vars.namespace.public[i]);
+                for (var i = 0; i < element.vars.root.public.length; i++) {
+                    if (!exports_1['includes'](element.vars.root.public[i])) {
+                        exports_1.push(element.vars.root.public[i] + ': ' + element.vars.root.public[i]);
                     }
                 }
                 if (exports_1.length) {
@@ -3172,20 +3195,22 @@
             codes.push('}');
             return codes;
         };
-        Sugar.prototype.resetParentVars = function (vars, localvars) {
-            for (var varname in localvars.self) {
-                if (localvars.self.hasOwnProperty(varname)) {
-                    if (localvars.self[varname] === 'let') {
-                        console.log(vars);
-                        if (!vars.self.hasOwnProperty(varname) && !vars.childs.hasOwnProperty(varname)) {
-                            vars.childs[varname] = localvars;
+        Sugar.prototype.resetVarsRoot = function (vars) {
+            var root = vars.root;
+            for (var varname in vars.self) {
+                if (vars.self.hasOwnProperty(varname)) {
+                    if (vars.self[varname] === 'let') {
+                        // console.log(vars);
+                        if (!root.protected.hasOwnProperty(varname) && !root.private.hasOwnProperty(varname)) {
+                            root.private[varname] = vars;
                         }
                     }
                     else {
-                        if (!vars.self.hasOwnProperty(varname)) {
-                            vars.self[varname] = 'var';
+                        if (!root.protected.hasOwnProperty(varname)) {
+                            root.protected[varname] = 'var';
+                            delete vars.self[varname];
                         }
-                        else if (vars.self[varname] === 'let') {
+                        else if (root.protected[varname] === 'let') {
                             this.error(' Variable `' + varname + '` has already been declared.');
                         }
                     }
@@ -3198,11 +3223,11 @@
             // console.log(vars.type, vars);
             switch (vars.type) {
                 case 'arrowfn':
-                    vars.fix_map['this'] = vars.body['this'];
-                    vars.fixed.push(vars.body['this']);
+                    vars.root.fix_map['this'] = vars.locals['this'];
+                    vars.root.fixed.push(vars.locals['this']);
                 case 'travel':
-                    vars.fix_map['arguments'] = vars.body['arguments'];
-                    vars.fixed.push(vars.body['arguments']);
+                    vars.root.fix_map['arguments'] = vars.locals['arguments'];
+                    vars.root.fixed.push(vars.locals['arguments']);
                     for (var element in vars.self) {
                         var varname = element;
                         if (keywords['includes'](element) || reserved['includes'](element)) {
@@ -3214,7 +3239,7 @@
                                 varname = varname + '_' + vars.index;
                             }
                         }
-                        while (vars.fixed['includes'](varname)) {
+                        while (vars.root.fixed['includes'](varname)) {
                             varname = varname + '_' + vars.index;
                             while (vars.self[varname]) {
                                 varname = varname + '_' + vars.index;
@@ -3222,9 +3247,9 @@
                         }
                         if (varname !== element) {
                             // console.log(varname);
-                            vars.fix_map[element] = varname;
+                            vars.root.fix_map[element] = varname;
                         }
-                        vars.fixed.push(varname);
+                        vars.root.fixed.push(varname);
                     }
                     break;
                 case 'body':
@@ -3242,56 +3267,43 @@
                         }
                         if (varname !== element) {
                             // console.log(varname);
-                            vars.fix_map[element] = varname;
+                            vars.root.fix_map[element] = varname;
                         }
-                        vars.fixed.push(varname);
+                        vars.root.fixed.push(varname);
                     }
-                    for (var key in vars.body) {
-                        if (vars.body.hasOwnProperty(key)) {
+                    for (var key in vars.locals) {
+                        if (vars.locals.hasOwnProperty(key)) {
                             var varname = '_' + key;
                             while (vars.self[varname]) {
                                 varname = varname + '_' + vars.index;
                             }
-                            vars.body[key] = varname;
+                            vars.locals[key] = varname;
                         }
                     }
                     break;
                 case 'closure':
                     for (var element in vars.self) {
-                        if (vars.self[element] === 'let') {
-                            var varname = element;
-                            // console.log(vars.index, varname);
-                            if (keywords['includes'](element) || reserved['includes'](element)) {
-                                this.error('keywords `' + element + '` cannot be a variable name.');
-                            }
-                            if (blockreserved['includes'](element)) {
-                                varname = element + '_' + vars.index;
-                                while (vars.self[varname]) {
-                                    varname = varname + '_' + vars.index;
-                                }
-                            }
-                            while (vars.parent.fixed['includes'](varname)) {
+                        var varname = element;
+                        // console.log(vars.index, varname); 
+                        if (keywords['includes'](element) || reserved['includes'](element)) {
+                            this.error('keywords `' + element + '` cannot be a variable name.');
+                        }
+                        if (blockreserved['includes'](element)) {
+                            varname = element + '_' + vars.index;
+                            while (vars.self[varname]) {
                                 varname = varname + '_' + vars.index;
                             }
-                            while (vars.parent.childs[varname] && vars.parent.childs[varname] !== vars) {
-                                varname = varname + '_' + vars.index;
-                            }
-                            if (varname !== element) {
-                                // console.log(varname);
-                                vars.fix_map[element] = varname;
-                            }
-                            vars.fixed.push(varname);
                         }
-                        else {
-                            if (vars.parent.fix_map[element]) {
-                                vars.fix_map[element] = vars.parent.fix_map[element];
-                                vars.fixed.push(vars.parent.fix_map[element]);
-                            }
-                            else {
-                                vars.fixed.push(element);
-                            }
-                            // console.log(vars.parent);
+                        while (vars.root.fixed['includes'](varname)
+                            || (vars.root.private[varname] && (vars.root.private[varname] !== vars))) {
+                            varname = varname + '_' + vars.index;
                         }
+                        if (varname !== element) {
+                            // console.log(varname);
+                            vars.fix_map[element] = varname;
+                        }
+                        vars.fixed.push(varname);
+                        vars.root.fixed.push(varname);
                     }
                 default:
                     break;
@@ -3318,27 +3330,31 @@
                 // console.log(varname, vars.fix_map[varname]);
                 return vars.fix_map[varname];
             }
-            else if (vars.childs[varname]) {
+            if (vars.root.fix_map[varname]) {
+                // console.log(varname, vars.fix_map[varname]);
+                return vars.root.fix_map[varname];
+            }
+            else if (vars.root.private[varname]) {
                 var _varname = varname;
                 // console.log(vars);
-                while (vars.childs[varname]) {
+                while (vars.root.private[varname]) {
                     varname = varname + '_' + vars.index;
                 }
-                while (vars.fixed['includes'](varname)) {
+                while (vars.root.fixed['includes'](varname)) {
                     varname = varname + '_' + vars.index;
                 }
-                vars.fix_map[_varname] = varname;
+                vars.root.fix_map[_varname] = varname;
             }
             else {
-                for (var key in vars.body) {
-                    var _key = vars.body[key];
+                for (var key in vars.locals) {
+                    var _key = vars.locals[key];
                     // console.log(_key);
                     if (varname === _key) {
                         varname = varname + '_' + vars.index;
-                        while (vars.childs[varname]) {
+                        while (vars.root.private[varname]) {
                             varname = varname + '_' + vars.index;
                         }
-                        while (vars.fixed['includes'](varname)) {
+                        while (vars.root.fixed['includes'](varname)) {
                             varname = varname + '_' + vars.index;
                         }
                         vars.fix_map[_key] = varname;
@@ -3350,9 +3366,9 @@
         Sugar.prototype.pushFooter = function (codes) {
             // let exports = [];
             // codes.push(indent2 + 'return {');
-            // for (let i = 0; i < element.vars.namespace.public.length; i++) {
-            //     if (!exports['includes'](element.vars.namespace.public[i])) {
-            //         exports.push(element.vars.namespace.public[i] + ': ' + element.vars.namespace.public[i]);
+            // for (let i = 0; i < element.vars.root.public.length; i++) {
+            //     if (!exports['includes'](element.vars.root.public[i])) {
+            //         exports.push(element.vars.root.public[i] + ': ' + element.vars.root.public[i]);
             //     }
             // }
             // if (exports.length) {
