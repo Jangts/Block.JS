@@ -24,7 +24,7 @@
         // TNS
         root.tangram.init();
         root.tangram.module.exports = factory(root);
-        console.log(root.tangram.module.exports);
+        // console.log(root.tangram.module.exports);
     }
     else {
         root.tangram_js_sugar = factory(root);
@@ -185,12 +185,10 @@
                     fixed: [],
                     fix_map: {}
                 },
-                self: {},
                 locals: {},
-                fixed: [],
-                fix_map: {},
-                type: 'block'
+                type: 'root'
             };
+            vars.self = vars.root.protected;
             this.buildAST(this.pickReplacePosis(this.getLines(string, vars), vars), vars);
             // this.output = 'console.log("Hello, world!");';
             this.generate();
@@ -1183,9 +1181,13 @@
                         else {
                             if (vars.self[element] === void 0) {
                                 vars.self[element] = symbol;
-                                if (symbol === 'public' && vars.root.namespace !== null) {
-                                    vars.root.public[element] = null;
+                                if (symbol === 'public' && (vars.root.namespace !== null)) {
+                                    vars.root.public[element] = element;
                                 }
+                            }
+                            else if ((vars.self[element] === 'var') && (symbol === 'public') && (vars.root.namespace !== null)) {
+                                vars.self[element] = symbol;
+                                vars.root.public[element] = element;
                             }
                             else if (vars.self[element] === 'let' || symbol === 'let') {
                                 this.error(' Variable `' + element + '` has already been declared at char ' + position.col + ' on line ' + position.line + '.');
@@ -1379,7 +1381,6 @@
                     ast.body.push(codes);
                 }
             }
-            // console.log(ast, this.replacements);
             this.ast = ast;
             return this;
         };
@@ -1612,7 +1613,7 @@
             }
             else {
                 var locals = {};
-                var varstype = 'body';
+                var varstype = 'root';
             }
             var localvars = {
                 parent: vars,
@@ -1624,12 +1625,10 @@
                     fixed: [],
                     fix_map: {}
                 },
-                self: {},
                 locals: locals,
-                fixed: [],
-                fix_map: {},
                 type: varstype
             };
+            localvars.self = localvars.root.protected;
             var args = this.checkArgs(this.replacements[matches[2]][0].replace(/(^\(|\)$)/g, ''), localvars);
             // console.log(matches);
             return {
@@ -1798,7 +1797,6 @@
             var position = this.getPosition(this.replacements[index][1]);
             var body = this.pushBodyToAST([], localvars, array[2]);
             this.resetVarsRoot(localvars);
-            // console.log(array);
             return {
                 type: 'closure',
                 posi: position,
@@ -1834,12 +1832,10 @@
                         fixed: [],
                         fix_map: {}
                     },
-                    self: {},
                     locals: {},
-                    fixed: [],
-                    fix_map: {},
-                    type: 'body'
+                    type: 'root'
                 };
+                localvars.self = localvars.root.protected;
                 var body = this.pushBodyToAST([], localvars, matches[4]);
             }
             else {
@@ -1956,12 +1952,10 @@
                                     fixed: [],
                                     fix_map: {}
                                 },
-                                self: {},
                                 locals: vars.locals,
-                                fixed: [],
-                                fix_map: {},
                                 type: 'travel'
                             };
+                            localvars_2.self = localvars_2.root.protected;
                             localvars_2.locals['arguments'] = null;
                             var iterator = this.pushSentencesToAST([], localvars_2, condition[1], false, this.getPosition(condition[2]))[0] || (function () {
                                 _this.error(' Must have statements in head of each expreesion.');
@@ -2019,12 +2013,10 @@
                     fixed: [],
                     fix_map: {}
                 },
-                self: {},
                 locals: {},
-                fixed: [],
-                fix_map: {},
-                type: 'body'
+                type: 'root'
             };
+            localvars.self = localvars.root.protected;
             var args = this.checkArgs(matches[4], localvars);
             return {
                 type: type,
@@ -2373,7 +2365,7 @@
             this.fixVariables(this.ast.vars);
             this.pushAlias(body, this.ast.vars, this.using_as);
             this.pushCodes(body, this.ast.vars, this.ast.body, 1, this.namespace);
-            this.pushFooter(foot);
+            this.pushFooter(foot, this.ast.vars);
             this.preoutput = head.join('') + this.trim(body.join('')) + foot.join('');
             this.output = this.pickUpMap(this.restoreStrings(this.preoutput, true));
             // console.log(this.output);
@@ -2946,11 +2938,10 @@
                 this.pushCodes(codes, element.vars, element.body, layer + 1, namespace + element.oname.trim() + '.');
                 // console.log(element.body);
                 var exports_1 = [];
+                // console.log(element.vars.root.public);
                 codes.push(indent2 + 'return {');
-                for (var i = 0; i < element.vars.root.public.length; i++) {
-                    if (!exports_1['includes'](element.vars.root.public[i])) {
-                        exports_1.push(element.vars.root.public[i] + ': ' + element.vars.root.public[i]);
-                    }
+                for (var name_2 in element.vars.root.public) {
+                    exports_1.push(name_2 + ': ' + element.vars.root.public[name_2]);
                 }
                 if (exports_1.length) {
                     codes.push(indent3 + exports_1.join(',' + indent3));
@@ -3195,20 +3186,33 @@
             codes.push('}');
             return codes;
         };
+        Sugar.prototype.pushFooter = function (codes, vars) {
+            // console.log(vars.root.public);
+            for (var name_3 in vars.root.public) {
+                codes.push("\r\n\tpandora." + this.namespace + name_3 + ' = ' + vars.root.public[name_3]);
+            }
+            if (this.isMainBlock) {
+                codes.push("\r\n" + '}, true);');
+            }
+            else {
+                codes.push("\r\n" + '});');
+            }
+            return codes;
+        };
         Sugar.prototype.resetVarsRoot = function (vars) {
             var root = vars.root;
             for (var varname in vars.self) {
                 if (vars.self.hasOwnProperty(varname)) {
                     if (vars.self[varname] === 'let') {
                         // console.log(vars);
-                        if (!root.protected.hasOwnProperty(varname) && !root.private.hasOwnProperty(varname)) {
+                        if (!root.protected.hasOwnProperty(varname) && (!root.private.hasOwnProperty(varname) || (root.private[varname].parent === vars))) {
                             root.private[varname] = vars;
                         }
                     }
                     else {
                         if (!root.protected.hasOwnProperty(varname)) {
                             root.protected[varname] = 'var';
-                            delete vars.self[varname];
+                            // delete vars.self[varname];
                         }
                         else if (root.protected[varname] === 'let') {
                             this.error(' Variable `' + varname + '` has already been declared.');
@@ -3228,32 +3232,7 @@
                 case 'travel':
                     vars.root.fix_map['arguments'] = vars.locals['arguments'];
                     vars.root.fixed.push(vars.locals['arguments']);
-                    for (var element in vars.self) {
-                        var varname = element;
-                        if (keywords['includes'](element) || reserved['includes'](element)) {
-                            this.error('keywords `' + element + '` cannot be a variable name.');
-                        }
-                        if (blockreserved['includes'](element)) {
-                            varname = element + '_' + vars.index;
-                            while (vars.self[varname]) {
-                                varname = varname + '_' + vars.index;
-                            }
-                        }
-                        while (vars.root.fixed['includes'](varname)) {
-                            varname = varname + '_' + vars.index;
-                            while (vars.self[varname]) {
-                                varname = varname + '_' + vars.index;
-                            }
-                        }
-                        if (varname !== element) {
-                            // console.log(varname);
-                            vars.root.fix_map[element] = varname;
-                        }
-                        vars.root.fixed.push(varname);
-                    }
-                    break;
-                case 'body':
-                case 'block':
+                case 'root':
                     for (var element in vars.self) {
                         var varname = element;
                         if (keywords['includes'](element) || reserved['includes'](element)) {
@@ -3268,45 +3247,53 @@
                         if (varname !== element) {
                             // console.log(varname);
                             vars.root.fix_map[element] = varname;
+                            if (vars.root.public[element]) {
+                                vars.root.public[element] = varname;
+                            }
                         }
                         vars.root.fixed.push(varname);
                     }
-                    for (var key in vars.locals) {
-                        if (vars.locals.hasOwnProperty(key)) {
-                            var varname = '_' + key;
-                            while (vars.self[varname]) {
-                                varname = varname + '_' + vars.index;
+                    if (vars.type === 'root') {
+                        for (var key in vars.locals) {
+                            if (vars.locals.hasOwnProperty(key)) {
+                                var varname = '_' + key;
+                                while (vars.self[varname]) {
+                                    varname = varname + '_' + vars.index;
+                                }
+                                vars.locals[key] = varname;
                             }
-                            vars.locals[key] = varname;
                         }
                     }
+                    // console.log(vars);
                     break;
                 case 'closure':
                     for (var element in vars.self) {
-                        var varname = element;
-                        // console.log(vars.index, varname); 
-                        if (keywords['includes'](element) || reserved['includes'](element)) {
-                            this.error('keywords `' + element + '` cannot be a variable name.');
-                        }
-                        if (blockreserved['includes'](element)) {
-                            varname = element + '_' + vars.index;
-                            while (vars.self[varname]) {
+                        if (vars.self[element] === 'let') {
+                            var varname = element;
+                            // console.log(vars.index, varname); 
+                            if (keywords['includes'](element) || reserved['includes'](element)) {
+                                this.error('keywords `' + element + '` cannot be a variable name.');
+                            }
+                            if (blockreserved['includes'](element)) {
+                                varname = element + '_' + vars.index;
+                                while (vars.self[varname]) {
+                                    // console.log(varname);
+                                    varname = varname + '_' + vars.index;
+                                }
+                                // console.log(varname);
+                            }
+                            while (vars.root.fixed['includes'](varname) || (vars.root.private[varname] && (vars.root.private[varname] !== vars))) {
+                                // console.log(varname);
                                 varname = varname + '_' + vars.index;
                             }
+                            if (varname !== element) {
+                                // console.log(varname);
+                                vars.fix_map[element] = varname;
+                            }
+                            vars.fixed.push(varname);
+                            vars.root.fixed.push(varname);
                         }
-                        while (vars.root.fixed['includes'](varname)
-                            || (vars.root.private[varname] && (vars.root.private[varname] !== vars))) {
-                            varname = varname + '_' + vars.index;
-                        }
-                        if (varname !== element) {
-                            // console.log(varname);
-                            vars.fix_map[element] = varname;
-                        }
-                        vars.fixed.push(varname);
-                        vars.root.fixed.push(varname);
                     }
-                default:
-                    break;
             }
             // console.log(vars);
             this.closurecount++;
@@ -3326,7 +3313,7 @@
         };
         Sugar.prototype.patchVariable = function (varname, vars) {
             // console.log(varname, vars);
-            if (vars.fix_map[varname]) {
+            if (vars.fix_map && vars.fix_map[varname]) {
                 // console.log(varname, vars.fix_map[varname]);
                 return vars.fix_map[varname];
             }
@@ -3334,53 +3321,37 @@
                 // console.log(varname, vars.fix_map[varname]);
                 return vars.root.fix_map[varname];
             }
-            else if (vars.root.private[varname]) {
-                var _varname = varname;
-                // console.log(vars);
-                while (vars.root.private[varname]) {
-                    varname = varname + '_' + vars.index;
-                }
-                while (vars.root.fixed['includes'](varname)) {
-                    varname = varname + '_' + vars.index;
-                }
-                vars.root.fix_map[_varname] = varname;
-            }
-            else {
-                for (var key in vars.locals) {
-                    var _key = vars.locals[key];
-                    // console.log(_key);
-                    if (varname === _key) {
+            else if (!vars.root.fixed['includes'](varname)) {
+                if (vars.root.private[varname]) {
+                    // console.log(varname);
+                    var _varname = varname;
+                    // console.log(vars);
+                    while (vars.root.private[varname]) {
                         varname = varname + '_' + vars.index;
-                        while (vars.root.private[varname]) {
+                    }
+                    while (vars.root.fixed['includes'](varname)) {
+                        varname = varname + '_' + vars.index;
+                    }
+                    vars.root.fix_map[_varname] = varname;
+                }
+                else {
+                    for (var key in vars.locals) {
+                        var _key = vars.locals[key];
+                        // console.log(_key);
+                        if (varname === _key) {
                             varname = varname + '_' + vars.index;
+                            while (vars.root.private[varname]) {
+                                varname = varname + '_' + vars.index;
+                            }
+                            while (vars.root.fixed['includes'](varname)) {
+                                varname = varname + '_' + vars.index;
+                            }
+                            vars.fix_map[_key] = varname;
                         }
-                        while (vars.root.fixed['includes'](varname)) {
-                            varname = varname + '_' + vars.index;
-                        }
-                        vars.fix_map[_key] = varname;
                     }
                 }
             }
             return varname;
-        };
-        Sugar.prototype.pushFooter = function (codes) {
-            // let exports = [];
-            // codes.push(indent2 + 'return {');
-            // for (let i = 0; i < element.vars.root.public.length; i++) {
-            //     if (!exports['includes'](element.vars.root.public[i])) {
-            //         exports.push(element.vars.root.public[i] + ': ' + element.vars.root.public[i]);
-            //     }
-            // }
-            // if (exports.length) {
-            //     codes.push(indent3 + exports.join(',' + indent3));
-            // }
-            if (this.isMainBlock) {
-                codes.push("\r\n" + '}, true);');
-            }
-            else {
-                codes.push("\r\n" + '});');
-            }
-            return codes;
         };
         Sugar.prototype.restoreStrings = function (string, last) {
             var that = this;

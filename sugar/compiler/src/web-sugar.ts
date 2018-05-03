@@ -23,7 +23,9 @@ this.tangram.init().auto([
                     let sugar = tangram_js_sugar(data).compile().run(function (content) {
                         console.log(this.ast);
                         // console.log(this.posimap, this.mappings);
+
                         console.log(content);
+                        // console.log(data);
                         // console.log(this.min());
                     }, function () {
                         // console.log(this.ast);
