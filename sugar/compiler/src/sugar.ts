@@ -43,10 +43,28 @@
     }
 
     const
+        keywords = [
+            'break',
+            'case', 'catch', 'const', 'continue',
+            'default', 'delete', 'do',
+            'else',
+            'finally', 'for', 'function',
+            'if', 'in', 'instanceof',
+            'let',
+            'new',
+            'return',
+            'switch',
+            'throw', 'try', 'typeof',
+            'var', 'void',
+            'while', 'with'],
+        reservedFname = ['if', 'for', 'while', 'switch', 'with', 'catch'],
+        reserved = ['window', 'global', 'tangram', 'this', 'arguments'],
+        blockreserved = ['pandora', 'root'];
+
+    const
         zero2z: string[] = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split(''),
         namingExpr: RegExp = /^[A-Z_\$][\w\$]*(\.[A-Z_\$][\w\$]*)*$/i,
         argsExpr: RegExp = /^...[A-Z_\$][\w\$]*(\.[A-Z_\$][\w\$]*)*$/i,
-        reservedWords = ['if', 'for', 'while', 'switch', 'with', 'catch'],
         stringas: any = {
             '/': '_as_pattern___',
             '`': '_as_template___',
@@ -111,7 +129,7 @@
             class: /(class|dec|expands)\s+(\.)?(\.{0,1}[\$a-zA-Z_][\$\w\.]*\s+)?(extends\s+([\$a-zA-Z_][\$\w]*)\s*)?\{([^\{\}]*?)\}/i,
             fnlike: /(^|(function|def|public)\s+)?([\$a-zA-Z_][\$\w]*)?\s*\(([^\(\)]*)\)\s*\{([^\{\}]*?)\}/i,
             call: /([\$a-zA-Z_][\$\w\.]*)\s*___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___/i,
-            arrowfn: /(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)\s*(->|=>)\s*([^,;\r\n]+)/,
+            arrowfn: /(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)\s*(->|=>)\s*([\s\S]+)\s*$/,
 
             objectattr: /^\s*(@\d+L\d+P\d+O?\d*:::)?((([\$a-zA-Z_][\$\w]*)))\s*(\:*)([\s\S]*)$/,
             classelement: /^\s*(@\d+L\d+P\d+O?\d*:::)?((public|static|set|get|om)\s+)?([\$\w]*)\s*(\=*)([\s\S]*)$/,
@@ -183,15 +201,12 @@
             let newcontent:string = this.markPosition(this.input, 0);
             let string = this.encode(newcontent);
             let vars = {
-                namespace: this.namespace,
-                parent: {
-                    body: null,
-                    fixed: ['window'],
-                    fix_map: {}
+                namespace: {
+                    name: this.namespace,
+                    public: [],
                 },
-                body: {
-                    public: []
-                },
+                parent: null,
+                body: {},
                 self: {},
                 childs:{},
                 fixed: [],
@@ -1144,8 +1159,8 @@
                         } else {
                             if (vars.self[element] === void 0) {
                                 vars.self[element] = symbol;
-                                if (symbol==='public'){
-                                    vars.body.public.push(element);
+                                if (symbol === 'public' && vars.namespace){
+                                    vars.namespace.public.push(element);
                                 }
                             } else if (vars.self[element] === 'let' || symbol === 'let') {
                                 this.error(' Variable `' + element + '` has already been declared at char ' + position.col + ' on line ' + position.line + '.');
@@ -1554,23 +1569,31 @@
             let selfvas = {};
             if (matches[3] === '=>') {
                 subtype = '=>';
+                vars.body['this'] = null;
+                vars.body['arguments'] = null;
+                var body = vars.body;
+                var varstype = 'arrowfn';
+            }else{
+                var body:any = {};
+                var varstype = 'fnbody';
             }
             let localvars = {
+                namespace: null,
                 parent: vars,
-                body: {
-                    public: []
-                },
+                body: body,
                 self: {},
                 childs:{},
                 fixed: [],
                 fix_map: {},
-                type: 'fnbody'
+                type: varstype
             };
             let args: any = this.checkArgs(this.replacements[matches[2]][0].replace(/(^\(|\)$)/g, ''), localvars);
+            // console.log(matches);
             return {
                 type: 'def',
                 posi: this.getPosition(this.replacements[index][1]),
                 display: 'inline',
+                vars: localvars,
                 subtype: subtype,
                 args: args.keys,
                 defaults: args.vals,
@@ -1721,6 +1744,7 @@
         walkClosure(index: number, display: any, vars: any) {
             // console.log(this.replacements[index]);
             let localvars = {
+                namespace: vars.namespace,
                 parent: vars,
                 body: vars.body,
                 self: {},
@@ -1749,42 +1773,47 @@
             let position = this.getPosition(this.replacements[index][1]);
             let subtype: string = 'ext';
             let objname: string = matches[3];
+            let localvars;
+            let namespace:string;
             // console.log(matches);
             if ((matches[1] === 'ns') || (matches[1] === 'global')) {
                 subtype = matches[1];
-                let localvars = {
+                if (matches[1] === 'ns'){
+                    namespace = this.namespace + objname + '.';
+                }else{
+                    namespace = objname + '.';
+                }
+                localvars = {
+                    namespace: {
+                        name: namespace,
+                        public: [],
+                    },
                     parent: vars,
-                    body: {
-                        public: []
-                    },
-                    self: {
-                        this: 'var',
-                        arguments: 'var'
-                    },
+                    body: {},
+                    self: {},
+                    childs: {},
                     fixed: [],
                     fix_map: {},
                     type: 'body'
                 };
                 var body = this.pushBodyToAST([], localvars, matches[4]);
-                // console.log(localvars);
-                vars = localvars;
             } else {
                 if ((matches[1] === 'nsassign') || matches[2]) {
                     subtype = 'nsassign';
                 } else if ((matches[1] === 'globalassign')) {
                     subtype = 'globalassign';
                 }
-                var body = this.checkObjMember(vars, matches[4]);
+                localvars = vars;
+                var body = this.checkObjMember(localvars, matches[4]);
             }
-
-            // console.log(matches);
+            
             return {
                 type: 'extends',
                 posi: position,
                 display: display,
                 subtype: subtype,
                 oname: objname,
-                vars: vars,
+                vars: localvars,
                 body: body
             }
         }
@@ -1795,9 +1824,10 @@
             let fname = matches[3] !== 'function' ? matches[3] : '';
             if (type === 'def' || type === 'exp') {
                 if ((type === 'exp') || (matches[1] == null)) {
-                    if (reservedWords['includes'](fname)) {
+                    if (reservedFname['includes'](fname)) {
                         const headline = matches[4];
                         let localvars = {
+                            namespace: vars.namespace,
                             parent: vars,
                             body: vars.body,
                             self: {},
@@ -1867,7 +1897,9 @@
                                 }
                             }
 
+                            vars.body['arguments'] = null;
                             let localvars = {
+                                namespace: null,
                                 parent: vars,
                                 body: vars.body,
                                 self: self,
@@ -1908,7 +1940,7 @@
                         subtype = 'def';
                         fname = 'public';
                         display = 'block';
-                    }else if ((display === 'block') && !fname) {
+                    } else if ((display === 'block') && !fname) {
                         fname = 'default_function_name';
                     }
                     if (fname) {
@@ -1923,10 +1955,9 @@
             }
 
             let localvars = {
+                namespace: null,
                 parent: vars,
-                body: {
-                    public: []
-                },
+                body: {},
                 self: {},
                 childs: {},
                 fixed: [],
@@ -2280,8 +2311,8 @@
             let head: string[] = [];
             let body: string[] = [];
             let foot: string[] = [];
-            this.fixVariables(this.ast.vars);
             this.pushHeader(head, this.imports);
+            this.fixVariables(this.ast.vars);
             this.pushAlias(body, this.ast.vars, this.using_as);
             this.pushCodes(body, this.ast.vars, this.ast.body, 1, this.namespace);
             this.pushFooter(foot);
@@ -2327,10 +2358,17 @@
                 codes.push("\r\n\t" + imports.join(",\r\n\t") + "\r\n");
             }
             codes.push('], function (pandora, root, imports, undefined) {');
+            if(this.namespace){
+                let namespace = this.namespace.replace(/\.$/, "");
+                let name = namespace.replace(/^(.*\.)?([\$a-zA-Z_][\$\w]*)$/, "$2");
+                codes.push("\r\n\tvar " + name + " = pandora.ns('" + namespace + "', {});");
+            }
             return codes;
         }
         pushAlias(codes: string[], vars, alias: any): string[] {
-            // console.log(alias);
+            for (var key in vars.body) {
+                codes.push("\r\n\tvar " + vars.body[key] + ' = ' + key + ';');
+            }
             for (const key in alias) {
                 // console.log(key);
                 // let position = this.getPosition(key);
@@ -2774,19 +2812,22 @@
             } else {
                 var posi = '';
             }
+            
+            this.fixVariables(element.vars);
             if (element.type === 'def' && element.fname) {
                 if (element.fname==='return'){
                     codes.push(indent + posi + 'return function (');
                 }else{
+                    let fname = this.patchVariable(element.fname, element.vars.parent);
                     if ((element.subtype === 'def')) {
-                        codes.push(indent + posi + 'var ' + element.fname + ' = function (');
+                        codes.push(indent + posi + 'var ' + fname + ' = function (');
                     } else if ((element.subtype === 'public')) {
-                        codes.push(indent + posi + 'pandora.' + namespace + element.fname + ' = function (');
+                        codes.push(indent + posi + 'var ' + fname + ' = pandora.' + namespace + element.fname + ' = function (');
                     } else {
                         if (element.display === 'block') {
-                            codes.push(indent + posi + 'function ' + element.fname + ' (');
+                            codes.push(indent + posi + 'function ' + fname + ' (');
                         } else {
-                            codes.push(posi + 'function ' + element.fname + ' (');
+                            codes.push(posi + 'function ' + fname + ' (');
                         }
                     }
                 }
@@ -2805,7 +2846,7 @@
             codes.push(') {');
             // console.log(element.body);
             if (element.body.length) {
-                console.log(element);
+                // console.log(element);
                 this.pushCodes(codes, element.vars, element.body, layer + 1, namespace);
             } else {
                 indent = '';
@@ -2827,14 +2868,15 @@
                 namespace = '';
             }
             if (element.subtype === 'ns' || element.subtype === 'global') {
+                this.fixVariables(element.vars);
                 codes.push(indent1 + posi + 'pandora.ns(\'' + namespace + element.oname.trim() + '\', function () {');
                 this.pushCodes(codes, element.vars, element.body, layer + 1, namespace + element.oname.trim() + '.');
                 // console.log(element.body);
                 let exports = [];
                 codes.push(indent2 + 'return {');
-                for (const key in element.vars.self) {
-                    if (element.vars.self.hasOwnProperty(key) && element.vars.self[key]==='public') {
-                        exports.push(key + ': ' + key);
+                for (let i = 0; i < element.vars.namespace.public.length; i++) {
+                    if (!exports['includes'](element.vars.namespace.public[i])){
+                        exports.push(element.vars.namespace.public[i] + ': ' + element.vars.namespace.public[i]);
                     }
                 }
                 if(exports.length){
@@ -3019,7 +3061,7 @@
         pushObjCodes(codes: string[], element: any, layer: number, namespace: string) {
             let indent1 = "\r\n" + stringRepeat("\t", layer);
             let indent2 = "\r\n" + stringRepeat("\t", layer + 1);
-            console.log(element);
+            // console.log(element);
             if(element.display==='block'){
                 codes.push(indent1 + this.pushPostionsToMap(element.posi) + '{');
             }else{
@@ -3074,6 +3116,7 @@
             for (const varname in localvars.self) {
                 if (localvars.self.hasOwnProperty(varname)) {
                     if (localvars.self[varname] === 'let') {
+                        console.log(vars);
                         if (!vars.self.hasOwnProperty(varname) && !vars.childs.hasOwnProperty(varname)) {
                             vars.childs[varname] = localvars;
                         }
@@ -3091,31 +3134,46 @@
             vars.index = this.closurecount;
             // console.log(vars);
             // console.log(vars.type, vars);
-            const keywords = [
-                'break',
-                'case', 'catch', 'continue',
-                'default', 'delete', 'do',
-                'else',
-                'finally', 'for', 'function',
-                'if', 'in', 'instanceof',
-                'new',
-                'return',
-                'switch',
-                'throw', 'try', 'typeof',
-                'var', 'void',
-                'while', 'with'];
-            const builtins = ['this', 'arguments'];
-            const globals = ['pandora', 'root', 'let'];
             switch (vars.type) {
-                case 'block':
-                    // console.log(vars.self);
-                    // vars.fixed = vars.parent;
+                case 'arrowfn':
+                    vars.fix_map['this'] = vars.body['this'];
+                    vars.fixed.push(vars.body['this']);
+                case 'travel':
+                    vars.fix_map['arguments'] = vars.body['arguments'];
+                    vars.fixed.push(vars.body['arguments']);
                     for (const element in vars.self) {
                         let varname = element;
-                        if (keywords['includes'](element) || builtins['includes'](element)) {
+                        if (keywords['includes'](element) || reserved['includes'](element)) {
                             this.error('keywords `' + element + '` cannot be a variable name.');
                         }
-                        if (globals['includes'](element)) {
+                        if (blockreserved['includes'](element)) {
+                            varname = element + '_' + vars.index;
+                            while (vars.self[varname]) {
+                                varname = varname + '_' + vars.index;
+                            }
+                        }
+                        while (vars.fixed['includes'](varname)) {
+                            varname = varname + '_' + vars.index;
+                            while (vars.self[varname]) {
+                                varname = varname + '_' + vars.index;
+                            }
+                        }
+                        if (varname !== element) {
+                            // console.log(varname);
+                            vars.fix_map[element] = varname;
+                        }
+                        vars.fixed.push(varname);
+                    }
+                    break;                
+
+                case 'body':
+                case 'block':
+                    for (const element in vars.self) {
+                        let varname = element;
+                        if (keywords['includes'](element) || reserved['includes'](element)) {
+                            this.error('keywords `' + element + '` cannot be a variable name.');
+                        }
+                        if (blockreserved['includes'](element)) {
                             varname = element + '_' + vars.index;
                             while (vars.self[varname]) {
                                 varname = varname + '_' + vars.index;
@@ -3127,16 +3185,25 @@
                         }
                         vars.fixed.push(varname);
                     }
+                    for (const key in vars.body) {
+                        if (vars.body.hasOwnProperty(key)) {
+                            let varname = '_' + key;
+                            while (vars.self[varname]) {
+                                varname = varname + '_' + vars.index;
+                            }
+                            vars.body[key] = varname;
+                        }
+                    }
                     break;
                 case 'closure':
                     for (const element in vars.self) {
                         if (vars.self[element]==='let'){
                             let varname = element;
                             // console.log(vars.index, varname);
-                            if (keywords['includes'](element) || builtins['includes'](element)) {
+                            if (keywords['includes'](element) || reserved['includes'](element)) {
                                 this.error('keywords `' + element + '` cannot be a variable name.');
                             }
-                            if (globals['includes'](element)) {
+                            if (blockreserved['includes'](element)) {
                                 varname = element + '_' + vars.index;
                                 while (vars.self[varname]) {
                                     varname = varname + '_' + vars.index;
@@ -3197,10 +3264,36 @@
                     varname = varname + '_' + vars.index;
                 }
                 vars.fix_map[_varname] = varname;
+            } else {
+                for (const key in vars.body) {
+                    const _key = vars.body[key];
+                    // console.log(_key);
+                    if (varname === _key) {
+                        varname = varname + '_' + vars.index;
+                        while (vars.childs[varname]) {
+                            varname = varname + '_' + vars.index;
+                        }
+                        while (vars.fixed['includes'](varname)) {
+                            varname = varname + '_' + vars.index;
+                        }
+                        vars.fix_map[_key] = varname;
+                    }
+                }
             }
+            
             return varname;
         }
         pushFooter(codes: string[]): string[] {
+            // let exports = [];
+            // codes.push(indent2 + 'return {');
+            // for (let i = 0; i < element.vars.namespace.public.length; i++) {
+            //     if (!exports['includes'](element.vars.namespace.public[i])) {
+            //         exports.push(element.vars.namespace.public[i] + ': ' + element.vars.namespace.public[i]);
+            //     }
+            // }
+            // if (exports.length) {
+            //     codes.push(indent3 + exports.join(',' + indent3));
+            // }
             if (this.isMainBlock) {
                 codes.push("\r\n" + '}, true);');
             } else {

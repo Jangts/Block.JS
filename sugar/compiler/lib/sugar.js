@@ -41,7 +41,22 @@
             return false;
         };
     }
-    var zero2z = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split(''), namingExpr = /^[A-Z_\$][\w\$]*(\.[A-Z_\$][\w\$]*)*$/i, argsExpr = /^...[A-Z_\$][\w\$]*(\.[A-Z_\$][\w\$]*)*$/i, reservedWords = ['if', 'for', 'while', 'switch', 'with', 'catch'], stringas = {
+    var keywords = [
+        'break',
+        'case', 'catch', 'const', 'continue',
+        'default', 'delete', 'do',
+        'else',
+        'finally', 'for', 'function',
+        'if', 'in', 'instanceof',
+        'let',
+        'new',
+        'return',
+        'switch',
+        'throw', 'try', 'typeof',
+        'var', 'void',
+        'while', 'with'
+    ], reservedFname = ['if', 'for', 'while', 'switch', 'with', 'catch'], reserved = ['window', 'global', 'tangram', 'this', 'arguments'], blockreserved = ['pandora', 'root'];
+    var zero2z = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split(''), namingExpr = /^[A-Z_\$][\w\$]*(\.[A-Z_\$][\w\$]*)*$/i, argsExpr = /^...[A-Z_\$][\w\$]*(\.[A-Z_\$][\w\$]*)*$/i, stringas = {
         '/': '_as_pattern___',
         '`': '_as_template___',
         '"': '_as_string___',
@@ -100,7 +115,7 @@
         class: /(class|dec|expands)\s+(\.)?(\.{0,1}[\$a-zA-Z_][\$\w\.]*\s+)?(extends\s+([\$a-zA-Z_][\$\w]*)\s*)?\{([^\{\}]*?)\}/i,
         fnlike: /(^|(function|def|public)\s+)?([\$a-zA-Z_][\$\w]*)?\s*\(([^\(\)]*)\)\s*\{([^\{\}]*?)\}/i,
         call: /([\$a-zA-Z_][\$\w\.]*)\s*___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___/i,
-        arrowfn: /(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)\s*(->|=>)\s*([^,;\r\n]+)/,
+        arrowfn: /(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)\s*(->|=>)\s*([\s\S]+)\s*$/,
         objectattr: /^\s*(@\d+L\d+P\d+O?\d*:::)?((([\$a-zA-Z_][\$\w]*)))\s*(\:*)([\s\S]*)$/,
         classelement: /^\s*(@\d+L\d+P\d+O?\d*:::)?((public|static|set|get|om)\s+)?([\$\w]*)\s*(\=*)([\s\S]*)$/,
         travelargs: /^((@\d+L\d+P\d+O*\d*:::)?[\$a-zA-Z_][\$\w\.]*)\s+as\s(@\d+L\d+P\d+O*\d*:::)([\$a-zA-Z_][\$\w]*)(\s*,((@\d+L\d+P\d+O*\d*:::)([\$a-zA-Z_][\$\w]*)?))?/
@@ -160,15 +175,12 @@
             var newcontent = this.markPosition(this.input, 0);
             var string = this.encode(newcontent);
             var vars = {
-                namespace: this.namespace,
-                parent: {
-                    body: null,
-                    fixed: ['window'],
-                    fix_map: {}
+                namespace: {
+                    name: this.namespace,
+                    public: [],
                 },
-                body: {
-                    public: []
-                },
+                parent: null,
+                body: {},
                 self: {},
                 childs: {},
                 fixed: [],
@@ -1167,8 +1179,8 @@
                         else {
                             if (vars.self[element] === void 0) {
                                 vars.self[element] = symbol;
-                                if (symbol === 'public') {
-                                    vars.body.public.push(element);
+                                if (symbol === 'public' && vars.namespace) {
+                                    vars.namespace.public.push(element);
                                 }
                             }
                             else if (vars.self[element] === 'let' || symbol === 'let') {
@@ -1589,23 +1601,32 @@
             var selfvas = {};
             if (matches[3] === '=>') {
                 subtype = '=>';
+                vars.body['this'] = null;
+                vars.body['arguments'] = null;
+                var body = vars.body;
+                var varstype = 'arrowfn';
+            }
+            else {
+                var body = {};
+                var varstype = 'fnbody';
             }
             var localvars = {
+                namespace: null,
                 parent: vars,
-                body: {
-                    public: []
-                },
+                body: body,
                 self: {},
                 childs: {},
                 fixed: [],
                 fix_map: {},
-                type: 'fnbody'
+                type: varstype
             };
             var args = this.checkArgs(this.replacements[matches[2]][0].replace(/(^\(|\)$)/g, ''), localvars);
+            // console.log(matches);
             return {
                 type: 'def',
                 posi: this.getPosition(this.replacements[index][1]),
                 display: 'inline',
+                vars: localvars,
                 subtype: subtype,
                 args: args.keys,
                 defaults: args.vals,
@@ -1755,6 +1776,7 @@
         Sugar.prototype.walkClosure = function (index, display, vars) {
             // console.log(this.replacements[index]);
             var localvars = {
+                namespace: vars.namespace,
                 parent: vars,
                 body: vars.body,
                 self: {},
@@ -1782,25 +1804,31 @@
             var position = this.getPosition(this.replacements[index][1]);
             var subtype = 'ext';
             var objname = matches[3];
+            var localvars;
+            var namespace;
             // console.log(matches);
             if ((matches[1] === 'ns') || (matches[1] === 'global')) {
                 subtype = matches[1];
-                var localvars = {
+                if (matches[1] === 'ns') {
+                    namespace = this.namespace + objname + '.';
+                }
+                else {
+                    namespace = objname + '.';
+                }
+                localvars = {
+                    namespace: {
+                        name: namespace,
+                        public: [],
+                    },
                     parent: vars,
-                    body: {
-                        public: []
-                    },
-                    self: {
-                        this: 'var',
-                        arguments: 'var'
-                    },
+                    body: {},
+                    self: {},
+                    childs: {},
                     fixed: [],
                     fix_map: {},
                     type: 'body'
                 };
                 var body = this.pushBodyToAST([], localvars, matches[4]);
-                // console.log(localvars);
-                vars = localvars;
             }
             else {
                 if ((matches[1] === 'nsassign') || matches[2]) {
@@ -1809,16 +1837,16 @@
                 else if ((matches[1] === 'globalassign')) {
                     subtype = 'globalassign';
                 }
-                var body = this.checkObjMember(vars, matches[4]);
+                localvars = vars;
+                var body = this.checkObjMember(localvars, matches[4]);
             }
-            // console.log(matches);
             return {
                 type: 'extends',
                 posi: position,
                 display: display,
                 subtype: subtype,
                 oname: objname,
-                vars: vars,
+                vars: localvars,
                 body: body
             };
         };
@@ -1830,9 +1858,10 @@
             var fname = matches[3] !== 'function' ? matches[3] : '';
             if (type === 'def' || type === 'exp') {
                 if ((type === 'exp') || (matches[1] == null)) {
-                    if (reservedWords['includes'](fname)) {
+                    if (reservedFname['includes'](fname)) {
                         var headline = matches[4];
                         var localvars_1 = {
+                            namespace: vars.namespace,
                             parent: vars,
                             body: vars.body,
                             self: {},
@@ -1906,7 +1935,9 @@
                                     this.error('itemname cannot same to the default indexname');
                                 }
                             }
+                            vars.body['arguments'] = null;
                             var localvars_2 = {
+                                namespace: null,
                                 parent: vars,
                                 body: vars.body,
                                 self: self_1,
@@ -1962,10 +1993,9 @@
                 }
             }
             var localvars = {
+                namespace: null,
                 parent: vars,
-                body: {
-                    public: []
-                },
+                body: {},
                 self: {},
                 childs: {},
                 fixed: [],
@@ -2316,8 +2346,8 @@
             var head = [];
             var body = [];
             var foot = [];
-            this.fixVariables(this.ast.vars);
             this.pushHeader(head, this.imports);
+            this.fixVariables(this.ast.vars);
             this.pushAlias(body, this.ast.vars, this.using_as);
             this.pushCodes(body, this.ast.vars, this.ast.body, 1, this.namespace);
             this.pushFooter(foot);
@@ -2364,22 +2394,29 @@
                 codes.push("\r\n\t" + imports.join(",\r\n\t") + "\r\n");
             }
             codes.push('], function (pandora, root, imports, undefined) {');
+            if (this.namespace) {
+                var namespace = this.namespace.replace(/\.$/, "");
+                var name_1 = namespace.replace(/^(.*\.)?([\$a-zA-Z_][\$\w]*)$/, "$2");
+                codes.push("\r\n\tvar " + name_1 + " = pandora.ns('" + namespace + "', {});");
+            }
             return codes;
         };
         Sugar.prototype.pushAlias = function (codes, vars, alias) {
-            // console.log(alias);
-            for (var key in alias) {
+            for (var key in vars.body) {
+                codes.push("\r\n\tvar " + vars.body[key] + ' = ' + key + ';');
+            }
+            for (var key_1 in alias) {
                 // console.log(key);
                 // let position = this.getPosition(key);
                 // let _key = key.replace(position.match, '').trim();
-                codes.push("\r\n\t" + this.pushPostionsToMap(alias[key][2]) + "var " + key);
-                codes.push(" = imports['" + alias[key][0]);
-                codes.push("'] && imports['" + alias[key][0]);
-                if (alias[key][1] === '*') {
+                codes.push("\r\n\t" + this.pushPostionsToMap(alias[key_1][2]) + "var " + key_1);
+                codes.push(" = imports['" + alias[key_1][0]);
+                codes.push("'] && imports['" + alias[key_1][0]);
+                if (alias[key_1][1] === '*') {
                     codes.push("'];");
                 }
                 else {
-                    codes.push("']['" + key + "'];");
+                    codes.push("']['" + key_1 + "'];");
                 }
             }
             return codes;
@@ -2821,23 +2858,25 @@
             else {
                 var posi = '';
             }
+            this.fixVariables(element.vars);
             if (element.type === 'def' && element.fname) {
                 if (element.fname === 'return') {
                     codes.push(indent + posi + 'return function (');
                 }
                 else {
+                    var fname = this.patchVariable(element.fname, element.vars.parent);
                     if ((element.subtype === 'def')) {
-                        codes.push(indent + posi + 'var ' + element.fname + ' = function (');
+                        codes.push(indent + posi + 'var ' + fname + ' = function (');
                     }
                     else if ((element.subtype === 'public')) {
-                        codes.push(indent + posi + 'pandora.' + namespace + element.fname + ' = function (');
+                        codes.push(indent + posi + 'var ' + fname + ' = pandora.' + namespace + element.fname + ' = function (');
                     }
                     else {
                         if (element.display === 'block') {
-                            codes.push(indent + posi + 'function ' + element.fname + ' (');
+                            codes.push(indent + posi + 'function ' + fname + ' (');
                         }
                         else {
-                            codes.push(posi + 'function ' + element.fname + ' (');
+                            codes.push(posi + 'function ' + fname + ' (');
                         }
                     }
                 }
@@ -2855,7 +2894,7 @@
             codes.push(') {');
             // console.log(element.body);
             if (element.body.length) {
-                console.log(element);
+                // console.log(element);
                 this.pushCodes(codes, element.vars, element.body, layer + 1, namespace);
             }
             else {
@@ -2879,14 +2918,15 @@
                 namespace = '';
             }
             if (element.subtype === 'ns' || element.subtype === 'global') {
+                this.fixVariables(element.vars);
                 codes.push(indent1 + posi + 'pandora.ns(\'' + namespace + element.oname.trim() + '\', function () {');
                 this.pushCodes(codes, element.vars, element.body, layer + 1, namespace + element.oname.trim() + '.');
                 // console.log(element.body);
                 var exports_1 = [];
                 codes.push(indent2 + 'return {');
-                for (var key in element.vars.self) {
-                    if (element.vars.self.hasOwnProperty(key) && element.vars.self[key] === 'public') {
-                        exports_1.push(key + ': ' + key);
+                for (var i = 0; i < element.vars.namespace.public.length; i++) {
+                    if (!exports_1['includes'](element.vars.namespace.public[i])) {
+                        exports_1.push(element.vars.namespace.public[i] + ': ' + element.vars.namespace.public[i]);
                     }
                 }
                 if (exports_1.length) {
@@ -3081,7 +3121,7 @@
         Sugar.prototype.pushObjCodes = function (codes, element, layer, namespace) {
             var indent1 = "\r\n" + stringRepeat("\t", layer);
             var indent2 = "\r\n" + stringRepeat("\t", layer + 1);
-            console.log(element);
+            // console.log(element);
             if (element.display === 'block') {
                 codes.push(indent1 + this.pushPostionsToMap(element.posi) + '{');
             }
@@ -3136,6 +3176,7 @@
             for (var varname in localvars.self) {
                 if (localvars.self.hasOwnProperty(varname)) {
                     if (localvars.self[varname] === 'let') {
+                        console.log(vars);
                         if (!vars.self.hasOwnProperty(varname) && !vars.childs.hasOwnProperty(varname)) {
                             vars.childs[varname] = localvars;
                         }
@@ -3155,33 +3196,26 @@
             vars.index = this.closurecount;
             // console.log(vars);
             // console.log(vars.type, vars);
-            var keywords = [
-                'break',
-                'case', 'catch', 'continue',
-                'default', 'delete', 'do',
-                'else',
-                'finally', 'for', 'function',
-                'if', 'in', 'instanceof',
-                'new',
-                'return',
-                'switch',
-                'throw', 'try', 'typeof',
-                'var', 'void',
-                'while', 'with'
-            ];
-            var builtins = ['this', 'arguments'];
-            var globals = ['pandora', 'root', 'let'];
             switch (vars.type) {
-                case 'block':
-                    // console.log(vars.self);
-                    // vars.fixed = vars.parent;
+                case 'arrowfn':
+                    vars.fix_map['this'] = vars.body['this'];
+                    vars.fixed.push(vars.body['this']);
+                case 'travel':
+                    vars.fix_map['arguments'] = vars.body['arguments'];
+                    vars.fixed.push(vars.body['arguments']);
                     for (var element in vars.self) {
                         var varname = element;
-                        if (keywords['includes'](element) || builtins['includes'](element)) {
+                        if (keywords['includes'](element) || reserved['includes'](element)) {
                             this.error('keywords `' + element + '` cannot be a variable name.');
                         }
-                        if (globals['includes'](element)) {
+                        if (blockreserved['includes'](element)) {
                             varname = element + '_' + vars.index;
+                            while (vars.self[varname]) {
+                                varname = varname + '_' + vars.index;
+                            }
+                        }
+                        while (vars.fixed['includes'](varname)) {
+                            varname = varname + '_' + vars.index;
                             while (vars.self[varname]) {
                                 varname = varname + '_' + vars.index;
                             }
@@ -3193,15 +3227,44 @@
                         vars.fixed.push(varname);
                     }
                     break;
+                case 'body':
+                case 'block':
+                    for (var element in vars.self) {
+                        var varname = element;
+                        if (keywords['includes'](element) || reserved['includes'](element)) {
+                            this.error('keywords `' + element + '` cannot be a variable name.');
+                        }
+                        if (blockreserved['includes'](element)) {
+                            varname = element + '_' + vars.index;
+                            while (vars.self[varname]) {
+                                varname = varname + '_' + vars.index;
+                            }
+                        }
+                        if (varname !== element) {
+                            // console.log(varname);
+                            vars.fix_map[element] = varname;
+                        }
+                        vars.fixed.push(varname);
+                    }
+                    for (var key in vars.body) {
+                        if (vars.body.hasOwnProperty(key)) {
+                            var varname = '_' + key;
+                            while (vars.self[varname]) {
+                                varname = varname + '_' + vars.index;
+                            }
+                            vars.body[key] = varname;
+                        }
+                    }
+                    break;
                 case 'closure':
                     for (var element in vars.self) {
                         if (vars.self[element] === 'let') {
                             var varname = element;
                             // console.log(vars.index, varname);
-                            if (keywords['includes'](element) || builtins['includes'](element)) {
+                            if (keywords['includes'](element) || reserved['includes'](element)) {
                                 this.error('keywords `' + element + '` cannot be a variable name.');
                             }
-                            if (globals['includes'](element)) {
+                            if (blockreserved['includes'](element)) {
                                 varname = element + '_' + vars.index;
                                 while (vars.self[varname]) {
                                     varname = varname + '_' + vars.index;
@@ -3266,9 +3329,35 @@
                 }
                 vars.fix_map[_varname] = varname;
             }
+            else {
+                for (var key in vars.body) {
+                    var _key = vars.body[key];
+                    // console.log(_key);
+                    if (varname === _key) {
+                        varname = varname + '_' + vars.index;
+                        while (vars.childs[varname]) {
+                            varname = varname + '_' + vars.index;
+                        }
+                        while (vars.fixed['includes'](varname)) {
+                            varname = varname + '_' + vars.index;
+                        }
+                        vars.fix_map[_key] = varname;
+                    }
+                }
+            }
             return varname;
         };
         Sugar.prototype.pushFooter = function (codes) {
+            // let exports = [];
+            // codes.push(indent2 + 'return {');
+            // for (let i = 0; i < element.vars.namespace.public.length; i++) {
+            //     if (!exports['includes'](element.vars.namespace.public[i])) {
+            //         exports.push(element.vars.namespace.public[i] + ': ' + element.vars.namespace.public[i]);
+            //     }
+            // }
+            // if (exports.length) {
+            //     codes.push(indent3 + exports.join(',' + indent3));
+            // }
             if (this.isMainBlock) {
                 codes.push("\r\n" + '}, true);');
             }
