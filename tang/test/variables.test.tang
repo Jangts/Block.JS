@@ -16,6 +16,11 @@ let b = 0;
     log a, b;
 
     let z = 1;
+    {
+        let a = 1
+        let b = 1
+        let z = 1;
+    }
 }
 
 log a, b, pandora_1_1, /* pandora_1 */;
@@ -32,6 +37,16 @@ for (let i=0; i < 5; i++) {
     public p2 = 21;
     let g = 2;
     let z = 2;
+    for (let i=0; i <6 ; i++) { 
+        log i;
+    }
+    var j_5 = 5;
+    for (let j=0; j <6 ; j++) { 
+        log j;
+    }
+    for (var j=0; j <6 ; j++) { 
+        log j;
+    }
 }
 let z_0;
 log /* z */;
@@ -49,7 +64,19 @@ g (arg1){
     public p4 = 35;
 }
 
-public f(){}
+public f(a = 4, b, c, ...d){
+    each (d as index, item) {
+        # let index = 0;
+        var d = index;
+        var c = item;
+        var f = 2;
+        public p0 = 28;
+    }
+    var pandora = (){ log true};
+    var pandora_0 = {};
+    var root = pandora;
+    var let = void 0;
+}
 
 public p0 = 7;
 

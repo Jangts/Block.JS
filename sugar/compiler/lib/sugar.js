@@ -545,47 +545,51 @@
         };
         Sugar.prototype.replaceCodeSegments = function (string) {
             var _this = this;
-            if (string.match(replaceExpRegPattern.class)) {
-                return string.replace(replaceExpRegPattern.class, function (match, posi, body) {
-                    body = _this.replaceParentheses(body);
-                    var index = _this.replacements.length;
-                    _this.replacements.push([body, posi && posi.trim()]);
-                    return '___boundary_' + _this.uid + '_' + index + '_as_class___';
-                });
-            }
-            if (string.match(replaceExpRegPattern.extends)) {
-                return string.replace(replaceExpRegPattern.extends, function (match, posi, body, exp, name, assign, closure) {
-                    if (assign) {
-                        if (exp === 'extends') {
-                            _this.error('Unexpected `extends`: extends ' + name + ' return');
-                        }
-                        else if (exp === 'global') {
-                            body = 'globalassign ' + name + '{' + _this.replaceParentheses(closure) + '}';
-                        }
-                        else {
-                            body = 'nsassign ' + name + '{' + _this.replaceParentheses(closure) + '}';
-                        }
+            var matched = false;
+            string = string.replace(replaceExpRegPattern.class, function (match, posi, body) {
+                matched = true;
+                body = _this.replaceParentheses(body);
+                var index = _this.replacements.length;
+                _this.replacements.push([body, posi && posi.trim()]);
+                return '___boundary_' + _this.uid + '_' + index + '_as_class___';
+            });
+            if (matched)
+                return string;
+            string = string.replace(replaceExpRegPattern.extends, function (match, posi, body, exp, name, assign, closure) {
+                matched = true;
+                if (assign) {
+                    if (exp === 'extends') {
+                        _this.error('Unexpected `extends`: extends ' + name + ' return');
+                    }
+                    else if (exp === 'global') {
+                        body = 'globalassign ' + name + '{' + _this.replaceParentheses(closure) + '}';
                     }
                     else {
-                        body = exp.replace('namespace', 'ns') + ' ' + name + '{' + _this.replaceParentheses(closure) + '}';
+                        body = 'nsassign ' + name + '{' + _this.replaceParentheses(closure) + '}';
                     }
-                    var index = _this.replacements.length;
-                    _this.replacements.push([body, posi && posi.trim()]);
-                    return '___boundary_' + _this.uid + '_' + index + '_as_extends___';
-                });
-            }
-            if (string.match(replaceExpRegPattern.fnlike)) {
-                return string.replace(replaceExpRegPattern.fnlike, function (match, posi, typewithgap, type, call, callname, closure) {
-                    // console.log(match);
-                    closure = _this.replaceParentheses(closure);
-                    call = _this.replaceOperators(call);
-                    match = (typewithgap || '') + call + ' {' + closure + '}';
-                    var index = _this.replacements.length;
-                    // console.log(match);
-                    _this.replacements.push([match, posi && posi.trim()]);
-                    return '___boundary_' + _this.uid + '_' + index + '_as_function___';
-                });
-            }
+                }
+                else {
+                    body = exp.replace('namespace', 'ns') + ' ' + name + '{' + _this.replaceParentheses(closure) + '}';
+                }
+                var index = _this.replacements.length;
+                _this.replacements.push([body, posi && posi.trim()]);
+                return '___boundary_' + _this.uid + '_' + index + '_as_extends___';
+            });
+            if (matched)
+                return string;
+            string = string.replace(replaceExpRegPattern.fnlike, function (match, posi, typewithgap, type, call, callname, closure) {
+                matched = true;
+                // console.log(match);
+                closure = _this.replaceParentheses(closure);
+                call = _this.replaceOperators(call);
+                match = (typewithgap || '') + call + ' {' + closure + '}';
+                var index = _this.replacements.length;
+                // console.log(match);
+                _this.replacements.push([match, posi && posi.trim()]);
+                return '___boundary_' + _this.uid + '_' + index + '_as_function___';
+            });
+            if (matched)
+                return string;
             return string.replace(replaceExpRegPattern.closure, function (match, word, posi2, posi3, closure) {
                 // console.log(match, '|', word, '|', posi2, '|', posi3, '|', closure);
                 // if (!word && match.match(/\s*\{\s*\}/)) {
@@ -609,52 +613,55 @@
                     posi3 = '';
                 }
                 var index = _this.replacements.length;
-                if (word === '@config') {
-                    if (_this.configinfo === '{}') {
-                        _this.configinfo_posi = posi2 || posi3;
-                        _this.configinfo = _this.decode(match.replace('@config', ''));
-                    }
-                    return '';
-                }
-                if (word === 'return' || word === 'typeof') {
-                    // console.log(true, word);
-                    // console.log(posi2, posi3);
-                    _this.replacements.push([word + ' ', posi2]);
-                    var index2 = _this.replacements.length;
-                    _this.replacements.push(['{' + closure + '}']);
-                    return '@boundary_' + index + '_as_preoperator::___boundary_' + _this.uid + '_' + index2 + '_as_object___';
-                }
-                if (word) {
-                    if (word === '=') {
-                        // console.log(true, word);
+                var index2;
+                switch (word) {
+                    case undefined:
+                        if ((closure.indexOf(';') >= 0) ||
+                            !closure.match(/^\s*(@\d+L\d+P\d+O?\d*:::)?(___boundary_[A-Z0-9_]{36}_\d+_as_function___|[\$a-zA-Z_][\$\w]*\s*(,|:|$))/)) {
+                            _this.replacements.push(['{' + closure + '}', posi3]);
+                            return posi2 + (word || '') + posi3 + ' ___boundary_' + _this.uid + '_' + index + '_as_closure___';
+                        }
+                        if (closure.match(/^\s*___boundary_[A-Z0-9_]{36}_\d+_as_function___\s*$/)) {
+                            _this.replacements.push(['{' + closure + '}', posi3]);
+                            return posi2 + (word || '') + posi3 + ' ___boundary_' + _this.uid + '_' + index + '_as_objlike___';
+                        }
+                        // console.log(closure);
+                        // console.log(word, '|', posi2, '|', posi3);
+                        _this.replacements.push(['{' + closure + '}', posi3]);
+                        return '___boundary_' + _this.uid + '_' + index + '_as_object___';
+                    case '=':
                         _this.replacements.push(['{' + closure + '}']);
                         return '= ___boundary_' + _this.uid + '_' + index + '_as_object___';
-                    }
-                    if (word.indexOf('(') === 0) {
-                        // console.log(true, word);
-                        _this.replacements.push(['{' + closure + '}', posi3]);
-                        return word + '___boundary_' + _this.uid + '_' + index + '_as_object___';
-                    }
-                    if (word === 'do' || word === 'try' || word === 'else' || word === 'finally') {
+                    case '@config':
+                        if (_this.configinfo === '{}') {
+                            _this.configinfo_posi = posi2 || posi3;
+                            _this.configinfo = _this.decode(match.replace('@config', ''));
+                        }
+                        return '';
+                    case 'return':
+                    case 'typeof':
                         _this.replacements.push([word + ' ', posi2]);
-                        var index2 = _this.replacements.length;
+                        index2 = _this.replacements.length;
+                        _this.replacements.push(['{' + closure + '}']);
+                        return '@boundary_' + index + '_as_preoperator::___boundary_' + _this.uid + '_' + index2 + '_as_object___';
+                    case 'do':
+                    case 'try':
+                    case 'else':
+                    case 'finally':
+                        _this.replacements.push([word + ' ', posi2]);
+                        index2 = _this.replacements.length;
                         _this.replacements.push(['{' + closure + '}', posi3]);
                         return '; @boundary_' + index + '_as_preoperator::___boundary_' + _this.uid + '_' + index2 + '_as_closure___;';
-                    }
-                    // console.log(word, closure);
-                    _this.replacements.push(['{' + closure + '}', posi3]);
-                    return posi2 + word + ";\r\n" + posi3 + '___boundary_' + _this.uid + '_' + index + '_as_closure___;';
+                    default:
+                        if (word.indexOf('(') === 0) {
+                            // console.log(true, word);
+                            _this.replacements.push(['{' + closure + '}', posi3]);
+                            return word + '___boundary_' + _this.uid + '_' + index + '_as_object___';
+                        }
+                        // console.log(word, closure);
+                        _this.replacements.push(['{' + closure + '}', posi3]);
+                        return posi2 + word + ";\r\n" + posi3 + '___boundary_' + _this.uid + '_' + index + '_as_closure___;';
                 }
-                if ((closure.indexOf(';') >= 0) ||
-                    !closure.match(/^\s*(@\d+L\d+P\d+O?\d*:::)?(___boundary_[A-Z0-9_]{36}_\d+_as_function___|[\$a-zA-Z_][\$\w]*\s*(,|:|$))/) ||
-                    closure.match(/^\s*___boundary_[A-Z0-9_]{36}_\d+_as_function___\s*$/)) {
-                    _this.replacements.push(['{' + closure + '}', posi3]);
-                    return posi2 + (word || '') + posi3 + ' ___boundary_' + _this.uid + '_' + index + '_as_closure___';
-                }
-                // console.log(closure);
-                // console.log(word, '|', posi2, '|', posi3);
-                _this.replacements.push(['{' + closure + '}', posi3]);
-                return '___boundary_' + _this.uid + '_' + index + '_as_object___';
             });
         };
         Sugar.prototype.replaceParentheses = function (string) {
@@ -977,7 +984,7 @@
             string = string
                 .replace(/:::(var|let|public)\s+(@\d+L\d+P(\d+O)?0:::)/g, ':::$1 ')
                 .replace(/([^,;\s])\s*(@\d+L\d+P(\d+O)?0:::[^\.\(\[)])/g, '$1;$2')
-                .replace(/[\r\n]+(___boundary_[A-Z0-9_]{36}_\d+_as_(if|class|function|extends|call|log|object|closure|parentheses)___)/g, ";$1")
+                .replace(/[\r\n]+(___boundary_[A-Z0-9_]{36}_\d+_as_(if|class|function|extends|call|log|object|objlike|closure|parentheses)___)/g, ";$1")
                 .replace(/(___boundary_[A-Z0-9_]{36}_\d+_as_(log|closure)___)[\r\n]+/g, "$1;\r\n")
                 .replace(/(___boundary_[A-Z0-9_]{36}_\d+_as_(if)___)[;\s]+/g, "$1 ");
             var sentences = string.split(/\s*;+\s*/);
@@ -1510,12 +1517,13 @@
                     return this.walkCallsChain(element.index, element.display, vars, element.type);
                 case 'class':
                     return this.walkClass(element.index, element.display, vars);
-                case 'closure':
+                case 'objlike':
                     if (inOrder) {
                         console.log(true, element);
                         element.type = 'object';
                         return this.walkObject(element.index, element.display, vars);
                     }
+                case 'closure':
                     return this.walkClosure(element.index, element.display, vars);
                 case 'expression':
                     return this.walkFnLike(element.index, element.display, vars, 'exp');
