@@ -1,4 +1,5 @@
 use$ str/
+# use ./foo/bar.js?v=1&time=1234567898765;
 
 var a = 0;
 # let a = 0;
@@ -6,17 +7,56 @@ let b = 0;
 {
     let a = 1
     let b = 1
+    public p1 = 14;
+    let pandora = null;
+    let pandora_0;
+    let pandora_1 = b;
+    var pandora_1_1;
+    var root = pandora;
+    log a, b;
+
+    let z = 1;
 }
 
+log a, b, pandora_1_1, /* pandora_1 */;
+
 var c = 0
+var i = 0;
 for (let i=0; i < 5; i++) { 
     var a = i;
     let c = i;
     var e = i;
+    let f = 2;
+    var pandora_0;
+    let pandora_0_0;
+    public p2 = 21;
+    let g = 2;
+    let z = 2;
 }
+let z_0;
+log /* z */;
+
 var d = [0,1,3,4,5]
 each (d as index, item) {
     # let index = 0;
     var d = index;
     var c = item;
+    var f = 2;
+    public p0 = 28;
 }
+
+g (arg1){
+    public p4 = 35;
+}
+
+public f(){}
+
+public p0 = 7;
+
+var pandora = (){ log true};
+var pandora_0 = {};
+var root = pandora;
+var let = void 0;
+
+pandora();
+log a, b, c, d, e;

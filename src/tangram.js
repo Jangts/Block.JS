@@ -1349,9 +1349,9 @@ function(root, factory) {
                     // console.log(storage);
                     url = arr[0].replace(/^\$_\//, storage.core.Pathname).replace(/^\$\.\//, storage.mainUrl).replace(/^\$\+\//, storage.addinUrl);
                     /** 检查引用文件类型 */
-                    if (url.match(/\.css$/) || url.match(/^[\?]+\.css\?$/)) {
+                    if (url.match(/\.css$/) || url.match(/^[^\?]+\.css\?$/)) {
                         filetype = 'css';
-                    } else if (url.match(/\.js$/) || url.match(/\.json$/) || url.match(/^[\?]+\.js\?/) || url.match(/^[\?]+\.json\?/)) {
+                    } else if (url.match(/\.js$/) || url.match(/\.json$/) || url.match(/^[^\?]+\.js\?/) || url.match(/^^[\?]+\.json\?/)) {
                         filetype = 'js';
                     } else {
                         url = url + '.js';
@@ -1502,6 +1502,7 @@ function(root, factory) {
                 // console.log('clear');
                 storage.blocks.temp = [];
                 storage.common_module.exports = {};
+                this.module = storage.common_module;
                 this.exports = storage.common_module.exports;
                 return this;
             }

@@ -40,7 +40,7 @@
                 class .Bar2 {_init(){}}
             }
 
-            global blabla return {
+            global blabla with {
                 Bar3 : class {_init(){}}
             }
         }
@@ -48,7 +48,7 @@
 
     public bar2 = (arg) -> log arg
 
-    namespace bar3 return {
+    namespace bar3 with {
         Bar1: class {_init(){}}
     }
 

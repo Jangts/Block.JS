@@ -6,11 +6,12 @@
  * http://tangram.js.cn
  */
 ;
-this.tangram.auto([
+this.tangram.init().auto([
     '$_/async/',
-    '$_/../sugar/compiler/lib/sugar'
-], function (_) {
-    var sugars = [], scripts = document.getElementsByTagName('script');
+    '$_/../sugar/compiler/lib/sugar as tangram_js_sugar'
+], function (_, root, imports) {
+    var tangram_js_sugar = imports.tangram_js_sugar, sugars = [], scripts = document.getElementsByTagName('script');
+    // console.log(imports);
     for (var index = 0; index < scripts.length; index++) {
         var script = scripts[index];
         if (script.type === "text/tangram.js-sugar") {

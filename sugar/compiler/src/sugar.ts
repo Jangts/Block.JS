@@ -5,8 +5,10 @@
  * Written and Designed By Jang Ts
  * http://tangram.js.cn
  */
+
 ;
 (function (root, factory) {
+    // console.log(root.tangram, typeof root.tangram, typeof root.tangram.init)
     if (typeof exports === 'object') {
         exports = factory(root);
         if (typeof module === 'object') {
@@ -18,6 +20,11 @@
         root.define('tangram_js_sugar', [], function () {
             return factory(root);
         });
+    }
+    else if (typeof root.tangram === 'object' && typeof root.tangram.init === 'function') {
+        // TNS
+        root.tangram.init();
+        root.tangram.module.exports = factory(root);
     }
     else {
         root.tangram_js_sugar = factory(root);
@@ -66,27 +73,27 @@
             after: /([\$\w\.])\s*(\+\+|\-\-)/g,
             error: /(.*)(\+\+|\-\-|\+|\-)(.*)/g
         },
-        replaceWords = /(@\d+L\d+P\d+O?\d*:::)?(return|else|try)\s*(\s|;|___boundary_[A-Z0-9_]{36}_(\d+)_as_([a-z]+)___)/g,
+        replaceWords = /(@\d+L\d+P\d+O?\d*:::)?(continue|finally|return|throw|break|case|else|try|do)\s*(\s|;|___boundary_[A-Z0-9_]{36}_(\d+)_as_([a-z]+)___)/g,
         replaceExpRegPattern = {
             await: /^((\s*@\d+L\d+P0:::)*\s*(@\d+L\d+P0*):::(\s*))?"await"\s*/,
             // using: /^\s*use\s+/g,
-            namespace: /((@\d+L\d+P0):::)?(\s*)namespace\s+([\$\w\.]+)\s*(;|\r|\n)/g,
+            namespace: /((@\d+L\d+P0):::)?(\s*)namespace\s+(\.{0,1}[\$a-zA-Z_][\$\w\.]*)\s*(;|\r|\n)/g,
             // 位置是在replace usings 和 strings 之后才tidy的，所以还存在后接空格
-            use: /(@\d+L\d+P\d+:::)\s*use(\$)?\s+([\$\w\.\/\\]+)(\s+as(\s+(@\d+L\d+P\d+:::\s*[\$\w]+)|\s*(@\d+L\d+P\d+:::\s*)?\{(@\d+L\d+P\d+:::\s*[\$\w]+(\s*,@\d+L\d+P\d+:::\s*[\$\w]+)*)\})(@\d+L\d+P\d+:::\s*)?)?\s*[;\r\n]/g,
+            use: /(@\d+L\d+P\d+:::)\s*use(\$)?\s+([\$\w\.\/\\\?\=\&]+)(\s+as(\s+(@\d+L\d+P\d+:::\s*[\$a-zA-Z_][\$\w]*)|\s*(@\d+L\d+P\d+:::\s*)?\{(@\d+L\d+P\d+:::\s*[\$a-zA-Z_][\$\w]*(\s*,@\d+L\d+P\d+:::\s*[\$a-zA-Z_][\$\w]*)*)\})(@\d+L\d+P\d+:::\s*)?)?\s*[;\r\n]/g,
             include: /\s*@include\s+___boundary_[A-Z0-9_]{36}_(\d+)_as_string___[;\r\n]+/g,
 
             // return: /[\s;\r\n]+$/g,
-            extends: /(@\d+L\d+P\d+O*\d*:::)?((ns|namespace|global|extends)\s+([\$\w\.]+)\s*(return\s*)?\{([^\{\}]*?)\})/g,
-            class: /(@\d+L\d+P\d+O*\d*:::)?((class|expands)\s+([\$\w\.]+\s+)?(extends\s+[\$\w\.]+\s*)?\{[^\{\}]*?\})/g,
-            fnlike: /(@\d+L\d+P\d+O*\d*:::)?(^|(function|def)\s+)?([\$\w]*\s*\([^\(\)]*\))\s*\{([^\{\}]*?)\}/g,
+            extends: /(@\d+L\d+P\d+O*\d*:::)?((ns|namespace|global|extends)\s+(\.{0,1}[\$a-zA-Z_][\$\w\.]*)\s*(with\s*)?\{([^\{\}]*?)\})/g,
+            class: /(@\d+L\d+P\d+O*\d*:::)?((class|expands)\s+([\$a-zA-Z_][\$\w]*\s+)?(extends\s+[\.{0,1}[\$a-zA-Z_][\$\w\.]*\s*)?\{[^\{\}]*?\})/g,
+            fnlike: /(@\d+L\d+P\d+O*\d*:::)?(^|(function|def|public)\s+)?(([\$a-zA-Z_][\$\w]*)?\s*\([^\(\)]*\))\s*\{([^\{\}]*?)\}/g,
             parentheses: /(@\d+L\d+P\d+O*\d*:::)?\(\s*([^\(\)]*?)\s*\)/g,
             arraylike: /(@\d+L\d+P\d+O*\d*:::)?\[(\s*[^\[\]]*?)\s*\]/g,
-            call: /(@\d+L\d+P\d+O*\d*:::)?((new)\s+([\$\w\.]+)|(\.)?([\$\w]+))\s*(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)\s*([^\$\w\s\{]|[\r\n].|\s*___boundary_[A-Z0-9_]{36}_\d+_as_array___|\s*@boundary_\d+_as_operator::|$)/g,
+            call: /(@\d+L\d+P\d+O*\d*:::)?((new)\s+([\$a-zA-Z_][\$\w\.]*)|(\.)?([\$a-zA-Z_][\$\w]*))\s*(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)\s*([^\$\w\s\{]|[\r\n].|\s*___boundary_[A-Z0-9_]{36}_\d+_as_array___|\s*@boundary_\d+_as_operator::|$)/g,
             callschain: /\s*\.___boundary_[A-Z0-9_]{36}_(\d+)_as_callmethod___((@\d+L\d+P\d+O*\d*:::)?\.___boundary_[A-Z0-9_]{36}_\d+_as_callmethod___)*/g,
             arrowfn: /(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)\s*(->|=>)\s*([^,;\r\n]+)\s*(,|;|\r|\n|$)/g,
-            closure: /((@\d+L\d+P\d+O*\d*:::)?@*[\$\w]+|\)|\=|\(\s)?(@\d+L\d+P\d+O*\d*:::)?\s*\{(\s*[^\{\}]*?)\s*\}/g,
+            closure: /((@\d+L\d+P\d+O*\d*:::)?@*[\$a-zA-Z_][\$\w]*|\)|\=|\(\s)?(@\d+L\d+P\d+O*\d*:::)?\s*\{(\s*[^\{\}]*?)\s*\}/g,
             expression: /(@\d+L\d+P\d+O*\d*:::)?(if|for|while|switch|with|catch|each)\s*(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)\s*(___boundary_[A-Z0-9_]{36}_(\d+)_as_closure___)/g,
-            log: /log\s+(.+?)\s*[;\r\n]+/g
+            log: /(@\d+L\d+P\d+O*\d*:::)?log\s+(.+?)\s*([;\r\n]+|$)/g
         },
         matchExpRegPattern = {
             string: /(\/|\#|`|"|')([\*\/\=])?/,
@@ -100,15 +107,15 @@
             index: /(\d+)_as_([a-z]+)/,
             index3: /^_(\d+)_as_([a-z]+)___([\s\S]*)$/,
 
-            extends: /(ns|nsassign|global|globalassign|extends)\s+(\.)?([\$\w\.]+)\s*\{([^\{\}]*?)\}/,
-            class: /(class|dec|expands)\s+(\.)?([\$\w\.]+\s+)?(extends\s+([\$\w\.]+)\s*)?\{([^\{\}]*?)\}/,
-            fnlike: /(^|(var|public|let|function|def)\s+)?([\$\w]*)\s*\(([^\(\)]*)\)\s*\{([^\{\}]*?)\}/,
-            call: /([\$\w][\$\w\.]*)\s*___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___/,
+            extends: /(ns|nsassign|global|globalassign|extends)\s+(\.)?(\.{0,1}[\$a-zA-Z_][\$\w\.]*)\s*\{([^\{\}]*?)\}/,
+            class: /(class|dec|expands)\s+(\.)?(\.{0,1}[\$a-zA-Z_][\$\w\.]*\s+)?(extends\s+([\$a-zA-Z_][\$\w]*)\s*)?\{([^\{\}]*?)\}/i,
+            fnlike: /(^|(function|def|public)\s+)?([\$a-zA-Z_][\$\w]*)?\s*\(([^\(\)]*)\)\s*\{([^\{\}]*?)\}/i,
+            call: /([\$a-zA-Z_][\$\w\.]*)\s*___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___/i,
             arrowfn: /(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)\s*(->|=>)\s*([^,;\r\n]+)/,
 
-            objectattr: /^\s*(@\d+L\d+P\d+O?\d*:::)?((([\$\w]+)))\s*(\:*)([\s\S]*)$/,
+            objectattr: /^\s*(@\d+L\d+P\d+O?\d*:::)?((([\$a-zA-Z_][\$\w]*)))\s*(\:*)([\s\S]*)$/,
             classelement: /^\s*(@\d+L\d+P\d+O?\d*:::)?((public|static|set|get|om)\s+)?([\$\w]*)\s*(\=*)([\s\S]*)$/,
-            travelargs: /^((@\d+L\d+P\d+O*\d*:::)?[\$\w][\$\w\.]*)\s+as\s(@\d+L\d+P\d+O*\d*:::)([\$\w]+)(\s*,((@\d+L\d+P\d+O*\d*:::)([\$\w]*)))?/
+            travelargs: /^((@\d+L\d+P\d+O*\d*:::)?[\$a-zA-Z_][\$\w\.]*)\s+as\s(@\d+L\d+P\d+O*\d*:::)([\$a-zA-Z_][\$\w]*)(\s*,((@\d+L\d+P\d+O*\d*:::)([\$a-zA-Z_][\$\w]*)?))?/
         },
         boundaryMaker = (): string => {
             let radix = 36;
@@ -176,7 +183,7 @@
             let newcontent:string = this.markPosition(this.input, 0);
             let string = this.encode(newcontent);
             let vars = {
-                namespace:this.namespace,
+                namespace: this.namespace,
                 parent: {
                     body: null,
                     fixed: ['window'],
@@ -185,10 +192,8 @@
                 body: {
                     public: []
                 },
-                self: {
-                    this: 'var',
-                    arguments: 'var'
-                },
+                self: {},
+                childs:{},
                 fixed: [],
                 fix_map: {},
                 type: 'block'
@@ -335,7 +340,7 @@
                 return /*"\r\n" + */'___boundary_' + index + '_as_propname___' + after;
             });
             string = string
-                .replace(/([\$\w]+)\s*(->|=>)/g, "($1)$2");
+                .replace(/([\$a-zA-Z_][\$\w]*)\s*(->|=>)/g, "($1)$2");
             // console.log(string);
             // console.log(this.replacements);
 
@@ -572,7 +577,7 @@
             }
 
             if (string.match(replaceExpRegPattern.fnlike)) {
-                return string.replace(replaceExpRegPattern.fnlike, (match: string, posi, typewithgap, type, call, closure) => {
+                return string.replace(replaceExpRegPattern.fnlike, (match: string, posi, typewithgap, type, call, callname, closure) => {
                     // console.log(match);
                     closure = this.replaceParentheses(closure);
                     call = this.replaceOperators(call);
@@ -614,11 +619,11 @@
                 }
                 if (word === 'return' || word === 'typeof') {
                     // console.log(true, word);
-                    this.replacements.push(['{' + closure + '}']);
                     // console.log(posi2, posi3);
-                    let index2 = this.replacements.length;
                     this.replacements.push([word + ' ', posi2]);
-                    return '@boundary_' + index2 + '_as_preoperator::___boundary_' + this.uid + '_' + index + '_as_object___';
+                    let index2 = this.replacements.length;
+                    this.replacements.push(['{' + closure + '}']);
+                    return '@boundary_' + index + '_as_preoperator::___boundary_' + this.uid + '_' + index2 + '_as_object___';
                 }
                 if (word) {
                     if (word === '=') {
@@ -628,17 +633,23 @@
                     }
                     if (word.indexOf('(') === 0) {
                         // console.log(true, word);
-                        this.replacements.push(['{' + closure + '}']);
+                        this.replacements.push(['{' + closure + '}', posi3]);
                         return word + '___boundary_' + this.uid + '_' + index + '_as_object___';
+                    }
+                    if (word === 'do' || word === 'try' || word === 'else' || word === 'finally') {
+                        this.replacements.push([word + ' ', posi2]);
+                        let index2 = this.replacements.length;
+                        this.replacements.push(['{' + closure + '}', posi3]);
+                        return '; @boundary_' + index + '_as_preoperator::___boundary_' + this.uid + '_' + index2 + '_as_closure___;';
                     }
                     // console.log(word, closure);
                     this.replacements.push(['{' + closure + '}', posi3]);
-                    return posi2 + word + posi3 + ' ___boundary_' + this.uid + '_' + index + '_as_closure___;';
+                    return posi2 + word + ";\r\n" + posi3 + '___boundary_' + this.uid + '_' + index + '_as_closure___;';
                 }
                
                 if (
                     (closure.indexOf(';') >= 0) ||
-                    !closure.match(/^\s*(@\d+L\d+P\d+O?\d*:::)?(___boundary_[A-Z0-9_]{36}_\d+_as_function___|[\$\w]+\s*(,|:|$))/) ||
+                    !closure.match(/^\s*(@\d+L\d+P\d+O?\d*:::)?(___boundary_[A-Z0-9_]{36}_\d+_as_function___|[\$a-zA-Z_][\$\w]*\s*(,|:|$))/) ||
                     closure.match(/^\s*___boundary_[A-Z0-9_]{36}_\d+_as_function___\s*$/)
                 ) {
                     this.replacements.push(['{' + closure + '}', posi3]);
@@ -852,15 +863,15 @@
         }
         replaceCalls(string: string): string {
             // console.log(string);
-            string = string.replace(replaceExpRegPattern.log, (match: string, params) => {
-                console.log(match, params);
+            string = string.replace(replaceExpRegPattern.log, (match: string, posi, params) => {
+                // console.log(match, params);
                 let index1 = this.replacements.length;
                 this.replacements.push(['(' + params + ')', undefined]);
                 let index2 = this.replacements.length;
                 this.replacements.push(['log___boundary_' + this.uid + '_' + index1 + '_as_parentheses___', undefined]);
                 let index3 = this.replacements.length;
-                this.replacements.push(['.___boundary_' + this.uid + '_' + index2 + '_as_callmethod___', undefined]);
-                return 'root.console___boundary_' + this.uid + '_' + index3 + '_as_callschain___;';
+                this.replacements.push(['.___boundary_' + this.uid + '_' + index2 + '_as_callmethod___', posi]);
+                return '___boundary_' + this.uid + '_' + index3 + '_as_log___;';
             });
             return this.replaceCallsChain(string.replace(replaceExpRegPattern.call, (match: string, posi, fullname: string, constructor: string, methodname: string, dot, callname, args: string, argindex: string, after: string) => {
                 // console.log(fullname);
@@ -961,7 +972,8 @@
             string = string
                 .replace(/:::(var|let|public)\s+(@\d+L\d+P(\d+O)?0:::)/g, ':::$1 ')
                 .replace(/([^,;\s])\s*(@\d+L\d+P(\d+O)?0:::[^\.\(\[)])/g, '$1;$2')
-                .replace(/[\r\n]+(___boundary_[A-Z0-9_]{36}_\d+_as_(if|class|function|extends|call|object|closure|parentheses)___)/g, ";$1")
+                .replace(/[\r\n]+(___boundary_[A-Z0-9_]{36}_\d+_as_(if|class|function|extends|call|log|object|closure|parentheses)___)/g, ";$1")
+                .replace(/(___boundary_[A-Z0-9_]{36}_\d+_as_(log|closure)___)[\r\n]+/g, "$1;\r\n")
                 .replace(/(___boundary_[A-Z0-9_]{36}_\d+_as_(if)___)[;\s]+/g, "$1 ");
             const sentences: string[] = string.split(/\s*;+\s*/);
             let lines: object[] = [];
@@ -1112,7 +1124,7 @@
                 }
                 for (let index = 0; index < array.length; index++) {
                     const element = array[index].trim();
-                    if (element.match(/^[\$\w]+$/)) {
+                    if (element.match(/^[\$a-zA-Z_][\$\w]*$/)) {
                         // console.log(element);                    
                         if (position && display==='block') position.head = true;
                         if (index) {
@@ -1322,7 +1334,7 @@
             this.ast = ast;
             return this;
         }
-        pushBodyToAST(body: object[] = [], vars: any, code: string): object[] {
+        pushBodyToAST(body: object[] = [], vars: any, code: string, inOrder: boolean=false): object[] {
             let lines: any = code ? this.getLines(code, vars) : [];
             // console.log(code, lines);
             for (let index = 0; index < lines.length; index++) {
@@ -1330,15 +1342,15 @@
                     case 'sentence':
                         const line = lines[index].value.trim();
                         // console.log(lines[index].display === 'block', line);
-                        // console.log(lines[index].display);
-                        this.pushSentencesToAST(body, vars, line, lines[index].display === 'block', lines[index].posi);
+                        // console.log(lines[index]);
+                        this.pushSentencesToAST(body, vars, line, !inOrder && (lines[index].display === 'block'), lines[index].posi);
                         break;
 
                     case 'variable':
                         body.push({
                             type: 'code',
                             posi: lines[index].posi,
-                            display: lines[index].display,
+                            display: inOrder ? 'inline' : lines[index].display,
                             vars: vars,
                             value: lines[index].value
                         });
@@ -1346,9 +1358,9 @@
                     default:
                         body.push(this.walk({
                             index: lines[index].index,
-                            display: 'block',
+                            display: inOrder ? 'inline' : 'block',
                             type: lines[index].subtype
-                        }, vars, false));
+                        }, vars, inOrder));
                         break;
                 }
             }
@@ -1430,11 +1442,6 @@
             let position = this.getPosition(code) || blockposi;
             if (position) {
                 var element = code.replace(position.match, '');
-                if (position.head) {
-                    if (element.indexOf('.') === 0) {
-                        display = 'member';
-                    }
-                }
             } else {
                 var element = code;
             }
@@ -1463,6 +1470,7 @@
                 case 'callmethod':
                 case 'construct':
                     return this.walkCall(element.index, element.display, vars, element.type);
+                case 'log':
                 case 'callschain':
                     return this.walkCallsChain(element.index, element.display, vars, element.type);
                 case 'class':
@@ -1536,20 +1544,17 @@
             let matches: any = this.replacements[index][0].match(matchExpRegPattern.arrowfn);
             // console.log(this.replacements[index], matches);
             let subtype = 'fn';
-            let selfvas = {
-                this: 'var',
-                arguments: 'var'
-            };
+            let selfvas = {};
             if (matches[3] === '=>') {
                 subtype = '=>';
-                selfvas = {
-                    this: 'let',
-                    arguments: 'let'
-                }
             }
             let localvars = {
                 parent: vars,
-                self: selfvas,
+                body: {
+                    public: []
+                },
+                self: {},
+                childs:{},
                 fixed: [],
                 fix_map: {},
                 type: 'fnbody'
@@ -1654,9 +1659,12 @@
                     return '';
                 });
             // console.log(code, calls, position);
+            if(type==='log'){
+                position.head = true;
+            }
 
             return {
-                type: 'callschain',
+                type: type,
                 posi: position,
                 display: (position && position.head) ? 'blocks' : 'inline',
                 vars: vars,
@@ -1709,6 +1717,7 @@
                 parent: vars,
                 body: vars.body,
                 self: {},
+                childs: {},
                 fixed: [],
                 fix_map: {},
                 type: 'closure'
@@ -1716,13 +1725,7 @@
             let array = this.replacements[index][0].split(/\s*(\{|\})\s*/);
             let position = this.getPosition(this.replacements[index][1]);
             let body = this.pushBodyToAST([], localvars, array[2]);
-            for (const varname in localvars.self) {
-                if (localvars.self.hasOwnProperty(varname) && (localvars.self[varname] !== 'let')) {
-                    if (vars.self[varname] === void 0) {
-                        vars.self[varname] = 'var';
-                    }
-                }
-            }
+            this.resetParentVars(vars, localvars);
             // console.log(array);
 
             return {
@@ -1791,33 +1794,35 @@
                             parent: vars,
                             body: vars.body,
                             self: {},
+                            childs: {},
                             fixed: [],
                             fix_map: {},
                             type: 'closure'
                         };
                         if (fname === 'for') {
-                            // console.log(matches);
-                            const firstSentence = headline.split(/\s*;\s*/)[0];
-                            const match = firstSentence.match(/^\s*(var|let)\s+([\$\w]+\s*=.+)$/);
-                            // console.log(firstSentence, match);
-                            if (match) {
-                                this.pushVariablesToLines([], localvars, '', match[2], match[1]);
-                            }
-                            // console.log(localvars);
-                        }
-                        let head = this.pushSentencesToAST([], localvars, headline, false, this.getPosition(headline))[0] || (()=>{
-                            this.error(' Must have statements in head of ' + fname + ' expreesion.');
-                        })();
-                        let body = this.pushBodyToAST([], localvars, matches[5]);
-                        for (const varname in localvars.self) {
-                            if (localvars.self.hasOwnProperty(varname)) {
-                                if (vars.self[varname] === void 0) {
-                                    vars.self[varname] = 'var';
-                                } else if (vars.self[varname] === 'let') {
-                                    this.error(' Variable `' + varname + '` has already been declared.');
+                            var head:any = {
+                                type: 'codes',
+                                vars: localvars,
+                                display: 'inline',
+                                body: []
+                            };
+                            var lines:any[] = this.pushBodyToAST([], localvars, headline, true);
+                            for (let index = 0; index < lines.length; index++) {
+                                if (lines[index].posi) lines[index].posi.head= false;
+                                if(index===lines.length-1){
+                                    lines[index].value = lines[index].value.replace(/;$/, '');
                                 }
+                                head.body.push(lines[index]);
                             }
+                        }else{
+                            var head:any = this.pushSentencesToAST([], localvars, headline, false, this.getPosition(headline))[0] || (() => {
+                                this.error(' Must have statements in head of ' + fname + ' expreesion.');
+                            })();
+                            // console.log(localvars, head);
                         }
+                       
+                        let body = this.pushBodyToAST([], localvars, matches[5]);
+                        this.resetParentVars(vars, localvars);
                         return {
                             type: 'exp',
                             display: 'block',
@@ -1829,32 +1834,37 @@
                     }
                     if (fname === 'each') {
                         const condition = matches[4].match(matchExpRegPattern.travelargs);
-                        console.log(matches, condition);
+                        // console.log(matches, condition);
                         if (condition) {
-
-                            let self = {
-                                this: 'var',
-                                arguments: 'var',
-                            }, agrs: any[] = [];
+                            let self = {}, agrs: any[] = [];
                             if (condition[5]) {
                                 if (condition[8]) {
-                                    self[condition[4]] = 'var';
-                                    self[condition[8]] = 'var';
-                                    agrs = [[condition[4], this.getPosition(condition[3])], [condition[8], this.getPosition(condition[7])]];
+                                    if (condition[4] !== condition[8]){
+                                        self[condition[4]] = 'var';
+                                        self[condition[8]] = 'var';
+                                        agrs = [[condition[4], this.getPosition(condition[3])], [condition[8], this.getPosition(condition[7])]];
+                                    }else{
+                                        this.error('indexname cannot same to the itemname');
+                                    }
                                 } else {
                                     self[condition[4]] = 'var';
                                     agrs = [[condition[4], condition[3]]];
                                 }
                             } else {
-                                self['_index'] = 'var';
-                                self[condition[4]] = 'var';
-                                agrs = [['_index', undefined], [condition[4], this.getPosition(condition[3])]];
+                                if (condition[4] !== '_index') {
+                                    self['_index'] = 'var';
+                                    self[condition[4]] = 'var';
+                                    agrs = [['_index', undefined], [condition[4], this.getPosition(condition[3])]];
+                                } else {
+                                    this.error('itemname cannot same to the default indexname');
+                                }
                             }
 
                             let localvars = {
                                 parent: vars,
                                 body: vars.body,
                                 self: self,
+                                childs: {},
                                 fixed: [],
                                 fix_map: {},
                                 type: 'travel'
@@ -1871,6 +1881,7 @@
                                 callback: {
                                     type: 'def',
                                     display: 'inline',
+                                    vars: localvars,
                                     fname: '',
                                     args: agrs,
                                     body: this.pushBodyToAST([], localvars, matches[5])
@@ -1879,27 +1890,27 @@
                         }
                     }
                 }
-                var subtype = matches[2] === 'def' ? 'def' : 'fn';
+                var subtype = (matches[2] === 'def') ? 'def' : 'fn';
                 var position = this.getPosition(this.replacements[index][1]);
                 // console.log(matches);
-                if (fname && display === 'block') {
-                    if (matches[2]) {
-                        if ((matches[2] === 'var') || (matches[2] === 'let')) {
-                            if (vars.self[fname] === void 0) {
-                                vars.self[fname] = 'var';
-                            } else if (vars.self[fname] === 'let' || matches[2] === 'let') {
-                                this.error(' Variable `' + fname + '` has already been declared.');
-                            }
-                            subtype = this.toES6 ? matches[2] : 'var';
-                        } else if (matches[2] === 'public') {
-                            subtype = 'public'
-                            // console.log(matches[5]);
-                        }
-                    }
-                } else {
-                    if (matches[2] === 'public') {
-                        subtype = 'public';
+                if ((matches[2] === 'public') && fname) {
+                    subtype = 'public';
+                    display = 'block';
+                }else{
+                    if (matches[2] === 'public'){
+                        subtype = 'def';
+                        fname = 'public';
                         display = 'block';
+                    }else if ((display === 'block') && !fname) {
+                        fname = 'default_function_name';
+                    }
+                    if (fname) {
+                        if (!vars.self.hasOwnProperty(fname)) {
+                            vars.childs[fname] = 'var';
+                        }
+                        else if (vars.self[fname] === 'let') {
+                            this.error(' Variable `' + fname + '` has already been declared.');
+                        }
                     }
                 }
             }
@@ -1909,20 +1920,13 @@
                 body: {
                     public: []
                 },
-                self: {
-                    this: 'var',
-                    arguments: 'var'
-                },
+                self: {},
+                childs: {},
                 fixed: [],
                 fix_map: {},
                 type: 'body'
             };
             let args: any = this.checkArgs(matches[4], localvars);
-            if (display==='block'){
-                if(!fname){
-                    fname = 'default_function_name';
-                }
-            }
             return {
                 type: type,
                 vars: localvars,
@@ -2271,7 +2275,7 @@
             let foot: string[] = [];
             this.fixVariables(this.ast.vars);
             this.pushHeader(head, this.imports);
-            this.pushAlias(body, this.using_as);
+            this.pushAlias(body, this.ast.vars, this.using_as);
             this.pushCodes(body, this.ast.vars, this.ast.body, 1, this.namespace);
             this.pushFooter(foot);
             this.preoutput = head.join('') + this.trim(body.join('')) + foot.join('');
@@ -2318,7 +2322,7 @@
             codes.push('], function (pandora, root, imports, undefined) {');
             return codes;
         }
-        pushAlias(codes: string[], alias: any): string[] {
+        pushAlias(codes: string[], vars, alias: any): string[] {
             // console.log(alias);
             for (const key in alias) {
                 // console.log(key);
@@ -2344,7 +2348,6 @@
                 // console.log(element);
                 this.pushElement(codes, vars, element, layer, namespace);
             }
-            // this.fixVariables(vars);
             return codes;
         }
         pushElement(codes: string[], vars: any, element: any, layer: number, namespace: string = this.namespace): string[] {
@@ -2360,6 +2363,7 @@
                     // console.log(layer);
                     this.pushCallCodes(codes, element, layer, namespace);
                     break;
+                case 'log':
                 case 'callschain':
                     this.pushCallsCodes(codes, element, layer, namespace);
                     break;
@@ -2413,7 +2417,6 @@
                     this.pushTravelCodes(codes, element, layer, namespace);
                     break;
             }
-            // this.fixVariables(vars);
             return codes;
         }
         pushArrayCodes(codes: string[], element: any, layer: number, namespace: string): string[] {
@@ -2532,11 +2535,16 @@
             let indent;
             let _break = false;
             // console.log(element);
-            if (element.posi&&element.posi.head) {
-                _layer++;
+            if (element.type === 'log') {
                 indent = "\r\n" + stringRepeat("\t", _layer);
-                _break = true;
+                codes.push(indent + this.pushPostionsToMap(element.posi) + 'root.console');
             }
+            else if (element.posi&&element.posi.head) {
+                _layer++;
+                _break = true;
+                indent = "\r\n" + stringRepeat("\t", _layer);
+            }
+            
             for (let index = 0; index < element.calls.length; index++) {
                 const method = element.calls[index];
                 elements.push(this.pushElement([], element.vars, method, _layer, namespace).join(''));
@@ -2546,6 +2554,9 @@
                 codes.push(indent + '.' + elements.join(indent + '.'));
             } else {
                 codes.push('.' + elements.join('.'));
+                if (element.type === 'log') {
+                    codes.push(';');
+                }
             }
             return codes;
         }
@@ -2562,7 +2573,7 @@
             } else {
                 if (element.cname && element.cname.trim()) {
                     cname = element.cname.trim();
-                    if (cname.match(/^[\$\w]+$/)) {
+                    if (cname.match(/^[\$a-zA-Z_][\$\w]*$/)) {
                         if (this.toES6) {
                             codes.push(indent1 + this.pushPostionsToMap(element.posi) + 'class ' + cname + ' ');
                             toES6 = true;
@@ -2760,8 +2771,8 @@
                 if (element.fname==='return'){
                     codes.push(indent + posi + 'return function (');
                 }else{
-                    if ((element.subtype === 'var') || (element.subtype === 'let')) {
-                        codes.push(indent + posi + element.subtype + ' ' + element.fname + ' = function (');
+                    if ((element.subtype === 'def')) {
+                        codes.push(indent + posi + 'var ' + element.fname + ' = function (');
                     } else if ((element.subtype === 'public')) {
                         codes.push(indent + posi + 'pandora.' + namespace + element.fname + ' = function (');
                     } else {
@@ -2772,7 +2783,6 @@
                         }
                     }
                 }
-                
             } else {
                 codes.push(posi + 'function (');
             }
@@ -2788,18 +2798,13 @@
             codes.push(') {');
             // console.log(element.body);
             if (element.body.length) {
-                // console.log(element.body);
+                console.log(element);
                 this.pushCodes(codes, element.vars, element.body, layer + 1, namespace);
             } else {
                 indent = '';
             }
             // console.log(element.display, element.subtype);
-            if ((element.subtype === 'var') || (element.subtype === 'let')) {
-                codes.push(indent + '};');
-                codes.push(indent);
-            } else {
-                codes.push(indent + '}');
-            }
+            codes.push(indent + '}');
             return codes;
         }
         pushExtendsCodes(codes: string[], element: any, layer: number, namespace: string): string[] {
@@ -2849,6 +2854,7 @@
             } else {
                 var posi = '';
             }
+            this.fixVariables(element.vars);
             if (element.type === 'closure') {
                 if (element.posi){
                     codes.push(indent1 + posi + '{')
@@ -3057,80 +3063,112 @@
             return codes;
         }
         closurecount: number = 0;
-        fixVariables(vars: any) {
-            this.closurecount++;
-            // console.log(vars.type, vars);
-            if (1) {
-                for (let index = 0; index < vars.self.length; index++) {
-                    const element = vars.self[index].split(/\s+/)[1];
-                    if (['pandora', 'global', 'imports', 'undefined']['includes'](element)) {
-                        if (!vars.fix_map[element]) {
-                            let i = 1;
-                            let newname = element + '_' + i;
-                            while (vars.fixed['includes'](newname)) {
-                                i++;
-                                newname = element + '_' + i;
-                            }
-                            vars.fixed.push(newname);
-                            vars.fix_map[element] = newname;
+        resetParentVars(vars: any, localvars: any) {
+            for (const varname in localvars.self) {
+                if (localvars.self.hasOwnProperty(varname)) {
+                    if (localvars.self[varname] === 'let') {
+                        if (!vars.self.hasOwnProperty(varname) && !vars.childs.hasOwnProperty(varname)) {
+                            vars.childs[varname] = localvars;
+                        }
+                    } else {
+                        if (!vars.self.hasOwnProperty(varname)) {
+                            vars.self[varname] = 'var';
+                        } else if (vars.self[varname] === 'let') {
+                            this.error(' Variable `' + varname + '` has already been declared.');
                         }
                     }
                 }
-                switch (vars.type) {
-                    case 'block':
-
-                        break;
-                }
-                return;
             }
+        }
+        fixVariables(vars: any) {
+            vars.index = this.closurecount;
+            // console.log(vars);
+            // console.log(vars.type, vars);
+            const keywords = [
+                'break',
+                'case', 'catch', 'continue',
+                'default', 'delete', 'do',
+                'else',
+                'finally', 'for', 'function',
+                'if', 'in', 'instanceof',
+                'new',
+                'return',
+                'switch',
+                'throw', 'try', 'typeof',
+                'var', 'void',
+                'while', 'with'];
+            const builtins = ['this', 'arguments'];
+            const globals = ['pandora', 'root', 'let'];
             switch (vars.type) {
                 case 'block':
-                    vars.fixed = vars.parent;
-                    for (let index = 0; index < vars.self.length; index++) {
-                        const element = vars.self[index].split(/\s+/)[1];
-                        while (!vars.fixed['includes'](element)) {
-                            vars.fixed.push(element);
+                    // console.log(vars.self);
+                    // vars.fixed = vars.parent;
+                    for (const element in vars.self) {
+                        let varname = element;
+                        if (keywords['includes'](element) || builtins['includes'](element)) {
+                            this.error('keywords `' + element + '` cannot be a variable name.');
                         }
-                    }
-
-                    for (let index = 0; index < vars.self.length; index++) {
-                        const element = vars.self[index].split(/\s+/)[1];
-                        if (['pandora', 'global', 'imports', 'undefined']['includes'](element)) {
-                            while (!vars.fixed['includes'](element)) {
-                                vars.fixed.push(element);
-                            }
-                            let newname = element + '_1';
-                            if (!vars.fix_map[newname]) {
-                                vars.fixed.push(newname);
-                                vars.fix_map[newname] = element;
-                            }
-                        } else {
-                            if (vars.fix_map[element]) {
-                                let newname = element + '_fixed';
-                                vars.fixed.push(newname);
-                                vars.fix_map[newname] = element;
-                            } else {
-                                // console.log(vars.fixed);
-                                if (vars.fixed['includes'](element)) {
-                                    vars.fixed.push(element);
-                                }
+                        if (globals['includes'](element)) {
+                            varname = element + '_' + vars.index;
+                            while (vars.self[varname]) {
+                                varname = varname + '_' + vars.index;
                             }
                         }
+                        if (varname !== element) {
+                            // console.log(varname);
+                            vars.fix_map[element] = varname;
+                        }
+                        vars.fixed.push(varname);
                     }
                     break;
-
+                case 'closure':
+                    for (const element in vars.self) {
+                        if (vars.self[element]==='let'){
+                            let varname = element;
+                            // console.log(vars.index, varname);
+                            if (keywords['includes'](element) || builtins['includes'](element)) {
+                                this.error('keywords `' + element + '` cannot be a variable name.');
+                            }
+                            if (globals['includes'](element)) {
+                                varname = element + '_' + vars.index;
+                                while (vars.self[varname]) {
+                                    varname = varname + '_' + vars.index;
+                                }
+                            }
+                            while (vars.parent.fixed['includes'](varname)) {
+                                varname = varname + '_' + vars.index;
+                            }
+                            while (vars.parent.childs[varname] && vars.parent.childs[varname]!==vars) {
+                                varname = varname + '_' + vars.index;
+                            }
+                            if (varname !== element) {
+                                // console.log(varname);
+                                vars.fix_map[element] = varname;
+                            }
+                            vars.fixed.push(varname);
+                        }else{
+                            if (vars.parent.fix_map[element]){
+                                vars.fix_map[element] = vars.parent.fix_map[element];
+                                vars.fixed.push(vars.parent.fix_map[element]);
+                            }else{
+                                vars.fixed.push(element);
+                            }
+                            // console.log(vars.parent);
+                        }
+                    }
                 default:
                     break;
             }
-            console.log(vars);
+            // console.log(vars);
+            this.closurecount++;
         }
         patchVariables(code: string, vars: any): string {
             // console.log(code, vars);
             if (code) {
                 // console.log(code);
-                return code.replace(/(^|[^\$\w\.]\s*)([\$a-z_][\$\w]*)(\*[\$\w]|$)/i, (match, before, varname, after) => {
-                    // console.log(match, before, varname, after);
-                    return before + this.patchVariable(varname, vars) + after;
+                return code.replace(/(^|[^\$\w\.])((let|var)\s+)?([\$a-zA-Z_][\$\w]*)(\s+|\s*[^\$\w]|\s*$)/i, (match, before, typewithgap, type, varname, after) => {
+                    // console.log(match, "\r\n", before, '[', varname, '](', type, ')', after);
+                    return before + (typewithgap||'') + this.patchVariable(varname, vars) + after || '';
                 });
             }
             // console.log(code);
@@ -3138,6 +3176,21 @@
         }
         patchVariable(varname: string, vars: any): string {
             // console.log(varname, vars);
+            if (vars.fix_map[varname]){
+                // console.log(varname, vars.fix_map[varname]);
+                return vars.fix_map[varname];
+            }
+            else if (vars.childs[varname]){
+                let _varname = varname;
+                // console.log(vars);
+                while (vars.childs[varname]) {
+                    varname = varname + '_' + vars.index;
+                }
+                while (vars.fixed['includes'](varname)) {
+                    varname = varname + '_' + vars.index;
+                }
+                vars.fix_map[_varname] = varname;
+            }
             return varname;
         }
         pushFooter(codes: string[]): string[] {
