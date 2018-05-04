@@ -20,7 +20,7 @@
     </table>
     <script>
         tangram.block(['$_/data/Storage'], function(pandora, root, imports, undefined) {
-            var db = new _.data.Storage('mydatabase');
+            var db = new pandora.data.Storage('mydatabase');
             if (db.length == 0) {
                 db.set('tangram.js', {
                         name: 'tangram.js',
@@ -37,7 +37,7 @@
             // db.clear();
             //console.log(db.get('tangram.js'), db.get('YangRAM'));
 
-            console.log(_.data.Storage('mydatabase'), new _.data.Storage('mydatabase'));
+            console.log(pandora.data.Storage('mydatabase'), new pandora.data.Storage('mydatabase'));
         }, true);
     </script>
 </body>

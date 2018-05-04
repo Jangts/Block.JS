@@ -17,7 +17,7 @@
          * 2. 使用arr.Tree类对文本进行编码和解码；
          */
 
-        tangram.block(['$_/arr/Tree.tang'], function(pandora, root, imports, undefined) {
+        tangram.block(['$_/arr/Tree'], function(pandora, root, imports, undefined) {
 
             var
                 list = [{
@@ -101,8 +101,8 @@
                     parent: 13,
                     text: 'U 四级文本 rt N'
                 }],
-                tree = new _.arr.Tree(list, 'id', 'parent', 'level'),
-                view = _.render({
+                tree = new pandora.arr.Tree(list, 'id', 'parent', 'level'),
+                view = pandora.render({
                     margin: "10px auto 0",
                     textAlign: "left",
                     fontSize: "14px"
@@ -110,7 +110,7 @@
                 result = tree.getAllWithChildren(0, 1).result,
                 html = '',
                 fn = function(result, level) {
-                    _.each(result, function(i, div) {
+                    pandora.each(result, function(i, div) {
                         html += '<div>|-&nbsp;';
                         for (var i = 1; i < level; i++) {
                             html += '&nbsp;&nbsp;';

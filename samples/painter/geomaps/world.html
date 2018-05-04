@@ -19,7 +19,7 @@
         tangram.block(includes, function(pandora, root, imports, undefined) {
             var document = root.document;
             var location = root.location;
-            var $ = _.dom.select;
+            var $ = pandora.dom.select;
 
             var width = 1200,
                 height = 600;
@@ -28,10 +28,10 @@
                 rb: [180, -90]
             };
 
-            var url = _.core.url() + '../data/geomaps/world.json';
+            var url = pandora.core.url() + '../data/geomaps/world.json';
 
-            _.async.json(url, function(data) {
-                var map = _.painter.geo(document.body, width, height, data["features"], range, function(index, path, type, properties) {
+            pandora.async.json(url, function(data) {
+                var map = pandora.painter.geo(document.body, width, height, data["features"], range, function(index, path, type, properties) {
                     path.attr('fill', 'rgba(128,124,139,0.61)')
                         .attr('stroke', 'rgba(255,255,255,1)')
                         .attr('stroke-width', 1)

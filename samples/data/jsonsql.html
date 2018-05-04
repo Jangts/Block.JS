@@ -12,10 +12,10 @@
 <body>
     <p><b>运行示例：</b></p>
     <hr/>
-    <p>语句1： _.data.queryJSON("select * from json.channel.items order by title desc",json);</p>
+    <p>语句1： pandora.data.queryJSON("select * from json.channel.items order by title desc",json);</p>
     <button name="btn1" id="btn1" onclick="getAll();">获取全部数据</button>
     <hr/>
-    <p>语句2： _.data.queryJSON("select title,url from json.channel.items where (category=='javascript' || category=='vista') order by title,category asc limit 3",json);
+    <p>语句2： pandora.data.queryJSON("select title,url from json.channel.items where (category=='javascript' || category=='vista') order by title,category asc limit 3",json);
     </p>
     <button name="btn2" id="btn2" onclick="getFiltered();">获取过滤数据</button>
     <hr/>
@@ -32,20 +32,20 @@
             '$_/async/'
         ], function(pandora, root, imports, undefined) {
             function getAll() {
-                _.async.json("jsonsql.test.json", function(json) {
-                    console.log(json, _.data.queryJSON("select * from json.channel", json));
+                pandora.async.json("jsonsql.test.json", function(json) {
+                    console.log(json, pandora.data.queryJSON("select * from json.channel", json));
                 });
             }
 
             function getFiltered() {
-                _.async.json("jsonsql.test.json", function(json) {
-                    console.log(json, _.data.queryJSON("select title,url,author,category from json.channel.items where (category=='javascript' || author=='trent') order by title,category asc limit 3", json));
+                pandora.async.json("jsonsql.test.json", function(json) {
+                    console.log(json, pandora.data.queryJSON("select title,url,author,category from json.channel.items where (category=='javascript' || author=='trent') order by title,category asc limit 3", json));
                 });
             }
 
             function getLimit() {
-                _.async.json("jsonsql.test.json", function(json) {
-                    console.log(_.data.queryJSON("select url from json.channel.items where (category=='javascript' && author=='trent') order by url asc limit 1,2", json));
+                pandora.async.json("jsonsql.test.json", function(json) {
+                    console.log(pandora.data.queryJSON("select url from json.channel.items where (category=='javascript' && author=='trent') order by url asc limit 1,2", json));
                 });
             }
             root.getAll = getAll;

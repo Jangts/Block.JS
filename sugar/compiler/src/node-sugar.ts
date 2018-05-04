@@ -17,13 +17,12 @@ const vlq = require('./vlq.js');
 const commands = ['compile', 'test', 'cdir', 'build', 'help', 'version'];
 
 // console.log(process.argv);
-const mapBuilder = (omappings: any[], filename: string, basename: string, osources:any[], version: number | string = 3)=>{
+const mapBuilder = (omappings: any[], filename: string, osources:any[], version: number | string = 3)=>{
     let lines = [];
     let sources:string[] = [];
     let last = [0, 0, 0, 0, 0];
-    let dirname = path.dirname(filename);
     for (let s = 0; s < osources.length; s++) {
-        sources.push('.' + osources[s].src.replace(dirname, ''));
+        sources.push(path.relative(filename, osources[s].src).replace(/\\/g, '/'));
     }
     for (let index = 0; index < omappings.length; index++) {
         let points = [];
@@ -42,7 +41,7 @@ const mapBuilder = (omappings: any[], filename: string, basename: string, osourc
     
     let mappings = {
         "version": version,
-        "file": basename,
+        "file": path.basename(filename),
         "sourceRoot": "",
         "sources": sources,
         "names": [],
@@ -96,9 +95,8 @@ let handlers = {
         sugar.onReadFile = onReadFile;
         sugar.compile();
         if (options.generateSourceMap){
-            let basename = './' + path.basename(o);
-            var output: string = sugar.output + "\r\n//# sourceMappingURL=" + basename + '.map';
-            let mappings = mapBuilder(sugar.mappings, o, basename, sugar.sources);
+            var output: string = sugar.output + "\r\n//# sourceMappingURL=./" + path.basename(o) + '.map';
+            let mappings = mapBuilder(sugar.mappings, o,  sugar.sources);
             fs.writeFileSync(o + '.map', mappings);
         }else{
             var output: string = sugar.output;
@@ -111,11 +109,11 @@ let handlers = {
         handlers.compile('./test/main.tang', './test/script.js');
     },
     cdir() {
-        console.log(options.outputDir);
+        // console.log(options.outputDir);
         let indir = path.resolve(options.inputDir);
         let outdir = options.outputDir ? path.resolve(options.outputDir) : indir;
         let pattern;
-        console.log(indir, outdir);
+        // console.log(indir, outdir);
         if (options.containSubDir) {
             pattern = indir + '/**/*.tang';
         } else {

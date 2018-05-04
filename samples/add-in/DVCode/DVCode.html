@@ -40,12 +40,12 @@
             '$+/DVCode/',
             '$_/dom/Elements'
         ], function(pandora, root, imports, undefined) {
-            var $ = _.dom.select;
+            var $ = pandora.dom.select;
 
             $('div.button').on(['click', 'touchstart'], function() {
                 dvcode.show();
             });
-            dvcode = new _.DVCode({
+            dvcode = new pandora.DVCode({
                 url: 'make/drag-verification.png',
                 // url: 'http://www.eyutou.ni:8888/api/logger/drag-verification.jsp',
                 success: function() {

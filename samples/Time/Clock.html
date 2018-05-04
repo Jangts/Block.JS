@@ -30,16 +30,16 @@
 
     <script>
         tangram.block(['$_/Time/', '$_/Time/Clock'], (_) => {
-            var $ = _.dom.select,
-                time = new _.Time(),
+            var $ = pandora.dom.select,
+                time = new pandora.Time(),
                 times = time.now(),
-                view = _.render({
+                view = pandora.render({
                     margin: "50px auto",
                     textAlign: "center",
                     fontSize: "36px",
                     color: "#333"
                 }, time.format('yyyy/MM/dd hh:mm:ss', times)),
-                clock = new _.Time.Clock('myclock');
+                clock = new pandora.Time.Clock('myclock');
             clock.setSecond(times.second);
             clock.setMinute(times.minute);
             clock.setHour(times.hour);
@@ -53,7 +53,7 @@
             }, 1000, 0, true);
 
             time.process(function() {
-                _.render({
+                pandora.render({
                     margin: "10px auto",
                     textAlign: "center",
                     fontSize: "18px",
@@ -62,7 +62,7 @@
             }, 10);
 
             time.process(function() {
-                _.render({
+                pandora.render({
                     margin: "10px auto",
                     textAlign: "center",
                     fontSize: "18px",
@@ -70,7 +70,7 @@
                 }, '1分钟过去了');
             }, 1, 'i');
             time.process(function() {
-                _.render({
+                pandora.render({
                     margin: "10px auto",
                     textAlign: "center",
                     fontSize: "18px",

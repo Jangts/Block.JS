@@ -48,12 +48,12 @@
             var view = document.getElementById('view');
             var template1 = document.getElementById('template1').innerHTML;
             var template2 = document.getElementById('template2').innerHTML;
-            var temp2 = new _.dom.Template(template2, {
+            var temp2 = new pandora.dom.Template(template2, {
                 repeat: 'Aa',
                 showHello: 1,
                 showName: 1
             }, {
-                temp1: new _.dom.Template(template1, {
+                temp1: new pandora.dom.Template(template1, {
                     greeting: 'Hello',
                     name: 'tangram.js'
                 })

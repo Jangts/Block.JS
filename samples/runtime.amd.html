@@ -20,14 +20,14 @@
                     document = root.document,
                     console = root.console;
 
-                var div = _.render({
+                var div = pandora.render({
                         margin: "100px auto 0",
                         textAlign: "center",
                         fontSize: "72px"
                     }),
-                    uid = new _.Identifier(), // 生成标识符
+                    uid = new pandora.Identifier(), // 生成标识符
                     strings = 'Hello World!'.split(''), // 字符数组化
-                    iterator = new _.Iterator(strings), // 生成迭代器
+                    iterator = new pandora.Iterator(strings), // 生成迭代器
                     render = function(letter) {
                         if (letter) {
                             setTimeout(function() {
@@ -36,7 +36,7 @@
                             }, 150);
                         } else {
                             setTimeout(function() {
-                                _.render({
+                                pandora.render({
                                     margin: "10px auto",
                                     textAlign: "center",
                                     fontSize: "13px",

@@ -41,9 +41,9 @@
             var _ = pandora,
                 document = root.document,
                 console = root.console,
-                $ = _.dom.select;
+                $ = pandora.dom.select;
 
-            var editor = _.form.careatEditors('.myeditor', {
+            var editor = pandora.form.careatEditors('.myeditor', {
                 toolarea: $('.mytoolbar').get(0)
             })[0];
             console.log(editor);

@@ -56,7 +56,7 @@ ORDER BY t.other_col DESC</code></pre>
          * 3. 使用see.highlight.rendertAll渲染sql代码；
          */
         tangram.block(['$_/see/highlight/languages/sql'], function(pandora, root, imports, undefined) {
-            _.load('../../../src/see/highlight/themes/coy.css', _.see.highlight.renderAll, null, 'css');
+            pandora.load('../../../src/see/highlight/themes/coy.css', pandora.see.highlight.renderAll, null, 'css');
         }, true);
     </script>
 </body>

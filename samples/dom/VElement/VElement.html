@@ -16,9 +16,9 @@
         ], function(pandora, root, imports, undefined) {
             var document = root.document;
 
-            var velement = _.dom.VElement.create,
-                diff = _.dom.VElement.diff,
-                patch = _.dom.VElement.patch;
+            var velement = pandora.dom.VElement.create,
+                diff = pandora.dom.VElement.diff,
+                patch = pandora.dom.VElement.patch;
 
             var vdom = velement('div', {
                 'id': 'container'

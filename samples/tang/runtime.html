@@ -13,20 +13,318 @@
 
     <script type="text/tangram.js-sugar">
         "await"
-        nativeType(object) {
-            if (!object) {
-                return 'Null';
-            }
-            var match = Object.prototype.toString.call(object).match(/\[object (\w+)\]/);
-            if (match) {
-                return match[1];
-            }
-            return 'Object';
-        }
+        "await"
+/*!
+ * tangram.js framework source code
+ *
+ * class .data.Model
+ *
+ * Date 2017-04-06
+ */
 
-        namespace type.Obj {
-            public native = nativeType;
+
+use $ util/bool;
+use $ obj/;
+use $ str/hash;
+
+var _ = pandora,
+doc = root.document,
+console = root.console,
+location = root.location;
+
+var alias = {},
+    models = {},
+    modeldata = {},
+    normalFormatter = (attributes) {
+        return {
+            base: attributes.type,
+            type: attributes.type,
+            length: attributes.length || 0,
+            default: attributes.default || '',
+            range: attributes.range || null
+        };
+    },
+    notNullFormatter = (attributes) {
+        return {
+            base: attributes.type.split(' ')[0],
+            type: attributes.type,
+            length: attributes.length || 0,
+            default: attributes.default || null,
+            range: attributes.range || null
+        };
+    },
+    timeFormatter = (attributes) {
+        return {
+            base: 'time',
+            type: attributes.type,
+            default: attributes.default || null
+        };
+    },
+    formatter = {
+        'any'() {
+            return {
+                base: 'any',
+                type: 'any',
+                default: attributes.default || ''
+            }
+        },
+        'scala'() {
+            return {
+                base: 'any',
+                type: 'scala',
+                length: attributes.length || 0,
+                default: attributes.default || '',
+                range: attributes.range || null
+            }
+        },
+        'string'(attributes) {
+            return {
+                base: 'string',
+                type: 'string',
+                length: attributes.length || 0,
+                default: attributes.default || '',
+                range: attributes.range || null
+            };
+        },
+        'bool'(attributes) {
+            return {
+                base: 'bool',
+                default: !!attributes.default
+            };
+        },
+        'string not null': notNullFormatter,
+        'int': normalFormatter,
+        'int not null': notNullFormatter,
+        'number': normalFormatter,
+        'number not null': notNullFormatter,
+        'fulldate': timeFormatter,
+        'dayofyear': timeFormatter,
+        'month': timeFormatter,
+        'timeofday': timeFormatter,
+        'hourminute': timeFormatter,
+        'datetime': timeFormatter
+    },
+    modelsConstrutor = (input) {
+        var keys = _.obj.keysArray(input).sort(),
+            props = {};
+        each (input as prop, attributes) {
+            if (attributes.type && formatter[attributes.type]) {
+                input[prop] = formatter[attributes.type](attributes);
+            } else {
+                input[prop] = formatter['scala'](attributes);
+            }
         }
+        each (keys as i, prop) {
+            props[prop] = input[prop];
+        }
+        return props;
+    },
+    uidMaker = (props) {
+        var josn = JSON.stringify(props);
+        return _.str.hash.md5(josn);
+    },
+    check = (property, value) {
+        switch (property.base) {
+            case 'string':
+                return checkString(property, value);
+
+            case 'time':
+                return checkTime(property, value);
+
+            case 'int':
+            case 'number':
+                return checkNumber(property, value);
+
+            case 'bool':
+                return checkBoolean(value);
+
+            case 'any':
+                return checkAny(property, value);
+        }
+        return false;
+    },
+    checkString = (property, value) {
+        if (value || property.type === 'string') {
+            return _.util.bool.isStr(value) && checkLength(property.length, value) && checkRange(property.range, value);
+        }
+        return false;
+    },
+    checkTime = (property, value) {
+        if (_.util.bool.isStr(value)) {
+            switch (property.type) {
+                case 'fulldate':
+                    return /^\s*\d{4}\-\d{1,2}\-\d{1,2}\s*$/.test(value);
+                case 'month':
+                    return /^\s*\d{4}\-\d{1,2}\s*$/.test(value);
+                case 'dayofyear':
+                    return /^\s*\d{1,2}\-\d{1,2}\s*$/.test(value);
+                case 'timeofday':
+                    return /^\s*\d{1,2}\:\d{1,2}\:\d{1,2}\s*$/.test(value);
+                case 'hourminute':
+                    return /^\s*\d{1,2}\:\d{1,2}\s*$/.test(value);
+                default:
+                    return /^\s*\d{4}\-\d{1,2}\-\d{1,2}\s\d{1,2}\:\d{1,2}\:\d{1,2}\s*$/.test(value);
+            }
+        }
+        return false;
+    },
+    checkNumber = (property, value) {
+        switch (property.type) {
+            case 'int not null':
+                if (!value && value != 0) {
+                    return false;
+                }
+            case 'int':
+                return _.util.bool.isInt(value) && checkLength(property.length, value.toString()) && checkRange(property.range, value);
+
+            case 'number not null':
+                if (!value && value != 0) {
+                    return false;
+                }
+            default:
+                return _.util.bool.isNumeric(value) && checkLength(property.length, value.toString()) && checkRange(property.range, value);
+        }
+    },
+    checkBoolean = (value) {
+        return _.util.bool.isBool(value);
+    },
+    checkAny = (property, value) {
+        if (property.type === 'any') {
+            return true;
+        }
+        switch (typeof value) {
+            case 'string':
+                return checkLength(property.length, value) && checkRange(property.range, value);
+
+            case 'number':
+                return checkLength(property.length, value.toString()) && checkRange(property.range, value);
+
+            case 'boolean':
+                if (value) {
+                    return checkLength(property.length, 'true') && checkRange(property.range, value);
+                }
+                return checkLength(property.length, 'false') && checkRange(property.range, value);
+        }
+        return false;
+    },
+    checkLength = (length, value) {
+        if (length) {
+            return value.length <= length;
+        }
+        return true;
+    },
+    checkRange = (range, value) {
+        if (range && range.length) {
+            return _.util.bool.inArr(value, range, true);
+        }
+        return true;
+    };
+
+class .data.Model {
+    _init(props, name) {
+        var props = modelsConstrutor(props);
+
+        this.uid = uidMaker(props);
+
+        if (name) {
+            alias[this.uid] = name;
+        } else {
+            alias[this.uid] = this.uid;
+        }
+        models[this.uid] = props;
+        modeldata[this.uid] = [];
+
+        // console.log(this.uid, props, models);
+    },
+    check(prop, value) {
+        if (property = models[this.uid][prop]) {
+            return check(property, value);
+        }
+        return false;
+    },
+    create(data) {
+        var newdata = {};
+        each (models[this.uid] as prop, property) {
+            // console.log(data, prop, _.obj.hasProp(data, prop));
+            if (_.obj.hasProp(data, prop) && check(property, data[prop])) {
+                newdata[prop] = data[prop];
+            } else if (property.default !== undefined) {
+                newdata[prop] = property.default;
+            } else {
+                _.error('Must input a correct [' + prop + '] for model [' + alias[this.uid] + ']');
+            }
+        }
+        modeldata[this.uid].push(newdata);
+        return modeldata[this.uid].length;
+    },
+    read($ID) {
+        if ($ID) {
+            return _.clone(modeldata[this.uid][$ID - 1]);
+        }
+        var list = {};
+        each (modeldata[this.uid] as i, data) {
+            if (data) {
+                list[i + 1] = _.clone(data);
+            }
+        }
+        return list;
+    },
+    update($ID, prop, value) {
+        if (_.util.bool.isObj(prop)) {
+            var props = models[this.uid],
+                data = modeldata[this.uid][$ID - 1];
+            each (prop as p, v) {
+                if (_.obj.hasProp(data, p) && check(props[p], v)) {
+                    data[p] = v;
+                }
+            }
+        } else if (_.util.bool.isStr(prop)) {
+            var obj = {};
+            obj[prop] = value;
+            this.update($ID, obj);
+        }
+        return this.read($ID);
+    },
+    delete($ID) {
+        modeldata[this.uid][$ID - 1] = undefined;
+        return true;
+    },
+    render(context) {
+        var that = this;
+        _.ab([
+            '$_/see/see.css',
+            '$_/dom/'
+        ], function() {
+            var list = that.read(),
+                table = '<table class="table">';
+            table += '<tr class="head-row"><th></th>';
+            each (models[that.uid] as prop, ) {
+                table += '<th>' + prop.toUpperCase() + '</th>';
+            }
+            table += '</tr>';
+            each (list as $ID, data) {
+                table += '<tr><td>' + $ID + '</td>';
+                each (data as prop, value) {
+                    if (_.util.bool.isScala(value)) {
+                        table += '<td>' + value + '</td>';
+                    } else {
+                        table += '<td>-</td>';
+                    }
+                }
+                table += '</tr>';
+            }
+            table += '</table>';
+            if (context) {
+                _.dom.addClass(context, 'tangram-see');
+                _.dom.append(context, table);
+            } else {
+                _.dom.append(doc.body, table);
+            }
+        });
+    }
+}
+
+this.module.exports = _.data.Model;
     </script>
     <script src="../../sugar/compiler/lib/web-sugar.js"></script>
     <script>

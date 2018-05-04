@@ -183,13 +183,19 @@ function(root, factory) {
          * 遍历与拷贝
          */
         /** 一般遍历：用以遍历对象，并执行相应操作 */
-        each = function(obj, handler, that) {
+        each = function(obj, handler, that, hasOwnProperty) {
             /** 首先检查是否为空对象或空值。 */
             if (typeof(obj) == 'object' && obj) {
                 /** 截取传入的不定参数 */
                 var addArgs = slice(arguments, 3);
                 /** 判断是否为数组对象 */
-                if ((obj instanceof Array) || (Object.prototype.toString.call(obj) === '[object Array]') || ((typeof(obj.length) === 'number') && ((typeof(obj.item) === 'function') || (typeof(obj.splice) != 'undefined')))) {
+                if (hasOwnProperty) {
+                    for (var i in obj) {
+                        if (obj.hasOwnProperty(i)) {
+                            handler.apply(that || obj[i], [i, obj[i]].concat(addArgs));
+                        }
+                    }
+                } else if ((obj instanceof Array) || (Object.prototype.toString.call(obj) === '[object Array]') || ((typeof(obj.length) === 'number') && ((typeof(obj.item) === 'function') || (typeof(obj.splice) != 'undefined')))) {
                     for (var i = 0; i < obj.length; i++) {
                         handler.apply(that || obj[i], [i, obj[i]].concat(addArgs));
                     }
@@ -209,7 +215,7 @@ function(root, factory) {
                 BREAK = true;
             };
 
-            function loop(obj, handler, that) {
+            function loop(obj, handler, that, hasOwnProperty) {
                 /** 首先检查是否为空对象或空值。 */
                 if (typeof(obj) == 'object' && obj) {
                     /** 截取传入的不定参数 */
@@ -217,7 +223,19 @@ function(root, factory) {
                     /** 初始化中断参数 */
                     BREAK = false;
                     /** 判断是否为数组对象 */
-                    if ((obj instanceof Array) || (Object.prototype.toString.call(obj) === '[object Array]') || ((typeof(obj.length) === 'number') && ((typeof(obj.item) === 'function') || (typeof(obj.splice) != 'undefined')))) {
+                    if (hasOwnProperty) {
+                        for (var i in obj) {
+                            if (BREAK) {
+                                BREAK = false;
+                                break;
+                            }
+                            if (obj.hasOwnProperty(i)) {
+                                handler.apply(that || obj[i], [i, obj[i]].concat(addArgs));
+                            }
+                        }
+                    }
+                    /** 判断是否为数组对象 */
+                    else if ((obj instanceof Array) || (Object.prototype.toString.call(obj) === '[object Array]') || ((typeof(obj.length) === 'number') && ((typeof(obj.item) === 'function') || (typeof(obj.splice) != 'undefined')))) {
                         for (var i = 0; i < obj.length; i++) {
                             if (BREAK) {
                                 BREAK = false;

@@ -1,9 +1,26 @@
 {
+    "await": {
+        "prefix": "await",
+        "body": [
+            "await;",
+            "$0"
+        ],
+        "description": "Using Namespace of Pandora"
+    },
     "namespace …": {
         "prefix": "namespace",
         "body": [
-            "namespace ${1:spacename};$0",
-            ""
+            "namespace ${1:spacename};",
+            "$0"
+        ],
+        "description": "Using Namespace of Pandora"
+    },
+    "configuration …": {
+        "prefix": "configuration",
+        "body": [
+            "@config  {",
+            "\t${0:# configurations...}",
+            "}"
         ],
         "description": "Using Namespace of Pandora"
     },
@@ -209,7 +226,7 @@
         "prefix": "foreach",
         "body": [
             "for (let ${1:index}=${2:0}; ${1:index} < ${3:array}.length; ${1:index}++) {",
-            "\t${3:let ${4:item} = ${2:array}[${1:index}];",
+            "\t${3:let ${4:item} = ${3:array}[${1:index}];",
             "\t${0:# code...}",
             "}"
         ],
@@ -219,7 +236,7 @@
         "prefix": "forin",
         "body": [
             "for (let ${1:key} in ${2:object}) {",
-            "\t${3:let ${4:item} = ${2:object}[${1:key}];",
+            "\t${3:let ${4:item} = ${2:object}[${1:key}]};",
             "\t${0:# code...}",
             "}"
         ],
@@ -234,10 +251,29 @@
         ],
         "description": "For-loop"
     },
+    "each … as …": {
+        "prefix": "foras",
+        "body": [
+            "each (${1:variable} as ${2:index}${3:,${4: item}}) {",
+            "\t${0:# code...}",
+            "}"
+        ],
+        "description": "Foreach loop"
+    },
     "each …": {
         "prefix": "each",
         "body": [
             "each (${1:variable} as ${2:index}${3:,${4: item}}) {",
+            "\t${0:# code...}",
+            "}"
+        ],
+        "description": "Foreach loop"
+    },
+    "eachownprop …": {
+        "prefix": "eachownprop",
+        "body": [
+            "each (${1:variable} as ${2:index}${3:,${4: item}}) {",
+            "\t@ownprop;",
             "\t${0:# code...}",
             "}"
         ],

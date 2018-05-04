@@ -39,7 +39,7 @@
          * 3. 使用see.highlight.rendertAll渲染scheme代码；
          */
         tangram.block(['$_/see/highlight/languages/scheme'], function(pandora, root, imports, undefined) {
-            _.load('../../../src/see/highlight/themes/coy.css', _.see.highlight.renderAll, null, 'css');
+            pandora.load('../../../src/see/highlight/themes/coy.css', pandora.see.highlight.renderAll, null, 'css');
         }, true);
     </script>
 </body>

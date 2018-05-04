@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Fri, 04 May 2018 06:52:16 GMT
+ * Datetime: Fri, 04 May 2018 08:19:56 GMT
  */
 ;
 // tangram.config({});
@@ -301,7 +301,7 @@ tangram.block([
 					}
 					var rows = tables[that.tablename]
 					var html = '<table class="table" ' + _width + _border + '><tbody><tr class="head-row"><th>' + mateinfs.pk + '</th>'
-					pandora.each(mateinfs.fields, function (_index, fieldname) {
+					pandora.each(mateinfs.fields, function (fieldname) {
 						if (fieldname != mateinfs.pk) {
 							html += '<th>' + fieldname + '</th>'
 						}

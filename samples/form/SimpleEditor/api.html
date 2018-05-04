@@ -58,10 +58,10 @@
             var _ = pandora,
                 document = root.document,
                 console = root.console,
-                $ = _.dom.select;
+                $ = pandora.dom.select;
 
             root.$ = $;
-            root.editor = new _.form.SimpleEditor($('.myeditor')[0], {}, $('[name="myinput"]'));
+            root.editor = new pandora.form.SimpleEditor($('.myeditor')[0], {}, $('[name="myinput"]'));
         }, true);
 
         function insertHtml() {

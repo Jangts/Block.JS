@@ -13,8 +13,8 @@
     <script>
         tangram.auto([
             '$_/data/Model'
-        ], function(_, root) {
-            var model1 = new _.data.Model({
+        ], function(pandora, root) {
+            var model1 = new pandora.data.Model({
                     name: {
                         type: 'string not null',
                         length: 32
@@ -34,7 +34,7 @@
                         range: ['', 'wuhan', 'guangzhou', 'beijing']
                     }
                 }),
-                model2 = new _.data.Model({
+                model2 = new pandora.data.Model({
                     birthday: {
                         type: 'fulldate',
                         default: '2000-01-01'

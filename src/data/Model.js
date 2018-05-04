@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Fri, 04 May 2018 06:52:15 GMT
+ * Datetime: Fri, 04 May 2018 08:19:55 GMT
  */
 ;
 // tangram.config({});
@@ -277,13 +277,13 @@ tangram.block([
 				var list = that.read()
 				var table = '<table class="table">'
 				table += '<tr class="head-row"><th></th>'
-				pandora.each(models[that.uid], function (_index, prop) {
+				pandora.each(models[that.uid], function (prop) {
 					table += '<th>' + prop.toUpperCase() + '</th>'
 				}, this);
 				table += '</tr>'
 				pandora.each(list, function ($ID, data) {
 					table += '<tr><td>' + $ID + '</td>'
-					pandora.each(data, function (prop, value) {
+					pandora.each(data, function (_index, value) {
 						if (_.util.bool.isScala(value)) {
 							table += '<td>' + value + '</td>'
 						}

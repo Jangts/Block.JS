@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Fri, 04 May 2018 06:52:18 GMT
+ * Datetime: Fri, 04 May 2018 08:19:57 GMT
  */
 ;
 // tangram.config({});
@@ -9,8 +9,7 @@ tangram.block([], function (pandora, root, imports, undefined) {
 	var _ = pandora;
 	var doc = root.document;
 	var console = root.console;
-	var hex = void 0;
-	case = 0;
+	var hexcase = 0;
 	var b64pad = "";
 	var chrsz = 8;
 	var rol = function (num, cnt) {
@@ -33,7 +32,7 @@ tangram.block([], function (pandora, root, imports, undefined) {
 		return str;
 	}
 	var binl2hex = function (binarray) {
-		var hex_tab = hex;case ? "0123456789ABCDEF": "0123456789abcdef"
+		var hex_tab = hexcase ? "0123456789ABCDEF": "0123456789abcdef"
 		var str = ""
 		for (var i = 0;i < binarray.length * 4;i++) {
 			str += hex_tab.charAt((binarray[i >> 2] >> ((i % 4) * 8 + 4)) & 0xF) + hex_tab.charAt((binarray[i >> 2] >> ((i % 4) * 8)) & 0xF)
@@ -71,7 +70,7 @@ tangram.block([], function (pandora, root, imports, undefined) {
 		return str;
 	}
 	var binb2hex = function (binarray) {
-		var hex_tab = hex;case ? "0123456789ABCDEF": "0123456789abcdef"
+		var hex_tab = hexcase ? "0123456789ABCDEF": "0123456789abcdef"
 		var str = ""
 		for (var i = 0;i < binarray.length * 4;i++) {
 			str += hex_tab.charAt((binarray[i >> 2] >> ((3 - i % 4) * 8 + 4)) & 0xF) + hex_tab.charAt((binarray[i >> 2] >> ((3 - i % 4) * 8)) & 0xF)

@@ -16,10 +16,11 @@
     <div id="test"></div>
     <script>
         tangram.block(['$_/dom/Elements', '$_/data/Sheet'], function(pandora, root, imports, undefined) {
-            var $ = _.dom.select,
-                db = new _.data.Sheet('mytable');
+            console.log(pandora.dom);
+            var $ = pandora.dom.select,
+                db = new pandora.data.Sheet('mytable');
             // db.drop();
-            // db = new _.data.Sheet('mytable');
+            // db = new pandora.data.Sheet('mytable');
 
             // db.add('city', '', {})
             //     .add('code', '', {
@@ -57,11 +58,11 @@
             // }));
 
 
-            // _.data.Sheet.exec("select * from mytable order by palce desc");
-            // _.data.Sheet.exec("select id, price,city from mytable where (code == '') order by id desc limit 1,9");
-            // _.data.Sheet.exec("delete from mytable where (code == ''||id<=100)");
-            // _.data.Sheet.exec("update mytable set {city:'BeiJing'} where (id < 30)");
-            // _.data.Sheet.exec("insert into mytable values {city:'BeiJing', code:'bj'},{city:'London',code: 'ld'} , {city:'London',code: 'ld'}");
+            // pandora.data.Sheet.exec("select * from mytable order by palce desc");
+            // pandora.data.Sheet.exec("select id, price,city from mytable where (code == '') order by id desc limit 1,9");
+            // pandora.data.Sheet.exec("delete from mytable where (code == ''||id<=100)");
+            // pandora.data.Sheet.exec("update mytable set {city:'BeiJing'} where (id < 30)");
+            // pandora.data.Sheet.exec("insert into mytable values {city:'BeiJing', code:'bj'},{city:'London',code: 'ld'} , {city:'London',code: 'ld'}");
 
             db.render(400, 1, $('#test')[0]);
         }, true);

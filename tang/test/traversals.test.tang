@@ -1,0 +1,71 @@
+// "await";
+let variable = [];
+
+each (variable as index, item) {
+    # code...
+}
+
+each (variable as index,) {
+    # code...
+}
+
+let object = [0, 1, 2, 3, 4, 5];
+
+    object['a'] = 0;
+    object['b'] = 1;
+    object['c'] = 3;
+    object['d'] = 4;
+    object['e'] = 5;
+
+each (object as item) {
+    log _index, item;
+}
+
+each (object as item) {
+    @ownprop;
+    log _index, item;
+}
+
+each (variable as index, item) {
+    if(index>5){
+        @return;
+    }
+}
+
+each (variable as index, item) {
+    @ownprop;
+    if(index>5){
+        @ownprop;
+        @return;
+    }
+}
+
+each (variable as index, item) {
+    @ownprop;
+    fn (){
+        if(index>5){
+            @ownprop;
+            @return;
+        }
+    }
+    fn();
+}
+
+for (let i=0; i < length; i++) {
+    # code...
+}
+
+let array = [0, 1, 2, 3, 4, 5];
+
+for (let index=0; index < array.length; index++) {
+    array
+}
+
+for (let key in object) {
+    let item = object[key];
+    # code...
+}
+
+for (let item of object) {
+    # code...
+}

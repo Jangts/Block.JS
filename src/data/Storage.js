@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Fri, 04 May 2018 06:52:16 GMT
+ * Datetime: Fri, 04 May 2018 08:19:56 GMT
  */
 ;
 // tangram.config({});

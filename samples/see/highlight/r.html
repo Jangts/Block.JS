@@ -67,7 +67,7 @@ dgnl &lt;- function(x, mu = 0, sigma = 1, alpha = 1, beta = 1, rho = 1,
          * 3. 使用see.highlight.rendertAll渲染r代码；
          */
         tangram.block(['$_/see/highlight/languages/r'], function(pandora, root, imports, undefined) {
-            _.load('../../../src/see/highlight/themes/coy.css', _.see.highlight.renderAll, null, 'css');
+            pandora.load('../../../src/see/highlight/themes/coy.css', pandora.see.highlight.renderAll, null, 'css');
         }, true);
     </script>
 </body>

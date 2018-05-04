@@ -251,7 +251,6 @@ class .data.Model {
             if (data) {
                 list[i + 1] = _.clone(data);
             }
-
         }
         return list;
     },
@@ -284,13 +283,13 @@ class .data.Model {
             var list = that.read(),
                 table = '<table class="table">';
             table += '<tr class="head-row"><th></th>';
-            each (models[that.uid] as prop, ) {
+            each (models[that.uid] as prop,) {
                 table += '<th>' + prop.toUpperCase() + '</th>';
             }
             table += '</tr>';
             each (list as $ID, data) {
                 table += '<tr><td>' + $ID + '</td>';
-                each (data as prop, value) {
+                each (data as value) {
                     if (_.util.bool.isScala(value)) {
                         table += '<td>' + value + '</td>';
                     } else {

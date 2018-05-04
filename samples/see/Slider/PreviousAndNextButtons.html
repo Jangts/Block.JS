@@ -99,10 +99,10 @@
     </section>
     <script>
         tangram.block(['$_/dom/Elements', '$_/see/Slider/options/slide'], function(pandora, root, imports, undefined) {
-            var $ = _.dom.select;
+            var $ = pandora.dom.select;
             $('.tangram-slider[data-use-slider-type]').each(function() {
                 var type = $(this).data('useSliderType');
-                new _.see.Slider(this, type, {
+                new pandora.see.Slider(this, type, {
                     speed: 4000,
                     duration: 1000,
                     autoplay: false

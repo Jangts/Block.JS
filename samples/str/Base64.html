@@ -33,7 +33,7 @@
                 input = document.getElementById('input'),
                 encode = document.getElementById('encode'),
                 decode = document.getElementById('decode'),
-                view = _.render({
+                view = pandora.render({
                     margin: "10px auto 0",
                     textAlign: "center",
                     fontSize: "24px"
@@ -41,12 +41,12 @@
 
             encode.onclick = function() {
                 var text = input.value;
-                view.innerHTML = _.str.base64Encode(text);
+                view.innerHTML = pandora.str.base64Encode(text);
             }
 
             decode.onclick = function() {
                 var text = input.value;
-                view.innerHTML = _.str.base64Decode(text);
+                view.innerHTML = pandora.str.base64Decode(text);
             }
         }, true);
     </script>

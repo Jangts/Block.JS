@@ -30,9 +30,9 @@
             '$+/BaiduMap/',
             '$_/dom/Elements'
         ], function(pandora, root, imports, undefined) {
-            var $ = _.dom.select,url = _.core.url();
+            var $ = pandora.dom.select,url = pandora.core.url();
 
-            new _.BaiduMap('owner-map', {
+            new pandora.BaiduMap('owner-map', {
                 title: "机构名称",
                 desc: "机构描述",
                 coords: [113.330953, 23.316237],
@@ -49,7 +49,7 @@
                 }
             });
             
-            new _.BaiduMap($('.mymap')[0], {
+            new pandora.BaiduMap($('.mymap')[0], {
                 title: "机构名称",
                 desc: "机构描述",
                 coords: [113.330953, 23.316237],

@@ -20,7 +20,7 @@
                 document = root.document,
                 console = root.console;
 
-            var ViewModel = _.dom.ViewModel;
+            var ViewModel = pandora.dom.ViewModel;
             var demo = new ViewModel({
                 elem: document.getElementById('demo'),
                 template: `
@@ -42,7 +42,7 @@
                     }
                 },
                 render: function() {
-                    var temp = new _.dom.Template(this.template, this.data);
+                    var temp = new pandora.dom.Template(this.template, this.data);
                     this.elem.innerHTML = temp.echo();
                 }
             });

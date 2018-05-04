@@ -16,7 +16,7 @@
 
     <script>
         tangram.block(['$_/Time/', '$_/Time/Picker/'], (_) => {
-            var picker = new _.Time.Picker('timepicker');
+            var picker = new pandora.Time.Picker('timepicker');
 
             picker.launch('2-26', 'dayofyear', function(value) {
                 alert(value);

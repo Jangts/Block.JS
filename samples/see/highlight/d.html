@@ -138,7 +138,7 @@ switch(name) {
          * 3. 使用see.highlight.renderAll渲染d代码；
          */
         tangram.block(['$_/see/highlight/languages/d'], function(pandora, root, imports, undefined) {
-            _.load('../../../src/see/highlight/themes/solarizedColor.css', _.see.highlight.renderAll, null, 'css');
+            pandora.load('../../../src/see/highlight/themes/solarizedColor.css', pandora.see.highlight.renderAll, null, 'css');
         }, true);
     </script>
 </body>

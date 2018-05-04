@@ -128,6 +128,16 @@
             "name": "comment.line.sharp.tang"
         },
         {
+            "begin": "@(include|ownprop|return)",
+            "beginCaptures": {
+                "0": {
+                    "name": "punctuation.definition.comment.tang"
+                }
+            },
+            "end": "$",
+            "name": "comment.line.sharp.tang"
+        },
+        {
             "begin": "///",
             "end": "(///)[gimuy]*",
             "name": "string.regexp.multiline.tang",
@@ -164,7 +174,7 @@
             }]
         },
         {
-            "match": "\\b(?<![\\.\\$])(break|by|catch|continue|else|finally|for|in|of|if|return|switch|then|throw|try|unless|when|while|until|loop|do|export|import|default|default:|from|as|yield|async|await(?<=for)\\s+own|\\@config|\\@include|use|each|namespace|ns|global|def|expands)(?!\\s*:)\\b",
+            "match": "\\b(?<![\\.\\$])(break|by|catch|continue|else|finally|for|in|of|if|return|switch|then|throw|try|unless|when|while|until|loop|do|export|import|default|default:|from|as|yield|async|await(?<=for)\\s+own|use|each|namespace|ns|global|def|expands)(?!\\s*:)\\b",
             "name": "keyword.control.tang"
         },
         {

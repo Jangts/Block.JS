@@ -51,9 +51,9 @@
             var _ = pandora,
                 document = root.document,
                 console = root.console,
-                $ = _.dom.select;
+                $ = pandora.dom.select;
 
-            var visualObject = new _.form.VisualJOSN.Object($('.myinputs')[0], $('[name="myinput"]')[0]);
+            var visualObject = new pandora.form.VisualJOSN.Object($('.myinputs')[0], $('[name="myinput"]')[0]);
 
 
             root.resetInputValue = function() {

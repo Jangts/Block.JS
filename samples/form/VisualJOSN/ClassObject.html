@@ -52,15 +52,15 @@
             var _ = pandora,
                 document = root.document,
                 console = root.console,
-                $ = _.dom.select;
+                $ = pandora.dom.select;
 
-            var visualObject1 = new _.form.VisualJOSN.ClassObject($('.myinputs')[0], [
+            var visualObject1 = new pandora.form.VisualJOSN.ClassObject($('.myinputs')[0], [
                 ["name", "text", "Zhang San"],
                 ["age", "number", 3, 18],
                 ["city", "", 'guangzhou', ['', 'wuhan', 'guangzhou', 'beijing'], ['保密', 'Wuhan', 'Guangzhou', 'Beijing']]
             ]).input({});
 
-            var visualObject2 = new _.form.VisualJOSN.ClassObject($('.myinputs')[1], [
+            var visualObject2 = new pandora.form.VisualJOSN.ClassObject($('.myinputs')[1], [
                 ["name"],
                 ["age", "number", 3, 27],
                 ["city", "", ['', 'wuhan', 'guangzhou', 'beijing'], ['保密', 'Wuhan', 'Guangzhou', 'Beijing']]

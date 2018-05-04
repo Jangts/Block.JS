@@ -28,10 +28,10 @@
          */
         // form.Clipboard会自己加载util.bool和dom操作
         tangram.block(['$_/form/Clipboard'], function(pandora, root, imports, undefined) {
-            var input = _.dom.query.byId('input'),
-                copy = _.dom.query.byId('copy'),
-                clipboard = new _.form.Clipboard();
-            _.dom.events.add(copy, 'click', null, null, function() {
+            var input = pandora.dom.query.byId('input'),
+                copy = pandora.dom.query.byId('copy'),
+                clipboard = new pandora.form.Clipboard();
+            pandora.dom.events.add(copy, 'click', null, null, function() {
                 var text = input.value;
                 clipboard.setText(text).copy();
                 alert('文本已复制到剪切板');
@@ -39,7 +39,7 @@
             /*
             var document = root.document;
             input = document.getElementById('input'), copy = document.getElementById('copy'), clipboard = new
-            _.form.Clipboard();
+            pandora.form.Clipboard();
             copy.onclick = function() {
                 var text = input.value;
                 clipboard.setText(text).copy();  

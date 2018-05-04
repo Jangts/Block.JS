@@ -82,7 +82,7 @@
         before: /(\+\+|\-\-|\!|\~)\s*([\$\w])/g,
         after: /([\$\w\.])\s*(\+\+|\-\-)/g,
         error: /(.*)(\+\+|\-\-|\+|\-)(.*)/g
-    }, replaceWords = /(@\d+L\d+P\d+O?\d*:::)?(continue|finally|return|throw|break|case|else|try|do)\s*(\s|;|___boundary_[A-Z0-9_]{36}_(\d+)_as_([a-z]+)___)/g, replaceExpRegPattern = {
+    }, replaceWords = /(^|@\d+L\d+P\d+O?\d*:::|\s)(continue|finally|return|throw|break|case|else|try|do)\s*(\s|;|___boundary_[A-Z0-9_]{36}_(\d+)_as_([a-z]+)___)/g, replaceExpRegPattern = {
         await: /^((\s*@\d+L\d+P0:::)*\s*(@\d+L\d+P0*):::(\s*))?"await"\s*/,
         // using: /^\s*use\s+/g,
         namespace: /[\r\n]((@\d+L\d+P0):::)?(\s*)namespace\s+(\.{0,1}[\$a-zA-Z_][\$\w\.]*)\s*(;|\r|\n)/g,
@@ -119,7 +119,7 @@
         arrowfn: /(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)\s*(->|=>)\s*([\s\S]+)\s*$/,
         objectattr: /^\s*(@\d+L\d+P\d+O?\d*:::)?((([\$a-zA-Z_][\$\w]*)))\s*(\:*)([\s\S]*)$/,
         classelement: /^\s*(@\d+L\d+P\d+O?\d*:::)?((public|static|set|get|om)\s+)?([\$\w]*)\s*(\=*)([\s\S]*)$/,
-        travelargs: /^((@\d+L\d+P\d+O*\d*:::)?[\$a-zA-Z_][\$\w\.]*)\s+as\s(@\d+L\d+P\d+O*\d*:::)([\$a-zA-Z_][\$\w]*)(\s*,((@\d+L\d+P\d+O*\d*:::)([\$a-zA-Z_][\$\w]*)?))?/
+        travelargs: /^((@\d+L\d+P\d+O*\d*:::)?[\$a-zA-Z_][\$\w\.]*)\s+as\s(@\d+L\d+P\d+O*\d*:::)([\$a-zA-Z_][\$\w]*)(\s*,((@\d+L\d+P\d+O*\d*:::)([\$a-zA-Z_][\$\w]*)?)?)?/
     }, boundaryMaker = function () {
         var radix = 36;
         var uid = new Array(36);
@@ -1946,6 +1946,7 @@
                         this.resetVarsRoot(localvars_1);
                         return {
                             type: 'exp',
+                            posi: this.getPosition(this.replacements[index][1]),
                             display: 'block',
                             vars: localvars_1,
                             expression: fname,
@@ -1992,7 +1993,8 @@
                                     private: {},
                                     protected: {},
                                     fixed: [],
-                                    fix_map: {}
+                                    fix_map: {},
+                                    break: false
                                 },
                                 locals: vars.locals,
                                 type: 'travel'
@@ -2002,9 +2004,16 @@
                             var iterator = this.pushSentencesToAST([], localvars_2, condition[1], false, this.getPosition(condition[2]))[0] || (function () {
                                 _this.error(' Must have statements in head of each expreesion.');
                             })();
+                            var subtype_1 = 'allprop';
+                            var code = matches[5].replace(/@ownprop[;\s]*/g, function () {
+                                subtype_1 = 'ownprop';
+                                return '';
+                            });
                             return {
                                 type: 'travel',
+                                posi: this.getPosition(this.replacements[index][1]),
                                 display: 'block',
+                                subtype: subtype_1,
                                 iterator: iterator,
                                 vars: localvars_2,
                                 callback: {
@@ -2013,7 +2022,7 @@
                                     vars: localvars_2,
                                     fname: '',
                                     args: agrs,
-                                    body: this.pushBodyToAST([], localvars_2, matches[5])
+                                    body: this.pushBodyToAST([], localvars_2, code)
                                 }
                             };
                         }
@@ -2516,6 +2525,12 @@
                     if (element.value) {
                         // console.log(element.posi&&element.posi.head, element.display, element.value);
                         var code = this.patchVariables(element.value, vars);
+                        if (vars.root.break !== undefined) {
+                            code = code.replace(/@return;*/g, function () {
+                                vars.root.break = true;
+                                return 'pandora.loop.out();' + indent + 'return;';
+                            });
+                        }
                         // console.log(code);
                         if (element.display === 'block') {
                             codes.push(indent + this.pushPostionsToMap(element.posi) + code);
@@ -3172,13 +3187,21 @@
             }
         };
         Sugar.prototype.pushTravelCodes = function (codes, element, layer, namespace) {
-            var indent = "\r\n" + stringRepeat("\t", layer);
+            var index = codes.length, indent = "\r\n" + stringRepeat("\t", layer);
             // console.log(element);
             codes.push(indent + 'pandora.each(');
             this.pushElement(codes, element.vars, element.iterator, layer, namespace);
             codes.push(', ');
             this.pushFunctionCodes(codes, element.callback, layer, namespace);
-            codes.push(', this);');
+            if (element.vars.root.break === true) {
+                codes[index] = indent + 'pandora.loop(';
+            }
+            if (element.subtype === 'ownprop') {
+                codes.push(', this, true);');
+            }
+            else {
+                codes.push(', this);');
+            }
             codes.push(indent);
             return codes;
         };
@@ -3447,32 +3470,38 @@
             // this.replacements = [['{}'], ['/='], ['/'], [' +'], [' -'], ['return ']];
             // console.log(string);
             string = this.replaceStrings(string, true);
+            {
+                // console.log(string);
+                // string = this.replaceOperators(string, false);
+                // console.log(string);
+                // return '';
+                // 删除多余头部
+                // string = string.replace(/^[,;\s]+[\r\n]+/g, "\r\n");
+                // string = string.replace(/^[,;\s]+/g, "\r\n\t");
+                // 去除多余符号
+                // string = string.replace(/\s*;(\s*;)+/g, ";");
+                // string = string.replace(/\s*;([^\s])/g, "; $1");
+                // string = string.replace(/(\{|\[|\(|\.|\:)\s*[,;]+/g, "$1");
+                // string = string.replace(/\s*[,;]+(\s*)(\.|\:|\)|\])/g, "$1$2");
+                // string = string.replace(/\s+(\=|\?|\:)[,;\s]*/g, " $1 ");
+                // string = string.replace(/([\r\n]*\s*[\$\w])\s+(\:)/g, "$1$2");
+                // // 关键字处理
+                // string = string.replace(/if\s*\(([^\)]+)\)\s*[,;]+/g, "if ($1)");
+                // string = string.replace(/([^\$\w])else\s*[,;]+/g, "$1else");
+                // string = string.replace(/([^\s])\s*(instanceof)\s+/g, " $1 ");
+                // string = string.replace(/(,|;)?[\r\n]+(\s*)(var|delete|return)\s+/g, "$1\r\n$2$3 ");
+                // 删除多余空白
+                // string = string.replace(/\{\s+\}/g, '{}');
+                // string = string.replace(/\[\s+\]/g, '[]');
+                // string = string.replace(/\(\s+\)/g, '()');
+            }
             // console.log(string);
-            // string = this.replaceOperators(string, false);
-            // console.log(string);
-            // return '';
-            // 删除多余头部
-            // string = string.replace(/^[,;\s]+[\r\n]+/g, "\r\n");
-            // string = string.replace(/^[,;\s]+/g, "\r\n\t");
-            //去除多余符号
-            // string = string.replace(/\s*;(\s*;)+/g, ";");
-            // string = string.replace(/\s*;([^\s])/g, "; $1");
-            // string = string.replace(/(\{|\[|\(|\.|\:)\s*[,;]+/g, "$1");
-            // string = string.replace(/\s*[,;]+(\s*)(\.|\:|\)|\])/g, "$1$2");
-            // string = string.replace(/\s+(\=|\?|\:)[,;\s]*/g, " $1 ");
-            // string = string.replace(/([\r\n]*\s*[\$\w])\s+(\:)/g, "$1$2");
-            // // 关键字处理
-            // string = string.replace(/if\s*\(([^\)]+)\)\s*[,;]+/g, "if ($1)");
-            // string = string.replace(/([^\$\w])else\s*[,;]+/g, "$1else");
-            // string = string.replace(/([^\s])\s*(instanceof)\s+/g, " $1 ");
-            // string = string.replace(/(,|;)?[\r\n]+(\s*)(var|delete|return)\s+/g, "$1\r\n$2$3 ");
-            // 删除多余空白
-            // string = string.replace(/\{\s+\}/g, '{}');
-            // string = string.replace(/\[\s+\]/g, '[]');
-            // string = string.replace(/\(\s+\)/g, '()');
-            // console.log(string);
+            // 去除多余标注
+            string = string.replace(/\s*(@boundary_\d+_as_comments::)?@(ownprop|return)[; \t]*/g, function () {
+                return '';
+            });
             // 去除多余符号
-            string = string.replace(/\s*;(\s*;)*/g, ";");
+            string = string.replace(/\s*;(\s*;)*\x0B/g, ";");
             string = string.replace(/(.)(\{|\[|\(|\.|\:)\s*[,;]+/g, function (match, before, mark) {
                 if ((before === mark) && (before === ':')) {
                     return match;
@@ -3481,9 +3510,12 @@
             });
             // 格式化相应符号
             string = string.replace(/\s+(\=|\?|\:)[,;\s]*/g, " $1 ");
-            // 删除多余换行
-            string = string.replace(/\s*[\r\n]+([\r\n])?/g, "\r\n$1");
-            // console.log(string);
+            // 删除多余空白与换行
+            // string = string.replace(/[ ]+/g, " ");
+            string = string.replace(/\s+[\r\n]([ \t])/g, "\r\n$1");
+            string = string.replace(/\{\s+\}/g, '{}');
+            string = string.replace(/\[\s+\]/g, '[]');
+            string = string.replace(/\(\s+\)/g, '()');
             // 运算符处理
             string = string.replace(/(\s*)(@boundary_(\d+)_as_(operator|aftoperator)::)\s*/g, function (match, pregap, operator, index) {
                 // console.log(this.replacements[index]);

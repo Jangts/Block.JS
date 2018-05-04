@@ -24,22 +24,22 @@
         ], function(pandora, root, imports, undefined) {
             var document = root.document;
 
-            var qrcode1 = new _.painter.QRCode("qrcode1", {
+            var qrcode1 = new pandora.painter.QRCode("qrcode1", {
                 text: "http://www.baidu.com",
                 width: 128,
                 height: 128,
                 colorDark: "#000000",
                 colorLight: "#ffffff",
-                correctLevel: _.painter.QRCode.CorrectLevel.H
+                correctLevel: pandora.painter.QRCode.CorrectLevel.H
             });
 
-            var qrcode2 = new _.painter.QRCode("qrcode2", {
+            var qrcode2 = new pandora.painter.QRCode("qrcode2", {
                 text: "http://www.baidu.com",
                 width: 128,
                 height: 128,
                 colorDark: "#000000",
                 colorLight: "#ffffff",
-                correctLevel: _.painter.QRCode.CorrectLevel.H
+                correctLevel: pandora.painter.QRCode.CorrectLevel.H
             });
 
             qrcode2.clear(); // 清除代码

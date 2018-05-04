@@ -85,7 +85,7 @@
             var document = root.document;
             var location = root.location;
 
-            var $ = _.dom.$,
+            var $ = pandora.dom.$,
                 customTooltips = function(tooltip) {
                     // Tooltip Element
                     var tooltipEl = $('#chartjs-tooltip');
@@ -193,10 +193,10 @@
                 }]
             };
 
-            var chart1 = new _.painter.Charts(document.getElementById("chart-area1"));
+            var chart1 = new pandora.painter.Charts(document.getElementById("chart-area1"));
             chart1.setOption(option);
 
-            var chart2 = new _.painter.Charts(document.getElementById("chart-area2"));
+            var chart2 = new pandora.painter.Charts(document.getElementById("chart-area2"));
             chart2.setOption(option);
         }, true);
     </script>

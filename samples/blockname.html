@@ -46,7 +46,7 @@
                 type: 'dog',
                 age: 5,
                 _init: function(opts) {
-                    _.extend(this, true, opts);
+                    pandora.extend(this, true, opts);
                 },
                 say: function() {
                     return 'I\'m a ' + this.type + ', I\'m ' + this.age + ' years old.';
@@ -57,9 +57,9 @@
 
         tangram.block(['$_/animals', '$_/Animal'], function(pandora, root, imports, undefined) {
             var it;
-            _.each(_.animals, function(i, animal) {
-                it = _.Animal(this);
-                _.render({
+            pandora.each(pandora.animals, function(i, animal) {
+                it = pandora.Animal(this);
+                pandora.render({
                     margin: "auto",
                     fontSize: "18px"
                 }, it.say());

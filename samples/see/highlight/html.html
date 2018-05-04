@@ -53,7 +53,7 @@
          * 3. 使用see.highlight.renderAll渲染html代码；
          */
         tangram.block(['$_/see/highlight/languages/html'], function(pandora, root, imports, undefined) {
-            _.load('../../../src/see/highlight/themes/twilight.css', _.see.highlight.renderAll, null, 'css');
+            pandora.load('../../../src/see/highlight/themes/twilight.css', pandora.see.highlight.renderAll, null, 'css');
         }, true);
     </script>
 </body>

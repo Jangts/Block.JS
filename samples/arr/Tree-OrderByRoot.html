@@ -101,8 +101,8 @@
                     parent: 13,
                     text: 'U 四级文本 rt N'
                 }],
-                tree = new _.arr.Tree(list, 'id', 'parent', 'level'),
-                view = _.render({
+                tree = new pandora.arr.Tree(list, 'id', 'parent', 'level'),
+                view = pandora.render({
                     margin: "10px auto 0",
                     textAlign: "left",
                     fontSize: "14px"
@@ -110,7 +110,7 @@
                 result = tree.getAllOrderByRoot(0, 1).result,
                 html = '';
                 console.log(result);
-            _.each(result, function(i, div) {
+            pandora.each(result, function(i, div) {
                 html += '<div>|-&nbsp;';
                 for (var i = 1; i < div.level; i++) {
                     html += '&nbsp;&nbsp;';

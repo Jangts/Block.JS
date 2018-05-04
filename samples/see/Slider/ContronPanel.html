@@ -223,10 +223,10 @@
     </div>
     <script>
         tangram.block(['$_/dom/Elements', '$_/see/Slider/options/fade', '$_/see/Slider/options/seamless'], function(pandora, root, imports, undefined) {
-            var $ = _.dom.select;
+            var $ = pandora.dom.select;
 
             $('.tangram-slider').each(function() {
-                new _.see.Slider(this, 'seamless', {
+                new pandora.see.Slider(this, 'seamless', {
                     speed: 6000,
                     duration: 1200,
                 });

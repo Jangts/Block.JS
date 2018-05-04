@@ -27,7 +27,7 @@
                 document = root.document,
                 console = root.console;
 
-            var iterator = new _.Iterator(_.query('.changeText')),
+            var iterator = new pandora.Iterator(pandora.query('.changeText')),
                 render = function(elem) {
                     if (elem) {
                         setTimeout(function() {
@@ -36,7 +36,7 @@
                         }, 150);
                     } else {
                         setTimeout(function() {
-                            _.render({
+                            pandora.render({
                                 margin: "10px auto",
                                 fontSize: "13px",
                                 color: "#666"
@@ -48,7 +48,7 @@
                 render(iterator.next());
             }, 200);
 
-            console.log(typeof _.query('.changeText'));
+            console.log(typeof pandora.query('.changeText'));
         }, true);
     </script>
 </body>

@@ -22,20 +22,20 @@
                     })(), true, false, global, document,
                     document.body, document.getElementsByTagName('script')
                 ],
-                type = _.util.type(objs) + ' ' + _.util.type(objs, true);
-            _.render({
+                type = pandora.util.type(objs) + ' ' + pandora.util.type(objs, true);
+            pandora.render({
                 margin: "auto",
                 fontSize: "18px"
             }, '-1 : ' + type);
-            _.each(objs, function(index, obj) {
-                type = _.util.type(obj) + ' ' + _.util.type(obj, true);
-                _.render({
+            pandora.each(objs, function(index, obj) {
+                type = pandora.util.type(obj) + ' ' + pandora.util.type(obj, true);
+                pandora.render({
                     margin: "auto",
                     fontSize: "18px"
                 }, index + ': ' + type);
             });
-            type = _.util.type();
-            _.render({
+            type = pandora.util.type();
+            pandora.render({
                 margin: "auto",
                 fontSize: "18px"
             }, objs.length + ': ' + type);

@@ -33,7 +33,7 @@
                 input = document.getElementById('input'),
                 md5 = document.getElementById('md5'),
                 sha1 = document.getElementById('sha1'),
-                view = _.render({
+                view = pandora.render({
                     margin: "10px auto 0",
                     textAlign: "center",
                     fontSize: "24px"
@@ -41,12 +41,12 @@
 
             md5.onclick = function() {
                 var text = input.value;
-                view.innerHTML = _.str.hash.md5(text);
+                view.innerHTML = pandora.str.hash.md5(text);
             }
 
             sha1.onclick = function() {
                 var text = input.value;
-                view.innerHTML = _.str.hash.sha1(text);
+                view.innerHTML = pandora.str.hash.sha1(text);
             }
         }, true);
     </script>

@@ -214,7 +214,7 @@ void sound_delete(sound* s) {
          * 3. 使用see.highlight.renderAll渲染c代码；
          */
         tangram.block(['$_/see/highlight/languages/c'], function(pandora, root, imports, undefined) {
-            _.load('../../../src/see/highlight/themes/dark.css', _.see.highlight.renderAll, null, 'css');
+            pandora.load('../../../src/see/highlight/themes/dark.css', pandora.see.highlight.renderAll, null, 'css');
         }, true);
     </script>
 </body>

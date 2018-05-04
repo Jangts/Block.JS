@@ -22,7 +22,7 @@
             div.style.textAlign = "center";
             div.style.fontSize = "60px";
             div.innerHTML = 'Aa';
-            _.dom.setStyle(div, {
+            pandora.dom.setStyle(div, {
                 width: '100px',
                 height: '100px',
                 lineHeight: '100px',
@@ -32,7 +32,7 @@
                 color: '#FFF'
             });
             document.body.appendChild(div);
-            var animate = new _.dom.Animation(div, {
+            var animate = new pandora.dom.Animation(div, {
                 to: {
                     width: '300px',
                     height: '60px',
@@ -43,7 +43,7 @@
                     color: '#FF0'
                 },
                 duration: 2000,
-                tween: _.math.easing.Bounce.easeOut,
+                tween: pandora.math.easing.Bounce.easeOut,
                 callback: function() {
                     setTimeout(function() {
                         div.innerHTML = 'Complete';

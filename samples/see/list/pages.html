@@ -145,7 +145,7 @@
 
     <script type="text/javascript">
         tangram.block('$_/dom/Elements', function(pandora, root, imports, undefined) {
-            var $ = _.dom.select;
+            var $ = pandora.dom.select;
             $('.list-item').click(function() {
                 if (parseInt($(this).html())) {
                     $('.list-item', this.parentNode).removeClass('actived');

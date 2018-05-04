@@ -16,7 +16,7 @@
         ], function(pandora, root, imports, undefined) {
             var _ = pandora,
                 document = root.document,
-                obj = new _.dom.HTMLCloser(input);
+                obj = new pandora.dom.HTMLCloser(input);
             var input = 'aaa</p></div><h3 class="a">0000<p>1111<b>2222</b></b>3333</h3><img src="123.jpg" /><br><p>abcd<span>e';
             console.log(input);
             console.log(obj.compile(input));
