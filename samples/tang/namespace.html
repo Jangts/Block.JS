@@ -16,7 +16,9 @@
     console = root.console;
 
     class Bar {_init(){}}
-    class .Bar {_init(){}}
+    # class .Bar {_init(){}}
+    class ..Bar {_init(){}}
+    class ...Bar {_init(){}}
 
     expands .Bar {foo='bar'}
 
@@ -35,12 +37,12 @@
                 console.log(this);
             }, 0);
 
-            global blabla {
+            namespace ..blabla {
                 public Bar1 = class {_init(){}}
                 class .Bar2 {_init(){}}
             }
 
-            global blabla with {
+            namespace ..blabla with {
                 Bar3 : class {_init(){}}
             }
         }

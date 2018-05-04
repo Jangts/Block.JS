@@ -114,13 +114,12 @@
         replaceWords = /(^|@\d+L\d+P\d+O?\d*:::|\s)(continue|finally|return|throw|break|case|else|try|do)\s*(\s|;|___boundary_[A-Z0-9_]{36}_(\d+)_as_([a-z]+)___)/g,
         replaceExpRegPattern = {
             await: /^((\s*@\d+L\d+P0:::)*\s*(@\d+L\d+P0*):::(\s*))?"await"[;\s]*/,
-            namespace: /[\r\n]((@\d+L\d+P0):::)?(\s*)namespace\s+(\.{0,1}[\$a-zA-Z_][\$\w\.]*)\s*(;|\r|\n)/g,
+            namespace: /[\r\n]((@\d+L\d+P0):::)?(\s*)namespace\s+(\.{0,1}[\$a-zA-Z_][\$\w\.]*)\s*(;|\r|\n)/,
             // 位置是在replace usings 和 strings 之后才tidy的，所以还存在后接空格
             use: /(@\d+L\d+P\d+:::)\s*use(\s*\$)?\s+([\$\w\.\/\\\?\=\&]+)(\s+as(\s+(@\d+L\d+P\d+:::\s*[\$a-zA-Z_][\$\w]*)|\s*(@\d+L\d+P\d+:::\s*)?\{(@\d+L\d+P\d+:::\s*[\$a-zA-Z_][\$\w]*(\s*,@\d+L\d+P\d+:::\s*[\$a-zA-Z_][\$\w]*)*)\})(@\d+L\d+P\d+:::\s*)?)?\s*[;\r\n]/g,
             include: /\s*@include\s+___boundary_[A-Z0-9_]{36}_(\d+)_as_string___[;\r\n]+/g,
-
-            extends: /(@\d+L\d+P\d+O*\d*:::)?((ns|namespace|global|extends)\s+(\.{0,1}[\$a-zA-Z_][\$\w\.]*)\s*(with\s*)?\{([^\{\}]*?)\})/g,
-            class: /(@\d+L\d+P\d+O*\d*:::)?((class|expands)\s+(\.{0,1}[\$a-zA-Z_][\$\w\.]*\s+)?(extends\s+[\.{0,1}[\$a-zA-Z_][\$\w\.]*\s*)?\{[^\{\}]*?\})/g,
+            extends: /(@\d+L\d+P\d+O*\d*:::)?(ns|namespace|extends)\s+((\.{0,3})[\$a-zA-Z_][\$\w\.]*)(\s+with)?\s*\{([^\{\}]*?)\}/g,
+            class: /(@\d+L\d+P\d+O*\d*:::)?((class|expands)\s+(\.{0,3}[\$a-zA-Z_][\$\w\.]*)?(\s+extends\s+\.{0,3}[\$a-zA-Z_][\$\w\.]*)?\s*\{[^\{\}]*?\})/g,
             fnlike: /(@\d+L\d+P\d+O*\d*:::)?(^|(function|def|public)\s+)?(([\$a-zA-Z_][\$\w]*)?\s*\([^\(\)]*\))\s*\{([^\{\}]*?)\}/g,
             parentheses: /(@\d+L\d+P\d+O*\d*:::)?\(\s*([^\(\)]*?)\s*\)/g,
             arraylike: /(@\d+L\d+P\d+O*\d*:::)?\[(\s*[^\[\]]*?)\s*\]/g,
@@ -142,13 +141,11 @@
             },
             index: /(\d+)_as_([a-z]+)/,
             index3: /^_(\d+)_as_([a-z]+)___([\s\S]*)$/,
-
-            extends: /(ns|nsassign|global|globalassign|extends)\s+(\.)?(\.{0,1}[\$a-zA-Z_][\$\w\.]*)\s*\{([^\{\}]*?)\}/,
-            class: /(class|dec|expands)\s+(\.)?([\$a-zA-Z_][\$\w\.]*\s+)?(extends\s+(\.)?([\$a-zA-Z_][\$\w\.]*)\s*)?\{([^\{\}]*?)\}/i,
-            fnlike: /(^|(function|def|public)\s+)?([\$a-zA-Z_][\$\w]*)?\s*\(([^\(\)]*)\)\s*\{([^\{\}]*?)\}/i,
-            call: /([\$a-zA-Z_][\$\w\.]*)\s*___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___/i,
+            extends: /(ns|nsassign|global|globalassign|extends)\s+([\$a-zA-Z_][\$\w\.]*)\s*\{([^\{\}]*?)\}/,
+            class: /(class|dec|expands)\s+(\.{1,3})?([\$a-zA-Z_][\$\w\.]*)?(\s+extends\s+(\.{1,3})?([\$a-zA-Z_][\$\w\.]*))?\s*\{([^\{\}]*?)\}/,
+            fnlike: /(^|(function|def|public)\s+)?([\$a-zA-Z_][\$\w]*)?\s*\(([^\(\)]*)\)\s*\{([^\{\}]*?)\}/,
+            call: /([\$a-zA-Z_][\$\w\.]*)\s*___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___/,
             arrowfn: /(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)\s*(->|=>)\s*([\s\S]+)\s*$/,
-
             objectattr: /^\s*(@\d+L\d+P\d+O?\d*:::)?((([\$a-zA-Z_][\$\w]*)))\s*(\:*)([\s\S]*)$/,
             classelement: /^\s*(@\d+L\d+P\d+O?\d*:::)?((public|static|set|get|om)\s+)?([\$\w]*)\s*(\=*)([\s\S]*)$/,
             travelargs: /^((@\d+L\d+P\d+O*\d*:::)?[\$a-zA-Z_][\$\w\.]*)\s+as\s(@\d+L\d+P\d+O*\d*:::)([\$a-zA-Z_][\$\w]*)(\s*,((@\d+L\d+P\d+O*\d*:::)([\$a-zA-Z_][\$\w]*)?)?)?/
@@ -352,6 +349,7 @@
                         if (gap) {
                             this.namespace_posi += 'O' + gap.length;
                         }
+                        this.namespace.replace(/^\.+/, '').replace(/\.+/, '.');
                         // console.log('namespace:' + namespace, this.namespace_posi);
                     }
                     return '';
@@ -593,18 +591,40 @@
             });
             if (matched) return string;
 
-            string = string.replace(replaceExpRegPattern.extends, (match: string, posi, body, exp, name, assign, closure) => {
+            string = string.replace(replaceExpRegPattern.extends, (match: string, posi, exp, name, node, assign, closure) => {
                 matched = true;
+                name = name.replace(/^\.+/, '');
+                let body;
                 if (assign) {
                     if (exp === 'extends') {
-                        this.error('Unexpected `extends`: extends ' + name + ' return');
-                    } else if (exp === 'global') {
-                        body = 'globalassign ' + name + '{' + this.replaceParentheses(closure) + '}';
-                    } else {
-                        body = 'nsassign ' + name + '{' + this.replaceParentheses(closure) + '}';
+                        this.error('Unexpected `extends`: extends ' + name + ' with');
+                    }
+                    else {
+                        if (node && node.length === 2) {
+                            body = 'globalassign ' + name + '{' + this.replaceParentheses(closure) + '}';
+                        } else {
+                            body = 'nsassign ' + name + '{' + this.replaceParentheses(closure) + '}';
+                        }
                     }
                 } else {
-                    body = exp.replace('namespace', 'ns') + ' ' + name + '{' + this.replaceParentheses(closure) + '}';
+                    if (exp === 'extends') {
+                        if (node) {
+                            if (node.length === 2) {
+                                body = 'globalassign ' + name + '{' + this.replaceParentheses(closure) + '}';
+                            } else {
+                                body = 'nsassign ' + name + '{' + this.replaceParentheses(closure) + '}';
+                            }
+                        } else {
+                            body = 'extends ' + name + '{' + this.replaceParentheses(closure) + '}';
+                        }
+                    }
+                    else {
+                        if (node && node.length === 2) {
+                            body = 'global ' + name + '{' + this.replaceParentheses(closure) + '}';
+                        } else {
+                            body = 'ns ' + name + '{' + this.replaceParentheses(closure) + '}';
+                        }
+                    }
                 }
                 let index = this.replacements.length;
                 this.replacements.push([body, posi && posi.trim()]);
@@ -1780,41 +1800,57 @@
             // console.log(this.replacements[index]);
             let matches: any = this.replacements[index][0].match(matchExpRegPattern.class);
             // console.log(matches);
-            var type = matches[1];
+            let type = matches[1];
+            let namespace = vars.root.namespace || this.namespace;
+            let cname = matches[3];
+            let subtype = 'stdClass';
             if (matches[2]) {
-                var subtype = 'stdClass';
+                if (matches[2].length !== 2) {
+                    cname = namespace + cname;
+                }
             } else {
                 if (type === 'dec') {
-                    var subtype = 'stdClass';
-                } else {
-                    var subtype = 'anonClass';
-                }
-            }
-            let cname = matches[3] && matches[3].trim();
-            if (type === 'class') {
-                if (subtype === 'anonClass') {
                     if (cname) {
-                        if (vars.self[cname] === void 0) {
-                            vars.self[cname] = 'var';
-                        } else if (vars.self[cname] === 'let') {
-                            this.error(' Variable `' + cname + '` has already been declared.');
-                        }
-                        // vars.self.push('var ' + cname);
+                        cname = namespace + cname;
+                    } else if (namespace) {
+                        cname = namespace.replace(/\.$/, '');
+                    } else {
+                        subtype = 'anonClass';
                     }
                 }
-                // 标准类必须是块元素，否则无地方拓展静态属性和方法
+                else {
+                    subtype = 'anonClass';
+                }
             }
-
+            if ((type === 'class') && (subtype === 'anonClass')) {
+                if (cname) {
+                    if (vars.self[cname] === void 0) {
+                        vars.self[cname] = 'var';
+                    }
+                    else if (vars.self[cname] === 'let') {
+                        this.error(' Variable `' + cname + '` has already been declared.');
+                    }
+                    // vars.self.push('var ' + cname);
+                }
+            }
+            let basename = matches[6];
+            if (matches[5]) {
+                if (matches[5].length === 2) {
+                    basename = 'pandora.' + basename;
+                } else {
+                    basename = 'pandora.' + namespace + basename;
+                }
+            }
             return {
                 type: type,
                 posi: this.getPosition(this.replacements[index][1]),
                 display: display,
                 subtype: subtype,
                 cname: cname,
-                base: (matches[5] && matches[6]) ? '.'+matches[6]  : matches[6],
+                base: basename,
                 vars: vars,
                 body: this.checkClassBody(vars, matches[7] || '')
-            }
+            };
         }
         walkClosure(index: number, display: any, vars: any) {
             // console.log(this.replacements[index]);
@@ -1845,8 +1881,9 @@
             let position = this.getPosition(this.replacements[index][1]);
             let subtype: string = 'ext';
             let objname: string = matches[3];
-            let localvars:any;
+            let localvars: any = vars;
             let namespace: string;
+            let body;
             // console.log(matches);
             if ((matches[1] === 'ns') || (matches[1] === 'global')) {
                 subtype = matches[1];
@@ -1869,15 +1906,12 @@
                     type: 'root'
                 };
                 localvars.self = localvars.root.protected;
-                var body = this.pushBodyToAST([], localvars, matches[4]);
+                body = this.pushBodyToAST([], localvars, matches[3]);
             } else {
-                if ((matches[1] === 'nsassign') || matches[2]) {
-                    subtype = 'nsassign';
-                } else if ((matches[1] === 'globalassign')) {
-                    subtype = 'globalassign';
+                if ((matches[1] === 'nsassign') || (matches[1] === 'globalassign')) {
+                    subtype = matches[1];
                 }
-                localvars = vars;
-                var body = this.checkObjMember(localvars, matches[4]);
+                body = this.checkObjMember(localvars, matches[4]);
             }
 
             return {
@@ -2711,8 +2745,8 @@
             let cname: string = '';
             let toES6: boolean = false;
             if (element.subtype === 'stdClass') {
-                cname = 'pandora.' + namespace + element.cname.trim();
-                codes.push(indent1 + this.pushPostionsToMap(element.posi) + 'pandora.declareClass(\'' + namespace + element.cname.trim() + '\', ');
+                cname = 'pandora.' + element.cname.trim();
+                codes.push(indent1 + this.pushPostionsToMap(element.posi) + 'pandora.declareClass(\'' + element.cname.trim() + '\', ');
             } else {
                 if (element.cname && element.cname.trim()) {
                     cname = element.cname.trim();
@@ -2738,9 +2772,9 @@
             }
             if (element.base) {
                 if (toES6) {
-                    codes.push('extends ' + element.base.trim().replace(/$\./, 'pandora.' + namespace) + ' ');
+                    codes.push('extends ' + element.base);
                 } else {
-                    codes.push(element.base.trim().replace(/$\./, 'pandora.' + namespace) + ', ');
+                    codes.push(element.base);
                 }
             }
             codes.push('{');
@@ -3041,7 +3075,7 @@
             let static_elements: string[] = [];
             let cname: string = '';
             if (element.subtype === 'stdClass') {
-                cname = 'pandora.' + namespace + element.cname.trim();
+                cname = 'pandora.' + element.cname.trim();
             } else {
                 if (element.cname && element.cname.trim()) {
                     cname = element.cname.trim();
