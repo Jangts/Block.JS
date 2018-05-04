@@ -103,7 +103,7 @@
 
             // return: /[\s;\r\n]+$/g,
             extends: /(@\d+L\d+P\d+O*\d*:::)?((ns|namespace|global|extends)\s+(\.{0,1}[\$a-zA-Z_][\$\w\.]*)\s*(with\s*)?\{([^\{\}]*?)\})/g,
-            class: /(@\d+L\d+P\d+O*\d*:::)?((class|expands)\s+([\$a-zA-Z_][\$\w]*\s+)?(extends\s+[\.{0,1}[\$a-zA-Z_][\$\w\.]*\s*)?\{[^\{\}]*?\})/g,
+            class: /(@\d+L\d+P\d+O*\d*:::)?((class|expands)\s+(\.{0,1}[\$a-zA-Z_][\$\w\.]*\s+)?(extends\s+[\.{0,1}[\$a-zA-Z_][\$\w\.]*\s*)?\{[^\{\}]*?\})/g,
             fnlike: /(@\d+L\d+P\d+O*\d*:::)?(^|(function|def|public)\s+)?(([\$a-zA-Z_][\$\w]*)?\s*\([^\(\)]*\))\s*\{([^\{\}]*?)\}/g,
             parentheses: /(@\d+L\d+P\d+O*\d*:::)?\(\s*([^\(\)]*?)\s*\)/g,
             arraylike: /(@\d+L\d+P\d+O*\d*:::)?\[(\s*[^\[\]]*?)\s*\]/g,
@@ -111,7 +111,7 @@
             callschain: /\s*\.___boundary_[A-Z0-9_]{36}_(\d+)_as_callmethod___((@\d+L\d+P\d+O*\d*:::)?\.___boundary_[A-Z0-9_]{36}_\d+_as_callmethod___)*/g,
             arrowfn: /(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)\s*(->|=>)\s*([^,;\r\n]+)\s*(,|;|\r|\n|$)/g,
             closure: /((@\d+L\d+P\d+O*\d*:::)?@*[\$a-zA-Z_][\$\w]*|\)|\=|\(\s)?(@\d+L\d+P\d+O*\d*:::)?\s*\{(\s*[^\{\}]*?)\s*\}/g,
-            expression: /(@\d+L\d+P\d+O*\d*:::)?(if|for|while|switch|with|catch|each)\s*(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)\s*(___boundary_[A-Z0-9_]{36}_(\d+)_as_closure___)/g,
+            expression: /(@\d+L\d+P\d+O*\d*:::)?(if|for|while|switch|with|catch|each)\s*(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)\s*;*\s*(___boundary_[A-Z0-9_]{36}_(\d+)_as_(closure|objlike)___)/g,
             log: /(@\d+L\d+P\d+O*\d*:::)?log\s+(.+?)\s*([;\r\n]+|$)/g
         },
         matchExpRegPattern = {
@@ -127,7 +127,7 @@
             index3: /^_(\d+)_as_([a-z]+)___([\s\S]*)$/,
 
             extends: /(ns|nsassign|global|globalassign|extends)\s+(\.)?(\.{0,1}[\$a-zA-Z_][\$\w\.]*)\s*\{([^\{\}]*?)\}/,
-            class: /(class|dec|expands)\s+(\.)?(\.{0,1}[\$a-zA-Z_][\$\w\.]*\s+)?(extends\s+([\$a-zA-Z_][\$\w]*)\s*)?\{([^\{\}]*?)\}/i,
+            class: /(class|dec|expands)\s+(\.)?([\$a-zA-Z_][\$\w\.]*\s+)?(extends\s+(\.)?([\$a-zA-Z_][\$\w\.]*)\s*)?\{([^\{\}]*?)\}/i,
             fnlike: /(^|(function|def|public)\s+)?([\$a-zA-Z_][\$\w]*)?\s*\(([^\(\)]*)\)\s*\{([^\{\}]*?)\}/i,
             call: /([\$a-zA-Z_][\$\w\.]*)\s*___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___/i,
             arrowfn: /(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)\s*(->|=>)\s*([\s\S]+)\s*$/,
@@ -990,7 +990,7 @@
             }
             return void 0;
         }
-        getLines(string: string, vars: any): object[] {
+        getLines(string: string, vars: any, inOrder: boolean = false): object[] {
             // console.log(string);
             string = string
                 .replace(/:::(var|let|public)\s+(@\d+L\d+P(\d+O)?0:::)/g, ':::$1 ')
@@ -1016,26 +1016,7 @@
                             if (definitions) {
                                 if (!definitions[2] || this.replacements[definitions[2]][0] === 'else ') {
                                     this.pushSentenceToLines(lines, definitions[1], 'inline');
-                                    var clauses = definitions[5].split(/,\s*(@\d+L\d+P\d+O?\d*:::)/);
-                                    clauses.unshift(undefined);
-                                    // console.log(definitions[5], clauses);
-                                    for (let c = 0; c < clauses.length; c += 2) {
-                                        if (c) {
-                                            _symbol = '';
-                                        } else {
-                                            if (this.toES6 && definitions[4] !== 'public') {
-                                                var _symbol = definitions[4];
-                                            } else {
-                                                var _symbol = 'var';
-                                            }
-                                        }
-                                        if (c === clauses.length - 2) {
-                                            var endmark = ';';
-                                        } else {
-                                            var endmark = ',';
-                                        }
-                                        this.pushVariablesToLine(lines, vars, clauses[c + 1], definitions[4], clauses[c], 'inline', _symbol, endmark);
-                                    }
+                                    this.pushVariablesToLines(lines, vars, undefined, definitions[5], definitions[4], true);
                                     continue;
                                 }
                             }
@@ -1046,12 +1027,7 @@
                             this.pushSentenceToLines(lines, sentence, 'block');
                         }
                     } else if (array.length === 3) {
-                        var clauses = array[2].split(/,\s*(@\d+L\d+P\d+O?\d*:::)/);
-                        clauses.unshift(array[0]);
-                        // console.log(array, clauses);
-                        for (let c = 0; c < clauses.length; c += 2) {
-                            this.pushVariablesToLines(lines, vars, clauses[c], clauses[c + 1], array[1]);
-                        }
+                        this.pushVariablesToLines(lines, vars, array[0], array[2], array[1], inOrder);
                         // console.log(spilitarray, sentences);
                     } else {
                         // console.log(spilitarray[3], spilitarray);
@@ -1125,72 +1101,134 @@
                 }
             }
         }
-        pushVariablesToLines(lines: any, vars: any, posi: string, code: string, symbol: string) {
+        pushVariablesToLines(lines: any, vars: any, posi: string, code: string, symbol: string, inOrder: boolean = false) {
+            var display;
+            var clauses = code.split(/,\s*(@\d+L\d+P\d+O?\d*:::)/);
+            clauses.unshift(posi);
+            // console.log(array, clauses);
+            for (let c = 0; c < clauses.length; c += 2) {
+                if (inOrder) {
+                    if (c) {
+                        if (c === clauses.length - 2) {
+                            display = 'last';
+                        } else {
+                            display = 'inline';
+                        }
+                    } else {
+                        if (c === clauses.length - 2) {
+                            display = 'block';
+                        } else {
+                            display = 'first';
+                        }
+                    }
+                } else {
+                    display = 'block';
+                }
+                // console.log(display);
+                this.pushVariableToLines(lines, vars, clauses[c], clauses[c + 1], symbol, display);
+            }
+        }
+        pushVariableToLines(lines: any, vars: any, posi: string, code: string, symbol: string, display: string = 'block') {
             if (code) {
                 if (this.toES6 && symbol !== 'public') {
                     var _symbol = symbol;
                 } else {
                     var _symbol = 'var';
                 }
-                this.pushVariablesToLine(lines, vars, code, symbol, posi, 'block', _symbol, ';');
+                switch(display){
+                    case 'first':
+                        return this.pushVariableToLine(lines, vars, code, symbol, posi, 'inline', _symbol, ',');
+
+                    case 'last':
+                        return this.pushVariableToLine(lines, vars, code, symbol, posi, 'inline', '', ';');
+
+                    case 'block':
+                        return this.pushVariableToLine(lines, vars, code, symbol, posi, 'block', _symbol, ';');
+
+                    default:
+                        return this.pushVariableToLine(lines, vars, code, symbol, posi, 'inline', '', ',');
+                }
             }
         }
-        pushVariablesToLine(lines: any, vars: any, code: string, symbol: string, posi: string = '', display: string = 'inline', _symbol: string = '', endmark: string = ',') {
+        pushVariableToLine(lines: any, vars: any, code: string, symbol: string, posi: string = '', display: string = 'inline', _symbol: string = '', endmark: string = ',') {
             if (code) {
                 let position = this.getPosition(posi);
-                let array = code.split(/\s*=\s*/);
-                // console.log(array);
-                if (array.length === 1) {
-                    var value = 'void 0';
-                } else {
-                    var value = array.pop();
-                }
-                for (let index = 0; index < array.length; index++) {
-                    const element = array[index].trim();
-                    if (element.match(/^[\$a-zA-Z_][\$\w]*$/)) {
-                        // console.log(element);                    
-                        if (position && display === 'block') position.head = true;
-                        if (index) {
-                            lines.push({
-                                type: 'line',
-                                subtype: 'assignment',
-                                posi: position,
-                                display: display,
-                                value: element + ' = ' + value + endmark
-                            });
-                        } else {
-                            if (vars.self[element] === void 0) {
-                                vars.self[element] = symbol;
-                                if (symbol === 'public' && (vars.root.namespace !== null)) {
-                                    vars.root.public[element] = element;
-                                }
-                            } else if ((vars.self[element] === 'var') && (symbol === 'public') && (vars.root.namespace !== null)) {
-                                vars.self[element] = symbol;
-                                vars.root.public[element] = element;
-                            } else if (vars.self[element] === 'let' || symbol === 'let') {
-                                this.error(' Variable `' + element + '` has already been declared at char ' + position.col + ' on line ' + position.line + '.');
-                            }
-                            lines.push({
-                                type: 'line',
-                                subtype: 'variable',
-                                display: 'inline',
-                                posi: position,
-                                value: _symbol + ' ' + element + ' = '
-                            });
-                            lines.push({
-                                type: 'line',
-                                subtype: 'sentence',
-                                display: 'inline',
-                                posi: void 0,
-                                value: value + endmark
-                            });
-                        }
-                        value = element;
+                let match = code.match(/^([\$\a-zA-Z_][\$\w]*)@boundary_(\d+)_as_operator::/);
+                // console.log(code);
+                if (match && ['in', 'of']['includes'](this.replacements[match[2]][0].trim())){
+                    let element = match[1];
+                    lines.push({
+                        type: 'line',
+                        subtype: 'sentence',
+                        display: 'inline',
+                        posi: void 0,
+                        value: symbol + ' ' + code
+                    });
+                    if (vars.self[element] === void 0) {
+                        vars.self[element] = symbol;
+                    } else if (vars.self[element] === 'let' || symbol === 'let') {
+                        this.error(' Variable `' + element + '` has already been declared at char ' + position.col + ' on line ' + position.line + '.');
+                    }
+                }else{
+                    let array = code.split(/\s*=\s*/);
+                    // console.log(array);
+                    if (array.length === 1) {
+                        var value = 'void 0';
                     } else {
-                        // console.log(element);
-                        this.error('Unexpected Definition `' + symbol + '` at char ' + position.col + ' on line ' + position.line + ' in file [' + position.file + '][' + this.sources[position.file].src + '].');
+                        var value = array.pop();
+                    }
+                    for (let index = 0; index < array.length; index++) {
+                        const element = array[index].trim();
+                        if (element.match(/^[\$a-zA-Z_][\$\w]*$/)) {
+                            // console.log(element);                    
+                            if (position && display === 'block') position.head = true;
+                            if (index) {
+                                lines.push({
+                                    type: 'line',
+                                    subtype: 'assignment',
+                                    posi: position,
+                                    display: display,
+                                    value: element + ' = ' + value + endmark
+                                });
+                            } else {
+                                if (vars.self[element] === void 0) {
+                                    vars.self[element] = symbol;
+                                    if (symbol === 'public' && (vars.root.namespace !== null)) {
+                                        vars.root.public[element] = element;
+                                    }
+                                } else if ((vars.self[element] === 'var') && (symbol === 'public') && (vars.root.namespace !== null)) {
+                                    vars.self[element] = symbol;
+                                    vars.root.public[element] = element;
+                                } else if (vars.self[element] === 'let' || symbol === 'let') {
+                                    this.error(' Variable `' + element + '` has already been declared at char ' + position.col + ' on line ' + position.line + '.');
+                                }
+                                lines.push({
+                                    type: 'line',
+                                    subtype: 'variable',
+                                    display: 'inline',
+                                    posi: position,
+                                    value: _symbol + ' ' + element + ' = '
+                                });
+                                lines.push({
+                                    type: 'line',
+                                    subtype: 'sentence',
+                                    display: 'inline',
+                                    posi: void 0,
+                                    value: value + endmark
+                                });
+                            }
+                            value = element;
+                        } else {
+                            // console.log(element);
+                            if (this.sources[position.file]) {
+                                this.error('Unexpected Definition `' + symbol + '` at char ' + position.col + ' on line ' + position.line + ' in file [' + position.file + '][' + this.sources[position.file].src + '].');
+                            } else {
+                                this.error('Unexpected Definition `' + symbol + '` at char ' + position.col + ' on line ' + position.line + '.');
+                            }
+                        }
                     }
                 }
+                
             }
         }
         pickReplacePosis(lines: any[], vars: any): object[] {
@@ -1360,7 +1398,7 @@
             return this;
         }
         pushBodyToAST(body: object[] = [], vars: any, code: string, inOrder: boolean = false): object[] {
-            let lines: any = code ? this.getLines(code, vars) : [];
+            let lines: any = code ? this.getLines(code, vars, inOrder) : [];
             // console.log(code, lines);
             for (let index = 0; index < lines.length; index++) {
                 switch (lines[index].subtype) {
@@ -1502,7 +1540,7 @@
                     return this.walkClass(element.index, element.display, vars);
                 case 'objlike':
                     if (inOrder) {
-                        console.log(true, element);
+                        // console.log(true, element);
                         element.type = 'object';
                         return this.walkObject(element.index, element.display, vars);
                     }
@@ -1644,6 +1682,7 @@
                     for (let s = 0; s < statements.length; s++) {
                         this.pushReplacementsToAST(inline, vars, statements[s], false, (s === 0) && paramPosi);
                     }
+                    // console.log(inline);
                     if (inline.length) {
                         params.push({
                             type: 'parameter',
@@ -1744,9 +1783,9 @@
                 display: display,
                 subtype: subtype,
                 cname: cname,
-                base: matches[5],
+                base: (matches[5] && matches[6]) ? '.'+matches[6]  : matches[6],
                 vars: vars,
-                body: this.checkClassBody(vars, matches[6] || '')
+                body: this.checkClassBody(vars, matches[7] || '')
             }
         }
         walkClosure(index: number, display: any, vars: any) {
@@ -1851,7 +1890,7 @@
                             var lines: any[] = this.pushBodyToAST([], localvars, headline, true);
                             for (let index = 0; index < lines.length; index++) {
                                 if (lines[index].posi) lines[index].posi.head = false;
-                                if (index === lines.length - 1) {
+                                if ((index === lines.length - 1)&&lines[index].value){
                                     lines[index].value = lines[index].value.replace(/;$/, '');
                                 }
                                 head.body.push(lines[index]);
@@ -1954,7 +1993,7 @@
                     }
                     if (fname) {
                         if (!vars.self.hasOwnProperty(fname)) {
-                            vars.root.private[fname] = 'var';
+                            vars.self[fname] = 'var';
                         }
                         else if (vars.self[fname] === 'let') {
                             this.error(' Variable `' + fname + '` has already been declared.');
@@ -2433,21 +2472,18 @@
                     if (element.value) {
                         // console.log(element.posi&&element.posi.head, element.display, element.value);
                         var code: string = this.patchVariables(element.value, vars);
+                        // console.log(code);
                         if (element.display === 'block') {
                             codes.push(indent + this.pushPostionsToMap(element.posi) + code);
                         } else {
                             if (element.posi) {
                                 if (element.posi.head) {
                                     codes.push(indent);
-                                    if (element.display === 'member') {
-                                        codes.push("\t");
-                                    }
                                 }
                                 this.pushPostionsToMap(element.posi, codes);
                             }
                             codes.push(code);
                         }
-                        break;
                     }
                     break;
                 case 'codes':
@@ -2525,6 +2561,7 @@
         pushCallCodes(codes: string[], element: any, layer: number, namespace: string): string[] {
             let naming: string[] = this.pushCodes([], element.vars, element.name, layer, namespace);
             // console.log(element);
+            // console.log(element.name.length, element.name[0], naming);
             if (element.posi) {
                 if (element.type === 'callmethod') {
                     element.posi.head = false;
@@ -2558,15 +2595,18 @@
                     // codes.push(indent2);
                     _break = true;
                 }
+                // console.log(element.name[0].value, element.params.length, element.params[0]);
                 for (let index = 0; index < element.params.length; index++) {
                     const param = element.params[index].body;
-                    let paramCodes: string[] = [];
+                    let paramCodes: string[] = [];               
                     this.pushPostionsToMap(element.params[index].posi, paramCodes)
                     this.pushCodes(paramCodes, element.vars, param, _layer, namespace);
                     if (paramCodes.length) {
                         parameters.push(paramCodes.join('').trim());
                     }
+                    // console.log(element.name[0].value, param, paramCodes);
                 }
+                // console.log(parameters);
                 while (parameters.length && !parameters[0].trim()) {
                     parameters.shift();
                 }
@@ -2605,9 +2645,10 @@
 
             for (let index = 0; index < element.calls.length; index++) {
                 const method = element.calls[index];
+                // console.log(method);
                 elements.push(this.pushElement([], element.vars, method, _layer, namespace).join(''));
             }
-
+            // console.log(elements);
             if (_break) {
                 codes.push(indent + '.' + elements.join(indent + '.'));
             } else {
@@ -2653,9 +2694,9 @@
             }
             if (element.base) {
                 if (toES6) {
-                    codes.push('extends ' + element.base.trim() + ' ');
+                    codes.push('extends ' + element.base.trim().replace(/$\./, 'pandora.' + namespace) + ' ');
                 } else {
-                    codes.push(element.base.trim() + ', ');
+                    codes.push(element.base.trim().replace(/$\./, 'pandora.' + namespace) + ', ');
                 }
             }
             codes.push('{');
@@ -2731,7 +2772,7 @@
                             overrides[member.fname] = overrides[member.fname] || {};
                             let argslen = member.args.length;
                             if (!overrides[member.fname][argslen]) {
-                                let fname = overrides[member.fname][argslen] = '___override_callmethod_' + member.fname + '_' + argslen;
+                                let fname = overrides[member.fname][argslen] = '___override_method_' + member.fname + '_' + argslen;
                                 elem.push(indent2 + fname + ': ');
                                 this.pushFunctionCodes(elem, member, layer + 1, namespace);
                                 if (this.toES6) {
@@ -2985,7 +3026,7 @@
                         overrides[member.fname] = overrides[member.fname] || {};
                         let argslen = member.args.length;
                         if (!overrides[member.fname][argslen]) {
-                            let fname = overrides[member.fname][argslen] = '___override_callmethod_' + member.fname + '_' + argslen;
+                            let fname = overrides[member.fname][argslen] = '___override_method_' + member.fname + '_' + argslen;
                             elem.push(indent2 + fname + ': ');
                             this.pushFunctionCodes(elem, member, layer + 1, namespace);
                             if (this.toES6) {
@@ -3074,7 +3115,7 @@
             let indent1 = "\r\n" + stringRepeat("\t", layer);
             let indent2 = "\r\n" + stringRepeat("\t", layer + 1);
             // console.log(element);
-            if (element.display === 'block') {
+            if (element.type === 'object' && element.display === 'block') {
                 codes.push(indent1 + this.pushPostionsToMap(element.posi) + '{');
             } else {
                 codes.push('{');
@@ -3182,7 +3223,7 @@
                         if (varname !== element) {
                             // console.log(varname);
                             vars.root.fix_map[element] = varname;
-                            if(vars.root.public[element]){
+                            if (vars.root.public.hasOwnProperty(element)){
                                 vars.root.public[element] = varname;
                             }
                         }
@@ -3248,21 +3289,22 @@
             return '';
         }
         patchVariable(varname: string, vars: any): string {
-            // console.log(varname, vars);
-            if (vars.fix_map && vars.fix_map[varname]) {
+            // console.log('before:', varname, vars);
+            if (vars.fix_map && vars.fix_map.hasOwnProperty(varname)) {
                 // console.log(varname, vars.fix_map[varname]);
                 return vars.fix_map[varname];
             }
-            if (vars.root.fix_map[varname]) {
-                // console.log(varname, vars.fix_map[varname]);
+            if (vars.root.fix_map.hasOwnProperty(varname)) {
+                // console.log(varname, vars.root.fix_map[varname]);
                 return vars.root.fix_map[varname];
             }
             else if (!vars.root.fixed['includes'](varname)) {
-                if (vars.root.private[varname]) {
-                    // console.log(varname);
+                // console.log(varname);
+                if (vars.root.private.hasOwnProperty(varname)) {
+                    // console.log(varname, vars.root.private);
                     let _varname = varname;
                     // console.log(vars);
-                    while (vars.root.private[varname]) {
+                    while (vars.root.private.hasOwnProperty(varname)) {
                         varname = varname + '_' + vars.index;
                     }
                     while (vars.root.fixed['includes'](varname)) {
@@ -3271,21 +3313,24 @@
                     vars.root.fix_map[_varname] = varname;
                 } else {
                     for (const key in vars.locals) {
-                        const _key = vars.locals[key];
-                        // console.log(_key);
-                        if (varname === _key) {
-                            varname = varname + '_' + vars.index;
-                            while (vars.root.private[varname]) {
+                        if (vars.locals.hasOwnProperty(key)){
+                            const _key = vars.locals[key];
+                            // console.log(_key);
+                            if (varname === _key) {
                                 varname = varname + '_' + vars.index;
+                                while (vars.root.private[varname]) {
+                                    varname = varname + '_' + vars.index;
+                                }
+                                while (vars.root.fixed['includes'](varname)) {
+                                    varname = varname + '_' + vars.index;
+                                }
+                                vars.fix_map[_key] = varname;
                             }
-                            while (vars.root.fixed['includes'](varname)) {
-                                varname = varname + '_' + vars.index;
-                            }
-                            vars.fix_map[_key] = varname;
                         }
                     }
                 }
             }
+            // console.log('after:', varname);
             return varname;
         }
         restoreStrings(string: string, last: boolean): string {

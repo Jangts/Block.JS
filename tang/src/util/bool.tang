@@ -18,7 +18,7 @@ File = root.File,
 FileList = root.FileList,
 FormData = root.FormData;
 
-store bool {
+ns bool with {
     truthy(value) {
         return !!value
     },

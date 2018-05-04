@@ -23,7 +23,7 @@ var _ = pandora;
 //     }
 // }
 
-store arr {
+ns arr with {
     merge() {
         if (arguments.length > 0) {
             var array = [];

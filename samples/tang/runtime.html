@@ -12,85 +12,27 @@
 <body>
 
     <script type="text/tangram.js-sugar">
-        /*!
-         * tangram.js framework source code
-         *
-         * static util.imports
-         * init UMD
-         *
-         * Date 2017-04-06
-         */
-
-        # use $_/arr/
-        # use $_/util/bool;
-        # use $_/util/type as type1;
-        # use $_/util/../util/type as type2;
-        # use $_/util/../util/type as type3;
-
-        # var pandora = 'foo';
-        # var pandora_1 = 'bar';
-
-        # fn(a, c, b){
-        #    var d = 0;
-        #    var e = 1;
-        #    
-        #    var f = (g, h)=>{
-        #        var a = 2;
-        #        let e = 3;
-        #        console.log(arguments)
-        #    }
-        #    f(1,2);
-        #    console.log(a, e);
-        #}
-        # fn(1, 2, 3);
-        # let fn0 = fn1 = () => { return 1 }
-        # let fn2 = (x = 3, y = 4 + 1) => { return x + y},
-        # fn3 = x => { return x }
-        # let fn4 = (x, y = (x => x + 4)) => ({x, y}),
-        # fn5 = x => (x + 4);
-        # let fn6 = (x, y = fn3()) => x + fn5(1, 2)
-        # + z
-        # let fn7 = (x, ...y) => x + y[0] + y[1]
-        # 1
-        # fn8 = (x, y) => x + y +z;  fn9 = (x, y) => (x + y) +z;
-
-        # fn10 = (x, y) => x + ((x,
-        # y) => x + ((x, y) => x + ((x, y) => x + y)));
-        fn11 = (x, y) => (x + ((x, y) => (x + ((x, y) => (x + ((x, y) => x + y))))));
-
-
-        # console.log(fn1, " | ", fn2, " | ", fn3, " | ", fn4, " | ", fn5, " | ", fn6, " | ", fn7, " | ", fn8, " | ", fn9);
-
-
-        /*
-        class .MyClass {
-            _init(){
-                this._private.name = 'Ivan Yeung'; 
+        "await"
+        nativeType(object) {
+            if (!object) {
+                return 'Null';
             }
-            set name (name){
-                _name = 'Mr. ' + this._private.name;
+            var match = Object.prototype.toString.call(object).match(/\[object (\w+)\]/);
+            if (match) {
+                return match[1];
             }
-
-            get name (name){
-                return this._private.name;
-            }
-
-            static name (name){}
+            return 'Object';
         }
 
-        class NewClass extends pandora.MyClass{};
-        
-        let foo = new NewClass;
-        console.log(foo.name);
-        foo.name = 'Yang Chi';
-        console.log(foo.name);
-        */
+        namespace type.Obj {
+            public native = nativeType;
+        }
     </script>
-    <script src="../sugar/compiler/lib/web-sugar.js"></script>
+    <script src="../../sugar/compiler/lib/web-sugar.js"></script>
     <script>
-        setTimeout(function() {
-            // console.log(div);
-        }, 5000);
+        // setTimeout(function() {
+        //     // console.log(div);
+        // }, 5000);
     </script>
 </body>
 

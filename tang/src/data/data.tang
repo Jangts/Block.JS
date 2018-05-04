@@ -93,7 +93,7 @@ var sqlengine = {
     }
 };
 
-store data {
+ns data with {
     encodeJSON(data) {
         try {
             return JSON.stringify(data);

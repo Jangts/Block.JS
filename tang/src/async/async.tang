@@ -19,7 +19,7 @@ console = root.console,
 FormData = root.FormData,
 query = _.dom.sizzle || _.dom.query;
 
-store async {
+ns async with {
     load: _.load,
     loadCSS(href, callback) {
         var link = query('link[href="' + href + '"]')[0] || _.dom.create('link', doc.getElementsByTagName('head')[0], {

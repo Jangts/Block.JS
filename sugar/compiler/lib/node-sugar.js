@@ -209,5 +209,6 @@ switch (options.command) {
     default:
         break;
 }
-// node ./../../sugar/compiler/lib/node-sugar.js cdir ./ ./../../src/ -m -c
+// node-sugar cdir ./ ./../../src/ -map -c
+// node ./../../sugar/compiler/lib/node-sugar.js cdir ./ ./../../src/ -map -c
 //# sourceMappingURL=node-sugar.js.map

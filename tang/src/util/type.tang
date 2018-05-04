@@ -150,7 +150,7 @@ _('util.fasttype', (obj) {
     return Object.prototype.toString.call(obj).replace(/\[object\s|\]/g, '');
 });
 
-store type {
+ns type with {
     Obj: typeofObj,
     Str: typeofStr,
     isGlobal: isGlobal,

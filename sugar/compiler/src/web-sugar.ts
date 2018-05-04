@@ -35,6 +35,7 @@ this.tangram.init().auto([
                 // ;
             } else {
                 tangram_js_sugar(script.innerHTML).compile().run(function (content) {
+                    console.log(this.ast);
                     console.log(content);
                 }, function () {
                     console.log(this.ast);

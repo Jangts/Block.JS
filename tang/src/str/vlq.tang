@@ -84,7 +84,7 @@ exports = {
     decode: decode
 }
 
-store str.vlq {
+ns str.vlq with {
 
 }
 

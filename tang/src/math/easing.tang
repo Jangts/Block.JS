@@ -13,7 +13,7 @@ var _ = pandora,
 doc = root.document,
 console = root.console;
 
-store math.easing {
+ns math.easing with {
     linear(t, b, c, d) {
         return c * t / d + b;
     },

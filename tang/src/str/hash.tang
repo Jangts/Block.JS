@@ -415,7 +415,7 @@ var Utf8Encode = (string) {
     return utftext;
 }
 
-store str {
+ns str with {
     utf8Encode: Utf8Encode,
     strToBinl: str2binl,
     binlToStr: binl2str,
