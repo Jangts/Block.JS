@@ -88,4 +88,4 @@ ns str.vlq with {
 
 }
 
-return _.hash;
+this.module.exports = _.hash;

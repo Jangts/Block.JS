@@ -310,4 +310,4 @@ class .data.Model {
     }
 }
 
-return _.data.Model;
+this.module.exports = _.data.Model;

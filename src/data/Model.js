@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Fri, 04 May 2018 04:36:11 GMT
+ * Datetime: Fri, 04 May 2018 06:52:15 GMT
  */
 ;
 // tangram.config({});
@@ -87,6 +87,7 @@ tangram.block([
 		'datetime': timeFormatter
 	};
 	var modelsConstrutor = function (input) {
+		var _arguments = arguments;
 		var keys = _.obj.keysArray(input).sort()
 		var props = {}
 		pandora.each(input, function (prop, attributes) {
@@ -215,6 +216,7 @@ tangram.block([
 			return false;
 		},
 		create: function (data) {
+			var _arguments = arguments;
 			var newdata = {}
 			pandora.each(models[this.uid], function (prop, property) {
 				if (_.obj.hasProp(data, prop) && check(property, data[prop])) {
@@ -231,6 +233,7 @@ tangram.block([
 			return modeldata[this.uid].length;
 		},
 		read: function ($ID) {
+			var _arguments = arguments;
 			if ($ID) {
 				return _.clone(modeldata[this.uid][$ID - 1])
 			}
@@ -243,6 +246,7 @@ tangram.block([
 			return list;
 		},
 		update: function ($ID, prop, value) {
+			var _arguments = arguments;
 			if (_.util.bool.isObj(prop)) {
 				var props = models[this.uid]
 				var data = modeldata[this.uid][$ID - 1]
@@ -269,6 +273,7 @@ tangram.block([
 				'$_/see/see.css',
 				'$_/dom/'
 			], function () {
+				var _arguments = arguments;
 				var list = that.read()
 				var table = '<table class="table">'
 				table += '<tr class="head-row"><th></th>'
@@ -299,6 +304,6 @@ tangram.block([
 			})
 		}
 	});
-	return _.data.Model;
+	this.module.exports = _.data.Model;
 });
 //# sourceMappingURL=./Model.js.map

@@ -170,4 +170,4 @@ namespace type.Obj {
     public native = nativeType;
 }
 
-return _.util.type;
+this.module.exports = _.util.type;

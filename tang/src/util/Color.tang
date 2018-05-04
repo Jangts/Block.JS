@@ -435,4 +435,4 @@ class .util.Color {
 }
 
 pandora.extend(pandora.util.Color, names);
-return pandora.util.Color;
+this.module.exports = pandora.util.Color;

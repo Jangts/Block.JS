@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Fri, 04 May 2018 04:36:11 GMT
+ * Datetime: Fri, 04 May 2018 06:52:15 GMT
  */
 ;
 // tangram.config({});
@@ -85,6 +85,7 @@ tangram.block([], function (pandora, root, imports, undefined) {
 	});
 	pandora.extend(pandora.async.Promise, {
 		all: function (array) {
+			var _arguments = arguments;
 			var Callback = void 0;
 			var Result = []
 			var Promises = {
@@ -109,6 +110,7 @@ tangram.block([], function (pandora, root, imports, undefined) {
 			return Promises;
 		},
 		race: function (array) {
+			var _arguments = arguments;
 			var Done = void 0;
 			var Fail = void 0;
 			var Promises = {
@@ -182,6 +184,6 @@ tangram.block([], function (pandora, root, imports, undefined) {
 			return Promises;
 		}
 	});
-	return _.async.Promise;
+	this.module.exports = _.async.Promise;
 });
 //# sourceMappingURL=./Promise.js.map

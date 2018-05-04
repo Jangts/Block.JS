@@ -155,4 +155,4 @@ ns arr with {
     slice: _.slice
 };
 
-return _.arr;
+this.module.exports = _.arr;

@@ -125,4 +125,4 @@ class .media.Image {
     }
 }
 
-return _.media.Image;
+this.module.exports = _.media.Image;

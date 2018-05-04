@@ -271,4 +271,4 @@ class .async.Uploader {
     }
 }
 
-return _.async.Uploader;
+this.module.exports = _.async.Uploader;

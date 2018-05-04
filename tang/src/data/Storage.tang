@@ -78,4 +78,4 @@ class .data.Storage {
         return null;
     }
 }
-return _.data.Storage;
+this.module.exports = _.data.Storage;

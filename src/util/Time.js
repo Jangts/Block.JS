@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Fri, 04 May 2018 04:36:15 GMT
+ * Datetime: Fri, 04 May 2018 06:52:21 GMT
  */
 ;
 // tangram.config({});
@@ -436,6 +436,6 @@ tangram.block([], function (pandora, root, imports, undefined) {
 			}
 		}
 	});
-	return _.util.Time;
+	this.module.exports = _.util.Time;
 });
 //# sourceMappingURL=./Time.js.map

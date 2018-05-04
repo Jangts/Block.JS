@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Fri, 04 May 2018 04:36:11 GMT
+ * Datetime: Fri, 04 May 2018 06:52:15 GMT
  */
 ;
 // tangram.config({});
@@ -11,6 +11,7 @@ tangram.block([
 	var _ = pandora;
 	pandora.ns('arr', {
 		merge: function () {
+			var _arguments = arguments;
 			if (arguments.length > 0) {
 				var array = []
 				for (var a = 0;a < arguments.length;a++) {
@@ -109,6 +110,7 @@ tangram.block([
 			return _.arr.index(array, elem)
 		},
 		where: function (array, filter) {
+			var _arguments = arguments;
 			var filtered = []
 			pandora.each(array, function (index, elem) {
 				if (filter(elem)) {
@@ -118,6 +120,7 @@ tangram.block([
 			return filtered;
 		},
 		unique: function (array) {
+			var _arguments = arguments;
 			var result = []
 			pandora.each(array, function (i, elem) {
 				if (_.arr.has(result, elem) === false) {
@@ -143,6 +146,6 @@ tangram.block([
 		},
 		slice: _.slice
 	});
-	return _.arr;
+	this.module.exports = _.arr;
 });
 //# sourceMappingURL=./arr.js.map

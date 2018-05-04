@@ -729,4 +729,4 @@ class .str.MD5Encoder.ArrayBuffer extends _.str.MD5Encoder {
     }
 }
 
-return _.str.MD5Encoder;
+this.module.exports = _.str.MD5Encoder;

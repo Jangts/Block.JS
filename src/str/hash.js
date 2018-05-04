@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Fri, 04 May 2018 04:36:13 GMT
+ * Datetime: Fri, 04 May 2018 06:52:18 GMT
  */
 ;
 // tangram.config({});
@@ -459,6 +459,6 @@ tangram.block([], function (pandora, root, imports, undefined) {
 		var arr = [md5.substr(0, 8).toUpperCase(), md5.substr(8, 4).toUpperCase(), md5.substr(12, 4).toUpperCase(), md5.substr(16, 4).toUpperCase(), md5.substr(20, 12).toUpperCase()]
 		return arr.join('-')
 	}
-	return _.hash;
+	this.module.exports = _.hash;
 });
 //# sourceMappingURL=./hash.js.map

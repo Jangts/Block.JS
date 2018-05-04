@@ -146,4 +146,4 @@ namespace str {
     }
 }
 
-return _.str;
+this.module.exports = _.str;

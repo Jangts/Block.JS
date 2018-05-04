@@ -177,4 +177,4 @@ ns bool with {
 }
 
 _.extend(root, _.util.bool);
-return _.util.bool;
+this.module.exports = _.util.bool;

@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Fri, 04 May 2018 04:36:11 GMT
+ * Datetime: Fri, 04 May 2018 06:52:15 GMT
  */
 ;
 // tangram.config({});
@@ -258,6 +258,6 @@ tangram.block([
 			fileTransfer.call(this, options.url, form, options.handlers)
 		}
 	});
-	return _.async.Uploader;
+	this.module.exports = _.async.Uploader;
 });
 //# sourceMappingURL=./Uploader.js.map

@@ -190,4 +190,4 @@ var easings = (() {
 
 _.math.easing.all = easings;
 
-return _.math.easing;
+this.module.exports = _.math.easing;

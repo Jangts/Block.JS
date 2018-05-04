@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Fri, 04 May 2018 04:36:12 GMT
+ * Datetime: Fri, 04 May 2018 06:52:16 GMT
  */
 ;
 // tangram.config({});
@@ -11,9 +11,10 @@ tangram.block([
 	'$_/math/easing',
 	'$_/dom/Animation'
 ], function (pandora, root, imports, undefined) {
+	var dom = pandora.ns('dom', {});
 	var _ = pandora;
 	var declare = pandora.declareClass;
-	var query = _.dom.sizzle || _.dom.query;
+	var query = dom.sizzle || dom.query;
 	var insert = function (content, handler) {
 		switch (typeof content) {
 			case 'string':
@@ -47,11 +48,11 @@ tangram.block([
 			case 'string':
 			case 'number':
 			return this.each(function () {
-				_.dom.setStyle(this, type, value)
+				dom.setStyle(this, type, value)
 			})
 			case 'function':
 			return this.each(function (i) {
-				_.dom.setStyle(this, type, value(i, _.dom.getStyle(this, type)))
+				dom.setStyle(this, type, value(i, dom.getStyle(this, type)))
 			})
 			case 'undefined':
 			return this[0] && handler(this[0])
@@ -61,15 +62,15 @@ tangram.block([
 	var scroll_offset = function (type, value) {
 		if (_.util.bool.isNumeric(value)) {
 			return this.each(function () {
-				_.dom.setStyle(this, type, value)
+				dom.setStyle(this, type, value)
 			})
 		}
 		if (_.util.bool.isFn(value)) {
 			return this.each(function (i) {
-				_.dom.setStyle(this, type, value(i, _.dom.getStyle(this, type)))
+				dom.setStyle(this, type, value(i, dom.getStyle(this, type)))
 			})
 		}
-		return this[0] && _.dom.getStyle(this[0], type)
+		return this[0] && dom.getStyle(this[0], type)
 	}
 	pandora.declareClass('dom.Elements', _.Iterator, {
 		context: document,
@@ -77,7 +78,7 @@ tangram.block([
 			if (_.util.bool.isOuterHTML(selector)) {
 				this.isElFragment = true;
 				this.context = context || this.context;
-				Elements = _.dom.createByString(this.selector = selector)
+				Elements = dom.createByString(this.selector = selector)
 				for (var i = 0;i < Elements.length;i++) {
 					this.push(Elements[i])
 				}
@@ -99,7 +100,7 @@ tangram.block([
 							Elements.push(arguments[0])
 							break
 							case 'Object':
-							Elements = _.dom.query.byAttr(selector)
+							Elements = dom.query.byAttr(selector)
 							break
 							case 'Elements':
 							Elements = arguments[0]
@@ -119,7 +120,9 @@ tangram.block([
 					}
 				}
 			}
-		},
+		}
+	});
+	pandora.extend(pandora.dom.Elements.prototype, {
 		each: function (handler) {
 			for (var i = 0;i < this.length;i++) {
 				handler.call(this[i], i, this[i])
@@ -145,7 +148,7 @@ tangram.block([
 			var Elements = []
 			var node = void 0;
 			this.each(function () {
-				if (node = _.dom.closest(this, tagName)) {
+				if (node = dom.closest(this, tagName)) {
 					Elements.push(node)
 				}
 			})
@@ -280,14 +283,14 @@ tangram.block([
 			return this;
 		},
 		appendTo: function (selector) {
-			var parents = new _.dom.Elements(selector)
+			var parents = new dom.Elements(selector)
 			if (this.isElFragment) {
 				var Elements = void 0;
 				var that = this;
 				that.length = 0;
 				parents.each(function (i, parent) {
 					console.log(parent)
-					Elements = _.dom.createByString(that.selector, parent)
+					Elements = dom.createByString(that.selector, parent)
 					for (var i = 0;i < Elements.length;i++) {
 						that.push(Elements[i])
 					}
@@ -306,38 +309,28 @@ tangram.block([
 		},
 		remove: function () {
 			this.each(function () {
-				_.dom.remove(this)
+				dom.remove(this)
 			})
 			return null;
 		},
 		before: function (content) {
-			return insert.call(this, content, _.dom.before)
+			return insert.call(this, content, dom.before)
 		},
 		after: function (content) {
-			return insert.call(this, content, _.dom.after)
+			return insert.call(this, content, dom.after)
 		},
 		index: function (list) {
 			if (_.util.type.isElement(list)) {
-				return _.dom.index(list, this)
+				return dom.index(list, this)
 			}
-			return _.dom.index(this[0], list)
+			return dom.index(this[0], list)
 		},
 		parent: function () {
 			var nodes = []
 			this.each(function () {
 				nodes.push(this.parentNode)
 			})
-			return new _.dom.Elements(_.arr.unique(nodes))
-		}
-	});
-	_.extend(_.dom, true, {
-		select: function (selector, context) {
-			return new _.dom.Elements(selector, context)
-		}
-	});
-	pandora.ns('dom.select', {
-		extend: function (object, rewrite) {
-			_.extend(_.dom.Elements.prototype, rewrite, object)
+			return new dom.Elements(_.arr.unique(nodes))
 		}
 	});
 	pandora.extend(pandora.dom.Elements.prototype, {
@@ -345,21 +338,21 @@ tangram.block([
 			switch (typeof value) {
 				case 'string':
 				return this.each(function () {
-					_.dom.setAttr(this, attr, value)
+					dom.setAttr(this, attr, value)
 				})
 				case 'function':
 				return this.each(function (i) {
-					_.dom.setAttr(this, attr, value(i, _.dom.getAttr(this, attr)))
+					dom.setAttr(this, attr, value(i, dom.getAttr(this, attr)))
 				})
 				case 'undefined':
-				return this[0] && _.dom.getAttr(this[0], attr)
+				return this[0] && dom.getAttr(this[0], attr)
 			}
 			this;
 		},
 		removeAttr: function (attr) {
 			if (typeof attr == 'string') {
 				this.each(function () {
-					_.dom.removeAttr(this, attr)
+					dom.removeAttr(this, attr)
 				})
 			}
 			return this;
@@ -369,15 +362,15 @@ tangram.block([
 				case 'string':
 				case 'number':
 				this.each(function (index) {
-					_.dom.setData(this, dataName, _.util.bool.isFn(data)? data.call(this, index): data)
+					dom.setData(this, dataName, _.util.bool.isFn(data)? data.call(this, index): data)
 				})
 				break
 				case 'function':
 				return this.each(function (i) {
-					_.dom.setData(this, attr, data(i, _.dom.getAttr(this, dataName)))
+					dom.setData(this, attr, data(i, dom.getAttr(this, dataName)))
 				})
 				case 'undefined':
-				return this[0] && _.dom.getData(this[0], dataName)
+				return this[0] && dom.getData(this[0], dataName)
 			}
 			return this;
 		},
@@ -398,24 +391,24 @@ tangram.block([
 			return this;
 		},
 		hasClass: function (className) {
-			return this[0] && _.dom.hasClass(this[0], className)
+			return this[0] && dom.hasClass(this[0], className)
 		},
 		toggleClass: function (className, isSwitch) {
 			switch (typeof className) {
 				case 'string':
 				this.each(function () {
-					_.dom.toggleClass(this, className, isSwitch)
+					dom.toggleClass(this, className, isSwitch)
 				})
 				break
 				case 'function':
 				this.each(function (i, el) {
-					_.dom.toggleClass(this, className(i, _.dom.getAttr(el, 'class')), isSwitch)
+					dom.toggleClass(this, className(i, dom.getAttr(el, 'class')), isSwitch)
 				})
 				break
 				case 'boolean':
 				if (className === false) {
 					this.each(function (i, el) {
-						_.dom.setAttr(this, 'class', '')
+						dom.setAttr(this, 'class', '')
 					})
 				}
 				break
@@ -433,8 +426,9 @@ tangram.block([
 		css: function (style, value) {
 			if (typeof style === 'object') {
 				this.each(function () {
+					var _arguments = arguments;
 					pandora.each(style, function (prop, value) {
-						_.dom.setStyle(this, prop, value)
+						dom.setStyle(this, prop, value)
 					}, this);
 				})
 			}
@@ -443,43 +437,43 @@ tangram.block([
 					case 'string':
 					case 'number':
 					return this.each(function () {
-						_.dom.setStyle(this, style, value)
+						dom.setStyle(this, style, value)
 					})
 					case 'function':
 					return this.each(function (i) {
-						_.dom.setStyle(this, style, value(i, _.dom.getStyle(this, style)))
+						dom.setStyle(this, style, value(i, dom.getStyle(this, style)))
 					})
 					case 'undefined':
 					if (typeof style === 'string') {
-						return this[0] && _.dom.getStyle(this[0], style)
+						return this[0] && dom.getStyle(this[0], style)
 					}
 				}
 			}
 			return this;
 		},
 		width: function (value) {
-			return sizes.call(this, 'width', value, _.dom.getWidth)
+			return sizes.call(this, 'width', value, dom.getWidth)
 		},
 		outerWidth: function (includeMargin) {
 			if (includeMargin) {
-				return this[0] && _.dom.getWidth(this[0], 'box')
+				return this[0] && dom.getWidth(this[0], 'box')
 			}
-			return this[0] && _.dom.getWidth(this[0], 'outer')
+			return this[0] && dom.getWidth(this[0], 'outer')
 		},
 		innerWidth: function () {
-			return this[0] && _.dom.getWidth(this[0], 'inner')
+			return this[0] && dom.getWidth(this[0], 'inner')
 		},
 		height: function (value) {
-			return sizes.call(this, 'height', value, _.dom.getHeight)
+			return sizes.call(this, 'height', value, dom.getHeight)
 		},
 		outerHeight: function (includeMargin) {
 			if (includeMargin) {
-				return this[0] && _.dom.getHeight(this[0], 'box')
+				return this[0] && dom.getHeight(this[0], 'box')
 			}
-			return this[0] && _.dom.getHeight(this[0], 'outer')
+			return this[0] && dom.getHeight(this[0], 'outer')
 		},
 		innerHeight: function (includeMargin) {
-			return this[0] && _.dom.getHeight(this[0], 'inner')
+			return this[0] && dom.getHeight(this[0], 'inner')
 		},
 		scrollHeight: function (value) {
 			return scroll_offset.call(this, 'scrollHeight', value)
@@ -510,18 +504,18 @@ tangram.block([
 				switch (typeof value) {
 					case 'object':
 					return this.each(function () {
-						_.dom.setStyle(this, 'offsetTop', value.top)
-						_.dom.setStyle(this, 'offsetLeft', value.left)
+						dom.setStyle(this, 'offsetTop', value.top)
+						dom.setStyle(this, 'offsetLeft', value.left)
 					})
 					case 'function':
 					return this.each(function (i) {
-						var style = _.dom.getStyle(this)
-						_.dom.setStyle(this, 'offsetTop', value(i, style.offsetTop))
-						_.dom.setStyle(this, 'offsetLeft', value(i, style.offsetLeft))
+						var style = dom.getStyle(this)
+						dom.setStyle(this, 'offsetTop', value(i, style.offsetTop))
+						dom.setStyle(this, 'offsetLeft', value(i, style.offsetLeft))
 					})
 				}
 			}
-			var style = this[0]? _.dom.getStyle(this[0]):{
+			var style = this[0]? dom.getStyle(this[0]):{
 				offsetTop: null,
 				offsetLeft: null
 			}
@@ -533,26 +527,26 @@ tangram.block([
 		widths: function () {
 			var width = 0;
 			this.each(function () {
-				width += _.dom.getWidth(this, 'box')
+				width += dom.getWidth(this, 'box')
 			})
 			return width;
 		},
 		heights: function () {
 			var height = 0;
 			this.each(function () {
-				height += _.dom.getHeight(this, 'box')
+				height += dom.getHeight(this, 'box')
 			})
 			return height;
 		},
 		show: function () {
 			this.each(function () {
-				_.dom.setStyle(this, 'display', 'block')
+				dom.setStyle(this, 'display', 'block')
 			})
 			return this;
 		},
 		hide: function () {
 			this.each(function () {
-				_.dom.setStyle(this, 'display', 'none')
+				dom.setStyle(this, 'display', 'none')
 			})
 			return this;
 		}
@@ -571,33 +565,35 @@ tangram.block([
 				break
 			}
 			this.each(function () {
+				var _arguments = arguments;
 				if (_.util.bool.isArr(eventType)) {
 					pandora.each(eventType, function (i, et) {
-						_.dom.events.add(this, et, selector, data, handler)
+						dom.events.add(this, et, selector, data, handler)
 					}, this);
 				}
 				else {
-					_.dom.events.add(this, eventType, selector, data, handler)
+					dom.events.add(this, eventType, selector, data, handler)
 				}
 			})
 			return this;
 		},
 		off: function (eventType, selector, handler) {
 			this.each(function () {
+				var _arguments = arguments;
 				if (_.util.bool.isArr(eventType)) {
 					pandora.each(eventType, function (i, et) {
-						_.dom.events.remove(this, et, selector, handler)
+						dom.events.remove(this, et, selector, handler)
 					}, this);
 				}
 				else {
-					_.dom.events.remove(this, eventType, selector, handler)
+					dom.events.remove(this, eventType, selector, handler)
 				}
 			})
 			return this;
 		},
 		trigger: function (eventType, data) {
 			this.each(function () {
-				_.dom.events.trigger(this, eventType, data)
+				dom.events.trigger(this, eventType, data)
 			})
 			return this;
 		},
@@ -646,10 +642,248 @@ tangram.block([
 			return this;
 		}
 	});
-	_.dom.Animation.setTweens(_.math.easing.all);
-	_.dom.select.extend({}, true);
-	
-	_('dom.$', _.dom.select);
-	return _.dom.select;
+	dom.Animation.setTweens(_.math.easing.all);
+	pandora.extend(pandora.dom.Elements.prototype, {
+		transition: function (style, value, duration, easing, callback) {
+			to = {}
+			to[style]= value;
+			this.each(function () {
+				new dom.Animation(this,{
+					to: to,
+					duration: duration,
+					tween: dom.Animation.getTween(easing),
+					callback: callback
+				}).play(1);
+			})
+			return this;
+		},
+		animate: function (styles, duration, easing, callback) {
+			duration = duration || 1000;
+			this.each(function () {
+				dom.animator.play(this, styles, duration, easing, callback)
+			})
+			return this;
+		},
+		stop: function (stopAll, goToEnd) {
+			this.each(function () {
+				dom.animator.stop(this, stopAll, goToEnd)
+			})
+			return this;
+		},
+		animator: function (options) {
+			this.each(function () {
+				dom.animator(this, options).play()
+			})
+			return this;
+		},
+		show: function (duration, easing, callback) {
+			this.each(function () {
+				if (duration) {
+					duration = duration;
+					if (dom.getStyle(this, 'display') != 'none') {
+						callback && callback.call(this)
+					}
+					else {
+						var Animation = dom.animator(this)
+						var len = Animation.length;
+						var from = {
+							width: 0,
+							height: 0,
+							paddingTop: 0,
+							paddingRight: 0,
+							paddingBottom: 0,
+							paddingLeft: 0,
+							marginTop: 0,
+							marginRight: 0,
+							marginBottom: 0,
+							marginLeft: 0,
+							opacity: 0
+						}
+						var to = {
+							width: dom.getStyle(this, 'width'),
+							height: dom.getStyle(this, 'height'),
+							paddingTop: dom.getStyle(this, 'paddingTop'),
+							paddingRight: dom.getStyle(this, 'paddingRight'),
+							paddingBottom: dom.getStyle(this, 'paddingBottom'),
+							paddingLeft: dom.getStyle(this, 'paddingLeft'),
+							marginTop: dom.getStyle(this, 'marginTop'),
+							marginRight: dom.getStyle(this, 'marginRight'),
+							marginBottom: dom.getStyle(this, 'marginBottom'),
+							marginLeft: dom.getStyle(this, 'marginLeft'),
+							opacity: dom.getStyle(this, 'opacity')
+						}
+						if (len > 0) {
+							for (var style in to) {
+								for (var i = len - 1;i >= 0;i--) {
+									if (Animation.scenes[i].over && Animation.scenes[i].over[style]) {
+										to[style]= Animation.scenes[i].over[style]
+										break
+									}
+								}
+							}
+						}
+						dom.setStyle(this, from)
+						dom.setStyle(this, 'display', 'block')
+						Animation.push({
+							from: from,
+							to: to,
+							over: to,
+							duration: duration,
+							tween: dom.Animation.getTween(easing),
+							callback: callback
+						})
+						Animation.play(1)
+					}
+				}
+				else {
+					dom.setStyle(this, 'display', 'block')
+				}
+			})
+			return this;
+		},
+		hide: function (duration, easing, callback) {
+			this.each(function () {
+				if (duration) {
+					duration = duration;
+					if (dom.getStyle(this, 'display') == 'none') {
+						callback && callback.call(this)
+					}
+					else {
+						var Animation = dom.animator(this)
+						var len = Animation.length;
+						var from = {
+							width: dom.getStyle(this, 'width'),
+							height: dom.getStyle(this, 'height'),
+							paddingTop: dom.getStyle(this, 'paddingTop'),
+							paddingRight: dom.getStyle(this, 'paddingRight'),
+							paddingBottom: dom.getStyle(this, 'paddingBottom'),
+							paddingLeft: dom.getStyle(this, 'paddingLeft'),
+							marginTop: dom.getStyle(this, 'marginTop'),
+							marginRight: dom.getStyle(this, 'marginRight'),
+							marginBottom: dom.getStyle(this, 'marginBottom'),
+							marginLeft: dom.getStyle(this, 'marginLeft'),
+							opacity: dom.getStyle(this, 'opacity')
+						}
+						var to = {
+							width: 0,
+							height: 0,
+							paddingTop: 0,
+							paddingRight: 0,
+							paddingBottom: 0,
+							paddingLeft: 0,
+							marginTop: 0,
+							marginRight: 0,
+							marginBottom: 0,
+							marginLeft: 0,
+							opacity: 0
+						}
+						if (len > 0) {
+							for (var style in from) {
+								for (var i = len - 1;i >= 0;i--) {
+									if (Animation.scenes[i].over && Animation.scenes[i].over[style]) {
+										from[style]= Animation.scenes[i].over[style]
+										break
+									}
+								}
+							}
+						}
+						Animation.push({
+							from: from,
+							to: to,
+							over: from,
+							duration: duration,
+							tween: dom.Animation.getTween(easing),
+							callback: function () {
+								dom.setStyle(this, 'display', 'none')
+								dom.setStyle(this, from)
+								callback && callback.call(this)
+							}
+						})
+						Animation.play(1)
+					}
+				}
+				else {
+					dom.setStyle(this, 'display', 'none')
+				}
+			})
+			return this;
+		},
+		fadeIn: function (duration, easing, callback) {
+			duration = duration || 1000;
+			this.each(function () {
+				var Animation = dom.animator(this)
+				var len = Animation.length;
+				var opacity = dom.getStyle(this, 'opacity')
+				if (len > 0) {
+					for (var i = len - 1;i >= 0;i--) {
+						if (Animation.scenes[i].over && Animation.scenes[i].over.opacity) {
+							opacity = Animation.scenes[i].over.opacity;
+							break
+						}
+					}
+				}
+				dom.setStyle(this, 'opacity', 0)
+				dom.setStyle(this, 'display', 'block')
+				Animation.push({
+					from: {opacity: 0},
+					to: {opacity: opacity},
+					over: {opacity: opacity},
+					duration: duration,
+					tween: dom.Animation.getTween(easing),
+					callback: function () {
+						callback && callback.call(this)
+					}
+				})
+				Animation.play(1)
+			})
+			return this;
+		},
+		fadeOut: function (duration, easing, callback) {
+			duration = duration || 1000;
+			this.each(function () {
+				if (dom.getStyle(this, 'display') == 'none') {
+					callback && callback.call(this)
+				}
+				else {
+					var Animation = dom.animator(this)
+					var len = Animation.length;
+					var opacity = dom.getStyle(this, 'opacity')
+					if (len > 0) {
+						for (var i = len - 1;i >= 0;i--) {
+							if (Animation.scenes[i].over && Animation.scenes[i].over.opacity) {
+								opacity = Animation.scenes[i].over.opacity;
+								break
+							}
+						}
+					}
+					Animation.push({
+						from: {opacity: opacity},
+						to: {opacity: 0},
+						over: {opacity: opacity},
+						duration: duration,
+						tween: dom.Animation.getTween(easing),
+						callback: function () {
+							dom.setStyle(this, 'display', 'block')
+							callback && callback.call(this)
+						}
+					})
+					Animation.play(1)
+				}
+			})
+			return this;
+		}
+	});
+	var select = function (selector, context) {
+		return new dom.Elements(selector, context)
+	}
+	var $ = dom.select;
+	pandora.ns('dom.select', {
+		extend: function (object, rewrite) {
+			_.extend(dom.Elements.prototype, rewrite, object)
+		}
+	});
+	this.module.exports = select;
+	pandora.dom.select = select;
+	pandora.dom.$ = $;
 }, true);
 //# sourceMappingURL=./Elements.js.map

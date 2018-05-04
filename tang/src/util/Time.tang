@@ -487,4 +487,4 @@ class .util.Time {
     }
 }
 
-return _.util.Time;
+this.module.exports = _.util.Time;

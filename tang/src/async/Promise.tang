@@ -180,4 +180,4 @@ class .async.Promise {
     }
 }
 
-return _.async.Promise;
+this.module.exports = _.async.Promise;

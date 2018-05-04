@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Fri, 04 May 2018 04:36:12 GMT
+ * Datetime: Fri, 04 May 2018 06:52:16 GMT
  */
 ;
 // tangram.config({});
@@ -74,6 +74,6 @@ tangram.block([
 			return null;
 		}
 	});
-	return _.data.Storage;
+	this.module.exports = _.data.Storage;
 });
 //# sourceMappingURL=./Storage.js.map

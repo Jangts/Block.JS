@@ -386,4 +386,4 @@ class .data.Sheet {
     }
 }
 
-return _.data.Sheet;
+this.module.exports = _.data.Sheet;

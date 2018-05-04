@@ -125,4 +125,4 @@ namespace math {
     }
 }
 
-return _.math;
+this.module.exports = _.math;

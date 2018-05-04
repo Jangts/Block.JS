@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Fri, 04 May 2018 04:36:12 GMT
+ * Datetime: Fri, 04 May 2018 06:52:16 GMT
  */
 ;
 // tangram.config({});
@@ -89,6 +89,7 @@ tangram.block([
 		}
 	}
 	var assign = function (mateinfs, data, _data) {
+		var _arguments = arguments;
 		pandora.each(mateinfs.fields, function (fieldname, value) {
 			if ((fieldname != mateinfs.pk) && data.hasOwnProperty(fieldname)) {
 				if (mateinfs.constraints && mateinfs.constraints[fieldname]) {
@@ -115,6 +116,7 @@ tangram.block([
 	}
 	pandora.declareClass('data.Sheet', {
 		_init: function (tablename, fields, primarykey, constraints) {
+			var _arguments = arguments;
 			if (namingExpr.test(tablename)) {
 				this.tablename = tablename;
 				if (!tables[tablename]) {
@@ -149,6 +151,7 @@ tangram.block([
 			}
 		},
 		add: function (fieldname, value, constraint) {
+			var _arguments = arguments;
 			var tablename = this.tablename;
 			var mateinfs = infs[tablename]
 			if (!mateinfs.fields.hasOwnProperty(fieldname)) {
@@ -165,6 +168,7 @@ tangram.block([
 			return this;
 		},
 		drop: function (fieldname) {
+			var _arguments = arguments;
 			var tablename = this.tablename;
 			var mateinfs = infs[tablename]
 			if (fieldname) {
@@ -188,6 +192,7 @@ tangram.block([
 			return null;
 		},
 		alter: function (fieldname, newname, value) {
+			var _arguments = arguments;
 			var tablename = this.tablename;
 			var mateinfs = infs[tablename]
 			if (fieldname) {
@@ -208,6 +213,7 @@ tangram.block([
 			return this;
 		},
 		insert: function (data) {
+			var _arguments = arguments;
 			var tablename = this.tablename;
 			var mateinfs = infs[tablename]
 			pandora.each(arguments, function (i, data) {
@@ -231,6 +237,7 @@ tangram.block([
 			return this;
 		},
 		select: function (id) {
+			var _arguments = arguments;
 			var tablename = this.tablename;
 			if (id) {
 				rs = []
@@ -244,6 +251,7 @@ tangram.block([
 			return _.obj.toArray(tables[tablename])
 		},
 		delete: function (id) {
+			var _arguments = arguments;
 			var tablename = this.tablename;
 			if (id) {
 				pandora.each(arguments, function (i, id) {
@@ -255,6 +263,7 @@ tangram.block([
 			return this;
 		},
 		fields: function () {
+			var _arguments = arguments;
 			var fields = {}
 			var mateinfs = infs[this.tablename]
 			if (mateinfs) {
@@ -275,6 +284,7 @@ tangram.block([
 				'$_/see/see.css',
 				'$_/dom/'
 			], function () {
+				var _arguments = arguments;
 				var mateinfs = infs[that.tablename]
 				if (mateinfs) {
 					if (width) {
@@ -319,6 +329,7 @@ tangram.block([
 	});
 	pandora.extend(pandora.data.Sheet, {
 		exec: function (str) {
+			var _arguments = arguments;
 			var matchs = str.match(/^(select|delete|update|insert)([\w\,\*\s]+from\s+|\s+from\s+|\s+into\s+|\s+)([A-Z_]\w*)\s+(.+)/i)
 			if (matchs) {
 				var mateinfs = infs[matchs[3]]
@@ -384,6 +395,6 @@ tangram.block([
 			return false;
 		}
 	});
-	return _.data.Sheet;
+	this.module.exports = _.data.Sheet;
 });
 //# sourceMappingURL=./Sheet.js.map

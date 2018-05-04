@@ -184,4 +184,4 @@ ns data with {
     }
 }
 
-return _.data;
+this.module.exports = _.data;

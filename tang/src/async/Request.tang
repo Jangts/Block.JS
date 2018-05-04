@@ -154,4 +154,4 @@ class .async.Request extends _.async.Promise {
     }
 }
 
-return _.async.Request;
+this.module.exports = _.async.Request;

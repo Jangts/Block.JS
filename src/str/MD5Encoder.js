@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Fri, 04 May 2018 04:36:13 GMT
+ * Datetime: Fri, 04 May 2018 06:52:19 GMT
  */
 ;
 // tangram.config({});
@@ -11,7 +11,7 @@ tangram.block([
 	var _ = pandora;
 	var console = root.console;
 	var blobSlice = root.File.prototype.mozSlice || root.File.prototype.webkitSlice || root.File.prototype.slice;
-	var ___boundary_KFC6TB5V_1WGX_CO4O_ZO3Z_5M831S1CO6AL_186_as_function___ = void 0;
+	var ___boundary_RVS7E74B_6R28_6J2F_5FCG_STRWJVINX5IJ_186_as_function___ = void 0;
 	var hex_chr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
 	var cmn = function (q, a, b, x, s, t) {
 		a = add32(add32(a, q), add32(x, t))
@@ -512,6 +512,6 @@ tangram.block([
 			return raw ? hexToBinaryString(ret): ret;
 		}
 	});
-	return _.str.MD5Encoder;
+	this.module.exports = _.str.MD5Encoder;
 });
 //# sourceMappingURL=./MD5Encoder.js.map

@@ -192,4 +192,4 @@ ns async with {
     }
 }
 
-return _.async;
+this.module.exports = _.async;

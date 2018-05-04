@@ -519,4 +519,4 @@ _.str.hash.md5.pseudoIdentity = (str) {
     return arr.join('-');
 }
 
-return _.hash;
+this.module.exports = _.hash;

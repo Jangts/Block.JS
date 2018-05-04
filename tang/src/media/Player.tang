@@ -133,4 +133,4 @@ class .media.Player {
     }
 }
 
-return _.media.Player;
+this.module.exports = _.media.Player;

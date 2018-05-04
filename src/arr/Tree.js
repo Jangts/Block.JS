@@ -1,13 +1,14 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Fri, 04 May 2018 04:36:11 GMT
+ * Datetime: Fri, 04 May 2018 06:52:15 GMT
  */
 ;
 // tangram.config({});
 tangram.block([], function (pandora, root, imports, undefined) {
 	var _ = pandora;
 	function getParents (index) {
+		var _arguments = arguments;
 		var parents = []
 		pandora.each(this.data, function (i, leaf) {
 			if (leaf[this.indexkey] == index) {
@@ -18,6 +19,7 @@ tangram.block([], function (pandora, root, imports, undefined) {
 		return parents;
 	}
 	function getChildren (parent) {
+		var _arguments = arguments;
 		var children = []
 		pandora.each(this.data, function (i, leaf) {
 			if (leaf[this.parentindexkey] == parent) {
@@ -39,6 +41,7 @@ tangram.block([], function (pandora, root, imports, undefined) {
 			this.parentskey = otherkeys.parentskey || 'parents'
 		},
 		getAllOrderByRoot: function (rootId, level) {
+			var _arguments = arguments;
 			if (rootId === void 0) { rootId = 0; }
 			if (level === void 0) { level = 1; }
 			pandora.each(this.data, function (i, leaf) {
@@ -51,6 +54,7 @@ tangram.block([], function (pandora, root, imports, undefined) {
 			return this;
 		},
 		getRootsWithChildren: function (rootId) {
+			var _arguments = arguments;
 			if (rootId === void 0) { rootId = 0; }
 			pandora.each(this.data, function (i, leaf) {
 				if (leaf[this.parentindexkey] == rootId) {
@@ -61,6 +65,7 @@ tangram.block([], function (pandora, root, imports, undefined) {
 			return this;
 		},
 		getAllWithChildren: function (rootId) {
+			var _arguments = arguments;
 			if (rootId === void 0) { rootId = 0; }
 			pandora.each(this.data, function (i, leaf) {
 				leaf[this.childrenkey]= getChildren.call(this, leaf[this.indexkey])
@@ -69,6 +74,7 @@ tangram.block([], function (pandora, root, imports, undefined) {
 			return this;
 		},
 		getAllWithParents: function (rootId) {
+			var _arguments = arguments;
 			if (rootId === void 0) { rootId = 0; }
 			pandora.each(this.data, function (i, leaf) {
 				leaf[this.parentskey]= getParents.call(this, leaf[this.parentindexkey])

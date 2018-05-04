@@ -96,6 +96,4 @@ extends .select {
     }
 }
 
-this.module.exports = dom.select;
-
-return dom.select;
+this.module.exports = select;
