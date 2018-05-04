@@ -2,21 +2,47 @@
     "use …": {
         "prefix": "use",
         "body": [
-            "use ${1:\\$_/};$0"
+            "use ${1:\\.\\/};",
+            "$0"
         ],
         "description": "Require Block"
+    },
+    "use $ …": {
+        "prefix": "uses",
+        "body": [
+            "use \\$ ${1:package};",
+            "$0"
+        ],
+        "description": "Require Standard Block"
     },
     "use … as …": {
         "prefix": "useas",
         "body": [
-            "use ${1:\\$_/} ${2:as ${3:var}};$0"
+            "use ${1:\\.\\/} ${2:as ${3:variable}};",
+            "$0"
         ],
-        "description": "Require Block AS"
+        "description": "Import Module AS"
+    },
+    "use $ … as …": {
+        "prefix": "usesas",
+        "body": [
+            "use \\$ ${1:package} ${2:as ${3:variable}};",
+            "$0"
+        ],
+        "description": "Require Standard Block AS"
+    },
+    "include '…'": {
+        "prefix": "include",
+        "body": [
+            "@include '$1';",
+            "$0"
+        ],
+        "description": "Require Standard Block AS"
     },
     "class …": {
         "prefix": "class",
         "body": [
-            "class ${1:.ClassName} {",
+            "class ${1:.Class} {",
             "\t${2: prop} ${3:= ${4:undfined}};",
             "\t_init() {}",
             "}",
@@ -27,8 +53,8 @@
     "class … extends …": {
         "prefix": "class",
         "body": [
-            "class ${1:.ClassName} ${2:extends ${3:AnotherClass}} {",
-            "\t$0",
+            "class ${1:.Class} ${2:extends ${3:AnotherClass}} {",
+            "\t${0:# members...}",
             "}",
             ""
         ],
@@ -38,7 +64,7 @@
         "prefix": ".class",
         "body": [
             "pandora.declareClass('$1' ${2:, ${3:AnotherClass}}, {",
-            "\t$0",
+            "\t${0:# members...}",
             "});",
             ""
         ],
@@ -47,27 +73,47 @@
     "construct _init": {
         "prefix": "init(",
         "body": [
-            "_init(${1: options}  ${2:= ${3:{}}}) {",
+            "_init(${1:options}${2: = ${3:{}}}) {",
             "\tthis.${4:prop} = ${5:options.prop};",
-            "\t# code...$0",
+            "\t${0:# code...}",
             "}"
         ],
         "description": "Define Construct Function"
     },
-    "namespace …": {
+    "ns …": {
         "prefix": "ns",
         "body": [
             "namespace ${1:spacename} {",
-            "\t$0",
+            "\t${0:# code...}",
             "}",
             ""
         ],
         "description": "Register Namespace To Pandora"
     },
+    "namespace …": {
+        "prefix": "namespace",
+        "body": [
+            "namespace ${1:spacename} {",
+            "\t${0:# code...}",
+            "}",
+            ""
+        ],
+        "description": "Register Namespace To Pandora"
+    },
+    "namespace … with {}": {
+        "prefix": "nswith",
+        "body": [
+            "namespace ${1:spacename} {",
+            "\t${0:# members...}",
+            "}",
+            ""
+        ],
+        "description": "Append Members To Namespace"
+    },
     "extends …": {
         "prefix": "extend",
         "body": [
-            "extends ${1:pandora.} {",
+            "extends ${1:${2:pandora}.} {",
             "\t$0",
             "}",
             ""
@@ -77,14 +123,16 @@
     "pandora(…, …)": {
         "prefix": "pandora(",
         "body": [
-            "pandora('$1', ${2:value});$0"
+            "pandora('$1', ${2:value});",
+            "$0"
         ],
         "description": "Register Element Or Elements To Pandora"
     },
     ".extends(…, …)": {
         "prefix": "ext(",
         "body": [
-            "pandora.extend(${1: pandora.}, ${2:objName});$0"
+            "pandora.extend(${1: pandora.}, ${2:objName});",
+            "$0"
         ],
         "description": "Definition Or Extends Elements"
     },
@@ -129,7 +177,7 @@
     },
     "$… = ( … ) ? … : …": {
         "prefix": "if?",
-        "body": "${1:retVal} = (${2:condition}) ? ${3:a} : ${4:b} ;",
+        "body": "${1:retVal} = (${2:condition}) ? ${3:a} : ${4:b};",
         "description": "Ternary conditional assignment"
     },
     "else …": {
@@ -144,7 +192,7 @@
     "elseif …": {
         "prefix": "elseif",
         "body": [
-            "elseif (${1:condition}) {",
+            "else if (${1:condition}) {",
             "\t${0:# code...}",
             "}"
         ],
@@ -153,7 +201,36 @@
     "for …": {
         "prefix": "for",
         "body": [
-            "for (${1:i}=${2:0}; ${1:i} < $3; ${1:i}++) { ",
+            "for (let ${1:i}=${2:0}; ${1:i} < ${3:length}; ${1:i}++) {",
+            "\t${0:# code...}",
+            "}"
+        ],
+        "description": "For-loop"
+    },
+    "foreach …": {
+        "prefix": "foreach",
+        "body": [
+            "for (let ${1:index}=${2:0}; ${1:index} < ${3:array}.length; ${1:index}++) {",
+            "\t${3:let ${4:item} = ${2:array}[${1:index}];",
+            "\t${0:# code...}",
+            "}"
+        ],
+        "description": "For-loop"
+    },
+    "for … in …": {
+        "prefix": "forin",
+        "body": [
+            "for (let ${1:key} in ${2:object}) {",
+            "\t${3:let ${4:item} = ${2:object}[${1:key}];",
+            "\t${0:# code...}",
+            "}"
+        ],
+        "description": "For-loop"
+    },
+    "for … of …": {
+        "prefix": "forof",
+        "body": [
+            "for (let ${1:item} of ${2:object}) {",
             "\t${0:# code...}",
             "}"
         ],
@@ -162,7 +239,7 @@
     "each …": {
         "prefix": "each",
         "body": [
-            "each (${1:variable} as ${2:index} ${3:, ${4:item}}) {",
+            "each (${1:variable} as ${2:index}${3:,${4: item}}) {",
             "\t${0:# code...}",
             "}"
         ],
@@ -171,7 +248,7 @@
     "switch …": {
         "prefix": "switch",
         "body": [
-            "switch (\\${1:variable}) {",
+            "switch (${1:variable}) {",
             "\tcase '${2:value}':",
             "\t\t${3:# code...}",
             "\t\tbreak;",
@@ -192,9 +269,9 @@
         ],
         "description": "Case Block"
     },
-    "pandora …": {
-        "prefix": ".",
-        "body": ".$0",
+    "pandora.…": {
+        "prefix": "pandora",
+        "body": "pandora.$0",
         "description": "Call Member From Pandora"
     },
     "pandora app …": {

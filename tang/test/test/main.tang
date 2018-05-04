@@ -1,4 +1,4 @@
-// use $_/foo/bar as bar;
+// use $ foo/bar as bar;
 
 var main = 0;
 @include 'main-part1';

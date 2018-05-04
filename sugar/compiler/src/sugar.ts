@@ -98,7 +98,7 @@
             // using: /^\s*use\s+/g,
             namespace: /[\r\n]((@\d+L\d+P0):::)?(\s*)namespace\s+(\.{0,1}[\$a-zA-Z_][\$\w\.]*)\s*(;|\r|\n)/g,
             // 位置是在replace usings 和 strings 之后才tidy的，所以还存在后接空格
-            use: /(@\d+L\d+P\d+:::)\s*use(\$)?\s+([\$\w\.\/\\\?\=\&]+)(\s+as(\s+(@\d+L\d+P\d+:::\s*[\$a-zA-Z_][\$\w]*)|\s*(@\d+L\d+P\d+:::\s*)?\{(@\d+L\d+P\d+:::\s*[\$a-zA-Z_][\$\w]*(\s*,@\d+L\d+P\d+:::\s*[\$a-zA-Z_][\$\w]*)*)\})(@\d+L\d+P\d+:::\s*)?)?\s*[;\r\n]/g,
+            use: /(@\d+L\d+P\d+:::)\s*use(\s*\$)?\s+([\$\w\.\/\\\?\=\&]+)(\s+as(\s+(@\d+L\d+P\d+:::\s*[\$a-zA-Z_][\$\w]*)|\s*(@\d+L\d+P\d+:::\s*)?\{(@\d+L\d+P\d+:::\s*[\$a-zA-Z_][\$\w]*(\s*,@\d+L\d+P\d+:::\s*[\$a-zA-Z_][\$\w]*)*)\})(@\d+L\d+P\d+:::\s*)?)?\s*[;\r\n]/g,
             include: /\s*@include\s+___boundary_[A-Z0-9_]{36}_(\d+)_as_string___[;\r\n]+/g,
 
             // return: /[\s;\r\n]+$/g,
@@ -3167,7 +3167,7 @@
         pushFooter(codes: string[], vars: any): string[] {
             // console.log(vars.root.public);
             for (const name in vars.root.public) {
-                codes.push("\r\n\tpandora." + this.namespace + name + ' = ' + vars.root.public[name]);
+                codes.push("\r\n\tpandora." + this.namespace + name + ' = ' + vars.root.public[name] + ';');
             }
             if (this.isMainBlock) {
                 codes.push("\r\n" + '}, true);');

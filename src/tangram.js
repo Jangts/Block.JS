@@ -681,6 +681,7 @@ function(root, factory) {
              * @return object
              */
             function pandora(name, value, update) {
+                name = name.trim();
                 if (namingExpr.test(name)) {
                     // 检查传入值
                     value = value || {};

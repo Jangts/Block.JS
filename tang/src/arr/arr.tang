@@ -7,7 +7,7 @@
  * Date 2017-04-06
  */
 
-use $_/util/type;
+use $ util/type;
 
 var _ = pandora;
 

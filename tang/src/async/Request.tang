@@ -7,7 +7,7 @@
  * Date 2017-04-06
  */
 
-use $_/async/Promise;
+use $ async/Promise;
 var _ = pandora,
     
     console = root.console;

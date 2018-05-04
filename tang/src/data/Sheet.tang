@@ -8,9 +8,9 @@
  */
 
 
-use $_/arr/;
-use $_/obj/;
-use $_/data/Storage;
+use $ arr/;
+use $ obj/;
+use $ data/Storage;
 
 var _ = pandora,
 doc = root.document,

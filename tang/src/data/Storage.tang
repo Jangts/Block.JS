@@ -8,8 +8,8 @@
  */
 
 
-use $_/obj/;
-use $_/str/hash;
+use $ obj/;
+use $ str/hash;
 
 var _ = pandora,
 doc = root.document,

@@ -11,11 +11,11 @@
     addinUrl : './../'
 }
 
-use $_/arr/
-use $_/util/bool;
-use $_/util/type as type1;
-use $_/util/../util/type as types[];
-use $_/util/../util/type as type2, imports;
+use $ arr/
+use $ util/bool;
+use $ util/type as type1;
+use $ util/../util/type as types[];
+use $ util/../util/type as type2, imports;
 
 var _ = pandora,
 declare = pandora.declareClass,

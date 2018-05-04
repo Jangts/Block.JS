@@ -8,9 +8,9 @@
  */
 
 
-use $_/util/bool;
-use $_/obj/;
-use $_/str/hash;
+use $ util/bool;
+use $ obj/;
+use $ str/hash;
 
 var _ = pandora,
 doc = root.document,

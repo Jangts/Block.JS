@@ -6,10 +6,10 @@
  * Date: 2017-04-06
  */
 ;
-use $_/util/bool
-use $_/arr/
-use $_/math/easing
-use $_/dom/Animation
+use $ util/bool
+use $ arr/
+use $ math/easing
+use $ dom/Animation
 
 var _ = pandora,
 declare = pandora.declareClass,

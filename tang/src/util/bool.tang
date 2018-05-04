@@ -8,8 +8,8 @@
  */
 namespace util;
 
-use $_/util/type;
-use $_/dom/;
+use $ util/type;
+use $ dom/;
 
 var _ = pandora,
 doc = root.document,

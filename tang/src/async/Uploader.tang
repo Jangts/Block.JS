@@ -7,7 +7,7 @@
  * Date 2017-04-06
  */
 
-use $_/util/bool;
+use $ util/bool;
 var _ = pandora,
 doc = root.document,
 console = root.console;

@@ -1,8 +1,10 @@
 "await"
-use $_/app/Application;
+use $ app/Application;
 
 let _ = pandora;
 
-pandora('app ', (elem){
+use $_/ as var;
+
+public app = (elem){
     return new _.app.Application(elem);
-});
+};

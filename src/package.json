@@ -1,6 +1,6 @@
 {
     "name": "@jangts/tangram.js",
-    "version": "2.9.5",
+    "version": "2.9.7",
     "description": "A Web Front-end Development Framework",
     "main": "./tangram.js",
     "deprecated": false,

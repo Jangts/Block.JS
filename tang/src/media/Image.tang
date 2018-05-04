@@ -7,8 +7,8 @@
  * Date: 2017-04-06
  */
 
-use $_/util/bool;
-use $_/async/Request;
+use $ util/bool;
+use $ async/Request;
 
 var _ = pandora,
 doc = root.document,

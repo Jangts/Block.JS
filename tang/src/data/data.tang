@@ -8,10 +8,10 @@
  */
 
 
-use $_/obj/;
-use $_/util/bool;
-use $_/dom/;
-use $_/async/Request;
+use $ obj/;
+use $ util/bool;
+use $ dom/;
+use $ async/Request;
 
 var _ = pandora,
 doc = root.document,

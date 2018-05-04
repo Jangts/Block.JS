@@ -13,9 +13,9 @@
 //  * Date 2017-04-06
 //  */
 
-use $_/arr/
-use   $_/util/bool; use $_/util/type as {type1};  use $_/util/../util/type as types
-                   use $_/util/../util/type as {type2, type3};
+use $ arr/
+use   $_/util/bool; use $ util/type as {type1};  use $ util/../util/type as types
+                   use $ util/../util/type as {type2, type3};
 
 
 @include './test.tf';
@@ -41,7 +41,7 @@ use   $_/util/bool; use $_/util/type as {type1};  use $_/util/../util/type as ty
 // // f= (d,e)=> (d + (e=>e+4)()),
 //    a = b, c = s=>s,
 // c = a;
-// use $_/util/../util/type as type2, type3
+// use $ util/../util/type as type2, type3
 // var _ = pandora;
 // console.log([
 //     _, 1, (){}]);

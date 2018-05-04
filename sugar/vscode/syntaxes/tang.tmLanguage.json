@@ -164,7 +164,7 @@
             }]
         },
         {
-            "match": "\\b(?<![\\.\\$])(break|by|catch|continue|else|finally|for|in|of|if|return|switch|then|throw|try|unless|when|while|until|loop|do|export|import|default|from|as|yield|async|await(?<=for)\\s+own|@config|@include|use|each|namespace|ns|store|def|dec|expands)(?!\\s*:)\\b",
+            "match": "\\b(?<![\\.\\$])(break|by|catch|continue|else|finally|for|in|of|if|return|switch|then|throw|try|unless|when|while|until|loop|do|export|import|default|default:|from|as|yield|async|await(?<=for)\\s+own|\\@config|\\@include|use|each|namespace|ns|global|def|expands)(?!\\s*:)\\b",
             "name": "keyword.control.tang"
         },
         {
@@ -282,7 +282,7 @@
             "name": "keyword.other.tang"
         },
         {
-            "match": "\\b(Array|ArrayBuffer|Blob|Boolean|Date|document|Function|Int(8|16|32|64)Array|Math|Map|Number|Object|Proxy|RegExp|Set|String|WeakMap|window|Uint(8|16|32|64)Array|XMLHttpRequest|tangram|declare|global|imports)\\b",
+            "match": "\\b(Array|ArrayBuffer|Blob|Boolean|Date|document|Function|Int(8|16|32|64)Array|Math|Map|Number|Object|Proxy|RegExp|Set|String|WeakMap|window|Uint(8|16|32|64)Array|XMLHttpRequest|tangram|declare|root|imports)\\b",
             "name": "support.class.tang"
         },
         {
