@@ -105,24 +105,17 @@ let handlers = {
         }
         fs.writeFileSync(o, output);
         console.log('file ' + o + ' compiled completed!');
-        // if (options.compileMin){
-        //     let m = o.replace(/.js$/, '.min.js');
-        //     let outmin = sugar.min();
-        //     fs.writeFileSync(m, outmin);
-        //     console.log('file ' + o + ' and file ' + m + ' compiled completed!');
-        // }else{
-        //     console.log('file ' + o + ' compiled completed!');
-        // }
     },
     test() {
         // console.log('Hello, world!');
         handlers.compile('./test/main.tang', './test/script.js');
     },
     cdir() {
+        console.log(options.outputDir);
         let indir = path.resolve(options.inputDir);
         let outdir = options.outputDir ? path.resolve(options.outputDir) : indir;
         let pattern;
-        // console.log(indir);
+        console.log(indir, outdir);
         if (options.containSubDir) {
             pattern = indir + '/**/*.tang';
         } else {
@@ -134,10 +127,11 @@ let handlers = {
             // er是当寻找的过程中遇的错误
             // console.log(files);
             for (let index = 0; index < files.length; index++) {
-                const tang = files[index];
+                let tang = files[index];
                 if (/\.test.tang$/.test(tang)){
                     continue;
                 }
+                tang = path.resolve(tang);
                 if (options.safemode) {
                     var js: string = tang.replace(indir, outdir) + '.js';
                 } else {

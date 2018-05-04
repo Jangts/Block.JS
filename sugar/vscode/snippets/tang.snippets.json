@@ -1,4 +1,12 @@
 {
+    "namespace …": {
+        "prefix": "namespace",
+        "body": [
+            "namespace ${1:spacename};$0",
+            ""
+        ],
+        "description": "Using Namespace of Pandora"
+    },
     "use …": {
         "prefix": "use",
         "body": [
@@ -90,17 +98,7 @@
         ],
         "description": "Register Namespace To Pandora"
     },
-    "namespace …": {
-        "prefix": "namespace",
-        "body": [
-            "namespace ${1:spacename} {",
-            "\t${0:# code...}",
-            "}",
-            ""
-        ],
-        "description": "Register Namespace To Pandora"
-    },
-    "namespace … with {}": {
+    "ns … with {}": {
         "prefix": "nswith",
         "body": [
             "namespace ${1:spacename} {",

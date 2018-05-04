@@ -1797,7 +1797,7 @@
                 locals: vars.locals,
                 fixed: [],
                 fix_map: {},
-                type: 'closure'
+                type: 'local'
             };
             let array = this.replacements[index][0].split(/\s*(\{|\})\s*/);
             let position = this.getPosition(this.replacements[index][1]);
@@ -1878,7 +1878,7 @@
                             locals: vars.locals,
                             fixed: [],
                             fix_map: {},
-                            type: 'closure'
+                            type: 'local'
                         };
                         if (fname === 'for') {
                             var head: any = {
@@ -2901,6 +2901,11 @@
             // console.log(element.body);
             if (element.body.length) {
                 // console.log(element);
+                if (element.vars.type==='root'){
+                    for (var key in element.vars.locals) {
+                        codes.push(indent + "\tvar " + element.vars.locals[key] + ' = ' + key + ';');
+                    }
+                }
                 this.pushCodes(codes, element.vars, element.body, layer + 1, namespace);
             } else {
                 indent = '';
@@ -3206,6 +3211,9 @@
                     vars.root.fix_map['this'] = vars.locals['this'];
                     vars.root.fixed.push(vars.locals['this']);
                 case 'travel':
+                    if (vars.type === 'travel'){
+                        vars.root.fixed.push('this');
+                    }
                     vars.root.fix_map['arguments'] = vars.locals['arguments'];
                     vars.root.fixed.push(vars.locals['arguments']);
                 case 'root':
@@ -3242,7 +3250,7 @@
                     }
                     // console.log(vars);
                     break;
-                case 'closure':
+                case 'local':
                     for (const element in vars.self) {
                         if (vars.self[element]==='let'){
                             let varname = element;

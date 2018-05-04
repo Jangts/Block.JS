@@ -97,24 +97,17 @@ var handlers = {
         }
         fs.writeFileSync(o, output);
         console.log('file ' + o + ' compiled completed!');
-        // if (options.compileMin){
-        //     let m = o.replace(/.js$/, '.min.js');
-        //     let outmin = sugar.min();
-        //     fs.writeFileSync(m, outmin);
-        //     console.log('file ' + o + ' and file ' + m + ' compiled completed!');
-        // }else{
-        //     console.log('file ' + o + ' compiled completed!');
-        // }
     },
     test: function () {
         // console.log('Hello, world!');
         handlers.compile('./test/main.tang', './test/script.js');
     },
     cdir: function () {
+        console.log(options.outputDir);
         var indir = path.resolve(options.inputDir);
         var outdir = options.outputDir ? path.resolve(options.outputDir) : indir;
         var pattern;
-        // console.log(indir);
+        console.log(indir, outdir);
         if (options.containSubDir) {
             pattern = indir + '/**/*.tang';
         }
@@ -131,6 +124,7 @@ var handlers = {
                 if (/\.test.tang$/.test(tang)) {
                     continue;
                 }
+                tang = path.resolve(tang);
                 if (options.safemode) {
                     var js = tang.replace(indir, outdir) + '.js';
                 }

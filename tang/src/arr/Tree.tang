@@ -31,8 +31,6 @@ getChildren (parent) {
     return children;
 }
 
-
-
 /**
  * 一个数据树类型，提供4种排序方式
  * 

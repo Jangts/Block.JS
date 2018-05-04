@@ -64,6 +64,9 @@ each (d as index, item) {
     var f = 2;
     public p0 = 28;
     log this, arguments;
+    var fn = ()=>{
+        log this, arguments;
+    }
 }
 
 g (arg1){
@@ -103,6 +106,8 @@ public f(a = 4, b, c, ...d){
         log this, arguments;
     }
     var pandora = (){ log true};
+    var f1 = ()->{ log this, arguments;};
+    var f2 = ()=>{ log this, arguments;};
     var pandora_0 = {};
     var root = pandora;
     # var let = void 0;
