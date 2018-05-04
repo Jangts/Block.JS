@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Fri, 04 May 2018 08:19:58 GMT
+ * Datetime: Fri, 04 May 2018 16:08:27 GMT
  */
 ;
 // tangram.config({});
@@ -12,8 +12,8 @@ tangram.block([], function (pandora, root, imports, undefined) {
 	var charToInteger = {};
 	var integerToChar = {};
 	'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/='.split('').forEach(function (char, i) {
-		charToInteger[char]= i;
-		integerToChar[i]= char;
+		charToInteger[char] = i;
+		integerToChar[i] = char;
 	});
 	function decode (string) {
 		var result = []

@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Fri, 04 May 2018 08:19:59 GMT
+ * Datetime: Fri, 04 May 2018 16:08:28 GMT
  */
 ;
 // tangram.config({});
@@ -164,16 +164,13 @@ tangram.block([], function (pandora, root, imports, undefined) {
 		}
 		l = (2 - s) * b/2;
 		_s = (s * b)/(1 - Math.abs(l * 2 - 1))
-		return [h, _s * 100, l * 100]
+		return [h, _s * 100, l * 100];
 	}
 	var hue2rgb = function (p, q, t) {
 		if (t < 0)t += 1;
 		if (t > 1)t -= 1;
-		
 		if(t < 1/6)return p + (q - p) * 6 * t;
-		
 		if(t < 1/2)return q;
-		
 		if(t < 2/3)return p + (q - p) * (2/3 - t) * 6;
 		return p;
 	}
@@ -194,15 +191,15 @@ tangram.block([], function (pandora, root, imports, undefined) {
 			g = hue2rgb(p, q, h)
 			b = hue2rgb(p, q, h - 1/3)
 		}
-		return [r, g, b]
+		return [r, g, b];
 	}
 	var hsl2RGB = function (h, s, l) {
 		var base = hsl2BaseRGB(h, s, l)
-		return [Math.round(base[0] * 255), Math.round(base[1] * 255), Math.round(base[2] * 255)]
+		return [Math.round(base[0] * 255), Math.round(base[1] * 255), Math.round(base[2] * 255)];
 	}
 	var hsl2SafeRGB = function (h, s, l) {
 		var base = hsl2BaseRGB(h, s, l)
-		return [Math.round(base[0] * 10) * 25.5, Math.round(base[1] * 10) * 25.5, Math.round(base[2] * 10) * 25.5]
+		return [Math.round(base[0] * 10) * 25.5, Math.round(base[1] * 10) * 25.5, Math.round(base[2] * 10) * 25.5];
 	}
 	var hsl2HSB = function (h, s, l) {
 		s/=100
@@ -214,7 +211,7 @@ tangram.block([], function (pandora, root, imports, undefined) {
 		}
 		b = ((1 - Math.abs(l * 2 - 1)) * s + l * 2)/2;
 		_s = (b - l) * 2/b;
-		return [h, s, b]
+		return [h, s, b];
 	}
 	var rgb2HSB = function (r, g, b) {
 		r/=255
@@ -233,7 +230,7 @@ tangram.block([], function (pandora, root, imports, undefined) {
 			s = d/b;
 			switch (max) {
 				case r:
-				h = (g - b)/d + (g < b?6:0)
+				h = (g - b)/d + (g < b ? 6:0)
 				break
 				case g:
 				h = (b - r)/d + 2;
@@ -244,7 +241,7 @@ tangram.block([], function (pandora, root, imports, undefined) {
 			}
 			h/=6;
 		}
-		return [h, s, b]
+		return [h, s, b];
 	}
 	var rgb2HSL = function (r, g, b) {
 		r/=255
@@ -263,7 +260,7 @@ tangram.block([], function (pandora, root, imports, undefined) {
 			s = l > 0.5 ? d / (2 - max - min) : d /(max + min)
 			switch (max) {
 				case r:
-				h = (g - b)/d + (g < b?6:0)
+				h = (g - b)/d + (g < b ? 6:0)
 				break
 				case g:
 				h = (b - r)/d + 2;
@@ -274,30 +271,30 @@ tangram.block([], function (pandora, root, imports, undefined) {
 			}
 			h/=6;
 		}
-		return [h, s, l]
+		return [h, s, l];
 	}
 	var hex = function (num) {
 		var hex = void 0;
-		num = (num >= 0 && num <= 255)? num : 0;
+		num = (num >= 0 && num <= 255) ? num : 0;
 		hex = num.toString(16)
 		return hex.length === 2 ? hex : '0' + hex;
 	}
 	var convs = {
 		rgb: function (arr) {
-			return 'rgb(' + arr[0] + ',' + arr[1] + ',' + arr[2] + ')'
+			return 'rgb(' + arr[0] + ',' + arr[1] + ',' + arr[2] + ')';
 		},
 		rgba: function (arr) {
-			return 'rgb(' + arr[0] + ',' + arr[1] + ',' + arr[2] + ',' + arr[3] + ')'
+			return 'rgb(' + arr[0] + ',' + arr[1] + ',' + arr[2] + ',' + arr[3] + ')';
 		},
 		hex6: function (arr) {
-			return '#' + hex(arr[0]) + hex(arr[1]) + hex(arr[2])
+			return '#' + hex(arr[0]) + hex(arr[1]) + hex(arr[2]);
 		},
 		hex8: function (arr) {
-			return '#' + hex(arr[0]) + hex(arr[1]) + hex(arr[2]) + hex(arr[3] * 255)
+			return '#' + hex(arr[0]) + hex(arr[1]) + hex(arr[2]) + hex(arr[3] * 255);
 		},
 		hsl: function (rgb) {
 			var arr = rgb2HSL(rgb[0], rgb[1], rgb[2])
-			return 'hsl(' + arr[0] + ',' + arr[1] + '%,' + arr[2] + '%)'
+			return 'hsl(' + arr[0] + ',' + arr[1] + '%,' + arr[2] + '%)';
 		},
 		name: function (arr) {
 			var hex6 = '#' + hex(arr[0]) + hex(arr[1]) + hex(arr[2])
@@ -306,7 +303,7 @@ tangram.block([], function (pandora, root, imports, undefined) {
 				if (v === hex6) {
 					name = n;
 					_.loop.out()
-				}
+				};
 			})
 			return name;
 		}
@@ -315,44 +312,44 @@ tangram.block([], function (pandora, root, imports, undefined) {
 		if (/^#[A-Za-z0-9]{3}$/.test(value)) {
 			value = value.replace(/#/, "")
 			var arr = []
-			arr[0]=parseInt(value.substr(0, 1) + value.substr(0, 1), 16)
-			arr[1]=parseInt(value.substr(1, 1) + value.substr(1, 1), 16)
-			arr[2]=parseInt(value.substr(2, 1) + value.substr(2, 1), 16)
-			arr[3]= 1;
+			arr[0] = parseInt(value.substr(0, 1) + value.substr(0, 1), 16)
+			arr[1] = parseInt(value.substr(1, 1) + value.substr(1, 1), 16)
+			arr[2] = parseInt(value.substr(2, 1) + value.substr(2, 1), 16)
+			arr[3] = 1;
 			return arr;
 		}
 		if (/^#[A-Za-z0-9]{6}$/.test(value)) {
 			value = value.replace(/#/, "")
 			var arr = []
-			arr[0]=parseInt(value.substr(0, 2), 16)
-			arr[1]=parseInt(value.substr(2, 2), 16)
-			arr[2]=parseInt(value.substr(4, 2), 16)
-			arr[3]=parseInt(1)
+			arr[0] = parseInt(value.substr(0, 2), 16)
+			arr[1] = parseInt(value.substr(2, 2), 16)
+			arr[2] = parseInt(value.substr(4, 2), 16)
+			arr[3] = parseInt(1)
 			return arr;
 		}
 		if (/^#[A-Za-z0-9]{8}$/.test(value)) {
 			value = value.replace(/#/, "")
 			var arr = []
-			arr[0]=parseInt(value.substr(2, 2), 16)
-			arr[1]=parseInt(value.substr(4, 2), 16)
-			arr[2]=parseInt(value.substr(6, 2), 16)
-			arr[3]=parseInt(value.substr(0, 2), 16)/255;
+			arr[0] = parseInt(value.substr(2, 2), 16)
+			arr[1] = parseInt(value.substr(4, 2), 16)
+			arr[2] = parseInt(value.substr(6, 2), 16)
+			arr[3] = parseInt(value.substr(0, 2), 16)/255;
 			return arr;
 		}
 		if (/^rgb\([0-9,\.\s]+\)$/.test(value)) {
 			var arr = value.replace(/(rgb\(|\))/gi, "").split(/,\s*/)
-			arr[0]=parseInt(arr[0])
-			arr[1]=parseInt(arr[1])
-			arr[2]=parseInt(arr[2])
-			arr[3]= 1;
+			arr[0] = parseInt(arr[0])
+			arr[1] = parseInt(arr[1])
+			arr[2] = parseInt(arr[2])
+			arr[3] = 1;
 			return arr;
 		}
 		if (/^rgba\([0-9,\.\s]+\)$/.test(value)) {
 			var arr = value.replace(/(rgb\(|\))/gi, "").split(/,\s*/)
-			arr[0]=parseInt(arr[0])
-			arr[1]=parseInt(arr[1])
-			arr[2]=parseInt(arr[2])
-			arr[3]=parseInt(arr[3])
+			arr[0] = parseInt(arr[0])
+			arr[1] = parseInt(arr[1])
+			arr[2] = parseInt(arr[2])
+			arr[3] = parseInt(arr[3])
 			return arr;
 		}
 		return null;
@@ -363,25 +360,25 @@ tangram.block([], function (pandora, root, imports, undefined) {
 			if (names[color]) {
 				color = names[color]
 			}
-			this.data = toArray(color) || [0, 0, 0, 1]
+			this.data = toArray(color) || [0, 0, 0, 1];
 		},
 		rgb: function () {
-			return convs.rgb(this.data)
+			return convs.rgb(this.data);
 		},
 		rgba: function () {
-			return convs.rgba(this.data)
+			return convs.rgba(this.data);
 		},
 		hex6: function () {
-			return convs.hex6(this.data)
+			return convs.hex6(this.data);
 		},
 		hex8: function () {
-			return convs.hex8(this.data)
+			return convs.hex8(this.data);
 		},
 		hsl: function () {
-			return convs.hsl(this.data)
+			return convs.hsl(this.data);
 		},
 		name: function () {
-			return convs.name(this.data)
+			return convs.name(this.data);
 		}
 	});
 	pandora.extend(pandora.util.Color, {
@@ -394,7 +391,7 @@ tangram.block([], function (pandora, root, imports, undefined) {
 				arr = toArray(val)
 				if (arr) {
 					name = name.toLowerCase()
-					names[name]= names[name] || convs.hex6(arr).toLowerCase()
+					names[name] = names[name] || convs.hex6(arr).toLowerCase()
 				}
 				break
 				case 'object':
@@ -402,11 +399,11 @@ tangram.block([], function (pandora, root, imports, undefined) {
 					arr = toArray(val)
 					if (arr) {
 						n = n.toLowerCase()
-						names[n]= names[n] || convs.hex6(arr).toLowerCase()
-					}
+						names[n] = names[n] || convs.hex6(arr).toLowerCase()
+					};
 				}, this);
 				break
-			}
+			};
 		},
 		rgbFormat: function (value, type) {
 			value = value && value.toLowerCase && value.toLowerCase() || 'black'
@@ -419,7 +416,7 @@ tangram.block([], function (pandora, root, imports, undefined) {
 			}
 			else {
 				return convs.rgba(arr)
-			}
+			};
 		},
 		hsb2HSL: hsb2HSL,
 		hsl2RGB: hsl2RGB,

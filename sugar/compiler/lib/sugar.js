@@ -56,7 +56,25 @@
         'throw', 'try', 'typeof',
         'var', 'void',
         'while', 'with'
-    ], reservedFname = ['if', 'for', 'while', 'switch', 'with', 'catch'], reserved = ['window', 'global', 'tangram', 'this', 'arguments'], blockreserved = ['pandora', 'root'];
+    ], reservedFname = ['if', 'for', 'while', 'switch', 'with', 'catch'], reserved = ['window', 'global', 'tangram', 'this', 'arguments'], blockreserved = ['pandora', 'root'], semicolon = {
+        type: 'code',
+        posi: undefined,
+        display: 'inline',
+        vars: {
+            parent: null,
+            root: {
+                namespace: this.namespace,
+                public: {},
+                private: {},
+                protected: {},
+                fixed: [],
+                fix_map: {}
+            },
+            locals: {},
+            type: 'semicolon'
+        },
+        value: ';'
+    };
     var zero2z = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split(''), namingExpr = /^[A-Z_\$][\w\$]*(\.[A-Z_\$][\w\$]*)*$/i, argsExpr = /^...[A-Z_\$][\w\$]*(\.[A-Z_\$][\w\$]*)*$/i, stringas = {
         '/': '_as_pattern___',
         '`': '_as_template___',
@@ -80,23 +98,21 @@
         sign: /(^|\s*[^\+\-])(\+|\-)([\$\w\.])/g,
         swords: /(^|[^\$\w])(typeof|instanceof|void|delete)\s+(\+*\-*[\$\w\.])/g,
         before: /(\+\+|\-\-|\!|\~)\s*([\$\w])/g,
-        after: /([\$\w\.])\s*(\+\+|\-\-)/g,
+        after: /([\$\w\.])[ \t]*(\+\+|\-\-)/g,
         error: /(.*)(\+\+|\-\-|\+|\-)(.*)/g
     }, replaceWords = /(^|@\d+L\d+P\d+O?\d*:::|\s)(continue|finally|return|throw|break|case|else|try|do)\s*(\s|;|___boundary_[A-Z0-9_]{36}_(\d+)_as_([a-z]+)___)/g, replaceExpRegPattern = {
-        await: /^((\s*@\d+L\d+P0:::)*\s*(@\d+L\d+P0*):::(\s*))?"await"\s*/,
-        // using: /^\s*use\s+/g,
+        await: /^((\s*@\d+L\d+P0:::)*\s*(@\d+L\d+P0*):::(\s*))?"await"[;\s]*/,
         namespace: /[\r\n]((@\d+L\d+P0):::)?(\s*)namespace\s+(\.{0,1}[\$a-zA-Z_][\$\w\.]*)\s*(;|\r|\n)/g,
         // 位置是在replace usings 和 strings 之后才tidy的，所以还存在后接空格
         use: /(@\d+L\d+P\d+:::)\s*use(\s*\$)?\s+([\$\w\.\/\\\?\=\&]+)(\s+as(\s+(@\d+L\d+P\d+:::\s*[\$a-zA-Z_][\$\w]*)|\s*(@\d+L\d+P\d+:::\s*)?\{(@\d+L\d+P\d+:::\s*[\$a-zA-Z_][\$\w]*(\s*,@\d+L\d+P\d+:::\s*[\$a-zA-Z_][\$\w]*)*)\})(@\d+L\d+P\d+:::\s*)?)?\s*[;\r\n]/g,
         include: /\s*@include\s+___boundary_[A-Z0-9_]{36}_(\d+)_as_string___[;\r\n]+/g,
-        // return: /[\s;\r\n]+$/g,
-        extends: /(@\d+L\d+P\d+O*\d*:::)?((ns|namespace|global|extends)\s+(\.{0,1}[\$a-zA-Z_][\$\w\.]*)\s*(with\s*)?\{([^\{\}]*?)\})/g,
-        class: /(@\d+L\d+P\d+O*\d*:::)?((class|expands)\s+(\.{0,1}[\$a-zA-Z_][\$\w\.]*\s+)?(extends\s+[\.{0,1}[\$a-zA-Z_][\$\w\.]*\s*)?\{[^\{\}]*?\})/g,
+        extends: /(@\d+L\d+P\d+O*\d*:::)?((ns|namespace|extends)\s+((\.{0,3})[\$a-zA-Z_][\$\w\.]*)(\s+with\s*)?\{([^\{\}]*?)\})/g,
+        class: /(@\d+L\d+P\d+O*\d*:::)?((class|expands)\s+(\.{0,3}[\$a-zA-Z_][\$\w\.]*)?(\s+extends\s+\.{0,3}[\$a-zA-Z_][\$\w\.]*)?\s*\{[^\{\}]*?\})/g,
         fnlike: /(@\d+L\d+P\d+O*\d*:::)?(^|(function|def|public)\s+)?(([\$a-zA-Z_][\$\w]*)?\s*\([^\(\)]*\))\s*\{([^\{\}]*?)\}/g,
         parentheses: /(@\d+L\d+P\d+O*\d*:::)?\(\s*([^\(\)]*?)\s*\)/g,
         arraylike: /(@\d+L\d+P\d+O*\d*:::)?\[(\s*[^\[\]]*?)\s*\]/g,
         call: /(@\d+L\d+P\d+O*\d*:::)?((new)\s+([\$a-zA-Z_][\$\w\.]*)|(\.)?([\$a-zA-Z_][\$\w]*))\s*(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)\s*([^\$\w\s\{]|[\r\n].|\s*___boundary_[A-Z0-9_]{36}_\d+_as_array___|\s*@boundary_\d+_as_operator::|$)/g,
-        callschain: /\s*\.___boundary_[A-Z0-9_]{36}_(\d+)_as_callmethod___((@\d+L\d+P\d+O*\d*:::)?\.___boundary_[A-Z0-9_]{36}_\d+_as_callmethod___)*/g,
+        callschain: /\s*(@\d+L\d+P\d+O*\d*:::)?\.___boundary_[A-Z0-9_]{36}_(\d+)_as_callmethod___((@\d+L\d+P\d+O*\d*:::)?\.___boundary_[A-Z0-9_]{36}_\d+_as_callmethod___)*/g,
         arrowfn: /(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)\s*(->|=>)\s*([^,;\r\n]+)\s*(,|;|\r|\n|$)/g,
         closure: /((@\d+L\d+P\d+O*\d*:::)?@*[\$a-zA-Z_][\$\w]*|\)|\=|\(\s)?(@\d+L\d+P\d+O*\d*:::)?\s*\{(\s*[^\{\}]*?)\s*\}/g,
         expression: /(@\d+L\d+P\d+O*\d*:::)?(if|for|while|switch|with|catch|each)\s*(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)\s*;*\s*(___boundary_[A-Z0-9_]{36}_(\d+)_as_(closure|objlike)___)/g,
@@ -112,8 +128,8 @@
         },
         index: /(\d+)_as_([a-z]+)/,
         index3: /^_(\d+)_as_([a-z]+)___([\s\S]*)$/,
-        extends: /(ns|nsassign|global|globalassign|extends)\s+(\.)?(\.{0,1}[\$a-zA-Z_][\$\w\.]*)\s*\{([^\{\}]*?)\}/,
-        class: /(class|dec|expands)\s+(\.)?([\$a-zA-Z_][\$\w\.]*\s+)?(extends\s+(\.)?([\$a-zA-Z_][\$\w\.]*)\s*)?\{([^\{\}]*?)\}/i,
+        extends: /(ns|nsassign|global|globalassign|extends)\s+([\$a-zA-Z_][\$\w\.]*)\s*\{([^\{\}]*?)\}/,
+        class: /(class|dec|expands)\s+(\.{1,3})?([\$a-zA-Z_][\$\w\.]*)?(\s+extends\s+(\.{1,3})?([\$a-zA-Z_][\$\w\.]*)\s*)?\{([^\{\}]*?)\}/i,
         fnlike: /(^|(function|def|public)\s+)?([\$a-zA-Z_][\$\w]*)?\s*\(([^\(\)]*)\)\s*\{([^\{\}]*?)\}/i,
         call: /([\$a-zA-Z_][\$\w\.]*)\s*___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___/i,
         arrowfn: /(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)\s*(->|=>)\s*([\s\S]+)\s*$/,
@@ -284,6 +300,7 @@
                     return panstop;
                 });
             }
+            string = string.replace(/::::/g, '::: :');
             return string;
         };
         Sugar.prototype.encode = function (string) {
@@ -312,6 +329,7 @@
                     if (gap) {
                         _this.namespace_posi += 'O' + gap.length;
                     }
+                    _this.namespace.replace(/^\.+/, '').replace(/\.+/, '.');
                     // console.log('namespace:' + namespace, this.namespace_posi);
                 }
                 return '';
@@ -569,21 +587,40 @@
             });
             if (matched)
                 return string;
-            string = string.replace(replaceExpRegPattern.extends, function (match, posi, body, exp, name, assign, closure) {
+            string = string.replace(replaceExpRegPattern.extends, function (match, posi, body, exp, name, node, assign, closure) {
                 matched = true;
+                name = name.replace(/^\.+/, '');
                 if (assign) {
                     if (exp === 'extends') {
-                        _this.error('Unexpected `extends`: extends ' + name + ' return');
-                    }
-                    else if (exp === 'global') {
-                        body = 'globalassign ' + name + '{' + _this.replaceParentheses(closure) + '}';
+                        _this.error('Unexpected `extends`: extends ' + name + ' with');
                     }
                     else {
-                        body = 'nsassign ' + name + '{' + _this.replaceParentheses(closure) + '}';
+                        if (node && node.length===2){
+                            body = 'globalassign ' + name + '{' + _this.replaceParentheses(closure) + '}';
+                        }else{
+                            body = 'nsassign ' + name + '{' + _this.replaceParentheses(closure) + '}';
+                        }
                     }
                 }
                 else {
-                    body = exp.replace('namespace', 'ns') + ' ' + name + '{' + _this.replaceParentheses(closure) + '}';
+                    if (exp === 'extends') {
+                        if (node) {
+                            if (node.length === 2) {
+                                body = 'globalassign ' + name + '{' + _this.replaceParentheses(closure) + '}';
+                            } else {
+                                body = 'nsassign ' + name + '{' + _this.replaceParentheses(closure) + '}';
+                            }
+                        } else {
+                            body = 'extends ' + name + '{' + _this.replaceParentheses(closure) + '}';
+                        }
+                    }
+                    else {
+                        if (node && node.length === 2) {
+                            body = 'global ' + name + '{' + _this.replaceParentheses(closure) + '}';
+                        } else {
+                            body = 'ns ' + name + '{' + _this.replaceParentheses(closure) + '}';
+                        }
+                    }
                 }
                 var index = _this.replacements.length;
                 _this.replacements.push([body, posi && posi.trim()]);
@@ -916,9 +953,9 @@
         Sugar.prototype.replaceCallsChain = function (string) {
             var _this = this;
             // console.log(string);
-            return string.replace(replaceExpRegPattern.callschain, function (match, _index) {
+            return string.replace(replaceExpRegPattern.callschain, function (match, posi, _index) {
                 var index = _this.replacements.length;
-                _this.replacements.push([match, _this.replacements[_index][1]]);
+                _this.replacements.push([match, posi || _this.replacements[_index][1]]);
                 return '___boundary_' + _this.uid + '_' + index + '_as_callschain___';
             });
         };
@@ -973,7 +1010,7 @@
         Sugar.prototype.getPosition = function (string) {
             if (string) {
                 // console.log(string);
-                var match = string.match(/@(\d+)L(\d+)P(\d+)(O*)(\d*):*/);
+                var match = string.match(/@(\d+)L(\d+)P(\d+)(O*)(\d*):{0,3}/);
                 if (match) {
                     if (match[4]) {
                         var index = parseInt(match[5]);
@@ -1001,7 +1038,9 @@
                 .replace(/([^,;\s])\s*(@\d+L\d+P(\d+O)?0:::[^\.\(\[)])/g, '$1;$2')
                 .replace(/[\r\n]+(___boundary_[A-Z0-9_]{36}_\d+_as_(if|class|function|extends|call|log|object|objlike|closure|parentheses)___)/g, ";$1")
                 .replace(/(___boundary_[A-Z0-9_]{36}_\d+_as_(log|closure)___)[\r\n]+/g, "$1;\r\n")
-                .replace(/(___boundary_[A-Z0-9_]{36}_\d+_as_(if)___)[;\s]+/g, "$1 ");
+                .replace(/[;\r\n]+((@\d+L\d+P\d+O?\d*:::)?___boundary_[A-Z0-9_]{36}_\d+_as_(callschain)___)/g, "$1")
+                .replace(/(___boundary_[A-Z0-9_]{36}_\d+_as_(if)___)[;\s]+/g, "$1 ")
+                .trim();
             var sentences = string.split(/\s*;+\s*/);
             var lines = [];
             // console.log(string, sentences);
@@ -1050,6 +1089,7 @@
             value = code.trim();
             if (value && !value.match(/^@\d+L\d+P\d+O?\d*:::$/)) {
                 var match_as_statement = value.match(/^___boundary_[A-Z0-9_]{36}_(\d+)_as_([a-z]+)___([\r\n]+|$)/);
+                // console.log(match_as_statement);
                 if (match_as_statement) {
                     if (display === 'block' && !['class', 'function', 'closure', 'if']['includes'](match_as_statement[2])) {
                         // console.log(match_as_statement[2]);
@@ -1354,20 +1394,28 @@
                             imports.push(posi);
                         }
                         if (this.replacements[lines[index_4].index][1]) {
+                            var position = void 0;
+                            var alias = void 0;
                             if (lines[index_4].subtype === 'usings') {
                                 var members = this.replacements[lines[index_4].index][1].split(',');
                                 for (var m = 0; m < members.length; m++) {
-                                    var position = this.getPosition(members[m]);
-                                    var alias = members[m].replace(position.match, '').trim();
+                                    position = this.getPosition(members[m]);
+                                    alias = members[m].replace(position.match, '').trim();
                                     using_as[alias] = [src, alias, position];
                                 }
                                 // console.log(this.replacements[lines[index].index][1]);
                             }
                             else {
-                                var position = this.getPosition(this.replacements[lines[index_4].index][1]);
-                                var alias = this.replacements[lines[index_4].index][1].replace(position.match, '').trim();
+                                position = this.getPosition(this.replacements[lines[index_4].index][1]);
+                                alias = this.replacements[lines[index_4].index][1].replace(position.match, '').trim();
                                 // console.log(alias);
                                 using_as[alias] = [src, '*', position];
+                            }
+                            if (vars.self[alias] === void 0) {
+                                vars.self[alias] = 'var';
+                            }
+                            else if (vars.self[alias] === 'let') {
+                                this.error(' Variable `' + alias + '` has already been declared at char ' + position.col + ' on line ' + position.line + '.');
                             }
                         }
                         break;
@@ -1456,6 +1504,7 @@
                         break;
                 }
             }
+            // console.log(body);
             return body;
         };
         Sugar.prototype.pushSentencesToAST = function (body, vars, code, isblock, blockposi) {
@@ -1784,34 +1833,50 @@
         Sugar.prototype.walkClass = function (index, display, vars) {
             if (vars === void 0) { vars = true; }
             // console.log(this.replacements[index]);
-            var matches = this.replacements[index][0].match(matchExpRegPattern.class);
+            let matches = this.replacements[index][0].match(matchExpRegPattern.class);
             // console.log(matches);
-            var type = matches[1];
+            let type = matches[1];
+            let namespace = vars.root.namespace || this.namespace;
+            let cname = matches[3];
+            let subtype = 'stdClass';
             if (matches[2]) {
-                var subtype = 'stdClass';
+                if(matches[2].length!==2){
+                    cname = namespace + cname;
+                }
             }
             else {
                 if (type === 'dec') {
-                    var subtype = 'stdClass';
+                    if (cname){
+                        cname = namespace + cname;
+                    } else if (amespace) {
+                        cname = namespace.replace(/\.$/, '');
+                    }else{
+                        var subtype = 'anonClass';
+                    }
                 }
                 else {
                     var subtype = 'anonClass';
                 }
             }
-            var cname = matches[3] && matches[3].trim();
-            if (type === 'class') {
-                if (subtype === 'anonClass') {
-                    if (cname) {
-                        if (vars.self[cname] === void 0) {
-                            vars.self[cname] = 'var';
-                        }
-                        else if (vars.self[cname] === 'let') {
-                            this.error(' Variable `' + cname + '` has already been declared.');
-                        }
-                        // vars.self.push('var ' + cname);
+            
+            if ((type === 'class')&&(subtype === 'anonClass')) {
+                if (cname) {
+                    if (vars.self[cname] === void 0) {
+                        vars.self[cname] = 'var';
                     }
+                    else if (vars.self[cname] === 'let') {
+                        this.error(' Variable `' + cname + '` has already been declared.');
+                    }
+                    // vars.self.push('var ' + cname);
                 }
-                // 标准类必须是块元素，否则无地方拓展静态属性和方法
+            }
+            let basename = matches[6];
+            if (matches[5]){
+                if (matches[5].length===2){
+                    basename = 'pandora.' + basename;
+                }else{
+                    basename = 'pandora.' + namespace + basename;
+                }
             }
             return {
                 type: type,
@@ -1819,7 +1884,7 @@
                 display: display,
                 subtype: subtype,
                 cname: cname,
-                base: (matches[5] && matches[6]) ? '.' + matches[6] : matches[6],
+                base: basename,
                 vars: vars,
                 body: this.checkClassBody(vars, matches[7] || '')
             };
@@ -1852,7 +1917,7 @@
             var matches = this.replacements[index][0].match(matchExpRegPattern.extends);
             var position = this.getPosition(this.replacements[index][1]);
             var subtype = 'ext';
-            var objname = matches[3];
+            var objname = matches[2];
             var localvars;
             var namespace;
             // console.log(matches);
@@ -1881,14 +1946,11 @@
                 var body = this.pushBodyToAST([], localvars, matches[4]);
             }
             else {
-                if ((matches[1] === 'nsassign') || matches[2]) {
-                    subtype = 'nsassign';
-                }
-                else if ((matches[1] === 'globalassign')) {
-                    subtype = 'globalassign';
+                if ((matches[1] === 'nsassign')||(matches[1] === 'globalassign')) {
+                    subtype = matches[1];
                 }
                 localvars = vars;
-                var body = this.checkObjMember(localvars, matches[4]);
+                var body = this.checkObjMember(localvars, matches[3]);
             }
             return {
                 type: 'extends',
@@ -2044,7 +2106,7 @@
                     else if ((display === 'block') && !fname) {
                         fname = 'default_function_name';
                     }
-                    if (fname) {
+                    if (fname && fname !== 'return') {
                         if (!vars.self.hasOwnProperty(fname)) {
                             vars.self[fname] = 'var';
                         }
@@ -2475,7 +2537,7 @@
                 // console.log(key);
                 // let position = this.getPosition(key);
                 // let _key = key.replace(position.match, '').trim();
-                codes.push("\r\n\t" + this.pushPostionsToMap(alias[key_1][2]) + "var " + key_1);
+                codes.push("\r\n\t" + this.pushPostionsToMap(alias[key_1][2]) + "var " + this.patchVariables(key_1, vars));
                 codes.push(" = imports['" + alias[key_1][0]);
                 codes.push("'] && imports['" + alias[key_1][0]);
                 if (alias[key_1][1] === '*') {
@@ -2731,8 +2793,8 @@
             var cname = '';
             var toES6 = false;
             if (element.subtype === 'stdClass') {
-                cname = 'pandora.' + namespace + element.cname.trim();
-                codes.push(indent1 + this.pushPostionsToMap(element.posi) + 'pandora.declareClass(\'' + namespace + element.cname.trim() + '\', ');
+                cname = 'pandora.' + element.cname.trim();
+                codes.push(indent1 + this.pushPostionsToMap(element.posi) + 'pandora.declareClass(\'' + element.cname.trim() + '\', ');
             }
             else {
                 if (element.cname && element.cname.trim()) {
@@ -2763,10 +2825,10 @@
             }
             if (element.base) {
                 if (toES6) {
-                    codes.push('extends ' + element.base.trim().replace(/$\./, 'pandora.' + namespace) + ' ');
+                    codes.push('extends ' + element.base);
                 }
                 else {
-                    codes.push(element.base.trim().replace(/$\./, 'pandora.' + namespace) + ', ');
+                    codes.push(element.base);
                 }
             }
             codes.push('{');
@@ -2975,6 +3037,7 @@
                         codes.push(indent + "\tvar " + element.vars.locals[key] + ' = ' + key + ';');
                     }
                 }
+                element.body.push(semicolon);
                 this.pushCodes(codes, element.vars, element.body, layer + 1, namespace);
             }
             else {
@@ -3074,7 +3137,7 @@
             var static_elements = [];
             var cname = '';
             if (element.subtype === 'stdClass') {
-                cname = 'pandora.' + namespace + element.cname.trim();
+                cname = 'pandora.' + element.cname.trim();
             }
             else {
                 if (element.cname && element.cname.trim()) {
@@ -3312,6 +3375,7 @@
                     for (var element in vars.self) {
                         var varname = element;
                         if (keywords['includes'](element) || reserved['includes'](element)) {
+                            console.log(vars);
                             this.error('keywords `' + element + '` cannot be a variable name.');
                         }
                         if (blockreserved['includes'](element)) {
@@ -3382,6 +3446,9 @@
                 return code.replace(/(^|[^\$\w\.])((let|var)\s+)?([\$a-zA-Z_][\$\w]*)(\s+|\s*[^\$\w]|\s*$)/i, function (match, before, typewithgap, type, varname, after) {
                     // console.log(match, "\r\n", before, '[', varname, '](', type, ')', after);
                     return before + (typewithgap || '') + _this.patchVariable(varname, vars) + after || '';
+                }).replace(/(\.\.\.)([\$a-zA-Z_][\$\w]*)/i, function (match, node, member) {
+                    // console.log(match, "\r\n", before, '[', varname, '](', type, ')', after);
+                    return _this.patchNamespace(node, vars) + member;
                 });
             }
             // console.log(code);
@@ -3433,6 +3500,15 @@
             // console.log('after:', varname);
             return varname;
         };
+        Sugar.prototype.patchNamespace = function (node, vars) {
+            if (node === '..') {
+                return 'pandora.';
+            }
+            if (vars.root.namespace) {
+                return 'pandora.' + vars.root.namespace;
+            }
+            return 'pandora.' + this.namespace;
+        };
         Sugar.prototype.restoreStrings = function (string, last) {
             var that = this;
             if (last) {
@@ -3465,43 +3541,15 @@
             var _this = this;
             // 此处的replace在整理完成后，将进行分析归纳，最后改写为callback形式的
             // console.log(string);
-            // string = this.restoreStrings(string, false);
-            // return string;
-            // this.replacements = [['{}'], ['/='], ['/'], [' +'], [' -'], ['return ']];
-            // console.log(string);
             string = this.replaceStrings(string, true);
-            {
-                // console.log(string);
-                // string = this.replaceOperators(string, false);
-                // console.log(string);
-                // return '';
-                // 删除多余头部
-                // string = string.replace(/^[,;\s]+[\r\n]+/g, "\r\n");
-                // string = string.replace(/^[,;\s]+/g, "\r\n\t");
-                // 去除多余符号
-                // string = string.replace(/\s*;(\s*;)+/g, ";");
-                // string = string.replace(/\s*;([^\s])/g, "; $1");
-                // string = string.replace(/(\{|\[|\(|\.|\:)\s*[,;]+/g, "$1");
-                // string = string.replace(/\s*[,;]+(\s*)(\.|\:|\)|\])/g, "$1$2");
-                // string = string.replace(/\s+(\=|\?|\:)[,;\s]*/g, " $1 ");
-                // string = string.replace(/([\r\n]*\s*[\$\w])\s+(\:)/g, "$1$2");
-                // // 关键字处理
-                // string = string.replace(/if\s*\(([^\)]+)\)\s*[,;]+/g, "if ($1)");
-                // string = string.replace(/([^\$\w])else\s*[,;]+/g, "$1else");
-                // string = string.replace(/([^\s])\s*(instanceof)\s+/g, " $1 ");
-                // string = string.replace(/(,|;)?[\r\n]+(\s*)(var|delete|return)\s+/g, "$1\r\n$2$3 ");
-                // 删除多余空白
-                // string = string.replace(/\{\s+\}/g, '{}');
-                // string = string.replace(/\[\s+\]/g, '[]');
-                // string = string.replace(/\(\s+\)/g, '()');
-            }
             // console.log(string);
             // 去除多余标注
             string = string.replace(/\s*(@boundary_\d+_as_comments::)?@(ownprop|return)[; \t]*/g, function () {
                 return '';
             });
+            string = string.replace(/((@boundary_\d+_as_comments::)\s*)+(@boundary_\d+_as_comments::)/g, "$3");
             // 去除多余符号
-            string = string.replace(/\s*;(\s*;)*\x0B/g, ";");
+            string = string.replace(/\s*;(\s*;)*[\t \x0B]*/g, ";");
             string = string.replace(/(.)(\{|\[|\(|\.|\:)\s*[,;]+/g, function (match, before, mark) {
                 if ((before === mark) && (before === ':')) {
                     return match;
@@ -3509,7 +3557,8 @@
                 return before + mark;
             });
             // 格式化相应符号
-            string = string.replace(/\s+(\=|\?|\:)[,;\s]*/g, " $1 ");
+            string = string.replace(/\s*(\=|\?)\s*/g, " $1 ");
+            string = string.replace(/\s+(\:)[\s]*/g, " $1 ");
             // 删除多余空白与换行
             // string = string.replace(/[ ]+/g, " ");
             string = string.replace(/\s+[\r\n]([ \t])/g, "\r\n$1");
@@ -3532,50 +3581,6 @@
                 return operator;
             });
             return string;
-            // console.log(string);
-            // 关键字处理
-            // console.log(string);
-            // string = string.replace(/(\(|\[)\s+([\r\n]+)/g, "$1$2");
-            // string = string.replace(/([^\r\n])\s+(\)|\])/g, "$1$2");
-            // console.log(string);
-            // return string;
-            {
-                // string = string.replace(/[;\r\n]+?(\s*)if\s*\(([\s\S]+?)\)/g, ";\r\n$1if ($2) ");
-                // string = string.replace(/if\s*\(([\s\S]+?)\)[\s,;]*{/g, "if ($1) {");
-                // string = string.replace(/;+\s*(instanceof)\s+/g, " $1 ");
-                // string = string.replace(/(var|else|delete)(;|\s)+[;\s]*/g, "$1 ");
-                // string = string.replace(/[;\r\n]+(\s*)(var|delete|return)\s+/g, ";\r\n$1$2 ");
-                //前置运算符处理
-                // string = string.replace(/[,\s]*(@boundary_\d+_as_preoperator::)[,;\s]*/g, "$1");
-                // string = string.replace(/((\<|\!|\>)\=*)\s+(\+|\-)\s+(\d)/g, '$1 $3$4');
-                // 中置运算符前后不能结非标量
-                // string = string.replace(/[,;\s]*(@boundary_\d+_as_operator::)[,;\s]*/g, "$1");
-                // string = string.replace(/[,;\s]*(\=|\!|\+|\-|\*|\/|\%|\&|\^|\||<|>)[,;\s]*/g, " $1 ");
-                // string = string.replace(/\s*;+\s*(<+|\+|\-|\*|\/|>+)\s+/g, " $1 ");
-                // string = string.replace(/\s+(<+|\+|\-|\*|\/|>+)\s*;+\s*/g, " $1 ");
-                // string = string.replace(/[,;\s]*(\?)[,;\s]*/g, " $1 ");
-                // 后置运算符前面必须有内容
-                // string = string.replace(/[,;\s]*(@boundary_\d+_as_aftoperator::)/g, "$1");
-                // string = string.replace(/[,;\s]*(\(|\))/g, "$1");
-                //去除多余符号
-                // string = string.replace(/\s*;+/g, "; ");
-                // string = string.replace(/[,;\s]*,[,;]*/g, ',');
-                // string = string.replace(/(\{|\[|\(|\.|\:)\s*;+/g, "$1");
-                // string = string.replace(/\s*,+\s*(\.|\:|\)|\]|\})/g, "$1");
-                // string = string.replace(/(\{|\[|\(|\.|\:)\s*,+(\s*)/g, "$1$2");
-                // string = string.replace(/[;\s]+(\{|\[|\(|\.|\:|\)|\])/g, "$1");
-                // 删除多余换行
-                // string = string.replace(/(,|;)[\r\n]+/g, "$1\r\n");
-                // 删除多余空白
-                // string = string.replace(/\{\s+\}/g, '{}');
-                // string = string.replace(/\[\s+\]/g, '[]');
-                // string = string.replace(/\(\s+\)/g, '()');
-                // 删除多余头部
-                // string = string.replace(/^[,;\s]+/g, "");
-                // string = string.replace(/[\r\n]+(\s+)\}\s*([\$\w+]+)/g, "\r\n$1}\r\n$1$2");
-                // string = this.restoreStrings(string);
-            }
-            // return string;
         };
         Sugar.prototype.pickUpMap = function (string) {
             var lines = string.split(/\r{0,1}\n/);

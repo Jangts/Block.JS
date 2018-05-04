@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Fri, 04 May 2018 08:19:56 GMT
+ * Datetime: Fri, 04 May 2018 16:08:24 GMT
  */
 ;
 // tangram.config({});
@@ -19,25 +19,21 @@ tangram.block([
 		switch (typeof content) {
 			case 'string':
 			return this.each(function () {
-				
 				handler(this, content);
 			})
 			case 'object':
 			if (content.nodeType === 1 && this[0]) {
-				
 				handler(this[0], content);
 				return this;
 			}
 			if (content.lenth > this.lenth) {
 				return this.each(function (i) {
-					
 					handler(this, content[i]);
 				})
 			}
 			break
 			case 'function':
 			return this.each(function (i) {
-				
 				handler(this, content(i));
 			})
 		}
@@ -48,11 +44,11 @@ tangram.block([
 			case 'string':
 			case 'number':
 			return this.each(function () {
-				dom.setStyle(this, type, value)
+				dom.setStyle(this, type, value);
 			})
 			case 'function':
 			return this.each(function (i) {
-				dom.setStyle(this, type, value(i, dom.getStyle(this, type)))
+				dom.setStyle(this, type, value(i, dom.getStyle(this, type)));
 			})
 			case 'undefined':
 			return this[0] && handler(this[0])
@@ -62,15 +58,15 @@ tangram.block([
 	var scroll_offset = function (type, value) {
 		if (_.util.bool.isNumeric(value)) {
 			return this.each(function () {
-				dom.setStyle(this, type, value)
+				dom.setStyle(this, type, value);
 			})
 		}
 		if (_.util.bool.isFn(value)) {
 			return this.each(function (i) {
-				dom.setStyle(this, type, value(i, dom.getStyle(this, type)))
+				dom.setStyle(this, type, value(i, dom.getStyle(this, type)));
 			})
 		}
-		return this[0] && dom.getStyle(this[0], type)
+		return this[0] && dom.getStyle(this[0], type);
 	}
 	pandora.declareClass('dom.Elements', _.Iterator, {
 		context: document,
@@ -119,7 +115,7 @@ tangram.block([
 						this.push(Elements[i])
 					}
 				}
-			}
+			};
 		}
 	});
 	pandora.extend(pandora.dom.Elements.prototype, {
@@ -132,7 +128,7 @@ tangram.block([
 		find: function (selector) {
 			var Elements = []
 			this.each(function () {
-				Elements.push(query(selector, this))
+				Elements.push(query(selector, this));
 			})
 			this.prevObject = this;
 			this.splice(0, this.length)
@@ -150,7 +146,7 @@ tangram.block([
 			this.each(function () {
 				if (node = dom.closest(this, tagName)) {
 					Elements.push(node)
-				}
+				};
 			})
 			this.prevObject = this;
 			this.splice(0, this.length)
@@ -232,7 +228,7 @@ tangram.block([
 						this.each(function () {
 							if (this.tagName.toUpperCase() === tagName) {
 								list.push(this)
-							}
+							};
 						})
 						return list;
 					}
@@ -248,12 +244,12 @@ tangram.block([
 					}
 					return false;
 				}
-				return this[0] && ((this[0].tagName.toUpperCase() === tagName)?true:false)
+				return this[0] && ((this[0].tagName.toUpperCase() === tagName) ? true:false)
 				case 'boolean':
 				if (tagName) {
 					var list = []
 					this.each(function () {
-						list.push(this.tagName.toUpperCase())
+						list.push(this.tagName.toUpperCase());
 					})
 					return list;
 				}
@@ -261,7 +257,7 @@ tangram.block([
 				case 'number':
 				return this[tagName] && this[tagName].tagName.toUpperCase()
 			}
-			return this[0] && this[0].tagName.toUpperCase()
+			return this[0] && this[0].tagName.toUpperCase();
 		},
 		append: function (content) {
 			switch (typeof content) {
@@ -271,7 +267,7 @@ tangram.block([
 				})
 				case 'function':
 				return this.each(function (i) {
-					this.innerHTML += content(i, this.innerHTML)
+					this.innerHTML += content(i, this.innerHTML);
 				})
 				case 'object':
 				if (content.nodeType == 1) {
@@ -293,7 +289,7 @@ tangram.block([
 					Elements = dom.createByString(that.selector, parent)
 					for (var i = 0;i < Elements.length;i++) {
 						that.push(Elements[i])
-					}
+					};
 				})
 				return this;
 			}
@@ -309,28 +305,28 @@ tangram.block([
 		},
 		remove: function () {
 			this.each(function () {
-				dom.remove(this)
+				dom.remove(this);
 			})
 			return null;
 		},
 		before: function (content) {
-			return insert.call(this, content, dom.before)
+			return insert.call(this, content, dom.before);
 		},
 		after: function (content) {
-			return insert.call(this, content, dom.after)
+			return insert.call(this, content, dom.after);
 		},
 		index: function (list) {
 			if (_.util.type.isElement(list)) {
 				return dom.index(list, this)
 			}
-			return dom.index(this[0], list)
+			return dom.index(this[0], list);
 		},
 		parent: function () {
 			var nodes = []
 			this.each(function () {
-				nodes.push(this.parentNode)
+				nodes.push(this.parentNode);
 			})
-			return new dom.Elements(_.arr.unique(nodes))
+			return new dom.Elements(_.arr.unique(nodes));
 		}
 	});
 	pandora.extend(pandora.dom.Elements.prototype, {
@@ -338,11 +334,11 @@ tangram.block([
 			switch (typeof value) {
 				case 'string':
 				return this.each(function () {
-					dom.setAttr(this, attr, value)
+					dom.setAttr(this, attr, value);
 				})
 				case 'function':
 				return this.each(function (i) {
-					dom.setAttr(this, attr, value(i, dom.getAttr(this, attr)))
+					dom.setAttr(this, attr, value(i, dom.getAttr(this, attr)));
 				})
 				case 'undefined':
 				return this[0] && dom.getAttr(this[0], attr)
@@ -352,7 +348,7 @@ tangram.block([
 		removeAttr: function (attr) {
 			if (typeof attr == 'string') {
 				this.each(function () {
-					dom.removeAttr(this, attr)
+					dom.removeAttr(this, attr);
 				})
 			}
 			return this;
@@ -362,12 +358,12 @@ tangram.block([
 				case 'string':
 				case 'number':
 				this.each(function (index) {
-					dom.setData(this, dataName, _.util.bool.isFn(data)? data.call(this, index): data)
+					dom.setData(this, dataName, _.util.bool.isFn(data) ? data.call(this, index): data);
 				})
 				break
 				case 'function':
 				return this.each(function (i) {
-					dom.setData(this, attr, data(i, dom.getAttr(this, dataName)))
+					dom.setData(this, attr, data(i, dom.getAttr(this, dataName)));
 				})
 				case 'undefined':
 				return this[0] && dom.getData(this[0], dataName)
@@ -383,32 +379,32 @@ tangram.block([
 				})
 				case 'function':
 				this.each(function (i) {
-					this.innerHTML = nodeString(i, this.innerHTML)
+					this.innerHTML = nodeString(i, this.innerHTML);
 				})
 				case 'undefined':
-				return this[0]? this[0].innerHTML : ''
+				return this[0] ? this[0].innerHTML : ''
 			}
 			return this;
 		},
 		hasClass: function (className) {
-			return this[0] && dom.hasClass(this[0], className)
+			return this[0] && dom.hasClass(this[0], className);
 		},
 		toggleClass: function (className, isSwitch) {
 			switch (typeof className) {
 				case 'string':
 				this.each(function () {
-					dom.toggleClass(this, className, isSwitch)
+					dom.toggleClass(this, className, isSwitch);
 				})
 				break
 				case 'function':
 				this.each(function (i, el) {
-					dom.toggleClass(this, className(i, dom.getAttr(el, 'class')), isSwitch)
+					dom.toggleClass(this, className(i, dom.getAttr(el, 'class')), isSwitch);
 				})
 				break
 				case 'boolean':
 				if (className === false) {
 					this.each(function (i, el) {
-						dom.setAttr(this, 'class', '')
+						dom.setAttr(this, 'class', '');
 					})
 				}
 				break
@@ -416,10 +412,10 @@ tangram.block([
 			return this;
 		},
 		addClass: function (className) {
-			return this.toggleClass(className, true)
+			return this.toggleClass(className, true);
 		},
 		removeClass: function (className) {
-			return this.toggleClass(className, false)
+			return this.toggleClass(className, false);
 		}
 	});
 	pandora.extend(pandora.dom.Elements.prototype, {
@@ -428,7 +424,7 @@ tangram.block([
 				this.each(function () {
 					var _arguments = arguments;
 					pandora.each(style, function (prop, value) {
-						dom.setStyle(this, prop, value)
+						dom.setStyle(this, prop, value);
 					}, this);
 				})
 			}
@@ -437,11 +433,11 @@ tangram.block([
 					case 'string':
 					case 'number':
 					return this.each(function () {
-						dom.setStyle(this, style, value)
+						dom.setStyle(this, style, value);
 					})
 					case 'function':
 					return this.each(function (i) {
-						dom.setStyle(this, style, value(i, dom.getStyle(this, style)))
+						dom.setStyle(this, style, value(i, dom.getStyle(this, style)));
 					})
 					case 'undefined':
 					if (typeof style === 'string') {
@@ -452,52 +448,52 @@ tangram.block([
 			return this;
 		},
 		width: function (value) {
-			return sizes.call(this, 'width', value, dom.getWidth)
+			return sizes.call(this, 'width', value, dom.getWidth);
 		},
 		outerWidth: function (includeMargin) {
 			if (includeMargin) {
 				return this[0] && dom.getWidth(this[0], 'box')
 			}
-			return this[0] && dom.getWidth(this[0], 'outer')
+			return this[0] && dom.getWidth(this[0], 'outer');
 		},
 		innerWidth: function () {
-			return this[0] && dom.getWidth(this[0], 'inner')
+			return this[0] && dom.getWidth(this[0], 'inner');
 		},
 		height: function (value) {
-			return sizes.call(this, 'height', value, dom.getHeight)
+			return sizes.call(this, 'height', value, dom.getHeight);
 		},
 		outerHeight: function (includeMargin) {
 			if (includeMargin) {
 				return this[0] && dom.getHeight(this[0], 'box')
 			}
-			return this[0] && dom.getHeight(this[0], 'outer')
+			return this[0] && dom.getHeight(this[0], 'outer');
 		},
 		innerHeight: function (includeMargin) {
-			return this[0] && dom.getHeight(this[0], 'inner')
+			return this[0] && dom.getHeight(this[0], 'inner');
 		},
 		scrollHeight: function (value) {
-			return scroll_offset.call(this, 'scrollHeight', value)
+			return scroll_offset.call(this, 'scrollHeight', value);
 		},
 		scrollLeft: function (value) {
-			return scroll_offset.call(this, 'scrollLeft', value)
+			return scroll_offset.call(this, 'scrollLeft', value);
 		},
 		scrollTop: function (value) {
-			return scroll_offset.call(this, 'scrollTop', value)
+			return scroll_offset.call(this, 'scrollTop', value);
 		},
 		scrollWidth: function (value) {
-			return scroll_offset.call(this, 'scrollWidth', value)
+			return scroll_offset.call(this, 'scrollWidth', value);
 		},
 		offsetHeight: function (value) {
-			return scroll_offset.call(this, 'offsetHeight', value)
+			return scroll_offset.call(this, 'offsetHeight', value);
 		},
 		offsetLeft: function (value) {
-			return scroll_offset.call(this, 'offsetLeft', value)
+			return scroll_offset.call(this, 'offsetLeft', value);
 		},
 		offsetTop: function (value) {
-			return scroll_offset.call(this, 'offsetTop', value)
+			return scroll_offset.call(this, 'offsetTop', value);
 		},
 		offsetWidth: function (value) {
-			return scroll_offset.call(this, 'offsetWidth', value)
+			return scroll_offset.call(this, 'offsetWidth', value);
 		},
 		offset: function (value) {
 			if (value) {
@@ -505,48 +501,48 @@ tangram.block([
 					case 'object':
 					return this.each(function () {
 						dom.setStyle(this, 'offsetTop', value.top)
-						dom.setStyle(this, 'offsetLeft', value.left)
+						dom.setStyle(this, 'offsetLeft', value.left);
 					})
 					case 'function':
 					return this.each(function (i) {
 						var style = dom.getStyle(this)
 						dom.setStyle(this, 'offsetTop', value(i, style.offsetTop))
-						dom.setStyle(this, 'offsetLeft', value(i, style.offsetLeft))
+						dom.setStyle(this, 'offsetLeft', value(i, style.offsetLeft));
 					})
 				}
 			}
-			var style = this[0]? dom.getStyle(this[0]):{
+			var style = this[0] ? dom.getStyle(this[0]):{
 				offsetTop: null,
 				offsetLeft: null
 			}
 			return {
 				top: style.offsetTop,
 				left: style.offsetLeft
-			}
+			};
 		},
 		widths: function () {
 			var width = 0;
 			this.each(function () {
-				width += dom.getWidth(this, 'box')
+				width += dom.getWidth(this, 'box');
 			})
 			return width;
 		},
 		heights: function () {
 			var height = 0;
 			this.each(function () {
-				height += dom.getHeight(this, 'box')
+				height += dom.getHeight(this, 'box');
 			})
 			return height;
 		},
 		show: function () {
 			this.each(function () {
-				dom.setStyle(this, 'display', 'block')
+				dom.setStyle(this, 'display', 'block');
 			})
 			return this;
 		},
 		hide: function () {
 			this.each(function () {
-				dom.setStyle(this, 'display', 'none')
+				dom.setStyle(this, 'display', 'none');
 			})
 			return this;
 		}
@@ -555,11 +551,11 @@ tangram.block([
 		on: function (eventType, selector, data, handler) {
 			switch (arguments.length) {
 				case 3:
-				handler = _.util.bool.isFn(data)? data : undefined;
+				handler = _.util.bool.isFn(data) ? data : undefined;
 				data = null;
 				break
 				case 2:
-				handler = _.util.bool.isFn(selector)? selector : undefined;
+				handler = _.util.bool.isFn(selector) ? selector : undefined;
 				selector = null;
 				data = null;
 				break
@@ -568,12 +564,12 @@ tangram.block([
 				var _arguments = arguments;
 				if (_.util.bool.isArr(eventType)) {
 					pandora.each(eventType, function (i, et) {
-						dom.events.add(this, et, selector, data, handler)
+						dom.events.add(this, et, selector, data, handler);
 					}, this);
 				}
 				else {
 					dom.events.add(this, eventType, selector, data, handler)
-				}
+				};
 			})
 			return this;
 		},
@@ -582,48 +578,48 @@ tangram.block([
 				var _arguments = arguments;
 				if (_.util.bool.isArr(eventType)) {
 					pandora.each(eventType, function (i, et) {
-						dom.events.remove(this, et, selector, handler)
+						dom.events.remove(this, et, selector, handler);
 					}, this);
 				}
 				else {
 					dom.events.remove(this, eventType, selector, handler)
-				}
+				};
 			})
 			return this;
 		},
 		trigger: function (eventType, data) {
 			this.each(function () {
-				dom.events.trigger(this, eventType, data)
+				dom.events.trigger(this, eventType, data);
 			})
 			return this;
 		},
 		bind: function (eventType, data, handler) {
 			if (arguments.length == 2) {
-				handler = _.util.bool.isFn(data)? data : undefined;
+				handler = _.util.bool.isFn(data) ? data : undefined;
 				data = undefined;
 			}
-			return this.on(eventType, null, data, handler)
+			return this.on(eventType, null, data, handler);
 		},
 		unbind: function (eventType, handler) {
-			return this.off(eventType, null, handler)
+			return this.off(eventType, null, handler);
 		},
 		mouseover: function (data, handler) {
-			return this.bind('mouseover', data, handler)
+			return this.bind('mouseover', data, handler);
 		},
 		mouseout: function (data, handler) {
-			return this.bind('mouseout', data, handler)
+			return this.bind('mouseout', data, handler);
 		},
 		hover: function (overCallback, outCallback) {
-			return this.mouseover(overCallback).mouseout(outCallback || overCallback)
+			return this.mouseover(overCallback).mouseout(outCallback || overCallback);
 		},
 		mousedown: function (data, handler) {
-			return this.bind('mousedown', data, handler)
+			return this.bind('mousedown', data, handler);
 		},
 		mouseup: function (data, handler) {
-			return this.bind('mouseup', data, handler)
+			return this.bind('mouseup', data, handler);
 		},
 		mousemove: function (data, handler) {
-			this.bind('mousemove', data, handler)
+			this.bind('mousemove', data, handler);
 		}
 	});
 	pandora.extend(pandora.dom.Elements.prototype, {
@@ -646,7 +642,7 @@ tangram.block([
 	pandora.extend(pandora.dom.Elements.prototype, {
 		transition: function (style, value, duration, easing, callback) {
 			to = {}
-			to[style]= value;
+			to[style] = value;
 			this.each(function () {
 				new dom.Animation(this,{
 					to: to,
@@ -660,19 +656,19 @@ tangram.block([
 		animate: function (styles, duration, easing, callback) {
 			duration = duration || 1000;
 			this.each(function () {
-				dom.animator.play(this, styles, duration, easing, callback)
+				dom.animator.play(this, styles, duration, easing, callback);
 			})
 			return this;
 		},
 		stop: function (stopAll, goToEnd) {
 			this.each(function () {
-				dom.animator.stop(this, stopAll, goToEnd)
+				dom.animator.stop(this, stopAll, goToEnd);
 			})
 			return this;
 		},
 		animator: function (options) {
 			this.each(function () {
-				dom.animator(this, options).play()
+				dom.animator(this, options).play();
 			})
 			return this;
 		},
@@ -716,7 +712,7 @@ tangram.block([
 							for (var style in to) {
 								for (var i = len - 1;i >= 0;i--) {
 									if (Animation.scenes[i].over && Animation.scenes[i].over[style]) {
-										to[style]= Animation.scenes[i].over[style]
+										to[style] = Animation.scenes[i].over[style]
 										break
 									}
 								}
@@ -737,7 +733,7 @@ tangram.block([
 				}
 				else {
 					dom.setStyle(this, 'display', 'block')
-				}
+				};
 			})
 			return this;
 		},
@@ -781,7 +777,7 @@ tangram.block([
 							for (var style in from) {
 								for (var i = len - 1;i >= 0;i--) {
 									if (Animation.scenes[i].over && Animation.scenes[i].over[style]) {
-										from[style]= Animation.scenes[i].over[style]
+										from[style] = Animation.scenes[i].over[style]
 										break
 									}
 								}
@@ -796,7 +792,7 @@ tangram.block([
 							callback: function () {
 								dom.setStyle(this, 'display', 'none')
 								dom.setStyle(this, from)
-								callback && callback.call(this)
+								callback && callback.call(this);
 							}
 						})
 						Animation.play(1)
@@ -804,7 +800,7 @@ tangram.block([
 				}
 				else {
 					dom.setStyle(this, 'display', 'none')
-				}
+				};
 			})
 			return this;
 		},
@@ -831,10 +827,10 @@ tangram.block([
 					duration: duration,
 					tween: dom.Animation.getTween(easing),
 					callback: function () {
-						callback && callback.call(this)
+						callback && callback.call(this);
 					}
 				})
-				Animation.play(1)
+				Animation.play(1);
 			})
 			return this;
 		},
@@ -864,22 +860,22 @@ tangram.block([
 						tween: dom.Animation.getTween(easing),
 						callback: function () {
 							dom.setStyle(this, 'display', 'block')
-							callback && callback.call(this)
+							callback && callback.call(this);
 						}
 					})
 					Animation.play(1)
-				}
+				};
 			})
 			return this;
 		}
 	});
 	var select = function (selector, context) {
-		return new dom.Elements(selector, context)
+		return new dom.Elements(selector, context);
 	}
 	var $ = dom.select;
 	pandora.ns('dom.select', {
 		extend: function (object, rewrite) {
-			_.extend(dom.Elements.prototype, rewrite, object)
+			_.extend(dom.Elements.prototype, rewrite, object);
 		}
 	});
 	this.module.exports = select;

@@ -60,7 +60,26 @@
             'while', 'with'],
         reservedFname = ['if', 'for', 'while', 'switch', 'with', 'catch'],
         reserved = ['window', 'global', 'tangram', 'this', 'arguments'],
-        blockreserved = ['pandora', 'root'];
+        blockreserved = ['pandora', 'root'],
+        semicolon = {
+            type: 'code',
+            posi: undefined,
+            display: 'inline',
+            vars: {
+                parent: null,
+                root: {
+                    namespace: this.namespace,
+                    public: {},
+                    private: {},
+                    protected: {},
+                    fixed: [],
+                    fix_map: {}
+                },
+                locals: {},
+                type: 'semicolon'
+            },
+            value: ';'
+        };
 
     const
         zero2z: string[] = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split(''),
@@ -89,26 +108,24 @@
             sign: /(^|\s*[^\+\-])(\+|\-)([\$\w\.])/g,
             swords: /(^|[^\$\w])(typeof|instanceof|void|delete)\s+(\+*\-*[\$\w\.])/g,
             before: /(\+\+|\-\-|\!|\~)\s*([\$\w])/g,
-            after: /([\$\w\.])\s*(\+\+|\-\-)/g,
+            after: /([\$\w\.])[ \t]*(\+\+|\-\-)/g,
             error: /(.*)(\+\+|\-\-|\+|\-)(.*)/g
         },
         replaceWords = /(^|@\d+L\d+P\d+O?\d*:::|\s)(continue|finally|return|throw|break|case|else|try|do)\s*(\s|;|___boundary_[A-Z0-9_]{36}_(\d+)_as_([a-z]+)___)/g,
         replaceExpRegPattern = {
-            await: /^((\s*@\d+L\d+P0:::)*\s*(@\d+L\d+P0*):::(\s*))?"await"\s*/,
-            // using: /^\s*use\s+/g,
+            await: /^((\s*@\d+L\d+P0:::)*\s*(@\d+L\d+P0*):::(\s*))?"await"[;\s]*/,
             namespace: /[\r\n]((@\d+L\d+P0):::)?(\s*)namespace\s+(\.{0,1}[\$a-zA-Z_][\$\w\.]*)\s*(;|\r|\n)/g,
             // 位置是在replace usings 和 strings 之后才tidy的，所以还存在后接空格
             use: /(@\d+L\d+P\d+:::)\s*use(\s*\$)?\s+([\$\w\.\/\\\?\=\&]+)(\s+as(\s+(@\d+L\d+P\d+:::\s*[\$a-zA-Z_][\$\w]*)|\s*(@\d+L\d+P\d+:::\s*)?\{(@\d+L\d+P\d+:::\s*[\$a-zA-Z_][\$\w]*(\s*,@\d+L\d+P\d+:::\s*[\$a-zA-Z_][\$\w]*)*)\})(@\d+L\d+P\d+:::\s*)?)?\s*[;\r\n]/g,
             include: /\s*@include\s+___boundary_[A-Z0-9_]{36}_(\d+)_as_string___[;\r\n]+/g,
 
-            // return: /[\s;\r\n]+$/g,
             extends: /(@\d+L\d+P\d+O*\d*:::)?((ns|namespace|global|extends)\s+(\.{0,1}[\$a-zA-Z_][\$\w\.]*)\s*(with\s*)?\{([^\{\}]*?)\})/g,
             class: /(@\d+L\d+P\d+O*\d*:::)?((class|expands)\s+(\.{0,1}[\$a-zA-Z_][\$\w\.]*\s+)?(extends\s+[\.{0,1}[\$a-zA-Z_][\$\w\.]*\s*)?\{[^\{\}]*?\})/g,
             fnlike: /(@\d+L\d+P\d+O*\d*:::)?(^|(function|def|public)\s+)?(([\$a-zA-Z_][\$\w]*)?\s*\([^\(\)]*\))\s*\{([^\{\}]*?)\}/g,
             parentheses: /(@\d+L\d+P\d+O*\d*:::)?\(\s*([^\(\)]*?)\s*\)/g,
             arraylike: /(@\d+L\d+P\d+O*\d*:::)?\[(\s*[^\[\]]*?)\s*\]/g,
             call: /(@\d+L\d+P\d+O*\d*:::)?((new)\s+([\$a-zA-Z_][\$\w\.]*)|(\.)?([\$a-zA-Z_][\$\w]*))\s*(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)\s*([^\$\w\s\{]|[\r\n].|\s*___boundary_[A-Z0-9_]{36}_\d+_as_array___|\s*@boundary_\d+_as_operator::|$)/g,
-            callschain: /\s*\.___boundary_[A-Z0-9_]{36}_(\d+)_as_callmethod___((@\d+L\d+P\d+O*\d*:::)?\.___boundary_[A-Z0-9_]{36}_\d+_as_callmethod___)*/g,
+            callschain: /\s*(@\d+L\d+P\d+O*\d*:::)?\.___boundary_[A-Z0-9_]{36}_(\d+)_as_callmethod___((@\d+L\d+P\d+O*\d*:::)?\.___boundary_[A-Z0-9_]{36}_\d+_as_callmethod___)*/g,
             arrowfn: /(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)\s*(->|=>)\s*([^,;\r\n]+)\s*(,|;|\r|\n|$)/g,
             closure: /((@\d+L\d+P\d+O*\d*:::)?@*[\$a-zA-Z_][\$\w]*|\)|\=|\(\s)?(@\d+L\d+P\d+O*\d*:::)?\s*\{(\s*[^\{\}]*?)\s*\}/g,
             expression: /(@\d+L\d+P\d+O*\d*:::)?(if|for|while|switch|with|catch|each)\s*(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)\s*;*\s*(___boundary_[A-Z0-9_]{36}_(\d+)_as_(closure|objlike)___)/g,
@@ -308,6 +325,7 @@
                     return panstop;
                 });
             }
+            string = string.replace(/::::/g, '::: :');
             return string;
         }
         encode(string: string): string {
@@ -918,9 +936,9 @@
         }
         replaceCallsChain(string: string): string {
             // console.log(string);
-            return string.replace(replaceExpRegPattern.callschain, (match: string, _index: string) => {
+            return string.replace(replaceExpRegPattern.callschain, (match: string, posi:string, _index: string) => {
                 let index = this.replacements.length;
-                this.replacements.push([match, this.replacements[_index][1]]);
+                this.replacements.push([match, posi||this.replacements[_index][1]]);
                 return '___boundary_' + this.uid + '_' + index + '_as_callschain___';
             });
         }
@@ -971,7 +989,7 @@
         getPosition(string: string) {
             if (string) {
                 // console.log(string);
-                let match = string.match(/@(\d+)L(\d+)P(\d+)(O*)(\d*):*/);
+                let match = string.match(/@(\d+)L(\d+)P(\d+)(O*)(\d*):{0,3}/);
                 if (match) {
                     if (match[4]) {
                         var index = parseInt(match[5]);
@@ -997,7 +1015,9 @@
                 .replace(/([^,;\s])\s*(@\d+L\d+P(\d+O)?0:::[^\.\(\[)])/g, '$1;$2')
                 .replace(/[\r\n]+(___boundary_[A-Z0-9_]{36}_\d+_as_(if|class|function|extends|call|log|object|objlike|closure|parentheses)___)/g, ";$1")
                 .replace(/(___boundary_[A-Z0-9_]{36}_\d+_as_(log|closure)___)[\r\n]+/g, "$1;\r\n")
-                .replace(/(___boundary_[A-Z0-9_]{36}_\d+_as_(if)___)[;\s]+/g, "$1 ");
+                .replace(/[;\r\n]+((@\d+L\d+P\d+O?\d*:::)?___boundary_[A-Z0-9_]{36}_\d+_as_(callschain)___)/g, "$1")
+                .replace(/(___boundary_[A-Z0-9_]{36}_\d+_as_(if)___)[;\s]+/g, "$1 ")
+                .trim();
             const sentences: string[] = string.split(/\s*;+\s*/);
             let lines: object[] = [];
             // console.log(string, sentences);
@@ -1043,6 +1063,7 @@
             value = code.trim();
             if (value && !value.match(/^@\d+L\d+P\d+O?\d*:::$/)) {
                 let match_as_statement = value.match(/^___boundary_[A-Z0-9_]{36}_(\d+)_as_([a-z]+)___([\r\n]+|$)/);
+                // console.log(match_as_statement);
                 if (match_as_statement) {
                     if (display === 'block' && !['class', 'function', 'closure', 'if']['includes'](match_as_statement[2])) {
                         // console.log(match_as_statement[2]);
@@ -1329,21 +1350,27 @@
                             imports.push(posi);
                         }
                         if (this.replacements[lines[index].index][1]) {
+                            let position;
+                            let alias;
                             if (lines[index].subtype === 'usings') {
                                 let members = this.replacements[lines[index].index][1].split(',');
                                 for (let m = 0; m < members.length; m++) {
-                                    let position = this.getPosition(members[m]);
-                                    let alias = members[m].replace(position.match, '').trim();
+                                    position = this.getPosition(members[m]);
+                                    alias = members[m].replace(position.match, '').trim();
                                     using_as[alias] = [src, alias, position];
                                 }
                                 // console.log(this.replacements[lines[index].index][1]);
                             } else {
-                                let position = this.getPosition(this.replacements[lines[index].index][1]);
-                                let alias = this.replacements[lines[index].index][1].replace(position.match, '').trim();
+                                position = this.getPosition(this.replacements[lines[index].index][1]);
+                                alias = this.replacements[lines[index].index][1].replace(position.match, '').trim();
                                 // console.log(alias);
                                 using_as[alias] = [src, '*', position];
                             }
-
+                            if (vars.self[alias] === void 0) {
+                                vars.self[alias] = 'var';
+                            } else if (vars.self[alias] === 'let') {
+                                this.error(' Variable `' + alias + '` has already been declared at char ' + position.col + ' on line ' + position.line + '.');
+                            }
                         }
                         break;
                     default:
@@ -1427,6 +1454,7 @@
                         break;
                 }
             }
+            // console.log(body);
             return body;
         }
         pushSentencesToAST(body: object[] = [], vars: any, code: string, isblock: boolean = true, blockposi: any): object[] {
@@ -2001,7 +2029,7 @@
                     } else if ((display === 'block') && !fname) {
                         fname = 'default_function_name';
                     }
-                    if (fname) {
+                    if (fname && fname!=='return') {
                         if (!vars.self.hasOwnProperty(fname)) {
                             vars.self[fname] = 'var';
                         }
@@ -2435,7 +2463,7 @@
                 // console.log(key);
                 // let position = this.getPosition(key);
                 // let _key = key.replace(position.match, '').trim();
-                codes.push("\r\n\t" + this.pushPostionsToMap(alias[key][2]) + "var " + key);
+                codes.push("\r\n\t" + this.pushPostionsToMap(alias[key][2]) + "var " + this.patchVariables(key, vars));
                 codes.push(" = imports['" + alias[key][0]);
                 codes.push("'] && imports['" + alias[key][0]);
                 if (alias[key][1] === '*') {
@@ -2922,6 +2950,7 @@
                         codes.push(indent + "\tvar " + element.vars.locals[key] + ' = ' + key + ';');
                     }
                 }
+                element.body.push(semicolon);
                 this.pushCodes(codes, element.vars, element.body, layer + 1, namespace);
             } else {
                 indent = '';
@@ -3244,6 +3273,7 @@
                     for (const element in vars.self) {
                         let varname = element;
                         if (keywords['includes'](element) || reserved['includes'](element)) {
+                            console.log(vars);
                             this.error('keywords `' + element + '` cannot be a variable name.');
                         }
                         if (blockreserved['includes'](element)) {
@@ -3315,6 +3345,9 @@
                 return code.replace(/(^|[^\$\w\.])((let|var)\s+)?([\$a-zA-Z_][\$\w]*)(\s+|\s*[^\$\w]|\s*$)/i, (match, before, typewithgap, type, varname, after) => {
                     // console.log(match, "\r\n", before, '[', varname, '](', type, ')', after);
                     return before + (typewithgap || '') + this.patchVariable(varname, vars) + after || '';
+                }).replace(/(\.\.\.)([\$a-zA-Z_][\$\w]*)/i, (match, node, member) => {
+                    // console.log(match, "\r\n", before, '[', varname, '](', type, ')', after);
+                    return this.patchNamespace(node, vars) + member;
                 });
             }
             // console.log(code);
@@ -3345,7 +3378,7 @@
                     vars.root.fix_map[_varname] = varname;
                 } else {
                     for (const key in vars.locals) {
-                        if (vars.locals.hasOwnProperty(key)){
+                        if (vars.locals.hasOwnProperty(key)) {
                             const _key = vars.locals[key];
                             // console.log(_key);
                             if (varname === _key) {
@@ -3364,6 +3397,15 @@
             }
             // console.log('after:', varname);
             return varname;
+        }
+        patchNamespace(node: string, vars: any): string {
+            if(node==='..'){
+                return 'pandora.';
+            }
+            if (vars.root.namespace){
+                return 'pandora.' + vars.root.namespace;
+            }
+            return 'pandora.' + this.namespace;
         }
         restoreStrings(string: string, last: boolean): string {
             let that = this;
@@ -3395,52 +3437,16 @@
         trim(string: string): string {
             // 此处的replace在整理完成后，将进行分析归纳，最后改写为callback形式的
             // console.log(string);
-            // string = this.restoreStrings(string, false);
-            // return string;
-            // this.replacements = [['{}'], ['/='], ['/'], [' +'], [' -'], ['return ']];
-            // console.log(string);
             string = this.replaceStrings(string, true);
-            {
-                // console.log(string);
-                // string = this.replaceOperators(string, false);
-                // console.log(string);
-                // return '';
-
-                // 删除多余头部
-                // string = string.replace(/^[,;\s]+[\r\n]+/g, "\r\n");
-                // string = string.replace(/^[,;\s]+/g, "\r\n\t");
-
-                // 去除多余符号
-                // string = string.replace(/\s*;(\s*;)+/g, ";");
-                // string = string.replace(/\s*;([^\s])/g, "; $1");
-
-                // string = string.replace(/(\{|\[|\(|\.|\:)\s*[,;]+/g, "$1");
-                // string = string.replace(/\s*[,;]+(\s*)(\.|\:|\)|\])/g, "$1$2");
-                // string = string.replace(/\s+(\=|\?|\:)[,;\s]*/g, " $1 ");
-                // string = string.replace(/([\r\n]*\s*[\$\w])\s+(\:)/g, "$1$2");
-
-                // // 关键字处理
-                // string = string.replace(/if\s*\(([^\)]+)\)\s*[,;]+/g, "if ($1)");
-                // string = string.replace(/([^\$\w])else\s*[,;]+/g, "$1else");
-                // string = string.replace(/([^\s])\s*(instanceof)\s+/g, " $1 ");
-                // string = string.replace(/(,|;)?[\r\n]+(\s*)(var|delete|return)\s+/g, "$1\r\n$2$3 ");
-
-
-
-
-                // 删除多余空白
-                // string = string.replace(/\{\s+\}/g, '{}');
-                // string = string.replace(/\[\s+\]/g, '[]');
-                // string = string.replace(/\(\s+\)/g, '()');
-            }
-
             // console.log(string);
+
             // 去除多余标注
             string = string.replace(/\s*(@boundary_\d+_as_comments::)?@(ownprop|return)[; \t]*/g, () => {
                 return '';
             });
+            string = string.replace(/((@boundary_\d+_as_comments::)\s*)+(@boundary_\d+_as_comments::)/g, "$3");
             // 去除多余符号
-            string = string.replace(/\s*;(\s*;)*\x0B/g, ";");
+            string = string.replace(/\s*;(\s*;)*[\t \x0B]*/g, ";");
             string = string.replace(/(.)(\{|\[|\(|\.|\:)\s*[,;]+/g, (match, before, mark) => {
                 if ((before === mark) && (before === ':')) {
                     return match;
@@ -3448,7 +3454,8 @@
                 return before + mark;
             });
             // 格式化相应符号
-            string = string.replace(/\s+(\=|\?|\:)[,;\s]*/g, " $1 ");
+            string = string.replace(/\s*(\=|\?)\s*/g, " $1 ");
+            string = string.replace(/\s+(\:)[\s]*/g, " $1 ");
             // 删除多余空白与换行
             // string = string.replace(/[ ]+/g, " ");
             string = string.replace(/\s+[\r\n]([ \t])/g, "\r\n$1");
@@ -3471,65 +3478,6 @@
                 return operator;
             });
             return string;
-            // console.log(string);
-            // 关键字处理
-            // console.log(string);
-
-
-
-
-            // string = string.replace(/(\(|\[)\s+([\r\n]+)/g, "$1$2");
-            // string = string.replace(/([^\r\n])\s+(\)|\])/g, "$1$2");
-
-            // console.log(string);
-            // return string;
-
-            {
-                // string = string.replace(/[;\r\n]+?(\s*)if\s*\(([\s\S]+?)\)/g, ";\r\n$1if ($2) ");
-                // string = string.replace(/if\s*\(([\s\S]+?)\)[\s,;]*{/g, "if ($1) {");
-                // string = string.replace(/;+\s*(instanceof)\s+/g, " $1 ");
-                // string = string.replace(/(var|else|delete)(;|\s)+[;\s]*/g, "$1 ");
-                // string = string.replace(/[;\r\n]+(\s*)(var|delete|return)\s+/g, ";\r\n$1$2 ");
-
-                //前置运算符处理
-                // string = string.replace(/[,\s]*(@boundary_\d+_as_preoperator::)[,;\s]*/g, "$1");
-                // string = string.replace(/((\<|\!|\>)\=*)\s+(\+|\-)\s+(\d)/g, '$1 $3$4');
-
-
-                // 中置运算符前后不能结非标量
-                // string = string.replace(/[,;\s]*(@boundary_\d+_as_operator::)[,;\s]*/g, "$1");
-                // string = string.replace(/[,;\s]*(\=|\!|\+|\-|\*|\/|\%|\&|\^|\||<|>)[,;\s]*/g, " $1 ");
-                // string = string.replace(/\s*;+\s*(<+|\+|\-|\*|\/|>+)\s+/g, " $1 ");
-                // string = string.replace(/\s+(<+|\+|\-|\*|\/|>+)\s*;+\s*/g, " $1 ");
-                // string = string.replace(/[,;\s]*(\?)[,;\s]*/g, " $1 ");
-
-                // 后置运算符前面必须有内容
-                // string = string.replace(/[,;\s]*(@boundary_\d+_as_aftoperator::)/g, "$1");
-                // string = string.replace(/[,;\s]*(\(|\))/g, "$1");
-
-                //去除多余符号
-                // string = string.replace(/\s*;+/g, "; ");
-                // string = string.replace(/[,;\s]*,[,;]*/g, ',');
-                // string = string.replace(/(\{|\[|\(|\.|\:)\s*;+/g, "$1");
-                // string = string.replace(/\s*,+\s*(\.|\:|\)|\]|\})/g, "$1");
-                // string = string.replace(/(\{|\[|\(|\.|\:)\s*,+(\s*)/g, "$1$2");
-                // string = string.replace(/[;\s]+(\{|\[|\(|\.|\:|\)|\])/g, "$1");
-
-                // 删除多余换行
-                // string = string.replace(/(,|;)[\r\n]+/g, "$1\r\n");
-
-                // 删除多余空白
-                // string = string.replace(/\{\s+\}/g, '{}');
-                // string = string.replace(/\[\s+\]/g, '[]');
-                // string = string.replace(/\(\s+\)/g, '()');
-
-                // 删除多余头部
-                // string = string.replace(/^[,;\s]+/g, "");
-
-                // string = string.replace(/[\r\n]+(\s+)\}\s*([\$\w+]+)/g, "\r\n$1}\r\n$1$2");
-                // string = this.restoreStrings(string);
-            }
-            // return string;
         }
         pickUpMap(string: string) {
             let lines = string.split(/\r{0,1}\n/);

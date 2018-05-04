@@ -1,0 +1,270 @@
+"await";
+/*!
+ * tangram.js framework source code
+ *
+ * http://www.yangram.net/tangram.js/
+ *
+ * Date: 2017-04-06
+ */
+
+/**
+{
+	preset: "slide",				// String: ["slide"|"slide-vert"|"seamless"|"seamless-vert"|"colx3"|"colx3-vert"|"fade"]，动画效果
+	data: {},						// Object: 需要渲染的数据
+
+	easing: "easeInOutQuart",		// String: 滚动动画计时函数
+	switchActionType : 'click',			// String: 滚动动画计时函数
+	direction : 'left',				// String: 滚动动画计时函数
+	positive : true,				// Boolean: 正向运动
+
+	loop: true,						// Boolean: 是否循环播放
+	autoplay : true,				// Boolean: 是否自动播放
+	curr: 0,						// Integer: 开始播放的 slide，从 0 开始计数
+
+	speed: 5000,					// Integer: ms 滚动间隔时间
+	duration: 600,					// Integer: ms 动画滚动速度
+
+	// Usability features
+	pauseOnAction: true,            // Boolean: 用户操作时停止自动播放
+	pauseOnHover: false,            // Boolean: 悬停时暂停自动播放
+	kbCtrlAble: true,					// Boolean: 是否开启键盘左（←）右（→）控制
+	touch: true,                    // Boolean: 允许触摸屏触摸滑动滑块
+
+	// Callback API
+	start (n){},            // Callback (slider) - 初始化完成的回调
+	before (n){},           // Callback (slider) - 每次滚动开始前的回调
+	after (n){},            // Callback (slider) - 每次滚动完成后的回调
+}
+ */
+
+
+use $ util/bool as bool;
+use $ dom/Elements;
+
+
+namespace view;
+
+let _ = pandora,
+doc = root.document,
+location = root.location,
+$ = pandora.dom.$;
+
+let Sliders = {},
+uid = (() {
+    var id = 0;
+    return () {
+        return "slider-" + id++;
+    };
+})();
+
+class .Slider {
+    data = null;
+    theme = 'default';
+    actorsType = 'image';
+    speed = 5000;
+    duration = 600;
+    renderPanel = false;
+    switchActionType = 'click';
+    kbCtrlAble = false;
+    direction = 'left';
+    positive = true;
+    curr = 0;
+    autoplay = true;
+    loop = true;
+    pauseOnHover = true;
+    actorsNum = 0;
+    ontouched = false;
+
+    _init (elem, preset, options) {
+        this.Element = bool.isStr(elem) ? _.dom.query.byId(elem) : elem;
+        if (bool.isEl(this.Element)) {
+            options = options || {};
+            if (bool.isStr(preset) && ...Slider.presets[preset]) {
+                _.extend(options, ...Slider.presets[preset]);
+            } else if (bool.isObj(preset)) {
+                _.extend(options, preset);
+            } else {
+                _.extend(options, ...Slider.presets.slide);
+            }
+            _.extend(this, true, options);
+
+            if (this.Element && this.layout) {
+                var that = this;
+                $(this.Element).addClass(preset);
+                this.data && this.bluider && this.bluider();
+                this.stages = $('.stage', this.Element).addClass(bool.isArr(this.stageTheme) ? (i) {
+                    return that.theme[i];
+                } : this.stageTheme);
+                this.troupe = $('.troupe', this.Element).get(0);
+                this.actors = $('.actor', this.troupe);
+                this.panelTheme = this.panelTheme || this.stageTheme;
+                this.panel = $('.panel', this.Element).addClass(bool.isArr(this.panelTheme) ? (i) {
+                    return that.panelTheme[i];
+                } : this.panelTheme);
+                this.anchors = $('.slider-anchor', this.Element);
+                this.actorsNum = bool.isFn(this.counter) ? this.counter(this.actors.length) : this.actors.length;
+                this.layout();
+                this.bind();
+                this.uid = uid();
+                this.start && this.start.call(this, n);
+                Sliders[this.uid] = this.positive ? this.play(this.curr) : this.play(this.actorsNum - 1);
+            } else {
+                _.error('Cannot find Element object or layout method of this Slider!');
+            }
+        }
+    }
+    
+    play (n) {
+        this.stop();
+        var that = this;
+        n = parseInt(n);
+        this.before && this.before.call(this, n);
+        this.cut && this.cut(n);
+        setTimeout(() {
+            this.after && that.after.call(that, n);
+            that.ontouched = false;
+        }, this.duration);
+        that.anchorStatus();
+        if (this.autoplay) {
+            if (bool.isFn(this.onprogress)) {
+                var speed = this.speed / 100;
+                this.onprogress(progress = 0);
+                this.timer = setInterval(() {
+                    that.onprogress(++progress);
+                    if (progress === 100) {
+                        that.positive ? that.playNx() : that.playPr();
+                    }
+                }, speed);
+            } else {
+                this.timer = this.autoplay && setTimeout(() {
+                    that.positive ? that.playNx() : that.playPr();
+                }, this.speed);
+            }
+
+        };
+        return this;
+    }
+
+    playNx () {
+        this.stop();
+        var to = this.curr + 1;
+        if (this.loop || to < this.actorsNum) {
+            this.play(to);
+        }
+        return this;
+    }
+
+    playPr () {
+        this.stop();
+        var to = this.curr - 1;
+        if (this.loop || to >= 0) {
+            this.play(to);
+        }
+        return this;
+    }
+
+    stop () {
+        if (this.timer) {
+            clearTimeout(this.timer);
+            this.timer = undefined;
+        };
+        return this;
+    }
+
+    pause (pause) {
+        this.stop();
+        if (pause) {
+            this.autoplay = false;
+        } else {
+            this.autoplay = true;
+            var that = this;
+            this.timer = setTimeout(() {
+                that.positive ? that.playNx() : that.playPr();
+            }, this.speed)
+        }
+        return this;
+    }
+
+    bind () {
+        var that = this;
+        this.switchActionType = this.switchActionType == 'hover' ? 'mouseover' : 'click';
+        $(this.Element)
+            .on(this.switchActionType, '.cutter.goto-prev', () {
+                that.pause(false).playPr();
+                that.pauseOnAction && (that.autoplay = false);
+            })
+            .on(this.switchActionType, '.cutter.goto-next', () {
+                that.pause(false).playNx();
+                that.pauseOnAction && (that.autoplay = false);
+            })
+            .on(this.switchActionType, '.slider-anchor', () {
+                var index = $(this).data('actorIndex') || 0;
+                that.pause(false).play(index);
+                that.pauseOnAction && (that.autoplay = false);
+            })
+            .on('touchstart', '.stage', (e) {
+                if (that.ontouched === false) {
+                    that.ontouched = true;
+                    that.ontouchX = e.changedTouches[0].clientX;
+                    that.ontouchY = e.changedTouches[0].clientY;
+                    //console.log(e.changedTouches);
+                }
+            })
+            .on('touchend', '.stage', (e) {
+                if (that.ontouched === true) {
+                    if (directions[that.direction]) {
+                        directions[that.direction].call(that, e);
+                    }
+                }
+            });
+        this.pauseOnHover && $(this.Element)
+            .bind('mouseover', () {
+                that.pause(true);
+            })
+            .bind('mouseout', () {
+                that.pause(false);
+            });
+        this.kbCtrlAble && $(document).bind('keydown', (e) {
+            //console.log(e.which);
+            if (e.which == 37) {
+                that.pause(false).playPr();
+                that.pauseOnAction && (that.autoplay = false);
+            }
+            if (e.which == 39) {
+                that.pause(false).playNx();
+                that.pauseOnAction && (that.autoplay = false);
+            }
+        });
+    }
+
+    adaptive () {}
+
+    anchorStatus () {
+        if (this.anchors && this.anchors.length >= this.actorsNum) {
+            var cur = this.curr < this.actorsNum ? this.curr : 0;
+            $(this.anchors).removeClass('active');
+            $(this.anchors[cur]).addClass('active');
+        }
+    }
+    static presets= {};
+    static extend () {
+        var base = {}
+        var presets = {};
+        var args = [].slice.call(arguments);
+        each(args as preset) {
+            if (bool.isStr(preset) && ...Slider.presets[preset]) {
+                _.extend(base, ...Slider.presets[preset])
+            } else if (bool.isObj(preset) && bool.isStr(preset.name)) {
+                presets[preset.name] = preset;
+            }
+        }
+        each(presets as name, preset) {
+            ...Slider.presets[name] = _.extend({}, base, preset);
+        }
+    }
+}
+
+@include 'options/slide';
+@include 'options/fade';
+
+this.module.exports = ...Slider;

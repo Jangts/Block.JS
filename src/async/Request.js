@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Fri, 04 May 2018 08:19:55 GMT
+ * Datetime: Fri, 04 May 2018 16:51:30 GMT
  */
 ;
 // tangram.config({});
@@ -47,7 +47,7 @@ tangram.block([
 				done: [],
 				fail: [],
 				progress: []
-			}
+			};
 		},
 		setRequestHeader: function (name, value) {
 			this.xmlhttp && this.xmlhttp.setRequestHeader(name, value)
@@ -68,7 +68,7 @@ tangram.block([
 						for (var i in headers) {
 							if (headers[i]) {
 								header = headers[i].split(': ')
-								Promise.responseHeaders[header.shift()]= header.join(': ').trim()
+								Promise.responseHeaders[header.shift()] = header.join(': ').trim()
 							}
 						}
 					}
@@ -83,7 +83,7 @@ tangram.block([
 						}
 						Promise.PromiseValue = this.responseText;
 					}
-					Promise.listener()
+					Promise.listener();
 				}
 				this.xmlhttp.onerror = function () {}
 				this.xmlhttp.send(data)
@@ -142,4 +142,4 @@ tangram.block([
 	});
 	this.module.exports = _.async.Request;
 });
-//# sourceMappingURL=./Request.js.map
+//# sourceMappingURL=Request.js.map

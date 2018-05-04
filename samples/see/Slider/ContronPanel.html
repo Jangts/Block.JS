@@ -4,8 +4,8 @@
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
     <title>SLIDER PANELS</title>
     <script src="../../../src/tangram.js"></script>
-    <link rel="stylesheet" type="text/css" href="../../../src/see/c.css" />
-    <link rel="stylesheet" type="text/css" href="../../../src/see/Slider/style.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/see/see.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/view/Slider/style.css" />
 </head>
 
 <body class="tangram-see" class="bg-white">
@@ -222,11 +222,11 @@
         </section>
     </div>
     <script>
-        tangram.block(['$_/dom/Elements', '$_/see/Slider/options/fade', '$_/see/Slider/options/seamless'], function(pandora, root, imports, undefined) {
+        tangram.block(['$_/dom/Elements', '$_/view/Slider/options/seamless'], function(pandora, root, imports, undefined) {
             var $ = pandora.dom.select;
 
             $('.tangram-slider').each(function() {
-                new pandora.see.Slider(this, 'seamless', {
+                new pandora.view.Slider(this, 'seamless', {
                     speed: 6000,
                     duration: 1200,
                 });

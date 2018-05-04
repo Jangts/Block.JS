@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Fri, 04 May 2018 08:19:55 GMT
+ * Datetime: Fri, 04 May 2018 16:51:30 GMT
  */
 ;
 // tangram.config({});
@@ -24,7 +24,7 @@ tangram.block([
 			length: attributes.length || 0,
 			default: attributes.default || '',
 			range: attributes.range || null
-		}
+		};
 	}
 	var notNullFormatter = function (attributes) {
 		return {
@@ -33,14 +33,14 @@ tangram.block([
 			length: attributes.length || 0,
 			default: attributes.default || null,
 			range: attributes.range || null
-		}
+		};
 	}
 	var timeFormatter = function (attributes) {
 		return {
 			base: 'time',
 			type: attributes.type,
 			default: attributes.default || null
-		}
+		};
 	}
 	var formatter = {
 		'any': function () {
@@ -48,7 +48,7 @@ tangram.block([
 				base: 'any',
 				type: 'any',
 				default: attributes.default || ''
-			}
+			};
 		},
 		'scala': function () {
 			return {
@@ -57,7 +57,7 @@ tangram.block([
 				length: attributes.length || 0,
 				default: attributes.default || '',
 				range: attributes.range || null
-			}
+			};
 		},
 		'string': function (attributes) {
 			return {
@@ -66,13 +66,13 @@ tangram.block([
 				length: attributes.length || 0,
 				default: attributes.default || '',
 				range: attributes.range || null
-			}
+			};
 		},
 		'bool': function (attributes) {
 			return {
 				base: 'bool',
 				default: !!attributes.default
-			}
+			};
 		},
 		'string not null': notNullFormatter,
 		'int': normalFormatter,
@@ -92,20 +92,20 @@ tangram.block([
 		var props = {}
 		pandora.each(input, function (prop, attributes) {
 			if (attributes.type && formatter[attributes.type]) {
-				input[prop]=formatter[attributes.type](attributes)
+				input[prop] = formatter[attributes.type](attributes)
 			}
 			else {
-				input[prop]=formatter['scala'](attributes)
-			}
+				input[prop] = formatter['scala'](attributes)
+			};
 		}, this);
 		pandora.each(keys, function (i, prop) {
-			props[prop]= input[prop]
+			props[prop] = input[prop];
 		}, this);
 		return props;
 	}
 	var uidMaker = function (props) {
 		var josn = JSON.stringify(props)
-		return _.str.hash.md5(josn)
+		return _.str.hash.md5(josn);
 	}
 	var check = function (property, value) {
 		switch (property.base) {
@@ -162,10 +162,10 @@ tangram.block([
 			}
 			default:
 			return _.util.bool.isNumeric(value) && checkLength(property.length, value.toString()) && checkRange(property.range, value)
-		}
+		};
 	}
 	var checkBoolean = function (value) {
-		return _.util.bool.isBool(value)
+		return _.util.bool.isBool(value);
 	}
 	var checkAny = function (property, value) {
 		if (property.type === 'any') {
@@ -201,13 +201,13 @@ tangram.block([
 			var props = modelsConstrutor(props)
 			this.uid = uidMaker(props)
 			if (name) {
-				alias[this.uid]= name;
+				alias[this.uid] = name;
 			}
 			else {
-				alias[this.uid]= this.uid;
+				alias[this.uid] = this.uid;
 			}
-			models[this.uid]= props;
-			modeldata[this.uid]=[]
+			models[this.uid] = props;
+			modeldata[this.uid] = [];
 		},
 		check: function (prop, value) {
 			if (property = models[this.uid][prop]) {
@@ -220,14 +220,14 @@ tangram.block([
 			var newdata = {}
 			pandora.each(models[this.uid], function (prop, property) {
 				if (_.obj.hasProp(data, prop) && check(property, data[prop])) {
-					newdata[prop]= data[prop]
+					newdata[prop] = data[prop]
 				}
 				else if (property.default !== undefined) {
-					newdata[prop]= property.default;
+					newdata[prop] = property.default;
 				}
 				else {
 					_.error('Must input a correct [' + prop + '] for model [' + alias[this.uid] + ']')
-				}
+				};
 			}, this);
 			modeldata[this.uid].push(newdata)
 			return modeldata[this.uid].length;
@@ -240,8 +240,8 @@ tangram.block([
 			var list = {}
 			pandora.each(modeldata[this.uid], function (i, data) {
 				if (data) {
-					list[i + 1]= _.clone(data)
-				}
+					list[i + 1] = _.clone(data)
+				};
 			}, this);
 			return list;
 		},
@@ -252,19 +252,19 @@ tangram.block([
 				var data = modeldata[this.uid][$ID - 1]
 				pandora.each(prop, function (p, v) {
 					if (_.obj.hasProp(data, p) && check(props[p], v)) {
-						data[p]= v;
-					}
+						data[p] = v;
+					};
 				}, this);
 			}
 			else if (_.util.bool.isStr(prop)) {
 				var obj = {}
-				obj[prop]= value;
+				obj[prop] = value;
 				this.update($ID, obj)
 			}
-			return this.read($ID)
+			return this.read($ID);
 		},
 		delete: function ($ID) {
-			modeldata[this.uid][$ID - 1]= undefined;
+			modeldata[this.uid][$ID - 1] = undefined;
 			return true;
 		},
 		render: function (context) {
@@ -278,7 +278,7 @@ tangram.block([
 				var table = '<table class="table">'
 				table += '<tr class="head-row"><th></th>'
 				pandora.each(models[that.uid], function (prop) {
-					table += '<th>' + prop.toUpperCase() + '</th>'
+					table += '<th>' + prop.toUpperCase() + '</th>';
 				}, this);
 				table += '</tr>'
 				pandora.each(list, function ($ID, data) {
@@ -289,9 +289,9 @@ tangram.block([
 						}
 						else {
 							table += '<td>-</td>'
-						}
+						};
 					}, this);
-					table += '</tr>'
+					table += '</tr>';
 				}, this);
 				table += '</table>'
 				if (context) {
@@ -300,10 +300,10 @@ tangram.block([
 				}
 				else {
 					_.dom.append(doc.body, table)
-				}
-			})
+				};
+			});
 		}
 	});
 	this.module.exports = _.data.Model;
 });
-//# sourceMappingURL=./Model.js.map
+//# sourceMappingURL=Model.js.map

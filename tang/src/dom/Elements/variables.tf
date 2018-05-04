@@ -29,12 +29,12 @@ sizes = (type, value, handler) {
         case 'string':
         case 'number':
             return this.each(function() {
-                dom.setStyle(this, type, value);
+                ...setStyle(this, type, value);
             });
 
         case 'function':
             return this.each(function(i) {
-                dom.setStyle(this, type, value(i, dom.getStyle(this, type)));
+                ...setStyle(this, type, value(i, ...getStyle(this, type)));
             });
 
         case 'undefined':
@@ -43,15 +43,15 @@ sizes = (type, value, handler) {
     return this;
 },
 scroll_offset = (type, value) {
-    if (_.util.bool.isNumeric(value)) {
+    if (..util.bool.isNumeric(value)) {
         return this.each(function() {
-            dom.setStyle(this, type, value);
+            ...setStyle(this, type, value);
         });
     }
-    if (_.util.bool.isFn(value)) {
+    if (..util.bool.isFn(value)) {
         return this.each(function(i) {
-            dom.setStyle(this, type, value(i, dom.getStyle(this, type)));
+            ...setStyle(this, type, value(i, ...getStyle(this, type)));
         });
     }
-    return this[0] && dom.getStyle(this[0], type);
+    return this[0] && ...getStyle(this[0], type);
 };

@@ -15,19 +15,19 @@ use $ dom/Animation
 namespace dom;
 
 var _ = pandora,
-declare = pandora.declareClass,
-query = dom.sizzle || dom.query;
+declare = ..declareClass,
+query = ...sizzle || ...query;
 
 @include 'Elements/variables';
 
 // Declare Class 'domElements' Extends 'Iterator'
-class .Elements extends _.Iterator {
+class .Elements extends ..Iterator {
     context = document;
     _init (selector, context) {
-        if (_.util.bool.isOuterHTML(selector)) {
+        if (..util.bool.isOuterHTML(selector)) {
             this.isElFragment = true;
             this.context = context || this.context;
-            Elements = dom.createByString(this.selector = selector);
+            Elements = ...createByString(this.selector = selector);
             for (var i = 0; i < Elements.length; i++) {
                 this.push(Elements[i]);
             }
@@ -41,14 +41,14 @@ class .Elements extends _.Iterator {
                         Elements = query(selector, this.context);
                         break;
                     case 'object':
-                        switch (_.util.type(selector, true)) {
+                        switch (..util.type(selector, true)) {
                             case 'HTMLDocument':
                             case 'Global':
                             case 'Element':
                                 Elements.push(arguments[0]);
                                 break;
                             case 'Object':
-                                Elements = dom.query.byAttr(selector);
+                                Elements = ...query.byAttr(selector);
                                 break;
                             case 'Elements':
                                 Elements = arguments[0];
@@ -56,7 +56,7 @@ class .Elements extends _.Iterator {
                             case 'Array':
                                 console.log(arguments[0]);
                                 for (var i = 0; i < arguments[0].length; i++) {
-                                    _.util.type(arguments[0][i]) == 'Element' && Elements.push(arguments[0][i]);
+                                    ..util.type(arguments[0][i]) == 'Element' && Elements.push(arguments[0][i]);
                                 }
                                 break;
                         }
@@ -71,29 +71,24 @@ class .Elements extends _.Iterator {
 }
 
 @include 'Elements/basic';
-
 @include 'Elements/attributes';
-
 @include 'Elements/styles';
-
 @include 'Elements/events';
-
 @include 'Elements/form';
-
 @include 'Elements/animation';
 
 //Expends Public Static Methods 'query' For 'dom'
 public select = (selector, context) {
-    return new dom.Elements(selector, context);
+    return new ...Elements(selector, context);
 }
 
-public $ = dom.select;
+public $ = select;
 
 //Expends Public Static Methods 'extend' For 'dom/query'
 
 extends .select {
      extend (object, rewrite) {
-        _.extend(dom.Elements.prototype, rewrite, object);
+        ..extend(...Elements.prototype, rewrite, object);
     }
 }
 

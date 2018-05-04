@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Fri, 04 May 2018 08:19:56 GMT
+ * Datetime: Fri, 04 May 2018 16:51:31 GMT
  */
 ;
 // tangram.config({});
@@ -24,12 +24,12 @@ tangram.block([
 				this.id = new _.Identifier(name,1).toString()
 			}
 			try {
-				data[this.id]= root.JSON.parse(localStorage[this.id])
+				data[this.id] = root.JSON.parse(localStorage[this.id])
 				this.length = _.obj.length(data[this.id], true)
 			}
 			catch (e) {
-				data[this.id]={}
-				localStorage[this.id]='{}'
+				data[this.id] = {}
+				localStorage[this.id] = '{}'
 				this.length = 0;
 			}
 			return this;
@@ -39,13 +39,13 @@ tangram.block([
 				if (value === undefined) {
 					if (data[this.id].hasOwnProperty(key)) {
 						delete data[this.id][key]
-						localStorage[this.id]= root.JSON.stringify(data[this.id])
+						localStorage[this.id] = root.JSON.stringify(data[this.id])
 						this.length = _.obj.length(data[this.id], true)
 					}
 				}
 				else {
-					data[this.id][key]= value;
-					localStorage[this.id]= root.JSON.stringify(data[this.id])
+					data[this.id][key] = value;
+					localStorage[this.id] = root.JSON.stringify(data[this.id])
 					this.length = _.obj.length(data[this.id], true)
 				}
 			}
@@ -68,12 +68,12 @@ tangram.block([
 				delete localStorage[this.id]
 			}
 			else {
-				data[this.id]={}
-				localStorage[this.id]='{}'
+				data[this.id] = {}
+				localStorage[this.id] = '{}'
 			}
 			return null;
 		}
 	});
 	this.module.exports = _.data.Storage;
 });
-//# sourceMappingURL=./Storage.js.map
+//# sourceMappingURL=Storage.js.map

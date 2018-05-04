@@ -5,9 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>SLIDER P/N BUTTONS</title>
     <script src="../../../src/tangram.js"></script>
-    <link rel="stylesheet" type="text/css" href="../../../src/see/c.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/see/see.css" />
     <link rel="stylesheet" type="text/css" href="../../../src/see/fa.css" />
-    <link rel="stylesheet" type="text/css" href="../../../src/see/Slider/style.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/view/Slider/style.css" />
     <style>
         .tangram h510 {
             width: 100%;
@@ -98,11 +98,11 @@
         </div>
     </section>
     <script>
-        tangram.block(['$_/dom/Elements', '$_/see/Slider/options/slide'], function(pandora, root, imports, undefined) {
+        tangram.block(['$_/dom/Elements', '$_/view/Slider/'], function(pandora, root, imports, undefined) {
             var $ = pandora.dom.select;
             $('.tangram-slider[data-use-slider-type]').each(function() {
                 var type = $(this).data('useSliderType');
-                new pandora.see.Slider(this, type, {
+                new pandora.view.Slider(this, type, {
                     speed: 4000,
                     duration: 1000,
                     autoplay: false

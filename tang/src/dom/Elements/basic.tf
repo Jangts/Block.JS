@@ -23,7 +23,7 @@ expands .Elements {
         var Elements = [];
         var node;
         this.each(() {
-            if (node = dom.closest(this, tagName)) {
+            if (node = ...closest(this, tagName)) {
                 Elements.push(node);
             }
         });
@@ -72,7 +72,7 @@ expands .Elements {
                 break;
             case 'object':
                 if (part instanceof Array) {
-                    part = _.unique(part);
+                    part = ..unique(part);
                     for (var i = 0; i < part.length; i++) {
                         this.get(part[i]) && Elements.push(this.get(part[i]));
                     }
@@ -89,7 +89,7 @@ expands .Elements {
     concat (selector, context) {
         var res = query(selector, context || document);
         for (var i = 0; i < res.length; i++) {
-            if (_.arr.has(this, res[i]) === false) {
+            if (..arr.has(this, res[i]) === false) {
                 this.push(res[i]);
             };
         }
@@ -162,7 +162,7 @@ expands .Elements {
         return this;
     }
     appendTo (selector) {
-        var parents = new dom.Elements(selector);
+        var parents = new ...Elements(selector);
         //console.log(selector, parents, this.isElFragment);
         if (this.isElFragment) {
             var Elements,
@@ -170,7 +170,7 @@ expands .Elements {
             that.length = 0;
             parents.each(function(i, parent) {
                 console.log(parent);
-                Elements = dom.createByString(that.selector, parent);
+                Elements = ...createByString(that.selector, parent);
                 for (var i = 0; i < Elements.length; i++) {
                     that.push(Elements[i]);
                 }
@@ -189,27 +189,27 @@ expands .Elements {
     }
     remove () {
         this.each(function() {
-            dom.remove(this);
+            ...remove(this);
         });
         return null;
     }
     before (content) {
-        return insert.call(this, content, dom.before);
+        return insert.call(this, content, ...before);
     }
     after (content) {
-        return insert.call(this, content, dom.after);
+        return insert.call(this, content, ...after);
     }
     index (list) {
-        if (_.util.type.isElement(list)) {
-            return dom.index(list, this);
+        if (..util.type.isElement(list)) {
+            return ...index(list, this);
         }
-        return dom.index(this[0], list);
+        return ...index(this[0], list);
     }
     parent () {
         var nodes = [];
         this.each(function() {
             nodes.push(this.parentNode);
         });
-        return new dom.Elements(_.arr.unique(nodes));
+        return new ...Elements(..arr.unique(nodes));
     }
 }

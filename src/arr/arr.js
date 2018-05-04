@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Fri, 04 May 2018 08:19:55 GMT
+ * Datetime: Fri, 04 May 2018 16:51:30 GMT
  */
 ;
 // tangram.config({});
@@ -19,7 +19,7 @@ tangram.block([
 						pandora.each(arguments[a], function (index, elememt) {
 							if (array.indexOf(elememt) < 0) {
 								array.push(elememt)
-							}
+							};
 						}, this);
 					}
 				}
@@ -33,12 +33,12 @@ tangram.block([
 			var object = {}
 			if (array2) {
 				for (var i = 0;i < array1.length;i++) {
-					object[array1[i]]= array2[i] || null;
+					object[array1[i]] = array2[i] || null;
 				}
 			}
 			else {
 				for (var i = 0;i < array1.length;i++) {
-					object[i]= array1[i]
+					object[i] = array1[i]
 				}
 			}
 			return object;
@@ -48,14 +48,14 @@ tangram.block([
 				for (var i = 0;i < array.length;i++) {
 					handler.call(array[i], i, array[i])
 				}
-			}
+			};
 		},
 		eachReverse: function (array, handler) {
 			if (_.util.type.isArray(array)) {
 				for (var i = array.length - 1;i >  -1;i--) {
 					handler.call(array[i], i, array[i])
 				}
-			}
+			};
 		},
 		has: function (array, elem) {
 			for (var i = 0;i < array.length;i++) {
@@ -100,14 +100,13 @@ tangram.block([
 			}
 			else {
 				for (var i = 0;i < array.length;i++) {
-					
 					if(array[i] === elem)return i;
 				}
 				return  -1;
-			}
+			};
 		},
 		search: function (elem, array) {
-			return _.arr.index(array, elem)
+			return _.arr.index(array, elem);
 		},
 		where: function (array, filter) {
 			var _arguments = arguments;
@@ -115,7 +114,7 @@ tangram.block([
 			pandora.each(array, function (index, elem) {
 				if (filter(elem)) {
 					filtered.push(elem)
-				}
+				};
 			}, this);
 			return filtered;
 		},
@@ -125,27 +124,27 @@ tangram.block([
 			pandora.each(array, function (i, elem) {
 				if (_.arr.has(result, elem) === false) {
 					result.push(elem)
-				}
+				};
 			}, this);
 			return result;
 		},
 		sum: function (array) {
-			return eval(array.join('+'))
+			return eval(array.join('+'));
 		},
 		max: function (array) {
-			return Math.max.apply(Math, array)
+			return Math.max.apply(Math, array);
 		},
 		min: function (array) {
-			return Math.min.apply(Math, array)
+			return Math.min.apply(Math, array);
 		},
 		indexOfMax: function (array) {
-			return _.arr.index(array, Math.max.apply(Math, array))
+			return _.arr.index(array, Math.max.apply(Math, array));
 		},
 		indexOfMin: function (array) {
-			return _.arr.index(array, Math.min.apply(Math, array))
+			return _.arr.index(array, Math.min.apply(Math, array));
 		},
 		slice: _.slice
 	});
 	this.module.exports = _.arr;
 });
-//# sourceMappingURL=./arr.js.map
+//# sourceMappingURL=arr.js.map

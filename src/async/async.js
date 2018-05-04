@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Fri, 04 May 2018 08:19:55 GMT
+ * Datetime: Fri, 04 May 2018 16:51:30 GMT
  */
 ;
 // tangram.config({});
@@ -29,9 +29,8 @@ tangram.block([
 				link.href = href;
 			}
 			if (_.dom.getAttr(link, 'loaded') === 'loaded') {
-				
 				setTimeout(function () {
-					_.util.bool.isFn(callback) && callback()
+					_.util.bool.isFn(callback) && callback();
 				}, 0);
 			}
 			else {
@@ -43,16 +42,16 @@ tangram.block([
 						}
 						else {
 							console.log(link.readyState)
-						}
+						};
 					})
 				}
 				else if (typeof(link.onload) !== 'undefined') {
 					link.addEventListener('load', function () {
 						_.dom.setAttr(link, 'loaded', 'loaded')
-						_.util.bool.isFn(callback) && callback()
+						_.util.bool.isFn(callback) && callback();
 					})
 				}
-			}
+			};
 		},
 		loadScript: function (src, callback) {
 			var script = query('script[src="' + src + '"]')[0] || _.dom.create('script', doc.getElementsByTagName('head')[0], {
@@ -71,16 +70,16 @@ tangram.block([
 						if (script.readyState === 'loaded' || script.readyState === 'complete') {
 							_.dom.setAttr(script, 'loaded', 'loaded')
 							_.util.bool.isFn(callback) && callback()
-						}
+						};
 					})
 				}
 				else if (typeof(script.onload) === 'object') {
 					script.addEventListener('load', function () {
 						_.dom.setAttr(script, 'loaded', '')
-						_.util.bool.isFn(callback) && callback()
+						_.util.bool.isFn(callback) && callback();
 					})
 				}
-			}
+			};
 		},
 		ajax: function (url, options) {
 			switch (arguments.length) {
@@ -155,19 +154,18 @@ tangram.block([
 			}
 			else {
 				Promise.setRequestHeader('Content-Type', 'text/html; charset=' + options.charset).send()
-			}
+			};
 		},
 		json: function (url, doneCallback, failCallback) {
 			_.async.ajax({
 				url: url,
 				success: function (txt) {
-					
 					doneCallback(JSON.parse(txt));
 				},
 				fail: failCallback
-			})
+			});
 		}
 	});
 	this.module.exports = _.async;
 });
-//# sourceMappingURL=./async.js.map
+//# sourceMappingURL=async.js.map

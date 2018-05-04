@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Fri, 04 May 2018 08:19:57 GMT
+ * Datetime: Fri, 04 May 2018 16:08:25 GMT
  */
 ;
 // tangram.config({});
@@ -26,7 +26,7 @@ tangram.block([
 				sheet = elem;
 			}
 			this.sheet = {}
-			this.register(sheet)
+			this.register(sheet);
 		},
 		setSource: function (sources) {
 			if (sources && (typeof sources === 'object')) {
@@ -38,7 +38,7 @@ tangram.block([
 						}
 						catch (e) {
 							this.stop(function () {
-								that.Element.src = sources[i]
+								that.Element.src = sources[i];
 							})
 						}
 						break
@@ -51,17 +51,17 @@ tangram.block([
 			if (sheet && (typeof sheet === 'object')) {
 				for (var code in sheet) {
 					if (sheet[code] && (typeof sheet[code] === 'object')) {
-						this.sheet[code]= sheet[code]
+						this.sheet[code] = sheet[code]
 					}
 				}
 			}
 			else if (sheet && sources && (typeof sheet === 'string') && (typeof sources === 'object')) {
-				this.sheet[code]= sheet[code]
+				this.sheet[code] = sheet[code]
 			}
 			return this;
 		},
 		clear: function (sheet, sources) {
-			this.sheet = []
+			this.sheet = [];
 		},
 		play: function (code) {
 			if (code && this.sheet[code]) {
@@ -77,13 +77,13 @@ tangram.block([
 				this.timer && clearTimeout(this.timer)
 				this.timer = setTimeout(function () {
 					that.Element.play()
-					that.lastActionTime = Date.now()
+					that.lastActionTime = Date.now();
 				}, this.protectTime - duration)
 			}
 			return this;
 		},
 		canPlay: function (mime) {
-			return this.Element.canPlayType(mime)
+			return this.Element.canPlayType(mime);
 		},
 		pause: function (onpause) {
 			var that = this;
@@ -98,7 +98,7 @@ tangram.block([
 				this.timer = setTimeout(function () {
 					that.Element.pause()
 					that.lastActionTime = Date.now()
-					_.util.bool.isFn(onpause) && onpause.call(this)
+					_.util.bool.isFn(onpause) && onpause.call(this);
 				}, this.protectTime - duration)
 			}
 			return this;
@@ -106,7 +106,7 @@ tangram.block([
 		stop: function (onstop) {
 			this.pause(function () {
 				this.Element.currentTime = 0;
-				_.util.bool.isFn(onstop) && onstop.call(this)
+				_.util.bool.isFn(onstop) && onstop.call(this);
 			})
 			return this;
 		},
@@ -133,7 +133,7 @@ tangram.block([
 					this.Element.volume = vol;
 				}
 				break
-			}
+			};
 		}
 	});
 	this.module.exports = _.media.Player;

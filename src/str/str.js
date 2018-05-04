@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Fri, 04 May 2018 08:19:58 GMT
+ * Datetime: Fri, 04 May 2018 16:08:27 GMT
  */
 ;
 // tangram.config({});
@@ -57,26 +57,26 @@ tangram.block([], function (pandora, root, imports, undefined) {
 	}
 	pandora.ns('str', function () {
 		function trim (str) {
-			return str.replace(/(^\s*)|(\s*$)/g, '')
+			return str.replace(/(^\s*)|(\s*$)/g, '');
 		}
 		function capital (str) {
 			return str.replace(/(\w)/, function (v) {
-				return v.toUpperCase()
-			})
+				return v.toUpperCase();
+			});
 		}
 		function toCamel (str) {
 			return str.replace(/(-\w)/, function (v) {
-				return v.replace('-', '').toUpperCase()
-			})
+				return v.replace('-', '').toUpperCase();
+			});
 		}
 		function has (strs, str) {
-			return RegExp("\\b" + str + "\\b").test(strs)
+			return RegExp("\\b" + str + "\\b").test(strs);
 		};
 		function charCode (code) {
-			return String.fromCharCode(code)
+			return String.fromCharCode(code);
 		};
 		function escape (str) {
-			return "echo(\"" + str.replace(/"/g, '\\"').replace(/\n/g, '\\n').replace(/\r/g, '\\r') + "\");"
+			return "echo(\"" + str.replace(/"/g, '\\"').replace(/\n/g, '\\n').replace(/\r/g, '\\r') + "\");";
 		};
 		function repeat (target, n) {
 			var s = target;
@@ -94,7 +94,7 @@ tangram.block([], function (pandora, root, imports, undefined) {
 			return total;
 		};
 		function base64Encode (input) {
-			input = typeof input === 'string'? input : ''
+			input = typeof input === 'string' ? input : ''
 			var output = ""
 			var chr1 = void 0;
 			var chr2 = void 0;
@@ -124,7 +124,7 @@ tangram.block([], function (pandora, root, imports, undefined) {
 			return output;
 		};
 		function base64Decode (input) {
-			input = typeof input === 'string'? input : ''
+			input = typeof input === 'string' ? input : ''
 			var output = ""
 			var chr1 = void 0;
 			var chr2 = void 0;
@@ -154,8 +154,7 @@ tangram.block([], function (pandora, root, imports, undefined) {
 			output = _utf8_decode(output)
 			return output;
 		}
-		return {
-		}
+		return {}
 	});
 	this.module.exports = _.str;
 });

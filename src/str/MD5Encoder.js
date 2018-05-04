@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Fri, 04 May 2018 08:19:58 GMT
+ * Datetime: Fri, 04 May 2018 16:08:27 GMT
  */
 ;
 // tangram.config({});
@@ -11,11 +11,11 @@ tangram.block([
 	var _ = pandora;
 	var console = root.console;
 	var blobSlice = root.File.prototype.mozSlice || root.File.prototype.webkitSlice || root.File.prototype.slice;
-	var ___boundary_398626FX_RY3X_ZQ95_5DRD_90EHC0DQ2NXS_186_as_function___ = void 0;
+	var ___boundary_982GHMZH_N10P_CTIK_LWKF_RP7JDE9L7QJE_186_as_function___ = void 0;
 	var hex_chr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
 	var cmn = function (q, a, b, x, s, t) {
 		a = add32(add32(a, q), add32(x, t))
-		return add32((a << s)|(a >>> (32 - s)), b)
+		return add32((a << s)|(a >>> (32 - s)), b);
 	}
 	var md5cycle = function (x, k) {
 		var a = x[0]
@@ -150,16 +150,16 @@ tangram.block([
 		c = (c << 15|c >>> 17) + d | 0;
 		b += (d^(c|~a)) + k[9] - 343485551 | 0;
 		b = (b << 21|b >>> 11) + c | 0;
-		x[0]= a + x[0]| 0;
-		x[1]= b + x[1]| 0;
-		x[2]= c + x[2]| 0;
-		x[3]= d + x[3]| 0;
+		x[0] = a + x[0]| 0;
+		x[1] = b + x[1]| 0;
+		x[2] = c + x[2]| 0;
+		x[3] = d + x[3]| 0;
 	}
 	var md5blk = function (s) {
 		var md5blks = []
 		var i = void 0;
 		for (i = 0;i < 64;i += 4) {
-			md5blks[i >> 2]= s.charCodeAt(i) + (s.charCodeAt(i + 1) << 8) + (s.charCodeAt(i + 2) << 16) + (s.charCodeAt(i + 3) << 24)
+			md5blks[i >> 2] = s.charCodeAt(i) + (s.charCodeAt(i + 1) << 8) + (s.charCodeAt(i + 2) << 16) + (s.charCodeAt(i + 3) << 24)
 		}
 		return md5blks;
 	}
@@ -167,7 +167,7 @@ tangram.block([
 		var md5blks = []
 		var i = void 0;
 		for (i = 0;i < 64;i += 4) {
-			md5blks[i >> 2]= a[i] + (a[i + 1] << 8) + (a[i + 2] << 16) + (a[i + 3] << 24)
+			md5blks[i >> 2] = a[i] + (a[i + 1] << 8) + (a[i + 2] << 16) + (a[i + 3] << 24)
 		}
 		return md5blks;
 	}
@@ -181,7 +181,6 @@ tangram.block([
 		var lo = void 0;
 		var hi = void 0;
 		for (i = 64;i <= n;i += 64) {
-			
 			md5cycle(state, md5blk(s.substring(i - 64, i)));
 		}
 		s = s.substring(i - 64)
@@ -192,19 +191,17 @@ tangram.block([
 		}
 		tail[i >> 2] |= 0x80 << ((i % 4) << 3)
 		if (i > 55) {
-			
 			md5cycle(state, tail);
 			for (i = 0;i < 16;i += 1) {
-				tail[i]= 0;
+				tail[i] = 0;
 			}
 		}
 		tmp = n * 8;
 		tmp = tmp.toString(16).match(/(.*?)(.{0,8})$/)
 		lo = parseInt(tmp[2], 16)
 		hi = parseInt(tmp[1], 16) || 0;
-		tail[14]= lo;
-		tail[15]= hi;
-		
+		tail[14] = lo;
+		tail[15] = hi;
 		md5cycle(state, tail);
 		return state;
 	}
@@ -218,7 +215,6 @@ tangram.block([
 		var lo = void 0;
 		var hi = void 0;
 		for (i = 64;i <= n;i += 64) {
-			
 			md5cycle(state, md5blk_array(a.subarray(i - 64, i)));
 		}
 		a = (i - 64) < n ? a.subarray(i - 64):new Uint8Array(0)
@@ -229,19 +225,17 @@ tangram.block([
 		}
 		tail[i >> 2] |= 0x80 << ((i % 4) << 3)
 		if (i > 55) {
-			
 			md5cycle(state, tail);
 			for (i = 0;i < 16;i += 1) {
-				tail[i]= 0;
+				tail[i] = 0;
 			}
 		}
 		tmp = n * 8;
 		tmp = tmp.toString(16).match(/(.*?)(.{0,8})$/)
 		lo = parseInt(tmp[2], 16)
 		hi = parseInt(tmp[1], 16) || 0;
-		tail[14]= lo;
-		tail[15]= hi;
-		
+		tail[14] = lo;
+		tail[15] = hi;
 		md5cycle(state, tail);
 		return state;
 	}
@@ -256,15 +250,15 @@ tangram.block([
 	var hex = function (x) {
 		var i = void 0;
 		for (i = 0;i < x.length;i += 1) {
-			x[i]=rhex(x[i])
+			x[i] = rhex(x[i])
 		}
-		return x.join('')
+		return x.join('');
 	}
 	if (hex(md51('hello')) !== '5d41402abc4b2a76b9719d911017c592') {
 		add32 = function (x, y) {
 			var lsw = (x & 0xFFFF) + (y & 0xFFFF)
 			var msw = (x >> 16) + (y >> 16) + (lsw >> 16)
-			return (msw << 16)|(lsw & 0xFFFF)
+			return (msw << 16)|(lsw & 0xFFFF);
 		}
 	};
 	if (typeof ArrayBuffer !== 'undefined'&& !ArrayBuffer.prototype.slice) {
@@ -274,7 +268,7 @@ tangram.block([
 				if (val < 0) {
 					return Math.max(val + length, 0)
 				}
-				return Math.min(val, length)
+				return Math.min(val, length);
 			}
 			ArrayBuffer.prototype.slice = function (from, to) {
 				var length = this.byteLength;
@@ -296,7 +290,7 @@ tangram.block([
 				sourceArray = new Uint8Array(this, begin, num)
 				targetArray.set(sourceArray)
 				return target;
-			}
+			};
 		})();
 	}
 	var toUtf8 = function (str) {
@@ -311,12 +305,12 @@ tangram.block([
 		var arr = new Uint8Array(buff)
 		var i = void 0;
 		for (i = 0;i < length;i += 1) {
-			arr[i]= str.charCodeAt(i)
+			arr[i] = str.charCodeAt(i)
 		}
 		return returnUInt8Array ? arr : buff;
 	}
 	var arrayBuffer2Utf8Str = function (buff) {
-		return String.fromCharCode.apply(null, new Uint8Array(buff))
+		return String.fromCharCode.apply(null, new Uint8Array(buff));
 	}
 	var concatenateArrayBuffers = function (first, second, returnUInt8Array) {
 		var result = new Uint8Array(first.byteLength + second.byteLength)
@@ -331,11 +325,11 @@ tangram.block([
 		for (x = 0;x < length - 1;x += 2) {
 			bytes.push(parseInt(hex.substr(x, 2), 16))
 		}
-		return String.fromCharCode.apply(String, bytes)
+		return String.fromCharCode.apply(String, bytes);
 	}
 	pandora.declareClass('str.MD5Encoder', {
 		_init: function () {
-			this.reset()
+			this.reset();
 		},
 		append: function (str) {
 			this.appendBinary(toUtf8(str))
@@ -347,7 +341,6 @@ tangram.block([
 			var length = this._buff.length;
 			var i = void 0;
 			for (i = 64;i <= length;i += 64) {
-				
 				md5cycle(this._hash, md5blk(this._buff.substring(i - 64, i)));
 			}
 			this._buff = this._buff.substring(i - 64)
@@ -381,7 +374,7 @@ tangram.block([
 				buff: this._buff,
 				length: this._length,
 				hash: this._hash
-			}
+			};
 		},
 		setState: function (state) {
 			this._buff = state.buff;
@@ -401,25 +394,23 @@ tangram.block([
 			var hi = void 0;
 			tail[i >> 2] |= 0x80 << ((i % 4) << 3)
 			if (i > 55) {
-				
 				md5cycle(this._hash, tail);
 				for (i = 0;i < 16;i += 1) {
-					tail[i]= 0;
+					tail[i] = 0;
 				}
 			}
 			tmp = this._length * 8;
 			tmp = tmp.toString(16).match(/(.*?)(.{0,8})$/)
 			lo = parseInt(tmp[2], 16)
 			hi = parseInt(tmp[1], 16) || 0;
-			tail[14]= lo;
-			tail[15]= hi;
-			
+			tail[14] = lo;
+			tail[15] = hi;
 			md5cycle(this._hash, tail);
 		}
 	});
 	pandora.extend(pandora.str.MD5Encoder, {
 		encode: function (str, raw) {
-			return SparkMD5.hashBinary(toUtf8(str), raw)
+			return SparkMD5.hashBinary(toUtf8(str), raw);
 		},
 		encodeBinary: function (content, raw) {
 			var hash = md51(content)
@@ -435,30 +426,27 @@ tangram.block([
 			var loadNext = function () {
 				var start = currentChunk * chunkSize;
 				var end = start + chunkSize >= file.size ? file.size : start + chunkSize;
-				fileReader.readAsBinaryString(blobSlice.call(file, start, end))
+				fileReader.readAsBinaryString(blobSlice.call(file, start, end));
 			}
-			var callback = _.util.bool.isFn(callback)? callback : function () {
-				console.info("File Hash", spark.end())
+			var callback = _.util.bool.isFn(callback) ? callback : function () {
+				console.info("File Hash", spark.end());
 			}
 			fileReader.onload = function (e) {
 				spark.appendBinary(e.target.result)
 				currentChunk++;
 				if (currentChunk < chunks) {
-					
 					loadNext();
 				}
 				else {
-					
 					callback(spark.end());
-				}
+				};
 			}
-			
 			loadNext();
 		}
 	});
 	pandora.declareClass('str.MD5Encoder.ArrayBuffer', _.str.MD5Encoder, {
 		_init: function () {
-			this.reset()
+			this.reset();
 		},
 		append: function (arr) {
 			var buff = concatenateArrayBuffers(this._buff.buffer, arr, true)
@@ -466,7 +454,6 @@ tangram.block([
 			var i = void 0;
 			this._length += arr.byteLength;
 			for (i = 64;i <= length;i += 64) {
-				
 				md5cycle(this._hash, md5blk_array(buff.subarray(i - 64, i)));
 			}
 			this._buff = (i - 64) < length ? new Uint8Array(buff.buffer.slice(i - 64)):new Uint8Array(0)
@@ -502,7 +489,7 @@ tangram.block([
 		},
 		setState: function (state) {
 			state.buff = utf8Str2ArrayBuffer(state.buff, true)
-			return this._parent.setState.call(this, state)
+			return this._parent.setState.call(this, state);
 		}
 	});
 	pandora.extend(pandora.str.MD5Encoder.ArrayBuffer, {

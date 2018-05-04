@@ -22,7 +22,8 @@ const mapBuilder = (omappings: any[], filename: string, osources:any[], version:
     let sources:string[] = [];
     let last = [0, 0, 0, 0, 0];
     for (let s = 0; s < osources.length; s++) {
-        sources.push(path.relative(filename, osources[s].src).replace(/\\/g, '/'));
+        // console.log(filename, osources[s].src, path.relative(filename, osources[s].src));
+        sources.push(path.relative(path.dirname(filename), osources[s].src).replace(/\\/g, '/'));
     }
     for (let index = 0; index < omappings.length; index++) {
         let points = [];
@@ -95,8 +96,8 @@ let handlers = {
         sugar.onReadFile = onReadFile;
         sugar.compile();
         if (options.generateSourceMap){
-            var output: string = sugar.output + "\r\n//# sourceMappingURL=./" + path.basename(o) + '.map';
-            let mappings = mapBuilder(sugar.mappings, o,  sugar.sources);
+            var output: string = sugar.output + "\r\n//# sourceMappingURL=" + path.basename(o) + '.map';
+            let mappings = mapBuilder(sugar.mappings, o, sugar.sources);
             fs.writeFileSync(o + '.map', mappings);
         }else{
             var output: string = sugar.output;
@@ -214,3 +215,7 @@ switch (options.command) {
 
 // node-sugar cdir ./ ./../../src/ -map -c
 // node ./../../sugar/compiler/lib/node-sugar.js cdir ./ ./../../src/ -map -c
+
+// node-sugar cdir  ./  ./../../../../src/view/Slider/ -c -map
+// node ./../../../../sugar/compiler/lib/node-sugar.js cdir  ./  ./../../../../src/view/Slider/ -c -map
+// node ./../../sugar/compiler/lib/node-sugar.js cdir ./view/Slider/ ./../../src/view/Slider/ -map

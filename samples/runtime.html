@@ -19,7 +19,9 @@
             '$_/util/../util/type as type2',
             '$_/util/../util/type as type3'
         ], function(pandora, root, imports, undefined) {
-           
+            var type1 = imports.type1;
+            var type2 = imports.type2;
+            var type3 = imports.type3;
             var _ = pandora,
                 declare = pandora.declareClass,
                 
@@ -66,7 +68,7 @@
 
         setTimeout(function () {
             console.log(div);
-        }, 1000)
+        }, 3000)
     </script>
 </body>
 

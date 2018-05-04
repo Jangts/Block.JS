@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Fri, 04 May 2018 08:19:55 GMT
+ * Datetime: Fri, 04 May 2018 16:51:30 GMT
  */
 ;
 // tangram.config({});
@@ -17,7 +17,7 @@ tangram.block([
 	var toRegExp = function (array) {
 		var str = array.join('|')
 		str = str.replace(/(\/|\+|\.)/g, '\\$1')
-		return new RegExp("^(" + str + ")$")
+		return new RegExp("^(" + str + ")$");
 	}
 	var fileTransfer = function (url, form, handlers) {
 		var that = this;
@@ -38,7 +38,7 @@ tangram.block([
 					status: uploader.status,
 					responseText: 'Transferring'
 				}
-				_.util.bool.isFn(onBeforeTransferring) && onBeforeTransferring.call(that, response)
+				_.util.bool.isFn(onBeforeTransferring) && onBeforeTransferring.call(that, response);
 			}
 			var onSendProgress = function (evt) {
 				response = {
@@ -49,7 +49,7 @@ tangram.block([
 					status: uploader.status,
 					responseText: 'Transferring'
 				}
-				_.util.bool.isFn(onTransferring) && onTransferring.call(that, response)
+				_.util.bool.isFn(onTransferring) && onTransferring.call(that, response);
 			}
 			var onSendComplete = function (evt) {
 				response = {
@@ -57,7 +57,7 @@ tangram.block([
 					status: uploader.status,
 					responseText: 'Transferred'
 				}
-				_.util.bool.isFn(onAfterTransferring) && onAfterTransferring.call(that, response)
+				_.util.bool.isFn(onAfterTransferring) && onAfterTransferring.call(that, response);
 			}
 			var onFailed = function (evt) {
 				response = {
@@ -65,7 +65,7 @@ tangram.block([
 					status: uploader.status,
 					responseText: 'Transfailed'
 				}
-				_.util.bool.isFn(onUploadFailed) && onUploadFailed.call(that, response)
+				_.util.bool.isFn(onUploadFailed) && onUploadFailed.call(that, response);
 			}
 			var onTimeout = function (evt) {
 				response = {
@@ -73,7 +73,7 @@ tangram.block([
 					status: uploader.status,
 					responseText: 'Timeout'
 				}
-				_.util.bool.isFn(onUploadFailed) && onUploadFailed.call(that, response)
+				_.util.bool.isFn(onUploadFailed) && onUploadFailed.call(that, response);
 			}
 		}
 		var onStateChange = function () {
@@ -113,7 +113,7 @@ tangram.block([
 					}
 					_.util.bool.isFn(onUploadFailed) && onUploadFailed.call(that, response)
 				}
-			}
+			};
 		}
 		if (uploader.upload && typeof uploader.onprogress != 'undefined') {
 			uploader.upload.onloadstart = onSendStart;
@@ -124,7 +124,7 @@ tangram.block([
 		}
 		uploader.onreadystatechange = onStateChange;
 		uploader.open('POST', url, true)
-		uploader.send(form)
+		uploader.send(form);
 	}
 	pandora.declareClass('async.Uploader', {
 		Element: null,
@@ -139,7 +139,7 @@ tangram.block([
 			if (_.util.bool.isArr(suffixs) && suffixs.length) {
 				this.fileNameRegExp = new RegExp(".(" + suffixs.join('|') + ")$")
 			}
-			this.fileMaxSize = typeof maxSize == 'number'? maxSize : 1024 * 1024 * 200;
+			this.fileMaxSize = typeof maxSize == 'number' ? maxSize : 1024 * 1024 * 200;
 		},
 		checkType: function (doneCallback, failCallback) {
 			var result = this.filesChecker(this.files)
@@ -154,7 +154,7 @@ tangram.block([
 			}
 			else {
 				_.util.bool.isFn(failCallback) && failCallback.call(this, result[1], result[2])
-			}
+			};
 		},
 		filesFilter: function () {
 			var array = []
@@ -173,7 +173,7 @@ tangram.block([
 			}
 			else {
 				return [false, 0, 2]
-			}
+			};
 		},
 		filesChecker: function () {
 			for (var i = 0;i < this.files.length;i++) {
@@ -184,13 +184,13 @@ tangram.block([
 					return [false, this.files[i], 1]
 				}
 			}
-			return [true, this.files, 1]
+			return [true, this.files, 1];
 		},
 		checkTYPE: function (file) {
-			return this.fileTypeRegExp && this.fileTypeRegExp.test(file.type)
+			return this.fileTypeRegExp && this.fileTypeRegExp.test(file.type);
 		},
 		checkEXTN: function (file) {
-			return this.fileNameRegExp && this.fileNameRegExp.test(file.name)
+			return this.fileNameRegExp && this.fileNameRegExp.test(file.name);
 		},
 		checkSIZE: function (file) {
 			return file.size < this.fileMaxSize;
@@ -201,7 +201,7 @@ tangram.block([
 			}
 			else {
 				_.async.Uploader.transfer.call(this, this.files, options, method)
-			}
+			};
 		}
 	});
 	pandora.extend(pandora.async.Uploader, {
@@ -255,9 +255,9 @@ tangram.block([
 			}
 			options.url = options.url || location.href;
 			options.handlers = options.handlers || {}
-			fileTransfer.call(this, options.url, form, options.handlers)
+			fileTransfer.call(this, options.url, form, options.handlers);
 		}
 	});
 	this.module.exports = _.async.Uploader;
 });
-//# sourceMappingURL=./Uploader.js.map
+//# sourceMappingURL=Uploader.js.map

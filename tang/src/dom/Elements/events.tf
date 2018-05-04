@@ -4,47 +4,47 @@ expands .Elements {
     on (eventType, selector, data, handler) {
         switch (arguments.length) {
             case 3:
-                handler = _.util.bool.isFn(data) ? data : undefined;
+                handler = ..util.bool.isFn(data) ? data : undefined;
                 data = null;
                 break;
             case 2:
-                handler = _.util.bool.isFn(selector) ? selector : undefined;
+                handler = ..util.bool.isFn(selector) ? selector : undefined;
                 selector = null;
                 data = null;
                 break;
         };
         this.each(function() {
-            if (_.util.bool.isArr(eventType)) {
+            if (..util.bool.isArr(eventType)) {
                 each(eventType as i, et) {
-                    dom.events.add(this, et, selector, data, handler);
+                    ...events.add(this, et, selector, data, handler);
                 }
             } else {
-                dom.events.add(this, eventType, selector, data, handler);
+                ...events.add(this, eventType, selector, data, handler);
             }
         });
         return this;
     }
     off (eventType, selector, handler) {
         this.each(function() {
-            if (_.util.bool.isArr(eventType)) {
+            if (..util.bool.isArr(eventType)) {
                 each(eventType as i, et) {
-                    dom.events.remove(this, et, selector, handler);
+                    ...events.remove(this, et, selector, handler);
                 }
             } else {
-                dom.events.remove(this, eventType, selector, handler);
+                ...events.remove(this, eventType, selector, handler);
             }
         });
         return this;
     }
     trigger (eventType, data) {
         this.each(function() {
-            dom.events.trigger(this, eventType, data);
+            ...events.trigger(this, eventType, data);
         });
         return this;
     }
     bind (eventType, data, handler) {
         if (arguments.length == 2) {
-            handler = _.util.bool.isFn(data) ? data : undefined;
+            handler = ..util.bool.isFn(data) ? data : undefined;
             data = undefined;
         }
         return this.on(eventType, null, data, handler);
@@ -71,37 +71,37 @@ expands .Elements {
         this.bind('mousemove', data, handler);
     }
     'click' (data, handler) {
-        if (_.util.bool.isFn(handler)) {
+        if (..util.bool.isFn(handler)) {
             return this.bind('click', data, handler);
         }
-        if (_.util.bool.isFn(data)) {
+        if (..util.bool.isFn(data)) {
             return this.bind('click', data);
         }
         return this.trigger('click');
     }
     'focus' (data, handler) {
-        if (_.util.bool.isFn(handler)) {
+        if (..util.bool.isFn(handler)) {
             return this.bind('focus', data, handler);
         }
-        if (_.util.bool.isFn(data)) {
+        if (..util.bool.isFn(data)) {
             return this.bind('focus', data);
         }
         return this.trigger('focus');
     }
     'blur' (data, handler) {
-        if (_.util.bool.isFn(handler)) {
+        if (..util.bool.isFn(handler)) {
             return this.bind('blur', data, handler);
         }
-        if (_.util.bool.isFn(data)) {
+        if (..util.bool.isFn(data)) {
             return this.bind('blur', data);
         }
         return this.trigger('blur');
     }
     'submit' (data, handler) {
-        if (_.util.bool.isFn(handler)) {
+        if (..util.bool.isFn(handler)) {
             return this.bind('submit', data, handler);
         }
-        if (_.util.bool.isFn(data)) {
+        if (..util.bool.isFn(data)) {
             return this.bind('submit', data);
         }
         return this.trigger('submit');

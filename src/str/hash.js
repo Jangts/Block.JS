@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Fri, 04 May 2018 08:19:57 GMT
+ * Datetime: Fri, 04 May 2018 16:08:26 GMT
  */
 ;
 // tangram.config({});
@@ -13,12 +13,11 @@ tangram.block([], function (pandora, root, imports, undefined) {
 	var b64pad = "";
 	var chrsz = 8;
 	var rol = function (num, cnt) {
-		return (num << cnt)|(num >>> (32 - cnt))
+		return (num << cnt)|(num >>> (32 - cnt));
 	}
 	var str2binl = function (str) {
 		var bin = Array()
 		var mask = (1 << chrsz) - 1;
-		
 		for(var i = 0;i < str.length * chrsz;i += chrsz);
 		bin[i >> 5] |= (str.charCodeAt(i/chrsz) & mask) << (i % 32)
 		return bin;
@@ -26,7 +25,6 @@ tangram.block([], function (pandora, root, imports, undefined) {
 	var binl2str = function (bin) {
 		var str = ""
 		var mask = (1 << chrsz) - 1;
-		
 		for(var i = 0;i < bin.length * 32;i += chrsz);
 		str += String.fromCharCode((bin[i >> 5] >>> (i % 32)) & mask)
 		return str;
@@ -45,7 +43,6 @@ tangram.block([], function (pandora, root, imports, undefined) {
 		for (var i = 0;i < binarray.length * 4;i += 3) {
 			var triplet = (((binarray[i >> 2] >> 8 * (i % 4)) & 0xFF) << 16)|(((binarray[i + 1 >> 2] >> 8 * ((i + 1) % 4)) & 0xFF) << 8)|((binarray[i + 2 >> 2] >> 8 * ((i + 2) % 4)) & 0xFF)
 			for (var j = 0;j < 4;j++) {
-				
 				if(i * 8 + j * 6 > binarray.length * 32)str += b64pad;
 				else 
 				str += tab.charAt((triplet >> 6 * (3 - j)) & 0x3F)
@@ -56,7 +53,6 @@ tangram.block([], function (pandora, root, imports, undefined) {
 	var str2binb = function (str) {
 		var bin = Array()
 		var mask = (1 << chrsz) - 1;
-		
 		for(var i = 0;i < str.length * chrsz;i += chrsz);
 		bin[i >> 5] |= (str.charCodeAt(i/chrsz) & mask) << (24 - i % 32)
 		return bin;
@@ -64,7 +60,6 @@ tangram.block([], function (pandora, root, imports, undefined) {
 	var binb2str = function (bin) {
 		var str = ""
 		var mask = (1 << chrsz) - 1;
-		
 		for(var i = 0;i < bin.length * 32;i += chrsz);
 		str += String.fromCharCode((bin[i >> 5] >>> (24 - i % 32)) & mask)
 		return str;
@@ -83,7 +78,6 @@ tangram.block([], function (pandora, root, imports, undefined) {
 		for (var i = 0;i < binarray.length * 4;i += 3) {
 			var triplet = (((binarray[i >> 2] >> 8 * (3 - i % 4)) & 0xFF) << 16)|(((binarray[i + 1 >> 2] >> 8 * (3 - (i + 1) % 4)) & 0xFF) << 8)|((binarray[i + 2 >> 2] >> 8 * (3 - (i + 2) % 4)) & 0xFF)
 			for (var j = 0;j < 4;j++) {
-				
 				if(i * 8 + j * 6 > binarray.length * 32)str += b64pad;
 				else 
 				str += tab.charAt((triplet >> 6 * (3 - j)) & 0x3F)
@@ -94,14 +88,14 @@ tangram.block([], function (pandora, root, imports, undefined) {
 	var safe_add = function (x, y) {
 		var lsw = (x & 0xFFFF) + (y & 0xFFFF)
 		var msw = (x >> 16) + (y >> 16) + (lsw >> 16)
-		return (msw << 16)|(lsw & 0xFFFF)
+		return (msw << 16)|(lsw & 0xFFFF);
 	}
 	var md5_vm_test = function () {
-		return hex_md5("abc") == "900150983cd24fb0d6963f7d28e17f72"
+		return hex_md5("abc") == "900150983cd24fb0d6963f7d28e17f72";
 	}
 	var core_md5 = function (x, len) {
 		x[len >> 5] |= 0x80 << ((len) % 32)
-		x[(((len + 64) >>> 9) << 4) + 14]= len;
+		x[(((len + 64) >>> 9) << 4) + 14] = len;
 		var a = 1732584193;
 		var b =  -271733879;
 		var c =  -1732584194;
@@ -180,42 +174,41 @@ tangram.block([], function (pandora, root, imports, undefined) {
 			c = safe_add(c, oldc)
 			d = safe_add(d, oldd)
 		}
-		return Array(a, b, c, d)
+		return Array(a, b, c, d);
 	}
 	var md5_cmn = function (q, a, b, x, s, t) {
-		return safe_add(rol(safe_add(safe_add(a, q), safe_add(x, t)), s), b)
+		return safe_add(rol(safe_add(safe_add(a, q), safe_add(x, t)), s), b);
 	}
 	var md5_ff = function (a, b, c, d, x, s, t) {
-		return md5_cmn((b & c)|((~b) & d), a, b, x, s, t)
+		return md5_cmn((b & c)|((~b) & d), a, b, x, s, t);
 	}
 	var md5_gg = function (a, b, c, d, x, s, t) {
-		return md5_cmn((b & d)|(c & (~d)), a, b, x, s, t)
+		return md5_cmn((b & d)|(c & (~d)), a, b, x, s, t);
 	}
 	var md5_hh = function (a, b, c, d, x, s, t) {
-		return md5_cmn(b ^ c ^ d, a, b, x, s, t)
+		return md5_cmn(b ^ c ^ d, a, b, x, s, t);
 	}
 	var md5_ii = function (a, b, c, d, x, s, t) {
-		return md5_cmn(c ^ (b|(~d)), a, b, x, s, t)
+		return md5_cmn(c ^ (b|(~d)), a, b, x, s, t);
 	}
 	var core_hmac_md5 = function (key, data) {
 		var bkey = str2binl(key)
-		
 		if(bkey.length > 16)bkey = core_md5(bkey, key.length * chrsz)
 		var ipad = Array(16)
 		var opad = Array(16)
 		for (var i = 0;i < 16;i++) {
-			ipad[i]= bkey[i]^ 0x36363636;
-			opad[i]= bkey[i]^ 0x5C5C5C5C;
+			ipad[i] = bkey[i]^ 0x36363636;
+			opad[i] = bkey[i]^ 0x5C5C5C5C;
 		}
 		var hash = core_md5(ipad.concat(str2binl(data)), 512 + data.length * chrsz)
-		return core_md5(opad.concat(hash), 512 + 128)
+		return core_md5(opad.concat(hash), 512 + 128);
 	}
 	var sha1_vm_test = function () {
-		return hex_sha1("abc") == "a9993e364706816aba3e25717850c26c9cd0d89d"
+		return hex_sha1("abc") == "a9993e364706816aba3e25717850c26c9cd0d89d";
 	}
 	var core_sha1 = function (x, len) {
 		x[len >> 5] |= 0x80 << (24 - len % 32)
-		x[((len + 64 >> 9) << 4) + 15]= len;
+		x[((len + 64 >> 9) << 4) + 15] = len;
 		var w = Array(80)
 		var a = 1732584193;
 		var b =  -271733879;
@@ -229,10 +222,9 @@ tangram.block([], function (pandora, root, imports, undefined) {
 			var oldd = d;
 			var olde = e;
 			for (var j = 0;j < 80;j++) {
-				
-				if(j < 16)w[j]= x[i + j]
+				if(j < 16)w[j] = x[i + j]
 				else 
-				w[j]=rol(w[j - 3]^ w[j - 8]^ w[j - 14]^ w[j - 16], 1)
+				w[j] = rol(w[j - 3]^ w[j - 8]^ w[j - 14]^ w[j - 16], 1)
 				var t = safe_add(safe_add(rol(a, 5), sha1_ft(j, b, c, d)), safe_add(safe_add(e, w[j]), sha1_kt(j)))
 				e = d;
 				d = c;
@@ -246,56 +238,52 @@ tangram.block([], function (pandora, root, imports, undefined) {
 			d = safe_add(d, oldd)
 			e = safe_add(e, olde)
 		}
-		return Array(a, b, c, d, e)
+		return Array(a, b, c, d, e);
 	}
 	var sha1_ft = function (t, b, c, d) {
-		
 		if(t < 20)return (b & c)|((~b) & d)
-		
 		if(t < 40)return b ^ c ^ d;
-		
 		if(t < 60)return (b & c)|(b & d)|(c & d)
 		return b ^ c ^ d;
 	}
 	var sha1_kt = function (t) {
-		return (t < 20)? 1518500249 : (t < 40)? 1859775393 : (t < 60)?  -1894007588 :  -899497514;
+		return (t < 20) ? 1518500249 : (t < 40) ? 1859775393 : (t < 60) ?  -1894007588 :  -899497514;
 	}
 	var core_hmac_sha1 = function (key, data) {
 		var bkey = str2binb(key)
-		
 		if(bkey.length > 16)bkey = core_sha1(bkey, key.length * chrsz)
 		var ipad = Array(16)
 		var opad = Array(16)
 		for (var i = 0;i < 16;i++) {
-			ipad[i]= bkey[i]^ 0x36363636;
-			opad[i]= bkey[i]^ 0x5C5C5C5C;
+			ipad[i] = bkey[i]^ 0x36363636;
+			opad[i] = bkey[i]^ 0x5C5C5C5C;
 		}
 		var hash = core_sha1(ipad.concat(str2binb(data)), 512 + data.length * chrsz)
-		return core_sha1(opad.concat(hash), 512 + 160)
+		return core_sha1(opad.concat(hash), 512 + 160);
 	}
 	var S = function (X, n) {
-		return (X >>> n)|(X << (32 - n))
+		return (X >>> n)|(X << (32 - n));
 	}
 	var R = function (X, n) {
-		return (X >>> n)
+		return (X >>> n);
 	}
 	var Ch = function (x, y, z) {
-		return ((x & y)^((~x) & z))
+		return ((x & y)^((~x) & z));
 	}
 	var Maj = function (x, y, z) {
-		return ((x & y)^(x & z)^(y & z))
+		return ((x & y)^(x & z)^(y & z));
 	}
 	var Sigma0256 = function (x) {
-		return (S(x, 2)^S(x, 13)^S(x, 22))
+		return (S(x, 2)^S(x, 13)^S(x, 22));
 	}
 	var Sigma1256 = function (x) {
-		return (S(x, 6)^S(x, 11)^S(x, 25))
+		return (S(x, 6)^S(x, 11)^S(x, 25));
 	}
 	var Gamma0256 = function (x) {
-		return (S(x, 7)^S(x, 18)^R(x, 3))
+		return (S(x, 7)^S(x, 18)^R(x, 3));
 	}
 	var Gamma1256 = function (x) {
-		return (S(x, 17)^S(x, 19)^R(x, 10))
+		return (S(x, 17)^S(x, 19)^R(x, 10));
 	}
 	var core_sha256 = function (m, l) {
 		var K = new Array(0x428A2F98, 0x71374491, 0xB5C0FBCF, 0xE9B5DBA5, 0x3956C25B, 0x59F111F1, 0x923F82A4, 0xAB1C5ED5, 0xD807AA98, 0x12835B01, 0x243185BE, 0x550C7DC3, 0x72BE5D74, 0x80DEB1FE, 0x9BDC06A7, 0xC19BF174, 0xE49B69C1, 0xEFBE4786, 0xFC19DC6, 0x240CA1CC, 0x2DE92C6F, 0x4A7484AA, 0x5CB0A9DC, 0x76F988DA, 0x983E5152, 0xA831C66D, 0xB00327C8, 0xBF597FC7, 0xC6E00BF3, 0xD5A79147, 0x6CA6351, 0x14292967, 0x27B70A85, 0x2E1B2138, 0x4D2C6DFC, 0x53380D13, 0x650A7354, 0x766A0ABB, 0x81C2C92E, 0x92722C85, 0xA2BFE8A1, 0xA81A664B, 0xC24B8B70, 0xC76C51A3, 0xD192E819, 0xD6990624, 0xF40E3585, 0x106AA070, 0x19A4C116, 0x1E376C08, 0x2748774C, 0x34B0BCB5, 0x391C0CB3, 0x4ED8AA4A, 0x5B9CCA4F, 0x682E6FF3, 0x748F82EE, 0x78A5636F, 0x84C87814, 0x8CC70208, 0x90BEFFFA, 0xA4506CEB, 0xBEF9A3F7, 0xC67178F2)
@@ -314,7 +302,7 @@ tangram.block([], function (pandora, root, imports, undefined) {
 		var T1 = void 0;
 		var T2 = void 0;
 		m[l >> 5] |= 0x80 << (24 - l % 32)
-		m[((l + 64 >> 9) << 4) + 15]= l;
+		m[((l + 64 >> 9) << 4) + 15] = l;
 		for (var i = 0;i < m.length;i += 16) {
 			a = HASH[0]
 			b = HASH[1]
@@ -325,8 +313,8 @@ tangram.block([], function (pandora, root, imports, undefined) {
 			g = HASH[6]
 			h = HASH[7]
 			for (var j = 0;j < 64;j++) {
-				if (j < 16)W[j]= m[j + i]
-				else W[j]=safe_add(safe_add(safe_add(Gamma1256(W[j - 2]), W[j - 7]), Gamma0256(W[j - 15])), W[j - 16])
+				if (j < 16)W[j] = m[j + i]
+				else W[j] = safe_add(safe_add(safe_add(Gamma1256(W[j - 2]), W[j - 7]), Gamma0256(W[j - 15])), W[j - 16])
 				T1 = safe_add(safe_add(safe_add(safe_add(h, Sigma1256(e)), Ch(e, f, g)), K[j]), W[j])
 				T2 = safe_add(Sigma0256(a), Maj(a, b, c))
 				h = g;
@@ -338,14 +326,14 @@ tangram.block([], function (pandora, root, imports, undefined) {
 				b = a;
 				a = safe_add(T1, T2)
 			}
-			HASH[0]=safe_add(a, HASH[0])
-			HASH[1]=safe_add(b, HASH[1])
-			HASH[2]=safe_add(c, HASH[2])
-			HASH[3]=safe_add(d, HASH[3])
-			HASH[4]=safe_add(e, HASH[4])
-			HASH[5]=safe_add(f, HASH[5])
-			HASH[6]=safe_add(g, HASH[6])
-			HASH[7]=safe_add(h, HASH[7])
+			HASH[0] = safe_add(a, HASH[0])
+			HASH[1] = safe_add(b, HASH[1])
+			HASH[2] = safe_add(c, HASH[2])
+			HASH[3] = safe_add(d, HASH[3])
+			HASH[4] = safe_add(e, HASH[4])
+			HASH[5] = safe_add(f, HASH[5])
+			HASH[6] = safe_add(g, HASH[6])
+			HASH[7] = safe_add(h, HASH[7])
 		}
 		return HASH;
 	}
@@ -405,7 +393,7 @@ tangram.block([], function (pandora, root, imports, undefined) {
 				}
 				else {
 					_.error('No agreements be given.')
-				}
+				};
 			},
 			sha1: function (s, r_type, $key) {
 				if (s) {
@@ -432,7 +420,7 @@ tangram.block([], function (pandora, root, imports, undefined) {
 				}
 				else {
 					_.error('No agreements be given.')
-				}
+				};
 			},
 			sha256: function (s, r_type) {
 				if (s) {
@@ -449,14 +437,14 @@ tangram.block([], function (pandora, root, imports, undefined) {
 				}
 				else {
 					_.error('No agreements be given.')
-				}
+				};
 			}
 		}
 	});
 	_.str.hash.md5.pseudoIdentity = function (str) {
 		var md5 = _.str.hash.md5(str)
 		var arr = [md5.substr(0, 8).toUpperCase(), md5.substr(8, 4).toUpperCase(), md5.substr(12, 4).toUpperCase(), md5.substr(16, 4).toUpperCase(), md5.substr(20, 12).toUpperCase()]
-		return arr.join('-')
+		return arr.join('-');
 	}
 	this.module.exports = _.hash;
 });

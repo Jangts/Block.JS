@@ -3,8 +3,6 @@ use $ app/Application;
 
 let _ = pandora;
 
-use $_/ as var;
-
 public app = (elem){
     return new _.app.Application(elem);
 };

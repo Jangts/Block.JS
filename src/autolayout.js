@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Fri, 04 May 2018 08:19:55 GMT
+ * Datetime: Fri, 04 May 2018 16:51:30 GMT
  */
 ;
 // tangram.config({});
@@ -17,16 +17,14 @@ tangram.block([
 	var $ = _.dom.select;
 	pandora.extend(_.see.Scrollbar, {
 		auto: function () {
-			
 			$('.tangram-see.scrollbar[data-ic-auto]').each(function () {
 				if (($(this).data('icAuto') != 'false') && ($(this).data('icRendered') != 'scrollbar')) {
-					
 					$(this).data('icRendered', 'scrollbar')
 					new _.see.Scrollbar(this, {
 						theme: $(this).data('scbarTheme') || 'default-light'
 					});
-				}
-			})
+				};
+			});
 		}
 	});
 	_.see.NavMenu.auto();
@@ -35,4 +33,4 @@ tangram.block([
 	_.see.Tabs.SlideTabs.auto();
 	_.see.ListView.auto();
 }, true);
-//# sourceMappingURL=./autolayout.js.map
+//# sourceMappingURL=autolayout.js.map

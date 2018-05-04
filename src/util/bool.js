@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Fri, 04 May 2018 08:19:58 GMT
+ * Datetime: Fri, 04 May 2018 16:08:27 GMT
  */
 ;
 // tangram.config({});
@@ -24,10 +24,10 @@ tangram.block([
 			return _.util.bool.isObj(file) && file instanceof __class;
 		},
 		isScala: function (vari) {
-			return typeof vari === 'boolean'|| typeof vari === 'string'|| typeof vari === 'number'
+			return typeof vari === 'boolean'|| typeof vari === 'string'|| typeof vari === 'number';
 		},
 		isBool: function (vari) {
-			return typeof vari === 'boolean'
+			return typeof vari === 'boolean';
 		},
 		isObj: function (obj) {
 			return typeof obj === 'object' && obj;
@@ -37,10 +37,10 @@ tangram.block([
 		isDoc: _.util.type.isDoc,
 		isEl: _.util.type.isElement,
 		isVisi: function (elem) {
-			return _.dom.getStyle(elem, 'display') != 'none'
+			return _.dom.getStyle(elem, 'display') != 'none';
 		},
 		isHide: function (elem) {
-			return _.dom.getStyle(elem, 'display') === 'none'
+			return _.dom.getStyle(elem, 'display') === 'none';
 		},
 		isEls: _.util.type.isElements,
 		isArr: _.util.type.isArray,
@@ -53,7 +53,7 @@ tangram.block([
 				}
 				return false;
 			}
-			return _.arr.has(array, elem)
+			return _.arr.has(array, elem);
 		},
 		in: function (elem, object) {
 			if (_.util.type.isArray(object)) {
@@ -75,34 +75,34 @@ tangram.block([
 			return _.util.bool.isObj(data) && data instanceof FormData;
 		},
 		isFn: function (obj) {
-			return typeof obj === 'function'
+			return typeof obj === 'function';
 		},
 		isStr: function (str) {
-			return typeof str === 'string'
+			return typeof str === 'string';
 		},
 		isOuterHTML: function (str) {
-			return /^<(\w+)[\s\S]+<\/\1>$/.test(str) || /^<(\w+)[^>]*\/\s*>$/.test(str)
+			return /^<(\w+)[\s\S]+<\/\1>$/.test(str) || /^<(\w+)[^>]*\/\s*>$/.test(str);
 		},
 		isIntStr: _.util.type.isIntStr,
 		isFloatStr: _.util.type.isFloatStr,
 		isPercent: function (str) {
-			return (typeof str === 'string') && (/^[-\+]{0,1}(\d+(\.\d+){0,1}|\.\d+)\%$/.test(str))
+			return (typeof str === 'string') && (/^[-\+]{0,1}(\d+(\.\d+){0,1}|\.\d+)\%$/.test(str));
 		},
 		hasStr: _.hasString,
 		isInt: function (num) {
-			return _.util.type.isInteger(num) || _.util.type.isIntStr(num)
+			return _.util.type.isInteger(num) || _.util.type.isIntStr(num);
 		},
 		isNum: function (num) {
-			return typeof num === 'number'
+			return typeof num === 'number';
 		},
 		isNumber: function (num) {
-			return !isNaN(parseFloat(num)) && isFinite(num)
+			return !isNaN(parseFloat(num)) && isFinite(num);
 		},
 		isFinite: function (num) {
-			return isFinite(num)
+			return isFinite(num);
 		},
 		isNumeric: function (num) {
-			return typeof num === 'number' || _.util.type.isIntStr(num) || _.util.type.isFloatStr(num)
+			return typeof num === 'number' || _.util.type.isIntStr(num) || _.util.type.isFloatStr(num);
 		},
 		isNul: function (obj) {
 			if (obj) {
@@ -110,7 +110,7 @@ tangram.block([
 			}
 			else {
 				return true;
-			}
+			};
 		},
 		isUrl: function (str) {
 			var strRegex = "^((https|http|ftp|rtsp|mms|wss|ws)?://)"
@@ -129,7 +129,7 @@ tangram.block([
 			}
 			else {
 				return false;
-			}
+			};
 		},
 		isHttpMethod: function (method) {
 			if (typeof method !== 'string') {
@@ -139,11 +139,11 @@ tangram.block([
 			return _.util.bool.inArr(method, ['GET', 'CONNECT', 'COPY', 'DELETE', 'HEAD', 'LINK', 'OPTIONS', 'POST', 'PUT', 'PATCH', 'TRACE', 'UNLINK', 'UPDATE', 'WRAPPED']) && method;
 		},
 		isSupportCanvas: function () {
-			return typeof CanvasRenderingContext2D != "undefined"
+			return typeof CanvasRenderingContext2D != "undefined";
 		},
 		isWebkit: function () {
 			const reg = /webkit/i
-			return reg.test(this._ua)
+			return reg.test(this._ua);
 		},
 		isIE: function () {
 			return 'ActiveXObject' in window;

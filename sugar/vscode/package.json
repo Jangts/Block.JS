@@ -2,7 +2,7 @@
     "name": "tangram-js-sugar",
     "displayName": "tangram.js sugar",
     "description": "tangram.js syntactic sugar",
-    "version": "0.0.9",
+    "version": "0.1.0",
     "publisher": "jangts",
     "engines": {
         "vscode": "^1.22.0"

@@ -1,16 +1,15 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Fri, 04 May 2018 08:19:55 GMT
+ * Datetime: Fri, 04 May 2018 16:51:30 GMT
  */
 ;
 // tangram.config({});
 tangram.block([], function (pandora, root, imports, undefined) {
 	pandora.ns('arr', function () {
 		var getItemKey = function (item, key) {
-			
 			if(!item || !key)return void 666;
-			return typeof key === 'string'? item[key]:key(item)
+			return typeof key === 'string' ? item[key]:key(item);
 		}
 		var makeKeyIndexAndFree = function (list, key) {
 			var keyIndex = {}
@@ -19,12 +18,12 @@ tangram.block([], function (pandora, root, imports, undefined) {
 				var item = list[i]
 				var itemKey = getItemKey(item, key)
 				if (itemKey) {
-					keyIndex[itemKey]= i;
+					keyIndex[itemKey] = i;
 				}
 				else {
 					free.push(item)
 				}
-			}
+			};
 		}
 		var diff = function (oldList, newList, key) {
 			var oldMap = makeKeyIndexAndFree(oldList, key)
@@ -43,7 +42,7 @@ tangram.block([], function (pandora, root, imports, undefined) {
 					index: index,
 					type: 0
 				}
-				moves.push(move)
+				moves.push(move);
 			}
 			var insert = function (index, item) {
 				var move = {
@@ -51,10 +50,10 @@ tangram.block([], function (pandora, root, imports, undefined) {
 					item: item,
 					type: 1
 				}
-				moves.push(move)
+				moves.push(move);
 			}
 			var removeSimulate = function (index) {
-				simulateList.splice(index, 1)
+				simulateList.splice(index, 1);
 			}
 			while (i < oldList.length) {
 				item = oldList[i]
@@ -78,9 +77,7 @@ tangram.block([], function (pandora, root, imports, undefined) {
 			i = 0;
 			while (i < simulateList.length) {
 				if (simulateList[i] === null) {
-					
 					remove(i);
-					
 					removeSimulate(i);
 				}
 				else {
@@ -99,31 +96,26 @@ tangram.block([], function (pandora, root, imports, undefined) {
 					}
 					else {
 						if (!oldKeyIndex.hasOwnProperty(itemKey)) {
-							
 							insert(i, item);
 						}
 						else {
 							var nextItemKey = getItemKey(simulateList[j + 1], key)
 							if (nextItemKey === itemKey) {
-								
 								remove(i);
-								
 								removeSimulate(j);
 								j++;
 							}
 							else {
-								
 								insert(i, item);
 							}
 						}
 					}
 				}
 				else {
-					
 					insert(i, item);
 				}
 				i++;
-			}
+			};
 		}
 		return {
 			makeKeyIndexAndFree: makeKeyIndexAndFree,
@@ -132,4 +124,4 @@ tangram.block([], function (pandora, root, imports, undefined) {
 	});
 	this.module.exports = _.arr.diff;
 });
-//# sourceMappingURL=./diff.js.map
+//# sourceMappingURL=diff.js.map

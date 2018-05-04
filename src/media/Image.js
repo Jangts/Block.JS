@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Fri, 04 May 2018 08:19:57 GMT
+ * Datetime: Fri, 04 May 2018 16:08:25 GMT
  */
 ;
 // tangram.config({});
@@ -29,7 +29,7 @@ tangram.block([
 				var callback = function () {
 					if (isEl(that.context)) {
 						that.context.appendChild(that.image)
-					}
+					};
 				}
 				this.src = option;
 				this.preview = null;
@@ -42,16 +42,14 @@ tangram.block([
 				var doneCallback = function () {
 					if (isEl(that.context)) {
 						that.context.appendChild(that.image)
-						
 						isFn(option.onload) && option.onload.call(this, that)
-					}
+					};
 				}
 				var failCallback = function () {
 					if (isEl(that.context)) {
 						that.context.appendChild(that.image)
-						
 						isFn(option.onerror) && option.onerror.call(this, that)
-					}
+					};
 				}
 				this.onload = doneCallback;
 				this.onerror = failCallback;
@@ -68,26 +66,23 @@ tangram.block([
 			}
 			if (option.context) {
 				this.appendTo(option.context)
-			}
+			};
 		},
 		preview: function () {
 			var that = this;
 			var onload = function () {
 				that.context.appendChild(that.image)
-				
 				load(that.image, that.src, function () {
 					that.previewsrc = null;
-					that.onload.call(this)
+					that.onload.call(this);
 				}, function () {
 					that.image.src = that.previewsrc;
-					that.onerror.call(this)
+					that.onerror.call(this);
 				});
 			}
 			var onerror = function () {
-				
 				load(that.image, that.src, that.onload, that.onerror);
 			}
-			
 			load(this.image, this.previewsrc, onload, onerror);
 		},
 		appendTo: function (context) {
@@ -97,10 +92,9 @@ tangram.block([
 					this.preview()
 				}
 				else {
-					
 					load(this.image, this.src, this.onload, this.onerror);
 				}
-			}
+			};
 		},
 		toString: function () {
 			var div = doc.createElement('div')

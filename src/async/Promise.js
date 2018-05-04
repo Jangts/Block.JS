@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Fri, 04 May 2018 08:19:55 GMT
+ * Datetime: Fri, 04 May 2018 16:51:30 GMT
  */
 ;
 // tangram.config({});
@@ -15,12 +15,12 @@ tangram.block([], function (pandora, root, imports, undefined) {
 			function resolve (value) {
 				Promise.PromiseStatus = 'resolved'
 				Promise.PromiseValue = value;
-				Promise.listener()
+				Promise.listener();
 			}
 			function reject (value) {
 				Promise.PromiseStatus = 'rejected'
 				Promise.PromiseValue = value;
-				Promise.listener()
+				Promise.listener();
 			}
 			this.PromiseStatus = 'pending'
 			this.PromiseValue = undefined;
@@ -30,7 +30,7 @@ tangram.block([], function (pandora, root, imports, undefined) {
 				fail: [],
 				progress: []
 			}
-			resolver && resolver(resolve, reject)
+			resolver && resolver(resolve, reject);
 		},
 		listener: function () {
 			switch (this.PromiseStatus) {
@@ -45,13 +45,13 @@ tangram.block([], function (pandora, root, imports, undefined) {
 				case 'pending':
 				this.callback('progress', this.PromiseValue)
 				break
-			}
+			};
 		},
 		callback: function (status, data) {
 			for (var i in this.handlers[status]) {
 				this.handlers[status][i].call(this, data)
 			}
-			this.handlers[status]=[]
+			this.handlers[status] = []
 			if (status === 'done' || status == 'fail') {
 				this.handlers = {
 					always: [],
@@ -59,7 +59,7 @@ tangram.block([], function (pandora, root, imports, undefined) {
 					fail: [],
 					progress: []
 				}
-			}
+			};
 		},
 		then: function (doneCallbacks, failCallbacks) {
 			var Promise = this;
@@ -71,16 +71,15 @@ tangram.block([], function (pandora, root, imports, undefined) {
 					Promise.listener()
 				}
 				catch (err) {
-					
 					reject(err);
-				}
-			})
+				};
+			});
 		},
 		done: function (doneCallbacks) {
-			typeof doneCallbacks == 'function' && this.handlers.done.push(doneCallbacks)
+			typeof doneCallbacks == 'function' && this.handlers.done.push(doneCallbacks);
 		},
 		'catch': function (failCallbacks) {
-			return this.then(null, failCallbacks)
+			return this.then(null, failCallbacks);
 		}
 	});
 	pandora.extend(pandora.async.Promise, {
@@ -90,7 +89,7 @@ tangram.block([], function (pandora, root, imports, undefined) {
 			var Result = []
 			var Promises = {
 				then: function (doneCallback) {
-					Callback = (typeof doneCallback === 'function')? doneCallback : undefined;
+					Callback = (typeof doneCallback === 'function') ? doneCallback : undefined;
 				}
 			}
 			var Done = 0;
@@ -98,14 +97,13 @@ tangram.block([], function (pandora, root, imports, undefined) {
 				Done++;
 				if (Done == array.length) {
 					Callback && Callback(Result)
-				}
+				};
 			}
 			pandora.each(array, function (i, item) {
 				item.then(function (data) {
-					Result[i]= data;
-					
+					Result[i] = data;
 					Check();
-				})
+				});
 			}, this);
 			return Promises;
 		},
@@ -115,8 +113,8 @@ tangram.block([], function (pandora, root, imports, undefined) {
 			var Fail = void 0;
 			var Promises = {
 				then: function (doneCallback, failCallback) {
-					Done = (typeof doneCallback === 'function')? doneCallback : undefined;
-					Fail = (typeof failCallback === 'function')? failCallback : undefined;
+					Done = (typeof doneCallback === 'function') ? doneCallback : undefined;
+					Fail = (typeof failCallback === 'function') ? failCallback : undefined;
 				}
 			}
 			var Checked = false;
@@ -129,16 +127,14 @@ tangram.block([], function (pandora, root, imports, undefined) {
 					if (Promise.PromiseStatus === "rejected") {
 						Fail && Fail(Promise.PromiseValue)
 					}
-				}
+				};
 			}
 			pandora.each(array, function (i, item) {
 				item.then(function () {
-					
 					Check(item);
 				}, function () {
-					
 					Check(item);
-				})
+				});
 			}, this);
 			return Promises;
 		},
@@ -148,22 +144,20 @@ tangram.block([], function (pandora, root, imports, undefined) {
 			var Value = []
 			var Promises = {
 				then: function (doneCallback, failCallback) {
-					Done = (typeof doneCallback === 'function')? doneCallback : undefined;
-					Fail = (typeof failCallback === 'function')? failCallback : undefined;
+					Done = (typeof doneCallback === 'function') ? doneCallback : undefined;
+					Fail = (typeof failCallback === 'function') ? failCallback : undefined;
 				}
 			}
 			var iterator = new _.Iterator(array)
 			var Resolver = function (callback) {
 				new _.async.Promise(callback).done(function (data) {
 					Value.push(data)
-					
 					Check();
 				});
 			}
 			var Check = function () {
 				var elememt = iterator.next()
 				if (elememt && typeof elememt == 'function') {
-					
 					Resolver(elememt);
 				}
 				else if (iterator.__ == array.length - 1) {
@@ -177,13 +171,12 @@ tangram.block([], function (pandora, root, imports, undefined) {
 						PromiseStatus: 'resolved',
 						PromiseValue: Value
 					}, Value)
-				}
+				};
 			}
-			
 			Check();
 			return Promises;
 		}
 	});
 	this.module.exports = _.async.Promise;
 });
-//# sourceMappingURL=./Promise.js.map
+//# sourceMappingURL=Promise.js.map

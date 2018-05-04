@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Fri, 04 May 2018 08:19:57 GMT
+ * Datetime: Fri, 04 May 2018 16:08:25 GMT
  */
 ;
 // tangram.config({});
@@ -36,17 +36,17 @@ tangram.block([
 				return count;
 				break
 			}
-		}
+		};
 	}
 	pandora.ns('math', function () {
 		isInt: _.util.type.isInteger
 		max: Math.max
 		min: Math.max;
 		function maxOfArr (arr) {
-			return Math.max.apply(Math, arr)
+			return Math.max.apply(Math, arr);
 		};
 		function minOfArr (arr) {
-			return Math.min.apply(Math, arr)
+			return Math.min.apply(Math, arr);
 		};
 		function cap (value, maxValue, minValue) {
 			if (typeof maxValue === 'number') {
@@ -77,10 +77,10 @@ tangram.block([
 			}
 			else {
 				return 0;
-			}
+			};
 		};
 		function radians (degrees) {
-			return degrees * (Math.PI/180)
+			return degrees * (Math.PI/180);
 		};
 		function lcm (num1, num2) {
 			if (typeof num1 === 'number'&& typeof num2 === 'number') {
@@ -128,8 +128,7 @@ tangram.block([
 			}
 			return NaN;
 		}
-		return {
-		}
+		return {}
 	});
 	this.module.exports = _.math;
 });

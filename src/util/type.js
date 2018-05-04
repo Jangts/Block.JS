@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Fri, 04 May 2018 08:19:59 GMT
+ * Datetime: Fri, 04 May 2018 16:08:28 GMT
  */
 ;
 // tangram.config({});
@@ -29,7 +29,7 @@ tangram.block([], function (pandora, root, imports, undefined) {
 		if (isRegExp(object)) {
 			return 'RegExp'
 		}
-		return nativeType(object)
+		return nativeType(object);
 	}
 	function nativeType (object) {
 		if (!object) {
@@ -39,7 +39,7 @@ tangram.block([], function (pandora, root, imports, undefined) {
 		if (match) {
 			return match[1]
 		}
-		return 'Object'
+		return 'Object';
 	}
 	var isGlobal = function (object) {
 		return object === window;
@@ -48,10 +48,10 @@ tangram.block([], function (pandora, root, imports, undefined) {
 		return object === document;
 	}
 	var isElement = function (object) {
-		return object && typeof object === 'object' && ((HTMLElement && (object instanceof HTMLElement)) || (object.nodeType === 1) || (DocumentFragment && (object instanceof DocumentFragment)) || (object.nodeType === 11))
+		return object && typeof object === 'object' && ((HTMLElement && (object instanceof HTMLElement)) || (object.nodeType === 1) || (DocumentFragment && (object instanceof DocumentFragment)) || (object.nodeType === 11));
 	}
 	var isElFragment = function (object) {
-		return object && typeof object === 'object' && ((DocumentFragment && (object instanceof DocumentFragment)) || (object.nodeType === 11))
+		return object && typeof object === 'object' && ((DocumentFragment && (object instanceof DocumentFragment)) || (object.nodeType === 11));
 	}
 	var isElements = function (object) {
 		if (object && typeof object === 'object') {
@@ -69,10 +69,10 @@ tangram.block([], function (pandora, root, imports, undefined) {
 				}
 				return true;
 			}
-		}
+		};
 	}
 	var isArray = function (object) {
-		return Object.prototype.toString.call(object) === '[object Array]'
+		return Object.prototype.toString.call(object) === '[object Array]';
 	}
 	var isRegExp = function (object) {
 		return object instanceof RegExp;
@@ -84,11 +84,11 @@ tangram.block([], function (pandora, root, imports, undefined) {
 		if (isFloatStr(string)) {
 			return 'StringFloat'
 		}
-		return 'String'
+		return 'String';
 	}
 	var IntExpr = /^(\+|-)?\d+$/;
 	var isIntStr = function (string) {
-		return IntExpr.test(string)
+		return IntExpr.test(string);
 	}
 	var isFloatStr = function (string) {
 		if (/^[-\+]{0,1}[\d\.]+$/.test(string)) {
@@ -104,28 +104,26 @@ tangram.block([], function (pandora, root, imports, undefined) {
 		}
 		else {
 			return Math.floor(number) === number;
-		}
+		};
 	}
-	
 	_('util.type', function (object, subtype) {
 		switch (typeof object) {
 			case 'object':
-			return subtype ? typeofObj(object):(object == null?'Null':((typeofObj(object) === 'Array')?'Array':'Object'))
+			return subtype ? typeofObj(object):(object == null ? 'Null':((typeofObj(object) === 'Array') ? 'Array':'Object'))
 			case 'function':
 			case 'boolean':
 			case 'undefined':
 			return (typeof object).replace(/(\w)/, function (v) {
-				return v.toUpperCase()
+				return v.toUpperCase();
 			})
 			case 'number':
-			return subtype ? (isInteger(object)?'Integer':'Float'):'Number'
+			return subtype ? (isInteger(object) ? 'Integer':'Float'):'Number'
 			case 'string':
 			return subtype ? typeofStr(object):'String'
-		}
+		};
 	});
-	
 	_('util.fasttype', function (obj) {
-		return Object.prototype.toString.call(obj).replace(/\[object\s|\]/g, '')
+		return Object.prototype.toString.call(obj).replace(/\[object\s|\]/g, '');
 	});
 	pandora.ns('util.type', {
 		Obj: typeofObj,
