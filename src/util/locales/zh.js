@@ -1,11 +1,12 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Fri, 04 May 2018 16:08:28 GMT
+ * Datetime: Sat, 05 May 2018 04:35:46 GMT
  */
 ;
 // tangram.config({});
-tangram.block([], function (pandora, root, imports, undefined) {
+tangram.init().block([], function (pandora, root, imports, undefined) {
+	var module = this.module;
 	pandora.locales('times', {
 		'zh-CN': {
 			days: ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日"],
@@ -29,4 +30,4 @@ tangram.block([], function (pandora, root, imports, undefined) {
 		}
 	});
 });
-//# sourceMappingURL=./zh.js.map
+//# sourceMappingURL=zh.js.map

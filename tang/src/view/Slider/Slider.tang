@@ -1,4 +1,4 @@
-"await";
+@module;
 /*!
  * tangram.js framework source code
  *
@@ -37,10 +37,8 @@
 }
  */
 
-
 use $ util/bool as bool;
 use $ dom/Elements;
-
 
 namespace view;
 
@@ -76,17 +74,18 @@ class .Slider {
     ontouched = false;
 
     _init (elem, preset, options) {
-        this.Element = bool.isStr(elem) ? _.dom.query.byId(elem) : elem;
+        this.Element = bool.isStr(elem) ? ..dom.query.byId(elem) : elem;
+        log elem, this.Element, this.Element.nodeType, bool.isEl, bool.isEl(this.Element);
         if (bool.isEl(this.Element)) {
             options = options || {};
             if (bool.isStr(preset) && ...Slider.presets[preset]) {
-                _.extend(options, ...Slider.presets[preset]);
+                ..extend(options, ...Slider.presets[preset]);
             } else if (bool.isObj(preset)) {
-                _.extend(options, preset);
+                ..extend(options, preset);
             } else {
-                _.extend(options, ...Slider.presets.slide);
+                ..extend(options, ...Slider.presets.slide);
             }
-            _.extend(this, true, options);
+            ..extend(this, true, options);
 
             if (this.Element && this.layout) {
                 var that = this;

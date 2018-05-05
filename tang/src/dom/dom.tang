@@ -1,0 +1,35 @@
+@module;
+/*!
+ * tangram.js framework source code
+ *
+ * static dom
+ *
+ * Date 2017-04-06
+ */
+
+use $ arr/
+use $ dom/query/
+use $ dom/Events
+
+// var module = this.module;
+
+namespace dom {
+    var _ = pandora,
+    declare = pandora.declareClass,
+    doc = root.document,
+    query = this.query.sizzle || this.query;
+
+    public cache(elem) {
+        if (elem) {
+            return elem.BID = elem.BID || .({});
+        }
+    }
+
+    @include 'dom/styles';
+    @include 'dom/attributes';
+    @include 'dom/classnames';
+    @include 'dom/elements';
+    @include 'dom/events';
+
+    module.exports = this; 
+}

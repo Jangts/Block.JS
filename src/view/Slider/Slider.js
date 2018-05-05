@@ -1,14 +1,15 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Fri, 04 May 2018 16:46:38 GMT
+ * Datetime: Sat, 05 May 2018 04:35:47 GMT
  */
 ;
 // tangram.config({});
-tangram.block([
+tangram.init().block([
 	'$_/util/bool',
 	'$_/dom/Elements'
 ], function (pandora, root, imports, undefined) {
+	var module = this.module;
 	var view = pandora.ns('view', {});
 	var bool = imports['$_/util/bool'] && imports['$_/util/bool'];
 	var _ = pandora;
@@ -40,19 +41,20 @@ tangram.block([
 		actorsNum: 0,
 		ontouched: false,
 		_init: function (elem, preset, options) {
-			this.Element = bool.isStr(elem) ? _.dom.query.byId(elem): elem;
+			this.Element = bool.isStr(elem) ? pandora.dom.query.byId(elem): elem;
+			root.console.log(elem, this.Element, this.Element.nodeType, bool.isEl, bool.isEl(this.Element));
 			if (bool.isEl(this.Element)) {
 				options = options || {}
 				if (bool.isStr(preset) && pandora.view.Slider.presets[preset]) {
-					_.extend(options, pandora.view.Slider.presets[preset])
+					pandora.extend(options, pandora.view.Slider.presets[preset])
 				}
 				else if (bool.isObj(preset)) {
-					_.extend(options, preset)
+					pandora.extend(options, preset)
 				}
 				else {
-					_.extend(options, pandora.view.Slider.presets.slide)
+					pandora.extend(options, pandora.view.Slider.presets.slide)
 				}
-				_.extend(this, true, options)
+				pandora.extend(this, true, options)
 				if (this.Element && this.layout) {
 					var that = this;
 					$(this.Element).addClass(preset)
@@ -224,7 +226,7 @@ tangram.block([
 			}, this);
 		}
 	});
-	_.view.Slider.extend({
+	pandora.view.Slider.extend({
 		name: 'slide',
 		easing: "linear",
 		bluider: function () {},
@@ -261,7 +263,7 @@ tangram.block([
 			this.curr = to;
 		}
 	});
-	_.view.Slider.extend({
+	pandora.view.Slider.extend({
 		name: 'fade',
 		layout: function () {
 			var rank = this.rank(this.actorsNum)

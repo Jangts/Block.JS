@@ -1,9 +1,11 @@
 // use $ foo/bar as bar;
 
+log 'Hello, world!';
+
 var main = 0;
 @include 'main-part1';
 var fn0 = (arg1, ...more){
-    console.log(arg1, more);
+    console.log(arg1, more);console.log(arg1, more);console.log(arg1, more);console.log(arg1, more);
 }
 @include 'main-part2';
 var class0 = class {
@@ -15,6 +17,9 @@ var class0 = class {
         return this._private.name;
     }
     set name(){
+        
         this._private.name = name
     }
 }
+
+fn0(1,2,3,4,5,6);

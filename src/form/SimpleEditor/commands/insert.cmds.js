@@ -11,8 +11,8 @@ tangram.block([], function(pandora, root, imports, undefined) {
 
         console = root.console,
 
-        regMethod = cache.read(new _.Identifier('EDITOR_REG_M').toString()),
-        regCommand = cache.read(new _.Identifier('EDITOR_REG_CMD').toString()),
+        regMethod = pandora.storage.get(new _.Identifier('EDITOR_REG_M').toString()),
+        regCommand = pandora.storage.get(new _.Identifier('EDITOR_REG_CMD').toString()),
 
         commands = {
             'insert': function(val) {

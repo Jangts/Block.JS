@@ -13,8 +13,8 @@ tangram.block([
 
         console = root.console,
 
-        regCommand = cache.read(new _.Identifier('EDITOR_REG_CMD').toString()),
-        regCreater = cache.read(new _.Identifier('EDITOR_REG_C').toString()),
+        regCommand = pandora.storage.get(new _.Identifier('EDITOR_REG_CMD').toString()),
+        regCreater = pandora.storage.get(new _.Identifier('EDITOR_REG_C').toString()),
 
         defaults = {
             colorTable: [

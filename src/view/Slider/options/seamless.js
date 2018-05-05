@@ -1,18 +1,20 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Fri, 04 May 2018 16:46:38 GMT
+ * Datetime: Sat, 05 May 2018 04:35:47 GMT
  */
 ;
 // tangram.config({});
-tangram.block([
+tangram.init().block([
 	'$_/view/Slider/'
 ], function (pandora, root, imports, undefined) {
+	var module = this.module;
+	var view = pandora.ns('view', {});
 	var _ = pandora;
 	var doc = root.document;
 	var location = root.location;
 	var $ = _.dom.select;
-	_.view.Slider.extend({
+	pandora.view.Slider.extend({
 		name: 'seamless',
 		easing: "linear",
 		bluider: function () {},

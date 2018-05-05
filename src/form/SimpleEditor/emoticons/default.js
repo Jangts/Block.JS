@@ -7,7 +7,7 @@
 tangram.block('$_/form/SimpleEditor/commands/insertemoticon.cmd', function(pandora, root, imports, undefined) {
     var _ = pandora,
 
-        regEmoticon = cache.read(new _.Identifier('EDITOR_REG_EMT').toString());
+        regEmoticon = pandora.storage.get(new _.Identifier('EDITOR_REG_EMT').toString());
 
     regEmoticon('default', {
         '微笑': 'wx.gif',

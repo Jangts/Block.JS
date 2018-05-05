@@ -309,6 +309,6 @@ tangram.block([
         }
     };
 
-    cache.save(dialogs, 'EDITOR_DIALOGS');
-    cache.save(events, 'EDITOR_EVENTS');
+    pandora.storage.set(dialogs, 'EDITOR_DIALOGS');
+    pandora.storage.set(events, 'EDITOR_EVENTS');
 });

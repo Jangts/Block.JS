@@ -1,13 +1,14 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Fri, 04 May 2018 16:51:30 GMT
+ * Datetime: Sat, 05 May 2018 04:35:40 GMT
  */
 ;
 // tangram.config({});
-tangram.block([
+tangram.init().block([
 	'$_/util/type'
 ], function (pandora, root, imports, undefined) {
+	var module = this.module;
 	var _ = pandora;
 	pandora.ns('arr', {
 		merge: function () {

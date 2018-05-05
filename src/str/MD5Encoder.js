@@ -1,17 +1,18 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Fri, 04 May 2018 16:08:27 GMT
+ * Datetime: Sat, 05 May 2018 04:35:45 GMT
  */
 ;
 // tangram.config({});
-tangram.block([
+tangram.init().block([
 	'$_/str/hash'
 ], function (pandora, root, imports, undefined) {
+	var module = this.module;
 	var _ = pandora;
 	var console = root.console;
 	var blobSlice = root.File.prototype.mozSlice || root.File.prototype.webkitSlice || root.File.prototype.slice;
-	var ___boundary_982GHMZH_N10P_CTIK_LWKF_RP7JDE9L7QJE_186_as_function___ = void 0;
+	var ___boundary_W0ASK8B8_E2G5_XLRE_73CP_Y6RWUXGFKLQC_186_as_function___ = void 0;
 	var hex_chr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
 	var cmn = function (q, a, b, x, s, t) {
 		a = add32(add32(a, q), add32(x, t))
@@ -444,7 +445,7 @@ tangram.block([
 			loadNext();
 		}
 	});
-	pandora.declareClass('str.MD5Encoder.ArrayBuffer', _.str.MD5Encoder, {
+	pandora.declareClass('str.MD5Encoder.ArrayBuffer', _.str.MD5Encoder,{
 		_init: function () {
 			this.reset();
 		},
@@ -501,4 +502,4 @@ tangram.block([
 	});
 	this.module.exports = _.str.MD5Encoder;
 });
-//# sourceMappingURL=./MD5Encoder.js.map
+//# sourceMappingURL=MD5Encoder.js.map

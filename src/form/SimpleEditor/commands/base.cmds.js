@@ -17,7 +17,7 @@ tangram.block([], function(pandora, root, imports, undefined) {
             'removeformat', 'strikethrough', 'underline', 'unlink'
         ],
 
-        regCommand = cache.read(new _.Identifier('EDITOR_REG_CMD').toString());
+        regCommand = pandora.storage.get(new _.Identifier('EDITOR_REG_CMD').toString());
 
     _.each(presets, function(index, cmd) {
         regCommand(cmd, function(val) {

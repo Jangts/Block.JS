@@ -4,7 +4,7 @@
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>SLIDER P/N BUTTONS</title>
-    <script src="../../../src/tangram.js"></script>
+    <script src="../../../src/tangram.js" data-tangram-debug></script>
     <link rel="stylesheet" type="text/css" href="../../../src/see/see.css" />
     <link rel="stylesheet" type="text/css" href="../../../src/see/fa.css" />
     <link rel="stylesheet" type="text/css" href="../../../src/view/Slider/style.css" />
@@ -100,6 +100,8 @@
     <script>
         tangram.block(['$_/dom/Elements', '$_/view/Slider/'], function(pandora, root, imports, undefined) {
             var $ = pandora.dom.select;
+            console.log(pandora.dom.Elements.prototype.each);
+            
             $('.tangram-slider[data-use-slider-type]').each(function() {
                 var type = $(this).data('useSliderType');
                 new pandora.view.Slider(this, type, {

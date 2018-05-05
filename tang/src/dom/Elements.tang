@@ -1,4 +1,4 @@
-"await";
+@module;
 /*!
  * tangram.js framework source code
  *
@@ -16,7 +16,7 @@ namespace dom;
 
 var _ = pandora,
 declare = ..declareClass,
-query = ...sizzle || ...query;
+query = ...query.sizzle || ...query;
 
 @include 'Elements/variables';
 
@@ -38,6 +38,7 @@ class .Elements extends ..Iterator {
             if (selector) {
                 switch (typeof (selector)) {
                     case 'string':
+                    console.log(query);
                         Elements = query(selector, this.context);
                         break;
                     case 'object':

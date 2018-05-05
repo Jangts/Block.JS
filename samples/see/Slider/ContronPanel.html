@@ -225,6 +225,8 @@
         tangram.block(['$_/dom/Elements', '$_/view/Slider/options/seamless'], function(pandora, root, imports, undefined) {
             var $ = pandora.dom.select;
 
+            console.log(pandora.dom.Elements.prototype.each);
+
             $('.tangram-slider').each(function() {
                 new pandora.view.Slider(this, 'seamless', {
                     speed: 6000,

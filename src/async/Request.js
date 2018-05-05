@@ -1,20 +1,21 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Fri, 04 May 2018 16:51:30 GMT
+ * Datetime: Sat, 05 May 2018 04:35:40 GMT
  */
 ;
 // tangram.config({});
-tangram.block([
+tangram.init().block([
 	'$_/async/Promise'
 ], function (pandora, root, imports, undefined) {
+	var module = this.module;
 	var _ = pandora;
 	var console = root.console;
 	var location = root.location;
 	var XMLHttpRequest = root.XMLHttpRequest;
 	var ActiveXObject = root.ActiveXObject;
 	var FormData = root.FormData;
-	pandora.declareClass('async.Request', _.async.Promise, {
+	pandora.declareClass('async.Request', _.async.Promise,{
 		readyState: 0,
 		statusCode: 0,
 		statusText: '',

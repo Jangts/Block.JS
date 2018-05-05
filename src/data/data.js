@@ -1,16 +1,17 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Fri, 04 May 2018 16:51:30 GMT
+ * Datetime: Sat, 05 May 2018 04:35:40 GMT
  */
 ;
 // tangram.config({});
-tangram.block([
+tangram.init().block([
 	'$_/obj/',
 	'$_/util/bool',
 	'$_/dom/',
 	'$_/async/Request'
 ], function (pandora, root, imports, undefined) {
+	var module = this.module;
 	var _ = pandora;
 	var doc = root.document;
 	var location = root.location;

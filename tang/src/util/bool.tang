@@ -1,4 +1,4 @@
-"await"
+@module;
 /*!
  * tangram.js framework source code
  *
@@ -8,8 +8,9 @@
  */
 namespace util;
 
-use $ util/type;
 use $ dom/;
+use $ obj/;
+use $ util/type;
 
 var _ = pandora,
 doc = root.document,

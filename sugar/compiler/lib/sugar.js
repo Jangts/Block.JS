@@ -75,7 +75,7 @@
         },
         value: ';'
     };
-    var zero2z = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split(''), namingExpr = /^[A-Z_\$][\w\$]*(\.[A-Z_\$][\w\$]*)*$/i, argsExpr = /^...[A-Z_\$][\w\$]*(\.[A-Z_\$][\w\$]*)*$/i, stringas = {
+    var zero2z = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split(''), namingExpr = /^[A-Z_\$][\w\$]*$/i, argsExpr = /^...[A-Z_\$][\w\$]*$/i, stringas = {
         '/': '_as_pattern___',
         '`': '_as_template___',
         '"': '_as_string___',
@@ -97,22 +97,22 @@
         owords: /\s+(in|of)\s+/g,
         sign: /(^|\s*[^\+\-])(\+|\-)([\$\w\.])/g,
         swords: /(^|[^\$\w])(typeof|instanceof|void|delete)\s+(\+*\-*[\$\w\.])/g,
-        before: /(\+\+|\-\-|\!|\~)\s*([\$\w])/g,
+        before: /(\+\+|\-\-|\!|\~)\s*([\$\w\.])/g,
         after: /([\$\w\.])[ \t]*(\+\+|\-\-)/g,
         error: /(.*)(\+\+|\-\-|\+|\-)(.*)/g
     }, replaceWords = /(^|@\d+L\d+P\d+O?\d*:::|\s)(continue|finally|return|throw|break|case|else|try|do)\s*(\s|;|___boundary_[A-Z0-9_]{36}_(\d+)_as_([a-z]+)___)/g, replaceExpRegPattern = {
-        await: /^((\s*@\d+L\d+P0:::)*\s*(@\d+L\d+P0*):::(\s*))?"await"[;\s]*/,
+        module: /^((\s*@\d+L\d+P0:::)*\s*(@\d+L\d+P0*):::(\s*))?@module[;\s]*/,
         namespace: /[\r\n]((@\d+L\d+P0):::)?(\s*)namespace\s+(\.{0,1}[\$a-zA-Z_][\$\w\.]*)\s*(;|\r|\n)/,
         // 位置是在replace usings 和 strings 之后才tidy的，所以还存在后接空格
         use: /(@\d+L\d+P\d+:::)\s*use(\s*\$)?\s+([\$\w\.\/\\\?\=\&]+)(\s+as(\s+(@\d+L\d+P\d+:::\s*[\$a-zA-Z_][\$\w]*)|\s*(@\d+L\d+P\d+:::\s*)?\{(@\d+L\d+P\d+:::\s*[\$a-zA-Z_][\$\w]*(\s*,@\d+L\d+P\d+:::\s*[\$a-zA-Z_][\$\w]*)*)\})(@\d+L\d+P\d+:::\s*)?)?\s*[;\r\n]/g,
         include: /\s*@include\s+___boundary_[A-Z0-9_]{36}_(\d+)_as_string___[;\r\n]+/g,
         extends: /(@\d+L\d+P\d+O*\d*:::)?(ns|namespace|extends)\s+((\.{0,3})[\$a-zA-Z_][\$\w\.]*)(\s+with)?\s*\{([^\{\}]*?)\}/g,
-        class: /(@\d+L\d+P\d+O*\d*:::)?((class|expands)\s+(\.{0,3}[\$a-zA-Z_][\$\w\.]*)?(\s+extends\s+\.{0,3}[\$a-zA-Z_][\$\w\.]*)?\s*\{[^\{\}]*?\})/g,
+        class: /(@\d+L\d+P\d+O*\d*:::)?((class|expands)\s+(\.{0,3}[\$a-zA-Z_][\$\w\.]*)?(\s+extends\s+\.{0,3}[\$a-zA-Z_][\$\w\.]*|ignore)?\s*\{[^\{\}]*?\})/g,
         fnlike: /(@\d+L\d+P\d+O*\d*:::)?(^|(function|def|public)\s+)?(([\$a-zA-Z_][\$\w]*)?\s*\([^\(\)]*\))\s*\{([^\{\}]*?)\}/g,
         parentheses: /(@\d+L\d+P\d+O*\d*:::)?\(\s*([^\(\)]*?)\s*\)/g,
         arraylike: /(@\d+L\d+P\d+O*\d*:::)?\[(\s*[^\[\]]*?)\s*\]/g,
-        call: /(@\d+L\d+P\d+O*\d*:::)?((new)\s+([\$a-zA-Z_][\$\w\.]*)|(\.)?([\$a-zA-Z_][\$\w]*))\s*(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)\s*([^\$\w\s\{]|[\r\n].|\s*___boundary_[A-Z0-9_]{36}_\d+_as_array___|\s*@boundary_\d+_as_operator::|$)/g,
-        callschain: /\s*(@\d+L\d+P\d+O*\d*:::)?\.___boundary_[A-Z0-9_]{36}_(\d+)_as_callmethod___((@\d+L\d+P\d+O*\d*:::)?\.___boundary_[A-Z0-9_]{36}_\d+_as_callmethod___)*/g,
+        call: /(@\d+L\d+P\d+O*\d*:::)?((new)\s+([\$a-zA-Z_\.][\$\w\.]*)|(\.)?([\$a-zA-Z_][\$\w]*))\s*(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)\s*([^\$\w\s\{]|[\r\n].|\s*___boundary_[A-Z0-9_]{36}_\d+_as_array___|\s*@boundary_\d+_as_operator::|$)/g,
+        callschain: /\s*(@\d+L\d+P\d+O*\d*:::)?\.\s*___boundary_[A-Z0-9_]{36}_(\d+)_as_(call|callmethod)___(\s*(@\d+L\d+P\d+O*\d*:::)?\.\s*___boundary_[A-Z0-9_]{36}_\d+_as_(call|callmethod)___)*/g,
         arrowfn: /(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)\s*(->|=>)\s*([^,;\r\n]+)\s*(,|;|\r|\n|$)/g,
         closure: /((@\d+L\d+P\d+O*\d*:::)?@*[\$a-zA-Z_][\$\w]*|\)|\=|\(\s)?(@\d+L\d+P\d+O*\d*:::)?\s*\{(\s*[^\{\}]*?)\s*\}/g,
         expression: /(@\d+L\d+P\d+O*\d*:::)?(if|for|while|switch|with|catch|each)\s*(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)\s*;*\s*(___boundary_[A-Z0-9_]{36}_(\d+)_as_(closure|objlike)___)/g,
@@ -129,9 +129,9 @@
         index: /(\d+)_as_([a-z]+)/,
         index3: /^_(\d+)_as_([a-z]+)___([\s\S]*)$/,
         extends: /(ns|nsassign|global|globalassign|extends)\s+([\$a-zA-Z_][\$\w\.]*)\s*\{([^\{\}]*?)\}/,
-        class: /(class|dec|expands)\s+(\.{1,3})?([\$a-zA-Z_][\$\w\.]*)?(\s+extends\s+(\.{1,3})?([\$a-zA-Z_][\$\w\.]*))?\s*\{([^\{\}]*?)\}/,
+        class: /(class|dec|expands)\s+(\.{1,3})?([\$a-zA-Z_][\$\w\.]*)?(\s+extends\s+(\.{1,3})?([\$a-zA-Z_][\$\w\.]*)|ignore)?\s*\{([^\{\}]*?)\}/,
         fnlike: /(^|(function|def|public)\s+)?([\$a-zA-Z_][\$\w]*)?\s*\(([^\(\)]*)\)\s*\{([^\{\}]*?)\}/,
-        call: /([\$a-zA-Z_][\$\w\.]*)\s*___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___/,
+        call: /([\$a-zA-Z_\.][\$\w\.]*)\s*___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___/,
         arrowfn: /(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)\s*(->|=>)\s*([\s\S]+)\s*$/,
         objectattr: /^\s*(@\d+L\d+P\d+O?\d*:::)?((([\$a-zA-Z_][\$\w]*)))\s*(\:*)([\s\S]*)$/,
         classelement: /^\s*(@\d+L\d+P\d+O?\d*:::)?((public|static|set|get|om)\s+)?([\$\w]*)\s*(\=*)([\s\S]*)$/,
@@ -307,7 +307,7 @@
             var _this = this;
             // console.log(string);
             string = string
-                .replace(replaceExpRegPattern.await, function (match, gaps, preline, posi, gap) {
+                .replace(replaceExpRegPattern.module, function (match, gaps, preline, posi, gap) {
                 _this.isMainBlock = false;
                 if (gaps) {
                     _this.maintag_posi = posi;
@@ -318,6 +318,7 @@
                 else {
                     _this.maintag_posi = '@0L0P0';
                 }
+                blockreserved.push('module');
                 // console.log(gaps, preline, posi, !!gap, gap.length);
                 // console.log('This is not a main block.', this.maintag_posi);
                 return '';
@@ -353,7 +354,9 @@
                 return /*"\r\n" + */ '___boundary_' + index + '_as_propname___' + after;
             });
             string = string
-                .replace(/([\$a-zA-Z_][\$\w]*)\s*(->|=>)/g, "($1)$2");
+                .replace(/([\$a-zA-Z_][\$\w]*)\s*(->|=>)/g, "($1)$2")
+                .replace(/\.\s*\(/g, "..storage.set(")
+                .replace(/@\s*\(/g, "..storage.get(");
             // console.log(string);
             // console.log(this.replacements);
             string = this.replaceBrackets(string);
@@ -590,15 +593,16 @@
             string = string.replace(replaceExpRegPattern.extends, function (match, posi, exp, name, node, assign, closure) {
                 matched = true;
                 name = name.replace(/^\.+/, '');
-                let body;
+                var body;
                 if (assign) {
                     if (exp === 'extends') {
                         _this.error('Unexpected `extends`: extends ' + name + ' with');
                     }
                     else {
-                        if (node && node.length===2){
+                        if (node && node.length === 2) {
                             body = 'globalassign ' + name + '{' + _this.replaceParentheses(closure) + '}';
-                        }else{
+                        }
+                        else {
                             body = 'nsassign ' + name + '{' + _this.replaceParentheses(closure) + '}';
                         }
                     }
@@ -608,17 +612,20 @@
                         if (node) {
                             if (node.length === 2) {
                                 body = 'globalassign ' + name + '{' + _this.replaceParentheses(closure) + '}';
-                            } else {
+                            }
+                            else {
                                 body = 'nsassign ' + name + '{' + _this.replaceParentheses(closure) + '}';
                             }
-                        } else {
+                        }
+                        else {
                             body = 'extends ' + name + '{' + _this.replaceParentheses(closure) + '}';
                         }
                     }
                     else {
                         if (node && node.length === 2) {
                             body = 'global ' + name + '{' + _this.replaceParentheses(closure) + '}';
-                        } else {
+                        }
+                        else {
                             body = 'ns ' + name + '{' + _this.replaceParentheses(closure) + '}';
                         }
                     }
@@ -936,6 +943,7 @@
                 }
                 var index = _this.replacements.length;
                 if (constructor) {
+                    // console.log(fullname);
                     _this.replacements.push([fullname + args, posi && posi.trim()]);
                     return '___boundary_' + _this.uid + '_' + index + '_as_construct___' + after;
                 }
@@ -956,6 +964,7 @@
             // console.log(string);
             return string.replace(replaceExpRegPattern.callschain, function (match, posi, _index) {
                 var index = _this.replacements.length;
+                match = match.replace(/_as_call___/g, '_as_callmethod___');
                 _this.replacements.push([match, posi || _this.replacements[_index][1]]);
                 return '___boundary_' + _this.uid + '_' + index + '_as_callschain___';
             });
@@ -1742,6 +1751,7 @@
                 var element = nameArr[n];
                 if (element) {
                     if (type === 'construct') {
+                        // console.log(name, nameArr);
                         this.pushReplacementsToAST(name, vars, element, false, undefined);
                     }
                     else {
@@ -1834,24 +1844,26 @@
         Sugar.prototype.walkClass = function (index, display, vars) {
             if (vars === void 0) { vars = true; }
             // console.log(this.replacements[index]);
-            let matches = this.replacements[index][0].match(matchExpRegPattern.class);
+            var matches = this.replacements[index][0].match(matchExpRegPattern.class);
             // console.log(matches);
-            let type = matches[1];
-            let namespace = vars.root.namespace || this.namespace;
-            let cname = matches[3];
-            let subtype = 'stdClass';
+            var type = matches[1];
+            var namespace = vars.root.namespace || this.namespace;
+            var cname = matches[3];
+            var subtype = 'stdClass';
             if (matches[2]) {
-                if(matches[2].length!==2){
+                if (matches[2].length !== 2) {
                     cname = namespace + cname;
                 }
             }
             else {
                 if (type === 'dec') {
-                    if (cname){
+                    if (cname) {
                         cname = namespace + cname;
-                    } else if (amespace) {
+                    }
+                    else if (namespace) {
                         cname = namespace.replace(/\.$/, '');
-                    }else{
+                    }
+                    else {
                         subtype = 'anonClass';
                     }
                 }
@@ -1859,24 +1871,31 @@
                     subtype = 'anonClass';
                 }
             }
-            
-            if ((type === 'class')&&(subtype === 'anonClass')) {
-                if (cname) {
+            var basename = matches[6];
+            if (type === 'class') {
+                if ((subtype === 'anonClass') && cname && cname.match(namingExpr)) {
                     if (vars.self[cname] === void 0) {
                         vars.self[cname] = 'var';
                     }
                     else if (vars.self[cname] === 'let') {
                         this.error(' Variable `' + cname + '` has already been declared.');
                     }
-                    // vars.self.push('var ' + cname);
+                }
+                if (matches[5]) {
+                    if (matches[5].length === 2) {
+                        basename = 'pandora.' + basename;
+                    }
+                    else {
+                        basename = 'pandora.' + namespace + basename;
+                    }
                 }
             }
-            let basename = matches[6];
-            if (matches[5]){
-                if (matches[5].length===2){
-                    basename = 'pandora.' + basename;
-                }else{
-                    basename = 'pandora.' + namespace + basename;
+            else {
+                if (matches[4] === 'ignore') {
+                    basename = true;
+                }
+                else {
+                    basename = false;
                 }
             }
             return {
@@ -1919,8 +1938,9 @@
             var position = this.getPosition(this.replacements[index][1]);
             var subtype = 'ext';
             var objname = matches[2];
-            var localvars;
+            var localvars = vars;
             var namespace;
+            var body;
             // console.log(matches);
             if ((matches[1] === 'ns') || (matches[1] === 'global')) {
                 subtype = matches[1];
@@ -1944,14 +1964,13 @@
                     type: 'root'
                 };
                 localvars.self = localvars.root.protected;
-                var body = this.pushBodyToAST([], localvars, matches[3]);
+                body = this.pushBodyToAST([], localvars, matches[3]);
             }
             else {
-                if ((matches[1] === 'nsassign')||(matches[1] === 'globalassign')) {
+                if ((matches[1] === 'nsassign') || (matches[1] === 'globalassign')) {
                     subtype = matches[1];
                 }
-                localvars = vars;
-                var body = this.checkObjMember(localvars, matches[3]);
+                body = this.checkObjMember(localvars, matches[3]);
             }
             return {
                 type: 'extends',
@@ -2513,7 +2532,12 @@
                 this.pushPostionsToMap(this.getPosition(this.configinfo_posi), codes);
             }
             codes.push('tangram.config(' + this.configinfo + ');');
-            codes.push("\r\n" + 'tangram.block([');
+            if (this.isMainBlock) {
+                codes.push("\r\n" + 'tangram.block([');
+            }
+            else {
+                codes.push("\r\n" + 'tangram.init().block([');
+            }
             if (this.imports.length) {
                 var imports = [];
                 for (var index_15 = 0; index_15 < this.imports.length; index_15 += 2) {
@@ -2522,7 +2546,13 @@
                 // console.log(this.imports, imports);
                 codes.push("\r\n\t" + imports.join(",\r\n\t") + "\r\n");
             }
-            codes.push('], function (pandora, root, imports, undefined) {');
+            if (this.isMainBlock) {
+                codes.push('], function (pandora, root, imports, undefined) {');
+            }
+            else {
+                codes.push('], function (pandora, root, imports, undefined) {');
+                codes.push("\r\n\tvar module = this.module;");
+            }
             if (this.namespace) {
                 var namespace = this.namespace.replace(/\.$/, "");
                 var name_1 = namespace.replace(/^(.*\.)?([\$a-zA-Z_][\$\w]*)$/, "$2");
@@ -2829,7 +2859,7 @@
                     codes.push('extends ' + element.base);
                 }
                 else {
-                    codes.push(element.base);
+                    codes.push(element.base + ',');
                 }
             }
             codes.push('{');
@@ -3149,9 +3179,9 @@
                 }
             }
             codes.push(indent1 + posi + 'pandora.extend(' + cname + '.prototype, ');
-            // if (element.base) {
-            //     codes.push(element.base.trim() + ', ');
-            // }
+            if (element.base === false) {
+                codes.push('true, ');
+            }
             codes.push('{');
             // console.log(element);
             var overrides = {};
@@ -3444,12 +3474,12 @@
             // console.log(code, vars);
             if (code) {
                 // console.log(code);
-                return code.replace(/(^|[^\$\w\.])((let|var)\s+)?([\$a-zA-Z_][\$\w]*)(\s+|\s*[^\$\w]|\s*$)/i, function (match, before, typewithgap, type, varname, after) {
+                return code.replace(/(^|[^\$\w\.])((let|var)\s+)?([\$a-zA-Z_][\$\w]*)(\s+|\s*[^\$\w]|\s*$)/g, function (match, before, typewithgap, type, varname, after) {
                     // console.log(match, "\r\n", before, '[', varname, '](', type, ')', after);
                     return before + (typewithgap || '') + _this.patchVariable(varname, vars) + after || '';
-                }).replace(/(\.\.\.)([\$a-zA-Z_][\$\w]*)/i, function (match, node, member) {
-                    // console.log(match, "\r\n", before, '[', varname, '](', type, ')', after);
-                    return _this.patchNamespace(node, vars) + member;
+                }).replace(/(^|[\?\:\=]\s*)(\.\.|\.)(\.[\$a-zA-Z_][\$\w]*|$)/g, function (match, before, node, member) {
+                    // console.log(match, "\r\n", before, '[', node, ']', member, vars);
+                    return before + _this.patchNamespace(node, vars) + member;
                 });
             }
             // console.log(code);
@@ -3502,13 +3532,14 @@
             return varname;
         };
         Sugar.prototype.patchNamespace = function (node, vars) {
-            if (node === '..') {
-                return 'pandora.';
+            if (node === '.') {
+                return 'pandora';
             }
             if (vars.root.namespace) {
-                return 'pandora.' + vars.root.namespace;
+                return ('pandora.' + vars.root.namespace).replace(/\.+$/, '');
             }
-            return 'pandora.' + this.namespace;
+            // console.log(this.namespace);
+            return ('pandora.' + this.namespace).replace(/\.+$/, '');
         };
         Sugar.prototype.restoreStrings = function (string, last) {
             var that = this;
@@ -3551,7 +3582,7 @@
             string = string.replace(/((@boundary_\d+_as_comments::)\s*)+(@boundary_\d+_as_comments::)/g, "$3");
             // 去除多余符号
             string = string.replace(/\s*;(\s*;)*[\t \x0B]*/g, ";");
-            string = string.replace(/(.)(\{|\[|\(|\.|\:)\s*[,;]+/g, function (match, before, mark) {
+            string = string.replace(/(.)(\{|\[|\(|\.|\:|\|)\s*[,;]+/g, function (match, before, mark) {
                 if ((before === mark) && (before === ':')) {
                     return match;
                 }
@@ -3621,3 +3652,4 @@
         return new Sugar(input, run);
     };
 }));
+//# sourceMappingURL=sugar.js.map

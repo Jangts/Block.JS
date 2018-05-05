@@ -154,7 +154,7 @@ tangram.block([
                 }
             }
         };
-    cache.save({
+    pandora.storage.set({
         format: checkFormat,
         status: checkStatus
     }, 'EDITOR_CHECKS');

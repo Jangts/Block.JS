@@ -213,9 +213,13 @@ switch (options.command) {
         break;
 }
 
+// node ./../../sugar/compiler/lib/node-sugar.js test -map
+
 // node-sugar cdir ./ ./../../src/ -map -c
 // node ./../../sugar/compiler/lib/node-sugar.js cdir ./ ./../../src/ -map -c
 
 // node-sugar cdir  ./  ./../../../../src/view/Slider/ -c -map
 // node ./../../../../sugar/compiler/lib/node-sugar.js cdir  ./  ./../../../../src/view/Slider/ -c -map
 // node ./../../sugar/compiler/lib/node-sugar.js cdir ./view/Slider/ ./../../src/view/Slider/ -map
+
+// node ./../../../sugar/compiler/lib/node-sugar.js cdir  ./  ./../../../src/dom/ -c -map

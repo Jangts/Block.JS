@@ -36,14 +36,14 @@ tangram.block([
         query = _.dom.query.sizzle || _.dom.query;
 
     var SimpleEditors = {},
-        conmands = cache.read(new _.Identifier('EDITOR_CMDS').toString()),
-        // parameters = cache.read(new _.Identifier('EDITOR_PARAMS').toString()),
-        metheds = cache.read(new _.Identifier('EDITOR_METHODS').toString()),
-        // creators = cache.read(new _.Identifier('EDITOR_CREATS').toString()),
-        builders = cache.read(new _.Identifier('EDITOR_BUILDS').toString()),
+        conmands = pandora.storage.get(new _.Identifier('EDITOR_CMDS').toString()),
+        // parameters = pandora.storage.get(new _.Identifier('EDITOR_PARAMS').toString()),
+        metheds = pandora.storage.get(new _.Identifier('EDITOR_METHODS').toString()),
+        // creators = pandora.storage.get(new _.Identifier('EDITOR_CREATS').toString()),
+        builders = pandora.storage.get(new _.Identifier('EDITOR_BUILDS').toString()),
         // 
-        checks = cache.read(new _.Identifier('EDITOR_CHECKS').toString()),
-        events = cache.read(new _.Identifier('EDITOR_EVENTS').toString());
+        checks = pandora.storage.get(new _.Identifier('EDITOR_CHECKS').toString()),
+        events = pandora.storage.get(new _.Identifier('EDITOR_EVENTS').toString());
 
     _.dom.events.add(document, 'mouseup', null, null, function() {
         _.each(SimpleEditors, function(id, editor) {

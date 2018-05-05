@@ -13,8 +13,10 @@ tangram.block(['$_/util/bool', '$_/util/Color', '$_/dom/'], function(
 
         doc = root.document;
 
+    console.log(_.dom);
     // 注册_.dom命名空间到pandora
     _('dom');
+    console.log(_.dom);
 
     var rgba = (function() {
         var div = doc.createElement('div');
@@ -239,7 +241,7 @@ tangram.block(['$_/util/bool', '$_/util/Color', '$_/dom/'], function(
 
     _('dom.animator', function(elem, options) {
         if (elem) {
-            var eleCache = cache.read(_.dom.cache(elem));
+            var eleCache = pandora.storage.get(_.dom.cache(elem));
             if (eleCache.Animation) {
                 var Animation = eleCache.Animation;
             } else {
@@ -322,7 +324,7 @@ tangram.block(['$_/util/bool', '$_/util/Color', '$_/dom/'], function(
             }
         },
         remove: function(elem, sceneNumber) {
-            if (elem && elem.YangramKey && cache.save(elem.YangramKey).Animation) {}
+            if (elem && elem.YangramKey && pandora.storage.set(elem.YangramKey).Animation) {}
         }
     });
 });

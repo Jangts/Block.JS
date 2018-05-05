@@ -18,11 +18,11 @@ tangram.block([
         console = root.console,
         query = _.dom.query.sizzle || _.dom.query;
 
-    var parameters = cache.read(new _.Identifier('EDITOR_PARAMS').toString()),
-        regMethod = cache.read(new _.Identifier('EDITOR_REG_M').toString()),
-        regCommand = cache.read(new _.Identifier('EDITOR_REG_CMD').toString()),
-        regCreater = cache.read(new _.Identifier('EDITOR_REG_C').toString()),
-        regDialog = cache.read(new _.Identifier('EDITOR_REG_D').toString());
+    var parameters = pandora.storage.get(new _.Identifier('EDITOR_PARAMS').toString()),
+        regMethod = pandora.storage.get(new _.Identifier('EDITOR_REG_M').toString()),
+        regCommand = pandora.storage.get(new _.Identifier('EDITOR_REG_CMD').toString()),
+        regCreater = pandora.storage.get(new _.Identifier('EDITOR_REG_C').toString()),
+        regDialog = pandora.storage.get(new _.Identifier('EDITOR_REG_D').toString());
 
     regMethod('insertFile', function(val, name) {
         return this.execCommand('insertfile', [name, val]);

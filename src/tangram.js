@@ -347,7 +347,9 @@ function(root, factory) {
         },
         classes: {},
         classesSharedSpace: {},
-        locales: {},
+        locales: {
+            _public:{}
+        },
         core: runtime,
         addinUrl: runtime.Pathname + '../addins/',
         /** 模块快速导出对象的临时缓存 */
@@ -791,6 +793,32 @@ function(root, factory) {
                         return storage.core.Pathname;
                     },
                 },
+                storage: {
+                    get: function (key1, key2) {
+                        if (key2) {
+                            var values = [];
+                            for (let index = 0; index < arguments.length; index++) {
+                                values.push(torage.locales._public[arguments[index]]);
+                            }
+                            return values;
+                        }
+                        return storage.locales._public[key1];
+                    },
+                    set: function (value1, value2) {
+                        if(value2){
+                            var keys = [];
+                            for (let index = 0; index < arguments.length; index++) {
+                                var key = new Identifier().toString();
+                                storage.locales._public[key] = arguments[index];
+                                keys.push(key);
+                            }
+                            return keys;
+                        }
+                        var key = new Identifier().toString();
+                        storage.locales._public[key] = value1;
+                        return key;
+                    }
+                },
                 /**
                  * 强制报错
                  * 中止脚本，并抛出相应的文字描述
@@ -1229,6 +1257,12 @@ function(root, factory) {
             }
             return produceClass(classname, superclass, members);
         };
+
+    Object.defineProperty(pandora, 'storage', {
+        writable: false,
+        enumerable: false,
+        configurable: true
+    });
     /**
      * ------------------------------------------------------------------
      * Inter Codeblocks Definition
@@ -1275,8 +1309,24 @@ function(root, factory) {
             });
 
             block.uid = new Identifier().toString();
+            storage.locales[block.uid] = block._parent;
             return block.callback(storage.pandora, root, block.imports);
         },
+        BlockCore = declareClass({
+            _init: function (callback){
+                this.imports = {};
+                this.module = null;
+                this.callback = callback;
+            },
+            get: function (key) {
+                return this._private[key];
+            },
+            set: function (value) {
+                var key = new Identifier().toString();
+                this._private[key] = value;
+                return key;
+            }
+        }),
         /**
          * @class Iterator
          * 代码块类
@@ -1313,17 +1363,14 @@ function(root, factory) {
                 }
 
                 requireCount += this.requires.length;
-                this.core = {
-                    imports: {},
-                    module: null,
-                    callback: this.callback
-                };
+                this.core = new BlockCore(this.callback);
                 if (blockname) {
                     if (blockname === true) {
                         var that = this;
                         // this.core['type'] = 'caller';
                         // setTimeout(function() {
                         that.mainid = storage.blocks.mains.push(that.core) - 1;
+                        console.log(true);
                         that.listene();
                         // }, 0);
                     }
@@ -1431,6 +1478,7 @@ function(root, factory) {
              * @return undefined
              */
             listene: function() {
+                // console.log(mainPointer, storage.blocks.mains.length);
                 // console.log(this.loaded, this.requires.length, loadedCount, requireCount);
                 if (this.loaded === this.requires.length) {
                     this.result.status = 0;
@@ -1439,7 +1487,7 @@ function(root, factory) {
                         // console.log(mainPointer, storage.blocks.mains.length);
                         var mainCount = storage.blocks.mains.length;;
                         for (mainPointer; mainPointer < mainCount;) {
-                            // console.log('call main block');
+                            // console.log(mainPointer, mainCount, 'call main block');
                             // 将主block的返值对象合并到全局变量window，以便在控制台调试
                             each(fireblock(storage.blocks.mains[mainPointer++]), function(index, value) {
                                 root[index] = value;

@@ -11,8 +11,8 @@ tangram.block(['$_/form/SimpleEditor/commands/insert.cmds'], function(pandora, r
 
         console = root.console;
 
-    var regCommand = cache.read(new _.Identifier('EDITOR_REG_CMD').toString()),
-        regCreater = cache.read(new _.Identifier('EDITOR_REG_C').toString()),
+    var regCommand = pandora.storage.get(new _.Identifier('EDITOR_REG_CMD').toString()),
+        regCreater = pandora.storage.get(new _.Identifier('EDITOR_REG_C').toString()),
         codesFragments = [];
 
     regCommand('insertfragments', function(val) {

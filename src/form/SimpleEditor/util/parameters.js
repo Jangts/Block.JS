@@ -20,5 +20,5 @@ tangram.block([], function(pandora, root, imports, undefined) {
         emoticonsTable: 'default',
         emoticonsCodeFormat: '[CODE]'
     };
-    cache.save(parameters, 'EDITOR_PARAMS');
+    pandora.storage.set(parameters, 'EDITOR_PARAMS');
 });

@@ -1,4 +1,4 @@
-// "await";
+// @module;
 let variable = [];
 
 each (variable as index, item) {

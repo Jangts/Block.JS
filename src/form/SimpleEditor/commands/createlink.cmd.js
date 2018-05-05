@@ -15,10 +15,10 @@ tangram.block([
         console = root.console,
         query = _.dom.query.sizzle || _.dom.query,
 
-        regMethod = cache.read(new _.Identifier('EDITOR_REG_M').toString()),
-        regCommand = cache.read(new _.Identifier('EDITOR_REG_CMD').toString()),
-        regCreater = cache.read(new _.Identifier('EDITOR_REG_C').toString()),
-        regDialog = cache.read(new _.Identifier('EDITOR_REG_D').toString());
+        regMethod = pandora.storage.get(new _.Identifier('EDITOR_REG_M').toString()),
+        regCommand = pandora.storage.get(new _.Identifier('EDITOR_REG_CMD').toString()),
+        regCreater = pandora.storage.get(new _.Identifier('EDITOR_REG_C').toString()),
+        regDialog = pandora.storage.get(new _.Identifier('EDITOR_REG_D').toString());
 
     regMethod('createLink', function(val) {
         return this.execCommand('createlink', val);

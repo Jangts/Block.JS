@@ -83,8 +83,8 @@
 
     const
         zero2z: string[] = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split(''),
-        namingExpr: RegExp = /^[A-Z_\$][\w\$]*(\.[A-Z_\$][\w\$]*)*$/i,
-        argsExpr: RegExp = /^...[A-Z_\$][\w\$]*(\.[A-Z_\$][\w\$]*)*$/i,
+        namingExpr: RegExp = /^[A-Z_\$][\w\$]*$/i,
+        argsExpr: RegExp = /^...[A-Z_\$][\w\$]*$/i,
         stringas: any = {
             '/': '_as_pattern___',
             '`': '_as_template___',
@@ -107,24 +107,24 @@
             owords: /\s+(in|of)\s+/g,
             sign: /(^|\s*[^\+\-])(\+|\-)([\$\w\.])/g,
             swords: /(^|[^\$\w])(typeof|instanceof|void|delete)\s+(\+*\-*[\$\w\.])/g,
-            before: /(\+\+|\-\-|\!|\~)\s*([\$\w])/g,
+            before: /(\+\+|\-\-|\!|\~)\s*([\$\w\.])/g,
             after: /([\$\w\.])[ \t]*(\+\+|\-\-)/g,
             error: /(.*)(\+\+|\-\-|\+|\-)(.*)/g
         },
         replaceWords = /(^|@\d+L\d+P\d+O?\d*:::|\s)(continue|finally|return|throw|break|case|else|try|do)\s*(\s|;|___boundary_[A-Z0-9_]{36}_(\d+)_as_([a-z]+)___)/g,
         replaceExpRegPattern = {
-            await: /^((\s*@\d+L\d+P0:::)*\s*(@\d+L\d+P0*):::(\s*))?"await"[;\s]*/,
+            module: /^((\s*@\d+L\d+P0:::)*\s*(@\d+L\d+P0*):::(\s*))?@module[;\s]*/,
             namespace: /[\r\n]((@\d+L\d+P0):::)?(\s*)namespace\s+(\.{0,1}[\$a-zA-Z_][\$\w\.]*)\s*(;|\r|\n)/,
             // 位置是在replace usings 和 strings 之后才tidy的，所以还存在后接空格
             use: /(@\d+L\d+P\d+:::)\s*use(\s*\$)?\s+([\$\w\.\/\\\?\=\&]+)(\s+as(\s+(@\d+L\d+P\d+:::\s*[\$a-zA-Z_][\$\w]*)|\s*(@\d+L\d+P\d+:::\s*)?\{(@\d+L\d+P\d+:::\s*[\$a-zA-Z_][\$\w]*(\s*,@\d+L\d+P\d+:::\s*[\$a-zA-Z_][\$\w]*)*)\})(@\d+L\d+P\d+:::\s*)?)?\s*[;\r\n]/g,
             include: /\s*@include\s+___boundary_[A-Z0-9_]{36}_(\d+)_as_string___[;\r\n]+/g,
             extends: /(@\d+L\d+P\d+O*\d*:::)?(ns|namespace|extends)\s+((\.{0,3})[\$a-zA-Z_][\$\w\.]*)(\s+with)?\s*\{([^\{\}]*?)\}/g,
-            class: /(@\d+L\d+P\d+O*\d*:::)?((class|expands)\s+(\.{0,3}[\$a-zA-Z_][\$\w\.]*)?(\s+extends\s+\.{0,3}[\$a-zA-Z_][\$\w\.]*)?\s*\{[^\{\}]*?\})/g,
+            class: /(@\d+L\d+P\d+O*\d*:::)?((class|expands)\s+(\.{0,3}[\$a-zA-Z_][\$\w\.]*)?(\s+extends\s+\.{0,3}[\$a-zA-Z_][\$\w\.]*|ignore)?\s*\{[^\{\}]*?\})/g,
             fnlike: /(@\d+L\d+P\d+O*\d*:::)?(^|(function|def|public)\s+)?(([\$a-zA-Z_][\$\w]*)?\s*\([^\(\)]*\))\s*\{([^\{\}]*?)\}/g,
             parentheses: /(@\d+L\d+P\d+O*\d*:::)?\(\s*([^\(\)]*?)\s*\)/g,
             arraylike: /(@\d+L\d+P\d+O*\d*:::)?\[(\s*[^\[\]]*?)\s*\]/g,
-            call: /(@\d+L\d+P\d+O*\d*:::)?((new)\s+([\$a-zA-Z_][\$\w\.]*)|(\.)?([\$a-zA-Z_][\$\w]*))\s*(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)\s*([^\$\w\s\{]|[\r\n].|\s*___boundary_[A-Z0-9_]{36}_\d+_as_array___|\s*@boundary_\d+_as_operator::|$)/g,
-            callschain: /\s*(@\d+L\d+P\d+O*\d*:::)?\.___boundary_[A-Z0-9_]{36}_(\d+)_as_callmethod___((@\d+L\d+P\d+O*\d*:::)?\.___boundary_[A-Z0-9_]{36}_\d+_as_callmethod___)*/g,
+            call: /(@\d+L\d+P\d+O*\d*:::)?((new)\s+([\$a-zA-Z_\.][\$\w\.]*)|(\.)?([\$a-zA-Z_][\$\w]*))\s*(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)\s*([^\$\w\s\{]|[\r\n].|\s*___boundary_[A-Z0-9_]{36}_\d+_as_array___|\s*@boundary_\d+_as_operator::|$)/g,
+            callschain: /\s*(@\d+L\d+P\d+O*\d*:::)?\.\s*___boundary_[A-Z0-9_]{36}_(\d+)_as_(call|callmethod)___(\s*(@\d+L\d+P\d+O*\d*:::)?\.\s*___boundary_[A-Z0-9_]{36}_\d+_as_(call|callmethod)___)*/g,
             arrowfn: /(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)\s*(->|=>)\s*([^,;\r\n]+)\s*(,|;|\r|\n|$)/g,
             closure: /((@\d+L\d+P\d+O*\d*:::)?@*[\$a-zA-Z_][\$\w]*|\)|\=|\(\s)?(@\d+L\d+P\d+O*\d*:::)?\s*\{(\s*[^\{\}]*?)\s*\}/g,
             expression: /(@\d+L\d+P\d+O*\d*:::)?(if|for|while|switch|with|catch|each)\s*(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)\s*;*\s*(___boundary_[A-Z0-9_]{36}_(\d+)_as_(closure|objlike)___)/g,
@@ -142,9 +142,9 @@
             index: /(\d+)_as_([a-z]+)/,
             index3: /^_(\d+)_as_([a-z]+)___([\s\S]*)$/,
             extends: /(ns|nsassign|global|globalassign|extends)\s+([\$a-zA-Z_][\$\w\.]*)\s*\{([^\{\}]*?)\}/,
-            class: /(class|dec|expands)\s+(\.{1,3})?([\$a-zA-Z_][\$\w\.]*)?(\s+extends\s+(\.{1,3})?([\$a-zA-Z_][\$\w\.]*))?\s*\{([^\{\}]*?)\}/,
+            class: /(class|dec|expands)\s+(\.{1,3})?([\$a-zA-Z_][\$\w\.]*)?(\s+extends\s+(\.{1,3})?([\$a-zA-Z_][\$\w\.]*)|ignore)?\s*\{([^\{\}]*?)\}/,
             fnlike: /(^|(function|def|public)\s+)?([\$a-zA-Z_][\$\w]*)?\s*\(([^\(\)]*)\)\s*\{([^\{\}]*?)\}/,
-            call: /([\$a-zA-Z_][\$\w\.]*)\s*___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___/,
+            call: /([\$a-zA-Z_\.][\$\w\.]*)\s*___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___/,
             arrowfn: /(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)\s*(->|=>)\s*([\s\S]+)\s*$/,
             objectattr: /^\s*(@\d+L\d+P\d+O?\d*:::)?((([\$a-zA-Z_][\$\w]*)))\s*(\:*)([\s\S]*)$/,
             classelement: /^\s*(@\d+L\d+P\d+O?\d*:::)?((public|static|set|get|om)\s+)?([\$\w]*)\s*(\=*)([\s\S]*)$/,
@@ -215,7 +215,7 @@
             // console.log(this.input);
             let newcontent: string = this.markPosition(this.input, 0);
             let string = this.encode(newcontent);
-            let vars:any = {
+            let vars: any = {
                 parent: null,
                 root: {
                     namespace: this.namespace,
@@ -328,7 +328,7 @@
         encode(string: string): string {
             // console.log(string);
             string = string
-                .replace(replaceExpRegPattern.await, (match: string, gaps, preline, posi, gap) => {
+                .replace(replaceExpRegPattern.module, (match: string, gaps, preline, posi, gap) => {
                     this.isMainBlock = false;
                     if (gaps) {
                         this.maintag_posi = posi;
@@ -338,6 +338,7 @@
                     } else {
                         this.maintag_posi = '@0L0P0';
                     }
+                    blockreserved.push('module');
                     // console.log(gaps, preline, posi, !!gap, gap.length);
                     // console.log('This is not a main block.', this.maintag_posi);
                     return '';
@@ -373,7 +374,9 @@
                 return /*"\r\n" + */'___boundary_' + index + '_as_propname___' + after;
             });
             string = string
-                .replace(/([\$a-zA-Z_][\$\w]*)\s*(->|=>)/g, "($1)$2");
+                .replace(/([\$a-zA-Z_][\$\w]*)\s*(->|=>)/g, "($1)$2")
+                .replace(/\.\s*\(/g, "..storage.set(")
+                .replace(/@\s*\(/g, "..storage.get(");
             // console.log(string);
             // console.log(this.replacements);
 
@@ -941,6 +944,7 @@
                 }
                 let index = this.replacements.length;
                 if (constructor) {
+                    // console.log(fullname);
                     this.replacements.push([fullname + args, posi && posi.trim()]);
                     return '___boundary_' + this.uid + '_' + index + '_as_construct___' + after;
                 } else {
@@ -956,9 +960,10 @@
         }
         replaceCallsChain(string: string): string {
             // console.log(string);
-            return string.replace(replaceExpRegPattern.callschain, (match: string, posi:string, _index: string) => {
+            return string.replace(replaceExpRegPattern.callschain, (match: string, posi: string, _index: string) => {
                 let index = this.replacements.length;
-                this.replacements.push([match, posi||this.replacements[_index][1]]);
+                match = match.replace(/_as_call___/g, '_as_callmethod___');
+                this.replacements.push([match, posi || this.replacements[_index][1]]);
                 return '___boundary_' + this.uid + '_' + index + '_as_callschain___';
             });
         }
@@ -1176,7 +1181,7 @@
                 } else {
                     var _symbol = 'var';
                 }
-                switch(display){
+                switch (display) {
                     case 'first':
                         return this.pushVariableToLine(lines, vars, code, symbol, posi, 'inline', _symbol, ',');
 
@@ -1196,7 +1201,7 @@
                 let position = this.getPosition(posi);
                 let match = code.match(/^([\$\a-zA-Z_][\$\w]*)@boundary_(\d+)_as_operator::/);
                 // console.log(code);
-                if (match && ['in', 'of']['includes'](this.replacements[match[2]][0].trim())){
+                if (match && ['in', 'of']['includes'](this.replacements[match[2]][0].trim())) {
                     let element = match[1];
                     lines.push({
                         type: 'line',
@@ -1210,7 +1215,7 @@
                     } else if (vars.self[element] === 'let' || symbol === 'let') {
                         this.error(' Variable `' + element + '` has already been declared at char ' + position.col + ' on line ' + position.line + '.');
                     }
-                }else{
+                } else {
                     let array = code.split(/\s*=\s*/);
                     // console.log(array);
                     if (array.length === 1) {
@@ -1269,7 +1274,7 @@
                         }
                     }
                 }
-                
+
             }
         }
         pickReplacePosis(lines: any[], vars: any): object[] {
@@ -1667,7 +1672,7 @@
                 var locals: any = {};
                 var varstype = 'root';
             }
-            let localvars:any = {
+            let localvars: any = {
                 parent: vars,
                 root: {
                     namespace: null,
@@ -1708,6 +1713,7 @@
                 const element = nameArr[n];
                 if (element) {
                     if (type === 'construct') {
+                        // console.log(name, nameArr);
                         this.pushReplacementsToAST(name, vars, element, false, undefined);
                     } else {
                         this.pushReplacementsToAST(name, vars, element, false, (n === 0) && position);
@@ -1822,25 +1828,31 @@
                     subtype = 'anonClass';
                 }
             }
-            if ((type === 'class') && (subtype === 'anonClass')) {
-                if (cname) {
+            let basename = matches[6];
+            if (type === 'class') {
+                if ((subtype === 'anonClass') && cname && cname.match(namingExpr)){
                     if (vars.self[cname] === void 0) {
                         vars.self[cname] = 'var';
                     }
                     else if (vars.self[cname] === 'let') {
                         this.error(' Variable `' + cname + '` has already been declared.');
                     }
-                    // vars.self.push('var ' + cname);
+                }
+                if (matches[5]) {
+                    if (matches[5].length === 2) {
+                        basename = 'pandora.' + basename;
+                    } else {
+                        basename = 'pandora.' + namespace + basename;
+                    }
+                }
+            }else{
+                if (matches[4] ==='ignore') {
+                    basename = true;
+                }else{
+                    basename = false;
                 }
             }
-            let basename = matches[6];
-            if (matches[5]) {
-                if (matches[5].length === 2) {
-                    basename = 'pandora.' + basename;
-                } else {
-                    basename = 'pandora.' + namespace + basename;
-                }
-            }
+           
             return {
                 type: type,
                 posi: this.getPosition(this.replacements[index][1]),
@@ -1880,7 +1892,7 @@
             let matches: any = this.replacements[index][0].match(matchExpRegPattern.extends);
             let position = this.getPosition(this.replacements[index][1]);
             let subtype: string = 'ext';
-            let objname: string = matches[3];
+            let objname: string = matches[2];
             let localvars: any = vars;
             let namespace: string;
             let body;
@@ -1911,7 +1923,7 @@
                 if ((matches[1] === 'nsassign') || (matches[1] === 'globalassign')) {
                     subtype = matches[1];
                 }
-                body = this.checkObjMember(localvars, matches[4]);
+                body = this.checkObjMember(localvars, matches[3]);
             }
 
             return {
@@ -1952,7 +1964,7 @@
                             var lines: any[] = this.pushBodyToAST([], localvars, headline, true);
                             for (let index = 0; index < lines.length; index++) {
                                 if (lines[index].posi) lines[index].posi.head = false;
-                                if ((index === lines.length - 1)&&lines[index].value){
+                                if ((index === lines.length - 1) && lines[index].value) {
                                     lines[index].value = lines[index].value.replace(/;$/, '');
                                 }
                                 head.body.push(lines[index]);
@@ -2003,8 +2015,8 @@
                                     this.error('itemname cannot same to the default indexname');
                                 }
                             }
-                            
-                            let localvars:any = {
+
+                            let localvars: any = {
                                 parent: vars,
                                 root: {
                                     namespace: null,
@@ -2063,7 +2075,7 @@
                     } else if ((display === 'block') && !fname) {
                         fname = 'default_function_name';
                     }
-                    if (fname && fname!=='return') {
+                    if (fname && fname !== 'return') {
                         if (!vars.self.hasOwnProperty(fname)) {
                             vars.self[fname] = 'var';
                         }
@@ -2074,7 +2086,7 @@
                 }
             }
 
-            let localvars:any = {
+            let localvars: any = {
                 parent: vars,
                 root: {
                     namespace: null,
@@ -2472,7 +2484,11 @@
                 this.pushPostionsToMap(this.getPosition(this.configinfo_posi), codes);
             }
             codes.push('tangram.config(' + this.configinfo + ');');
-            codes.push("\r\n" + 'tangram.block([');
+            if (this.isMainBlock) {
+                codes.push("\r\n" + 'tangram.block([');
+            } else {
+                codes.push("\r\n" + 'tangram.init().block([');
+            }
             if (this.imports.length) {
                 let imports: string[] = [];
                 for (let index = 0; index < this.imports.length; index += 2) {
@@ -2481,7 +2497,12 @@
                 // console.log(this.imports, imports);
                 codes.push("\r\n\t" + imports.join(",\r\n\t") + "\r\n");
             }
-            codes.push('], function (pandora, root, imports, undefined) {');
+            if (this.isMainBlock) {
+                codes.push('], function (pandora, root, imports, undefined) {');
+            } else {
+                codes.push('], function (pandora, root, imports, undefined) {');
+                codes.push("\r\n\tvar module = this.module;");
+            }
             if (this.namespace) {
                 let namespace = this.namespace.replace(/\.$/, "");
                 let name = namespace.replace(/^(.*\.)?([\$a-zA-Z_][\$\w]*)$/, "$2");
@@ -2676,7 +2697,7 @@
                 // console.log(element.name[0].value, element.params.length, element.params[0]);
                 for (let index = 0; index < element.params.length; index++) {
                     const param = element.params[index].body;
-                    let paramCodes: string[] = [];               
+                    let paramCodes: string[] = [];
                     this.pushPostionsToMap(element.params[index].posi, paramCodes)
                     this.pushCodes(paramCodes, element.vars, param, _layer, namespace);
                     if (paramCodes.length) {
@@ -2774,7 +2795,7 @@
                 if (toES6) {
                     codes.push('extends ' + element.base);
                 } else {
-                    codes.push(element.base);
+                    codes.push(element.base + ',');
                 }
             }
             codes.push('{');
@@ -2979,7 +3000,7 @@
             // console.log(element.body);
             if (element.body.length) {
                 // console.log(element);
-                if (element.vars.type==='root'){
+                if (element.vars.type === 'root') {
                     for (var key in element.vars.locals) {
                         codes.push(indent + "\tvar " + element.vars.locals[key] + ' = ' + key + ';');
                     }
@@ -3084,9 +3105,9 @@
                 }
             }
             codes.push(indent1 + posi + 'pandora.extend(' + cname + '.prototype, ');
-            // if (element.base) {
-            //     codes.push(element.base.trim() + ', ');
-            // }
+            if (element.base===false) {
+                codes.push('true, ');
+            }
             codes.push('{');
             // console.log(element);
             let overrides = {};
@@ -3195,9 +3216,9 @@
             if (element.vars.root.break === true) {
                 codes[index] = indent + 'pandora.loop(';
             }
-            if(element.subtype==='ownprop'){
+            if (element.subtype === 'ownprop') {
                 codes.push(', this, true);');
-            }else{
+            } else {
                 codes.push(', this);');
             }
             codes.push(indent);
@@ -3270,7 +3291,7 @@
         }
         closurecount: number = 0;
         resetVarsRoot(vars: any) {
-            let root  = vars.root;
+            let root = vars.root;
             for (const varname in vars.self) {
                 if (vars.self.hasOwnProperty(varname)) {
                     if (vars.self[varname] === 'let') {
@@ -3298,7 +3319,7 @@
                     vars.root.fix_map['this'] = vars.locals['this'];
                     vars.root.fixed.push(vars.locals['this']);
                 case 'travel':
-                    if (vars.type === 'travel'){
+                    if (vars.type === 'travel') {
                         vars.root.fixed.push('this');
                     }
                     vars.root.fix_map['arguments'] = vars.locals['arguments'];
@@ -3319,13 +3340,13 @@
                         if (varname !== element) {
                             // console.log(varname);
                             vars.root.fix_map[element] = varname;
-                            if (vars.root.public.hasOwnProperty(element)){
+                            if (vars.root.public.hasOwnProperty(element)) {
                                 vars.root.public[element] = varname;
                             }
                         }
                         vars.root.fixed.push(varname);
                     }
-                    if (vars.type==='root'){
+                    if (vars.type === 'root') {
                         for (const key in vars.locals) {
                             if (vars.locals.hasOwnProperty(key)) {
                                 let varname = '_' + key;
@@ -3340,7 +3361,7 @@
                     break;
                 case 'local':
                     for (const element in vars.self) {
-                        if (vars.self[element]==='let'){
+                        if (vars.self[element] === 'let') {
                             let varname = element;
                             // console.log(vars.index, varname); 
                             if (keywords['includes'](element) || reserved['includes'](element)) {
@@ -3376,12 +3397,12 @@
             // console.log(code, vars);
             if (code) {
                 // console.log(code);
-                return code.replace(/(^|[^\$\w\.])((let|var)\s+)?([\$a-zA-Z_][\$\w]*)(\s+|\s*[^\$\w]|\s*$)/i, (match, before, typewithgap, type, varname, after) => {
+                return code.replace(/(^|[^\$\w\.])((let|var)\s+)?([\$a-zA-Z_][\$\w]*)(\s+|\s*[^\$\w]|\s*$)/g, (match, before, typewithgap, type, varname, after) => {
                     // console.log(match, "\r\n", before, '[', varname, '](', type, ')', after);
                     return before + (typewithgap || '') + this.patchVariable(varname, vars) + after || '';
-                }).replace(/(\.\.\.)([\$a-zA-Z_][\$\w]*)/i, (match, node, member) => {
-                    // console.log(match, "\r\n", before, '[', varname, '](', type, ')', after);
-                    return this.patchNamespace(node, vars) + member;
+                }).replace(/(^|[\?\:\=]\s*)(\.\.|\.)(\.[\$a-zA-Z_][\$\w]*|$)/g, (match, before, node, member) => {
+                    // console.log(match, "\r\n", before, '[', node, ']', member, vars);
+                    return before + this.patchNamespace(node, vars) + member;
                 });
             }
             // console.log(code);
@@ -3433,13 +3454,14 @@
             return varname;
         }
         patchNamespace(node: string, vars: any): string {
-            if(node==='..'){
-                return 'pandora.';
+            if (node === '.') {
+                return 'pandora';
             }
-            if (vars.root.namespace){
-                return 'pandora.' + vars.root.namespace;
+            if (vars.root.namespace) {
+                return ('pandora.' + vars.root.namespace).replace(/\.+$/, '');
             }
-            return 'pandora.' + this.namespace;
+            // console.log(this.namespace);
+            return ('pandora.' + this.namespace).replace(/\.+$/, '');
         }
         restoreStrings(string: string, last: boolean): string {
             let that = this;
@@ -3481,7 +3503,7 @@
             string = string.replace(/((@boundary_\d+_as_comments::)\s*)+(@boundary_\d+_as_comments::)/g, "$3");
             // 去除多余符号
             string = string.replace(/\s*;(\s*;)*[\t \x0B]*/g, ";");
-            string = string.replace(/(.)(\{|\[|\(|\.|\:)\s*[,;]+/g, (match, before, mark) => {
+            string = string.replace(/(.)(\{|\[|\(|\.|\:|\|)\s*[,;]+/g, (match, before, mark) => {
                 if ((before === mark) && (before === ':')) {
                     return match;
                 }

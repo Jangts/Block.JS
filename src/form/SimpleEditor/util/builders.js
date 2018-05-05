@@ -15,7 +15,7 @@ tangram.block([
     var
         _ = pandora,
 
-        dialogs = cache.read(new _.Identifier('EDITOR_DIALOGS').toString()),
+        dialogs = pandora.storage.get(new _.Identifier('EDITOR_DIALOGS').toString()),
 
         conmands = {},
         metheds = {},
@@ -241,11 +241,11 @@ tangram.block([
             }
         }
 
-    cache.save(regMethod, 'EDITOR_REG_M');
-    cache.save(regCommand, 'EDITOR_REG_CMD');
-    cache.save(regCreater, 'EDITOR_REG_C');
-    cache.save(regDialog, 'EDITOR_REG_D');
-    cache.save(conmands, 'EDITOR_CMDS');
-    cache.save(metheds, 'EDITOR_METHODS');
-    cache.save(builders, 'EDITOR_BUILDS');
+    pandora.storage.set(regMethod, 'EDITOR_REG_M');
+    pandora.storage.set(regCommand, 'EDITOR_REG_CMD');
+    pandora.storage.set(regCreater, 'EDITOR_REG_C');
+    pandora.storage.set(regDialog, 'EDITOR_REG_D');
+    pandora.storage.set(conmands, 'EDITOR_CMDS');
+    pandora.storage.set(metheds, 'EDITOR_METHODS');
+    pandora.storage.set(builders, 'EDITOR_BUILDS');
 });

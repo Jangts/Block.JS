@@ -1,13 +1,14 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Fri, 04 May 2018 16:08:25 GMT
+ * Datetime: Sat, 05 May 2018 04:35:43 GMT
  */
 ;
 // tangram.config({});
-tangram.block([
+tangram.init().block([
 	'$_/dom/Events'
 ], function (pandora, root, imports, undefined) {
+	var module = this.module;
 	var _ = pandora;
 	var doc = root.document;
 	var console = root.console;
@@ -138,4 +139,4 @@ tangram.block([
 	});
 	this.module.exports = _.media.Player;
 });
-//# sourceMappingURL=./Player.js.map
+//# sourceMappingURL=Player.js.map

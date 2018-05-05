@@ -11,11 +11,11 @@ tangram.block(['$_/form/SimpleEditor/commands/insert.cmds'], function(pandora, r
 
         console = root.console,
 
-        parameters = cache.read(new _.Identifier('EDITOR_PARAMS').toString()),
-        regMethod = cache.read(new _.Identifier('EDITOR_REG_M').toString()),
-        regCommand = cache.read(new _.Identifier('EDITOR_REG_CMD').toString()),
-        regCreater = cache.read(new _.Identifier('EDITOR_REG_C').toString()),
-        regDialog = cache.read(new _.Identifier('EDITOR_REG_D').toString()),
+        parameters = pandora.storage.get(new _.Identifier('EDITOR_PARAMS').toString()),
+        regMethod = pandora.storage.get(new _.Identifier('EDITOR_REG_M').toString()),
+        regCommand = pandora.storage.get(new _.Identifier('EDITOR_REG_CMD').toString()),
+        regCreater = pandora.storage.get(new _.Identifier('EDITOR_REG_C').toString()),
+        regDialog = pandora.storage.get(new _.Identifier('EDITOR_REG_D').toString()),
         emoticons = {};
 
     regMethod('insertEmoticon', function(val) {
@@ -67,7 +67,7 @@ tangram.block(['$_/form/SimpleEditor/commands/insert.cmds'], function(pandora, r
     });
 
     // regEmoticon:
-    cache.save(function(theme, images) {
+    pandora.storage.set(function(theme, images) {
         if (emoticons[theme] === undefined) {
             emoticons[theme] = images;
         }

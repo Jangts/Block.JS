@@ -1,14 +1,15 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Fri, 04 May 2018 16:08:25 GMT
+ * Datetime: Sat, 05 May 2018 04:35:43 GMT
  */
 ;
 // tangram.config({});
-tangram.block([
+tangram.init().block([
 	'$_/util/bool',
 	'$_/async/Request'
 ], function (pandora, root, imports, undefined) {
+	var module = this.module;
 	var _ = pandora;
 	var doc = root.document;
 	var Image = root.Image;
@@ -122,4 +123,4 @@ tangram.block([
 	});
 	this.module.exports = _.media.Image;
 });
-//# sourceMappingURL=./Image.js.map
+//# sourceMappingURL=Image.js.map
