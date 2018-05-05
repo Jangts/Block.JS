@@ -13,7 +13,7 @@ expands .Elements {
                 data = null;
                 break;
         };
-        this.each(function() {
+        this.each(() {
             if (..util.bool.isArr(eventType)) {
                 each(eventType as i, et) {
                     ...events.add(this, et, selector, data, handler);
@@ -25,7 +25,7 @@ expands .Elements {
         return this;
     }
     off (eventType, selector, handler) {
-        this.each(function() {
+        this.each(() {
             if (..util.bool.isArr(eventType)) {
                 each(eventType as i, et) {
                     ...events.remove(this, et, selector, handler);
@@ -37,7 +37,7 @@ expands .Elements {
         return this;
     }
     trigger (eventType, data) {
-        this.each(function() {
+        this.each(() {
             ...events.trigger(this, eventType, data);
         });
         return this;

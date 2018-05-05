@@ -1,5 +1,5 @@
 public
-contain =  _.dom.hasChildNode,
+contain =  ...hasChildNode,
 
 selector = (selector, context) {
     context = context || document;
@@ -15,7 +15,7 @@ selector = (selector, context) {
                     Elements.push(arguments[0]);
                     return Elements;
                 case 'Object':
-                    return _.dom.query.byAttr(selector);
+                    return ...query.byAttr(selector);
                 case 'Elements':
                     return arguments[0];
                 case 'Array':

@@ -112,7 +112,7 @@ class ...Events {
         event.currentTarget = event.currentTarget || event.target || event.relatedTarget || event.srcElement;
         event.target = event.target || event.currentTarget;
         event.delegateTarget = this.Element;
-        event.path = event.path || _.dom.getParentNodes(event.target, true);
+        event.path = event.path || ...getParentNodes(event.target, true);
         event.isCurrent = (event.delegateTarget === event.target);
         // if (event.delegateTarget === event.target) {
         //     // event.path = event.path || [event.target];
@@ -269,9 +269,9 @@ class ...Events {
     }
 
     static setType(types) {
-        var noEvents = new _.dom.Events();
+        var domEvents = new ...Events();
         for (var i in types) {
-            noEvents._protected.types[i] = types[i];
+            domEvents._protected.types[i] = types[i];
         }
     }
 }

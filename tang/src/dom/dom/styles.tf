@@ -14,23 +14,19 @@ computedStyle = (elem, property) {
     var currentStyle = elem.currentStyle || {};
     var prop;
     if (property) {
-        attr = property.replace(/(\-([a-z]){1})/g,
-            function() {
+        attr = property.replace(/(\-([a-z]){1})/g, () {
                 return arguments[2].toUpperCase();
             });
-        prop = property.replace(/[A-Z]/g,
-            function(s) {
+        prop = property.replace(/[A-Z]/g, (s) {
                 return '-' + s.toLowerCase();
             });
         return currentStyle[attr] || currentStyle[prop];
     } else {
         for (var key in currentStyle) {
-            key = key.replace(/(\-([a-z]){1})/g,
-                function() {
+            key = key.replace(/(\-([a-z]){1})/g, () {
                     return arguments[2].toUpperCase();
                 });
-            prop = key.replace(/[A-Z]/g,
-                function(s) {
+            prop = key.replace(/[A-Z]/g, (s) {
                     return '-' + s.toLowerCase();
                 });
             style[key] = currentStyle[key];
@@ -46,9 +42,9 @@ _setStyle = (elem, property, value) {
         if (typeof property === 'string') {
             elem.style.cssText = property;
         } else if (typeof property === 'object') {
-            _.each(property, function(prop, val) {
+            each(property as prop, val) {
                 elem.style.prop = val;
-            });
+            }
         }
         return;
     }
@@ -56,12 +52,10 @@ _setStyle = (elem, property, value) {
         if (elem == root || elem == root.document) {
             elem = doc.documentElement || doc.body;
         }
-        attr = property.replace(/(\-([a-z]){1})/g,
-            function() {
+        attr = property.replace(/(\-([a-z]){1})/g, () {
                 return arguments[2].toUpperCase();
             });
-        prop = property.replace(/[A-Z]/g,
-            function(s) {
+        prop = property.replace(/[A-Z]/g, (s) {
                 return '-' + s.toLowerCase();
             });
         if (unCSSStyle[attr]) {

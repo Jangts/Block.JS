@@ -21,7 +21,7 @@ namespace dom {
 
     public cache(elem) {
         if (elem) {
-            return elem.BID = elem.BID || .({});
+            return elem.tangram_js_id = elem.tangram_js_id || .({});
         }
     }
 

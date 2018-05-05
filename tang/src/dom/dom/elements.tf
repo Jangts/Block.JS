@@ -43,9 +43,9 @@ create = (tagName, context, attribute) {
         if (attribute) {
             for (var i in attribute) {
                 if (i == 'style') {
-                    _.dom.setStyle(Element, attribute[i]);
+                    ...setStyle(Element, attribute[i]);
                 } else if ((i == 'value') && (tagName === 'input' || tagName === 'textarea')) {
-                    _.dom.value = attribute[i];
+                    ...value = attribute[i];
                 } else if (i == 'html') {
                     Element.innerHTML = attribute[i];
                 } else if (Element.style[i] != undefined) {
@@ -69,7 +69,7 @@ create = (tagName, context, attribute) {
 createByString = (string, target) {
     var parentNodeTagName, parentNode, node;
     if (!target || target.nodeType != 1) {
-        target = _.dom.fragment('div');
+        target = ...fragment('div');
     }
     if (/^<tr>[\s\S]*<\/tr>$/i.test(string)) {
         parentNodeTagName = 'tbody';
@@ -78,7 +78,7 @@ createByString = (string, target) {
     } else {
         parentNodeTagName = 'div';
     }
-    parentNode = _.dom.create(parentNodeTagName, false, { html: string });
+    parentNode = ...create(parentNodeTagName, false, { html: string });
     node = parentNode.childNodes[0];
     while (node) {
         target.appendChild(node);
@@ -92,7 +92,7 @@ build = (str) {
         return [str];
     }
     if (_.util.type(str) === 'String') {
-        return _.dom.createByString(str);
+        return ...createByString(str);
     }
     return [null];
 },
@@ -108,24 +108,24 @@ append = (target, content) {
 
 before = (elem, content) {
     var parent = elem.parentNode;
-    var newEls = _.dom.build(content);
-    _.each(newEls, function() {
-        if (_.util.type(this, true) == 'Element') {
-            parent.insertBefore(this, elem);
+    var newEls = ...build(content);
+    each(newEls as newElem ){
+        if (_.util.type(newElem, true) == 'Element') {
+            parent.insertBefore(newElem, elem);
         }
-    });
+    }
     return this;
 },
 
 after = (elem, content) {
     var newEls, curEl;
-    newEls = _.dom.build(content);
+    newEls = ...build(content);
     curEl = elem;
-    _.each(newEls, function() {
-        if (_.util.type(this, true) === 'Element') {
-            curEl = insertAfter(this, curEl);
+    each(newEls as newElem) {
+        if (_.util.type(newElem, true) === 'Element') {
+            curEl = insertAfter(newElem, curEl);
         }
-    });
+    }
     return this;
 },
 

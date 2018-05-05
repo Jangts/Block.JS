@@ -1,7 +1,7 @@
 let insert = (content, handler) {
     switch (typeof content) {
         case 'string':
-            return this.each(function() {
+            return this.each(() {
                 handler(this, content);
             });
 
@@ -11,14 +11,14 @@ let insert = (content, handler) {
                 return this;
             }
             if (content.lenth > this.lenth) {
-                return this.each(function(i) {
+                return this.each((i) {
                     handler(this, content[i]);
                 });
             }
             break;
 
         case 'function':
-            return this.each(function(i) {
+            return this.each((i) {
                 handler(this, content(i));
             });
     }
@@ -28,12 +28,12 @@ sizes = (type, value, handler) {
     switch (typeof value) {
         case 'string':
         case 'number':
-            return this.each(function() {
+            return this.each(() {
                 ...setStyle(this, type, value);
             });
 
         case 'function':
-            return this.each(function(i) {
+            return this.each((i) {
                 ...setStyle(this, type, value(i, ...getStyle(this, type)));
             });
 
@@ -44,12 +44,12 @@ sizes = (type, value, handler) {
 },
 scroll_offset = (type, value) {
     if (..util.bool.isNumeric(value)) {
-        return this.each(function() {
+        return this.each(() {
             ...setStyle(this, type, value);
         });
     }
     if (..util.bool.isFn(value)) {
-        return this.each(function(i) {
+        return this.each((i) {
             ...setStyle(this, type, value(i, ...getStyle(this, type)));
         });
     }

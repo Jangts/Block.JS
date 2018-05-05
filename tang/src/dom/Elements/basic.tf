@@ -103,7 +103,7 @@ expands .Elements {
                     case 'boolean':
                         if (screen) {
                             var list = [];
-                            this.each(function() {
+                            this.each(() {
                                 if (this.tagName.toUpperCase() === tagName) {
                                     list.push(this)
                                 }
@@ -128,7 +128,7 @@ expands .Elements {
             case 'boolean':
                 if (tagName) {
                     var list = [];
-                    this.each(function() {
+                    this.each(() {
                         list.push(this.tagName.toUpperCase())
                     });
                     return list;
@@ -143,12 +143,12 @@ expands .Elements {
     append (content) {
         switch (typeof content) {
             case 'string':
-                return this.each(function() {
+                return this.each(() {
                     this.innerHTML += content;
                 });
 
             case 'function':
-                return this.each(function(i) {
+                return this.each((i) {
                     this.innerHTML += content(i, this.innerHTML);
                 });
 
@@ -168,7 +168,7 @@ expands .Elements {
             var Elements,
                 that = this;
             that.length = 0;
-            parents.each(function(i, parent) {
+            parents.each((i, parent) {
                 console.log(parent);
                 Elements = ...createByString(that.selector, parent);
                 for (var i = 0; i < Elements.length; i++) {
@@ -188,7 +188,7 @@ expands .Elements {
         return this;
     }
     remove () {
-        this.each(function() {
+        this.each(() {
             ...remove(this);
         });
         return null;
@@ -207,7 +207,7 @@ expands .Elements {
     }
     parent () {
         var nodes = [];
-        this.each(function() {
+        this.each(() {
             nodes.push(this.parentNode);
         });
         return new ...Elements(..arr.unique(nodes));

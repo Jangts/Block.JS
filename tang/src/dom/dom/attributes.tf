@@ -48,13 +48,12 @@ removeAttr = (elem, attr) {
 
 setData = (elem, dataName, data) {
     if (elem.dataset) {
-        dataName = dataName.replace(/-[a-z]/g,
-            function(s) {
+        dataName = dataName.replace(/-[a-z]/g, (s) {
                 return s.replace('-', '').toUpperCase();
             });
         elem.dataset[dataName] = data;
     } else {
-        attr = 'data-' + dataName.replace(/[A-Z]/g, function(s) {
+        attr = 'data-' + dataName.replace(/[A-Z]/g, (s) {
             return '-' + s.toLowerCase();
         });
         elem.getAttribute(attr, data);
@@ -63,14 +62,12 @@ setData = (elem, dataName, data) {
 
 getData = (elem, dataName) {
     if (elem.dataset) {
-        dataName = dataName.replace(/-[a-z]/g,
-            function(s) {
+        dataName = dataName.replace(/-[a-z]/g, (s) {
                 return s.replace('-', '').toUpperCase();
             });
         return elem.dataset[dataName];
     } else {
-        attr = 'data-' + dataName.replace(/[A-Z]/g,
-            function(s) {
+        attr = 'data-' + dataName.replace(/[A-Z]/g, (s) {
                 return '-' + s.toLowerCase();
             });
         return elem.getAttribute(attr);

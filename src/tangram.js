@@ -1370,7 +1370,7 @@ function(root, factory) {
                         // this.core['type'] = 'caller';
                         // setTimeout(function() {
                         that.mainid = storage.blocks.mains.push(that.core) - 1;
-                        console.log(true);
+                        // console.log(true);
                         that.listene();
                         // }, 0);
                     }

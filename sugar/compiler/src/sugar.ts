@@ -101,14 +101,14 @@
         // ' = ', ' += ', ' -= ', ' *= ', ' /= ', ' %= ', ' <<= ', ' >>= ', ' >>>= ', ' &= ', ' ^= ', ' |= '
         operators: any = {
             // 因为打开所有括号后还有检查一次符号，所以运算量还是会带有括号
-            mixed: /([\$\w]\s*(@\d+L\d+P\d+O*\d*:::)?)(\=\=|\!\=|\=|\!|\+|\-|\*|\/|\%|<<|>>|>>>|\&|\^|\||<|>)=\s*((\+|\-)?[\$\w\.])/g,
-            bool: /([\$\w]\s*(@\d+L\d+P\d+O*\d*:::)?)(\&\&|\|\||\<|\<\<|\>\>\>|\>\>|\>)\s*((\+|\-)?[\$\w\.])/g,
-            op: /([\$\w]\s*(@\d+L\d+P\d+O*\d*:::)?)(\+|\-|\*\*|\*|\/|\%|\&)\s*((\s+(\+|\-))?[\$\w\.])/g,
-            owords: /\s+(in|of)\s+/g,
+            mixed: /([\$\w]\s*(@\d+L\d+P\d+O*\d*:::)?)(\=\=|\!\=|\=|\!|\+|\-|\*|\/|\%|<<|>>|>>>|\&|\^|\||<|>)=\s*((@\d+L\d+P\d+O*\d*:::)?(\+|\-)?[\$\w\.])/g,
+            bool: /([\$\w]\s*(@\d+L\d+P\d+O*\d*:::)?)(\&\&|\|\||\<|\<\<|\>\>\>|\>\>|\>)\s*((@\d+L\d+P\d+O*\d*:::)?(\+|\-)?[\$\w\.])/g,
+            op: /([\$\w]\s*(@\d+L\d+P\d+O*\d*:::)?)(\+|\-|\*\*|\*|\/|\%|\&)\s*((@\d+L\d+P\d+O*\d*:::)?(\s+(\+|\-))?[\$\w\.])/g,
+            owords: /\s+(@\d+L\d+P\d+O*\d*:::)?(in|of)\s+(@\d+L\d+P\d+O*\d*:::)?/g,
             sign: /(^|\s*[^\+\-])(\+|\-)([\$\w\.])/g,
-            swords: /(^|[^\$\w])(typeof|instanceof|void|delete)\s+(\+*\-*[\$\w\.])/g,
+            swords: /(^|[^\$\w])(@\d+L\d+P\d+O*\d*:::)?(typeof|instanceof|void|delete)\s+(@\d+L\d+P\d+O*\d*:::)?(\+*\-*[\$\w\.])/g,
             before: /(\+\+|\-\-|\!|\~)\s*([\$\w\.])/g,
-            after: /([\$\w\.])[ \t]*(\+\+|\-\-)/g,
+            after: /([\$\w\.])[ \t]*(@\d+L\d+P\d+O*\d*:::)?(\+\+|\-\-)/g,
             error: /(.*)(\+\+|\-\-|\+|\-)(.*)/g
         },
         replaceWords = /(^|@\d+L\d+P\d+O?\d*:::|\s)(continue|finally|return|throw|break|case|else|try|do)\s*(\s|;|___boundary_[A-Z0-9_]{36}_(\d+)_as_([a-z]+)___)/g,
@@ -802,7 +802,7 @@
             let on = true;
             while (on) {
                 on = false;
-                string = string.replace(operators.owords, (match: string, word: string) => {
+                string = string.replace(operators.owords, (match: string, posi, word: string) => {
                     // console.log(match);
                     on = true;
                     let index = this.replacements.length;
@@ -815,7 +815,7 @@
             on = true;
             while (on) {
                 on = false;
-                string = string.replace(operators.swords, (match: string, before: string, word: string, right: string) => {
+                string = string.replace(operators.swords, (match: string, before: string, posi, word: string, right: string) => {
                     // console.log(match, before, word);
                     on = true;
                     let index = this.replacements.length;
@@ -835,7 +835,7 @@
             while (on) {
                 // console.log(string);
                 on = false;
-                string = string.replace(operators.mixed, (match: string, left: string, posi: string, op: string, right: string, sign: string) => {
+                string = string.replace(operators.mixed, (match: string, left: string, posi: string, op: string, right: string, posir, sign: string) => {
                     // console.log(string);
                     // console.log(match, left, op, right, sign);
                     on = true;
@@ -852,7 +852,7 @@
             on = true;
             while (on) {
                 on = false;
-                string = string.replace(operators.bool, (match: string, left: string, posi: string, op: string, right: string, sign: string) => {
+                string = string.replace(operators.bool, (match: string, left: string, posi: string, op: string, right: string, posir, sign: string) => {
                     // console.log(match);
                     on = true;
                     if (sign) {
@@ -869,7 +869,7 @@
             while (on) {
                 on = false;
                 // console.log(string);
-                string = string.replace(operators.op, (match: string, left: string, posi: string, op: string, right: string, sign: string) => {
+                string = string.replace(operators.op, (match: string, left: string, posi: string, op: string, right: string, posir, sign: string) => {
                     // console.log(match);
                     on = true;
                     if (sign) {
@@ -909,11 +909,11 @@
             on = true;
             while (on) {
                 on = false;
-                string = string.replace(operators.after, (match: string, number: string, op: string) => {
+                string = string.replace(operators.after, (match: string, number: string, posi, op: string) => {
                     on = true;
                     let index = this.replacements.length;
                     this.replacements.push([op]);
-                    return number + '@boundary_' + index + '_as_aftoperator::';
+                    return number + (posi||'') + '@boundary_' + index + '_as_aftoperator::';
                 });
             }
             return string.replace(operators.error, (match: string, before: string, op: string, after: string) => {
@@ -3503,12 +3503,15 @@
             string = string.replace(/((@boundary_\d+_as_comments::)\s*)+(@boundary_\d+_as_comments::)/g, "$3");
             // 去除多余符号
             string = string.replace(/\s*;(\s*;)*[\t \x0B]*/g, ";");
-            string = string.replace(/(.)(\{|\[|\(|\.|\:|\|)\s*[,;]+/g, (match, before, mark) => {
+            string = string.replace(/(.)(\{|\[|\(|\.|\:)\s*[,;]+/g, (match, before, mark) => {
                 if ((before === mark) && (before === ':')) {
                     return match;
                 }
                 return before + mark;
             });
+            // console.log(string);
+            string = string.replace(/[;\s]*[\r\n]+(\t*)[ ]*(@boundary_\d+_as_comments::)(@boundary_\d+_as_operator::)\s*/g, "\r\n$1   $2$3");
+            string = string.replace(/\s*(@boundary_\d+_as_operator::)[;\s]*[\r\n]+(\t*)[ ]*(@boundary_\d+_as_comments::)/g, "\r\n$2   $3 $1 ");
             // 格式化相应符号
             string = string.replace(/\s*(\=|\?)\s*/g, " $1 ");
             string = string.replace(/\s+(\:)[\s]*/g, " $1 ");

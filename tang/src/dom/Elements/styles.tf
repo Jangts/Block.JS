@@ -3,7 +3,7 @@
 expands .Elements {
     css (style, value) {
         if (typeof style === 'object') {
-            this.each(function() {
+            this.each(() {
                 each(style as prop, value) {
                     ...setStyle(this, prop, value);
                 }
@@ -12,12 +12,12 @@ expands .Elements {
             switch (typeof value) {
                 case 'string':
                 case 'number':
-                    return this.each(function() {
+                    return this.each(() {
                         ...setStyle(this, style, value);
                     });
 
                 case 'function':
-                    return this.each(function(i) {
+                    return this.each((i) {
                         ...setStyle(this, style, value(i, ...getStyle(this, style)));
                     });
                 case 'undefined':
@@ -80,13 +80,13 @@ expands .Elements {
         if (value) {
             switch (typeof value) {
                 case 'object':
-                    return this.each(function() {
+                    return this.each(() {
                         ...setStyle(this, 'offsetTop', value.top);
                         ...setStyle(this, 'offsetLeft', value.left);
                     });
 
                 case 'function':
-                    return this.each(function(i) {
+                    return this.each((i) {
                         var style = ...getStyle(this);
                         ...setStyle(this, 'offsetTop', value(i, style.offsetTop));
                         ...setStyle(this, 'offsetLeft', value(i, style.offsetLeft));
@@ -105,26 +105,26 @@ expands .Elements {
     }
     widths () {
         var width = 0;
-        this.each(function() {
+        this.each(() {
             width += ...getWidth(this, 'box');
         });
         return width;
     }
     heights () {
         var height = 0;
-        this.each(function() {
+        this.each(() {
             height += ...getHeight(this, 'box');
         });
         return height;
     }
     show () {
-        this.each(function() {
+        this.each(() {
             ...setStyle(this, 'display', 'block');
         });
         return this;
     }
     hide () {
-        this.each(function() {
+        this.each(() {
             ...setStyle(this, 'display', 'none');
         })
         return this;

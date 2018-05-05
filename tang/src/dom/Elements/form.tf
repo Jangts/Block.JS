@@ -1,7 +1,7 @@
 expands .Elements {
     val (value) {
         if (typeof value == 'string' || typeof value == 'number') {
-            this.each(function (i, el) {
+            this.each( (i, el) {
                 this.value = value;
             });
         } else {

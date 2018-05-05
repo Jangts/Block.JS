@@ -3,12 +3,12 @@ expands .Elements {
     attr (attr, value) {
         switch (typeof value) {
             case 'string':
-                return this.each(function() {
+                return this.each(() {
                     ...setAttr(this, attr, value)
                 });
 
             case 'function':
-                return this.each(function(i) {
+                return this.each((i) {
                     ...setAttr(this, attr, value(i, ...getAttr(this, attr)))
                 });
 
@@ -19,7 +19,7 @@ expands .Elements {
     }
     removeAttr (attr) {
         if (typeof attr == 'string') {
-            this.each(function() {
+            this.each(() {
                 ...removeAttr(this, attr)
             });
         }
@@ -29,12 +29,12 @@ expands .Elements {
         switch (typeof data) {
             case 'string':
             case 'number':
-                this.each(function(index) {
+                this.each((index) {
                     ...setData(this, dataName, ..util.bool.isFn(data) ? data.call(this, index) : data)
                 });
                 break;
             case 'function':
-                return this.each(function(i) {
+                return this.each((i) {
                     ...setData(this, attr, data(i, ...getAttr(this, dataName)))
                 });
             case 'undefined':
@@ -46,11 +46,11 @@ expands .Elements {
         switch (typeof nodeString) {
             case 'string':
             case 'number':
-                return this.each(function() {
+                return this.each(() {
                     this.innerHTML = nodeString;
                 });
             case 'function':
-                this.each(function(i) {
+                this.each((i) {
                     this.innerHTML = nodeString(i, this.innerHTML);
                 });
             case 'undefined':
@@ -64,18 +64,18 @@ expands .Elements {
     toggleClass (className, isSwitch) {
         switch (typeof className) {
             case 'string':
-                this.each(function() {
+                this.each(() {
                     ...toggleClass(this, className, isSwitch);
                 });
                 break;
             case 'function':
-                this.each(function(i, el) {
+                this.each((i, el) {
                     ...toggleClass(this, className(i, ...getAttr(el, 'class')), isSwitch);
                 });
                 break;
             case 'boolean':
                 if (className === false) {
-                    this.each(function(i, el) {
+                    this.each((i, el) {
                         ...setAttr(this, 'class', '');
                     });
                 }

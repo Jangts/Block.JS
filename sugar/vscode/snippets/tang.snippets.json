@@ -1,9 +1,24 @@
 {
-    "await": {
-        "prefix": "await",
+    "@module": {
+        "prefix": "module",
         "body": [
-            "await;",
+            "@module;",
             "$0"
+        ],
+        "description": "Using Namespace of Pandora"
+    },
+    "module.exports …": {
+        "prefix": "exports",
+        "body": [
+            "module.exports = ${1:object};",
+            "$0"
+        ],
+        "description": "Using Namespace of Pandora"
+    },
+    "public … = …": {
+        "prefix": "public",
+        "body": [
+            "public ${1:variable} = $0;"
         ],
         "description": "Using Namespace of Pandora"
     },

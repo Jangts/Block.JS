@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Sat, 05 May 2018 04:35:43 GMT
+ * Datetime: Sat, 05 May 2018 06:22:23 GMT
  */
 ;
 // tangram.config({});
@@ -105,7 +105,7 @@ tangram.init().block([
 			event.currentTarget = event.currentTarget || event.target || event.relatedTarget || event.srcElement;
 			event.target = event.target || event.currentTarget;
 			event.delegateTarget = this.Element;
-			event.path = event.path || _.dom.getParentNodes(event.target, true)
+			event.path = event.path || pandora.dom.getParentNodes(event.target, true)
 			event.isCurrent = (event.delegateTarget === event.target)
 			event.wheelDelta = event.wheelDelta || event.detail *  -40;
 			event.timeStamp = Date.parse(new Date())/1000;
@@ -244,9 +244,9 @@ tangram.init().block([
 	});
 	pandora.extend(pandora.dom.Events, {
 		setType: function (types) {
-			var noEvents = new _.dom.Events()
+			var domEvents = new pandora.dom.Events()
 			for (var i in types) {
-				noEvents._protected.types[i] = types[i]
+				domEvents._protected.types[i] = types[i]
 			};
 		}
 	});

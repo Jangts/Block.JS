@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Sat, 05 May 2018 04:35:41 GMT
+ * Datetime: Sat, 05 May 2018 06:22:22 GMT
  */
 ;
 // tangram.config({});
@@ -18,7 +18,7 @@ tangram.init().block([
 		var query = this.query.sizzle || this.query;
 		var cache = pandora.dom.cache = function (elem) {
 			if (elem) {
-				return elem.BID = elem.BID || pandora.storage.set({})
+				return elem.tangram_js_id = elem.tangram_js_id || pandora.storage.set({})
 			};
 		}
 		var unCSSStyle = {
@@ -60,14 +60,15 @@ tangram.init().block([
 			};
 		}
 		var _setStyle = function (elem, property, value) {
+			var _arguments = arguments;
 			if (arguments.length === 2) {
 				if (typeof property === 'string') {
 					elem.style.cssText = property;
 				}
 				else if (typeof property === 'object') {
-					_.each(property, function (prop, val) {
+					pandora.each(property, function (prop, val) {
 						elem.style.prop = val;
-					})
+					}, this);
 				}
 				return
 			}
@@ -258,12 +259,13 @@ tangram.init().block([
 				return elem.getAttribute(attr)
 			};
 		}
-		var _matches = Element.prototype.matches ||
-		Element.prototype.matchesSelector ||
-		Element.prototype.mozMatchesSelector ||
-		Element.prototype.msMatchesSelector ||
-		Element.prototype.oMatchesSelector ||
-		Element.prototype.webkitMatchesSelector || function (s) {
+		var _matches = Element.prototype.matches
+		    || Element.prototype.matchesSelector
+		    || Element.prototype.mozMatchesSelector
+		    || Element.prototype.msMatchesSelector
+		    || Element.prototype.oMatchesSelector
+		    || Element.prototype.webkitMatchesSelector
+		    || function (s) {
 			var matches = (this.document || this.ownerDocument).querySelectorAll(s)
 			var i = matches.length;
 			while (--i >= 0 && matches.item(i) !== this) {}
@@ -344,10 +346,10 @@ tangram.init().block([
 				if (attribute) {
 					for (var i in attribute) {
 						if (i == 'style') {
-							_.dom.setStyle(Element, attribute[i])
+							pandora.setStyle(Element, attribute[i])
 						}
 						else if ((i == 'value') && (tagName === 'input' || tagName === 'textarea')) {
-							_.dom.value = attribute[i]
+							pandora.value = attribute[i]
 						}
 						else if (i == 'html') {
 							Element.innerHTML = attribute[i]
@@ -375,7 +377,7 @@ tangram.init().block([
 			var parentNode = void 0;
 			var node = void 0;
 			if (!target || target.nodeType != 1) {
-				target = _.dom.fragment('div')
+				target = pandora.fragment('div')
 			}
 			else if (/^<td>[\s\S]*<\/td>$/i.test(string)) {
 				parentNodeTagName = 'tr'
@@ -383,7 +385,7 @@ tangram.init().block([
 			else {
 				parentNodeTagName = 'div'
 			}
-			parentNode = _.dom.create(parentNodeTagName, false, {html: string})
+			parentNode = pandora.create(parentNodeTagName, false, {html: string})
 			node = parentNode.childNodes[0]
 			while (node) {
 				target.appendChild(node)
@@ -396,7 +398,7 @@ tangram.init().block([
 				return [str]
 			}
 			if (_.util.type(str) === 'String') {
-				return _.dom.createByString(str)
+				return pandora.createByString(str)
 			}
 			return [null];
 		}
@@ -410,25 +412,27 @@ tangram.init().block([
 			return this;
 		}
 		var before = function (elem, content) {
+			var _arguments = arguments;
 			var parent = elem.parentNode;
-			var newEls = _.dom.build(content)
-			_.each(newEls, function () {
-				if (_.util.type(this, true) == 'Element') {
-					parent.insertBefore(this, elem)
+			var newEls = pandora.build(content)
+			pandora.each(newEls, function (_index, newElem) {
+				if (_.util.type(newElem, true) == 'Element') {
+					parent.insertBefore(newElem, elem)
 				};
-			})
+			}, this);
 			return this;
 		}
 		var after = function (elem, content) {
+			var _arguments = arguments;
 			var newEls = void 0;
 			var curEl = void 0;
-			newEls = _.dom.build(content)
+			newEls = pandora.build(content)
 			curEl = elem;
-			_.each(newEls, function () {
-				if (_.util.type(this, true) === 'Element') {
-					curEl = insertAfter(this, curEl)
+			pandora.each(newEls, function (_index, newElem) {
+				if (_.util.type(newElem, true) === 'Element') {
+					curEl = insertAfter(newElem, curEl)
 				};
-			})
+			}, this);
 			return this;
 		}
 		var index = function (elem, list) {
@@ -447,37 +451,37 @@ tangram.init().block([
 		}
 		var remove = pandora.dom.remove = function (elem, context) {
 			if (context && _.util.type(context) == 'Element' && elem.parentNode == context) {
-				_.dom.events.remove(elem)
+				pandora.events.remove(elem)
 				context.removeChild(elem)
 			}
 			else if (elem && elem.parentNode && elem.parentNode.removeChild) {
-				_.dom.events.remove(elem)
+				pandora.events.remove(elem)
 				elem.parentNode.removeChild(elem)
 			};
 		}
 		pandora.ns('dom.events', {
 			fire: function (elem, event, eventType) {
-				elem.BID && pandora.storage.get(elem.BID).Events && pandora.storage.get(elem.BID).Events.fire(event, eventType)
+				elem.tangram_js_id && pandora.storage.get(elem.tangram_js_id).Events && pandora.storage.get(elem.tangram_js_id).Events.fire(event, eventType)
 				return this;
 			},
 			add: function (elem, eventType, selector, data, handler) {
 				if (elem && handler) {
-					var eleCache = pandora.storage.get(_.dom.cache(elem))
-					if (eleCache.Events) {
-						var Events = eleCache.Events;
+					var elemStorage = pandora.storage.get(_.dom.cache(elem))
+					if (elemStorage.Events) {
+						var Events = elemStorage.Events;
 					}
 					else {
 						var Events = new _.dom.Events(elem)
 						Events._protected.keys.push(_.dom.cache(elem))
-						eleCache.Events = Events;
+						elemStorage.Events = Events;
 					}
 					Events.push(eventType, selector, data, handler)
 				}
 				return this;
 			},
 			remove: function (elem, eventType, selector, handler) {
-				if (elem.BID && pandora.storage.get(elem.BID).Events) {
-					var Events = pandora.storage.get(elem.BID).Events;
+				if (elem.tangram_js_id && pandora.storage.get(elem.tangram_js_id).Events) {
+					var Events = pandora.storage.get(elem.tangram_js_id).Events;
 					if (handler) {
 						Events.removeHandler(eventType, selector, handler)
 					}
@@ -491,8 +495,8 @@ tangram.init().block([
 							}
 							else {
 								Events.remove()
-								elem.BID.Events = undefined;
-								delete elem.BID.Events;
+								elem.tangram_js_id.Events = undefined;
+								delete elem.tangram_js_id.Events;
 							}
 						}
 					}
@@ -500,34 +504,34 @@ tangram.init().block([
 				return this;
 			},
 			trigger: function (elem, evenType, data) {
-				var noEvents = new _.dom.Events()
-				for (var k in noEvents._protected.keys) {
-					pandora.storage.get(noEvents._protected.keys[k]).Events.trigger(evenType, elem, data)
+				var domEvents = new _.dom.Events()
+				for (var k in domEvents._protected.keys) {
+					pandora.storage.get(domEvents._protected.keys[k]).Events.trigger(evenType, elem, data)
 				}
 				typeof elem[evenType] == 'function' && elem[evenType]()
 				return this;
 			},
-			touch: function (obj, selector, fn) {
+			touch: function (obj, selector, callback) {
 				var move = void 0;
 				var istouch = false;
 				if (typeof selector === "function") {
-					fn = selector;
+					callback = selector;
 					selector = null;
 				}
-				if (typeof fn === "function") {
-					_.dom.events.add(obj, 'touchstart', selector, null, function () {
+				if (typeof callback === "function") {
+					pandora.add(obj, 'touchstart', selector, null, function () {
 						istouch = true;
 					})
-					_.dom.events.add(obj, 'touchmove', selector, null, function (e) {
+					pandora.add(obj, 'touchmove', selector, null, function (e) {
 						move = true;
 					})
-					_.dom.events.add(obj, 'touchend', selector, null, function (e) {
+					pandora.add(obj, 'touchend', selector, null, function (e) {
 						e.preventDefault()
 						if (!move) {
 							var touch = e.changedTouches[0]
 							e.pageX = touch.pageX;
 							e.pageY = touch.pageY;
-							var returnvalue = fn.call(this, e, 'touch')
+							var returnvalue = callback.call(this, e, 'touch')
 							if (returnvalue === false) {
 								e.preventDefault()
 								e.stopPropagation()
@@ -535,87 +539,87 @@ tangram.init().block([
 						}
 						move = false;
 					})
-					_.dom.events.add(obj, 'mousedown', selector, null, click)
+					pandora.add(obj, 'mousedown', selector, null, click)
 					function click (e) {
 						if (!istouch) {
-							return fn.call(this, e, 'touch')
+							return callback.call(this, e, 'touch')
 						};
 					}
 				};
 			},
-			touchStart: function (obj, selector, fn) {
+			touchStart: function (obj, selector, callback) {
 				if (typeof selector === "function") {
-					fn = selector;
+					callback = selector;
 					selector = null;
 				}
-				if (typeof fn === "function") {
+				if (typeof callback === "function") {
 					var istouch = false;
-					_.dom.events.add(obj, 'touchstart', selector, null, function (e) {
+					pandora.add(obj, 'touchstart', selector, null, function (e) {
 						var touch = e.changedTouches[0]
 						e.pageX = touch.pageX;
 						e.pageY = touch.pageY;
-						return fn.call(this, e, 'touchstart');
+						return callback.call(this, e, 'touchstart');
 					})
-					_.dom.events.add(obj, 'mousedown', selector, null, click)
+					pandora.add(obj, 'mousedown', selector, null, click)
 					function click (e) {
 						if (!istouch) {
-							return fn.call(this, e)
+							return callback.call(this, e)
 						};
 					}
 				};
 			},
-			touchMove: function (obj, selector, fn) {
+			touchMove: function (obj, selector, callback) {
 				if (typeof selector === "function") {
-					fn = selector;
+					callback = selector;
 					selector = null;
 				}
-				if (typeof fn === "function") {
+				if (typeof callback === "function") {
 					var istouch = false;
-					_.dom.events.add(obj, 'touchmove', selector, null, function (e) {
+					pandora.add(obj, 'touchmove', selector, null, function (e) {
 						var touch = e.changedTouches[0]
 						e.pageX = touch.pageX;
 						e.pageY = touch.pageY;
-						return fn.call(this, e, 'touchmove');
+						return callback.call(this, e, 'touchmove');
 					})
-					_.dom.events.add(obj, 'mousemove', selector, null, click)
+					pandora.add(obj, 'mousemove', selector, null, click)
 					function click (e) {
 						if (!istouch) {
-							return fn.call(this, e, 'touchmove')
+							return callback.call(this, e, 'touchmove')
 						};
 					}
 				};
 			},
-			touchEnd: function (obj, selector, fn) {
+			touchEnd: function (obj, selector, callback) {
 				if (typeof selector === "function") {
-					fn = selector;
+					callback = selector;
 					selector = null;
 				}
-				if (typeof fn === "function") {
+				if (typeof callback === "function") {
 					var istouch = false;
-					_.dom.events.add(obj, 'touchend', selector, null, function (e) {
+					pandora.add(obj, 'touchend', selector, null, function (e) {
 						var touch = e.changedTouches[0]
 						e.pageX = touch.pageX;
 						e.pageY = touch.pageY;
-						return fn.call(this, e, 'touchend');
+						return callback.call(this, e, 'touchend');
 					})
-					_.dom.events.add(obj, 'mouseup', selector, null, click)
+					pandora.add(obj, 'mouseup', selector, null, click)
 					function click (e) {
 						if (!istouch) {
-							return fn.call(this, e, 'touchend')
+							return callback.call(this, e, 'touchend')
 						};
 					}
 				};
 			},
-			swipeLeft: function (obj, fn) {
+			swipeLeft: function (obj, callback) {
 				var start = {}
 				var end = {}
-				_.dom.events.touchStart(ojb, function (e) {
+				pandora.touchStart(ojb, function (e) {
 					start = {
 						x: e.pageX,
 						y: e.pageY
 					};
 				})
-				_.dom.events.touchEnd(obj, function (e) {
+				pandora.touchEnd(obj, function (e) {
 					end = {
 						x: e.pageX,
 						y: e.pageY
@@ -623,20 +627,20 @@ tangram.init().block([
 					e.start = start;
 					e.end = end;
 					if (end.x > start.x + 10) {
-						return fn.call(this, e, 'swipeLeft')
+						return callback.call(this, e, 'swipeLeft')
 					};
 				});
 			},
-			swipeRight: function (obj, fn) {
+			swipeRight: function (obj, callback) {
 				var start = {}
 				var end = {}
-				_.dom.events.touchStart(ojb, function (e) {
+				pandora.touchStart(ojb, function (e) {
 					start = {
 						x: e.pageX,
 						y: e.pageY
 					};
 				})
-				_.dom.events.touchEnd(obj, function (e) {
+				pandora.touchEnd(obj, function (e) {
 					end = {
 						x: e.pageX,
 						y: e.pageY
@@ -644,20 +648,20 @@ tangram.init().block([
 					e.start = start;
 					e.end = end;
 					if (end.x < start.x + 10) {
-						return fn.call(this, e, 'swipeRight')
+						return callback.call(this, e, 'swipeRight')
 					};
 				});
 			},
-			swipe: function (obj, fn) {
+			swipe: function (obj, callback) {
 				var start = {}
 				var end = {}
-				_.dom.events.touchStart(ojb, function (e) {
+				pandora.touchStart(ojb, function (e) {
 					start = {
 						x: e.pageX,
 						y: e.pageY
 					};
 				})
-				_.dom.events.touchEnd(obj, function (e) {
+				pandora.touchEnd(obj, function (e) {
 					end = {
 						x: e.pageX,
 						y: e.pageY
@@ -665,16 +669,16 @@ tangram.init().block([
 					e.start = start;
 					e.end = end;
 					if (end.x > start.x + 10) {
-						return fn.call(this, e, 'swipe')
+						return callback.call(this, e, 'swipe')
 					}
 					if (end.x < start.x + 10) {
-						return fn.call(this, e, 'swipe')
+						return callback.call(this, e, 'swipe')
 					}
 					if (end.y > start.y + 10) {
-						return fn.call(this, e, 'swipe')
+						return callback.call(this, e, 'swipe')
 					}
 					if (end.y < start.y + 10) {
-						return fn.call(this, e, 'swipe')
+						return callback.call(this, e, 'swipe')
 					};
 				});
 			}
