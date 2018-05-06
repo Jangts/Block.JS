@@ -165,6 +165,7 @@
             this.posimap = [];
             this.sources = [];
             this.tess = {};
+            this.anonymous_function = 0;
             this.closurecount = 0;
             this.uid = boundaryMaker();
             this.markPattern = new RegExp('@boundary_(\\\d+)_as_(mark)::', 'g');
@@ -1258,33 +1259,21 @@
                     }
                     for (var index_3 = 0; index_3 < array.length; index_3++) {
                         var element = array[index_3].trim();
-                        if (element.match(/^[\$a-zA-Z_][\$\w]*$/)) {
-                            // console.log(element);                    
-                            if (position && display === 'block')
-                                position.head = true;
-                            if (index_3) {
-                                lines.push({
-                                    type: 'line',
-                                    subtype: 'assignment',
-                                    posi: position,
-                                    display: display,
-                                    value: element + ' = ' + value + endmark
-                                });
-                            }
-                            else {
-                                if (vars.self[element] === void 0) {
-                                    vars.self[element] = symbol;
-                                    if (symbol === 'public' && (vars.root.namespace !== null)) {
-                                        vars.root.public[element] = element;
-                                    }
-                                }
-                                else if ((vars.self[element] === 'var') && (symbol === 'public') && (vars.root.namespace !== null)) {
-                                    vars.self[element] = symbol;
-                                    vars.root.public[element] = element;
-                                }
-                                else if (vars.self[element] === 'let' || symbol === 'let') {
-                                    this.error(' Variable `' + element + '` has already been declared at char ' + position.col + ' on line ' + position.line + '.');
-                                }
+                        if (position && display === 'block')
+                            position.head = true;
+                        if (index_3) {
+                            lines.push({
+                                type: 'line',
+                                subtype: 'assignment',
+                                posi: position,
+                                display: display,
+                                value: element + ' = ' + value + endmark
+                            });
+                        }
+                        else {
+                            if (element.match(/^[\$a-zA-Z_][\$\w]*$/)) {
+                                // console.log(element);                    
+                                this.pushVariableToVars(vars, symbol, element, position);
                                 lines.push({
                                     type: 'line',
                                     subtype: 'variable',
@@ -1299,20 +1288,34 @@
                                     posi: void 0,
                                     value: value + endmark
                                 });
-                            }
-                            value = element;
-                        }
-                        else {
-                            // console.log(element);
-                            if (this.sources[position.file]) {
-                                this.error('Unexpected Definition `' + symbol + '` at char ' + position.col + ' on line ' + position.line + ' in file [' + position.file + '][' + this.sources[position.file].src + '].');
+                                value = element;
                             }
                             else {
-                                this.error('Unexpected Definition `' + symbol + '` at char ' + position.col + ' on line ' + position.line + '.');
+                                // console.log(element);
+                                if (this.sources[position.file]) {
+                                    this.error('Unexpected Definition `' + symbol + '` at char ' + position.col + ' on line ' + position.line + ' in file [' + position.file + '][' + this.sources[position.file].src + '].');
+                                }
+                                else {
+                                    // console.log(element);
+                                    this.error('Unexpected Definition `' + symbol + '` at char ' + position.col + ' on line ' + position.line + '.');
+                                }
                             }
                         }
                     }
                 }
+            }
+        };
+        Sugar.prototype.pushVariableToVars = function (vars, symbol, variable, position) {
+            if (vars.self[variable] !== void 0) {
+                if (vars.self[variable] === 'let' || symbol === 'let') {
+                    this.error(' Variable `' + variable + '` has already been declared at char ' + position.col + ' on line ' + position.line + '.');
+                }
+            }
+            else {
+                vars.self[variable] = symbol;
+            }
+            if (symbol === 'public' && (vars.root.namespace !== null)) {
+                vars.root.public[variable] = variable;
             }
         };
         Sugar.prototype.pickReplacePosis = function (lines, vars) {
@@ -1851,14 +1854,10 @@
                 }
             }
             var basename = matches[6];
+            var position = this.getPosition(this.replacements[index][1]);
             if (type === 'class') {
                 if ((subtype === 'anonClass') && cname && cname.match(namingExpr)) {
-                    if (vars.self[cname] === void 0) {
-                        vars.self[cname] = 'var';
-                    }
-                    else if (vars.self[cname] === 'let') {
-                        this.error(' Variable `' + cname + '` has already been declared.');
-                    }
+                    this.pushVariableToVars(vars, 'var', cname, position);
                 }
                 if (matches[5]) {
                     if (matches[5].length === 2) {
@@ -1879,7 +1878,7 @@
             }
             return {
                 type: type,
-                posi: this.getPosition(this.replacements[index][1]),
+                posi: position,
                 display: display,
                 subtype: subtype,
                 cname: cname,
@@ -1964,156 +1963,155 @@
         Sugar.prototype.walkFnLike = function (index, display, vars, type) {
             var _this = this;
             // console.log(index, this.replacements[index]);
+            var tem = {
+                fnlike: /(^|(function|def|public|method)\s+)?([\$a-zA-Z_][\$\w]*)?\s*\(([^\(\)]*)\)\s*\{([^\{\}]*?)\}/
+            };
             var matches = this.replacements[index][0].match(matchExpRegPattern.fnlike);
             // console.log(matches);
+            var subtype = matches[2] || 'function';
             var fname = matches[3] !== 'function' ? matches[3] : '';
-            if (type === 'def' || type === 'exp') {
-                if ((type === 'exp') || (matches[1] == null)) {
-                    if (reservedFname['includes'](fname)) {
-                        var headline = matches[4];
-                        var localvars_1 = {
-                            parent: vars,
-                            root: vars.root,
-                            self: {},
-                            locals: vars.locals,
-                            fixed: [],
-                            fix_map: {},
-                            type: 'local'
-                        };
-                        if (fname === 'for') {
-                            var head = {
-                                type: 'codes',
-                                vars: localvars_1,
-                                display: 'inline',
-                                body: []
-                            };
-                            var lines = this.pushBodyToAST([], localvars_1, headline, true);
-                            for (var index_7 = 0; index_7 < lines.length; index_7++) {
-                                if (lines[index_7].posi)
-                                    lines[index_7].posi.head = false;
-                                if ((index_7 === lines.length - 1) && lines[index_7].value) {
-                                    lines[index_7].value = lines[index_7].value.replace(/;$/, '');
-                                }
-                                head.body.push(lines[index_7]);
-                            }
-                        }
-                        else {
-                            var head = this.pushSentencesToAST([], localvars_1, headline, false, this.getPosition(headline))[0] || (function () {
-                                _this.error(' Must have statements in head of ' + fname + ' expreesion.');
-                            })();
-                            // console.log(localvars, head);
-                        }
-                        var body = this.pushBodyToAST([], localvars_1, matches[5]);
-                        this.resetVarsRoot(localvars_1);
-                        // console.log(body);
-                        return {
-                            type: 'exp',
-                            posi: this.getPosition(this.replacements[index][1]),
-                            display: 'block',
+            if ((type === 'def' && subtype === 'function') || type === 'exp') {
+                if (reservedFname['includes'](fname)) {
+                    var headline = matches[4];
+                    var localvars_1 = {
+                        parent: vars,
+                        root: vars.root,
+                        self: {},
+                        locals: vars.locals,
+                        fixed: [],
+                        fix_map: {},
+                        type: 'local'
+                    };
+                    if (fname === 'for') {
+                        var head = {
+                            type: 'codes',
                             vars: localvars_1,
-                            expression: fname,
-                            head: head,
-                            body: body
+                            display: 'inline',
+                            body: []
                         };
+                        var lines = this.pushBodyToAST([], localvars_1, headline, true);
+                        for (var index_7 = 0; index_7 < lines.length; index_7++) {
+                            if (lines[index_7].posi)
+                                lines[index_7].posi.head = false;
+                            if ((index_7 === lines.length - 1) && lines[index_7].value) {
+                                lines[index_7].value = lines[index_7].value.replace(/;$/, '');
+                            }
+                            head.body.push(lines[index_7]);
+                        }
                     }
-                    if (fname === 'each') {
-                        var condition = matches[4].match(matchExpRegPattern.travelargs);
-                        // console.log(matches, condition);
-                        if (condition) {
-                            var self_1 = {}, agrs = [];
-                            if (condition[5]) {
-                                if (condition[8]) {
-                                    if (condition[4] !== condition[8]) {
-                                        self_1[condition[4]] = 'var';
-                                        self_1[condition[8]] = 'var';
-                                        agrs = [[condition[4], this.getPosition(condition[3])], [condition[8], this.getPosition(condition[7])]];
-                                    }
-                                    else {
-                                        this.error('indexname cannot same to the itemname');
-                                    }
+                    else {
+                        var head = this.pushSentencesToAST([], localvars_1, headline, false, this.getPosition(headline))[0] || (function () {
+                            _this.error(' Must have statements in head of ' + fname + ' expreesion.');
+                        })();
+                        // console.log(localvars, head);
+                    }
+                    var body = this.pushBodyToAST([], localvars_1, matches[5]);
+                    this.resetVarsRoot(localvars_1);
+                    // console.log(body);
+                    return {
+                        type: 'exp',
+                        posi: this.getPosition(this.replacements[index][1]),
+                        display: 'block',
+                        vars: localvars_1,
+                        expression: fname,
+                        head: head,
+                        body: body
+                    };
+                }
+                if (fname === 'each') {
+                    var condition = matches[4].match(matchExpRegPattern.travelargs);
+                    // console.log(matches, condition);
+                    if (condition) {
+                        var self_1 = {}, agrs = [];
+                        if (condition[5]) {
+                            if (condition[8]) {
+                                if (condition[4] !== condition[8]) {
+                                    self_1[condition[4]] = 'var';
+                                    self_1[condition[8]] = 'var';
+                                    agrs = [[condition[4], this.getPosition(condition[3])], [condition[8], this.getPosition(condition[7])]];
                                 }
                                 else {
-                                    self_1[condition[4]] = 'var';
-                                    agrs = [[condition[4], condition[3]]];
+                                    this.error('indexname cannot same to the itemname');
                                 }
                             }
                             else {
-                                if (condition[4] !== '_index') {
-                                    self_1['_index'] = 'var';
-                                    self_1[condition[4]] = 'var';
-                                    agrs = [['_index', undefined], [condition[4], this.getPosition(condition[3])]];
-                                }
-                                else {
-                                    this.error('itemname cannot same to the default indexname');
-                                }
+                                self_1[condition[4]] = 'var';
+                                agrs = [[condition[4], condition[3]]];
                             }
-                            var localvars_2 = {
-                                parent: vars,
-                                root: {
-                                    namespace: null,
-                                    public: {},
-                                    private: {},
-                                    protected: {},
-                                    fixed: [],
-                                    fix_map: {},
-                                    break: false
-                                },
-                                locals: vars.locals,
-                                type: 'travel'
-                            };
-                            localvars_2.self = localvars_2.root.protected;
-                            localvars_2.locals['arguments'] = null;
-                            var iterator = this.pushSentencesToAST([], localvars_2, condition[1], false, this.getPosition(condition[2]))[0] || (function () {
-                                _this.error(' Must have statements in head of each expreesion.');
-                            })();
-                            var subtype_1 = 'allprop';
-                            var code = matches[5].replace(/@ownprop[;\s]*/g, function () {
-                                subtype_1 = 'ownprop';
-                                return '';
-                            });
-                            return {
-                                type: 'travel',
-                                posi: this.getPosition(this.replacements[index][1]),
-                                display: 'block',
-                                subtype: subtype_1,
-                                iterator: iterator,
-                                vars: localvars_2,
-                                callback: {
-                                    type: 'def',
-                                    display: 'inline',
-                                    vars: localvars_2,
-                                    fname: '',
-                                    args: agrs,
-                                    body: this.pushBodyToAST([], localvars_2, code)
-                                }
-                            };
                         }
+                        else {
+                            if (condition[4] !== '_index') {
+                                self_1['_index'] = 'var';
+                                self_1[condition[4]] = 'var';
+                                agrs = [['_index', undefined], [condition[4], this.getPosition(condition[3])]];
+                            }
+                            else {
+                                this.error('itemname cannot same to the default indexname');
+                            }
+                        }
+                        var localvars_2 = {
+                            parent: vars,
+                            root: {
+                                namespace: null,
+                                public: {},
+                                private: {},
+                                protected: {},
+                                fixed: [],
+                                fix_map: {},
+                                break: false
+                            },
+                            locals: vars.locals,
+                            type: 'travel'
+                        };
+                        localvars_2.self = localvars_2.root.protected;
+                        localvars_2.locals['arguments'] = null;
+                        var iterator = this.pushSentencesToAST([], localvars_2, condition[1], false, this.getPosition(condition[2]))[0] || (function () {
+                            _this.error(' Must have statements in head of each expreesion.');
+                        })();
+                        var subtype_1 = 'allprop';
+                        var code = matches[5].replace(/@ownprop[;\s]*/g, function () {
+                            subtype_1 = 'ownprop';
+                            return '';
+                        });
+                        return {
+                            type: 'travel',
+                            posi: this.getPosition(this.replacements[index][1]),
+                            display: 'block',
+                            subtype: subtype_1,
+                            iterator: iterator,
+                            vars: localvars_2,
+                            callback: {
+                                type: 'def',
+                                display: 'inline',
+                                vars: localvars_2,
+                                fname: '',
+                                args: agrs,
+                                body: this.pushBodyToAST([], localvars_2, code)
+                            }
+                        };
                     }
                 }
-                var subtype = (matches[2] === 'def') ? 'def' : 'fn';
-                var position = this.getPosition(this.replacements[index][1]);
-                // console.log(matches);
-                if ((matches[2] === 'public') && fname) {
-                    subtype = 'public';
-                    display = 'block';
+            }
+            var position = this.getPosition(this.replacements[index][1]);
+            if (type === 'def') {
+                if (fname) {
+                    if (fname !== 'return') {
+                        this.pushVariableToVars(vars, 'var', fname, position);
+                    }
                 }
                 else {
-                    if (matches[2] === 'public') {
-                        subtype = 'def';
-                        fname = 'public';
+                    if (subtype === 'function') {
+                        if (display === 'block') {
+                            fname = '_anonymous_function_' + this.anonymous_function;
+                            this.anonymous_function++;
+                        }
+                    }
+                    else {
                         display = 'block';
+                        fname = subtype;
+                        subtype = 'function';
                     }
-                    else if ((display === 'block') && !fname) {
-                        fname = 'default_function_name';
-                    }
-                    if (fname && fname !== 'return') {
-                        if (!vars.self.hasOwnProperty(fname)) {
-                            vars.self[fname] = 'var';
-                        }
-                        else if (vars.self[fname] === 'let') {
-                            this.error(' Variable `' + fname + '` has already been declared.');
-                        }
-                    }
+                    this.pushVariableToVars(vars, 'var', fname, position);
                 }
             }
             var localvars = {
@@ -3016,19 +3014,20 @@
                 }
                 else {
                     var fname = this.patchVariable(element.fname, element.vars.parent);
-                    if ((element.subtype === 'def')) {
-                        codes.push(indent + posi + 'var ' + fname + ' = function (');
-                    }
-                    else if ((element.subtype === 'public')) {
-                        codes.push(indent + posi + 'var ' + fname + ' = pandora.' + namespace + element.fname + ' = function (');
-                    }
-                    else {
-                        if (element.display === 'block') {
-                            codes.push(indent + posi + 'function ' + fname + ' (');
-                        }
-                        else {
-                            codes.push(posi + 'function ' + fname + ' (');
-                        }
+                    switch (element.subtype) {
+                        case 'def':
+                            codes.push(indent + posi + 'pandora.' + namespace + element.fname + ' = function (');
+                            break;
+                        case 'public':
+                            codes.push(indent + posi + 'var ' + fname + ' = pandora.' + namespace + element.fname + ' = function (');
+                            break;
+                        default:
+                            if (element.display === 'block') {
+                                codes.push(indent + posi + 'function ' + fname + ' (');
+                            }
+                            else {
+                                codes.push(posi + 'function ' + fname + ' (');
+                            }
                     }
                 }
             }

@@ -1,0 +1,186 @@
+@module;
+/*!
+ * tangram.js framework source code
+ *
+ * class dom.Template
+ *
+ * Author By Cyrus
+ * Date 2015-03-11
+ * Contact xiaodpro@gmail.com
+ */
+use $ str/;
+
+namespace dom;
+
+let _ = pandora,
+doc = root.document;
+
+let esc = _.str.escape,
+startTag = '<%',
+endTag = '%>',
+spliter = new RegExp("(" + startTag + "|" + endTag + ")"),
+regExp = /^[\s\r\n]*=(.+?)[\s\r\n]*$/,
+delimiters = ['{@', '}'],
+compilers = {
+    expression: [{
+        pattern: /\{\@\@([\w\.\[\]\'\"]+)\}/ig,
+        handler (match, pattern) {
+            return match.replace(pattern, "<%include($1)%>");
+        }
+    }],
+    echo: [{
+            pattern: /\{\@([\w\.\[\]]+)\,\s*\g\s*\}/ig,
+            handler (match, pattern) {
+                return match.replace(pattern, "<%echo($1)%>");
+            }
+        },
+        {
+            pattern: /\{\@([\w\.\[\]\'\"]+)\}/ig,
+            handler (match, pattern) {
+                return match.replace(pattern, "<%echo(this.data.$1)%>");
+            }
+        },
+        {
+            pattern: /\{\@([\w\.\[\]\s\?\:\'\"\&]+)\}/ig,
+            handler (match, pattern) {
+                return match.replace(pattern, "<%echo(this.data.$1)%>");
+            }
+        },
+        {
+            pattern: /<\s*if\s*\(/ig,
+            handler (match, pattern) {
+                return match.replace(pattern, "<%if(");
+            }
+        },
+        {
+            pattern: /<\s*for\s*\(/ig,
+            handler (match, pattern) {
+                return match.replace(pattern, "<%for(");
+            }
+        },
+        {
+            pattern: /\)\s*>/ig,
+            handler (match, pattern) {
+                return match.replace(pattern, ") {%>");
+            }
+        },
+        {
+            pattern: /<\}>/ig,
+            handler (match, pattern) {
+                return match.replace(pattern, "<%}%>");
+            }
+        }
+    ]
+},
+filters = {
+    repeat (str, times) {
+        times = typeof times === 'number' ? times : 2;
+        var _str = '';
+        while (times) {
+            _str += str;
+            times--;
+        }
+        return _str
+    }
+},
+order = ['expression', 'echo'],
+escap = (str) {
+    return str.replace(/\$/g, '\\\$').replace(/\{/g, '\\\{').replace(/\}/g, '\\\}');
+},
+compile = (source) {
+    _.each(filters, (filter, handler) {
+        var pattern = new RegExp(escap(delimiters[0]) + '\\\s*([\\\w\\\.\\\[\\\]\\\'\\\"]+)' + '\\\s*\\\|\\\s*' + filter.replace('.', '\\\.') + '\\\s*,' + '([\\\s\\\w\\\.\\\[\\\]\\\'\\\,\\\"]+?)' + escap(delimiters[1]), 'g'),
+            matches = source.match(pattern);
+        if (matches) {
+            _.each(matches, (i, match) {
+                source = source.replace(pattern, "<%echo(filters." + filter + "(this.data.$1,$2))%>");
+            });
+        }
+
+    });
+    _.each(order, (i, group) {
+        _.each(compilers[group], (j, type) {
+            var matches = source.match(type.pattern);
+            if (matches) {
+                _.each(matches, (k, match) {
+                    source = source.replace(match, type.handler(match, type.pattern));
+                });
+            }
+        });
+    });
+    return source;
+},
+allcodes = {};
+
+class .Template  {
+    _init (source, data, includes) {
+        this.uid = new _.Identifier().toString();
+        this.intermediate = compile(source);
+        var string = this.intermediate.split(spliter),
+            codes = [],
+            rs = this.results = [];
+        include = (name) {
+            if (name && includes[name] && (typeof includes[name].echo === '')) {
+                rs.push(includes[name].echo());
+            }
+        };
+        for (var i = 0; i < string.length; i++) {
+            var code = string[i];
+            if (code === endTag) {
+                continue;
+            }
+            if (code === startTag) {
+                code = string[++i];
+                if (regExp.test(code)) {
+                    codes.push(code.replace(regExp, "echo($1);"));
+                    continue;
+                }
+                codes.push(code);
+            } else {
+                codes.push(esc(code));
+            }
+        }
+        allcodes[this.uid] = codes;
+        this.source = source;
+        this.includes = {};
+        this.data = {};
+        if (data) {
+            this.complie(data, includes);
+        }
+    }
+
+    complie (data, includes) {
+        data = typeof data === 'object' ? data : {};
+        includes = typeof includes === 'object' ? includes : {};
+        this.includes = includes;
+        this.data = data;
+        var rs = this.results,
+            echo = (str) {
+                rs.push(str);
+            };
+        eval(allcodes[this.uid].join("\r\n"));
+        return this;
+    }
+
+    echo (clear) {
+        return this.results.join('');
+    }
+
+    clear () {
+        this.results = [];
+    }
+    
+    static config (options) {
+        options = options || {};
+
+        if (options.mainUrl) {
+            root.config({
+                mainUrl: options.mainUrl
+            });
+        }
+
+        mainUrl = _.mainUrl();
+    }
+}
+
+module.exports = ...Template;
