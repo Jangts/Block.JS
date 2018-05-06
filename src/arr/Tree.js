@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Sat, 05 May 2018 06:22:21 GMT
+ * Datetime: Sun, 06 May 2018 09:07:04 GMT
  */
 ;
 // tangram.config({});
@@ -10,22 +10,22 @@ tangram.init().block([], function (pandora, root, imports, undefined) {
 	var _ = pandora;
 	function getParents (index) {
 		var _arguments = arguments;
-		var parents = []
+		var parents = [];
 		pandora.each(this.data, function (i, leaf) {
 			if (leaf[this.indexkey] == index) {
-				leaf[this.parentskey] = getParents.call(this, leaf[this.parentindexkey])
-				parents.push(leaf)
+				leaf[this.parentskey] = getParents.call(this, leaf[this.parentindexkey]);
+				parents.push(leaf);
 			};
 		}, this);
 		return parents;
 	}
 	function getChildren (parent) {
 		var _arguments = arguments;
-		var children = []
+		var children = [];
 		pandora.each(this.data, function (i, leaf) {
 			if (leaf[this.parentindexkey] == parent) {
-				leaf[this.childrenkey] = getChildren.call(this, leaf[this.indexkey])
-				children.push(_.copy(leaf))
+				leaf[this.childrenkey] = getChildren.call(this, leaf[this.indexkey]);
+				children.push(_.copy(leaf));
 			};
 		}, this);
 		return children;
@@ -33,12 +33,12 @@ tangram.init().block([], function (pandora, root, imports, undefined) {
 	pandora.declareClass('arr.Tree', {
 		_init: function (array, index, parent, otherkeys) {
 			if (otherkeys === void 0) { otherkeys = {};}
-			this.result = []
+			this.result = [];
 			this.data = array;
-			this.indexkey = index || 'id'
-			this.parentindexkey = parent || 'parent'
-			this.levelkey = otherkeys.levelkey || 'level'
-			this.childrenkey = otherkeys.childrenkey || 'children'
+			this.indexkey = index || 'id';
+			this.parentindexkey = parent || 'parent';
+			this.levelkey = otherkeys.levelkey || 'level';
+			this.childrenkey = otherkeys.childrenkey || 'children';
 			this.parentskey = otherkeys.parentskey || 'parents';
 		},
 		getAllOrderByRoot: function (rootId, level) {
@@ -48,8 +48,8 @@ tangram.init().block([], function (pandora, root, imports, undefined) {
 			pandora.each(this.data, function (i, leaf) {
 				if (leaf[this.parentindexkey] == rootId) {
 					leaf[this.levelkey] = level;
-					this.result.push(leaf)
-					this.getAllOrderByRoot(leaf[this.indexkey], level + 1)
+					this.result.push(leaf);
+					this.getAllOrderByRoot(leaf[this.indexkey], level + 1);
 				};
 			}, this);
 			return this;
@@ -59,8 +59,8 @@ tangram.init().block([], function (pandora, root, imports, undefined) {
 			if (rootId === void 0) { rootId = 0;}
 			pandora.each(this.data, function (i, leaf) {
 				if (leaf[this.parentindexkey] == rootId) {
-					leaf[this.childrenkey] = getChildren.call(this, leaf[this.indexkey])
-					this.result.push(leaf)
+					leaf[this.childrenkey] = getChildren.call(this, leaf[this.indexkey]);
+					this.result.push(leaf);
 				};
 			}, this);
 			return this;
@@ -69,7 +69,7 @@ tangram.init().block([], function (pandora, root, imports, undefined) {
 			var _arguments = arguments;
 			if (rootId === void 0) { rootId = 0;}
 			pandora.each(this.data, function (i, leaf) {
-				leaf[this.childrenkey] = getChildren.call(this, leaf[this.indexkey])
+				leaf[this.childrenkey] = getChildren.call(this, leaf[this.indexkey]);
 				this.result.push(leaf);
 			}, this);
 			return this;
@@ -78,7 +78,7 @@ tangram.init().block([], function (pandora, root, imports, undefined) {
 			var _arguments = arguments;
 			if (rootId === void 0) { rootId = 0;}
 			pandora.each(this.data, function (i, leaf) {
-				leaf[this.parentskey] = getParents.call(this, leaf[this.parentindexkey])
+				leaf[this.parentskey] = getParents.call(this, leaf[this.parentindexkey]);
 				this.result.push(leaf);
 			}, this);
 			return this;

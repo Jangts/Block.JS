@@ -4,17 +4,17 @@ expands .Elements {
     on (eventType, selector, data, handler) {
         switch (arguments.length) {
             case 3:
-                handler = ..util.bool.isFn(data) ? data : undefined;
+                handler = bool.isFn(data) ? data : undefined;
                 data = null;
                 break;
             case 2:
-                handler = ..util.bool.isFn(selector) ? selector : undefined;
+                handler = bool.isFn(selector) ? selector : undefined;
                 selector = null;
                 data = null;
                 break;
         };
         this.each(() {
-            if (..util.bool.isArr(eventType)) {
+            if (bool.isArr(eventType)) {
                 each(eventType as i, et) {
                     ...events.add(this, et, selector, data, handler);
                 }
@@ -26,7 +26,7 @@ expands .Elements {
     }
     off (eventType, selector, handler) {
         this.each(() {
-            if (..util.bool.isArr(eventType)) {
+            if (bool.isArr(eventType)) {
                 each(eventType as i, et) {
                     ...events.remove(this, et, selector, handler);
                 }
@@ -44,7 +44,7 @@ expands .Elements {
     }
     bind (eventType, data, handler) {
         if (arguments.length == 2) {
-            handler = ..util.bool.isFn(data) ? data : undefined;
+            handler = bool.isFn(data) ? data : undefined;
             data = undefined;
         }
         return this.on(eventType, null, data, handler);
@@ -71,37 +71,37 @@ expands .Elements {
         this.bind('mousemove', data, handler);
     }
     'click' (data, handler) {
-        if (..util.bool.isFn(handler)) {
+        if (bool.isFn(handler)) {
             return this.bind('click', data, handler);
         }
-        if (..util.bool.isFn(data)) {
+        if (bool.isFn(data)) {
             return this.bind('click', data);
         }
         return this.trigger('click');
     }
     'focus' (data, handler) {
-        if (..util.bool.isFn(handler)) {
+        if (bool.isFn(handler)) {
             return this.bind('focus', data, handler);
         }
-        if (..util.bool.isFn(data)) {
+        if (bool.isFn(data)) {
             return this.bind('focus', data);
         }
         return this.trigger('focus');
     }
     'blur' (data, handler) {
-        if (..util.bool.isFn(handler)) {
+        if (bool.isFn(handler)) {
             return this.bind('blur', data, handler);
         }
-        if (..util.bool.isFn(data)) {
+        if (bool.isFn(data)) {
             return this.bind('blur', data);
         }
         return this.trigger('blur');
     }
     'submit' (data, handler) {
-        if (..util.bool.isFn(handler)) {
+        if (bool.isFn(handler)) {
             return this.bind('submit', data, handler);
         }
-        if (..util.bool.isFn(data)) {
+        if (bool.isFn(data)) {
             return this.bind('submit', data);
         }
         return this.trigger('submit');

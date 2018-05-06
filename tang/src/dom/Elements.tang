@@ -7,7 +7,7 @@
  * Date: 2017-04-06
  */
 ;
-use $ util/bool
+use $ util/bool as bool
 use $ arr/
 use $ math/easing
 use $ dom/Animation
@@ -24,7 +24,7 @@ query = ...query.sizzle || ...query;
 class .Elements extends ..Iterator {
     context = document;
     _init (selector, context) {
-        if (..util.bool.isOuterHTML(selector)) {
+        if (bool.isOuterHTML(selector)) {
             this.isElFragment = true;
             this.context = context || this.context;
             Elements = ...createByString(this.selector = selector);
@@ -38,7 +38,7 @@ class .Elements extends ..Iterator {
             if (selector) {
                 switch (typeof (selector)) {
                     case 'string':
-                    console.log(query);
+                    // console.log(query);
                         Elements = query(selector, this.context);
                         break;
                     case 'object':
@@ -55,7 +55,7 @@ class .Elements extends ..Iterator {
                                 Elements = arguments[0];
                                 break;
                             case 'Array':
-                                console.log(arguments[0]);
+                                // console.log(arguments[0]);
                                 for (var i = 0; i < arguments[0].length; i++) {
                                     ..util.type(arguments[0][i]) == 'Element' && Elements.push(arguments[0][i]);
                                 }

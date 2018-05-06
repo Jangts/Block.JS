@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Sat, 05 May 2018 06:22:23 GMT
+ * Datetime: Sun, 06 May 2018 09:07:06 GMT
  */
 ;
 // tangram.config({});
@@ -29,7 +29,7 @@ tangram.init().block([
 			if (isStr(option)) {
 				var callback = function () {
 					if (isEl(that.context)) {
-						that.context.appendChild(that.image)
+						that.context.appendChild(that.image);
 					};
 				}
 				this.src = option;
@@ -42,23 +42,23 @@ tangram.init().block([
 				this.previewsrc = option.preview;
 				var doneCallback = function () {
 					if (isEl(that.context)) {
-						that.context.appendChild(that.image)
-						isFn(option.onload) && option.onload.call(this, that)
+						that.context.appendChild(that.image);
+						isFn(option.onload) && option.onload.call(this, that);
 					};
 				}
 				var failCallback = function () {
 					if (isEl(that.context)) {
-						that.context.appendChild(that.image)
-						isFn(option.onerror) && option.onerror.call(this, that)
+						that.context.appendChild(that.image);
+						isFn(option.onerror) && option.onerror.call(this, that);
 					};
 				}
 				this.onload = doneCallback;
 				this.onerror = failCallback;
 			}
 			else {
-				return
+				return;;
 			}
-			this.image = new Image()
+			this.image = new Image();
 			if (option.width) {
 				this.image.width = option.width;
 			}
@@ -66,13 +66,13 @@ tangram.init().block([
 				this.image.height = option.height;
 			}
 			if (option.context) {
-				this.appendTo(option.context)
+				this.appendTo(option.context);
 			};
 		},
 		preview: function () {
 			var that = this;
 			var onload = function () {
-				that.context.appendChild(that.image)
+				that.context.appendChild(that.image);
 				load(that.image, that.src, function () {
 					that.previewsrc = null;
 					that.onload.call(this);
@@ -90,7 +90,7 @@ tangram.init().block([
 			if (isEl(context)) {
 				this.context = context;
 				if (this.previewsrc) {
-					this.preview()
+					this.preview();
 				}
 				else {
 					load(this.image, this.src, this.onload, this.onerror);
@@ -98,8 +98,8 @@ tangram.init().block([
 			};
 		},
 		toString: function () {
-			var div = doc.createElement('div')
-			div.appendChild(this.image)
+			var div = doc.createElement('div');
+			div.appendChild(this.image);
 			var html = div.innerHTML;
 			div = null;
 			delete div;
@@ -107,15 +107,15 @@ tangram.init().block([
 		},
 		toBase: function (callback, mime) {
 			var img = this.image;
-			var canvas = doc.createElement('CANVAS')
-			var ctx = canvas.getctx('2d')
-			img.crossOrigin = 'Anonymous'
+			var canvas = doc.createElement('CANVAS');
+			var ctx = canvas.getctx('2d');
+			img.crossOrigin = 'Anonymous';
 			img.onload = function () {
 				canvas.height = img.height;
 				canvas.width = img.width;
-				ctx.drawImage(img, 0, 0)
-				var dataURL = canvas.toDataURL(mime || 'image/png')
-				callback.call(this, dataURL)
+				ctx.drawImage(img, 0, 0);
+				var dataURL = canvas.toDataURL(mime || 'image/png');
+				callback.call(this, dataURL);
 				canvas = null;
 			}
 			img.src = this.src;

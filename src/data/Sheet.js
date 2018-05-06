@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Sat, 05 May 2018 06:22:22 GMT
+ * Datetime: Sun, 06 May 2018 09:07:04 GMT
  */
 ;
 // tangram.config({});
@@ -36,26 +36,26 @@ tangram.init().block([
 	var partlen = 1000 * 1000 * 5;
 	var update = function (tablename) {
 		var storageName = void 0;
-		var mateinfs = infs[tablename]
-		var json = root.JSON.stringify(tables[tablename])
+		var mateinfs = infs[tablename];
+		var json = root.JSON.stringify(tables[tablename]);
 		var parts = json.length/partlen;
 		var i = 0;
-		var storages = []
+		var storages = [];
 		for (i;i < parts;i++) {
-			storageName = 'pandora.data.Table.' + tablename + (i ? i:'')
-			storages.push(storageName)
+			storageName = 'pandora.data.Table.' + tablename + (i ? i:'');
+			storages.push(storageName);
 			new Storage(storageName).set('data', json.substr(partlen * i, partlen));
 		}
-		mateinfs.length = _.obj.length(tables[tablename])
+		mateinfs.length = _.obj.length(tables[tablename]);
 		mateinfs.storages = storages;
 		metable.set(tablename, mateinfs);
 	}
 	var check = function (value, constraint) {
 		switch (constraint.type) {
 			case 'boolean':
-			return _.arr.has([true, false, 1, 0], value)
+			return _.arr.has([true, false, 1, 0], value);
 			case 'object':
-			return (typeof value === 'object')
+			return (typeof value === 'object');
 			case 'string':
 			if (typeof value === 'string') {
 				if (constraint.length) {
@@ -64,8 +64,8 @@ tangram.init().block([
 					}
 				}
 				if (constraint.pattern) {
-					var patt = new RegExp(constraint.pattern)
-					return patt.test(value)
+					var patt = new RegExp(constraint.pattern);
+					return patt.test(value);
 				}
 				return true;
 			}
@@ -95,7 +95,7 @@ tangram.init().block([
 			if ((fieldname != mateinfs.pk) && data.hasOwnProperty(fieldname)) {
 				if (mateinfs.constraints && mateinfs.constraints[fieldname]) {
 					if (check(data[fieldname], mateinfs.constraints[fieldname])) {
-						_data[fieldname] = data[fieldname]
+						_data[fieldname] = data[fieldname];
 					}
 					else {
 						if (!_data.hasOwnProperty(fieldname)) {
@@ -104,7 +104,7 @@ tangram.init().block([
 					}
 				}
 				else {
-					_data[fieldname] = data[fieldname]
+					_data[fieldname] = data[fieldname];
 				}
 			}
 			else {
@@ -121,41 +121,41 @@ tangram.init().block([
 			if (namingExpr.test(tablename)) {
 				this.tablename = tablename;
 				if (!tables[tablename]) {
-					var mateinfs = metable.get(tablename)
+					var mateinfs = metable.get(tablename);
 					if (!mateinfs) {
 						if (fields) {
-							mateinfs = create(tablename, fields, primarykey, constraints)
-							metable.set(tablename, mateinfs)
+							mateinfs = create(tablename, fields, primarykey, constraints);
+							metable.set(tablename, mateinfs);
 						}
 						else {
-							mateinfs = create(tablename, {'id': 0}, 'id', {})
-							metable.set(tablename, mateinfs)
+							mateinfs = create(tablename, {'id': 0}, 'id',  {});
+							metable.set(tablename, mateinfs);
 						}
 					}
-					var json = ''
+					var json = '';
 					pandora.each(mateinfs.storages, function (i, storageName) {
 						json += new Storage(storageName).get('data');
 					}, this);
 					infs[tablename] = mateinfs;
 					try {
-						tables[tablename] = root.JSON.parse(json)
+						tables[tablename] = root.JSON.parse(json);
 					}
 					catch (e) {
-						tables[tablename] = {}
+						tables[tablename] = {};
 					}
-					console.log(mateinfs)
+					console.log(mateinfs);
 				}
 			}
 			else {
-				_.error('Error Tablename')
+				_.error('Error Tablename');
 			};
 		},
 		add: function (fieldname, value, constraint) {
 			var _arguments = arguments;
 			var tablename = this.tablename;
-			var mateinfs = infs[tablename]
+			var mateinfs = infs[tablename];
 			if (!mateinfs.fields.hasOwnProperty(fieldname)) {
-				mateinfs.fields[fieldname] = value = value || ''
+				mateinfs.fields[fieldname] = value = value || '';
 				if (constraint && constraint.type) {
 					mateinfs.constraints[fieldname] = constraint;
 				}
@@ -169,11 +169,11 @@ tangram.init().block([
 		drop: function (fieldname) {
 			var _arguments = arguments;
 			var tablename = this.tablename;
-			var mateinfs = infs[tablename]
+			var mateinfs = infs[tablename];
 			if (fieldname) {
 				if (mateinfs.fields.hasOwnProperty(fieldname)) {
-					delete mateinfs.fields[fieldname]
-					delete mateinfs.constraints[fieldname]
+					delete mateinfs.fields[fieldname];
+					delete mateinfs.constraints[fieldname];
 					pandora.each(tables[tablename], function (id, row) {
 						delete row[fieldname];
 					}, this);
@@ -184,23 +184,23 @@ tangram.init().block([
 			pandora.each(mateinfs.storages, function (i, storageName) {
 				new Storage(storageName).clear(true);
 			}, this);
-			metable.set(tablename)
-			delete infs[tablename]
-			delete tables[tablename]
+			metable.set(tablename);
+			delete infs[tablename];
+			delete tables[tablename];
 			return null;
 		},
 		alter: function (fieldname, newname, value) {
 			var _arguments = arguments;
 			var tablename = this.tablename;
-			var mateinfs = infs[tablename]
+			var mateinfs = infs[tablename];
 			if (fieldname) {
 				if (mateinfs.fields.hasOwnProperty(fieldname)) {
 					mateinfs.fields[newname] = value === undefined ? mateinfs.fields[fieldname]: value;
-					delete mateinfs.fields[fieldname]
-					mateinfs.constraints[newname] = mateinfs.constraints[fieldname]
-					delete mateinfs.constraints[fieldname]
+					delete mateinfs.fields[fieldname];
+					mateinfs.constraints[newname] = mateinfs.constraints[fieldname];
+					delete mateinfs.constraints[fieldname];
 					pandora.each(tables[tablename], function (id, row) {
-						row[newname] = row[fieldname]
+						row[newname] = row[fieldname];
 						delete row[fieldname];
 					}, this);
 					update(tablename);
@@ -212,9 +212,9 @@ tangram.init().block([
 		insert: function (data) {
 			var _arguments = arguments;
 			var tablename = this.tablename;
-			var mateinfs = infs[tablename]
+			var mateinfs = infs[tablename];
 			pandora.each(arguments, function (i, data) {
-				data = assign(mateinfs, data, {})
+				data = assign(mateinfs, data,  {});
 				data[mateinfs.pk] = ++mateinfs.ai;
 				tables[tablename][mateinfs.ai] = data;
 			}, this);
@@ -223,9 +223,9 @@ tangram.init().block([
 		},
 		update: function (id, data) {
 			var tablename = this.tablename;
-			var mateinfs = infs[tablename]
+			var mateinfs = infs[tablename];
 			if (id && tables[tablename].hasOwnProperty(id) && data) {
-				tables[tablename][id] = assign(mateinfs, data, tables[tablename][id])
+				tables[tablename][id] = assign(mateinfs, data, tables[tablename][id]);
 				update(tablename);
 			}
 			return this;
@@ -234,10 +234,10 @@ tangram.init().block([
 			var _arguments = arguments;
 			var tablename = this.tablename;
 			if (id) {
-				rs = []
+				rs = [];
 				pandora.each(arguments, function (i, id) {
 					if (tables[tablename][id]) {
-						rs.push(tables[tablename][id])
+						rs.push(tables[tablename][id]);
 					};
 				}, this);
 				return rs;
@@ -257,8 +257,8 @@ tangram.init().block([
 		},
 		fields: function () {
 			var _arguments = arguments;
-			var fields = {}
-			var mateinfs = infs[this.tablename]
+			var fields = {};
+			var mateinfs = infs[this.tablename];
 			if (mateinfs) {
 				pandora.each(mateinfs.fields, function (fieldname, value) {
 					fields[fieldname] = {
@@ -278,42 +278,42 @@ tangram.init().block([
 				'$_/dom/'
 			], function () {
 				var _arguments = arguments;
-				var mateinfs = infs[that.tablename]
+				var mateinfs = infs[that.tablename];
 				if (mateinfs) {
 					if (width) {
-						_width = ' width="' + width + '"'
+						_width = ' width="' + width + '"';
 					}
 					else {
-						_width = ''
+						_width = '';
 					}
 					if (border) {
-						_border = ' border="' + border + '"'
+						_border = ' border="' + border + '"';
 					}
 					else {
-						_border = ''
+						_border = '';
 					}
-					var rows = tables[that.tablename]
-					var html = '<table class="table" ' + _width + _border + '><tbody><tr class="head-row"><th>' + mateinfs.pk + '</th>'
+					var rows = tables[that.tablename];
+					var html = '<table class="table" ' + _width + _border + '><tbody><tr class="head-row"><th>' + mateinfs.pk + '</th>';
 					pandora.each(mateinfs.fields, function (fieldname) {
 						if (fieldname != mateinfs.pk) {
-							html += '<th>' + fieldname + '</th>'
+							html += '<th>' + fieldname + '</th>';
 						};
 					}, this);
 					pandora.each(rows, function (id, row) {
-						html += '</tr><tr><td>' + id + '</td>'
+						html += '</tr><tr><td>' + id + '</td>';
 						pandora.each(row, function (fieldname, value) {
 							if (fieldname != mateinfs.pk) {
-								html += '<td>' + value + '</td>'
+								html += '<td>' + value + '</td>';
 							};
 						}, this);
 					}, this);
-					html += '</tr></tbody></table>'
+					html += '</tr></tbody></table>';
 					if (context) {
-						_.dom.addClass(context, 'tangram-see')
-						_.dom.append(context, html)
+						_.dom.addClass(context, 'tangram-see');
+						_.dom.append(context, html);
 					}
 					else {
-						_.dom.append(doc.body, html)
+						_.dom.append(doc.body, html);
 					}
 				}
 				return false;
@@ -323,36 +323,36 @@ tangram.init().block([
 	pandora.extend(pandora.data.Sheet, {
 		exec: function (str) {
 			var _arguments = arguments;
-			var matchs = str.match(/^(select|delete|update|insert)([\w\,\*\s]+from\s+|\s+from\s+|\s+into\s+|\s+)([A-Z_]\w*)\s+(.+)/i)
+			var matchs = str.match(/^(select|delete|update|insert)([\w\,\*\s]+from\s+|\s+from\s+|\s+into\s+|\s+)([A-Z_]\w*)\s+(.+)/i);
 			if (matchs) {
-				var mateinfs = infs[matchs[3]]
+				var mateinfs = infs[matchs[3]];
 				if (mateinfs) {
-					var type = matchs[1]
-					var table = 'json.' + matchs[3]
+					var type = matchs[1];
+					var table = 'json.' + matchs[3];
 					switch (type) {
 						case 'select':
-						var sql = 'select ' + matchs[2] + table + ' ' + matchs[4]
-						return queryJSON(sql, tables)
+						var sql = 'select ' + matchs[2] + table + ' ' + matchs[4];
+						return queryJSON(sql, tables);
 						case 'delete':
-						var sql = 'select * from ' + table + ' ' + matchs[4]
-						var result = queryJSON(sql, tables)
+						var sql = 'select * from ' + table + ' ' + matchs[4];
+						var result = queryJSON(sql, tables);
 						if (result.length) {
-							var table = new _.data.Sheet(matchs[3])
+							var table = new _.data.Sheet(matchs[3]);
 							pandora.each(result, function (i, row) {
 								table.delete(row[mateinfs.pk]);
 							}, this);
 						}
 						return result.length;
 						case 'update':
-						var mas = matchs[4].match(/^set\s+(\{.+\})\s+(where\s+\(.+\))$/i)
+						var mas = matchs[4].match(/^set\s+(\{.+\})\s+(where\s+\(.+\))$/i);
 						if (mas) {
 							try {
 								eval('var data = ' + mas[1]);
 								if (typeof(data)) {
-									var sql = 'select * from ' + table + ' ' + mas[2]
-									var result = queryJSON(sql, tables)
+									var sql = 'select * from ' + table + ' ' + mas[2];
+									var result = queryJSON(sql, tables);
 									if (result.length) {
-										var table = new _.data.Sheet(matchs[3])
+										var table = new _.data.Sheet(matchs[3]);
 										pandora.each(result, function (i, row) {
 											table.update(row[mateinfs.pk], data);
 										}, this);
@@ -361,22 +361,22 @@ tangram.init().block([
 								}
 							}
 							catch (e) {
-								console.log(e)
+								console.log(e);
 							}
 						}
 						return 0;
 						case 'insert':
-						var mas = matchs[4].match(/^values\s+(\{.+\})\s*$/i)
+						var mas = matchs[4].match(/^values\s+(\{.+\})\s*$/i);
 						if (mas) {
 							try {
 								eval('var data = [' + mas[1] + ']');
 								if (typeof(data)) {
-									var table = new _.data.Sheet(matchs[3])
-									return table.insert.apply(table, data)
+									var table = new _.data.Sheet(matchs[3]);
+									return table.insert.apply(table, data);
 								}
 							}
 							catch (e) {
-								console.log(e)
+								console.log(e);
 							}
 						}
 						return 0;

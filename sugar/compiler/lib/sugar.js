@@ -96,11 +96,11 @@
         op: /([\$\w]\s*(@\d+L\d+P\d+O*\d*:::)?)(\+|\-|\*\*|\*|\/|\%|\&)\s*((@\d+L\d+P\d+O*\d*:::)?(\s+(\+|\-))?[\$\w\.])/g,
         owords: /\s+(@\d+L\d+P\d+O*\d*:::)?(in|of)\s+(@\d+L\d+P\d+O*\d*:::)?/g,
         sign: /(^|\s*[^\+\-])(\+|\-)([\$\w\.])/g,
-        swords: /(^|[^\$\w])(@\d+L\d+P\d+O*\d*:::)?(typeof|instanceof|void|delete)\s+(@\d+L\d+P\d+O*\d*:::)?(\+*\-*[\$\w\.])/g,
+        swords: /(^|[^\$\w])(typeof|instanceof|void|delete)\s+((@\d+L\d+P\d+O*\d*:::)?\+*\-*[\$\w\.])/g,
         before: /(\+\+|\-\-|\!|\~)\s*([\$\w\.])/g,
         after: /([\$\w\.])[ \t]*(@\d+L\d+P\d+O*\d*:::)?(\+\+|\-\-)/g,
         error: /(.*)(\+\+|\-\-|\+|\-)(.*)/g
-    }, replaceWords = /(^|@\d+L\d+P\d+O?\d*:::|\s)(continue|finally|return|throw|break|case|else|try|do)\s*(\s|;|___boundary_[A-Z0-9_]{36}_(\d+)_as_([a-z]+)___)/g, replaceExpRegPattern = {
+    }, replaceWords = /(^|@\d+L\d+P\d+O?\d*:::|\s)(continue|return|throw|break|case|else)\s*(\s|;|___boundary_[A-Z0-9_]{36}_(\d+)_as_([a-z]+)___)/g, replaceExpRegPattern = {
         module: /^((\s*@\d+L\d+P0:::)*\s*(@\d+L\d+P0*):::(\s*))?@module[;\s]*/,
         namespace: /[\r\n]((@\d+L\d+P0):::)?(\s*)namespace\s+(\.{0,1}[\$a-zA-Z_][\$\w\.]*)\s*(;|\r|\n)/,
         // 位置是在replace usings 和 strings 之后才tidy的，所以还存在后接空格
@@ -114,8 +114,9 @@
         call: /(@\d+L\d+P\d+O*\d*:::)?((new)\s+([\$a-zA-Z_\.][\$\w\.]*)|(\.)?([\$a-zA-Z_][\$\w]*))\s*(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)\s*([^\$\w\s\{]|[\r\n].|\s*___boundary_[A-Z0-9_]{36}_\d+_as_array___|\s*@boundary_\d+_as_operator::|$)/g,
         callschain: /\s*(@\d+L\d+P\d+O*\d*:::)?\.\s*___boundary_[A-Z0-9_]{36}_(\d+)_as_(call|callmethod)___(\s*(@\d+L\d+P\d+O*\d*:::)?\.\s*___boundary_[A-Z0-9_]{36}_\d+_as_(call|callmethod)___)*/g,
         arrowfn: /(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)\s*(->|=>)\s*([^,;\r\n]+)\s*(,|;|\r|\n|$)/g,
-        closure: /((@\d+L\d+P\d+O*\d*:::)?@*[\$a-zA-Z_][\$\w]*|\)|\=|\(\s)?(@\d+L\d+P\d+O*\d*:::)?\s*\{(\s*[^\{\}]*?)\s*\}/g,
+        closure: /(@\d+L\d+P\d+O*\d*:::)?(@*[\$a-zA-Z_][\$\w]*|\)|\=|\(\s)?(@\d+L\d+P\d+O*\d*:::)?\s*\{(\s*[^\{\}]*?)\s*\}/g,
         expression: /(@\d+L\d+P\d+O*\d*:::)?(if|for|while|switch|with|catch|each)\s*(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)\s*;*\s*(___boundary_[A-Z0-9_]{36}_(\d+)_as_(closure|objlike)___)/g,
+        if: /(@\d+L\d+P\d+O*\d*:::)?if\s*(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)\s*/g,
         log: /(@\d+L\d+P\d+O*\d*:::)?log\s+(.+?)\s*([;\r\n]+|$)/g
     }, matchExpRegPattern = {
         string: /(\/|\#|`|"|')([\*\/\=])?/,
@@ -168,7 +169,7 @@
             this.uid = boundaryMaker();
             this.markPattern = new RegExp('@boundary_(\\\d+)_as_(mark)::', 'g');
             this.trimPattern = new RegExp('(___boundary_' + this.uid + '_(\\\d+)_as_(string|pattern|template)___|___boundary_(\\\d+)_as_propname___)', 'g');
-            this.lastPattern = new RegExp('(___boundary_' + this.uid + '_(\\\d+)_as_(string|pattern|template)___|___boundary_(\\\d+)_as_propname___|@boundary_(\\\d+)_as_(preoperator|operator|aftoperator|comments)::)', 'g');
+            this.lastPattern = new RegExp('(___boundary_' + this.uid + '_(\\\d+)_as_(string|pattern|template)___|___boundary_(\\\d+)_as_propname___|@boundary_(\\\d+)_as_(keyword|midword|preoperator|operator|aftoperator|comments)::)', 'g');
             this.input = input;
             this.output = undefined;
             this.replacements = [['{}'], ['/='], ['/'], [' +'], [' -'], [' === ']];
@@ -557,7 +558,7 @@
                 // console.log(left, right);
                 if (left < right) {
                     string = this.replaceCodeSegments(string);
-                    string = this.recheckFunctionsLike(string);
+                    string = this.recheckFnOrCallLikes(string);
                     left = string.indexOf('{');
                     right = string.indexOf('}');
                 }
@@ -649,7 +650,7 @@
             });
             if (matched)
                 return string;
-            return string.replace(replaceExpRegPattern.closure, function (match, word, posi2, posi3, closure) {
+            return string.replace(replaceExpRegPattern.closure, function (match, posi1, word, posi3, closure) {
                 // console.log(match, '|', word, '|', posi2, '|', posi3, '|', closure);
                 // if (!word && match.match(/\s*\{\s*\}/)) {
                 //     console.log(posi2, '|', posi3);
@@ -658,19 +659,8 @@
                 closure = _this.replaceParentheses(closure);
                 // closure = this.replaceOperators(closure, false);
                 // console.log(closure);
-                if (posi2) {
-                    word = word.replace(posi2, '');
-                    posi2 = posi2.trim();
-                }
-                else {
-                    posi2 = '';
-                }
-                if (posi3) {
-                    posi3 = posi3.trim();
-                }
-                else {
-                    posi3 = '';
-                }
+                posi1 = posi1 ? posi1.trim() : '';
+                posi3 = posi3 ? posi3.trim() : '';
                 var index = _this.replacements.length;
                 var index2;
                 switch (word) {
@@ -678,11 +668,11 @@
                         if ((closure.indexOf(';') >= 0) ||
                             !closure.match(/^\s*(@\d+L\d+P\d+O?\d*:::)?(___boundary_[A-Z0-9_]{36}_\d+_as_function___|[\$a-zA-Z_][\$\w]*\s*(,|:|$))/)) {
                             _this.replacements.push(['{' + closure + '}', posi3]);
-                            return posi2 + (word || '') + posi3 + ' ___boundary_' + _this.uid + '_' + index + '_as_closure___';
+                            return posi1 + (word || '') + posi3 + ' ___boundary_' + _this.uid + '_' + index + '_as_closure___';
                         }
                         if (closure.match(/^\s*___boundary_[A-Z0-9_]{36}_\d+_as_function___\s*$/)) {
                             _this.replacements.push(['{' + closure + '}', posi3]);
-                            return posi2 + (word || '') + posi3 + ' ___boundary_' + _this.uid + '_' + index + '_as_objlike___';
+                            return posi1 + (word || '') + posi3 + ' ___boundary_' + _this.uid + '_' + index + '_as_objlike___';
                         }
                         // console.log(closure);
                         // console.log(word, '|', posi2, '|', posi3);
@@ -693,24 +683,28 @@
                         return '= ___boundary_' + _this.uid + '_' + index + '_as_object___';
                     case '@config':
                         if (_this.configinfo === '{}') {
-                            _this.configinfo_posi = posi2 || posi3;
+                            _this.configinfo_posi = posi1 || posi3;
                             _this.configinfo = _this.decode(match.replace('@config', ''));
                         }
                         return '';
                     case 'return':
                     case 'typeof':
-                        _this.replacements.push([word + ' ', posi2]);
+                        _this.replacements.push([word + ' ', posi1]);
                         index2 = _this.replacements.length;
                         _this.replacements.push(['{' + closure + '}']);
                         return '@boundary_' + index + '_as_preoperator::___boundary_' + _this.uid + '_' + index2 + '_as_object___';
                     case 'do':
                     case 'try':
-                    case 'else':
-                    case 'finally':
-                        _this.replacements.push([word + ' ', posi2]);
+                        _this.replacements.push([word + ' ', posi1]);
                         index2 = _this.replacements.length;
                         _this.replacements.push(['{' + closure + '}', posi3]);
-                        return '; @boundary_' + index + '_as_preoperator::___boundary_' + _this.uid + '_' + index2 + '_as_closure___;';
+                        return '; @boundary_' + index + '_as_keyword::___boundary_' + _this.uid + '_' + index2 + '_as_closure___;';
+                    case 'else':
+                    case 'finally':
+                        _this.replacements.push([word + ' ', posi1]);
+                        index2 = _this.replacements.length;
+                        _this.replacements.push(['{' + closure + '}', posi3]);
+                        return ";\r\n" + '@boundary_' + index + '_as_midword::___boundary_' + _this.uid + '_' + index2 + '_as_closure___';
                     default:
                         if (word.indexOf('(') === 0) {
                             // console.log(true, word);
@@ -719,7 +713,7 @@
                         }
                         // console.log(word, closure);
                         _this.replacements.push(['{' + closure + '}', posi3]);
-                        return posi2 + word + ";\r\n" + posi3 + '___boundary_' + _this.uid + '_' + index + '_as_closure___;';
+                        return posi1 + word + ";\r\n" + posi3 + '___boundary_' + _this.uid + '_' + index + '_as_closure___;';
                 }
             });
         };
@@ -742,7 +736,7 @@
                         return '___boundary_' + _this.uid + '_' + index + '_as_parentheses___';
                     });
                     // console.log(string);
-                    string = this.recheckFunctionsLike(string);
+                    string = this.recheckFnOrCallLikes(string);
                     left = string.indexOf('(');
                     right = string.indexOf(')');
                 }
@@ -772,33 +766,37 @@
             return string.replace(replaceWords, function (match, posi, word, after) {
                 var index = _this.replacements.length;
                 // console.log(word, after);
-                if (after === ';') {
-                    _this.replacements.push([word, posi && posi.trim()]);
-                    return ';@boundary_' + index + '_as_preoperator::;';
+                if (word === 'else') {
+                    _this.replacements.push([word + ' ', posi && posi.trim()]);
+                    return ";\r\n" + '@boundary_' + index + '_as_midword::' + after;
+                }
+                if (after === ';' || word === 'continue' || word === 'break') {
+                    _this.replacements.push([word + ';', posi && posi.trim()]);
+                    return ";\r\n" + '@boundary_' + index + '_as_keyword::;';
                 }
                 _this.replacements.push([word + ' ', posi && posi.trim()]);
-                return ';@boundary_' + index + '_as_preoperator::' + after;
+                return ";\r\n" + '@boundary_' + index + '_as_keyword::' + after;
             });
         };
-        Sugar.prototype.recheckFunctionsLike = function (string) {
+        Sugar.prototype.recheckFnOrCallLikes = function (string) {
             var _this = this;
-            var on = true;
-            while (on) {
-                on = false;
-                // console.log(string);
-                string = string.replace(replaceExpRegPattern.expression, function (match, posi, expname, exp, expindex, closure, closureindex) {
-                    // console.log(match, posi, expname, exp, expindex, closure, closureindex);
-                    // console.log(expindex, closureindex);
-                    on = true;
-                    var expressioncontent = _this.replacements[expindex][0];
-                    var body = _this.replacements[closureindex][0];
-                    var index = _this.replacements.length;
-                    // console.log(index, match, expname + '(' + expressioncontent + ')' + body);
-                    // console.log(expressioncontent, body);
-                    _this.replacements.push([expname + expressioncontent + body, posi]);
-                    return '___boundary_' + _this.uid + '_' + index + '_as_expression___';
-                });
-            }
+            string = string.replace(replaceExpRegPattern.expression, function (match, posi, expname, exp, expindex, closure, closureindex) {
+                // console.log(match, posi, expname, exp, expindex, closure, closureindex);
+                // console.log(expindex, closureindex);
+                // on = true;
+                var expressioncontent = _this.replacements[expindex][0];
+                var body = _this.replacements[closureindex][0];
+                var index = _this.replacements.length;
+                // console.log(index, match, expname + '(' + expressioncontent + ')' + body);
+                // console.log(expressioncontent, body);
+                _this.replacements.push([expname + expressioncontent + body, posi]);
+                return '___boundary_' + _this.uid + '_' + index + '_as_expression___';
+            }).replace(replaceExpRegPattern.if, function (match, posi, parentheses) {
+                // on = true;
+                var index = _this.replacements.length;
+                _this.replacements.push(['if ' + parentheses, posi]);
+                return '___boundary_' + _this.uid + '_' + index + '_as_if___';
+            });
             return string;
         };
         Sugar.prototype.replaceOperators = function (string) {
@@ -818,7 +816,7 @@
             on = true;
             while (on) {
                 on = false;
-                string = string.replace(operators.swords, function (match, before, posi, word, right) {
+                string = string.replace(operators.swords, function (match, before, word, right) {
                     // console.log(match, before, word);
                     on = true;
                     var index = _this.replacements.length;
@@ -1046,10 +1044,10 @@
             string = string
                 .replace(/:::(var|let|public)\s+(@\d+L\d+P(\d+O)?0:::)/g, ':::$1 ')
                 .replace(/([^,;\s])\s*(@\d+L\d+P(\d+O)?0:::[^\.\(\[)])/g, '$1;$2')
-                .replace(/[\r\n]+(___boundary_[A-Z0-9_]{36}_\d+_as_(if|class|function|extends|call|log|object|objlike|closure|parentheses)___)/g, ";$1")
-                .replace(/(___boundary_[A-Z0-9_]{36}_\d+_as_(log|closure)___)[\r\n]+/g, "$1;\r\n")
+                .replace(/[;\r\n]+(___boundary_[A-Z0-9_]{36}_\d+_as_(if|class|function|extends|call|log|object|objlike|closure|parentheses)___)/g, ";$1")
+                .replace(/(___boundary_[A-Z0-9_]{36}_\d+_as_(log|closure)___)[;\r\n]+/g, "$1;\r\n")
                 .replace(/[;\r\n]+((@\d+L\d+P\d+O?\d*:::)?___boundary_[A-Z0-9_]{36}_\d+_as_(callschain)___)/g, "$1")
-                .replace(/(___boundary_[A-Z0-9_]{36}_\d+_as_(if)___)[;\s]+/g, "$1 ")
+                .replace(/(___boundary_[A-Z0-9_]{36}_\d+_as_(if)___)[;\s]*/g, "$1 ")
                 .trim();
             var sentences = string.split(/\s*;+\s*/);
             var lines = [];
@@ -1060,18 +1058,15 @@
                 if (sentence) {
                     var array = sentence.split(/:::(var|let|public)\s+/);
                     // console.log(array, sentence);
-                    // continue;
-                    // if(1)var a =2;
                     if (array.length === 1) {
                         var definition = sentence.match(/(^|\s+)(var|let|public)(\s+|$)/);
                         if (definition) {
-                            var definitions = sentence.match(/(@boundary_(\d+)_as_preoperator::|___boundary_[A-Z0-9_]{36}_\d+_as_(if|closure)___)\s*(var|let|public)\s+([\s\S]+)/);
+                            var definitions = sentence.match(/(@boundary_\d+_as_midword::|(@boundary_\d+_as_midword::\s*)?___boundary_[A-Z0-9_]{36}_\d+_as_(if|closure)___)\s*(var|let|public)\s+([\s\S]+)/);
+                            // console.log(definitions);
                             if (definitions) {
-                                if (!definitions[2] || this.replacements[definitions[2]][0] === 'else ') {
-                                    this.pushSentenceToLines(lines, definitions[1], 'inline');
-                                    this.pushVariablesToLines(lines, vars, undefined, definitions[5], definitions[4], true);
-                                    continue;
-                                }
+                                this.pushSentenceToLines(lines, definitions[1], 'inline');
+                                this.pushVariablesToLines(lines, vars, undefined, definitions[5], definitions[4], true);
+                                continue;
                             }
                             // console.log(sentence);
                             this.error('Unexpected `' + definition[1] + '` in `' + this.decode(sentence) + '`.');
@@ -1095,11 +1090,24 @@
             // console.log(lines);
             return lines;
         };
+        Sugar.prototype.checkTretOfMatch = function (match_as_statement) {
+            var tret_of_match = match_as_statement[3].trim();
+            if (tret_of_match && !(tret_of_match === ';' && ['class', 'function', 'closure', 'if']['includes'](match_as_statement[2]))) {
+                return [{
+                        index: match_as_statement[1],
+                        display: 'inline',
+                        type: match_as_statement[2]
+                    }, tret_of_match];
+            }
+            else {
+                return null;
+            }
+        };
         Sugar.prototype.pushSentenceToLines = function (lines, code, display) {
             value = code.trim();
             if (value && !value.match(/^@\d+L\d+P\d+O?\d*:::$/)) {
                 var match_as_statement = value.match(/^___boundary_[A-Z0-9_]{36}_(\d+)_as_([a-z]+)___([\r\n]+|$)/);
-                // console.log(match_as_statement);
+                // console.log(match_as_statement, display);
                 if (match_as_statement) {
                     if (display === 'block' && !['class', 'function', 'closure', 'if']['includes'](match_as_statement[2])) {
                         // console.log(match_as_statement[2]);
@@ -1315,73 +1323,7 @@
                     case 'sentence':
                         // console.log(lines[index]);
                         var code = lines[index_4].value.trim();
-                        if (code) {
-                            var inline = [];
-                            var statements = code.split('___boundary_' + this.uid);
-                            while (!statements[0].trim()) {
-                                statements.shift();
-                            }
-                            // console.log(statements)
-                            for (var s = 0; s < statements.length; s++) {
-                                var statement = statements[s];
-                                if (statement.trim()) {
-                                    var match_as_statement = statement.match(matchExpRegPattern.index3);
-                                    // console.log(match_as_statement);
-                                    if (match_as_statement) {
-                                        var tret_of_match = match_as_statement[3];
-                                        if (tret_of_match.trim() && !(tret_of_match === ';' && ['class', 'function', 'closure', 'if']['includes'](match_as_statement[2]))) {
-                                            inline.push({
-                                                index: match_as_statement[1],
-                                                display: 'inline',
-                                                type: match_as_statement[2]
-                                            });
-                                            var rows = tret_of_match.split(/[\r\n]+/);
-                                            for (var r = 0; r < rows.length; r++) {
-                                                var row = rows[r];
-                                                if (row.trim()) {
-                                                    this.pushCodeToAST(inline, vars, row, false, undefined);
-                                                }
-                                            }
-                                        }
-                                        else {
-                                            // console.log(lines[index].display);
-                                            if (statements.length === 1) {
-                                                inline.push({
-                                                    index: match_as_statement[1],
-                                                    display: lines[index_4].display,
-                                                    type: match_as_statement[2]
-                                                });
-                                            }
-                                            else {
-                                                inline.push({
-                                                    index: match_as_statement[1],
-                                                    display: 'inline',
-                                                    type: match_as_statement[2]
-                                                });
-                                            }
-                                        }
-                                    }
-                                    else {
-                                        if ((statements.length === 1) && (lines[index_4].display === 'block')) {
-                                            var isblock = true;
-                                        }
-                                        else {
-                                            var isblock = false;
-                                        }
-                                        // console.log(array[0], lines[index].posi);
-                                        var rows = statements[0].split(/[\r\n]+/);
-                                        // console.log(rows, array.length);
-                                        for (var r = 0; r < rows.length; r++) {
-                                            var row = rows[r];
-                                            if (row.trim()) {
-                                                this.pushCodeToAST(inline, vars, row, isblock, (r === 0) && lines[index_4].posi);
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                            preast.push(inline);
-                        }
+                        this.pushSentencesToPREAST(preast, vars, code, lines[index_4].display, lines[index_4].posi);
                         break;
                     case 'variable':
                     case 'assignment':
@@ -1444,6 +1386,50 @@
             // console.log(imports, preast);
             return preast;
         };
+        Sugar.prototype.pushSentencesToPREAST = function (preast, vars, code, display, lineposi) {
+            if (preast === void 0) { preast = []; }
+            if (display === void 0) { display = 'block'; }
+            if (code) {
+                var inline = [];
+                var statements = code.split('___boundary_' + this.uid);
+                while (!statements[0].trim()) {
+                    statements.shift();
+                }
+                // console.log(statements)
+                for (var s = 0; s < statements.length; s++) {
+                    var statement = statements[s];
+                    if (statement.trim()) {
+                        var match_as_statement = statement.match(matchExpRegPattern.index3);
+                        // console.log(match_as_statement);
+                        if (match_as_statement) {
+                            var array = this.checkTretOfMatch(match_as_statement);
+                            if (array) {
+                                inline.push(array[0]);
+                                this.pushRowsToAST(inline, vars, array[1], false, undefined);
+                            }
+                            else {
+                                // console.log(lines[index].display);
+                                inline.push({
+                                    index: match_as_statement[1],
+                                    display: (statements.length === 1) ? display : 'inline',
+                                    type: match_as_statement[2]
+                                });
+                            }
+                        }
+                        else {
+                            if ((statements.length === 1) && (display === 'block')) {
+                                this.pushRowsToAST(inline, vars, statements[0], true, lineposi);
+                            }
+                            else {
+                                this.pushRowsToAST(inline, vars, statements[0], false, lineposi);
+                            }
+                        }
+                    }
+                }
+                preast.push(inline);
+                return preast;
+            }
+        };
         Sugar.prototype.buildAST = function (preast, vars) {
             // console.log(preast);
             var ast = {
@@ -1491,10 +1477,10 @@
             for (var index_6 = 0; index_6 < lines.length; index_6++) {
                 switch (lines[index_6].subtype) {
                     case 'sentence':
-                        var line = lines[index_6].value.trim();
+                        var code_1 = lines[index_6].value.trim();
                         // console.log(lines[index].display === 'block', line);
                         // console.log(lines[index]);
-                        this.pushSentencesToAST(body, vars, line, !inOrder && (lines[index_6].display === 'block'), lines[index_6].posi);
+                        this.pushSentencesToAST(body, vars, code_1, !inOrder && (lines[index_6].display === 'block'), lines[index_6].posi);
                         break;
                     case 'variable':
                         body.push({
@@ -1517,24 +1503,23 @@
             // console.log(body);
             return body;
         };
-        Sugar.prototype.pushSentencesToAST = function (body, vars, code, isblock, blockposi) {
+        Sugar.prototype.pushSentencesToAST = function (body, vars, code, isblock, lineposi) {
             if (body === void 0) { body = []; }
             if (isblock === void 0) { isblock = true; }
             if (code) {
-                // console.log(isblock, blockposi);
+                // console.log(isblock, lineposi);
                 var inline = [];
-                var array = code.split('___boundary_' + this.uid);
-                // console.log(array);
-                while (array.length && !array[0].trim()) {
-                    array.shift();
+                var statements = code.split('___boundary_' + this.uid);
+                while (!statements[0].trim()) {
+                    statements.shift();
                 }
-                // console.log(array);
-                if (array.length === 1) {
-                    this.pushReplacementsToAST(inline, vars, array[0], isblock, blockposi);
+                // console.log(statements)
+                if (statements.length === 1) {
+                    this.pushReplacementsToAST(inline, vars, statements[0], isblock, lineposi);
                 }
                 else {
-                    for (var index_7 = 0; index_7 < array.length; index_7++) {
-                        this.pushReplacementsToAST(inline, vars, array[index_7], false, (index_7 === 0) && blockposi);
+                    for (var s = 0; s < statements.length; s++) {
+                        this.pushReplacementsToAST(inline, vars, statements[s], false, (s === 0) && lineposi);
                     }
                 }
                 if (inline.length === 1) {
@@ -1550,28 +1535,18 @@
             }
             return body;
         };
-        Sugar.prototype.pushReplacementsToAST = function (body, vars, code, isblock, blockposi) {
+        Sugar.prototype.pushReplacementsToAST = function (body, vars, code, isblock, lineposi) {
             // console.log(code);
             // code = code.trim();
             if (code.trim()) {
                 var match_as_statement = code.match(matchExpRegPattern.index3);
-                // console.log(code, match_as_statement, isblock, blockposi);
+                // console.log(match_as_statement);
+                // console.log(code, match_as_statement, isblock, lineposi);
                 if (match_as_statement) {
-                    var tret_of_match = match_as_statement[3].trim();
-                    // console.log(code, match_as_statement, isblock, blockposi);
-                    if (tret_of_match && tret_of_match !== ';') {
-                        body.push(this.walk({
-                            index: match_as_statement[1],
-                            display: 'inline',
-                            type: match_as_statement[2]
-                        }, vars, true));
-                        var rows = tret_of_match.split(/[\r\n]+/);
-                        for (var r = 0; r < rows.length; r++) {
-                            var row = rows[r];
-                            if (row.trim()) {
-                                this.pushCodeToAST(body, vars, row, false, undefined);
-                            }
-                        }
+                    var array = this.checkTretOfMatch(match_as_statement);
+                    if (array) {
+                        body.push(this.walk(array[0], vars, true));
+                        this.pushRowsToAST(body, vars, array[1], false, undefined);
                     }
                     else {
                         body.push(this.walk({
@@ -1582,21 +1557,25 @@
                     }
                 }
                 else {
-                    var rows = code.split(/[\r\n]+/);
-                    // console.log(array);
-                    for (var r = 0; r < rows.length; r++) {
-                        var row = rows[r];
-                        if (row.trim()) {
-                            this.pushCodeToAST(body, vars, row, isblock, (r === 0) && blockposi);
-                        }
-                    }
+                    this.pushRowsToAST(body, vars, code, isblock, lineposi);
                 }
             }
             return body;
         };
-        Sugar.prototype.pushCodeToAST = function (body, vars, code, isblock, blockposi) {
+        Sugar.prototype.pushRowsToAST = function (body, vars, code, isblock, lineposi) {
+            var rows = code.split(/[\r\n]+/);
+            // console.log(array);
+            for (var r = 0; r < rows.length; r++) {
+                var row = rows[r];
+                if (row.trim()) {
+                    this.pushCodeToAST(body, vars, row, isblock, (r === 0) && lineposi);
+                }
+            }
+            return body;
+        };
+        Sugar.prototype.pushCodeToAST = function (body, vars, code, isblock, lineposi) {
             var display = isblock ? 'block' : 'inline';
-            var position = this.getPosition(code) || blockposi;
+            var position = this.getPosition(code) || lineposi;
             if (position) {
                 var element = code.replace(position.match, '');
             }
@@ -1830,7 +1809,7 @@
                 return '';
             });
             // console.log(code, calls, position);
-            if (type === 'log') {
+            if (type === 'log' && position) {
                 position.head = true;
             }
             return {
@@ -2009,13 +1988,13 @@
                                 body: []
                             };
                             var lines = this.pushBodyToAST([], localvars_1, headline, true);
-                            for (var index_8 = 0; index_8 < lines.length; index_8++) {
-                                if (lines[index_8].posi)
-                                    lines[index_8].posi.head = false;
-                                if ((index_8 === lines.length - 1) && lines[index_8].value) {
-                                    lines[index_8].value = lines[index_8].value.replace(/;$/, '');
+                            for (var index_7 = 0; index_7 < lines.length; index_7++) {
+                                if (lines[index_7].posi)
+                                    lines[index_7].posi.head = false;
+                                if ((index_7 === lines.length - 1) && lines[index_7].value) {
+                                    lines[index_7].value = lines[index_7].value.replace(/;$/, '');
                                 }
-                                head.body.push(lines[index_8]);
+                                head.body.push(lines[index_7]);
                             }
                         }
                         else {
@@ -2026,6 +2005,7 @@
                         }
                         var body = this.pushBodyToAST([], localvars_1, matches[5]);
                         this.resetVarsRoot(localvars_1);
+                        // console.log(body);
                         return {
                             type: 'exp',
                             posi: this.getPosition(this.replacements[index][1]),
@@ -2212,8 +2192,8 @@
                         value: attr[6].trim()
                     });
                 }
-                for (var index_9 = 1; index_9 < array.length; index_9++) {
-                    var element = array[index_9];
+                for (var index_8 = 1; index_8 < array.length; index_8++) {
+                    var element = array[index_8];
                     var match_as_statement = element.trim().match(matchExpRegPattern.index3);
                     // console.log(matches);
                     if (match_as_statement) {
@@ -2272,8 +2252,8 @@
             // console.log(code);
             var body = [], array = code.replace('_as_function___', '_as_function___;').split(/[;,\r\n]+/);
             // console.log(code);
-            for (var index_10 = 0; index_10 < array.length; index_10++) {
-                var element = array[index_10].trim();
+            for (var index_9 = 0; index_9 < array.length; index_9++) {
+                var element = array[index_9].trim();
                 var type = 'method';
                 // console.log(element);
                 if (element) {
@@ -2344,8 +2324,8 @@
         Sugar.prototype.checkObjMember = function (vars, code) {
             var that = this, body = [], bodyIndex = -1, lastIndex = 0, array = code.split(/\s*[\{,\}]\s*/);
             // console.log(code, array);
-            for (var index_11 = 0; index_11 < array.length; index_11++) {
-                var element = array[index_11].trim();
+            for (var index_10 = 0; index_10 < array.length; index_10++) {
+                var element = array[index_10].trim();
                 if (element) {
                     var elArr = element.split('___boundary_' + this.uid);
                     if (elArr[0] && elArr[0].trim()) {
@@ -2413,8 +2393,8 @@
         Sugar.prototype.checkArgs = function (code, localvars) {
             var args = code.split(/\s*,\s*/), keys = [], keysArray = void 0, vals = [];
             // console.log(code, args);
-            for (var index_12 = 0; index_12 < args.length; index_12++) {
-                var arg = args[index_12];
+            for (var index_11 = 0; index_11 < args.length; index_11++) {
+                var arg = args[index_11];
                 if (arg) {
                     var array = arg.split(/\s*=\s*/);
                     var position = this.getPosition(array[0]);
@@ -2448,17 +2428,17 @@
             // console.log(code);
             var body = [];
             // console.log(args, lines);
-            for (var index_13 = 0; index_13 < args.vals.length; index_13++) {
-                if (args.vals[index_13] !== undefined) {
-                    var valArr = args.vals[index_13].split('___boundary_' + this.uid);
+            for (var index_12 = 0; index_12 < args.vals.length; index_12++) {
+                if (args.vals[index_12] !== undefined) {
+                    var valArr = args.vals[index_12].split('___boundary_' + this.uid);
                     if (valArr[1]) {
                         body.push({
                             type: 'code',
-                            posi: args.keys[index_13][1],
+                            posi: args.keys[index_12][1],
                             display: 'block',
-                            value: 'if (' + args.keys[index_13][0] + '@boundary_5_as_operator::void 0) { ' + args.keys[index_13][0] + ' = ' + valArr[0]
+                            value: 'if (' + args.keys[index_12][0] + '@boundary_5_as_operator::void 0) { ' + args.keys[index_12][0] + ' = ' + valArr[0]
                         });
-                        this.pushReplacementsToAST(body, vars, valArr[1], false, this.getPosition(args.vals[index_13]));
+                        this.pushReplacementsToAST(body, vars, valArr[1], false, this.getPosition(args.vals[index_12]));
                         body.push({
                             type: 'code',
                             posi: void 0,
@@ -2469,9 +2449,9 @@
                     else {
                         body.push({
                             type: 'code',
-                            posi: args.keys[index_13][1],
+                            posi: args.keys[index_12][1],
                             display: 'block',
-                            value: 'if (' + args.keys[index_13][0] + '@boundary_5_as_operator::void 0) { ' + args.keys[index_13][0] + ' = ' + valArr[0] + '; }'
+                            value: 'if (' + args.keys[index_12][0] + '@boundary_5_as_operator::void 0) { ' + args.keys[index_12][0] + ' = ' + valArr[0] + '; }'
                         });
                     }
                 }
@@ -2507,9 +2487,9 @@
         Sugar.prototype.pushPostionsToMap = function (position, codes) {
             if (codes === void 0) { codes = undefined; }
             if (position && (typeof position === 'object')) {
-                var index_14 = this.posimap.length;
+                var index_13 = this.posimap.length;
                 this.posimap.push(position);
-                var replace = '/* @posi' + index_14 + ' */';
+                var replace = '/* @posi' + index_13 + ' */';
                 if (codes) {
                     codes.push(replace);
                 }
@@ -2540,8 +2520,8 @@
             }
             if (this.imports.length) {
                 var imports = [];
-                for (var index_15 = 0; index_15 < this.imports.length; index_15 += 2) {
-                    imports.push(this.pushPostionsToMap(this.getPosition(this.imports[index_15 + 1])) + "'" + this.imports[index_15] + "'");
+                for (var index_14 = 0; index_14 < this.imports.length; index_14 += 2) {
+                    imports.push(this.pushPostionsToMap(this.getPosition(this.imports[index_14 + 1])) + "'" + this.imports[index_14] + "'");
                 }
                 // console.log(this.imports, imports);
                 codes.push("\r\n\t" + imports.join(",\r\n\t") + "\r\n");
@@ -2585,8 +2565,8 @@
             // console.log(codes, array);
             // console.log(array);
             // console.log(layer, array);
-            for (var index_16 = 0; index_16 < array.length; index_16++) {
-                var element = array[index_16];
+            for (var index_15 = 0; index_15 < array.length; index_15++) {
+                var element = array[index_15];
                 // console.log(element);
                 this.pushElement(codes, vars, element, layer, namespace);
             }
@@ -2685,14 +2665,14 @@
                     _break = true;
                 }
                 // console.log(element.body);
-                for (var index_17 = 0; index_17 < element.body.length; index_17++) {
-                    if (element.body[index_17].value) {
-                        elements.push(this.pushPostionsToMap(element.body[index_17].posi) + element.body[index_17].value);
+                for (var index_16 = 0; index_16 < element.body.length; index_16++) {
+                    if (element.body[index_16].value) {
+                        elements.push(this.pushPostionsToMap(element.body[index_16].posi) + element.body[index_16].value);
                     }
                     else {
                         var elemCodes = [];
-                        this.pushPostionsToMap(element.body[index_17].posi, elemCodes);
-                        this.pushElement(elemCodes, element.vars, element.body[index_17], _layer, namespace);
+                        this.pushPostionsToMap(element.body[index_16].posi, elemCodes);
+                        this.pushElement(elemCodes, element.vars, element.body[index_16], _layer, namespace);
                         if (elemCodes.length) {
                             elements.push(elemCodes.join('').trim());
                         }
@@ -2751,10 +2731,10 @@
                     _break = true;
                 }
                 // console.log(element.name[0].value, element.params.length, element.params[0]);
-                for (var index_18 = 0; index_18 < element.params.length; index_18++) {
-                    var param = element.params[index_18].body;
+                for (var index_17 = 0; index_17 < element.params.length; index_17++) {
+                    var param = element.params[index_17].body;
                     var paramCodes = [];
-                    this.pushPostionsToMap(element.params[index_18].posi, paramCodes);
+                    this.pushPostionsToMap(element.params[index_17].posi, paramCodes);
                     this.pushCodes(paramCodes, element.vars, param, _layer, namespace);
                     if (paramCodes.length) {
                         parameters.push(paramCodes.join('').trim());
@@ -2776,7 +2756,10 @@
                 }
             }
             // console.log(element.display);
-            if (element.display === 'block' && element.type !== 'if') {
+            if (element.type === 'if') {
+                codes.push(') ');
+            }
+            else if (element.display === 'block') {
                 codes.push(');');
             }
             else {
@@ -2799,8 +2782,8 @@
                 _break = true;
                 indent = "\r\n" + stringRepeat("\t", _layer);
             }
-            for (var index_19 = 0; index_19 < element.calls.length; index_19++) {
-                var method = element.calls[index_19];
+            for (var index_18 = 0; index_18 < element.calls.length; index_18++) {
+                var method = element.calls[index_18];
                 // console.log(method);
                 elements.push(this.pushElement([], element.vars, method, _layer, namespace).join(''));
             }
@@ -2865,8 +2848,8 @@
             codes.push('{');
             // console.log(element);
             if (toES6) {
-                for (var index_20 = 0; index_20 < element.body.length; index_20++) {
-                    var member = element.body[index_20];
+                for (var index_19 = 0; index_19 < element.body.length; index_19++) {
+                    var member = element.body[index_19];
                     var elem = [];
                     // console.log(member);
                     switch (member.type) {
@@ -2912,8 +2895,8 @@
                 var setters = [];
                 var getters = [];
                 var indent3 = "\r\n" + stringRepeat("\t", layer + 2);
-                for (var index_21 = 0; index_21 < element.body.length; index_21++) {
-                    var member = element.body[index_21];
+                for (var index_20 = 0; index_20 < element.body.length; index_20++) {
+                    var member = element.body[index_20];
                     var elem = [];
                     // console.log(member);
                     switch (member.type) {
@@ -3054,8 +3037,8 @@
             }
             if (element.args.length) {
                 var args = [];
-                for (var index_22 = 0; index_22 < element.args.length; index_22++) {
-                    args.push(this.pushPostionsToMap(element.args[index_22][1]) + element.args[index_22][0]);
+                for (var index_21 = 0; index_21 < element.args.length; index_21++) {
+                    args.push(this.pushPostionsToMap(element.args[index_21][1]) + element.args[index_21][0]);
                 }
                 codes.push(args.join(', '));
             }
@@ -3186,8 +3169,8 @@
             // console.log(element);
             var overrides = {};
             var indent3 = "\r\n" + stringRepeat("\t", layer + 2);
-            for (var index_23 = 0; index_23 < element.body.length; index_23++) {
-                var member = element.body[index_23];
+            for (var index_22 = 0; index_22 < element.body.length; index_22++) {
+                var member = element.body[index_22];
                 var elem = [];
                 // console.log(member);
                 switch (member.type) {
@@ -3320,8 +3303,8 @@
                     _break = true;
                 }
                 // console.log(_break, element);
-                for (var index_24 = 0; index_24 < element.body.length; index_24++) {
-                    var member = element.body[index_24];
+                for (var index_23 = 0; index_23 < element.body.length; index_23++) {
+                    var member = element.body[index_23];
                     var elem = [];
                     // console.log(member);
                     switch (member.type) {
@@ -3591,6 +3574,7 @@
             // console.log(string);
             string = string.replace(/[;\s]*[\r\n]+(\t*)[ ]*(@boundary_\d+_as_comments::)(@boundary_\d+_as_operator::)\s*/g, "\r\n$1   $2$3");
             string = string.replace(/\s*(@boundary_\d+_as_operator::)[;\s]*[\r\n]+(\t*)[ ]*(@boundary_\d+_as_comments::)/g, "\r\n$2   $3 $1 ");
+            string = string.replace(/[;\s]*[\r\n]+(\t*)[ ]*(@boundary_\d+_as_comments::)(@boundary_\d+_as_midword::)\s*/g, "\r\n$1$2$3");
             // 格式化相应符号
             string = string.replace(/\s*(\=|\?)\s*/g, " $1 ");
             string = string.replace(/\s+(\:)[\s]*/g, " $1 ");
@@ -3601,7 +3585,7 @@
             string = string.replace(/\[\s+\]/g, '[]');
             string = string.replace(/\(\s+\)/g, '()');
             // 运算符处理
-            string = string.replace(/(\s*)(@boundary_(\d+)_as_(operator|aftoperator)::)\s*/g, function (match, pregap, operator, index) {
+            string = string.replace(/(\s*)(@boundary_(\d+)_as_(operator|aftoperator|keyword|midword)::)\s*/g, function (match, pregap, operator, index) {
                 // console.log(this.replacements[index]);
                 if (_this.replacements[index][1]) {
                     // console.log(this.replacements[index]);
@@ -3626,12 +3610,19 @@
                 var mapping = [];
                 var match = void 0;
                 while (match = line.match(/\/\*\s@posi(\d+)\s\*\//)) {
-                    var index_25 = match.index;
+                    var index_24 = match.index;
                     var position = this.posimap[match[1]];
                     // console.log(position);
-                    mapping.push([index_25, position.o[0], position.o[1], position.o[2], 0]);
+                    mapping.push([index_24, position.o[0], position.o[1], position.o[2], 0]);
                     line = line.replace(match[0], '');
                 }
+                // while (match = line.match(/\/\*\s@posi(\d+)\s\*\//)) {
+                //     let index = match.index;
+                //     let position = this.posimap[match[1]];
+                //     // console.log(position);
+                //     mapping.push([index, position.o[0], position.o[1], position.o[2], 0]);
+                //     line = line.replace(match[0], '/* ' + position.o.join() +' */');
+                // }
                 _lines.push(line);
                 mappings.push(mapping);
             }

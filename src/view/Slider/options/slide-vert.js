@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Sat, 05 May 2018 06:22:27 GMT
+ * Datetime: Sun, 06 May 2018 09:07:09 GMT
  */
 ;
 // tangram.config({});
@@ -23,21 +23,21 @@ tangram.init().block([
 			var power = (this.actorsNum % 2) == 0 ? this.actorsNum : this.actorsNum + 1;
 			var heightTroupe = 100 * power;
 			var heightAactor = 100/power;
-			this.troupe.style.width = '100%'
-			this.troupe.style.height = heightTroupe + '%'
+			this.troupe.style.width = '100%';
+			this.troupe.style.height = heightTroupe + '%';
 			this.troupe.style.top = 0;
 			this.troupe.style.left = 0;
 			$(this.actors).each(function (i) {
-				this.setAttribute('data-actor-index', i)
-				this.style.width = '100%'
+				this.setAttribute('data-actor-index', i);
+				this.style.width = '100%';
 				this.style.height = heightAactor + '%';
-			})
+			});
 			if (this.renderPanel) {
 				$('.panel', this.Element).each(function () {
 					$('.slider-anchor', this).each(function (i) {
 						this.setAttribute('data-actor-index', i);
 					});
-				})
+				});
 			};
 		},
 		correcter: function (to) {
@@ -46,9 +46,9 @@ tangram.init().block([
 			return to;
 		},
 		cut: function (n) {
-			var to = this.correcter(n)
+			var to = this.correcter(n);
 			var position = to *  -100;
-			$(this.troupe).stop(true, true).animate({top: position + '%'}, this.duration, this.easing)
+			$(this.troupe).stop(true, true).animate({top: position + '%'}, this.duration, this.easing);
 			this.curr = to;
 		}
 	});

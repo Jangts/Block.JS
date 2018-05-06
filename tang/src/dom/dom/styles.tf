@@ -31,6 +31,7 @@ computedStyle = (elem, property) {
                 });
             style[key] = currentStyle[key];
             style[prop] = currentStyle[key];
+            log a;
         }
         style.styleFloat = style.cssFloat;
         return style;

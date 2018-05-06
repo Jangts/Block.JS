@@ -22,7 +22,7 @@ this.tangram.init().auto([
                     var sugar = tangram_js_sugar(data).compile().run(function (content) {
                         console.log(this.ast);
                         // console.log(this.posimap, this.mappings);
-                        console.log(content);
+                        console.log(true, content);
                         // console.log(data);
                         // console.log(this.min());
                     }, function () {

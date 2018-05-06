@@ -30,7 +30,7 @@ expands .Elements {
             case 'string':
             case 'number':
                 this.each((index) {
-                    ...setData(this, dataName, ..util.bool.isFn(data) ? data.call(this, index) : data)
+                    ...setData(this, dataName, bool.isFn(data) ? data.call(this, index) : data)
                 });
                 break;
             case 'function':

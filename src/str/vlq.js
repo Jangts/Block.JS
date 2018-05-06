@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Sat, 05 May 2018 06:22:26 GMT
+ * Datetime: Sun, 06 May 2018 09:07:08 GMT
  */
 ;
 // tangram.config({});
@@ -17,13 +17,13 @@ tangram.init().block([], function (pandora, root, imports, undefined) {
 		integerToChar[i] = char;
 	});
 	function decode (string) {
-		var result = []
+		var result = [];
 		var shift = 0;
 		var value = 0;
 		for (var i = 0;i < string.length;i += 1) {
-			var integer = charToInteger[string[i]]
+			var integer = charToInteger[string[i]];
 			if (integer === undefined) {
-				throw new Error('Invalid character (' + string[i] + ')')
+				throw new Error('Invalid character (' + string[i] + ')');
 			}
 			var hasContinuationBit = integer & 32;
 			integer &= 31;
@@ -34,7 +34,7 @@ tangram.init().block([], function (pandora, root, imports, undefined) {
 			else {
 				var shouldNegate = value & 1;
 				value >>= 1;
-				result.push(shouldNegate ?  -value : value)
+				result.push(shouldNegate ?  -value : value);
 				value = shift = 0;
 			}
 		}
@@ -43,18 +43,18 @@ tangram.init().block([], function (pandora, root, imports, undefined) {
 	function encode (value) {
 		var result = void 0;
 		if (typeof value === 'number') {
-			result = encodeInteger(value)
+			result = encodeInteger(value);
 		}
 		else {
-			result = ''
+			result = '';
 			for (var i = 0;i < value.length;i += 1) {
-				result += encodeInteger(value[i])
+				result += encodeInteger(value[i]);
 			}
 		}
 		return result;
 	}
 	function encodeInteger (num) {
-		var result = ''
+		var result = '';
 		if (num < 0) {
 			num = ( -num << 1)| 1;
 		}
@@ -67,7 +67,7 @@ tangram.init().block([], function (pandora, root, imports, undefined) {
 			if (num > 0) {
 				clamped |= 32;
 			}
-			result += integerToChar[clamped]
+			result += integerToChar[clamped];
 		}while(num > 0);
 		return result;
 	}

@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Sat, 05 May 2018 06:22:21 GMT
+ * Datetime: Sun, 06 May 2018 09:07:04 GMT
  */
 ;
 // tangram.config({});
@@ -13,27 +13,27 @@ tangram.init().block([], function (pandora, root, imports, undefined) {
 			return typeof key === 'string' ? item[key]:key(item);
 		}
 		var makeKeyIndexAndFree = function (list, key) {
-			var keyIndex = {}
-			var free = []
+			var keyIndex = {};
+			var free = [];
 			for (var i = 0, len = list.length;i < len;i++) {
-				var item = list[i]
-				var itemKey = getItemKey(item, key)
+				var item = list[i];
+				var itemKey = getItemKey(item, key);
 				if (itemKey) {
 					keyIndex[itemKey] = i;
 				}
 				else {
-					free.push(item)
+					free.push(item);
 				}
 			};
 		}
 		var diff = function (oldList, newList, key) {
-			var oldMap = makeKeyIndexAndFree(oldList, key)
-			var newMap = makeKeyIndexAndFree(newList, key)
+			var oldMap = makeKeyIndexAndFree(oldList, key);
+			var newMap = makeKeyIndexAndFree(newList, key);
 			var newFree = newMap.free;
 			var oldKeyIndex = oldMap.keyIndex;
 			var newKeyIndex = newMap.keyIndex;
-			var moves = []
-			var children = []
+			var moves = [];
+			var children = [];
 			var i = 0;
 			var item = void 0;
 			var itemKey = void 0;
@@ -42,7 +42,7 @@ tangram.init().block([], function (pandora, root, imports, undefined) {
 				var move = {
 					index: index,
 					type: 0
-				}
+				};
 				moves.push(move);
 			}
 			var insert = function (index, item) {
@@ -50,31 +50,31 @@ tangram.init().block([], function (pandora, root, imports, undefined) {
 					index: index,
 					item: item,
 					type: 1
-				}
+				};
 				moves.push(move);
 			}
 			var removeSimulate = function (index) {
 				simulateList.splice(index, 1);
 			}
 			while (i < oldList.length) {
-				item = oldList[i]
-				itemKey = getItemKey(item, key)
+				item = oldList[i];
+				itemKey = getItemKey(item, key);
 				if (itemKey) {
 					if (!newKeyIndex.hasOwnProperty(itemKey)) {
-						children.push(null)
+						children.push(null);
 					}
 					else {
-						var newItemIndex = newKeyIndex[itemKey]
-						children.push(newList[newItemIndex])
+						var newItemIndex = newKeyIndex[itemKey];
+						children.push(newList[newItemIndex]);
 					}
 				}
 				else {
-					var freeItem = newFree[freeIndex++]
-					children.push(freeItem || null)
+					var freeItem = newFree[freeIndex++];
+					children.push(freeItem || null);
 				}
 				i++;
 			}
-			var simulateList = children.slice(0)
+			var simulateList = children.slice(0);
 			i = 0;
 			while (i < simulateList.length) {
 				if (simulateList[i] === null) {
@@ -87,10 +87,10 @@ tangram.init().block([], function (pandora, root, imports, undefined) {
 			}
 			var j = 0;
 			while (i < newList.length) {
-				item = newList[i]
-				itemKey = getItemKey(item, key)
-				var simulateItem = simulateList[j]
-				var simulateItemKey = getItemKey(simulateItem, key)
+				item = newList[i];
+				itemKey = getItemKey(item, key);
+				var simulateItem = simulateList[j];
+				var simulateItemKey = getItemKey(simulateItem, key);
 				if (simulateItem) {
 					if (itemKey === simulateItemKey) {
 						j++;
@@ -100,7 +100,7 @@ tangram.init().block([], function (pandora, root, imports, undefined) {
 							insert(i, item);
 						}
 						else {
-							var nextItemKey = getItemKey(simulateList[j + 1], key)
+							var nextItemKey = getItemKey(simulateList[j + 1], key);
 							if (nextItemKey === itemKey) {
 								remove(i);
 								removeSimulate(j);

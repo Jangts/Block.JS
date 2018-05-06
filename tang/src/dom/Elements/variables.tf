@@ -43,12 +43,12 @@ sizes = (type, value, handler) {
     return this;
 },
 scroll_offset = (type, value) {
-    if (..util.bool.isNumeric(value)) {
+    if (bool.isNumeric(value)) {
         return this.each(() {
             ...setStyle(this, type, value);
         });
     }
-    if (..util.bool.isFn(value)) {
+    if (bool.isFn(value)) {
         return this.each((i) {
             ...setStyle(this, type, value(i, ...getStyle(this, type)));
         });

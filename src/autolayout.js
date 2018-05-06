@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Sat, 05 May 2018 06:22:22 GMT
+ * Datetime: Sun, 06 May 2018 09:07:04 GMT
  */
 ;
 // tangram.config({});
@@ -19,7 +19,7 @@ tangram.block([
 		auto: function () {
 			$('.tangram-see.scrollbar[data-ic-auto]').each(function () {
 				if (($(this).data('icAuto') != 'false') && ($(this).data('icRendered') != 'scrollbar')) {
-					$(this).data('icRendered', 'scrollbar')
+					$(this).data('icRendered', 'scrollbar');
 					new _.see.Scrollbar(this, {
 						theme: $(this).data('scbarTheme') || 'default-light'
 					});

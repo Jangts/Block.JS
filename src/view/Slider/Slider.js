@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Sat, 05 May 2018 06:22:27 GMT
+ * Datetime: Sun, 06 May 2018 09:07:10 GMT
  */
 ;
 // tangram.config({});
@@ -46,84 +46,84 @@ tangram.init().block([
 			if (bool.isEl(this.Element)) {
 				options = options || {}
 				if (bool.isStr(preset) && pandora.view.Slider.presets[preset]) {
-					pandora.extend(options, pandora.view.Slider.presets[preset])
+					pandora.extend(options, pandora.view.Slider.presets[preset]);
 				}
 				else if (bool.isObj(preset)) {
-					pandora.extend(options, preset)
+					pandora.extend(options, preset);
 				}
 				else {
-					pandora.extend(options, pandora.view.Slider.presets.slide)
+					pandora.extend(options, pandora.view.Slider.presets.slide);
 				}
-				pandora.extend(this, true, options)
+				pandora.extend(this, true, options);
 				if (this.Element && this.layout) {
 					var that = this;
-					$(this.Element).addClass(preset)
-					this.data && this.bluider && this.bluider()
+					$(this.Element).addClass(preset);
+					this.data && this.bluider && this.bluider();
 					this.stages = $('.stage', this.Element).addClass(bool.isArr(this.stageTheme) ? function (i) {
 						return that.theme[i];
-					} : this.stageTheme)
-					this.troupe = $('.troupe', this.Element).get(0)
-					this.actors = $('.actor', this.troupe)
+					} : this.stageTheme);
+					this.troupe = $('.troupe', this.Element).get(0);
+					this.actors = $('.actor', this.troupe);
 					this.panelTheme = this.panelTheme || this.stageTheme;
 					this.panel = $('.panel', this.Element).addClass(bool.isArr(this.panelTheme) ? function (i) {
 						return that.panelTheme[i];
-					} : this.panelTheme)
-					this.anchors = $('.slider-anchor', this.Element)
+					} : this.panelTheme);
+					this.anchors = $('.slider-anchor', this.Element);
 					this.actorsNum = bool.isFn(this.counter) ? this.counter(this.actors.length): this.actors.length;
-					this.layout()
-					this.bind()
-					this.uid = uid()
-					this.start && this.start.call(this, n)
-					Sliders[this.uid] = this.positive ? this.play(this.curr): this.play(this.actorsNum - 1)
+					this.layout();
+					this.bind();
+					this.uid = uid();
+					this.start && this.start.call(this, n);
+					Sliders[this.uid] = this.positive ? this.play(this.curr): this.play(this.actorsNum - 1);
 				}
 				else {
-					_.error('Cannot find Element object or layout method of this Slider!')
+					_.error('Cannot find Element object or layout method of this Slider!');
 				}
 			};
 		},
 		play: function (n) {
-			this.stop()
+			this.stop();
 			var that = this;
-			n = parseInt(n)
-			this.before && this.before.call(this, n)
-			this.cut && this.cut(n)
+			n = parseInt(n);
+			this.before && this.before.call(this, n);
+			this.cut && this.cut(n);
 			setTimeout(function () {
-				this.after && that.after.call(that, n)
+				this.after && that.after.call(that, n);
 				that.ontouched = false;
 			}, this.duration);
-			that.anchorStatus()
+			that.anchorStatus();
 			if (this.autoplay) {
 				if (bool.isFn(this.onprogress)) {
 					var speed = this.speed/100;
-					this.onprogress(progress = 0)
+					this.onprogress(progress = 0);
 					this.timer = setInterval(function () {
-						that.onprogress(++progress)
+						that.onprogress(++progress);
 						if (progress === 100) {
-							that.positive ? that.playNx(): that.playPr()
+							that.positive ? that.playNx(): that.playPr();
 						};
-					}, speed)
+					}, speed);
 				}
 				else {
 					this.timer = this.autoplay && setTimeout(function () {
 						that.positive ? that.playNx(): that.playPr();
-					}, this.speed)
+					}, this.speed);
 				}
 			}
 			return this;
 		},
 		playNx: function () {
-			this.stop()
+			this.stop();
 			var to = this.curr + 1;
 			if (this.loop || to < this.actorsNum) {
-				this.play(to)
+				this.play(to);
 			}
 			return this;
 		},
 		playPr: function () {
-			this.stop()
+			this.stop();
 			var to = this.curr - 1;
 			if (this.loop || to >= 0) {
-				this.play(to)
+				this.play(to);
 			}
 			return this;
 		},
@@ -135,7 +135,7 @@ tangram.init().block([
 			return this;
 		},
 		pause: function (pause) {
-			this.stop()
+			this.stop();
 			if (pause) {
 				this.autoplay = false;
 			}
@@ -144,25 +144,25 @@ tangram.init().block([
 				var that = this;
 				this.timer = setTimeout(function () {
 					that.positive ? that.playNx(): that.playPr();
-				}, this.speed)
+				}, this.speed);
 			}
 			return this;
 		},
 		bind: function () {
 			var that = this;
-			this.switchActionType = this.switchActionType == 'hover' ? 'mouseover':'click'
+			this.switchActionType = this.switchActionType == 'hover' ? 'mouseover':'click';
 			$(this.Element)
 				.on(this.switchActionType, '.cutter.goto-prev', function () {
-					that.pause(false).playPr()
+					that.pause(false).playPr();
 					that.pauseOnAction && (that.autoplay = false);
 				})
 				.on(this.switchActionType, '.cutter.goto-next', function () {
-					that.pause(false).playNx()
+					that.pause(false).playNx();
 					that.pauseOnAction && (that.autoplay = false);
 				})
 				.on(this.switchActionType, '.slider-anchor', function () {
 					var index = $(this).data('actorIndex') || 0;
-					that.pause(false).play(index)
+					that.pause(false).play(index);
 					that.pauseOnAction && (that.autoplay = false);
 				})
 				.on('touchstart', '.stage', function (e) {
@@ -175,25 +175,25 @@ tangram.init().block([
 				.on('touchend', '.stage', function (e) {
 					if (that.ontouched === true) {
 						if (directions[that.direction]) {
-							directions[that.direction].call(that, e)
+							directions[that.direction].call(that, e);
 						}
 					};
-				})
+				});
 			this.pauseOnHover && $(this.Element)
 				.bind('mouseover', function () {
 					that.pause(true);
 				})
 				.bind('mouseout', function () {
 					that.pause(false);
-				})
+				});
 			this.kbCtrlAble && $(document).bind('keydown', function (e) {
 				if (e.which == 37) {
-					that.pause(false).playPr()
-					that.pauseOnAction && (that.autoplay = false)
+					that.pause(false).playPr();
+					that.pauseOnAction && (that.autoplay = false);
 				}
 				if (e.which == 39) {
-					that.pause(false).playNx()
-					that.pauseOnAction && (that.autoplay = false)
+					that.pause(false).playNx();
+					that.pauseOnAction && (that.autoplay = false);
 				};
 			});
 		},
@@ -201,8 +201,8 @@ tangram.init().block([
 		anchorStatus: function () {
 			if (this.anchors && this.anchors.length >= this.actorsNum) {
 				var cur = this.curr < this.actorsNum ? this.curr : 0;
-				$(this.anchors).removeClass('active')
-				$(this.anchors[cur]).addClass('active')
+				$(this.anchors).removeClass('active');
+				$(this.anchors[cur]).addClass('active');
 			};
 		}
 	});
@@ -210,19 +210,19 @@ tangram.init().block([
 		presets: {},
 		extend: function () {
 			var _arguments = arguments;
-			var base = {}
-			var presets = {}
-			var args = [].slice.call(arguments)
+			var base = {};
+			var presets = {};
+			var args = [].slice.call(arguments);
 			pandora.each(args, function (_index, preset) {
 				if (bool.isStr(preset) && pandora.view.Slider.presets[preset]) {
-					_.extend(base, pandora.view.Slider.presets[preset])
+					_.extend(base, pandora.view.Slider.presets[preset]);
 				}
 				else if (bool.isObj(preset) && bool.isStr(preset.name)) {
 					presets[preset.name] = preset;
 				};
 			}, this);
 			pandora.each(presets, function (name, preset) {
-				pandora.view.Slider.presets[name] = _.extend({}, base, preset);
+				pandora.view.Slider.presets[name] = _.extend( {}, base, preset);
 			}, this);
 		}
 	});
@@ -234,21 +234,21 @@ tangram.init().block([
 			var power = (this.actorsNum % 2) == 0 ? this.actorsNum : this.actorsNum + 1;
 			var widthTroupe = 100 * power;
 			var widthAactor = 100/power;
-			this.troupe.style.width = widthTroupe + '%'
-			this.troupe.style.height = '100%'
+			this.troupe.style.width = widthTroupe + '%';
+			this.troupe.style.height = '100%';
 			this.troupe.style.top = 0;
 			this.troupe.style.left = 0;
 			$(this.actors).each(function (i) {
-				this.setAttribute('data-actor-index', i)
-				this.style.width = widthAactor + '%'
+				this.setAttribute('data-actor-index', i);
+				this.style.width = widthAactor + '%';
 				this.style.height = '100%';
-			})
+			});
 			if (this.renderPanel) {
 				$('.panel', this.Element).each(function () {
 					$('.slider-anchor', this).each(function (i) {
 						this.setAttribute('data-actor-index', i);
 					});
-				})
+				});
 			};
 		},
 		correcter: function (to) {
@@ -257,20 +257,20 @@ tangram.init().block([
 			return to;
 		},
 		cut: function (n) {
-			var to = this.correcter(n)
+			var to = this.correcter(n);
 			var position = to *  -100;
-			$(this.troupe).stop(true, true).animate({left: position + '%'}, this.duration, this.easing)
+			$(this.troupe).stop(true, true).animate({left: position + '%'}, this.duration, this.easing);
 			this.curr = to;
 		}
 	});
 	pandora.view.Slider.extend({
 		name: 'fade',
 		layout: function () {
-			var rank = this.rank(this.actorsNum)
+			var rank = this.rank(this.actorsNum);
 			$(this.actors).each(function (i) {
-				this.setAttribute('data-actor-index', rank[i])
-				this.style.position = 'absolute'
-				this.style.width = '100%'
+				this.setAttribute('data-actor-index', rank[i]);
+				this.style.position = 'absolute';
+				this.style.width = '100%';
 				this.style.top = 0;
 				this.style.left = 0;
 				this.style.opacity = i ? 0 : 1;
@@ -278,9 +278,9 @@ tangram.init().block([
 			});
 		},
 		rank: function (num) {
-			var rank = []
+			var rank = [];
 			for (var i = 0;i < num;i++) {
-				rank.push(i)
+				rank.push(i);
 			}
 			return rank;
 		},
@@ -292,12 +292,12 @@ tangram.init().block([
 		cut: function (n) {
 			var inner = this.troupe;
 			var from = this.curr;
-			var to = this.correcter(n)
+			var to = this.correcter(n);
 			if (from != to) {
 				$(this.troupe).find('[data-actor-index=' + to + ']').css('opacity', 1).hide().css('z-index', 200).stop(true, true).fadeIn(800, 'easeInOutQuart', function () {
-					$(inner).find('[data-actor-index=' + from + ']').css('z-index', 0).css('opacity', 0)
+					$(inner).find('[data-actor-index=' + from + ']').css('z-index', 0).css('opacity', 0);
 					$(this).css('z-index', 100);
-				})
+				});
 			}
 			this.curr = to;
 		}

@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Sat, 05 May 2018 06:22:21 GMT
+ * Datetime: Sun, 06 May 2018 09:07:04 GMT
  */
 ;
 // tangram.config({});
@@ -14,24 +14,24 @@ tangram.init().block([
 		merge: function () {
 			var _arguments = arguments;
 			if (arguments.length > 0) {
-				var array = []
+				var array = [];
 				for (var a = 0;a < arguments.length;a++) {
 					if (typeof arguments[a] == 'object' && arguments[a] instanceof Array) {
 						pandora.each(arguments[a], function (index, elememt) {
 							if (array.indexOf(elememt) < 0) {
-								array.push(elememt)
+								array.push(elememt);
 							};
 						}, this);
 					}
 				}
 			}
 			else {
-				var array = []
+				var array = [];
 			}
 			return array;
 		},
 		beObject: function (array1, array2) {
-			var object = {}
+			var object = {};
 			if (array2) {
 				for (var i = 0;i < array1.length;i++) {
 					object[array1[i]] = array2[i] || null;
@@ -39,7 +39,7 @@ tangram.init().block([
 			}
 			else {
 				for (var i = 0;i < array1.length;i++) {
-					object[i] = array1[i]
+					object[i] = array1[i];
 				}
 			}
 			return object;
@@ -47,14 +47,14 @@ tangram.init().block([
 		each: function (array, handler) {
 			if (_.util.type.isArray(array)) {
 				for (var i = 0;i < array.length;i++) {
-					handler.call(array[i], i, array[i])
+					handler.call(array[i], i, array[i]);
 				}
 			};
 		},
 		eachReverse: function (array, handler) {
 			if (_.util.type.isArray(array)) {
 				for (var i = array.length - 1;i >  -1;i--) {
-					handler.call(array[i], i, array[i])
+					handler.call(array[i], i, array[i]);
 				}
 			};
 		},
@@ -67,37 +67,37 @@ tangram.init().block([
 			return false;
 		},
 		push: function (elem, array, index) {
-			index = parseInt(index)
+			index = parseInt(index);
 			if (index >= 0 && index < array.length) {
 				var _array = array;
 				array.length = index;
 			}
 			else {
-				var _array = []
+				var _array = [];
 			}
-			array.push(elem)
+			array.push(elem);
 			for (var i = index + 1;i < _array.length;i++) {
-				array.push(_array[i])
+				array.push(_array[i]);
 			}
 			return array;
 		},
 		remove: function (array, elem) {
-			var result = []
+			var result = [];
 			for (var i = 0;i < array.length;i++) {
-				array[i] == elem || result.push(array[i])
+				array[i] == elem || result.push(array[i]);
 			}
 			return result;
 		},
 		removeByIndex: function (array, index) {
-			var result = []
+			var result = [];
 			for (var i = 0;i < array.length;i++) {
-				i == index || result.push(array[i])
+				i == index || result.push(array[i]);
 			}
 			return result;
 		},
 		index: function (array, elem) {
 			if (Array.prototype.indexOf) {
-				return array.indexOf(elem)
+				return array.indexOf(elem);
 			}
 			else {
 				for (var i = 0;i < array.length;i++) {
@@ -111,20 +111,20 @@ tangram.init().block([
 		},
 		where: function (array, filter) {
 			var _arguments = arguments;
-			var filtered = []
+			var filtered = [];
 			pandora.each(array, function (index, elem) {
 				if (filter(elem)) {
-					filtered.push(elem)
+					filtered.push(elem);
 				};
 			}, this);
 			return filtered;
 		},
 		unique: function (array) {
 			var _arguments = arguments;
-			var result = []
+			var result = [];
 			pandora.each(array, function (i, elem) {
 				if (_.arr.has(result, elem) === false) {
-					result.push(elem)
+					result.push(elem);
 				};
 			}, this);
 			return result;

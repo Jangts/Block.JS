@@ -24,7 +24,7 @@ this.tangram.init().auto([
                         console.log(this.ast);
                         // console.log(this.posimap, this.mappings);
 
-                        console.log(content);
+                        console.log(true, content);
                         // console.log(data);
                         // console.log(this.min());
                     }, function () {

@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Sat, 05 May 2018 06:22:24 GMT
+ * Datetime: Sun, 06 May 2018 09:07:06 GMT
  */
 ;
 // tangram.config({});
@@ -23,10 +23,10 @@ tangram.init().block([
 			}
 			else {
 				this.Element = new Audio;
-				this.type = 'AUDIO'
+				this.type = 'AUDIO';
 				sheet = elem;
 			}
-			this.sheet = {}
+			this.sheet = {};
 			this.register(sheet);
 		},
 		setSource: function (sources) {
@@ -35,14 +35,14 @@ tangram.init().block([
 				for (var i in sources) {
 					if (this.canPlay(i) == 'maybe') {
 						try {
-							that.Element.src = sources[i]
+							that.Element.src = sources[i];
 						}
 						catch (e) {
 							this.stop(function () {
 								that.Element.src = sources[i];
-							})
+							});
 						}
-						break
+						break;;
 					}
 				}
 			}
@@ -52,13 +52,13 @@ tangram.init().block([
 			if (sheet && (typeof sheet === 'object')) {
 				for (var code in sheet) {
 					if (sheet[code] && (typeof sheet[code] === 'object')) {
-						this.sheet[code] = sheet[code]
+						this.sheet[code] = sheet[code];
 					}
 				}
 			}
 			else if (sheet && sources && (typeof sheet === 'string') && (typeof sources === 'object')) {
-				this.sheet[code] = sheet[code]
-			}
+				this.sheet[code] = sheet[code];
+			};
 			return this;
 		},
 		clear: function (sheet, sources) {
@@ -66,20 +66,20 @@ tangram.init().block([
 		},
 		play: function (code) {
 			if (code && this.sheet[code]) {
-				this.setSource(this.sheet[code])
+				this.setSource(this.sheet[code]);
 			}
 			var that = this;
 			var duration = Date.now() - this.lastActionTime;
 			if (duration > this.protectTime) {
-				this.Element.play()
-				this.lastActionTime = Date.now()
+				this.Element.play();
+				this.lastActionTime = Date.now();
 			}
 			else {
-				this.timer && clearTimeout(this.timer)
+				this.timer && clearTimeout(this.timer);
 				this.timer = setTimeout(function () {
-					that.Element.play()
+					that.Element.play();
 					that.lastActionTime = Date.now();
-				}, this.protectTime - duration)
+				}, this.protectTime - duration);
 			}
 			return this;
 		},
@@ -90,17 +90,17 @@ tangram.init().block([
 			var that = this;
 			var duration = Date.now() - this.lastActionTime;
 			if (duration > this.protectTime) {
-				this.Element.pause()
-				this.lastActionTime = Date.now()
-				_.util.bool.isFn(onpause) && onpause.call(this)
+				this.Element.pause();
+				this.lastActionTime = Date.now();
+				_.util.bool.isFn(onpause) && onpause.call(this);
 			}
 			else {
-				this.timer && clearTimeout(this.timer)
+				this.timer && clearTimeout(this.timer);
 				this.timer = setTimeout(function () {
-					that.Element.pause()
-					that.lastActionTime = Date.now()
+					that.Element.pause();
+					that.lastActionTime = Date.now();
 					_.util.bool.isFn(onpause) && onpause.call(this);
-				}, this.protectTime - duration)
+				}, this.protectTime - duration);
 			}
 			return this;
 		},
@@ -108,7 +108,7 @@ tangram.init().block([
 			this.pause(function () {
 				this.Element.currentTime = 0;
 				_.util.bool.isFn(onstop) && onstop.call(this);
-			})
+			});
 			return this;
 		},
 		volume: function (vol) {
@@ -128,12 +128,12 @@ tangram.init().block([
 					}
 					this.Element.volume = volume;
 				}
-				break
+				break;;
 				case 'number':
 				if (vol >= 0 && vol <= 1) {
 					this.Element.volume = vol;
 				}
-				break
+				break;;
 			};
 		}
 	});

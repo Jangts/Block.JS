@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Sat, 05 May 2018 06:22:23 GMT
+ * Datetime: Sun, 06 May 2018 09:07:06 GMT
  */
 ;
 // tangram.config({});
@@ -15,9 +15,9 @@ tangram.init().block([
 	var query = pandora.dom.sizzle || pandora.dom.query;
 	var doc = root.document;
 	var removeByIndex = function (array, index) {
-		var result = []
+		var result = [];
 		for (var i = 0;i < array.length;i++) {
-			i == index || result.push(array[i])
+			i == index || result.push(array[i]);
 		}
 		return result;
 	}
@@ -33,7 +33,7 @@ tangram.init().block([
 		listen: function (eventType) {
 			if (!this.eventTypes[eventType]) {
 				var that = this;
-				var originType = this.originEventType(eventType, this.Element)
+				var originType = this.originEventType(eventType, this.Element);
 				if (originType) {
 					this.eventTypes[eventType] = {
 						Listener: function (event) {
@@ -41,32 +41,32 @@ tangram.init().block([
 						},
 						Selectors:  {},
 						Elements: []
-					}
-					doc.addEventListener ? this.Element.addEventListener(originType, this.eventTypes[eventType].Listener, false): this.Element.attachEvent("on" + originType, this.eventTypes[eventType].Listener)
+					};
+					doc.addEventListener ? this.Element.addEventListener(originType, this.eventTypes[eventType].Listener, false): this.Element.attachEvent("on" + originType, this.eventTypes[eventType].Listener);
 				}
 			}
 			return this;
 		},
 		push: function (eventType, selector, data, handler) {
 			if (typeof handler == 'function') {
-				this.listen(eventType)
+				this.listen(eventType);
 				if (this.eventTypes[eventType]) {
 					switch (typeof selector) {
 						case 'string':
-						this.eventTypes[eventType]['Selectors'][selector] = this.eventTypes[eventType]['Selectors'][selector] || []
+						this.eventTypes[eventType]['Selectors'][selector] = this.eventTypes[eventType]['Selectors'][selector] || [];
 						this.eventTypes[eventType]['Selectors'][selector].push({
 							data: data,
 							handler: handler
-						})
-						break
+						});
+						break;;
 						case 'object':
 						selector = selector || this.Element;
 						this.eventTypes[eventType]['Elements'].push({
 							elem: selector,
 							data: data,
 							handler: handler
-						})
-						break
+						});
+						break;;
 					}
 				}
 			}
@@ -105,19 +105,19 @@ tangram.init().block([
 			event.currentTarget = event.currentTarget || event.target || event.relatedTarget || event.srcElement;
 			event.target = event.target || event.currentTarget;
 			event.delegateTarget = this.Element;
-			event.path = event.path || pandora.dom.getParentNodes(event.target, true)
-			event.isCurrent = (event.delegateTarget === event.target)
+			event.path = event.path || pandora.dom.getParentNodes(event.target, true);
+			event.isCurrent = (event.delegateTarget === event.target);
 			event.wheelDelta = event.wheelDelta || event.detail *  -40;
 			event.timeStamp = Date.parse(new Date())/1000;
 			event.eventType = eventType;
 			if (_.arr.has(['keypress', 'keyup', 'keydown'], event.type) !== false) {
-				event.keyName = _.str.charCode(event.which)
+				event.keyName = _.str.charCode(event.which);
 			}
 			if (this.checkEventType(event, eventType)) {
-				var EventType = this.eventTypes[eventType]
+				var EventType = this.eventTypes[eventType];
 				for (var s in EventType['Selectors']) {
-					var selector = EventType['Selectors'][s]
-					var elements = query(s, this.Element)
+					var selector = EventType['Selectors'][s];
+					var elements = query(s, this.Element);
 					for (var i = 0;i < elements.length;i++) {
 						if (_.arr.has(event.path, elements[i]) !== false) {
 							for (var n in selector) {
@@ -127,7 +127,7 @@ tangram.init().block([
 					}
 				}
 				for (var e in EventType['Elements']) {
-					var selector = EventType['Elements'][e]
+					var selector = EventType['Elements'][e];
 					if (_.arr.has(event.path, selector.elem) !== false) {
 						callback(selector.elem, selector);
 					}
@@ -137,7 +137,7 @@ tangram.init().block([
 		},
 		trigger: function (eventType, target, data) {
 			if (this.eventTypes[eventType]) {
-				var originEventType = this.originEventType(eventType)
+				var originEventType = this.originEventType(eventType);
 				var event = {
 					path: [this.Element],
 					currentTarget: target,
@@ -149,7 +149,7 @@ tangram.init().block([
 					timeStamp: Date.parse(new Date())/1000,
 					type: originEventType,
 					eventType: eventType
-				}
+				};
 				var fire = function (callback) {
 					callback._handler = callback.handler;
 					callback.handler = function () {
@@ -160,8 +160,8 @@ tangram.init().block([
 					callback._handler.call(event.target, event);
 				}
 				for (var s in this.eventTypes[eventType]['Selectors']) {
-					var selector = this.eventTypes[eventType]['Selectors'][s]
-					var elements = query(s, this.Element)
+					var selector = this.eventTypes[eventType]['Selectors'][s];
+					var elements = query(s, this.Element);
 					for (var i = 0;i < elements.length;i++) {
 						if (elements[i] == target) {
 							for (var n in selector) {
@@ -171,7 +171,7 @@ tangram.init().block([
 					}
 				}
 				for (var e in this.eventTypes[eventType]['Elements']) {
-					var selector = this.eventTypes[eventType]['Elements'][e]
+					var selector = this.eventTypes[eventType]['Elements'][e];
 					if (selector.elem == target) {
 						fire(selector);
 					}
@@ -186,19 +186,19 @@ tangram.init().block([
 					case 'string':
 					for (var h in this.eventTypes[eventType]['Selectors'][selector]) {
 						if (this.eventTypes[eventType]['Selectors'][selector][h].handler == handler) {
-							delete this.eventTypes[eventType]['Selectors'][selector][h]
+							delete this.eventTypes[eventType]['Selectors'][selector][h];
 						}
 					}
-					break
+					break;;
 					case 'object':
 					for (var e = 0;
 					e < this.eventTypes[eventType]['Elements'].length;e++) {
 						if (this.eventTypes[eventType]['Elements'][e] && this.eventTypes[eventType]['Elements'][e].elem == selector && (this.eventTypes[eventType]['Elements'][e].handler == handler || this.eventTypes[eventType]['Elements'][e]._handler == handler)) {
-							this.eventTypes[eventType]['Elements'] = removeByIndex(this.eventTypes[eventType]['Elements'], e)
+							this.eventTypes[eventType]['Elements'] = removeByIndex(this.eventTypes[eventType]['Elements'], e);
 							e--;
 						}
 					}
-					break
+					break;;
 				}
 			}
 			return this;
@@ -208,34 +208,34 @@ tangram.init().block([
 				selector = selector || this.Element;
 				switch (typeof selector) {
 					case 'string':
-					delete this.eventTypes[eventType]['Selectors'][selector]
-					break
+					delete this.eventTypes[eventType]['Selectors'][selector];
+					break;;
 					case 'object':
 					for (var e = 0;
 					e < this.eventTypes[eventType]['Elements'].length;e++) {
 						if (this.eventTypes[eventType]['Elements'][e].elem == selector) {
-							this.eventTypes[eventType]['Elements'] = removeByIndex(this.eventTypes[eventType]['Elements'], e)
+							this.eventTypes[eventType]['Elements'] = removeByIndex(this.eventTypes[eventType]['Elements'], e);
 							e--;
 						}
 					}
-					break
+					break;;
 				}
 			}
 			return this;
 		},
 		removeType: function (eventType) {
 			if (this.eventTypes[eventType]) {
-				var originType = this.originEventType(eventType)
-				doc.addEventListener ? this.Element.removeEventListener(originType, this.eventTypes[eventType].Listener, false): this.Element.detachEvent("on" + originType, this.eventTypes[eventType].Listener)
-				delete this.eventTypes[eventType]
+				var originType = this.originEventType(eventType);
+				doc.addEventListener ? this.Element.removeEventListener(originType, this.eventTypes[eventType].Listener, false): this.Element.detachEvent("on" + originType, this.eventTypes[eventType].Listener);
+				delete this.eventTypes[eventType];
 			}
 			return this;
 		},
 		remove: function () {
 			for (var eventType in this.eventTypes) {
-				var originType = this.originEventType(eventType)
-				doc.addEventListener ? this.Element.removeEventListener(originType, this.eventTypes[eventType].Listener, false): this.Element.detachEvent("on" + originType, this.eventTypes[eventType].Listener)
-				delete this.eventTypes[eventType]
+				var originType = this.originEventType(eventType);
+				doc.addEventListener ? this.Element.removeEventListener(originType, this.eventTypes[eventType].Listener, false): this.Element.detachEvent("on" + originType, this.eventTypes[eventType].Listener);
+				delete this.eventTypes[eventType];
 			}
 			delete this.eventTypes;
 			delete this.Element;
@@ -244,9 +244,9 @@ tangram.init().block([
 	});
 	pandora.extend(pandora.dom.Events, {
 		setType: function (types) {
-			var domEvents = new pandora.dom.Events()
+			var domEvents = new pandora.dom.Events();
 			for (var i in types) {
-				domEvents._protected.types[i] = types[i]
+				domEvents._protected.types[i] = types[i];
 			};
 		}
 	});

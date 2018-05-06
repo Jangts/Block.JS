@@ -106,12 +106,12 @@
             op: /([\$\w]\s*(@\d+L\d+P\d+O*\d*:::)?)(\+|\-|\*\*|\*|\/|\%|\&)\s*((@\d+L\d+P\d+O*\d*:::)?(\s+(\+|\-))?[\$\w\.])/g,
             owords: /\s+(@\d+L\d+P\d+O*\d*:::)?(in|of)\s+(@\d+L\d+P\d+O*\d*:::)?/g,
             sign: /(^|\s*[^\+\-])(\+|\-)([\$\w\.])/g,
-            swords: /(^|[^\$\w])(@\d+L\d+P\d+O*\d*:::)?(typeof|instanceof|void|delete)\s+(@\d+L\d+P\d+O*\d*:::)?(\+*\-*[\$\w\.])/g,
+            swords: /(^|[^\$\w])(typeof|instanceof|void|delete)\s+((@\d+L\d+P\d+O*\d*:::)?\+*\-*[\$\w\.])/g,
             before: /(\+\+|\-\-|\!|\~)\s*([\$\w\.])/g,
             after: /([\$\w\.])[ \t]*(@\d+L\d+P\d+O*\d*:::)?(\+\+|\-\-)/g,
             error: /(.*)(\+\+|\-\-|\+|\-)(.*)/g
         },
-        replaceWords = /(^|@\d+L\d+P\d+O?\d*:::|\s)(continue|finally|return|throw|break|case|else|try|do)\s*(\s|;|___boundary_[A-Z0-9_]{36}_(\d+)_as_([a-z]+)___)/g,
+        replaceWords = /(^|@\d+L\d+P\d+O?\d*:::|\s)(continue|return|throw|break|case|else)\s*(\s|;|___boundary_[A-Z0-9_]{36}_(\d+)_as_([a-z]+)___)/g,
         replaceExpRegPattern = {
             module: /^((\s*@\d+L\d+P0:::)*\s*(@\d+L\d+P0*):::(\s*))?@module[;\s]*/,
             namespace: /[\r\n]((@\d+L\d+P0):::)?(\s*)namespace\s+(\.{0,1}[\$a-zA-Z_][\$\w\.]*)\s*(;|\r|\n)/,
@@ -126,8 +126,9 @@
             call: /(@\d+L\d+P\d+O*\d*:::)?((new)\s+([\$a-zA-Z_\.][\$\w\.]*)|(\.)?([\$a-zA-Z_][\$\w]*))\s*(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)\s*([^\$\w\s\{]|[\r\n].|\s*___boundary_[A-Z0-9_]{36}_\d+_as_array___|\s*@boundary_\d+_as_operator::|$)/g,
             callschain: /\s*(@\d+L\d+P\d+O*\d*:::)?\.\s*___boundary_[A-Z0-9_]{36}_(\d+)_as_(call|callmethod)___(\s*(@\d+L\d+P\d+O*\d*:::)?\.\s*___boundary_[A-Z0-9_]{36}_\d+_as_(call|callmethod)___)*/g,
             arrowfn: /(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)\s*(->|=>)\s*([^,;\r\n]+)\s*(,|;|\r|\n|$)/g,
-            closure: /((@\d+L\d+P\d+O*\d*:::)?@*[\$a-zA-Z_][\$\w]*|\)|\=|\(\s)?(@\d+L\d+P\d+O*\d*:::)?\s*\{(\s*[^\{\}]*?)\s*\}/g,
+            closure: /(@\d+L\d+P\d+O*\d*:::)?(@*[\$a-zA-Z_][\$\w]*|\)|\=|\(\s)?(@\d+L\d+P\d+O*\d*:::)?\s*\{(\s*[^\{\}]*?)\s*\}/g,
             expression: /(@\d+L\d+P\d+O*\d*:::)?(if|for|while|switch|with|catch|each)\s*(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)\s*;*\s*(___boundary_[A-Z0-9_]{36}_(\d+)_as_(closure|objlike)___)/g,
+            if: /(@\d+L\d+P\d+O*\d*:::)?if\s*(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)\s*/g,
             log: /(@\d+L\d+P\d+O*\d*:::)?log\s+(.+?)\s*([;\r\n]+|$)/g
         },
         matchExpRegPattern = {
@@ -192,7 +193,7 @@
             this.uid = boundaryMaker();
             this.markPattern = new RegExp('@boundary_(\\\d+)_as_(mark)::', 'g');
             this.trimPattern = new RegExp('(___boundary_' + this.uid + '_(\\\d+)_as_(string|pattern|template)___|___boundary_(\\\d+)_as_propname___)', 'g');
-            this.lastPattern = new RegExp('(___boundary_' + this.uid + '_(\\\d+)_as_(string|pattern|template)___|___boundary_(\\\d+)_as_propname___|@boundary_(\\\d+)_as_(preoperator|operator|aftoperator|comments)::)', 'g');
+            this.lastPattern = new RegExp('(___boundary_' + this.uid + '_(\\\d+)_as_(string|pattern|template)___|___boundary_(\\\d+)_as_propname___|@boundary_(\\\d+)_as_(keyword|midword|preoperator|operator|aftoperator|comments)::)', 'g');
             this.input = input;
             this.output = undefined;
             this.replacements = [['{}'], ['/='], ['/'], [' +'], [' -'], [' === ']];
@@ -564,7 +565,7 @@
                 // console.log(left, right);
                 if (left < right) {
                     string = this.replaceCodeSegments(string);
-                    string = this.recheckFunctionsLike(string)
+                    string = this.recheckFnOrCallLikes(string)
                     left = string.indexOf('{');
                     right = string.indexOf('}');
                 } else {
@@ -648,7 +649,7 @@
             });
             if (matched) return string;
 
-            return string.replace(replaceExpRegPattern.closure, (match: string, word: string, posi2, posi3, closure: string) => {
+            return string.replace(replaceExpRegPattern.closure, (match: string, posi1, word: string, posi3, closure: string) => {
                 // console.log(match, '|', word, '|', posi2, '|', posi3, '|', closure);
                 // if (!word && match.match(/\s*\{\s*\}/)) {
                 //     console.log(posi2, '|', posi3);
@@ -657,17 +658,8 @@
                 closure = this.replaceParentheses(closure);
                 // closure = this.replaceOperators(closure, false);
                 // console.log(closure);
-                if (posi2) {
-                    word = word.replace(posi2, '');
-                    posi2 = posi2.trim();
-                } else {
-                    posi2 = '';
-                }
-                if (posi3) {
-                    posi3 = posi3.trim();
-                } else {
-                    posi3 = '';
-                }
+                posi1 = posi1 ? posi1.trim() : '';
+                posi3 = posi3 ? posi3.trim() : '';
                 let index = this.replacements.length;
                 let index2;
                 switch (word) {
@@ -675,11 +667,11 @@
                         if ((closure.indexOf(';') >= 0) ||
                             !closure.match(/^\s*(@\d+L\d+P\d+O?\d*:::)?(___boundary_[A-Z0-9_]{36}_\d+_as_function___|[\$a-zA-Z_][\$\w]*\s*(,|:|$))/)) {
                             this.replacements.push(['{' + closure + '}', posi3]);
-                            return posi2 + (word || '') + posi3 + ' ___boundary_' + this.uid + '_' + index + '_as_closure___';
+                            return posi1 + (word || '') + posi3 + ' ___boundary_' + this.uid + '_' + index + '_as_closure___';
                         }
                         if (closure.match(/^\s*___boundary_[A-Z0-9_]{36}_\d+_as_function___\s*$/)) {
                             this.replacements.push(['{' + closure + '}', posi3]);
-                            return posi2 + (word || '') + posi3 + ' ___boundary_' + this.uid + '_' + index + '_as_objlike___';
+                            return posi1 + (word || '') + posi3 + ' ___boundary_' + this.uid + '_' + index + '_as_objlike___';
                         }
                         // console.log(closure);
                         // console.log(word, '|', posi2, '|', posi3);
@@ -692,26 +684,31 @@
 
                     case '@config':
                         if (this.configinfo === '{}') {
-                            this.configinfo_posi = posi2 || posi3;
+                            this.configinfo_posi = posi1 || posi3;
                             this.configinfo = this.decode(match.replace('@config', ''));
                         }
                         return '';
 
                     case 'return':
                     case 'typeof':
-                        this.replacements.push([word + ' ', posi2]);
+                        this.replacements.push([word + ' ', posi1]);
                         index2 = this.replacements.length;
                         this.replacements.push(['{' + closure + '}']);
                         return '@boundary_' + index + '_as_preoperator::___boundary_' + this.uid + '_' + index2 + '_as_object___';
 
                     case 'do':
                     case 'try':
-                    case 'else':
-                    case 'finally':
-                        this.replacements.push([word + ' ', posi2]);
+                        this.replacements.push([word + ' ', posi1]);
                         index2 = this.replacements.length;
                         this.replacements.push(['{' + closure + '}', posi3]);
-                        return '; @boundary_' + index + '_as_preoperator::___boundary_' + this.uid + '_' + index2 + '_as_closure___;';
+                        return '; @boundary_' + index + '_as_keyword::___boundary_' + this.uid + '_' + index2 + '_as_closure___;';
+
+                    case 'else':
+                    case 'finally':
+                        this.replacements.push([word + ' ', posi1]);
+                        index2 = this.replacements.length;
+                        this.replacements.push(['{' + closure + '}', posi3]);
+                        return ";\r\n" + '@boundary_' + index + '_as_midword::___boundary_' + this.uid + '_' + index2 + '_as_closure___';
 
                     default:
                         if (word.indexOf('(') === 0) {
@@ -721,7 +718,7 @@
                         }
                         // console.log(word, closure);
                         this.replacements.push(['{' + closure + '}', posi3]);
-                        return posi2 + word + ";\r\n" + posi3 + '___boundary_' + this.uid + '_' + index + '_as_closure___;';
+                        return posi1 + word + ";\r\n" + posi3 + '___boundary_' + this.uid + '_' + index + '_as_closure___;';
                 }
             });
         }
@@ -743,7 +740,7 @@
                         return '___boundary_' + this.uid + '_' + index + '_as_parentheses___';
                     });
                     // console.log(string);
-                    string = this.recheckFunctionsLike(string);
+                    string = this.recheckFnOrCallLikes(string);
                     left = string.indexOf('(');
                     right = string.indexOf(')');
                 } else {
@@ -770,32 +767,36 @@
             return string.replace(replaceWords, (match, posi, word, after) => {
                 let index = this.replacements.length;
                 // console.log(word, after);
-                if (after === ';') {
-                    this.replacements.push([word, posi && posi.trim()]);
-                    return ';@boundary_' + index + '_as_preoperator::;';
+                if (word === 'else') {
+                    this.replacements.push([word + ' ', posi && posi.trim()]);
+                    return ";\r\n" + '@boundary_' + index + '_as_midword::' + after;
+                }
+                if (after === ';' || word === 'continue' || word === 'break') {
+                    this.replacements.push([word + ';', posi && posi.trim()]);
+                    return ";\r\n" + '@boundary_' + index + '_as_keyword::;';
                 }
                 this.replacements.push([word + ' ', posi && posi.trim()]);
-                return ';@boundary_' + index + '_as_preoperator::' + after;
+                return ";\r\n" + '@boundary_' + index + '_as_keyword::' + after;
             })
         }
-        recheckFunctionsLike(string: string): string {
-            let on = true;
-            while (on) {
-                on = false;
-                // console.log(string);
-                string = string.replace(replaceExpRegPattern.expression, (match: string, posi, expname, exp: string, expindex: string, closure: string, closureindex: string) => {
-                    // console.log(match, posi, expname, exp, expindex, closure, closureindex);
-                    // console.log(expindex, closureindex);
-                    on = true;
-                    let expressioncontent = this.replacements[expindex][0];
-                    let body = this.replacements[closureindex][0];
-                    let index = this.replacements.length;
-                    // console.log(index, match, expname + '(' + expressioncontent + ')' + body);
-                    // console.log(expressioncontent, body);
-                    this.replacements.push([expname + expressioncontent + body, posi]);
-                    return '___boundary_' + this.uid + '_' + index + '_as_expression___';
-                });
-            }
+        recheckFnOrCallLikes(string: string): string {
+            string = string.replace(replaceExpRegPattern.expression, (match: string, posi, expname, exp: string, expindex: string, closure: string, closureindex: string) => {
+                // console.log(match, posi, expname, exp, expindex, closure, closureindex);
+                // console.log(expindex, closureindex);
+                // on = true;
+                let expressioncontent = this.replacements[expindex][0];
+                let body = this.replacements[closureindex][0];
+                let index = this.replacements.length;
+                // console.log(index, match, expname + '(' + expressioncontent + ')' + body);
+                // console.log(expressioncontent, body);
+                this.replacements.push([expname + expressioncontent + body, posi]);
+                return '___boundary_' + this.uid + '_' + index + '_as_expression___';
+            }).replace(replaceExpRegPattern.if, (match: string, posi, parentheses: string) => {
+                // on = true;
+                let index = this.replacements.length;
+                this.replacements.push(['if ' + parentheses, posi]);
+                return '___boundary_' + this.uid + '_' + index + '_as_if___';
+            });
             return string;
         }
         replaceOperators(string: string): string {
@@ -815,7 +816,7 @@
             on = true;
             while (on) {
                 on = false;
-                string = string.replace(operators.swords, (match: string, before: string, posi, word: string, right: string) => {
+                string = string.replace(operators.swords, (match: string, before: string, word: string, right: string) => {
                     // console.log(match, before, word);
                     on = true;
                     let index = this.replacements.length;
@@ -1038,10 +1039,10 @@
             string = string
                 .replace(/:::(var|let|public)\s+(@\d+L\d+P(\d+O)?0:::)/g, ':::$1 ')
                 .replace(/([^,;\s])\s*(@\d+L\d+P(\d+O)?0:::[^\.\(\[)])/g, '$1;$2')
-                .replace(/[\r\n]+(___boundary_[A-Z0-9_]{36}_\d+_as_(if|class|function|extends|call|log|object|objlike|closure|parentheses)___)/g, ";$1")
-                .replace(/(___boundary_[A-Z0-9_]{36}_\d+_as_(log|closure)___)[\r\n]+/g, "$1;\r\n")
+                .replace(/[;\r\n]+(___boundary_[A-Z0-9_]{36}_\d+_as_(if|class|function|extends|call|log|object|objlike|closure|parentheses)___)/g, ";$1")
+                .replace(/(___boundary_[A-Z0-9_]{36}_\d+_as_(log|closure)___)[;\r\n]+/g, "$1;\r\n")
                 .replace(/[;\r\n]+((@\d+L\d+P\d+O?\d*:::)?___boundary_[A-Z0-9_]{36}_\d+_as_(callschain)___)/g, "$1")
-                .replace(/(___boundary_[A-Z0-9_]{36}_\d+_as_(if)___)[;\s]+/g, "$1 ")
+                .replace(/(___boundary_[A-Z0-9_]{36}_\d+_as_(if)___)[;\s]*/g, "$1 ")
                 .trim();
             const sentences: string[] = string.split(/\s*;+\s*/);
             let lines: object[] = [];
@@ -1052,18 +1053,15 @@
                 if (sentence) {
                     const array = sentence.split(/:::(var|let|public)\s+/);
                     // console.log(array, sentence);
-                    // continue;
-                    // if(1)var a =2;
                     if (array.length === 1) {
                         let definition = sentence.match(/(^|\s+)(var|let|public)(\s+|$)/);
                         if (definition) {
-                            let definitions = sentence.match(/(@boundary_(\d+)_as_preoperator::|___boundary_[A-Z0-9_]{36}_\d+_as_(if|closure)___)\s*(var|let|public)\s+([\s\S]+)/);
+                            let definitions = sentence.match(/(@boundary_\d+_as_midword::|(@boundary_\d+_as_midword::\s*)?___boundary_[A-Z0-9_]{36}_\d+_as_(if|closure)___)\s*(var|let|public)\s+([\s\S]+)/);
+                            // console.log(definitions);
                             if (definitions) {
-                                if (!definitions[2] || this.replacements[definitions[2]][0] === 'else ') {
-                                    this.pushSentenceToLines(lines, definitions[1], 'inline');
-                                    this.pushVariablesToLines(lines, vars, undefined, definitions[5], definitions[4], true);
-                                    continue;
-                                }
+                                this.pushSentenceToLines(lines, definitions[1], 'inline');
+                                this.pushVariablesToLines(lines, vars, undefined, definitions[5], definitions[4], true);
+                                continue;
                             }
                             // console.log(sentence);
                             this.error('Unexpected `' + definition[1] + '` in `' + this.decode(sentence) + '`.');
@@ -1084,11 +1082,23 @@
             // console.log(lines);
             return lines;
         }
+        checkTretOfMatch(match_as_statement:string[]): any {
+            let tret_of_match: string = match_as_statement[3].trim();
+            if (tret_of_match && !(tret_of_match === ';' && ['class', 'function', 'closure', 'if']['includes'](match_as_statement[2]))) {
+                return [{
+                    index: match_as_statement[1],
+                    display: 'inline',
+                    type: match_as_statement[2]
+                }, tret_of_match];
+            } else {
+                return null;
+            }
+        }
         pushSentenceToLines(lines: any[], code: string, display: string) {
             value = code.trim();
             if (value && !value.match(/^@\d+L\d+P\d+O?\d*:::$/)) {
                 let match_as_statement = value.match(/^___boundary_[A-Z0-9_]{36}_(\d+)_as_([a-z]+)___([\r\n]+|$)/);
-                // console.log(match_as_statement);
+                // console.log(match_as_statement, display);
                 if (match_as_statement) {
                     if (display === 'block' && !['class', 'function', 'closure', 'if']['includes'](match_as_statement[2])) {
                         // console.log(match_as_statement[2]);
@@ -1288,69 +1298,8 @@
                     case 'sentence':
                         // console.log(lines[index]);
                         const code = lines[index].value.trim();
-                        if (code) {
-                            let inline = [];
-                            const statements: string[] = code.split('___boundary_' + this.uid);
-                            while (!statements[0].trim()) {
-                                statements.shift();
-                            }
-                            // console.log(statements)
-                            for (let s = 0; s < statements.length; s++) {
-                                let statement = statements[s];
-                                if (statement.trim()) {
-                                    let match_as_statement: any = statement.match(matchExpRegPattern.index3);
-                                    // console.log(match_as_statement);
-                                    if (match_as_statement) {
-                                        let tret_of_match: string = match_as_statement[3];
-                                        if (tret_of_match.trim() && !(tret_of_match === ';' && ['class', 'function', 'closure', 'if']['includes'](match_as_statement[2]))) {
-                                            inline.push({
-                                                index: match_as_statement[1],
-                                                display: 'inline',
-                                                type: match_as_statement[2]
-                                            });
-                                            var rows = tret_of_match.split(/[\r\n]+/);
-                                            for (let r = 0; r < rows.length; r++) {
-                                                const row = rows[r];
-                                                if (row.trim()) {
-                                                    this.pushCodeToAST(inline, vars, row, false, undefined);
-                                                }
-                                            }
-                                        } else {
-                                            // console.log(lines[index].display);
-                                            if (statements.length === 1) {
-                                                inline.push({
-                                                    index: match_as_statement[1],
-                                                    display: lines[index].display,
-                                                    type: match_as_statement[2]
-                                                });
-                                            } else {
-                                                inline.push({
-                                                    index: match_as_statement[1],
-                                                    display: 'inline',
-                                                    type: match_as_statement[2]
-                                                });
-                                            }
-                                        }
-                                    } else {
-                                        if ((statements.length === 1) && (lines[index].display === 'block')) {
-                                            var isblock = true;
-                                        } else {
-                                            var isblock = false;
-                                        }
-                                        // console.log(array[0], lines[index].posi);
-                                        var rows = statements[0].split(/[\r\n]+/);
-                                        // console.log(rows, array.length);
-                                        for (let r = 0; r < rows.length; r++) {
-                                            const row = rows[r];
-                                            if (row.trim()) {
-                                                this.pushCodeToAST(inline, vars, row, isblock, (r === 0) && lines[index].posi);
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                            preast.push(inline);
-                        }
+                        this.pushSentencesToPREAST(preast, vars, code, lines[index].display, lines[index].posi);
+                        
                         break;
 
                     case 'variable':
@@ -1413,6 +1362,46 @@
             // console.log(imports, preast);
             return preast;
         }
+        pushSentencesToPREAST(preast: object[] = [], vars: any, code: string, display: string = 'block', lineposi: any): object[] {
+            if (code) {
+                let inline = [];
+                const statements: string[] = code.split('___boundary_' + this.uid);
+                while (!statements[0].trim()) {
+                    statements.shift();
+                }
+                // console.log(statements)
+                for (let s = 0; s < statements.length; s++) {
+                    let statement = statements[s];
+                    if (statement.trim()) {
+                        let match_as_statement: any = statement.match(matchExpRegPattern.index3);
+                        // console.log(match_as_statement);
+                        if (match_as_statement) {
+                            let array: any[] = this.checkTretOfMatch(match_as_statement);
+                            if (array) {
+                                inline.push(array[0]);
+                                this.pushRowsToAST(inline, vars, array[1], false, undefined);
+                            } else {
+                                // console.log(lines[index].display);
+                                inline.push({
+                                    index: match_as_statement[1],
+                                    display: (statements.length === 1) ? display : 'inline',
+                                    type: match_as_statement[2]
+                                });
+                            }
+                        } else {
+                            if ((statements.length === 1) && (display === 'block')) {
+                                this.pushRowsToAST(inline, vars, statements[0], true, lineposi);
+                            } else {
+                                this.pushRowsToAST(inline, vars, statements[0], false, lineposi);
+                            }
+                            
+                        }
+                    }
+                }
+                preast.push(inline);
+                return preast;
+            }
+        }
         buildAST(preast: object[], vars: any): Sugar {
             // console.log(preast);
             let ast = {
@@ -1455,10 +1444,10 @@
             for (let index = 0; index < lines.length; index++) {
                 switch (lines[index].subtype) {
                     case 'sentence':
-                        const line = lines[index].value.trim();
+                        const code = lines[index].value.trim()
                         // console.log(lines[index].display === 'block', line);
                         // console.log(lines[index]);
-                        this.pushSentencesToAST(body, vars, line, !inOrder && (lines[index].display === 'block'), lines[index].posi);
+                        this.pushSentencesToAST(body, vars, code, !inOrder && (lines[index].display === 'block'), lines[index].posi);
                         break;
 
                     case 'variable':
@@ -1482,21 +1471,20 @@
             // console.log(body);
             return body;
         }
-        pushSentencesToAST(body: object[] = [], vars: any, code: string, isblock: boolean = true, blockposi: any): object[] {
+        pushSentencesToAST(body: object[] = [], vars: any, code: string, isblock: boolean = true, lineposi: any): object[] {
             if (code) {
-                // console.log(isblock, blockposi);
+                // console.log(isblock, lineposi);
                 let inline = [];
-                const array: string[] = code.split('___boundary_' + this.uid);
-                // console.log(array);
-                while (array.length && !array[0].trim()) {
-                    array.shift();
+                const statements: string[] = code.split('___boundary_' + this.uid);
+                while (!statements[0].trim()) {
+                    statements.shift();
                 }
-                // console.log(array);
-                if (array.length === 1) {
-                    this.pushReplacementsToAST(inline, vars, array[0], isblock, blockposi);
+                // console.log(statements)
+                if (statements.length === 1) {
+                    this.pushReplacementsToAST(inline, vars, statements[0], isblock, lineposi);
                 } else {
-                    for (let index = 0; index < array.length; index++) {
-                        this.pushReplacementsToAST(inline, vars, array[index], false, (index === 0) && blockposi);
+                    for (let s = 0; s < statements.length; s++) {
+                        this.pushReplacementsToAST(inline, vars, statements[s], false, (s === 0) && lineposi);
                     }
                 }
                 if (inline.length === 1) {
@@ -1511,28 +1499,18 @@
             }
             return body;
         }
-        pushReplacementsToAST(body: object[], vars: any, code: string, isblock: boolean, blockposi: any): object[] {
+        pushReplacementsToAST(body: object[], vars: any, code: string, isblock: boolean, lineposi: any): object[] {
             // console.log(code);
             // code = code.trim();
             if (code.trim()) {
                 let match_as_statement: any = code.match(matchExpRegPattern.index3);
-                // console.log(code, match_as_statement, isblock, blockposi);
+                // console.log(match_as_statement);
+                // console.log(code, match_as_statement, isblock, lineposi);
                 if (match_as_statement) {
-                    let tret_of_match: string = match_as_statement[3].trim();
-                    // console.log(code, match_as_statement, isblock, blockposi);
-                    if (tret_of_match && tret_of_match !== ';') {
-                        body.push(this.walk({
-                            index: match_as_statement[1],
-                            display: 'inline',
-                            type: match_as_statement[2]
-                        }, vars, true));
-                        var rows = tret_of_match.split(/[\r\n]+/);
-                        for (let r = 0; r < rows.length; r++) {
-                            const row = rows[r];
-                            if (row.trim()) {
-                                this.pushCodeToAST(body, vars, row, false, undefined);
-                            }
-                        }
+                    let array:any[] = this.checkTretOfMatch(match_as_statement);
+                    if (array) {
+                        body.push(this.walk(array[0], vars, true));
+                        this.pushRowsToAST(body, vars, array[1], false, undefined);
                     } else {
                         body.push(this.walk({
                             index: match_as_statement[1],
@@ -1541,21 +1519,25 @@
                         }, vars, true));
                     }
                 } else {
-                    var rows = code.split(/[\r\n]+/);
-                    // console.log(array);
-                    for (let r = 0; r < rows.length; r++) {
-                        const row = rows[r];
-                        if (row.trim()) {
-                            this.pushCodeToAST(body, vars, row, isblock, (r === 0) && blockposi);
-                        }
-                    }
+                    this.pushRowsToAST(body, vars, code, isblock, lineposi);
                 }
             }
             return body;
         }
-        pushCodeToAST(body: object[], vars: any, code: string, isblock: boolean, blockposi: any): object[] {
+        pushRowsToAST(body: object[], vars: any, code: string, isblock: boolean, lineposi: any): object[] {
+            var rows = code.split(/[\r\n]+/);
+            // console.log(array);
+            for (let r = 0; r < rows.length; r++) {
+                const row = rows[r];
+                if (row.trim()) {
+                    this.pushCodeToAST(body, vars, row, isblock, (r === 0) && lineposi);
+                }
+            }
+            return body;
+        }
+        pushCodeToAST(body: object[], vars: any, code: string, isblock: boolean, lineposi: any): object[] {
             let display = isblock ? 'block' : 'inline';
-            let position = this.getPosition(code) || blockposi;
+            let position = this.getPosition(code) || lineposi;
             if (position) {
                 var element = code.replace(position.match, '');
             } else {
@@ -1790,7 +1772,7 @@
                 return '';
             });
             // console.log(code, calls, position);
-            if (type === 'log') {
+            if (type === 'log' && position) {
                 position.head = true;
             }
 
@@ -1978,6 +1960,7 @@
 
                         let body = this.pushBodyToAST([], localvars, matches[5]);
                         this.resetVarsRoot(localvars);
+                        // console.log(body);
                         return {
                             type: 'exp',
                             posi: this.getPosition(this.replacements[index][1]),
@@ -2719,7 +2702,10 @@
                 }
             }
             // console.log(element.display);
-            if (element.display === 'block' && element.type !== 'if') {
+            if (element.type === 'if'){
+                codes.push(') ');
+            }
+            else if (element.display === 'block') {
                 codes.push(');');
             } else {
                 codes.push(')');
@@ -3512,6 +3498,7 @@
             // console.log(string);
             string = string.replace(/[;\s]*[\r\n]+(\t*)[ ]*(@boundary_\d+_as_comments::)(@boundary_\d+_as_operator::)\s*/g, "\r\n$1   $2$3");
             string = string.replace(/\s*(@boundary_\d+_as_operator::)[;\s]*[\r\n]+(\t*)[ ]*(@boundary_\d+_as_comments::)/g, "\r\n$2   $3 $1 ");
+            string = string.replace(/[;\s]*[\r\n]+(\t*)[ ]*(@boundary_\d+_as_comments::)(@boundary_\d+_as_midword::)\s*/g, "\r\n$1$2$3");
             // 格式化相应符号
             string = string.replace(/\s*(\=|\?)\s*/g, " $1 ");
             string = string.replace(/\s+(\:)[\s]*/g, " $1 ");
@@ -3522,7 +3509,7 @@
             string = string.replace(/\[\s+\]/g, '[]');
             string = string.replace(/\(\s+\)/g, '()');
             // 运算符处理
-            string = string.replace(/(\s*)(@boundary_(\d+)_as_(operator|aftoperator)::)\s*/g, (match, pregap, operator, index) => {
+            string = string.replace(/(\s*)(@boundary_(\d+)_as_(operator|aftoperator|keyword|midword)::)\s*/g, (match, pregap, operator, index) => {
                 // console.log(this.replacements[index]);
                 if (this.replacements[index][1]) {
                     // console.log(this.replacements[index]);
@@ -3553,6 +3540,13 @@
                     mapping.push([index, position.o[0], position.o[1], position.o[2], 0]);
                     line = line.replace(match[0], '');
                 }
+                // while (match = line.match(/\/\*\s@posi(\d+)\s\*\//)) {
+                //     let index = match.index;
+                //     let position = this.posimap[match[1]];
+                //     // console.log(position);
+                //     mapping.push([index, position.o[0], position.o[1], position.o[2], 0]);
+                //     line = line.replace(match[0], '/* ' + position.o.join() +' */');
+                // }
                 _lines.push(line);
                 mappings.push(mapping);
             }

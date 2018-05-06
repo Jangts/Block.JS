@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Sat, 05 May 2018 06:22:26 GMT
+ * Datetime: Sun, 06 May 2018 09:07:08 GMT
  */
 ;
 // tangram.config({});
@@ -59,10 +59,10 @@ tangram.init().block([
 		},
 		in: function (elem, object) {
 			if (_.util.type.isArray(object)) {
-				return _.arr.has(object, elem)
+				return _.arr.has(object, elem);
 			}
 			if (_.util.bool.isObj(object)) {
-				return _.obj.has(object, elem)
+				return _.obj.has(object, elem);
 			}
 			return false;
 		},
@@ -124,8 +124,8 @@ tangram.init().block([
 			    + "[a-z]{2,6})"
 			    + "(:[0-9]{1,4})?"
 			    + "((/?)|"
-			    + "(/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+/?)$"
-			var re = new RegExp(strRegex)
+			    + "(/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+/?)$";
+			var re = new RegExp(strRegex);
 			if (re.test(str)) {
 				return true;
 			}
@@ -137,14 +137,14 @@ tangram.init().block([
 			if (typeof method !== 'string') {
 				return false;
 			}
-			method = method.toUpperCase()
+			method = method.toUpperCase();
 			return _.util.bool.inArr(method, ['GET', 'CONNECT', 'COPY', 'DELETE', 'HEAD', 'LINK', 'OPTIONS', 'POST', 'PUT', 'PATCH', 'TRACE', 'UNLINK', 'UPDATE', 'WRAPPED']) && method;
 		},
 		isSupportCanvas: function () {
 			return typeof CanvasRenderingContext2D != "undefined";
 		},
 		isWebkit: function () {
-			const reg = /webkit/i
+			const reg = /webkit/i;
 			return reg.test(this._ua);
 		},
 		isIE: function () {
@@ -155,9 +155,9 @@ tangram.init().block([
 			var sAgent = navigator.userAgent;
 			if (/android/i.test(sAgent)) {
 				android = true;
-				var aMat = sAgent.toString().match(/android ([0-9]\.[0-9])/i)
+				var aMat = sAgent.toString().match(/android ([0-9]\.[0-9])/i);
 				if (aMat && aMat[1]) {
-					android = parseFloat(aMat[1])
+					android = parseFloat(aMat[1]);
 				}
 			}
 			return android;

@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Sat, 05 May 2018 06:22:22 GMT
+ * Datetime: Sun, 06 May 2018 09:07:04 GMT
  */
 ;
 // tangram.config({});
@@ -16,8 +16,8 @@ tangram.init().block([
 	var ActiveXObject = root.ActiveXObject;
 	var FormData = root.FormData;
 	var toRegExp = function (array) {
-		var str = array.join('|')
-		str = str.replace(/(\/|\+|\.)/g, '\\$1')
+		var str = array.join('|');
+		str = str.replace(/(\/|\+|\.)/g, '\\$1');
 		return new RegExp("^(" + str + ")$");
 	}
 	var fileTransfer = function (url, form, handlers) {
@@ -26,7 +26,7 @@ tangram.init().block([
 		var onAfterTransferring = handlers.after;
 		var onUploadComplete = handlers.done;
 		var onUploadFailed = handlers.fail;
-		var uploader = XMLHttpRequest ? new XMLHttpRequest():new ActiveXObject("Microsoft.XMLHTTP")
+		var uploader = XMLHttpRequest ? new XMLHttpRequest():new ActiveXObject("Microsoft.XMLHTTP");
 		var response = void 0;
 		if (uploader.upload) {
 			var onTransferring = handlers.progress;
@@ -38,7 +38,7 @@ tangram.init().block([
 					readyState: uploader.readyState,
 					status: uploader.status,
 					responseText: 'Transferring'
-				}
+				};
 				_.util.bool.isFn(onBeforeTransferring) && onBeforeTransferring.call(that, response);
 			}
 			var onSendProgress = function (evt) {
@@ -49,7 +49,7 @@ tangram.init().block([
 					readyState: uploader.readyState,
 					status: uploader.status,
 					responseText: 'Transferring'
-				}
+				};
 				_.util.bool.isFn(onTransferring) && onTransferring.call(that, response);
 			}
 			var onSendComplete = function (evt) {
@@ -57,7 +57,7 @@ tangram.init().block([
 					readyState: uploader.readyState,
 					status: uploader.status,
 					responseText: 'Transferred'
-				}
+				};
 				_.util.bool.isFn(onAfterTransferring) && onAfterTransferring.call(that, response);
 			}
 			var onFailed = function (evt) {
@@ -65,7 +65,7 @@ tangram.init().block([
 					readyState: uploader.readyState,
 					status: uploader.status,
 					responseText: 'Transfailed'
-				}
+				};
 				_.util.bool.isFn(onUploadFailed) && onUploadFailed.call(that, response);
 			}
 			var onTimeout = function (evt) {
@@ -73,7 +73,7 @@ tangram.init().block([
 					readyState: uploader.readyState,
 					status: uploader.status,
 					responseText: 'Timeout'
-				}
+				};
 				_.util.bool.isFn(onUploadFailed) && onUploadFailed.call(that, response);
 			}
 		}
@@ -86,16 +86,16 @@ tangram.init().block([
 					readyState: this.readyState,
 					status: this.status,
 					responseText: 'Waiting'
-				}
-				_.util.bool.isFn(onBeforeTransferring) && onBeforeTransferring.call(that, response)
+				};
+				_.util.bool.isFn(onBeforeTransferring) && onBeforeTransferring.call(that, response);
 			}
 			else if (this.readyState == 2 || this.readyState == 3) {
 				response = {
 					readyState: this.readyState,
 					status: this.status,
 					responseText: 'Processing'
-				}
-				_.util.bool.isFn(onAfterTransferring) && onAfterTransferring.call(that, response)
+				};
+				_.util.bool.isFn(onAfterTransferring) && onAfterTransferring.call(that, response);
 			}
 			else if (this.readyState == 4) {
 				if (this.status == 200) {
@@ -103,16 +103,16 @@ tangram.init().block([
 						readyState: this.readyState,
 						status: this.status,
 						responseText: this.responseText
-					}
-					_.util.bool.isFn(onUploadComplete) && onUploadComplete.call(that, response)
+					};
+					_.util.bool.isFn(onUploadComplete) && onUploadComplete.call(that, response);
 				}
 				else {
 					response = {
 						readyState: this.readyState,
 						status: this.status,
 						responseText: this.responseText
-					}
-					_.util.bool.isFn(onUploadFailed) && onUploadFailed.call(that, response)
+					};
+					_.util.bool.isFn(onUploadFailed) && onUploadFailed.call(that, response);
 				}
 			};
 		}
@@ -124,7 +124,7 @@ tangram.init().block([
 			uploader.upload.ontimeout = onTimeout;
 		}
 		uploader.onreadystatechange = onStateChange;
-		uploader.open('POST', url, true)
+		uploader.open('POST', url, true);
 		uploader.send(form);
 	}
 	pandora.declareClass('async.Uploader', {
@@ -135,54 +135,54 @@ tangram.init().block([
 		_init: function (files, types, suffixs, maxSize) {
 			this.files = files;
 			if (_.util.bool.isArr(types)) {
-				this.fileTypeRegExp = toRegExp(types)
+				this.fileTypeRegExp = toRegExp(types);
 			}
 			if (_.util.bool.isArr(suffixs) && suffixs.length) {
-				this.fileNameRegExp = new RegExp(".(" + suffixs.join('|') + ")$")
+				this.fileNameRegExp = new RegExp(".(" + suffixs.join('|') + ")$");
 			}
 			this.fileMaxSize = typeof maxSize == 'number' ? maxSize : 1024 * 1024 * 200;
 		},
 		checkType: function (doneCallback, failCallback) {
-			var result = this.filesChecker(this.files)
+			var result = this.filesChecker(this.files);
 			if (this.isOnlyFilter) {
-				var result = this.filesFilter()
+				var result = this.filesFilter();
 			}
 			else {
-				var result = this.filesChecker()
+				var result = this.filesChecker();
 			}
 			if (result[0]) {
-				_.util.bool.isFn(doneCallback) && doneCallback.call(this, result[1], result[2])
+				_.util.bool.isFn(doneCallback) && doneCallback.call(this, result[1], result[2]);
 			}
 			else {
-				_.util.bool.isFn(failCallback) && failCallback.call(this, result[1], result[2])
+				_.util.bool.isFn(failCallback) && failCallback.call(this, result[1], result[2]);
 			};
 		},
 		filesFilter: function () {
-			var array = []
+			var array = [];
 			for (var i = 0;i < this.files.length;i++) {
 				if (this.checkSIZE(this.files[i])) {
 					if (this.checkTYPE(this.files[i]) || this.checkEXTN(this.files[i])) {
-						array.push(this.files[i])
+						array.push(this.files[i]);
 					}
 				}
 			}
 			if (array.length > 0) {
 				if (this.files.length > array.length) {
-					return [true, array, 0]
+					return [true, array, 0];
 				}
-				return [true, array, 1]
+				return [true, array, 1];
 			}
 			else {
-				return [false, 0, 2]
+				return [false, 0, 2];
 			};
 		},
 		filesChecker: function () {
 			for (var i = 0;i < this.files.length;i++) {
 				if (!(this.checkTYPE(this.files[i]) || this.checkEXTN(this.files[i]))) {
-					return [false, this.files[i], 0]
+					return [false, this.files[i], 0];
 				}
 				if (!this.checkSIZE(this.files[i])) {
-					return [false, this.files[i], 1]
+					return [false, this.files[i], 1];
 				}
 			}
 			return [true, this.files, 1];
@@ -198,10 +198,10 @@ tangram.init().block([
 		},
 		transfer: function (options, method) {
 			if (this.files.length && this.files.length === 1) {
-				_.async.Uploader.transfer.call(this, this.files[0], options, method)
+				_.async.Uploader.transfer.call(this, this.files[0], options, method);
 			}
 			else {
-				_.async.Uploader.transfer.call(this, this.files, options, method)
+				_.async.Uploader.transfer.call(this, this.files, options, method);
 			};
 		}
 	});
@@ -211,48 +211,48 @@ tangram.init().block([
 				options = options || {}
 				options.url = options.url || location.href;
 				options.data = options.data || {}
-				var form = new FormData()
+				var form = new FormData();
 				for (var i in options.data) {
-					form.append(i, options.data[i])
+					form.append(i, options.data[i]);
 				}
 				if (typeof options.filefield == 'string') {
-					form.append(options.filefield, file)
+					form.append(options.filefield, file);
 				}
 				else {
-					form.append('myfile', file)
+					form.append('myfile', file);
 				}
-				form.append('enctype', 'multipart/form-data')
+				form.append('enctype', 'multipart/form-data');
 			}
 			else if (_.util.bool.isFiles(file)) {
 				options = options || {}
 				options.data = options.data || {}
-				var form = new FormData()
+				var form = new FormData();
 				for (var i in options.data) {
-					form.append(i, options.data[i])
+					form.append(i, options.data[i]);
 				}
 				if (typeof options.filefield == 'string') {
-					filefield = options.filefield + '[]'
+					filefield = options.filefield + '[]';
 				}
 				else {
-					filefield = 'myfile[]'
+					filefield = 'myfile[]';
 				}
 				for (var i = 0;i < file.length;i++) {
-					form.append(filefield, file[i])
+					form.append(filefield, file[i]);
 				}
-				form.append('enctype', 'multipart/form-data')
+				form.append('enctype', 'multipart/form-data');
 			}
 			else if (_.util.bool.isForm(file)) {
 				options = options || {}
 				var form = file;
 				for (var i in options.data) {
-					form.append(i, options.data[i])
+					form.append(i, options.data[i]);
 				}
 			}
 			else {
-				return _.debug('Must Give Transfer A File.')
+				return _.debug('Must Give Transfer A File.');
 			}
 			if (method) {
-				form.append('http_method', method)
+				form.append('http_method', method);
 			}
 			options.url = options.url || location.href;
 			options.handlers = options.handlers || {}

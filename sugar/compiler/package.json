@@ -1,6 +1,6 @@
 {
     "name": "node-sugar",
-    "version": "2.1.0",
+    "version": "2.1.1",
     "description": "tangram.js syntactic sugar",
     "main": "./lib/node-sugar.js",
     "dependencies": {

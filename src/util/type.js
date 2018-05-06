@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Sat, 05 May 2018 06:22:27 GMT
+ * Datetime: Sun, 06 May 2018 09:07:09 GMT
  */
 ;
 // tangram.config({});
@@ -13,32 +13,32 @@ tangram.init().block([], function (pandora, root, imports, undefined) {
 	var console = root.console;
 	function typeofObj (object) {
 		if (!object) {
-			return 'Null'
+			return 'Null';
 		}
 		if (isDoc(object)) {
-			return 'HTMLDocument'
+			return 'HTMLDocument';
 		}
 		if (isElement(object)) {
-			return 'Element'
+			return 'Element';
 		}
 		if (isElements(object)) {
-			return 'Elements'
+			return 'Elements';
 		}
 		if (isArray(object)) {
-			return 'Array'
+			return 'Array';
 		}
 		if (isRegExp(object)) {
-			return 'RegExp'
+			return 'RegExp';
 		}
 		return nativeType(object);
 	}
 	function nativeType (object) {
 		if (!object) {
-			return 'Null'
+			return 'Null';
 		}
-		var match = Object.prototype.toString.call(object).match(/\[object (\w+)\]/)
+		var match = Object.prototype.toString.call(object).match(/\[object (\w+)\]/);
 		if (match) {
-			return match[1]
+			return match[1];
 		}
 		return 'Object';
 	}
@@ -80,10 +80,10 @@ tangram.init().block([], function (pandora, root, imports, undefined) {
 	}
 	var typeofStr = function (string) {
 		if (isIntStr(string)) {
-			return 'StringInteger'
+			return 'StringInteger';
 		}
 		if (isFloatStr(string)) {
-			return 'StringFloat'
+			return 'StringFloat';
 		}
 		return 'String';
 	}
@@ -101,7 +101,7 @@ tangram.init().block([], function (pandora, root, imports, undefined) {
 	}
 	var isInteger = function (number) {
 		if (typeof Number.isInteger === 'function') {
-			return Number.isInteger(number)
+			return Number.isInteger(number);
 		}
 		else {
 			return Math.floor(number) === number;
@@ -110,17 +110,17 @@ tangram.init().block([], function (pandora, root, imports, undefined) {
 	_('util.type', function (object, subtype) {
 		switch (typeof object) {
 			case 'object':
-			return subtype ? typeofObj(object):(object == null ? 'Null':((typeofObj(object) === 'Array') ? 'Array':'Object'))
+			return subtype ? typeofObj(object):(object == null ? 'Null':((typeofObj(object) === 'Array') ? 'Array':'Object'));
 			case 'function':
 			case 'boolean':
 			case 'undefined':
 			return (typeof object).replace(/(\w)/, function (v) {
 				return v.toUpperCase();
-			})
+			});
 			case 'number':
-			return subtype ? (isInteger(object) ? 'Integer':'Float'):'Number'
+			return subtype ? (isInteger(object) ? 'Integer':'Float'):'Number';
 			case 'string':
-			return subtype ? typeofStr(object):'String'
+			return subtype ? typeofStr(object):'String';
 		};
 	});
 	_('util.fasttype', function (obj) {

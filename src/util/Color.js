@@ -1,7 +1,7 @@
 /*!
  * tangram.js framework sugar compiled code
  *
- * Datetime: Sat, 05 May 2018 06:22:26 GMT
+ * Datetime: Sun, 06 May 2018 09:07:09 GMT
  */
 ;
 // tangram.config({});
@@ -158,18 +158,18 @@ tangram.init().block([], function (pandora, root, imports, undefined) {
 		var _s = void 0;
 		var l = void 0;
 		if (s === 0 && b === 1) {
-			return [h, 100, 100]
+			return [h, 100, 100];
 		}
 		if (b === 0) {
-			return [h, s * 100, 0]
+			return [h, s * 100, 0];
 		}
 		l = (2 - s) * b/2;
-		_s = (s * b)/(1 - Math.abs(l * 2 - 1))
+		_s = (s * b)/(1 - Math.abs(l * 2 - 1));
 		return [h, _s * 100, l * 100];
 	}
 	var hue2rgb = function (p, q, t) {
-		if (t < 0)t += 1;
-		if (t > 1)t -= 1;
+		if(t < 0) t += 1;
+		if(t > 1) t -= 1;
 		if(t < 1/6)return p + (q - p) * 6 * t;
 		if(t < 1/2)return q;
 		if(t < 2/3)return p + (q - p) * (2/3 - t) * 6;
@@ -188,18 +188,18 @@ tangram.init().block([], function (pandora, root, imports, undefined) {
 		else {
 			var q = l < 0.5 ? l * (1 + s): l + s - l * s;
 			var p = 2 * l - q;
-			r = hue2rgb(p, q, h + 1/3)
-			g = hue2rgb(p, q, h)
-			b = hue2rgb(p, q, h - 1/3)
+			r = hue2rgb(p, q, h + 1/3);
+			g = hue2rgb(p, q, h);
+			b = hue2rgb(p, q, h - 1/3);
 		}
 		return [r, g, b];
 	}
 	var hsl2RGB = function (h, s, l) {
-		var base = hsl2BaseRGB(h, s, l)
+		var base = hsl2BaseRGB(h, s, l);
 		return [Math.round(base[0] * 255), Math.round(base[1] * 255), Math.round(base[2] * 255)];
 	}
 	var hsl2SafeRGB = function (h, s, l) {
-		var base = hsl2BaseRGB(h, s, l)
+		var base = hsl2BaseRGB(h, s, l);
 		return [Math.round(base[0] * 10) * 25.5, Math.round(base[1] * 10) * 25.5, Math.round(base[2] * 10) * 25.5];
 	}
 	var hsl2HSB = function (h, s, l) {
@@ -208,7 +208,7 @@ tangram.init().block([], function (pandora, root, imports, undefined) {
 		var _s = void 0;
 		var b = void 0;
 		if (l === 0) {
-			return [h, s * 100, 0]
+			return [h, s * 100, 0];
 		}
 		b = ((1 - Math.abs(l * 2 - 1)) * s + l * 2)/2;
 		_s = (b - l) * 2/b;
@@ -218,8 +218,8 @@ tangram.init().block([], function (pandora, root, imports, undefined) {
 		r/=255
 		g/=255
 		b/=255;
-		var max = Math.max(r, g, b)
-		var min = Math.min(r, g, b)
+		var max = Math.max(r, g, b);
+		var min = Math.min(r, g, b);
 		var h = void 0;
 		var s = void 0;
 		var b = max;
@@ -231,14 +231,14 @@ tangram.init().block([], function (pandora, root, imports, undefined) {
 			s = d/b;
 			switch (max) {
 				case r:
-				h = (g - b)/d + (g < b ? 6:0)
-				break
+				h = (g - b)/d + (g < b ? 6:0);
+				break;;
 				case g:
 				h = (b - r)/d + 2;
-				break
+				break;;
 				case b:
 				h = (r - g)/d + 4;
-				break
+				break;;
 			}
 			h/=6;
 		}
@@ -248,8 +248,8 @@ tangram.init().block([], function (pandora, root, imports, undefined) {
 		r/=255
 		g/=255
 		b/=255;
-		var max = Math.max(r, g, b)
-		var min = Math.min(r, g, b)
+		var max = Math.max(r, g, b);
+		var min = Math.min(r, g, b);
 		var h = void 0;
 		var s = void 0;
 		var l = (max + min)/2;
@@ -258,17 +258,17 @@ tangram.init().block([], function (pandora, root, imports, undefined) {
 		}
 		else {
 			var d = max - min;
-			s = l > 0.5 ? d / (2 - max - min) : d /(max + min)
+			s = l > 0.5 ? d / (2 - max - min) : d /(max + min);
 			switch (max) {
 				case r:
-				h = (g - b)/d + (g < b ? 6:0)
-				break
+				h = (g - b)/d + (g < b ? 6:0);
+				break;;
 				case g:
 				h = (b - r)/d + 2;
-				break
+				break;;
 				case b:
 				h = (r - g)/d + 4;
-				break
+				break;;
 			}
 			h/=6;
 		}
@@ -277,7 +277,7 @@ tangram.init().block([], function (pandora, root, imports, undefined) {
 	var hex = function (num) {
 		var hex = void 0;
 		num = (num >= 0 && num <= 255) ? num : 0;
-		hex = num.toString(16)
+		hex = num.toString(16);
 		return hex.length === 2 ? hex : '0' + hex;
 	}
 	var convs = {
@@ -294,72 +294,72 @@ tangram.init().block([], function (pandora, root, imports, undefined) {
 			return '#' + hex(arr[0]) + hex(arr[1]) + hex(arr[2]) + hex(arr[3] * 255);
 		},
 		hsl: function (rgb) {
-			var arr = rgb2HSL(rgb[0], rgb[1], rgb[2])
+			var arr = rgb2HSL(rgb[0], rgb[1], rgb[2]);
 			return 'hsl(' + arr[0] + ',' + arr[1] + '%,' + arr[2] + '%)';
 		},
 		name: function (arr) {
-			var hex6 = '#' + hex(arr[0]) + hex(arr[1]) + hex(arr[2])
+			var hex6 = '#' + hex(arr[0]) + hex(arr[1]) + hex(arr[2]);
 			var name = void 0;
 			_.loop(names, function (n, v) {
 				if (v === hex6) {
 					name = n;
-					_.loop.out()
+					_.loop.out();
 				};
-			})
+			});
 			return name;
 		}
 	};
 	var toArray = function (value) {
 		if (/^#[A-Za-z0-9]{3}$/.test(value)) {
-			value = value.replace(/#/, "")
-			var arr = []
-			arr[0] = parseInt(value.substr(0, 1) + value.substr(0, 1), 16)
-			arr[1] = parseInt(value.substr(1, 1) + value.substr(1, 1), 16)
-			arr[2] = parseInt(value.substr(2, 1) + value.substr(2, 1), 16)
+			value = value.replace(/#/, "");
+			var arr = [];
+			arr[0] = parseInt(value.substr(0, 1) + value.substr(0, 1), 16);
+			arr[1] = parseInt(value.substr(1, 1) + value.substr(1, 1), 16);
+			arr[2] = parseInt(value.substr(2, 1) + value.substr(2, 1), 16);
 			arr[3] = 1;
 			return arr;
 		}
 		if (/^#[A-Za-z0-9]{6}$/.test(value)) {
-			value = value.replace(/#/, "")
-			var arr = []
-			arr[0] = parseInt(value.substr(0, 2), 16)
-			arr[1] = parseInt(value.substr(2, 2), 16)
-			arr[2] = parseInt(value.substr(4, 2), 16)
-			arr[3] = parseInt(1)
+			value = value.replace(/#/, "");
+			var arr = [];
+			arr[0] = parseInt(value.substr(0, 2), 16);
+			arr[1] = parseInt(value.substr(2, 2), 16);
+			arr[2] = parseInt(value.substr(4, 2), 16);
+			arr[3] = parseInt(1);
 			return arr;
 		}
 		if (/^#[A-Za-z0-9]{8}$/.test(value)) {
-			value = value.replace(/#/, "")
-			var arr = []
-			arr[0] = parseInt(value.substr(2, 2), 16)
-			arr[1] = parseInt(value.substr(4, 2), 16)
-			arr[2] = parseInt(value.substr(6, 2), 16)
+			value = value.replace(/#/, "");
+			var arr = [];
+			arr[0] = parseInt(value.substr(2, 2), 16);
+			arr[1] = parseInt(value.substr(4, 2), 16);
+			arr[2] = parseInt(value.substr(6, 2), 16);
 			arr[3] = parseInt(value.substr(0, 2), 16)/255;
 			return arr;
 		}
 		if (/^rgb\([0-9,\.\s]+\)$/.test(value)) {
-			var arr = value.replace(/(rgb\(|\))/gi, "").split(/,\s*/)
-			arr[0] = parseInt(arr[0])
-			arr[1] = parseInt(arr[1])
-			arr[2] = parseInt(arr[2])
+			var arr = value.replace(/(rgb\(|\))/gi, "").split(/,\s*/);
+			arr[0] = parseInt(arr[0]);
+			arr[1] = parseInt(arr[1]);
+			arr[2] = parseInt(arr[2]);
 			arr[3] = 1;
 			return arr;
 		}
 		if (/^rgba\([0-9,\.\s]+\)$/.test(value)) {
-			var arr = value.replace(/(rgb\(|\))/gi, "").split(/,\s*/)
-			arr[0] = parseInt(arr[0])
-			arr[1] = parseInt(arr[1])
-			arr[2] = parseInt(arr[2])
-			arr[3] = parseInt(arr[3])
+			var arr = value.replace(/(rgb\(|\))/gi, "").split(/,\s*/);
+			arr[0] = parseInt(arr[0]);
+			arr[1] = parseInt(arr[1]);
+			arr[2] = parseInt(arr[2]);
+			arr[3] = parseInt(arr[3]);
 			return arr;
 		}
 		return null;
 	}
 	pandora.declareClass('util.Color', {
 		_init: function (color) {
-			color = color && color.toLowerCase && color.toLowerCase() || 'black'
+			color = color && color.toLowerCase && color.toLowerCase() || 'black';
 			if (names[color]) {
-				color = names[color]
+				color = names[color];
 			}
 			this.data = toArray(color) || [0, 0, 0, 1];
 		},
@@ -389,34 +389,34 @@ tangram.init().block([], function (pandora, root, imports, undefined) {
 			var arr = void 0;
 			switch (typeof name) {
 				case 'string':
-				arr = toArray(val)
+				arr = toArray(val);
 				if (arr) {
-					name = name.toLowerCase()
-					names[name] = names[name] || convs.hex6(arr).toLowerCase()
+					name = name.toLowerCase();
+					names[name] = names[name] || convs.hex6(arr).toLowerCase();
 				}
-				break
+				break;;
 				case 'object':
 				pandora.each(name, function (n, v) {
-					arr = toArray(val)
+					arr = toArray(val);
 					if (arr) {
-						n = n.toLowerCase()
-						names[n] = names[n] || convs.hex6(arr).toLowerCase()
+						n = n.toLowerCase();
+						names[n] = names[n] || convs.hex6(arr).toLowerCase();
 					};
 				}, this);
-				break
+				break;;
 			};
 		},
 		rgbFormat: function (value, type) {
-			value = value && value.toLowerCase && value.toLowerCase() || 'black'
+			value = value && value.toLowerCase && value.toLowerCase() || 'black';
 			if (names[value]) {
-				value = names[value]
+				value = names[value];
 			}
-			var arr = toArray(value)
+			var arr = toArray(value);
 			if (convs[type]) {
-				return convs[type](arr)
+				return convs[type](arr);
 			}
 			else {
-				return convs.rgba(arr)
+				return convs.rgba(arr);
 			};
 		},
 		hsb2HSL: hsb2HSL,
