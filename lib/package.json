@@ -2,7 +2,7 @@
     "name": "@jangts/tangram.js",
     "version": "2.9.9",
     "description": "A Web Front-end Development Framework",
-    "main": "./tangram.js",
+    "main": "./dist/tangram.js",
     "deprecated": false,
     "dependencies": {},
     "bundleDependencies": [],

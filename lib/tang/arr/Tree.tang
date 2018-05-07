@@ -9,6 +9,9 @@
 
 var _ = pandora;
 
+namespace arr;
+
+
 getParents (index) {  
     var parents = [];
     each(this.data as i, leaf) {
@@ -40,7 +43,7 @@ getChildren (parent) {
  * @param   {Object}    otherkeys       其他辅助键键名集
  * 
  */
-class .arr.Tree {
+class .Tree {
     _init(array, index, parent, otherkeys = {}) {
         this.result = [];
         this.data = array;
@@ -50,6 +53,7 @@ class .arr.Tree {
         this.childrenkey = otherkeys.childrenkey || 'children';
         this.parentskey = otherkeys.parentskey || 'parents';
     }
+
     getAllOrderByRoot(rootId=0, level=1) {
         each(this.data as i, leaf) {
             if (leaf[this.parentindexkey] == rootId) {
@@ -60,6 +64,7 @@ class .arr.Tree {
         }
         return this;
     }
+
     getRootsWithChildren(rootId=0) {
         each(this.data as i, leaf) {
             if (leaf[this.parentindexkey] == rootId) {
@@ -69,6 +74,7 @@ class .arr.Tree {
         }
         return this;
     }
+
     getAllWithChildren(rootId=0) {
         each(this.data as i, leaf) {
             leaf[this.childrenkey] = getChildren.call(this, leaf[this.indexkey]);
@@ -84,3 +90,5 @@ class .arr.Tree {
         return this;
     }
 }
+
+module.exports = arr.Tree;

@@ -10,7 +10,7 @@
 use $ obj/;
 use $ util/bool;
 use $ dom/;
-use $ async/Request;
+use $ async/Request as Request;
 
 var _ = pandora,
 doc = root.document,
@@ -142,7 +142,7 @@ ns async with {
             options.data = undefined;
         }
 
-        var Promise = new _.async.Request(options);
+        var Promise = new Request(options);
         Promise.success = Promise.done;
         Promise.error = Promise.fail;
         Promise.complete = Promise.always;

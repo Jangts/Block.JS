@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>tangram.js syntax highlighting for python</title>
-    <script src="../../../src/tangram.js"></script>
+    <script src="../../../lib/dist/tangram.js"></script>
 
 </head>
 
@@ -100,7 +100,7 @@ class WarpWhistle(object):
          * 3. 使用see.highlight.rendertAll渲染python代码；
          */
         tangram.block(['$_/see/highlight/languages/python'], function(pandora, root, imports, undefined) {
-            pandora.load('../../../src/see/highlight/themes/coy.css', pandora.see.highlight.renderAll, null, 'css');
+            pandora.load('../../../lib/dist/see/highlight/themes/coy.css', pandora.see.highlight.renderAll, null, 'css');
         }, true);
     </script>
 </body>

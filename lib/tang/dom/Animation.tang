@@ -68,6 +68,7 @@ class .Animation extends ..Iterator {
         if (arr) {
             return arr;
         }
+        // log value;
         if (/^(\+|-)?\d+%$/.test(value)) {
             return value;
         }
@@ -180,11 +181,12 @@ class .Animation extends ..Iterator {
             from = this.mc[prop]['from'],
                 to = this.curFrame == this.frames ? this.mc[prop]['over'] : this.mc[prop]['to'],
                 tween = this.mc[prop].tween;
-            //console.log('from: ' + from)
+            // log 'from:', from;
+            // log 'to:', to;
             if (typeof(from) == 'number' && typeof(to) == 'number') {
                 ds = tween(this.curFrame, from, to - from, this.frames).toFixed(5);
             }
-            if (typeof(from) == 'object' && to instanceof Array) {
+            else if (typeof(from) == 'object' && to instanceof Array) {
                 var red = tween(this.curFrame, from[0], to[0] - from[0], this.frames).toFixed(0),
                     green = tween(this.curFrame, from[1], to[1] - from[1], this.frames).toFixed(0),
                     blue = tween(this.curFrame, from[2], to[2] - from[2], this.frames).toFixed(0);
@@ -195,7 +197,7 @@ class .Animation extends ..Iterator {
                     ds = 'rgb(' + red + ', ' + green + ', ' + blue + ')';
                 }
             }
-            if (typeof(to) == 'string' && /^(\+|-)?\d+%$/.test(to)) {
+            else if (typeof(to) === 'string' && /^(\+|-)?\d+%$/.test(to)) {
                 var to = parseFloat(to);
                 if (/^(\+|-)?\d+%$/.test(from)) {
                     var from = parseFloat(from);
@@ -204,7 +206,7 @@ class .Animation extends ..Iterator {
                         from = from / parent * 100;
                 }
                 ds = tween(this.curFrame, from, to - from, this.frames) + '%';
-            } else if (typeof(from) == 'string' && /^(\+|-)?\d+%$/.test(from)) {
+            } else if (typeof(from) === 'string' && /^(\+|-)?\d+%$/.test(from)) {
                 var parent = /(width|left|right)/i.test(prop) ? parseFloat(...getStyle(this.Element.parentNode, 'width')) : parseFloat(...getStyle(this.Element.parentNode, 'height')),
                     from = parseFloat(from) * parent / 100,
                     to = to;

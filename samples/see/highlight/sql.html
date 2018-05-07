@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>tangram.js syntax highlighting for sql</title>
-    <script src="../../../src/tangram.js"></script>
+    <script src="../../../lib/dist/tangram.js"></script>
 
 </head>
 
@@ -56,7 +56,7 @@ ORDER BY t.other_col DESC</code></pre>
          * 3. 使用see.highlight.rendertAll渲染sql代码；
          */
         tangram.block(['$_/see/highlight/languages/sql'], function(pandora, root, imports, undefined) {
-            pandora.load('../../../src/see/highlight/themes/coy.css', pandora.see.highlight.renderAll, null, 'css');
+            pandora.load('../../../lib/dist/see/highlight/themes/coy.css', pandora.see.highlight.renderAll, null, 'css');
         }, true);
     </script>
 </body>

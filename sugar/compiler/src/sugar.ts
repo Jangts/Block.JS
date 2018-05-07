@@ -119,7 +119,7 @@
             use: /(@\d+L\d+P\d+:::)\s*use(\s*\$)?\s+([\$\w\.\/\\\?\=\&]+)(\s+as(\s+(@\d+L\d+P\d+:::\s*[\$a-zA-Z_][\$\w]*)|\s*(@\d+L\d+P\d+:::\s*)?\{(@\d+L\d+P\d+:::\s*[\$a-zA-Z_][\$\w]*(\s*,@\d+L\d+P\d+:::\s*[\$a-zA-Z_][\$\w]*)*)\})(@\d+L\d+P\d+:::\s*)?)?\s*[;\r\n]/g,
             include: /\s*@include\s+___boundary_[A-Z0-9_]{36}_(\d+)_as_string___[;\r\n]+/g,
             extends: /(@\d+L\d+P\d+O*\d*:::)?(ns|namespace|extends)\s+((\.{0,3})[\$a-zA-Z_][\$\w\.]*)(\s+with)?\s*\{([^\{\}]*?)\}/g,
-            class: /(@\d+L\d+P\d+O*\d*:::)?((class|expands)\s+(\.{0,3}[\$a-zA-Z_][\$\w\.]*)?(\s+extends\s+\.{0,3}[\$a-zA-Z_][\$\w\.]*|ignore)?\s*\{[^\{\}]*?\})/g,
+            class: /(@\d+L\d+P\d+O*\d*:::)?((class|expands)(\s+\.{0,3}[\$a-zA-Z_][\$\w\.]*)?(\s+extends\s+\.{0,3}[\$a-zA-Z_][\$\w\.]*|ignore)?\s*\{[^\{\}]*?\})/g,
             fnlike: /(@\d+L\d+P\d+O*\d*:::)?(^|(function|def|public)\s+)?(([\$a-zA-Z_][\$\w]*)?\s*\([^\(\)]*\))\s*\{([^\{\}]*?)\}/g,
             parentheses: /(@\d+L\d+P\d+O*\d*:::)?\(\s*([^\(\)]*?)\s*\)/g,
             arraylike: /(@\d+L\d+P\d+O*\d*:::)?\[(\s*[^\[\]]*?)\s*\]/g,
@@ -143,7 +143,7 @@
             index: /(\d+)_as_([a-z]+)/,
             index3: /^_(\d+)_as_([a-z]+)___([\s\S]*)$/,
             extends: /(ns|nsassign|global|globalassign|extends)\s+([\$a-zA-Z_][\$\w\.]*)\s*\{([^\{\}]*?)\}/,
-            class: /(class|dec|expands)\s+(\.{1,3})?([\$a-zA-Z_][\$\w\.]*)?(\s+extends\s+(\.{1,3})?([\$a-zA-Z_][\$\w\.]*)|ignore)?\s*\{([^\{\}]*?)\}/,
+            class: /(class|expands)\s*(\.{1,3})?([\$a-zA-Z_][\$\w\.]*)?(\s+extends\s+(\.{1,3})?([\$a-zA-Z_][\$\w\.]*)|ignore)?\s*\{([^\{\}]*?)\}/,
             fnlike: /(^|(function|def|public)\s+)?([\$a-zA-Z_][\$\w]*)?\s*\(([^\(\)]*)\)\s*\{([^\{\}]*?)\}/,
             call: /([\$a-zA-Z_\.][\$\w\.]*)\s*___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___/,
             arrowfn: /(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)\s*(->|=>)\s*([\s\S]+)\s*$/,
@@ -401,14 +401,14 @@
                 // console.log(arguments);
                 // console.log(match, ':', posi, url, as, alias);
                 let index = this.replacements.length;
+                if ($) {
+                    url = '$_/' + url;
+                }
                 if (members) {
                     // console.log(members);
                     // url = url.replace(array, '[]');
                     this.replacements.push([url, members, posi]);
                     return '___boundary_' + this.uid + '_' + index + '_as_usings___;';
-                }
-                if ($) {
-                    url = '$_/' + url;
                 }
                 this.replacements.push([url, variables, posi]);
                 return '___boundary_' + this.uid + '_' + index + '_as_using___;';
@@ -1040,10 +1040,10 @@
             string = string
                 .replace(/:::(var|let|public)\s+(@\d+L\d+P(\d+O)?0:::)/g, ':::$1 ')
                 .replace(/([^,;\s])\s*(@\d+L\d+P(\d+O)?0:::[^\.\(\[)])/g, '$1;$2')
-                .replace(/[;\r\n]+(___boundary_[A-Z0-9_]{36}_\d+_as_(if|class|function|extends|call|log|object|objlike|closure|parentheses)___)/g, ";$1")
+                .replace(/(___boundary_[A-Z0-9_]{36}_\d+_as_(if)___)[;\s]*/g, "$1 ")
+                .replace(/[;\r\n]+(___boundary_[A-Z0-9_]{36}_\d+_as_(expression|if|class|function|extends|call|log|object|objlike|closure|parentheses)___)/g, ";$1")
                 .replace(/(___boundary_[A-Z0-9_]{36}_\d+_as_(log|closure)___)[;\r\n]+/g, "$1;\r\n")
                 .replace(/[;\r\n]+((@\d+L\d+P\d+O?\d*:::)?___boundary_[A-Z0-9_]{36}_\d+_as_(callschain)___)/g, "$1")
-                .replace(/(___boundary_[A-Z0-9_]{36}_\d+_as_(if)___)[;\s]*/g, "$1 ")
                 .trim();
             const sentences: string[] = string.split(/\s*;+\s*/);
             let lines: object[] = [];
@@ -1221,11 +1221,7 @@
                         posi: void 0,
                         value: symbol + ' ' + code
                     });
-                    if (vars.self[element] === void 0) {
-                        vars.self[element] = symbol;
-                    } else if (vars.self[element] === 'let' || symbol === 'let') {
-                        this.error(' Variable `' + element + '` has already been declared at char ' + position.col + ' on line ' + position.line + '.');
-                    }
+                    this.pushVariableToVars(vars, symbol, element, position);
                 } else {
                     let array = code.split(/\s*=\s*/);
                     // console.log(array);
@@ -1255,8 +1251,7 @@
                                     display: 'inline',
                                     posi: position,
                                     value: _symbol + ' ' + element + ' = '
-                                });
-                                lines.push({
+                                }, {
                                     type: 'line',
                                     subtype: 'sentence',
                                     display: 'inline',
@@ -2501,13 +2496,13 @@
                 // console.log(key);
                 // let position = this.getPosition(key);
                 // let _key = key.replace(position.match, '').trim();
+                let value = alias[key][0].toLowerCase();
                 codes.push("\r\n\t" + this.pushPostionsToMap(alias[key][2]) + "var " + this.patchVariables(key, vars));
-                codes.push(" = imports['" + alias[key][0]);
-                codes.push("'] && imports['" + alias[key][0]);
+                codes.push(" = imports['" + value);
                 if (alias[key][1] === '*') {
                     codes.push("'];");
                 } else {
-                    codes.push("']['" + key + "'];");
+                    codes.push("'] && imports['" + value + "']['" + key + "'];");
                 }
             }
             return codes;

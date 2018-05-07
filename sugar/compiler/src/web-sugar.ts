@@ -8,7 +8,7 @@
 ;
 this.tangram.init().auto([
     '$_/async/',
-    '$_/../sugar/compiler/lib/sugar as tangram_js_sugar'
+    '$_/../../sugar/compiler/lib/sugar as tangram_js_sugar'
 ], function (_, root, imports) {
     var tangram_js_sugar = imports.tangram_js_sugar,
     sugars = [], scripts = document.getElementsByTagName('script');

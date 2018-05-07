@@ -7,12 +7,13 @@
  * Date 2017-04-06
  */
 
-
 var _ = pandora,
 doc = root.document,
 console = root.console;
 
-class .async.Promise {
+namespace async;
+
+class .Promise {
     _init(resolver) {
         var Promise = this;
 
@@ -71,7 +72,7 @@ class .async.Promise {
     
     then(doneCallbacks, failCallbacks) {
         var Promise = this;
-        return new _.async.Promise(function(resolve, reject) {
+        return new ...Promise(function(resolve, reject) {
             try {
                 typeof doneCallbacks === 'function' && Promise.handlers.done.push(doneCallbacks);
                 typeof failCallbacks === 'function' && Promise.handlers.fail.push(failCallbacks);
@@ -160,7 +161,7 @@ class .async.Promise {
             },
             iterator = new _.Iterator(array);
         var Resolver = function(callback) {
-                new _.async.Promise(callback).done(function(data) {
+                new ...Promise(callback).done(function(data) {
                     Value.push(data);
                     Check();
                 });
@@ -180,4 +181,4 @@ class .async.Promise {
     }
 }
 
-this.module.exports = _.async.Promise;
+this.module.exports = ...Promise;

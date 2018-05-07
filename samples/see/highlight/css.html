@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>tangram.js syntax highlighting for css</title>
-    <script src="../../../src/tangram.js"></script>
+    <script src="../../../lib/dist/tangram.js"></script>
 
 </head>
 
@@ -74,7 +74,7 @@ pre .support {
          * 3. 使用see.highlight.renderAll渲染css代码；
          */
         tangram.block(['$_/see/highlight/languages/css'], function(pandora, root, imports, undefined) {
-            pandora.load('../../../src/see/highlight/themes/default.css', pandora.see.highlight.renderAll, null, 'css');
+            pandora.load('../../../lib/dist/see/highlight/themes/default.css', pandora.see.highlight.renderAll, null, 'css');
         }, true);
     </script>
 </body>
