@@ -6,7 +6,7 @@
  * Date: 2017-04-06
  */
 ;
-...Slider.extend({
+$..Slider.extend({
     name: 'slide',
     easing: "linear",
     bluider() {},

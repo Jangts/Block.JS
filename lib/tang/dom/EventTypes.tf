@@ -1,4 +1,4 @@
-...Events.setType({
+$..Events.setType({
     'DOMMouseScroll': {
         type: 'mousewheel'
     },

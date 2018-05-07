@@ -43,9 +43,9 @@ create = (tagName, context, attribute) {
         if (attribute) {
             for (var i in attribute) {
                 if (i == 'style') {
-                    ...setStyle(Element, attribute[i]);
+                    $..setStyle(Element, attribute[i]);
                 } else if ((i == 'value') && (tagName === 'input' || tagName === 'textarea')) {
-                    ...value = attribute[i];
+                    $..value = attribute[i];
                 } else if (i == 'html') {
                     Element.innerHTML = attribute[i];
                 } else if (Element.style[i] != undefined) {
@@ -69,7 +69,7 @@ create = (tagName, context, attribute) {
 createByString = (string, target) {
     var parentNodeTagName, parentNode, node;
     if (!target || target.nodeType != 1) {
-        target = ...fragment('div');
+        target = $..fragment('div');
     }
     if (/^<tr>[\s\S]*<\/tr>$/i.test(string)) {
         parentNodeTagName = 'tbody';
@@ -78,7 +78,7 @@ createByString = (string, target) {
     } else {
         parentNodeTagName = 'div';
     }
-    parentNode = ...create(parentNodeTagName, false, { html: string });
+    parentNode = $..create(parentNodeTagName, false, { html: string });
     node = parentNode.childNodes[0];
     while (node) {
         target.appendChild(node);
@@ -92,7 +92,7 @@ build = (str) {
         return [str];
     }
     if (_.util.type(str) === 'String') {
-        return ...createByString(str);
+        return $..createByString(str);
     }
     return [null];
 },
@@ -108,7 +108,7 @@ append = (target, content) {
 
 before = (elem, content) {
     var parent = elem.parentNode;
-    var newEls = ...build(content);
+    var newEls = $..build(content);
     each(newEls as newElem ){
         if (_.util.type(newElem, true) == 'Element') {
             parent.insertBefore(newElem, elem);
@@ -119,7 +119,7 @@ before = (elem, content) {
 
 after = (elem, content) {
     var newEls, curEl;
-    newEls = ...build(content);
+    newEls = $..build(content);
     curEl = elem;
     each(newEls as newElem) {
         if (_.util.type(newElem, true) === 'Element') {

@@ -8,12 +8,12 @@ namespace see;
 let _ = pandora,
 $ = _.dom.select;
 
-extends ...Scrollbar {
+extends $..Scrollbar {
     auto () {
         $('.tangram-see.scrollbar[data-ic-auto]').each(() {
             if (($(this).data('icAuto') != 'false') && ($(this).data('icRendered') != 'scrollbar')) {
                 $(this).data('icRendered', 'scrollbar');
-                new ...Scrollbar(this, {
+                new $..Scrollbar(this, {
                     theme: $(this).data('scbarTheme') || 'default-light',
                 });
             }
@@ -21,8 +21,8 @@ extends ...Scrollbar {
     }
 };
 
-...NavMenu.auto();
-...Scrollbar.auto();
-...Tabs.auto();
-...Tabs.SlideTabs.auto();
-...ListView.auto();
+$..NavMenu.auto();
+$..Scrollbar.auto();
+$..Tabs.auto();
+$..Tabs.SlideTabs.auto();
+$..ListView.auto();

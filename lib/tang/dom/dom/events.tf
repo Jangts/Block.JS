@@ -1,10 +1,10 @@
 public remove (elem, context) {
     if (context && _.util.type(context) == 'Element' && elem.parentNode == context) {
-        ...events.remove(elem);
+        $..events.remove(elem);
         context.removeChild(elem);
     } else if (elem && elem.parentNode && elem.parentNode.removeChild) {
         //console.log(elem);
-        ...events.remove(elem);
+        $..events.remove(elem);
         elem.parentNode.removeChild(elem);
     }
 }
@@ -65,13 +65,13 @@ namespace events with {
             selector = null;
         }
         if (typeof callback === "function") {
-            ...add(obj, 'touchstart', selector, null, function() {
+            $..add(obj, 'touchstart', selector, null, function() {
                 istouch = true;
             });
-            ...add(obj, 'touchmove', selector, null, function(e) {
+            $..add(obj, 'touchmove', selector, null, function(e) {
                 move = true;
             });
-            ...add(obj, 'touchend', selector, null, function(e) {
+            $..add(obj, 'touchend', selector, null, function(e) {
                 e.preventDefault();
                 if (!move) {
                     var touch = e.changedTouches[0];
@@ -85,7 +85,7 @@ namespace events with {
                 }
                 move = false;
             });
-            ...add(obj, 'mousedown', selector, null, click);
+            $..add(obj, 'mousedown', selector, null, click);
 
             function click(e) {
                 if (!istouch) {
@@ -101,13 +101,13 @@ namespace events with {
         }
         if (typeof callback === "function") {
             var istouch = false;
-            ...add(obj, 'touchstart', selector, null, function(e) {
+            $..add(obj, 'touchstart', selector, null, function(e) {
                 var touch = e.changedTouches[0];
                 e.pageX = touch.pageX;
                 e.pageY = touch.pageY;
                 return callback.call(this, e, 'touchstart');
             });
-            ...add(obj, 'mousedown', selector, null, click);
+            $..add(obj, 'mousedown', selector, null, click);
 
             function click(e) {
                 if (!istouch) {
@@ -123,13 +123,13 @@ namespace events with {
         }
         if (typeof callback === "function") {
             var istouch = false;
-            ...add(obj, 'touchmove', selector, null, function(e) {
+            $..add(obj, 'touchmove', selector, null, function(e) {
                 var touch = e.changedTouches[0];
                 e.pageX = touch.pageX;
                 e.pageY = touch.pageY;
                 return callback.call(this, e, 'touchmove');
             });
-            ...add(obj, 'mousemove', selector, null, click);
+            $..add(obj, 'mousemove', selector, null, click);
 
             function click(e) {
                 if (!istouch) {
@@ -145,13 +145,13 @@ namespace events with {
         }
         if (typeof callback === "function") {
             var istouch = false;
-            ...add(obj, 'touchend', selector, null, function(e) {
+            $..add(obj, 'touchend', selector, null, function(e) {
                 var touch = e.changedTouches[0];
                 e.pageX = touch.pageX;
                 e.pageY = touch.pageY;
                 return callback.call(this, e, 'touchend');
             });
-            ...add(obj, 'mouseup', selector, null, click);
+            $..add(obj, 'mouseup', selector, null, click);
 
             function click(e) {
                 if (!istouch) {
@@ -163,13 +163,13 @@ namespace events with {
     swipeLeft (obj, callback) {
         var start = {},
             end = {};
-        ...touchStart(ojb, function(e) {
+        $..touchStart(ojb, function(e) {
             start = {
                 x: e.pageX,
                 y: e.pageY
             };
         });
-        ...touchEnd(obj, function(e) {
+        $..touchEnd(obj, function(e) {
             end = {
                 x: e.pageX,
                 y: e.pageY
@@ -184,13 +184,13 @@ namespace events with {
     swipeRight (obj, callback) {
         var start = {},
             end = {};
-        ...touchStart(ojb, function(e) {
+        $..touchStart(ojb, function(e) {
             start = {
                 x: e.pageX,
                 y: e.pageY
             };
         });
-        ...touchEnd(obj, function(e) {
+        $..touchEnd(obj, function(e) {
             end = {
                 x: e.pageX,
                 y: e.pageY
@@ -205,13 +205,13 @@ namespace events with {
     swipe (obj, callback) {
         var start = {},
             end = {};
-        ...touchStart(ojb, function(e) {
+        $..touchStart(ojb, function(e) {
             start = {
                 x: e.pageX,
                 y: e.pageY
             };
         });
-        ...touchEnd(obj, function(e) {
+        $..touchEnd(obj, function(e) {
             end = {
                 x: e.pageX,
                 y: e.pageY

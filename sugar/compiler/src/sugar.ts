@@ -3384,7 +3384,7 @@
                 return code.replace(/(^|[^\$\w\.])((let|var)\s+)?([\$a-zA-Z_][\$\w]*)(\s+|\s*[^\$\w]|\s*$)/g, (match, before, typewithgap, type, varname, after) => {
                     // console.log(match, "\r\n", before, '[', varname, '](', type, ')', after);
                     return before + (typewithgap || '') + this.patchVariable(varname, vars) + after || '';
-                }).replace(/(^|[\?\:\=]\s*)(\.\.|\.)(\.[\$a-zA-Z_][\$\w]*|$)/g, (match, before, node, member) => {
+                }).replace(/(^|[\?\:\=]\s*)(ns\.|\$\.|\.)(\.[\$a-zA-Z_][\$\w]*|$)/g, (match, before, node, member) => {
                     // console.log(match, "\r\n", before, '[', node, ']', member, vars);
                     return before + this.patchNamespace(node, vars) + member;
                 });

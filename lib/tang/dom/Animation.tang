@@ -53,7 +53,7 @@ class .Animation extends ..Iterator {
         this.mc = {};
         for (var i in options.to) {
             this.mc[i] = {
-                from: options.from && typeof(options.from[i]) != 'undefined' ? this.rgbFormat(options.from[i]) : this.rgbFormat(...getStyle(this.Element, i)),
+                from: options.from && typeof(options.from[i]) != 'undefined' ? this.rgbFormat(options.from[i]) : this.rgbFormat($..getStyle(this.Element, i)),
                 to: this.rgbFormat(options.to[i]),
                 over: options.over && options.over[i] ? this.rgbFormat(options.over[i]) : this.rgbFormat(options.to[i]),
                 tween: options.tween && options.tween[i] ? options.tween[i] : this.tween
@@ -202,18 +202,18 @@ class .Animation extends ..Iterator {
                 if (/^(\+|-)?\d+%$/.test(from)) {
                     var from = parseFloat(from);
                 } else {
-                    var parent = /(width|left|right)/i.test(prop) ? parseFloat(...getStyle(this.Element.parentNode, 'width')) : parseFloat(...getStyle(this.Element.parentNode, 'height')),
+                    var parent = /(width|left|right)/i.test(prop) ? parseFloat($..getStyle(this.Element.parentNode, 'width')) : parseFloat($..getStyle(this.Element.parentNode, 'height')),
                         from = from / parent * 100;
                 }
                 ds = tween(this.curFrame, from, to - from, this.frames) + '%';
             } else if (typeof(from) === 'string' && /^(\+|-)?\d+%$/.test(from)) {
-                var parent = /(width|left|right)/i.test(prop) ? parseFloat(...getStyle(this.Element.parentNode, 'width')) : parseFloat(...getStyle(this.Element.parentNode, 'height')),
+                var parent = /(width|left|right)/i.test(prop) ? parseFloat($..getStyle(this.Element.parentNode, 'width')) : parseFloat($..getStyle(this.Element.parentNode, 'height')),
                     from = parseFloat(from) * parent / 100,
                     to = to;
                 ds = tween(this.curFrame, from, to - from, this.frames);
             }
             //console.log(prop + ':' + ds);
-            ...setStyle(this.Element, prop, ds);
+            $..setStyle(this.Element, prop, ds);
         }
         return this;
     }
@@ -225,16 +225,16 @@ class .Animation extends ..Iterator {
     static setTweens(tweens) {
         _.each(tweens, (type, tween) {
             if (typeof tween === 'function') {
-                ...Animation.tweens[type] = tween;
-            } else if ((typeof tween === 'string') && ...Animation.tweens[tween]) {
-                ...Animation.tweens[type] = ...Animation.tweens[tween];
+                $..Animation.tweens[type] = tween;
+            } else if ((typeof tween === 'string') && $..Animation.tweens[tween]) {
+                $..Animation.tweens[type] = $..Animation.tweens[tween];
             }
         });
     }
 
     static getTween(tweenName) {
-        if (tweenName && ...Animation.tweens[tweenName]) {
-            return ...Animation.tweens[tweenName];
+        if (tweenName && $..Animation.tweens[tweenName]) {
+            return $..Animation.tweens[tweenName];
         }
         return (t, b, c, d) {
             return c * t / d + b;
@@ -245,6 +245,6 @@ class .Animation extends ..Iterator {
 @include 'animation';
 
 module.exports = {
-    Animation : ...Animation,
-    animation : ...animation
+    Animation : $..Animation,
+    animation : $..animation
 };

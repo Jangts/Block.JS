@@ -15,7 +15,7 @@ doc = root.document,
 location = root.location,
 $ = _.dom.select;
 
-...Slider.extend({
+$..Slider.extend({
     name: 'colx3-vert',
     bluider() {},
     counter(num) {

@@ -72,7 +72,7 @@ class .Promise {
     
     then(doneCallbacks, failCallbacks) {
         var Promise = this;
-        return new ...Promise(function(resolve, reject) {
+        return new $..Promise(function(resolve, reject) {
             try {
                 typeof doneCallbacks === 'function' && Promise.handlers.done.push(doneCallbacks);
                 typeof failCallbacks === 'function' && Promise.handlers.fail.push(failCallbacks);
@@ -161,7 +161,7 @@ class .Promise {
             },
             iterator = new _.Iterator(array);
         var Resolver = function(callback) {
-                new ...Promise(callback).done(function(data) {
+                new $..Promise(callback).done(function(data) {
                     Value.push(data);
                     Check();
                 });
@@ -181,4 +181,4 @@ class .Promise {
     }
 }
 
-this.module.exports = ...Promise;
+this.module.exports = $..Promise;

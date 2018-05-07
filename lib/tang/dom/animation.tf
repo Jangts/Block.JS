@@ -1,10 +1,10 @@
 public animator (elem, options) {
     if (elem) {
-        var elemStorage = pandora.storage.get(...cache(elem));
+        var elemStorage = pandora.storage.get($..cache(elem));
         if (elemStorage.Animation) {
             var Animation = elemStorage.Animation;
         } else {
-            var Animation = new ...Animation(elem);
+            var Animation = new $..Animation(elem);
             elemStorage.Animation = Animation;
         }
         if (options) {
@@ -20,7 +20,7 @@ public animator (elem, options) {
                             to = options.keyframes[i],
                             duration = (i - h) / 100 * last,
                             callback = (options.callbacks && options.callbacks[i]) ? options.callbacks[i] : null,
-                            tween = options.tween ? ...Animation.getTween(options.tween) : null;
+                            tween = options.tween ? $..Animation.getTween(options.tween) : null;
                         Animation.push({
                             duration: duration,
                             from: from,
@@ -47,7 +47,7 @@ namespace animator with {
             to: style,
             over: style,
             duration: duration,
-            tween: ...Animation.getTween(easing),
+            tween: $..Animation.getTween(easing),
             callback: callback
         });
         Animation.play(1);

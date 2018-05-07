@@ -159,7 +159,7 @@ syntacticAnalyzer (midast) {
     return text;
 }
 
-class ...HTMLCloser  {
+class $..HTMLCloser  {
     body = ''
     strlen = 0
     midast = []
@@ -181,4 +181,4 @@ class ...HTMLCloser  {
     }
 }
 
-module.exports = ...HTMLCloser;
+module.exports = $..HTMLCloser;

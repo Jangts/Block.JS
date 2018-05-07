@@ -25,8 +25,8 @@
         */
 
         use $ arr/
-        use   $_/util/bool; use $ util/type as {type1};  use $ util/../util/type as types
-                        use $ util/../util/type as {type2, type3};
+        use   $_/util/bool; use $ util/type as {Obj};  use $ util/../util/type as types
+                        use $ util/../util/type as {Obj, Str};
 
 
         @include './test.tf';
@@ -90,11 +90,9 @@
         }
 
         console.log(imports)
-        console.log(type1);
-        console.log(type2)
-        console.log(type3);
-
-
+        console.log(Obj);
+        console.log(Str)
+        console.log(types);
 
         extends .see.Scrollbar {
             auto () {

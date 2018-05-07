@@ -12,7 +12,7 @@ namespace dom;
 
 var _ = pandora,
 declare = ..declareClass,
-query = ...sizzle || ...query;
+query = $..sizzle || $..query;
 
 var doc = root.document,
 removeByIndex = function(array, index) {
@@ -23,7 +23,7 @@ removeByIndex = function(array, index) {
     return result;
 };
 
-class ...Events {
+class $..Events {
     _protected =  {
         types: {},
         keys: []
@@ -112,7 +112,7 @@ class ...Events {
         event.currentTarget = event.currentTarget || event.target || event.relatedTarget || event.srcElement;
         event.target = event.target || event.currentTarget;
         event.delegateTarget = this.Element;
-        event.path = event.path || ...getParentNodes(event.target, true);
+        event.path = event.path || $..getParentNodes(event.target, true);
         event.isCurrent = (event.delegateTarget === event.target);
         // if (event.delegateTarget === event.target) {
         //     // event.path = event.path || [event.target];
@@ -269,7 +269,7 @@ class ...Events {
     }
 
     static setType(types) {
-        var domEvents = new ...Events();
+        var domEvents = new $..Events();
         for (var i in types) {
             domEvents._protected.types[i] = types[i];
         }
@@ -278,4 +278,4 @@ class ...Events {
 
 @include 'EventTypes';
 
-this.module.exports = ...Events;
+this.module.exports = $..Events;

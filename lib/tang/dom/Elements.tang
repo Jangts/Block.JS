@@ -16,7 +16,7 @@ namespace dom;
 
 var _ = pandora,
 declare = ..declareClass,
-query = ...query.sizzle || ...query;
+query = $..query.sizzle || $..query;
 
 @include 'Elements/variables';
 
@@ -27,7 +27,7 @@ class .Elements extends ..Iterator {
         if (bool.isOuterHTML(selector)) {
             this.isElFragment = true;
             this.context = context || this.context;
-            Elements = ...createByString(this.selector = selector);
+            Elements = $..createByString(this.selector = selector);
             for (var i = 0; i < Elements.length; i++) {
                 this.push(Elements[i]);
             }
@@ -49,7 +49,7 @@ class .Elements extends ..Iterator {
                                 Elements.push(arguments[0]);
                                 break;
                             case 'Object':
-                                Elements = ...query.byAttr(selector);
+                                Elements = $..query.byAttr(selector);
                                 break;
                             case 'Elements':
                                 Elements = arguments[0];
@@ -80,7 +80,7 @@ class .Elements extends ..Iterator {
 
 //Expends Public Static Methods 'query' For 'dom'
 public select = (selector, context) {
-    return new ...Elements(selector, context);
+    return new $..Elements(selector, context);
 }
 
 public $ = select;
@@ -89,7 +89,7 @@ public $ = select;
 
 extends .select {
      extend (object, rewrite) {
-        ..extend(...Elements.prototype, rewrite, object);
+        ..extend($..Elements.prototype, rewrite, object);
     }
 }
 

@@ -83,4 +83,4 @@ class .ViewModel {
     }
 }
 
-module.exports = ...ViewModel;
+module.exports = $..ViewModel;

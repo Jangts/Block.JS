@@ -1,0 +1,99 @@
+let object = {
+    foo:'foo',
+    bar:'bar',
+    bla:'blabla',
+    array: ['hello', ', ', 'tangram', '.', 'js']
+},
+{foo, bar, bla} = object;
+
+log foo, bar, bla;
+
+let fn(){
+    return  {
+        foo:'foo',
+        bar:'bar',
+        bla:'blabla'
+    }
+}
+
+let {foo1, bar1, bla1} = fn();
+
+log foo1, bar1, bla1;
+
+class Class {
+    foo = 'foo';
+    bar = 'bar';
+    bla = 'blabla';
+}
+
+let {foo2, bar2, bla2} = new Class;
+
+log foo2, bar2, bla2;
+
+let {foo3, bar3, bla3} = {
+    foo:'foo',
+    bar:'bar',
+    bla:'blabla',
+    array: ['hello', ', ', 'tangram', '.', 'js']
+};
+
+log foo3, bar3, bla3;
+
+let array = ['hello', ', ', 'tangram', '.', 'js'];
+
+let [hello, comma, tangram, dot, js] = array;
+
+log hello, comma, tangram, dot, js;
+
+let [hello1, comma1, tangram1, dot1, js1] = object.array;
+
+log hello1, comma1, tangram1, dot1, js1;
+
+let [hello2, comma2, tangram2, dot2, js2] = object['array'];
+
+log hello2, comma2, tangram2, dot2, js2;
+
+let [hello3, comma3, tangram3, dot3, js3] = ['hello', ', ', 'tangram', '.', 'js'];
+
+log hello3, comma3, tangram3, dot3, js3;
+
+let { x, y, ...z } = { x: 1, y: 2, a: 3, b: 4 };
+console.log(x); // 1
+console.log(y); // 2
+console.log(z); // { a: 3, b: 4 }
+
+let { l, m, ...n } = [1,2,3,4,5];
+console.log(l); // 1
+console.log(m); // 2
+console.log(n); //[3,4,5]
+
+
+# 补充展开运算符
+
+# function myFunction(x, y, z) { }
+# var args = [0, 1, 2];
+# myFunction.apply(null, args);
+function myFunction(x, y, z) { log x, y, z; }
+var args = [0, 1, 2];
+myFunction(...args);
+
+let aa = {aa:'aa'}
+let bb = {bb:'bb'}
+let cc = {...aa,...bb}
+log cc;
+
+var arr1 = ['two', 'three'];
+var arr2 = ['one', ...arr1, 'four', 'five'];
+log arr2;
+
+var arr = [1,2,3];
+var arr2 = [...arr]; // 和arr.slice()差不多
+arr2.push(4)
+log arr1, arr2;
+
+log [...document.querySelectorAll('div')];
+
+
+let numbers = [9, 4, 7, 1];
+let min = Math.min(...numbers); // 1
+log min;

@@ -1,4 +1,4 @@
-...Animation.setTweens(..math.easing.all);
+$..Animation.setTweens(..math.easing.all);
 
 //Expends Animation APIs To 'Elements'
 expands .Elements {
@@ -7,10 +7,10 @@ expands .Elements {
         to = {};
         to[style] = value;
         this.each(() {
-            new ...Animation(this, {
+            new $..Animation(this, {
                 to: to,
                 duration: duration,
-                tween: ...Animation.getTween(easing),
+                tween: $..Animation.getTween(easing),
                 callback: callback
             }).play(1);
         });
@@ -20,19 +20,19 @@ expands .Elements {
         duration = duration || 1000;
         // log styles;
         this.each(() {
-            ...animator.play(this, styles, duration, easing, callback);
+            $..animator.play(this, styles, duration, easing, callback);
         });
         return this;
     }
     stop (stopAll, goToEnd) {
         this.each(() {
-            ...animator.stop(this, stopAll, goToEnd);
+            $..animator.stop(this, stopAll, goToEnd);
         });
         return this;
     }
     animator (options) {
         this.each(() {
-            ...animator(this, options).play();
+            $..animator(this, options).play();
         });
         return this;
     }
@@ -40,10 +40,10 @@ expands .Elements {
         this.each(() {
             if (duration) {
                 duration = duration;
-                if (...getStyle(this, 'display') != 'none') {
+                if ($..getStyle(this, 'display') != 'none') {
                     callback && callback.call(this);
                 } else {
-                    var Animation = ...animator(this);
+                    var Animation = $..animator(this);
                     var len = Animation.length;
                     var from = {
                         width: 0,
@@ -59,17 +59,17 @@ expands .Elements {
                         opacity: 0
                     };
                     var to = {
-                        width: ...getStyle(this, 'width'),
-                        height: ...getStyle(this, 'height'),
-                        paddingTop: ...getStyle(this, 'paddingTop'),
-                        paddingRight: ...getStyle(this, 'paddingRight'),
-                        paddingBottom: ...getStyle(this, 'paddingBottom'),
-                        paddingLeft: ...getStyle(this, 'paddingLeft'),
-                        marginTop: ...getStyle(this, 'marginTop'),
-                        marginRight: ...getStyle(this, 'marginRight'),
-                        marginBottom: ...getStyle(this, 'marginBottom'),
-                        marginLeft: ...getStyle(this, 'marginLeft'),
-                        opacity: ...getStyle(this, 'opacity')
+                        width: $..getStyle(this, 'width'),
+                        height: $..getStyle(this, 'height'),
+                        paddingTop: $..getStyle(this, 'paddingTop'),
+                        paddingRight: $..getStyle(this, 'paddingRight'),
+                        paddingBottom: $..getStyle(this, 'paddingBottom'),
+                        paddingLeft: $..getStyle(this, 'paddingLeft'),
+                        marginTop: $..getStyle(this, 'marginTop'),
+                        marginRight: $..getStyle(this, 'marginRight'),
+                        marginBottom: $..getStyle(this, 'marginBottom'),
+                        marginLeft: $..getStyle(this, 'marginLeft'),
+                        opacity: $..getStyle(this, 'opacity')
                     };
                     if (len > 0) {
                         for (var style in to) {
@@ -81,20 +81,20 @@ expands .Elements {
                             }
                         }
                     }
-                    ...setStyle(this, from);
-                    ...setStyle(this, 'display', 'block');
+                    $..setStyle(this, from);
+                    $..setStyle(this, 'display', 'block');
                     Animation.push({
                         from: from,
                         to: to,
                         over: to,
                         duration: duration,
-                        tween: ...Animation.getTween(easing),
+                        tween: $..Animation.getTween(easing),
                         callback: callback
                     });
                     Animation.play(1);
                 }
             } else {
-                ...setStyle(this, 'display', 'block');
+                $..setStyle(this, 'display', 'block');
             }
         });
         return this;
@@ -103,23 +103,23 @@ expands .Elements {
         this.each(() {
             if (duration) {
                 duration = duration;
-                if (...getStyle(this, 'display') == 'none') {
+                if ($..getStyle(this, 'display') == 'none') {
                     callback && callback.call(this);
                 } else {
-                    var Animation = ...animator(this);
+                    var Animation = $..animator(this);
                     var len = Animation.length;
                     var from = {
-                        width: ...getStyle(this, 'width'),
-                        height: ...getStyle(this, 'height'),
-                        paddingTop: ...getStyle(this, 'paddingTop'),
-                        paddingRight: ...getStyle(this, 'paddingRight'),
-                        paddingBottom: ...getStyle(this, 'paddingBottom'),
-                        paddingLeft: ...getStyle(this, 'paddingLeft'),
-                        marginTop: ...getStyle(this, 'marginTop'),
-                        marginRight: ...getStyle(this, 'marginRight'),
-                        marginBottom: ...getStyle(this, 'marginBottom'),
-                        marginLeft: ...getStyle(this, 'marginLeft'),
-                        opacity: ...getStyle(this, 'opacity')
+                        width: $..getStyle(this, 'width'),
+                        height: $..getStyle(this, 'height'),
+                        paddingTop: $..getStyle(this, 'paddingTop'),
+                        paddingRight: $..getStyle(this, 'paddingRight'),
+                        paddingBottom: $..getStyle(this, 'paddingBottom'),
+                        paddingLeft: $..getStyle(this, 'paddingLeft'),
+                        marginTop: $..getStyle(this, 'marginTop'),
+                        marginRight: $..getStyle(this, 'marginRight'),
+                        marginBottom: $..getStyle(this, 'marginBottom'),
+                        marginLeft: $..getStyle(this, 'marginLeft'),
+                        opacity: $..getStyle(this, 'opacity')
                     },
                         to = {
                             width: 0,
@@ -149,17 +149,17 @@ expands .Elements {
                         to: to,
                         over: from,
                         duration: duration,
-                        tween: ...Animation.getTween(easing),
+                        tween: $..Animation.getTween(easing),
                         callback () {
-                            ...setStyle(this, 'display', 'none');
-                            ...setStyle(this, from);
+                            $..setStyle(this, 'display', 'none');
+                            $..setStyle(this, from);
                             callback && callback.call(this);
                         }
                     });
                     Animation.play(1);
                 }
             } else {
-                ...setStyle(this, 'display', 'none');
+                $..setStyle(this, 'display', 'none');
             }
         })
         return this;
@@ -167,9 +167,9 @@ expands .Elements {
     fadeIn (duration, easing, callback) {
         duration = duration || 1000;
         this.each(() {
-            var Animation = ...animator(this);
+            var Animation = $..animator(this);
             var len = Animation.length;
-            var opacity = ...getStyle(this, 'opacity');
+            var opacity = $..getStyle(this, 'opacity');
             if (len > 0) {
                 for (var i = len - 1; i >= 0; i--) {
                     if (Animation.scenes[i].over && Animation.scenes[i].over.opacity) {
@@ -178,14 +178,14 @@ expands .Elements {
                     }
                 }
             }
-            ...setStyle(this, 'opacity', 0);
-            ...setStyle(this, 'display', 'block');
+            $..setStyle(this, 'opacity', 0);
+            $..setStyle(this, 'display', 'block');
             Animation.push({
                 from: { opacity: 0 },
                 to: { opacity: opacity },
                 over: { opacity: opacity },
                 duration: duration,
-                tween: ...Animation.getTween(easing),
+                tween: $..Animation.getTween(easing),
                 callback () {
                     callback && callback.call(this);
                 }
@@ -197,12 +197,12 @@ expands .Elements {
     fadeOut (duration, easing, callback) {
         duration = duration || 1000;
         this.each(() {
-            if (...getStyle(this, 'display') == 'none') {
+            if ($..getStyle(this, 'display') == 'none') {
                 callback && callback.call(this);
             } else {
-                var Animation = ...animator(this);
+                var Animation = $..animator(this);
                 var len = Animation.length;
-                var opacity = ...getStyle(this, 'opacity');
+                var opacity = $..getStyle(this, 'opacity');
                 if (len > 0) {
                     for (var i = len - 1; i >= 0; i--) {
                         if (Animation.scenes[i].over && Animation.scenes[i].over.opacity) {
@@ -216,9 +216,9 @@ expands .Elements {
                     to: { opacity: 0 },
                     over: { opacity: opacity },
                     duration: duration,
-                    tween: ...Animation.getTween(easing),
+                    tween: $..Animation.getTween(easing),
                     callback () {
-                        ...setStyle(this, 'display', 'block');
+                        $..setStyle(this, 'display', 'block');
                         callback && callback.call(this);
                     }
                 });

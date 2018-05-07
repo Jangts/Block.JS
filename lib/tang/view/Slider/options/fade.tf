@@ -6,7 +6,7 @@
 * Date: 2017-04-06
 */
 
-...Slider.extend({
+$..Slider.extend({
     name: 'fade',
     layout() {
         var rank = this.rank(this.actorsNum);

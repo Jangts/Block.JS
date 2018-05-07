@@ -15,7 +15,7 @@ doc = root.document,
 location = root.location,
 $ = _.dom.select;
 
-...Slider.extend({
+$..Slider.extend({
     name: 'slide-vert',
     easing: "linear",
     duration: 400,

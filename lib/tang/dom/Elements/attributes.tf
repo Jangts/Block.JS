@@ -4,23 +4,23 @@ expands .Elements {
         switch (typeof value) {
             case 'string':
                 return this.each(() {
-                    ...setAttr(this, attr, value)
+                    $..setAttr(this, attr, value)
                 });
 
             case 'function':
                 return this.each((i) {
-                    ...setAttr(this, attr, value(i, ...getAttr(this, attr)))
+                    $..setAttr(this, attr, value(i, $..getAttr(this, attr)))
                 });
 
             case 'undefined':
-                return this[0] && ...getAttr(this[0], attr);
+                return this[0] && $..getAttr(this[0], attr);
         }
         this;
     }
     removeAttr (attr) {
         if (typeof attr == 'string') {
             this.each(() {
-                ...removeAttr(this, attr)
+                $..removeAttr(this, attr)
             });
         }
         return this;
@@ -30,15 +30,15 @@ expands .Elements {
             case 'string':
             case 'number':
                 this.each((index) {
-                    ...setData(this, dataName, bool.isFn(data) ? data.call(this, index) : data)
+                    $..setData(this, dataName, bool.isFn(data) ? data.call(this, index) : data)
                 });
                 break;
             case 'function':
                 return this.each((i) {
-                    ...setData(this, attr, data(i, ...getAttr(this, dataName)))
+                    $..setData(this, attr, data(i, $..getAttr(this, dataName)))
                 });
             case 'undefined':
-                return this[0] && ...getData(this[0], dataName);
+                return this[0] && $..getData(this[0], dataName);
         }
         return this;
     }
@@ -59,24 +59,24 @@ expands .Elements {
         return this;
     }
     hasClass (className) {
-        return this[0] && ...hasClass(this[0], className);
+        return this[0] && $..hasClass(this[0], className);
     }
     toggleClass (className, isSwitch) {
         switch (typeof className) {
             case 'string':
                 this.each(() {
-                    ...toggleClass(this, className, isSwitch);
+                    $..toggleClass(this, className, isSwitch);
                 });
                 break;
             case 'function':
                 this.each((i, el) {
-                    ...toggleClass(this, className(i, ...getAttr(el, 'class')), isSwitch);
+                    $..toggleClass(this, className(i, $..getAttr(el, 'class')), isSwitch);
                 });
                 break;
             case 'boolean':
                 if (className === false) {
                     this.each((i, el) {
-                        ...setAttr(this, 'class', '');
+                        $..setAttr(this, 'class', '');
                     });
                 }
                 break;

@@ -29,12 +29,12 @@ sizes = (type, value, handler) {
         case 'string':
         case 'number':
             return this.each(() {
-                ...setStyle(this, type, value);
+                $..setStyle(this, type, value);
             });
 
         case 'function':
             return this.each((i) {
-                ...setStyle(this, type, value(i, ...getStyle(this, type)));
+                $..setStyle(this, type, value(i, $..getStyle(this, type)));
             });
 
         case 'undefined':
@@ -45,13 +45,13 @@ sizes = (type, value, handler) {
 scroll_offset = (type, value) {
     if (bool.isNumeric(value)) {
         return this.each(() {
-            ...setStyle(this, type, value);
+            $..setStyle(this, type, value);
         });
     }
     if (bool.isFn(value)) {
         return this.each((i) {
-            ...setStyle(this, type, value(i, ...getStyle(this, type)));
+            $..setStyle(this, type, value(i, $..getStyle(this, type)));
         });
     }
-    return this[0] && ...getStyle(this[0], type);
+    return this[0] && $..getStyle(this[0], type);
 };

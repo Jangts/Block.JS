@@ -5,7 +5,7 @@ expands .Elements {
         if (typeof style === 'object') {
             this.each(() {
                 each(style as prop, value) {
-                    ...setStyle(this, prop, value);
+                    $..setStyle(this, prop, value);
                 }
             });
         } else {
@@ -13,44 +13,44 @@ expands .Elements {
                 case 'string':
                 case 'number':
                     return this.each(() {
-                        ...setStyle(this, style, value);
+                        $..setStyle(this, style, value);
                     });
 
                 case 'function':
                     return this.each((i) {
-                        ...setStyle(this, style, value(i, ...getStyle(this, style)));
+                        $..setStyle(this, style, value(i, $..getStyle(this, style)));
                     });
                 case 'undefined':
                     if (typeof style === 'string') {
-                        return this[0] && ...getStyle(this[0], style);
+                        return this[0] && $..getStyle(this[0], style);
                     }
             }
         }
         return this;
     }
     width (value) {
-        return sizes.call(this, 'width', value, ...getWidth);
+        return sizes.call(this, 'width', value, $..getWidth);
     }
     outerWidth (includeMargin) {
         if (includeMargin) {
-            return this[0] && ...getWidth(this[0], 'box');
+            return this[0] && $..getWidth(this[0], 'box');
         }
-        return this[0] && ...getWidth(this[0], 'outer');
+        return this[0] && $..getWidth(this[0], 'outer');
     }
     innerWidth () {
-        return this[0] && ...getWidth(this[0], 'inner');
+        return this[0] && $..getWidth(this[0], 'inner');
     }
     height (value) {
-        return sizes.call(this, 'height', value, ...getHeight);
+        return sizes.call(this, 'height', value, $..getHeight);
     }
     outerHeight (includeMargin) {
         if (includeMargin) {
-            return this[0] && ...getHeight(this[0], 'box');
+            return this[0] && $..getHeight(this[0], 'box');
         }
-        return this[0] && ...getHeight(this[0], 'outer');
+        return this[0] && $..getHeight(this[0], 'outer');
     }
     innerHeight (includeMargin) {
-        return this[0] && ...getHeight(this[0], 'inner');
+        return this[0] && $..getHeight(this[0], 'inner');
     }
     scrollHeight (value) {
         return scroll_offset.call(this, 'scrollHeight', value);
@@ -81,20 +81,20 @@ expands .Elements {
             switch (typeof value) {
                 case 'object':
                     return this.each(() {
-                        ...setStyle(this, 'offsetTop', value.top);
-                        ...setStyle(this, 'offsetLeft', value.left);
+                        $..setStyle(this, 'offsetTop', value.top);
+                        $..setStyle(this, 'offsetLeft', value.left);
                     });
 
                 case 'function':
                     return this.each((i) {
-                        var style = ...getStyle(this);
-                        ...setStyle(this, 'offsetTop', value(i, style.offsetTop));
-                        ...setStyle(this, 'offsetLeft', value(i, style.offsetLeft));
+                        var style = $..getStyle(this);
+                        $..setStyle(this, 'offsetTop', value(i, style.offsetTop));
+                        $..setStyle(this, 'offsetLeft', value(i, style.offsetLeft));
                     });
 
             }
         }
-        var style = this[0] ? ...getStyle(this[0]) : {
+        var style = this[0] ? $..getStyle(this[0]) : {
             offsetTop: null,
             offsetLeft: null
         };
@@ -106,26 +106,26 @@ expands .Elements {
     widths () {
         var width = 0;
         this.each(() {
-            width += ...getWidth(this, 'box');
+            width += $..getWidth(this, 'box');
         });
         return width;
     }
     heights () {
         var height = 0;
         this.each(() {
-            height += ...getHeight(this, 'box');
+            height += $..getHeight(this, 'box');
         });
         return height;
     }
     show () {
         this.each(() {
-            ...setStyle(this, 'display', 'block');
+            $..setStyle(this, 'display', 'block');
         });
         return this;
     }
     hide () {
         this.each(() {
-            ...setStyle(this, 'display', 'none');
+            $..setStyle(this, 'display', 'none');
         })
         return this;
     }

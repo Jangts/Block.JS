@@ -16,10 +16,10 @@ expands .Elements {
         this.each(() {
             if (bool.isArr(eventType)) {
                 each(eventType as i, et) {
-                    ...events.add(this, et, selector, data, handler);
+                    $..events.add(this, et, selector, data, handler);
                 }
             } else {
-                ...events.add(this, eventType, selector, data, handler);
+                $..events.add(this, eventType, selector, data, handler);
             }
         });
         return this;
@@ -28,17 +28,17 @@ expands .Elements {
         this.each(() {
             if (bool.isArr(eventType)) {
                 each(eventType as i, et) {
-                    ...events.remove(this, et, selector, handler);
+                    $..events.remove(this, et, selector, handler);
                 }
             } else {
-                ...events.remove(this, eventType, selector, handler);
+                $..events.remove(this, eventType, selector, handler);
             }
         });
         return this;
     }
     trigger (eventType, data) {
         this.each(() {
-            ...events.trigger(this, eventType, data);
+            $..events.trigger(this, eventType, data);
         });
         return this;
     }

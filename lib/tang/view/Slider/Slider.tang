@@ -78,12 +78,12 @@ class .Slider {
         // log elem, this.Element, this.Element.nodeType, bool.isEl, bool.isEl(this.Element);
         if (bool.isEl(this.Element)) {
             options = options || {};
-            if (bool.isStr(preset) && ...Slider.presets[preset]) {
-                ..extend(options, ...Slider.presets[preset]);
+            if (bool.isStr(preset) && $..Slider.presets[preset]) {
+                ..extend(options, $..Slider.presets[preset]);
             } else if (bool.isObj(preset)) {
                 ..extend(options, preset);
             } else {
-                ..extend(options, ...Slider.presets.slide);
+                ..extend(options, $..Slider.presets.slide);
             }
             ..extend(this, true, options);
 
@@ -251,14 +251,14 @@ class .Slider {
         var presets = {};
         var args = [].slice.call(arguments);
         each(args as preset) {
-            if (bool.isStr(preset) && ...Slider.presets[preset]) {
-                _.extend(base, ...Slider.presets[preset])
+            if (bool.isStr(preset) && $..Slider.presets[preset]) {
+                _.extend(base, $..Slider.presets[preset])
             } else if (bool.isObj(preset) && bool.isStr(preset.name)) {
                 presets[preset.name] = preset;
             }
         }
         each(presets as name, preset) {
-            ...Slider.presets[name] = _.extend({}, base, preset);
+            $..Slider.presets[name] = _.extend({}, base, preset);
         }
     }
 }
@@ -266,4 +266,4 @@ class .Slider {
 @include 'options/slide';
 @include 'options/fade';
 
-this.module.exports = ...Slider;
+this.module.exports = $..Slider;

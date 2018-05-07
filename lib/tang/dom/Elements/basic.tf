@@ -23,7 +23,7 @@ expands .Elements {
         var Elements = [];
         var node;
         this.each(() {
-            if (node = ...closest(this, tagName)) {
+            if (node = $..closest(this, tagName)) {
                 Elements.push(node);
             }
         });
@@ -162,7 +162,7 @@ expands .Elements {
         return this;
     }
     appendTo (selector) {
-        var parents = new ...Elements(selector);
+        var parents = new $..Elements(selector);
         //console.log(selector, parents, this.isElFragment);
         if (this.isElFragment) {
             var Elements,
@@ -170,7 +170,7 @@ expands .Elements {
             that.length = 0;
             parents.each((i, parent) {
                 console.log(parent);
-                Elements = ...createByString(that.selector, parent);
+                Elements = $..createByString(that.selector, parent);
                 for (var i = 0; i < Elements.length; i++) {
                     that.push(Elements[i]);
                 }
@@ -189,27 +189,27 @@ expands .Elements {
     }
     remove () {
         this.each(() {
-            ...remove(this);
+            $..remove(this);
         });
         return null;
     }
     before (content) {
-        return insert.call(this, content, ...before);
+        return insert.call(this, content, $..before);
     }
     after (content) {
-        return insert.call(this, content, ...after);
+        return insert.call(this, content, $..after);
     }
     index (list) {
         if (..util.type.isElement(list)) {
-            return ...index(list, this);
+            return $..index(list, this);
         }
-        return ...index(this[0], list);
+        return $..index(this[0], list);
     }
     parent () {
         var nodes = [];
         this.each(() {
             nodes.push(this.parentNode);
         });
-        return new ...Elements(..arr.unique(nodes));
+        return new $..Elements(..arr.unique(nodes));
     }
 }

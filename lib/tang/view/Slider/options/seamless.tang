@@ -15,7 +15,7 @@ doc = root.document,
 location = root.location,
 $ = _.dom.select;
 
-...Slider.extend({
+$..Slider.extend({
     name: 'seamless',
     easing: "linear",
     bluider() {},
