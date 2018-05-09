@@ -1,161 +1,184 @@
-use$ str/
-# use ./foo/bar.js?v=1&time=1234567898765;
+// use$ str/
+// # use ./foo/bar.js?v=1&time=1234567898765;
 
-namespace foo.bar;
-var a = 0;
-# let a = 0;
-let b = 0;
-{
-    let a = 1
-    let b = 1
-    public p1 = 14;
-    let pandora = null;
-    let pandora_0;
-    let pandora_1 = b;
-    var pandora_1_1;
-    var root = pandora;
-    log a, b;
+// @var console
+// @var location;
+// @var history,
+// alert,confirm,
+// prompt;
 
-    let z = 1;
-    {
-        let a = 1
-        let b = 1
-        let z = 1;
-    }
-}
+alert = (){}
+confirm = (){}
+alert('Hello, world!');
+confirm('foo, or bar?');
 
 {
-    let z = 1;
+    let console = null;
+    let document = null;
+    // let location;
 }
+// console.log(typeof document);
+// document = null;
+// // let location = null;
 
-log a, b, pandora_1_1, /* pandora_1 */;
+// namespace foo.bar;
+// const A = 0;
+// var a = 0;
+// # let a = 0;
+// let b = 0;
+// {
+//     const A = 0;
+//     # A = 1;
+//     let a = 1
+//     let b = 1
+//     public p1 = 14;
+//     let pandora = null;
+//     let pandora_0;
+//     let pandora_1 = b;
+//     var pandora_1_1;
+//     var root = pandora;
+//     log a, b;
 
-var c = 0
-var i = 0;
-for (let i=0; i < 5; i++) { 
-    var a = i;
-    let c = i;
-    var e = i;
-    let f = 2;
-    var pandora_0;
-    let pandora_0_0;
-    public p2 = 21;
-    let g = 2;
-    let z = 2;
-    for (let i=0; i <6 ; i++) { 
-        # log i;
-    }
-    var j_5 = 5;
-    for (let j=0; j <6 ; j++) { 
-        # log j;
-    }
-    for (var j=0; j <6 ; j++) { 
-        # log j;
-    }
-}
-let z_0;
-log /* z */;
+//     let z = 1;
+//     {
+//         let a = 1
+//         let b = 1
+//         let z = 1;
+//     }
+// }
 
-var d = [0,1,3,4,5]
-each (d as index, item) {
-    # let index = 0;
-    var d = index;
-    var c = item;
-    var f = 2;
-    public p0 = 28;
-    log this, arguments;
-    var fn = ()=>{
-        log this, arguments;
-    }
-}
+// {
+//     let z = 1;
+// }
 
-g (arg1){
-    public p4 = 35;
-    root.console.log(this);
-}
-g(1);
-# log _arguments;
-var g2 = (arg1, ...args)=> {
-    var args2 = Array.prototype.slice.call(arguments, 2);
+// log a, b, pandora_1_1, /* pandora_1 */;
 
-    log arguments
-    public p4 = 35;
-    let _this = 1;
-    log this;
-    let _this_9 = 9;
-    # log _arguments;
-}
-g2(1);
+// var c = 0
+// var i = 0;
+// for (let i=0; i < 5; i++) { 
+//     var a = i;
+//     let c = i;
+//     var e = i;
+//     let f = 2;
+//     var pandora_0;
+//     let pandora_0_0;
+//     public p2 = 21;
+//     let g = 2;
+//     let z = 2;
+//     for (let i=0; i <6 ; i++) { 
+//         # log i;
+//     }
+//     var j_5 = 5;
+//     for (let j=0; j <6 ; j++) { 
+//         # log j;
+//     }
+//     for (var j=0; j <6 ; j++) { 
+//         # log j;
+//     }
+// }
+// let z_0;
+// log /* z */;
 
-var g3 = (arg1, ...args)-> {
-    public p4 = 35;
-    let _this = 1;
-    log this;
-    let _this_9 = 9;
-    # log _arguments;
-}
-g3(1);
+// var d = [0,1,3,4,5]
+// each (d as index, item) {
+//     # let index = 0;
+//     var d = index;
+//     var c = item;
+//     var f = 2;
+//     public p0 = 28;
+//     log this, arguments;
+//     var fn = ()=>{
+//         log this, arguments;
+//     }
+// }
 
-public f(a = 4, b, c, ...d){
-    each (d as index, item) {
-        # let index = 0;
-        var d = index;
-        var c = item;
-        var f = 2;
-        public p0 = 28;
-        log this, arguments;
-    }
-    var pandora = (){ log true};
-    var f1 = ()->{ log this, arguments;};
-    var f2 = ()=>{ log this, arguments;};
-    var pandora_0 = {};
-    var root = pandora;
-    # var let = void 0;
-}
-f(3,4,5,6,7,8,9)
+// g (arg1){
+//     public p4 = 35;
+//     root.console.log(this);
+// }
+// g(1);
+// # log _arguments;
+// var g2 = (arg1, ...args)=> {
+//     var args2 = Array.prototype.slice.call(arguments, 2);
 
-public p0 = 7;
+//     log arguments
+//     public p4 = 35;
+//     let _this = 1;
+//     log this;
+//     let _this_9 = 9;
+//     # log _arguments;
+// }
+// g2(1);
 
-var pandora = (){ log true};
-var pandora_0 = {};
-var root = pandora;
-# var let = void 0;
+// var g3 = (arg1, ...args)-> {
+//     public p4 = 35;
+//     let _this = 1;
+//     log this;
+//     let _this_9 = 9;
+//     # log _arguments;
+// }
+// g3(1);
 
-pandora();
-log a, b, c, d, e;
+// public f(a = 4, b, c, ...d){
+//     each (d as index, item) {
+//         # let index = 0;
+//         var d = index;
+//         var c = item;
+//         var f = 2;
+//         public p0 = 28;
+//         log this, arguments;
+//     }
+//     var pandora = (){ log true};
+//     var f1 = ()->{ log this, arguments;};
+//     var f2 = ()=>{ log this, arguments;};
+//     var pandora_0 = {};
+//     var root = pandora;
+//     # var let = void 0;
+// }
+// f(3,4,5,6,7,8,9)
 
-public root;
+// public p0 = 7;
 
-namespace bla {
-    var pandora = (){
-        log true;
-        public  test = 3;
-    };
-    var pandora_0 = {};
-    var root = pandora;
+// var pandora = (){ log true};
+// var pandora_0 = {};
+// var root = pandora;
+// # var let = void 0;
 
-    public a = 0;
-    let b = 0;
-    {
-        let a = 1
-        let b = 1
-        public p1 = 14;
-        public pandora = null;
-        let root = pandora;
-        log a, b;
+// pandora();
+// log a, b, c, d, e;
 
-        let z = 1;
-        {
-            let a = 1
-            let b = 1
-            let z = 1;
-            public y = 25;
-        }
-    }
+// public root;
 
-    public fnbla(){
-        log pandora;
-    }
-    public root;
+// namespace bla {
+//     var pandora = (){
+//         log true;
+//         public  test = 3;
+//     };
+//     var pandora_0 = {};
+//     var root = pandora;
+
+//     public a = 0;
+//     let b = 0;
+//     {
+//         let a = 1
+//         let b = 1
+//         public p1 = 14;
+//         public pandora = null;
+//         let root = pandora;
+//         log a, b;
+
+//         let z = 1;
+//         {
+//             let a = 1
+//             let b = 1
+//             let z = 1;
+//             public y = 25;
+//         }
+//     }
+
+//     public fnbla(){
+//         log pandora;
+//     }
+//     public root;
     
-}
+// }
