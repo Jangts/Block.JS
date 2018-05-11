@@ -8,11 +8,11 @@ let object = {
 
 log foo, bar, bla;
 
-let fn(){
+fn(){
     return  {
-        foo:'foo',
-        bar:'bar',
-        bla:'blabla'
+        foo1:'foo',
+        bar1:'bar',
+        bla1:'blabla'
     }
 }
 
@@ -21,9 +21,9 @@ let {foo1, bar1, bla1} = fn();
 log foo1, bar1, bla1;
 
 class Class {
-    foo = 'foo';
-    bar = 'bar';
-    bla = 'blabla';
+    foo2 = 'foo';
+    bar2 = 'bar';
+    bla2 = 'blabla';
 }
 
 let {foo2, bar2, bla2} = new Class;
@@ -31,9 +31,9 @@ let {foo2, bar2, bla2} = new Class;
 log foo2, bar2, bla2;
 
 let {foo3, bar3, bla3} = {
-    foo:'foo',
-    bar:'bar',
-    bla:'blabla',
+    foo3:'foo',
+    bar3:'bar',
+    bla3:'blabla',
     array: ['hello', ', ', 'tangram', '.', 'js']
 };
 
@@ -41,9 +41,9 @@ log foo3, bar3, bla3;
 
 let array = ['hello', ', ', 'tangram', '.', 'js'];
 
-let [hello, comma, tangram, dot, js] = array;
+let [hello, comma, mytangram, dot, js] = array;
 
-log hello, comma, tangram, dot, js;
+log hello, comma, mytangram, dot, js;
 
 let [hello1, comma1, tangram1, dot1, js1] = object.array;
 
@@ -62,17 +62,17 @@ console.log(x); // 1
 console.log(y); // 2
 console.log(z); // { a: 3, b: 4 }
 
-let { l, m, ...n } = [1,2,3,4,5];
+let [l, m, ...n] = [1,2,3,4,5];
 console.log(l); // 1
 console.log(m); // 2
 console.log(n); //[3,4,5]
 
 
-# 补充展开运算符
+// # 补充展开运算符
 
-# function myFunction(x, y, z) { }
-# var args = [0, 1, 2];
-# myFunction.apply(null, args);
+// # function myFunction(x, y, z) { }
+// # var args = [0, 1, 2];
+// # myFunction.apply(null, args);
 function myFunction(x, y, z) { log x, y, z; }
 var args = [0, 1, 2];
 myFunction(...args);

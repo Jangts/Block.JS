@@ -118,6 +118,8 @@
         closure: /(@\d+L\d+P\d+O*\d*:::)?(@*[\$a-zA-Z_][\$\w]*|\)|\=|\(\s)?(@\d+L\d+P\d+O*\d*:::)?\s*\{(\s*[^\{\}]*?)\s*\}/g,
         expression: /(@\d+L\d+P\d+O*\d*:::)?(if|for|while|switch|with|catch|each)\s*(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)\s*;*\s*(___boundary_[A-Z0-9_]{36}_(\d+)_as_(closure|objlike)___)/g,
         if: /(@\d+L\d+P\d+O*\d*:::)?if\s*(___boundary_[A-Z0-9_]{36}_(\d+)_as_parentheses___)\s*/g,
+        object: /(@\d+L\d+P\d+O*\d*:::)?\{\s*(@\d+L\d+P\d+O*\d*:::(...)?[\$a-zA-Z_][\$\w]*(\s*,@\d+L\d+P\d+O*\d*:::(...)?[\$a-zA-Z_][\$\w]*)*)\s*\}(@\d+L\d+P\d+O*\d*:::)?/g,
+        array: /(@\d+L\d+P\d+O*\d*:::)?\[\s*(@\d+L\d+P\d+O*\d*:::(...)?[\$a-zA-Z_][\$\w]*(\s*,@\d+L\d+P\d+O*\d*:::(...)?[\$a-zA-Z_][\$\w]*)*)\s*\]/g,
         log: /(@\d+L\d+P\d+O*\d*:::)?log\s+(.+?)\s*([;\r\n]+|$)/g
     }, matchExpRegPattern = {
         string: /(\/|\#|`|"|')([\*\/\=])?/,
@@ -166,7 +168,7 @@
             this.posimap = [];
             this.sources = [];
             this.tess = {};
-            this.anonymous_function = 0;
+            this.anonymous_variables = 0;
             this.closurecount = 0;
             this.uid = boundaryMaker();
             this.markPattern = new RegExp('@boundary_(\\\d+)_as_(mark)::', 'g');
@@ -535,13 +537,18 @@
                 count++;
                 // console.log(left, right);
                 if (left < right) {
-                    string = string.replace(replaceExpRegPattern.arraylike, function (match, posi, elements) {
+                    string = string.replace(replaceExpRegPattern.array, function (match, posi, elements) {
+                        // console.log([match, closure]);
+                        var index = _this.replacements.length;
+                        _this.replacements.push(['[' + elements + ']', posi && posi.trim()]);
+                        return '___boundary_' + _this.uid + '_' + index + '_as_list___';
+                    }).replace(replaceExpRegPattern.arraylike, function (match, posi, elements) {
                         // console.log(match);
                         elements = _this.replaceBraces(elements);
                         elements = _this.replaceParentheses(elements);
                         var index = _this.replacements.length;
                         _this.replacements.push(['[' + elements + ']', posi && posi.trim()]);
-                        return '___boundary_' + _this.uid + '_' + index + '_as_array___';
+                        return '___boundary_' + _this.uid + '_' + index + '_as_arraylike___';
                     });
                     left = string.indexOf('[');
                     right = string.indexOf(']');
@@ -660,6 +667,15 @@
                 // console.log(match);
                 _this.replacements.push([match, posi && posi.trim()]);
                 return '___boundary_' + _this.uid + '_' + index + '_as_function___';
+            });
+            if (matched)
+                return string;
+            string = string.replace(replaceExpRegPattern.object, function (match, posi, closure) {
+                matched = true;
+                // console.log([match, posi, closure]);
+                var index = _this.replacements.length;
+                _this.replacements.push([match, posi && posi.trim()]);
+                return '___boundary_' + _this.uid + '_' + index + '_as_sets___';
             });
             if (matched)
                 return string;
@@ -1051,18 +1067,19 @@
             }
             return void 0;
         };
-        Sugar.prototype.pickTretOfMatch = function (match_as_statement) {
+        Sugar.prototype.pickTretOfMatch = function (match_as_statement, isblock) {
+            if (isblock === void 0) { isblock = true; }
             var tret_of_match = match_as_statement[3].trim();
-            if (tret_of_match && !(tret_of_match === ';' && ['class', 'function', 'closure', 'if']['includes'](match_as_statement[2]))) {
+            if (tret_of_match
+                && !(tret_of_match === ';' && ['closure', 'if']['includes'](match_as_statement[2]))
+                && !(tret_of_match === ';' && !isblock && ['class', 'function']['includes'](match_as_statement[2]))) {
                 return [{
                         index: match_as_statement[1],
                         display: 'inline',
                         type: match_as_statement[2]
                     }, tret_of_match];
             }
-            else {
-                return null;
-            }
+            return null;
         };
         Sugar.prototype.getLines = function (string, vars, inOrder) {
             if (inOrder === void 0) { inOrder = false; }
@@ -1119,21 +1136,21 @@
         Sugar.prototype.pushSentenceToLines = function (lines, code, display) {
             value = code.trim();
             if (value && !value.match(/^@\d+L\d+P\d+O?\d*:::$/)) {
-                var match_as_statement = value.match(/^(@\d+L\d+P\d+O?\d*:::)?___boundary_[A-Z0-9_]{36}_(\d+)_as_([a-z]+)___([\r\n]+|$)/);
+                var match_as_statement = value.match(/^(@\d+L\d+P\d+O?\d*:::)?\s*___boundary_[A-Z0-9_]{36}_(\d+)_as_([a-z]+)___([\r\n]+|$)/);
                 // console.log(match_as_statement, display);
                 if (match_as_statement) {
                     if (display === 'block' && !['class', 'function', 'closure', 'if']['includes'](match_as_statement[3])) {
                         // console.log(match_as_statement[2]);
                         value = value + ';';
                     }
-                    // console.log(this.replacements[match_as_statement[1]]);
+                    // console.log(this.replacements[match_as_statement[2]][1] || match_as_statement[1]);
+                    this.replacements[match_as_statement[2]][1] = this.replacements[match_as_statement[2]][1] || match_as_statement[1];
                     lines.push({
                         type: 'line',
-                        subtype: match_as_statement[4],
-                        posi: this.replacements[match_as_statement[2]][1] || match_as_statement[1],
+                        subtype: match_as_statement[3],
+                        // posi: this.replacements[match_as_statement[2]][1] || match_as_statement[1],
                         display: display,
-                        index: match_as_statement[2],
-                        value: value
+                        index: match_as_statement[2]
                     });
                 }
                 else {
@@ -1185,7 +1202,7 @@
         Sugar.prototype.pushVariablesToLines = function (lines, vars, posi, code, symbol, inOrder) {
             if (inOrder === void 0) { inOrder = false; }
             var display;
-            var clauses = code.split(/,\s*(@\d+L\d+P\d+O?\d*:::)/);
+            var clauses = code.split(/,\s*(@\d+L\d+P\d+O?\d*:::)*/);
             clauses.unshift(posi);
             // console.log(array, clauses);
             for (var c = 0; c < clauses.length; c += 2) {
@@ -1278,7 +1295,113 @@
                             });
                         }
                         else {
-                            if (element.match(/^[\$a-zA-Z_][\$\w]*$/)) {
+                            var match_2 = element.match(/^___boundary_[A-Z0-9_]{36}_(\d+)_as_(sets|list)___$/);
+                            if (match_2) {
+                                // console.log(match);
+                                var type = void 0, elements = [], anonvar = void 0, _value = void 0, __value = void 0;
+                                if (match_2[2] === 'sets') {
+                                    type = 'object';
+                                    elements = this.replacements[match_2[1]][0].replace(/(\{|\})/g, '').split(',');
+                                }
+                                else {
+                                    type = 'array';
+                                    elements = this.replacements[match_2[1]][0].replace(/(\[|\])/g, '').split(',');
+                                }
+                                if (value.match(/^[\$a-zA-Z_][\$\w]*$/) && !value.match(/___boundary_[A-Z0-9_]{36}_(\d+)_as_[a-z]+___/)) {
+                                    value = value;
+                                }
+                                else {
+                                    // console.log(value);
+                                    this.anonymous_variables++;
+                                    anonvar = '_ανώνυμος_variable_' + this.anonymous_variables;
+                                    while (vars.self.hasOwnProperty(anonvar)) {
+                                        this.anonymous_variables++;
+                                        anonvar = '_ανώνυμος_variable_' + this.anonymous_variables;
+                                    }
+                                    var ς = null;
+                                    this.pushVariableToVars(vars, symbol, anonvar, position);
+                                    lines.push({
+                                        type: 'line',
+                                        subtype: 'variable',
+                                        display: 'inline',
+                                        posi: position,
+                                        value: _symbol + ' ' + anonvar + ' = '
+                                    }, {
+                                        type: 'line',
+                                        subtype: 'sentence',
+                                        display: 'inline',
+                                        posi: void 0,
+                                        value: value + endmark
+                                    });
+                                    value = anonvar;
+                                }
+                                // console.log(elements, value);
+                                for (var i = 0; i < elements.length; i++) {
+                                    var position_1 = this.getPosition(elements[i]);
+                                    var element_1 = elements[i].replace(position_1.match, '').trim();
+                                    // console.log(element, element.indexOf('.'));
+                                    if (element_1.indexOf('.') >= 0) {
+                                        element_1 = element_1.replace(/\.+/, '');
+                                        // console.log(element);
+                                        if (type === 'object') {
+                                            if (i) {
+                                                __value = ', ' + element_1 + ' = ' + value + endmark;
+                                            }
+                                            else {
+                                                position_1.head = true;
+                                                __value = _symbol + ' ' + element_1 + ' = ' + value;
+                                            }
+                                        }
+                                        else {
+                                            _value = 'pandora.slice(' + value + ', ' + i + ')';
+                                            if (i) {
+                                                __value = ', ' + element_1 + ' = ' + _value + endmark;
+                                            }
+                                            else {
+                                                position_1.head = true;
+                                                __value = _symbol + ' ' + element_1 + ' = ' + _value;
+                                            }
+                                        }
+                                        lines.push({
+                                            type: 'line',
+                                            subtype: 'variable',
+                                            display: 'inline',
+                                            posi: position_1,
+                                            value: __value
+                                        });
+                                        break;
+                                    }
+                                    else {
+                                        if (type === 'object') {
+                                            _value = 'pandora.remove(' + value + ', \'' + element_1 + '\')';
+                                        }
+                                        else {
+                                            _value = value + '[' + i + ']';
+                                        }
+                                        this.pushVariableToVars(vars, symbol, element_1, position_1);
+                                        if (i) {
+                                            if (i === elements.length - 1) {
+                                                __value = ', ' + element_1 + ' = ' + _value + endmark;
+                                            }
+                                            else {
+                                                __value = ', ' + element_1 + ' = ' + _value;
+                                            }
+                                        }
+                                        else {
+                                            position_1.head = true;
+                                            __value = _symbol + ' ' + element_1 + ' = ' + _value;
+                                        }
+                                        lines.push({
+                                            type: 'line',
+                                            subtype: 'variable',
+                                            display: 'inline',
+                                            posi: position_1,
+                                            value: __value
+                                        });
+                                    }
+                                }
+                            }
+                            else if (element.match(/^[\$a-zA-Z_][\$\w]*$/)) {
                                 // console.log(element);                    
                                 this.pushVariableToVars(vars, symbol, element, position);
                                 lines.push({
@@ -1389,6 +1512,7 @@
                     default:
                         preast.push([{
                                 index: lines[index_4].index,
+                                // posi: lines[index].posi,
                                 display: lines[index_4].display,
                                 type: lines[index_4].subtype
                             }]);
@@ -1417,7 +1541,7 @@
                         var match_as_statement = statement.match(matchExpRegPattern.index3);
                         // console.log(match_as_statement);
                         if (match_as_statement) {
-                            var array = this.pickTretOfMatch(match_as_statement);
+                            var array = this.pickTretOfMatch(match_as_statement, display === 'block');
                             if (array) {
                                 inline.push(array[0]);
                                 this.pushRowsToAST(inline, vars, array[1], false, undefined);
@@ -1558,7 +1682,7 @@
                 // console.log(match_as_statement);
                 // console.log(code, match_as_statement, isblock, lineposi);
                 if (match_as_statement) {
-                    var array = this.pickTretOfMatch(match_as_statement);
+                    var array = this.pickTretOfMatch(match_as_statement, isblock);
                     if (array) {
                         body.push(this.walk(array[0], vars, true));
                         this.pushRowsToAST(body, vars, array[1], false, undefined);
@@ -1613,7 +1737,8 @@
             if (vars === void 0) { vars = false; }
             // console.log(element);
             switch (element.type) {
-                case 'array':
+                case 'arraylike':
+                case 'list':
                     return this.walkArray(element.index, element.display, vars);
                 case 'arrowfn':
                     return this.walkArrowFn(element.index, element.display, vars);
@@ -1644,6 +1769,7 @@
                     // console.log(element.index, element.display, vars, 'def');
                     return this.walkFnLike(element.index, element.display, vars, 'def');
                 case 'object':
+                case 'sets':
                     return this.walkObject(element.index, element.display, vars);
                 case 'parentheses':
                     return this.walkParentheses(element.index, element.display, vars);
@@ -1687,7 +1813,7 @@
             }
             // console.log(body);
             return {
-                type: 'array',
+                type: 'arraylike',
                 posi: position,
                 display: display,
                 vars: vars,
@@ -2119,8 +2245,8 @@
                 else {
                     if (subtype === 'function') {
                         if (display === 'block') {
-                            fname = '_anonymous_function_' + this.anonymous_function;
-                            this.anonymous_function++;
+                            fname = '_ανώνυμος_function_' + this.anonymous_variables;
+                            this.anonymous_variables++;
                         }
                     }
                     else {
@@ -2592,7 +2718,7 @@
             if (namespace === void 0) { namespace = this.namespace; }
             var indent = "\r\n" + stringRepeat("\t", layer);
             switch (element.type) {
-                case 'array':
+                case 'arraylike':
                     this.pushArrayCodes(codes, element, layer, namespace);
                     break;
                 case 'if':
@@ -3131,6 +3257,7 @@
             }
             this.fixVariables(element.vars);
             if (element.type === 'closure') {
+                // console.log(element);
                 if (element.posi) {
                     codes.push(indent1 + posi + '{');
                 }
@@ -3479,10 +3606,7 @@
                     if (!definition && vars.root.const.hasOwnProperty(varname)) {
                         _this.error('Cannot re-assign constant `' + varname + '`');
                     }
-                    else {
-                        return before + (definition || '') + _this.patchVariable(varname, vars) + ' = ';
-                    }
-                    return '';
+                    return match;
                 }).replace(/(^|[^\$\w\.])(var\s+)?([\$a-zA-Z_][\$\w]*)(\s+|\s*[^\$\w]|\s*$)/g, function (match, before, definition, varname, after) {
                     // console.log(match, "\r\n", before, '[', varname, '](', type, ')', after);
                     // console.log(type);
