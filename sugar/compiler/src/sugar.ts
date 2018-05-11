@@ -482,12 +482,18 @@
                 let match: any = string.match(matchExpRegPattern.strings[matches[1]]);
                 if (match && (matches.index >= match.index) && !match[5]) {
                     // console.log(matches, match);
-                    if (match[1]) {
-                        this.replacements.push([match[2].replace(/@\d+L\d+P\d+O?\d*:::/g, ''), match[1].trim(), match[4]]);
-                    } else {
-                        this.replacements.push([match[2].replace(/@\d+L\d+P\d+O?\d*:::/g, ''), void 0, match[4]]);
+                    if (matches[1]==='`'){
+                        string = this.replaceTemplate(string, match);
+                    }else{
+                        if (match[1]) {
+                            this.replacements.push([match[2].replace(/@\d+L\d+P\d+O?\d*:::/g, ''), match[1].trim(), match[4]]);
+                        } else {
+                            this.replacements.push([match[2].replace(/@\d+L\d+P\d+O?\d*:::/g, ''), void 0, match[4]]);
+                        }
+                        string = string.replace(match[0], '___boundary_' + this.uid + '_' + index + stringas[matches[1]] + match[3]);
                     }
-                    string = string.replace(match[0], '___boundary_' + this.uid + '_' + index + stringas[matches[1]] + match[3]);
+                } else if (matches[1] === '`') {
+                    string = this.replaceTemplate(string, match);
                 } else if (matches[0] === '/') {
                     string = string.replace(matches[0], '@boundary_2_as_operator::');
                 } else {
@@ -499,6 +505,22 @@
             }
             // console.log(string);
             // console.log(this.replacements);
+            return string;
+        }
+        replaceTemplate(string, match){
+            const index = this.replacements.length;
+            // const lines = match[2].replace(/@\d+L\d+P\d+O?\d*:::/g, '').split(/\r{0,1}\n/);
+            // for (let index = 0; index < lines.length; index++) {
+            //     const element = lines[index];
+                
+            // }
+            // console.log(lines);
+            if (match[1]) {
+                this.replacements.push([match[2].replace(/@\d+L\d+P\d+O?\d*:::/g, ''), match[1].trim(), match[4]]);
+            } else {
+                this.replacements.push([match[2].replace(/@\d+L\d+P\d+O?\d*:::/g, ''), void 0, match[4]]);
+            }
+            string = string.replace(match[0], '___boundary_' + this.uid + '_' + index + stringas['`'] + match[3]);
             return string;
         }
         replaceIncludes(string: string): string {
@@ -1279,13 +1301,30 @@
                                 let type, elements = [], anonvar, _value, __value;
                                 if(match[2]==='sets'){
                                     type = 'object';
-                                    elements = this.replacements[match[1]][0].replace(/(\{|\})/g, '').split(',')
+                                    elements = this.replacements[match[1]][0].replace(/(\{|\})/g, '').split(',');
                                 }else{
                                     type = 'array';
-                                    elements = this.replacements[match[1]][0].replace(/(\[|\])/g,'').split(',')
+                                    elements = this.replacements[match[1]][0].replace(/(\[|\])/g,'').split(',');
                                 }
                                 if (value.match(/^[\$a-zA-Z_][\$\w]*$/) && !value.match(/___boundary_[A-Z0-9_]{36}_(\d+)_as_[a-z]+___/)){
-                                    value = value;
+                                    if (match[2] === 'sets') {
+                                        this.anonymous_variables++;
+                                        anonvar = '_ανώνυμος_variable_' + this.anonymous_variables;
+                                        while (vars.self.hasOwnProperty(anonvar)) {
+                                            this.anonymous_variables++;
+                                            anonvar = '_ανώνυμος_variable_' + this.anonymous_variables;
+                                        }
+                                        lines.push({
+                                            type: 'line',
+                                            subtype: 'variable',
+                                            display: 'block',
+                                            posi: position,
+                                            value: _symbol + ' ' + anonvar + ' = pandora.clone(' + value + ')' + endmark
+                                        });
+                                        value = anonvar;
+                                    } else {
+                                        value = value;
+                                    }
                                 }else{
                                     // console.log(value);
                                     this.anonymous_variables++;
@@ -1294,7 +1333,6 @@
                                         this.anonymous_variables++;
                                         anonvar = '_ανώνυμος_variable_' + this.anonymous_variables;
                                     }
-                                    let ς = null;
                                     this.pushVariableToVars(vars, symbol, anonvar, position);
                                     lines.push({
                                         type: 'line',

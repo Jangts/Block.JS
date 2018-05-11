@@ -1,0 +1,11 @@
+var person = {
+    name: 'Yang Chi',
+    age:27,
+    "position":"ceo",
+    language:["php", 'js']
+}
+console.log(`Hello, ${person.name},
+    you are ${person['age']} years old,
+    you are a ${person[`position`]},
+    you like ${person.language[1]}.
+`);

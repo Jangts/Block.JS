@@ -462,13 +462,21 @@
                 var match = string.match(matchExpRegPattern.strings[matches[1]]);
                 if (match && (matches.index >= match.index) && !match[5]) {
                     // console.log(matches, match);
-                    if (match[1]) {
-                        this_1.replacements.push([match[2].replace(/@\d+L\d+P\d+O?\d*:::/g, ''), match[1].trim(), match[4]]);
+                    if (matches[1] === '`') {
+                        string = this_1.replaceTemplate(string, match);
                     }
                     else {
-                        this_1.replacements.push([match[2].replace(/@\d+L\d+P\d+O?\d*:::/g, ''), void 0, match[4]]);
+                        if (match[1]) {
+                            this_1.replacements.push([match[2].replace(/@\d+L\d+P\d+O?\d*:::/g, ''), match[1].trim(), match[4]]);
+                        }
+                        else {
+                            this_1.replacements.push([match[2].replace(/@\d+L\d+P\d+O?\d*:::/g, ''), void 0, match[4]]);
+                        }
+                        string = string.replace(match[0], '___boundary_' + this_1.uid + '_' + index_1 + stringas[matches[1]] + match[3]);
                     }
-                    string = string.replace(match[0], '___boundary_' + this_1.uid + '_' + index_1 + stringas[matches[1]] + match[3]);
+                }
+                else if (matches[1] === '`') {
+                    string = this_1.replaceTemplate(string, match);
                 }
                 else if (matches[0] === '/') {
                     string = string.replace(matches[0], '@boundary_2_as_operator::');
@@ -486,6 +494,22 @@
             }
             // console.log(string);
             // console.log(this.replacements);
+            return string;
+        };
+        Sugar.prototype.replaceTemplate = function (string, match) {
+            var index = this.replacements.length;
+            // const lines = match[2].replace(/@\d+L\d+P\d+O?\d*:::/g, '').split(/\r{0,1}\n/);
+            // for (let index = 0; index < lines.length; index++) {
+            //     const element = lines[index];
+            // }
+            // console.log(lines);
+            if (match[1]) {
+                this.replacements.push([match[2].replace(/@\d+L\d+P\d+O?\d*:::/g, ''), match[1].trim(), match[4]]);
+            }
+            else {
+                this.replacements.push([match[2].replace(/@\d+L\d+P\d+O?\d*:::/g, ''), void 0, match[4]]);
+            }
+            string = string.replace(match[0], '___boundary_' + this.uid + '_' + index + stringas['`'] + match[3]);
             return string;
         };
         Sugar.prototype.replaceIncludes = function (string) {
@@ -1308,7 +1332,25 @@
                                     elements = this.replacements[match_2[1]][0].replace(/(\[|\])/g, '').split(',');
                                 }
                                 if (value.match(/^[\$a-zA-Z_][\$\w]*$/) && !value.match(/___boundary_[A-Z0-9_]{36}_(\d+)_as_[a-z]+___/)) {
-                                    value = value;
+                                    if (match_2[2] === 'sets') {
+                                        this.anonymous_variables++;
+                                        anonvar = '_ανώνυμος_variable_' + this.anonymous_variables;
+                                        while (vars.self.hasOwnProperty(anonvar)) {
+                                            this.anonymous_variables++;
+                                            anonvar = '_ανώνυμος_variable_' + this.anonymous_variables;
+                                        }
+                                        lines.push({
+                                            type: 'line',
+                                            subtype: 'variable',
+                                            display: 'block',
+                                            posi: position,
+                                            value: _symbol + ' ' + anonvar + ' = pandora.clone(' + value + ')' + endmark
+                                        });
+                                        value = anonvar;
+                                    }
+                                    else {
+                                        value = value;
+                                    }
                                 }
                                 else {
                                     // console.log(value);
@@ -1318,7 +1360,6 @@
                                         this.anonymous_variables++;
                                         anonvar = '_ανώνυμος_variable_' + this.anonymous_variables;
                                     }
-                                    var ς = null;
                                     this.pushVariableToVars(vars, symbol, anonvar, position);
                                     lines.push({
                                         type: 'line',
