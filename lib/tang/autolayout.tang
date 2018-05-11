@@ -8,7 +8,7 @@ namespace see;
 let _ = pandora,
 $ = _.dom.select;
 
-extends $..Scrollbar {
+extends .Scrollbar {
     auto () {
         $('.tangram-see.scrollbar[data-ic-auto]').each(() {
             if (($(this).data('icAuto') != 'false') && ($(this).data('icRendered') != 'scrollbar')) {

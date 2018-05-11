@@ -159,7 +159,7 @@ syntacticAnalyzer (midast) {
     return text;
 }
 
-class $..HTMLCloser  {
+class .HTMLCloser  {
     body = ''
     strlen = 0
     midast = []

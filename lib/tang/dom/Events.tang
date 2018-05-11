@@ -23,7 +23,7 @@ removeByIndex = function(array, index) {
     return result;
 };
 
-class $..Events {
+class .Events {
     _protected =  {
         types: {},
         keys: []
