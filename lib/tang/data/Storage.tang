@@ -13,9 +13,7 @@ use $ str/hash;
 
 var _ = pandora,
 doc = root.document,
-console = root.console,
-location = root.location,
-localStorage = root.localStorage;
+{console, location, localStorage} = root;
 
 var data = {};
 

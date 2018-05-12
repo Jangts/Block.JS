@@ -10,8 +10,7 @@
 use $ util/type;
 var _ = pandora,
 doc = root.document,
-console = root.console,
-location = root.location,
+{console, location} = root,
 lcm = (m, n) {
     //辗转相除法 求最大公约数
     var u = +m,

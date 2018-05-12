@@ -1459,7 +1459,7 @@
         }
         pushVariableValueToLine(lines, vars, type, symbol, _symbol, value, position, endmark){
             let anonvar;
-            if (value.match(/^[\$a-zA-Z_][\$\w]*$/) && !value.match(/___boundary_[A-Z0-9_]{36}_(\d+)_as_[a-z]+___/)) {
+        if (value.match(/^[\$a-zA-Z_][\$\w]*(\s*\.\s*[\$a-zA-Z_][\$\w]*)*$/) && !value.match(/___boundary_[A-Z0-9_]{36}_(\d+)_as_[a-z]+___/)) {
                 if (type === '...') {
                     this.anonymous_variables++;
                     anonvar = '_ανώνυμος_variable_' + this.anonymous_variables;
@@ -1472,11 +1472,11 @@
                         subtype: 'variable',
                         display: 'block',
                         posi: position,
-                        value: _symbol + ' ' + anonvar + ' = pandora.clone(' + value + ')' + endmark
+                        value: _symbol + ' ' + anonvar + ' = pandora.clone(' + value.replace(/\s+/g, '') + ')' + endmark
                     });
                     return anonvar;
                 }
-                return value;
+                return value.replace(/\s+/g, '');
             } else {
                 // console.log(value);
                 this.anonymous_variables++;
@@ -1485,6 +1485,7 @@
                     this.anonymous_variables++;
                     anonvar = '_ανώνυμος_variable_' + this.anonymous_variables;
                 }
+                position.head = true;
                 this.pushVariableToVars(vars, symbol, anonvar, position);
                 lines.push(
                     {

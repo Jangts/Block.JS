@@ -15,7 +15,6 @@ use $ dom/Events
 
 namespace dom {
     var _ = pandora,
-    declare = pandora.declareClass,
     doc = root.document,
     query = this.query.sizzle || this.query;
 

@@ -12,8 +12,7 @@ use $ async/Request;
 
 var _ = pandora,
 doc = root.document,
-Image = root.Image,
-console = root.console;    
+{console, Image} = root;   
 
 var isStr = _.util.bool.isStr,
     isObj = _.util.bool.isObj,

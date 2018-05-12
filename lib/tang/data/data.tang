@@ -15,9 +15,7 @@ use $ async/Request;
 
 var _ = pandora,
 doc = root.document,
-location = root.location,
-console = root.console,
-FormData = root.FormData;
+{console, location, FormData} = root;
 
 var sqlengine = {
     parse(json, ops) {

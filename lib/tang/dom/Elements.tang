@@ -15,7 +15,6 @@ use $ dom/Animation
 namespace dom;
 
 var _ = pandora,
-declare = ..declareClass,
 query = $..query.sizzle || $..query;
 
 @include 'Elements/variables';

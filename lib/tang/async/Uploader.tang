@@ -10,13 +10,9 @@
 use $ util/bool;
 var _ = pandora,
 doc = root.document,
-console = root.console;
+{console, XMLHttpRequest, ActiveXObject, FormData} = root;;
 
-var XMLHttpRequest = root.XMLHttpRequest,
-    ActiveXObject = root.ActiveXObject,
-    FormData = root.FormData,
-
-    //Define Private Method 'toRegExp',  'fileTransfer'
+var //Define Private Method 'toRegExp',  'fileTransfer'
     toRegExp = (array) {
         var str = array.join('|');
         str = str.replace(/(\/|\+|\.)/g, '\\$1');

@@ -9,11 +9,7 @@
 
 use $ async/Promise;
 var _ = pandora,
-console = root.console,
-location = root.location,
-XMLHttpRequest = root.XMLHttpRequest,
-ActiveXObject = root.ActiveXObject,
-FormData = root.FormData;
+{console, location, XMLHttpRequest, ActiveXObject, FormData} = root;
 
 /**
  * 一个封装后的XHR类

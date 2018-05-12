@@ -14,10 +14,7 @@ use $ util/type;
 
 var _ = pandora,
 doc = root.document,
-console = root.console,
-File = root.File,
-FileList = root.FileList,
-FormData = root.FormData;
+{console, File, FileList, FormData} = root;
 
 ns bool with {
     truthy(value) {

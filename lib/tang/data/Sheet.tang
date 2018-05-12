@@ -14,10 +14,8 @@ use $ data/Storage;
 
 var _ = pandora,
 doc = root.document,
-console = root.console,
-location = root.location,
-Storage = _.data.Storage,
-queryJSON = _.data.queryJSON;
+{console, location} = root,
+{Storage, queryJSON} = _.data;
 
 var infs = {},
 tables = {},

@@ -9,8 +9,7 @@
 
 var _ = pandora,
 doc = root.document,
-console = root.console,
-location = root.location;
+{console, location} = root;
 
 var _keyStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
 
