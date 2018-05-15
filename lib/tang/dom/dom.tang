@@ -8,7 +8,7 @@
  */
 
 use $ arr/
-use $ dom/query/
+use $ dom/selector
 use $ dom/Events
 
 // var module = this.module;
@@ -16,7 +16,7 @@ use $ dom/Events
 namespace dom {
     var _ = pandora,
     doc = root.document,
-    query = this.query.sizzle || this.query;
+    query = this.sizzle || this.selector;
 
     public cache(elem) {
         if (elem) {

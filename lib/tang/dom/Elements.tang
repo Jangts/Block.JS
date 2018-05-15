@@ -15,7 +15,7 @@ use $ dom/Animation
 namespace dom;
 
 var _ = pandora,
-query = $..query.sizzle || $..query;
+query = $..sizzle || $..selector;
 
 @include 'Elements/variables';
 
@@ -48,7 +48,7 @@ class .Elements extends ..Iterator {
                                 Elements.push(arguments[0]);
                                 break;
                             case 'Object':
-                                Elements = $..query.byAttr(selector);
+                                Elements = $..selector.byAttr(selector);
                                 break;
                             case 'Elements':
                                 Elements = arguments[0];

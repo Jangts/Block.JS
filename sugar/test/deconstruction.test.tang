@@ -73,9 +73,9 @@ console.log(n); //[3,4,5]
 // # function myFunction(x, y, z) { }
 // # var args = [0, 1, 2];
 // # myFunction.apply(null, args);
-function myFunction(x, y, z) { log x, y, z; }
+function myFunction(x, y, z, l, m, n) { log x, y, z, l, m, n; }
 var args = [0, 1, 2];
-myFunction(...args);
+myFunction(...args, ...args);
 
 let aa = {aa:'aa'}
 let bb = {bb:'bb'}

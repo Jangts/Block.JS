@@ -1527,6 +1527,7 @@
                     this.anonymous_variables++;
                     anonvar = '_ανώνυμος_variable_' + this.anonymous_variables;
                 }
+                position.head = true;
                 this.pushVariableToVars(vars, symbol, anonvar, position);
                 lines.push({
                     type: 'line',
@@ -3358,11 +3359,11 @@
                 codes.push(posi + 'function (');
             }
             if (element.args.length) {
-                var args = [];
+                var args_1 = [];
                 for (var index_22 = 0; index_22 < element.args.length; index_22++) {
-                    args.push(this.pushPostionsToMap(element.args[index_22][1]) + element.args[index_22][0]);
+                    args_1.push(this.pushPostionsToMap(element.args[index_22][1]) + element.args[index_22][0]);
                 }
-                codes.push(args.join(', '));
+                codes.push(args_1.join(', '));
             }
             codes.push(') {');
             // console.log(element.body);

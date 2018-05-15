@@ -28,8 +28,8 @@
          */
         // form.Clipboard会自己加载util.bool和dom操作
         tangram.block(['$_/form/Clipboard'], function(pandora, root, imports, undefined) {
-            var input = pandora.dom.query.byId('input'),
-                copy = pandora.dom.query.byId('copy'),
+            var input = pandora.dom.selector.byId('input'),
+                copy = pandora.dom.selector.byId('copy'),
                 clipboard = new pandora.form.Clipboard();
             pandora.dom.events.add(copy, 'click', null, null, function() {
                 var text = input.value;

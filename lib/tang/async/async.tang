@@ -15,7 +15,7 @@ use $ async/Request as Request;
 var _ = pandora,
 doc = root.document,
 {console, location, FormData} = root,
-query = _.dom.sizzle || _.dom.query;
+query = _.dom.sizzle || _.dom.selector;
 
 ns async with {
     load: _.load,

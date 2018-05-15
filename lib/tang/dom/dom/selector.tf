@@ -15,7 +15,7 @@ selector = (selector, context) {
                     Elements.push(arguments[0]);
                     return Elements;
                 case 'Object':
-                    return $..query.byAttr(selector);
+                    return $..selector.byAttr(selector);
                 case 'Elements':
                     return arguments[0];
                 case 'Array':

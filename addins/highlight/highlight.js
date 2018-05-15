@@ -13,11 +13,11 @@ tangram.block([
 ], function(pandora, global, imports, undefined) {
     var _ = pandora,
         declare = pandora.declareClass,
-        
+
         doc = global.document,
         console = global.console,
         location = global.location,
-        query = _.dom.sizzle || _.dom.query,
+        query = _.dom.sizzle || _.dom.selector,
         uniqueId = 0,
 
         Token = declare({

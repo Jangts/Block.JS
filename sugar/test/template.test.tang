@@ -8,7 +8,7 @@ var osi = {
     s: 'osi'
 };
 var s = 's';
-console.log(`Hello, ${person.name},
+console.log(`       Hello, ${person.name},
     you {} are ${person['age']} years old,
     you {are} a ${person["position{}"]},
     you {are} a ${person[`p${osi[`${s}`]}tion{}`]},

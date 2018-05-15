@@ -11,7 +11,7 @@ use $ dom/;
 namespace dom;
 
 var _ = pandora,
-query = $..sizzle || $..query;
+query = $..sizzle || $..selector;
 
 var doc = root.document,
 removeByIndex = function(array, index) {

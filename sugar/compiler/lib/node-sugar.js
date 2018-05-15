@@ -20,12 +20,12 @@ var mapBuilder = function (omappings, filename, osources, version) {
         var points = [];
         var linemap = omappings[index_1];
         for (var point = 0; point < linemap.length; point++) {
-            var numbers = [];
+            var numbers_1 = [];
             var pointmap = linemap[point];
             for (var n = 0; n < pointmap.length; n++) {
-                numbers.push(vlq.encode(pointmap[n] - last[n]));
+                numbers_1.push(vlq.encode(pointmap[n] - last[n]));
             }
-            points.push(numbers.join(''));
+            points.push(numbers_1.join(''));
             last = pointmap;
         }
         lines.push(points.join(','));
